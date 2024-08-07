@@ -95,7 +95,7 @@ const EscrowDeficientModal = props => {
                 </div>
                 <div className="w-full flex flex-wrap gap-3">
                   <div className="w-full flex justify-between">
-                    <div className={styles.grayText}>Hightest Bid</div>
+                    <div className={styles.grayText}>Highest Bid</div>
                     <div className={styles.grayText}>{displaySolValue(highestBid)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">

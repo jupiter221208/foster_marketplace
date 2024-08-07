@@ -1247,17 +1247,6 @@ const MainSection = ({
 
           <div className="w-full lg:flex hidden mt-[32px] justify-between">
             <div className="flex gap-[15px] items-center">
-              {/* <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <div className={styles.ellipseArea}>
-                    <ThreeEllipseMobileIcon alt="" />
-                  </div>
-                ) : (
-                  <div className={styles.ellipseArea}>
-                    <ThreeEllipseIcon alt="" />
-                  </div>
-                )}
-              </div> */}
               <div className="inline">
                 <div className="flex gap-[15px]">
                   <div className={`${styles.iconContainer} w-[50px]`}>
@@ -1563,7 +1552,7 @@ const MainSection = ({
                       editionType === 'master_oe' || editionType === 'master_le' ? (
                         <></>
                       ) : (
-                        <>
+                        <div className="w-full mt-[30px]">
                           <div className={`w-full flex justify-end gap-[6px] ${styles.border_top}`}>
                             <div className="flex items-center">
                               <div className="flex items-center mt-[4px]">
@@ -1619,13 +1608,13 @@ const MainSection = ({
                           ) : (
                             <></>
                           )}
-                        </>
+                        </div>
                       )
                     ) : endTime !== null &&
                       getTimeDifferenceWithAuction(endTime) < 0 &&
                       (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                       connected ? (
-                      <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
+                      <div className="w-full mb-1 mt-[0px] lg:mt-[30px] lg:mt-4 lg:mb-5">
                         {nftCurrentPrice > 0 ? (
                           <OutlineButton
                             label="Finalize Sale"
@@ -1654,7 +1643,7 @@ const MainSection = ({
                         )}
                       </div>
                     ) : liveAuction === true ? (
-                      <>
+                      <div className="w-full mt-[30px]">
                         {!isEnded && (
                           <div className={`w-full ${styles.border_top}`}>
                             <div className={styles.auctionContainer}>
@@ -1820,7 +1809,7 @@ const MainSection = ({
                             </div>
                           </div>
                         )}
-                      </>
+                      </div>
                     ) : !loading && nftInfo ? (
                       isOwnNft === true ? (
                         <div className="w-full">

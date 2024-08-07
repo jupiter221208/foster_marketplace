@@ -115,10 +115,10 @@
 .endTime {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-Light';
-  font-size: 16px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
   gap: 2px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -127,9 +127,9 @@
 .bidDesc {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-Light';
-  font-size: 16px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
 }
 
 

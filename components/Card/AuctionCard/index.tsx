@@ -58,7 +58,7 @@ const AuctionCard = props => {
     <div className={styles.container}>
       <div className="block justify-center items-start">
         <div className="flex justify-start lg:justify-center gap-[3px] mt-[2px] lg:mt-[8px] items-center">
-          <div className={styles.highestBid}>Hightest&nbsp;Bid</div>
+          <div className={styles.highestBid}>Highest&nbsp;Bid</div>
           <div className="flex items-center mt-[4px] ml-[10px]">
             <SolanaLogoMobileIcon alt="" />
           </div>
