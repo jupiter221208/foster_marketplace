@@ -1837,7 +1837,7 @@ const MainSection = ({
                             isEditionListing ? (
                               <></>
                             ) : (
-                              <div className="w-full mt-[0px] lg:mt-[10px]">
+                              <div className="w-full mt-[30px]">
                                 <OutlineButton
                                   fullWidth
                                   label="List Edition"
@@ -1853,7 +1853,7 @@ const MainSection = ({
                               </div>
                             )
                           ) : (
-                            <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
+                            <div className="w-full flex flex-wrap gap-[15px] mt-[30px]">
                               <OutlineButton
                                 fullWidth
                                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
@@ -1880,7 +1880,7 @@ const MainSection = ({
                         editionType === 'master_le' || editionType === 'master_oe' ? (
                           <></>
                         ) : (
-                          <div className="w-full flex gap-[20px] mt-[0px] lg:mt-[20px]">
+                          <div className="w-full flex gap-[20px] mt-[30px]">
                             <OutlineButton
                               fullWidth
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
@@ -1902,7 +1902,7 @@ const MainSection = ({
                         <></>
                       )
                     ) : (
-                      <div className="mt-[-30px]"></div>
+                      <div></div>
                     )}
                   </div>
                 </div>
