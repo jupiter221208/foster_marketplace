@@ -40,3 +40,6 @@ timedAuctionHouseKeypair.json
 
 # Sentry
 next.config.original.js
+
+# generated actions.json file
+public/actions.json

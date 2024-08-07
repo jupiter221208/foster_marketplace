@@ -11,5 +11,5 @@ export function getTwitterUsername(twitterUrl?: string): string | null {
   let url = new URL(twitterUrl)
   let rawUsername = url.pathname.split('/')[1]
   let username = rawUsername?.match(/^[a-zA-Z0-9_]{1,15}/)?.[0]
-  return username ? username : null
+  return username ? '@' + username : null
 }
