@@ -138,7 +138,7 @@ const NFTCreatorDataSection = props => {
           <div className="w-full flex items-center justify-between mt-[15px] lg:mt-[0px]">
             <div className={styles.title}>{nftName}</div>
           </div>
-          <div className="mt-[15px] flex gap-[30px]">
+          <div className="mt-[30px] flex gap-[30px]">
             <Link href={`/${nftCreatorname}`} passHref>
               <a>
                 <div>

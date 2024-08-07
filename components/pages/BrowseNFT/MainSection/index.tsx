@@ -1269,12 +1269,14 @@ const MainSection = ({
                       {likeCount}
                     </div>
                   </div>
-                  <div className={`${styles.iconContainer} w-[90px]`}>
-                    <MerchGrayIcon />
-                    <div className={`${styles.text} mt-[-2px]`} onClick={() => router.push(`/${nftCreatorname}/merch`)}>
-                      Merch
+                  {enableMerch && (
+                    <div className={`${styles.iconContainer} w-[90px]`}>
+                      <MerchGrayIcon />
+                      <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
+                        Merch
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -1349,15 +1351,14 @@ const MainSection = ({
                         {likeCount}
                       </div>
                     </div>
-                    <div className={`${styles.iconContainer} w-[90px]`}>
-                      <MerchGrayIcon />
-                      <div
-                        className={`${styles.text} mt-[-2px]`}
-                        onClick={() => router.push(`/${nftCreatorname}/merch`)}
-                      >
-                        Merch
+                    {enableMerch && (
+                      <div className={`${styles.iconContainer} w-[90px]`}>
+                        <MerchGrayIcon />
+                        <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
+                          Merch
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
                     <MenuEditNft
@@ -1683,7 +1684,7 @@ const MainSection = ({
                               {showPlaceBidButton &&
                                 !isOwnNft &&
                                 (loading ? (
-                                  <div className="w-full mt-[15px] mb-[16px]">
+                                  <div className="w-full mt-[0px] lg:mt-[10px] mb-[16px]">
                                     <div className="w-full flex justify-center">
                                       <div
                                         className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
@@ -1697,7 +1698,7 @@ const MainSection = ({
                                         <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                       </>
                                     ) : (
-                                      <div className="relative mt-[0px] mt-[30px] lg:mt-[10px]">
+                                      <div className="relative mt-[0px] mt-[0px] lg:mt-[10px]">
                                         <div className="w-full flex gap-[15px] lg:flex-row flex-col">
                                           <div className="w-full flex justify-center">
                                             <PriceInput
@@ -1923,16 +1924,18 @@ const MainSection = ({
                   <NFTHistorySection mintAddress={nftDetail.mintAddress} />
                 </div>
 
-                <div className="mt-[30px]">
-                  <div className={styles.cateName}>Categories</div>
-                  <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
-                    {nftCategories?.map((item, index) => (
-                      <div className={styles.category} key={index}>
-                        {item}
-                      </div>
-                    ))}
+                {nftCategories?.length > 0 && (
+                  <div className="mt-[30px]">
+                    <div className={styles.cateName}>Categories</div>
+                    <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
+                      {nftCategories?.map((item, index) => (
+                        <div className={styles.category} key={index}>
+                          {item}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           )}
