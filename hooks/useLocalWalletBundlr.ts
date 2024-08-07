@@ -62,7 +62,7 @@ export const useLocalWalletBundlr = () => {
 
   async function fundLocalWallet(
     amount: BigNumberValues,
-    commitment?: Commitment
+    commitment: Commitment | null = "confirmed"
   ): Promise<string> {
     let amountBn = toBigNumber(amount);
     if (amountBn.lte(toBigNumber(0))) return "";

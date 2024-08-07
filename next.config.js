@@ -4,8 +4,10 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 const { withSentryConfig } = require('@sentry/nextjs')
 
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
+const { generateActionsJson } = require('./utils/blinks')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -82,6 +84,37 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   staticPageGenerationTimeout: 1000,
+
+  async headers() {
+    return [
+      {
+        source: '/actions.json',
+        headers: [
+          {
+            key: 'access-control-allow-origin',
+            value: '*',
+          },
+        ],
+      },
+    ]
+  },
+
+  async rewrites() {
+    if (process.env.NODE_ENV == 'development')
+      return [
+        {
+          source: '/actions.json',
+          destination: '/api/actions.json',
+        },
+      ]
+    else return []
+  },
+}
+
+if (process.env.NODE_ENV != 'development') {
+  let actionsJsonFile = 'public/actions.json'
+  console.log(`generating actions.json file to ${actionsJsonFile}`)
+  fs.writeFileSync(actionsJsonFile, JSON.stringify(generateActionsJson(process.env.BACKEND_URL)))
 }
 
 module.exports = nextConfig
