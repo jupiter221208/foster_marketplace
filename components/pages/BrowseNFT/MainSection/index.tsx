@@ -1444,14 +1444,15 @@ const MainSection = ({
                     </div>
                     {nftDescription ? (
                       <div>
-                        <div
-                          className={`w-full h-[auto] mt-[30px] ${
-                            isTruncated ? 'max-h-[180px]' : 'max-h-[240px] overflow-auto'
-                          }`}
-                        >
+                        <div className={`w-full h-[auto] mt-[30px]`}>
                           <div className={styles.descLabel}>Description</div>
                           <div className={styles.whiteDescription}>
-                            <div ref={descriptionViewRef} className="lg:block hidden">
+                            <div
+                              ref={descriptionViewRef}
+                              className={`lg:block hidden  ${
+                                isTruncated ? 'max-h-[180px]' : 'max-h-[220px] overflow-auto'
+                              }`}
+                            >
                               {processedNftDescription}
                               {shouldShowReadMore && (
                                 <span
