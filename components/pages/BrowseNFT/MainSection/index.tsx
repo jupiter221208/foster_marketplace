@@ -113,6 +113,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 import ImageWithFoster from 'components/ImageWithFoster'
 import NFTHistorySection from './NFTHistorySection'
+import NFTCategorySection from './NFTCategorySection'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1687,7 +1688,7 @@ const MainSection = ({
                                   <div className="w-full mt-[0px] lg:mt-[10px] mb-[16px]">
                                     <div className="w-full flex justify-center">
                                       <div
-                                        className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
+                                        className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[120px] rounded-[12px]`}
                                       ></div>
                                     </div>
                                   </div>
@@ -1922,20 +1923,9 @@ const MainSection = ({
                   />
 
                   <NFTHistorySection mintAddress={nftDetail.mintAddress} />
-                </div>
 
-                {nftCategories?.length > 0 && (
-                  <div className="mt-[30px]">
-                    <div className={styles.cateName}>Categories</div>
-                    <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
-                      {nftCategories?.map((item, index) => (
-                        <div className={styles.category} key={index}>
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                  <NFTCategorySection nftCategories={nftCategories} />
+                </div>
               </div>
             </div>
           )}
