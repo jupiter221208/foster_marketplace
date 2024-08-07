@@ -1914,7 +1914,7 @@ const MainSection = ({
                   </div>
 
                   <div
-                    className="absolute w-full flex justify-center bottom-[70px]"
+                    className="absolute w-full lg:flex hidden justify-center bottom-[70px]"
                     onClick={() => {
                       detailViewRef.current?.scrollIntoView({ behavior: 'smooth' })
                     }}
@@ -1927,7 +1927,7 @@ const MainSection = ({
                     </div>
                   </div>
                 </div>
-                <div className="w-full mt-[15px]" ref={detailViewRef}>
+                <div className="w-full mt-[20px]" ref={detailViewRef}>
                   <NFTDetailSection
                     nftOwnerUsername={nftOwnerUsername}
                     nftType={nftType}

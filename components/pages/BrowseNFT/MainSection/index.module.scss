@@ -73,9 +73,11 @@
 }
 
 .rightTopSection {
-  position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
+  @media (min-width: 1024px) {
+    position: relative;
+    height: calc(100vh - 150px);
+  }
 }
 
 .moreDetails {
