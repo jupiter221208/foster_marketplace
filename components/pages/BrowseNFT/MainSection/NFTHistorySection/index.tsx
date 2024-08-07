@@ -20,12 +20,14 @@ const NFTHistorySection = props => {
   const { mintAddress } = props
   const [showDetails, setShowDetails] = useState(false)
   const [activityList, setActivityList] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     activityAPI.getNFTActivity(mintAddress).then(
       response => {
         let dateSorted = response.sort(compareDate)
         setActivityList(dateSorted)
+        setIsLoaded(true)
       },
       error => {}
     )
@@ -38,7 +40,14 @@ const NFTHistorySection = props => {
         <div>{showDetails ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
       </div>
 
-      {showDetails && <NFTActivityInfoSection activityList={activityList} />}
+      {showDetails &&
+        (activityList.length > 0 ? (
+          <NFTActivityInfoSection activityList={activityList} />
+        ) : isLoaded ? (
+          <div className={styles.noCategory}>No transaction history detected for this artwork.</div>
+        ) : (
+          <></>
+        ))}
 
       <div className={styles.descBorder} />
     </div>
