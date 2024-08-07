@@ -465,6 +465,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                 nftCreator={artistInfo?.name}
                 shopApparelList={ShopApparelList}
                 openMerchPage={data => {
+                  setShowStudioModal(false)
                   setMerchData(data)
                   setOpenMerchPage(true)
                 }}
