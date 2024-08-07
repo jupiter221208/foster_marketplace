@@ -1685,10 +1685,10 @@ const MainSection = ({
                               {showPlaceBidButton &&
                                 !isOwnNft &&
                                 (loading ? (
-                                  <div className="w-full mt-[0px] lg:mt-[10px] mb-[16px]">
+                                  <div className="w-full mt-[0px] lg:mt-[10px]">
                                     <div className="w-full flex justify-center">
                                       <div
-                                        className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[120px] rounded-[12px]`}
+                                        className={`${styles.skeletonLoader} w-[100%] h-[80px] lg:h-[80px] rounded-[12px]`}
                                       ></div>
                                     </div>
                                   </div>
