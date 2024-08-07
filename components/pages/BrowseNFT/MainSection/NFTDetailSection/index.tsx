@@ -8,6 +8,8 @@ import Link from 'next/link'
 
 // resources
 import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
+import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
+import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -28,6 +30,7 @@ const NFTDetailSection = props => {
   } = props
   const router = useRouter()
   const [dimensions, setDimensions] = useState(null)
+  const [showDetails, setShowDetails] = useState(false)
 
   useEffect(() => {
     if (nftType.includes('image')) {
@@ -52,77 +55,83 @@ const NFTDetailSection = props => {
 
   return (
     <div className="w-full mt-[15px]">
-      <div className={styles.details}>Details</div>
+      <div className="w-full flex justify-between" onClick={() => setShowDetails(!showDetails)}>
+        <div className={styles.details}>Details</div>
+        <div>{showDetails ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
+      </div>
+      {showDetails && (
+        <div className="w-full ">
+          {editionDetail && (isNftMasterEdition || isNftPrintEdition) ? (
+            <div>
+              <div className="w-full flex justify-between items-center mt-[15px]">
+                <div className={styles.label}>Token Type</div>
+                <div className={styles.value}>
+                  {editionType === 'print_le' || editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
+                </div>
+              </div>
 
-      {editionDetail && (isNftMasterEdition || isNftPrintEdition) ? (
-        <div>
-          <div className="w-full flex justify-between items-center mt-[10px]">
-            <div className={styles.label}>Token Type</div>
-            <div className={styles.value}>
-              {editionType === 'print_le' || editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
-            </div>
-          </div>
-
-          {editionType === 'master_le' && (
-            <div className="w-full flex justify-between items-center mt-[6px]">
-              <div className={styles.label}>Max Supply</div>
-              <div className={styles.value}>{editionDetail?.maxSupply}</div>
-            </div>
-          )}
-          {isNftMasterEdition ? (
-            <div className="w-full flex justify-between items-center mt-[6px]">
-              <div className={styles.label}>Editions Sold</div>
-              <div className={styles.value}>{editionDetail?.supply}</div>
+              {editionType === 'master_le' && (
+                <div className="w-full flex justify-between items-center mt-[6px]">
+                  <div className={styles.label}>Max Supply</div>
+                  <div className={styles.value}>{editionDetail?.maxSupply}</div>
+                </div>
+              )}
+              {isNftMasterEdition ? (
+                <div className="w-full flex justify-between items-center mt-[6px]">
+                  <div className={styles.label}>Editions Sold</div>
+                  <div className={styles.value}>{editionDetail?.supply}</div>
+                </div>
+              ) : (
+                <div className="w-full flex justify-between items-center mt-[6px]">
+                  <div className={styles.label}>Editions Number</div>
+                  <div className={styles.value}>{Number(editionDetail?.print?.number)}</div>
+                </div>
+              )}
             </div>
           ) : (
-            <div className="w-full flex justify-between items-center mt-[6px]">
-              <div className={styles.label}>Editions Number</div>
-              <div className={styles.value}>{Number(editionDetail?.print?.number)}</div>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div>
-          <div className="w-full flex justify-between items-center mt-[10px]">
-            <div className={styles.label}>Medium</div>
-            <div className={styles.value}>{getType(nftType)}</div>
-          </div>
-          {dimensions && (
-            <div className="w-full flex justify-between items-center mt-[6px]">
-              <div className={styles.label}>Dimensions</div>
-              <div className={styles.value}>
-                {dimensions.width}px by {dimensions.height}px
+            <div>
+              <div className="w-full flex justify-between items-center mt-[15px]">
+                <div className={styles.label}>Medium</div>
+                <div className={styles.value}>{getType(nftType)}</div>
               </div>
+              {dimensions && (
+                <div className="w-full flex justify-between items-center mt-[6px]">
+                  <div className={styles.label}>Dimensions</div>
+                  <div className={styles.value}>
+                    {dimensions.width}px by {dimensions.height}px
+                  </div>
+                </div>
+              )}
             </div>
           )}
-        </div>
-      )}
 
-      <div className="w-full flex justify-between items-center mt-[6px]">
-        <div className={styles.label}>Royalties</div>
-        <div className={styles.value}>{royalties}%</div>
-      </div>
+          <div className="w-full flex justify-between items-center mt-[6px]">
+            <div className={styles.label}>Royalties</div>
+            <div className={styles.value}>{royalties}%</div>
+          </div>
 
-      {!isNftMasterEdition && (
-        <div className="w-full flex justify-between items-center mt-[6px]">
-          <div className={styles.label}>Owner</div>
-          <Link href={`/${nftOwnerUsername}`} passHref>
-            <a>
-              <div className={styles.username}>{getDisplayUserName(nftOwnerUsername)}</div>
-            </a>
-          </Link>
-        </div>
-      )}
+          {!isNftMasterEdition && (
+            <div className="w-full flex justify-between items-center mt-[6px]">
+              <div className={styles.label}>Owner</div>
+              <Link href={`/${nftOwnerUsername}`} passHref>
+                <a>
+                  <div className={styles.username}>{getDisplayUserName(nftOwnerUsername)}</div>
+                </a>
+              </Link>
+            </div>
+          )}
 
-      {editionDetail && isNftPrintEdition && (
-        <div
-          className={styles.masterEdition}
-          onClick={() => {
-            router.push(`/nft/${supply.parent}`)
-          }}
-        >
-          <div className={styles.label}>Master Edition</div>
-          <ArrowRightIcon />
+          {editionDetail && isNftPrintEdition && (
+            <div
+              className={styles.masterEdition}
+              onClick={() => {
+                router.push(`/nft/${supply.parent}`)
+              }}
+            >
+              <div className={styles.label}>Master Edition</div>
+              <ArrowRightIcon />
+            </div>
+          )}
         </div>
       )}
       <div className={styles.descBorder} />

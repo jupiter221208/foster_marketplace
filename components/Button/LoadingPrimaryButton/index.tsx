@@ -11,7 +11,7 @@ import LoadingIcon from 'assets/lottery/loader-green.json'
 import styles from './index.module.scss'
 
 const LoadingPrimaryButton = props => {
-  const { fullWidth, width } = props
+  const { fullWidth, width, height = 50, borderRadius = 10 } = props
 
   return (
     <button
@@ -19,6 +19,8 @@ const LoadingPrimaryButton = props => {
       className={styles.container}
       style={{
         width: fullWidth ? '100%' : width,
+        height: height,
+        borderRadius: borderRadius,
       }}
     >
       <div className="w-[30px]">

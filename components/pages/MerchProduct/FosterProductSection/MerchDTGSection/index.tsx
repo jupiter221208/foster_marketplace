@@ -89,7 +89,7 @@ const MerchDTGSection = props => {
       return
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardSide, assetUrl, embPlace, color, technique])
+  }, [cardSide, assetUrl, embPlace, color])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
@@ -349,6 +349,8 @@ const MerchDTGSection = props => {
                     ml: false,
                     mr: false,
                   })
+                  overlayImg.borderColor = color === 'white' ? '#202427' : '#95dbd5'
+                  overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
                 },

@@ -7,9 +7,7 @@
   justify-content: center;
   position: relative;
   @media (min-width: 1024px) {
-    min-height: 800px;
-    height: calc(100vh - 100px);
-    padding-top: 30px;
+    height: 100%;
   }
 }
 
@@ -59,19 +57,37 @@
   display: flex;
   flex-wrap: wrap;
   min-height: auto;
-  border: 1px solid var(--bg-303030-DDDCDC);
-  background: var(--background-main-color);
-  border-radius: 5px;
-  margin-top: 15px;
+  // border: 1px solid var(--bg-303030-DDDCDC);
+  // background: var(--background-main-color);
+  // border-radius: 5px;
+  margin-top: 10px;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 0px;
     min-height: 653px;
     padding: 0px;
     border-width: 0px;
   }
+}
+
+.rightTopSection {
+  width: 100%;
+  @media (min-width: 1024px) {
+    position: relative;
+    height: calc(100vh - 150px);
+  }
+}
+
+.moreDetails {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+  display: flex;
 }
 
 .merchArea {
@@ -86,28 +102,36 @@
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .assetArea {
-  width: 57px;
-  min-width: 57px;
-  height: 57px;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
   @media (min-width: 640px) {
-    width: 65px;
-    min-width: 65px;
-    height: 65px;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
   }
-  padding: 4px;
-  border-radius: 10px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  
+  
+  // background: rgba(var(--main-bg-color-rgb), 0.05);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   overflow: hidden;
 }
 
 .contentArea {
   width: 100%;
   overflow: hidden;
+}
+
+.merchView {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
+  cursor: pointer;
 }
 
 .merchTitle {
@@ -191,7 +215,32 @@
   cursor: pointer;
 }
 
+.liveFont {
+  font-family: "Ibrand";
+  font-size: 20px;
+  line-height: 25px;
+  color: var(--bg-eff0f6-707070);
+  display: flex;
+}
 
+.liveType {
+  color: var(--main-icon-color) !important;
+}
+
+.solPrice {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.dollarPrice {
+  font-family: 'Muli-Light';
+  font-size: 18px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9)
+}
 
 .nftDetailCard {
   width: 100%;
@@ -199,30 +248,18 @@
   overflow: visible;
   padding: 0px 0px 20px 0px;
   @media (min-width: 1024px) {
-    background: var(--background-main-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 700px;
-    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-    border-radius: 10px;
-    padding: 20px 0 25px 0;
+    padding: 55px 0px 0px 0px;
   }  
 }
 
 .nftDetailCardPadding {
-  padding: 0 13px 20px 13px;
-  // @media (min-width: 640px) {
-  //   padding: 0 25px 0 25px;
-  // }
-  // @media (min-width: 768px) {
-  //   padding: 0 35px 0 35px;
-  // }
+  padding: 0px;
   @media (min-width: 1024px) {
-    padding: 0 20px 0 20px;
-  }
-  @media (min-width: 1680px) {
-    padding: 0 24px 0 30px;
+    padding: 0px;
   }
 }
 
@@ -319,11 +356,8 @@
 }
 
 .placeBidBG {
-  width: auto;
-  margin: 12px 0px 6px 0px;
-  @media (min-width: 1024px) {
-    margin: 15px 0px 10px 0px;
-  }
+  width: 100%;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -603,9 +637,10 @@
 
 .whiteDescription {
   font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  white-space: pre-wrap;
 }
 
 .descLabel {
@@ -626,6 +661,17 @@
     margin-bottom: 15px;
   }
   background: rgba(#707070, 0.25);
+}
+
+.rightBG {
+  padding-bottom: 100px;
+  @media (min-width: 1024px) {
+    background: var(--background-main-color);
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+    box-sizing: 0px 3px 6px rgba(#000, 0.16);
+    padding-bottom: 100px;
+  }
 }
 
 .greenRoyalties {
