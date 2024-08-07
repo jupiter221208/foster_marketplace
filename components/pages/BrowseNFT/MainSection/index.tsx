@@ -46,15 +46,12 @@ import {
 // images and icons
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
-import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
+import MerchGrayIcon from 'assets/icons/merch-gray-icon.svg?component'
 
 // json
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
@@ -92,7 +89,6 @@ import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
 import PriceInput from 'components/Input/PriceInput'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
-import Link from 'next/link'
 import { NftData } from 'types/nft'
 import AuctionDetail from '../AuctionDetail'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
@@ -125,6 +121,7 @@ export interface MainSectionProps {
   setFullScreenView: any
   reloadNftData: any
   enableMerch: any
+  setShowStudioModal: any
   setCollectionName: any
   fullScreen: boolean
   setShowAuctionSection: any
@@ -139,6 +136,7 @@ const MainSection = ({
   setFullScreenView,
   reloadNftData,
   enableMerch,
+  setShowStudioModal,
   setCollectionName,
   fullScreen,
   setShowAuctionSection,
@@ -1208,6 +1206,7 @@ const MainSection = ({
           if (response !== null) {
             setMerchToggle(true)
             enableMerch(true)
+            setShowStudioModal(true)
             setCreateMerchModal(false)
           }
         },
@@ -1245,7 +1244,7 @@ const MainSection = ({
 
           <div className="w-full lg:flex hidden mt-[32px] justify-between">
             <div className="flex gap-[15px] items-center">
-              <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+              {/* <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                   <div className={styles.ellipseArea}>
                     <ThreeEllipseMobileIcon alt="" />
@@ -1255,7 +1254,7 @@ const MainSection = ({
                     <ThreeEllipseIcon alt="" />
                   </div>
                 )}
-              </div>
+              </div> */}
               <div className="inline">
                 <div className="flex gap-[15px]">
                   <div className={`${styles.iconContainer} w-[50px]`}>
@@ -1278,34 +1277,17 @@ const MainSection = ({
                       {likeCount}
                     </div>
                   </div>
+                  <div className={`${styles.iconContainer} w-[90px]`}>
+                    <MerchGrayIcon />
+                    <div className={`${styles.text} mt-[-2px]`} onClick={() => router.push(`/${nftCreatorname}/merch`)}>
+                      Merch
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-[15px] items-center">
-              {isCreatedNft && (
-                <MenuEditNft
-                  studio={nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')}
-                  metadata={true}
-                  setShowNftMeta={setShowNftMeta}
-                  setRemoveMerchModal={setRemoveMerchModal}
-                  setCreateMerchModal={setCreateMerchModal}
-                  merchToggle={merchToggle}
-                  isCreatedNft={isCreatedNft}
-                />
-              )}
-
-              <div className={`${styles.iconContainer} w-[87px]`}>
-                <div className="flex items-center gap-[9px]">
-                  <div className={`${styles.iconContainer} w-[87px] gap-[9px]`} onClick={() => setOpenShareModal(true)}>
-                    <div>
-                      <ShareDesktopIcon alt="" />
-                    </div>
-                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
-                  </div>
-                </div>
-              </div>
-
               {nftType.includes('vr') || nftType.includes('image') ? (
                 <div className={`${styles.iconContainer} w-[50px]`}>
                   <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
@@ -1356,33 +1338,14 @@ const MainSection = ({
               <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
                 <div className="w-full flex justify-between items-center">
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <div className={styles.ellipseArea}>
-                          <ThreeEllipseMobileIcon alt="" />
-                        </div>
-                      ) : (
-                        <div className={styles.ellipseArea}>
-                          <ThreeEllipseIcon alt="" />
-                        </div>
-                      )}
-                    </div>
-
-                    {isCreatedNft && (
-                      <MenuEditNft
-                        studio={true}
-                        metadata={
-                          nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
-                        }
-                        setShowNftMeta={setShowNftMeta}
-                        setRemoveMerchModal={setRemoveMerchModal}
-                        setCreateMerchModal={setCreateMerchModal}
-                        merchToggle={merchToggle}
-                        isCreatedNft={isCreatedNft}
+                    <div className={`${styles.iconContainer} w-[50px]`}>
+                      <Image
+                        src={save ? TicketGreenIcon : TicketWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeSaveStatus()}
                       />
-                    )}
-                  </div>
-                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                    </div>
                     <div className={`${styles.iconContainer} w-[80px]`}>
                       <Image
                         src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
@@ -1394,26 +1357,30 @@ const MainSection = ({
                         {likeCount}
                       </div>
                     </div>
-
-                    <div className={`${styles.iconContainer} w-[50px]`}>
-                      <Image
-                        src={save ? TicketGreenIcon : TicketWhiteIcon}
-                        alt=""
-                        className=""
-                        onClick={() => changeSaveStatus()}
-                      />
-                    </div>
-                    {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+                    <div className={`${styles.iconContainer} w-[90px]`}>
+                      <MerchGrayIcon />
                       <div
-                        className={`${styles.iconContainer} w-[87px] gap-[9px]`}
-                        onClick={() => setOpenShareModal(true)}
+                        className={`${styles.text} mt-[-2px]`}
+                        onClick={() => router.push(`/${nftCreatorname}/merch`)}
                       >
-                        <div>
-                          <ShareSmallIcon alt="" />
-                        </div>
-                        <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                        Merch
                       </div>
-                    )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                    <MenuEditNft
+                      studio={true}
+                      metadata={
+                        nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
+                      }
+                      explorerURL={explorerURL}
+                      setShowNftMeta={setShowNftMeta}
+                      setRemoveMerchModal={setRemoveMerchModal}
+                      setCreateMerchModal={setCreateMerchModal}
+                      merchToggle={merchToggle}
+                      isCreatedNft={isCreatedNft}
+                      setOpenShareModal={setOpenShareModal}
+                    />
                   </div>
                 </div>
               </div>
@@ -1436,25 +1403,42 @@ const MainSection = ({
                       </div>
                     )}
                   </div>
-                  <NFTCreatorDataSection
-                    nftName={nftName}
-                    nftCreatorname={nftCreatorname}
-                    nftOwnerUsername={nftOwnerUsername}
-                    nftCollectionAddress={nftCollectionAddress}
-                    nftCollectionName={nftCollectionName}
-                    nftCollectionImage={nftCollectionImage}
-                    nameLoading={nameLoading}
-                    isEditionListing={isEditionListing}
-                    liveAuction={liveAuction}
-                    endTime={endTime}
-                    startTime={startTime}
-                    endEditionTime={nftInfo?.master_edition?.endTime}
-                    startEditionTime={nftInfo?.master_edition?.startTime}
-                    setIsEnded={setIsEnded}
-                    setIsStarted={setIsStarted}
-                    profileImage={nftInfo?.creator_profile_image}
-                  />
+                  <div className="w-full flex justify-between items-start">
+                    <NFTCreatorDataSection
+                      nftName={nftName}
+                      nftCreatorname={nftCreatorname}
+                      nftOwnerUsername={nftOwnerUsername}
+                      nftCollectionAddress={nftCollectionAddress}
+                      nftCollectionName={nftCollectionName}
+                      nftCollectionImage={nftCollectionImage}
+                      nameLoading={nameLoading}
+                      isEditionListing={isEditionListing}
+                      liveAuction={liveAuction}
+                      endTime={endTime}
+                      startTime={startTime}
+                      endEditionTime={nftInfo?.master_edition?.endTime}
+                      startEditionTime={nftInfo?.master_edition?.startTime}
+                      setIsEnded={setIsEnded}
+                      setIsStarted={setIsStarted}
+                      profileImage={nftInfo?.creator_profile_image}
+                    />
 
+                    <div className="lg:block hidden">
+                      <MenuEditNft
+                        studio={
+                          nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
+                        }
+                        metadata={true}
+                        explorerURL={explorerURL}
+                        setShowNftMeta={setShowNftMeta}
+                        setRemoveMerchModal={setRemoveMerchModal}
+                        setCreateMerchModal={setCreateMerchModal}
+                        setOpenShareModal={setOpenShareModal}
+                        merchToggle={merchToggle}
+                        isCreatedNft={isCreatedNft}
+                      />
+                    </div>
+                  </div>
                   {nftDescription ? (
                     <div>
                       <div className={`w-full h-[auto] max-h-[180px] mt-[30px]`}>

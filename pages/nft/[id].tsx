@@ -255,7 +255,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     let list
     if (merchToggle) {
       list = MerchTabList
-      setShowStudioModal(true)
     } else list = TabList
     list.map(item => {
       let object: any = item
@@ -393,6 +392,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                       setFullScreenView={setFullScreenView}
                       reloadNftData={reloadNftData}
                       enableMerch={setMerchToggle}
+                      setShowStudioModal={setShowStudioModal}
                       setCollectionName={setCollectionName}
                       fullScreen={fullScreen}
                       setShowAuctionSection={enable => setShowAuctionSection(enable)}
