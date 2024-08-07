@@ -1760,6 +1760,7 @@ const MainSection = ({
                                                 height={
                                                   viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45
                                                 }
+                                                borderRadius={23}
                                               />
                                             ) : (
                                               <GradientButton
@@ -1906,7 +1907,7 @@ const MainSection = ({
                   </div>
                 </div>
 
-                <div className="w-full mt-[30px]">
+                <div className="w-full mt-[15px]">
                   <NFTDetailSection
                     nftOwnerUsername={nftOwnerUsername}
                     nftType={nftType}
