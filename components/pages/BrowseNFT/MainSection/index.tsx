@@ -1277,7 +1277,7 @@ const MainSection = ({
                       {likeCount}
                     </div>
                   </div>
-                  {enableMerch && (
+                  {merchToggle && (
                     <div className={`${styles.iconContainer} w-[90px]`}>
                       <MerchGrayIcon />
                       <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
@@ -1359,7 +1359,7 @@ const MainSection = ({
                         {likeCount}
                       </div>
                     </div>
-                    {enableMerch && (
+                    {merchToggle && (
                       <div className={`${styles.iconContainer} w-[90px]`}>
                         <MerchGrayIcon />
                         <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
