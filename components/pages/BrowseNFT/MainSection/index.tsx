@@ -1500,7 +1500,8 @@ const MainSection = ({
                         <div className="w-full lg:mt-[30px]">
                           <GradientButton
                             fullWidth
-                            height={45}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                            fontSize={16}
                             borderRadius={23}
                             label={'Update/Relist'}
                             onClick={() => {
@@ -1566,23 +1567,12 @@ const MainSection = ({
                           </div>
 
                           {(isOwnNft === false || isOwnNft === null) && (
-                            <div className="w-full flex flex-wrap mt-[15px] lg:mt-[15px] gap-[15px] lg:gap-[15px]">
-                              {tradeStateAddress && !buyLoading ? (
-                                <GradientButton
-                                  fullWidth
-                                  height={45}
-                                  borderRadius={23}
-                                  label="Buy Now"
-                                  disabled={!tradeStateAddress}
-                                  onClick={() => quickBuy()}
-                                />
-                              ) : (
-                                <LoadingPrimaryButton fullWidth />
-                              )}
+                            <div className="w-full flex flex-col lg:flex-row mt-[15px] lg:mt-[15px] gap-[15px] lg:gap-[15px]">
                               <OutlineButton
                                 label="Make Offer"
                                 fullWidth
-                                height={45}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                fontSize={16}
                                 borderRadius={23}
                                 onClick={() => {
                                   if (!connected) {
@@ -1592,6 +1582,23 @@ const MainSection = ({
                                   setOpenOfferModal(true)
                                 }}
                               />
+                              {tradeStateAddress && !buyLoading ? (
+                                <GradientButton
+                                  fullWidth
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  fontSize={16}
+                                  borderRadius={23}
+                                  label="Buy Now"
+                                  disabled={!tradeStateAddress}
+                                  onClick={() => quickBuy()}
+                                />
+                              ) : (
+                                <LoadingPrimaryButton
+                                  fullWidth
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  borderRadius={23}
+                                />
+                              )}
                             </div>
                           )}
 
@@ -1600,7 +1607,8 @@ const MainSection = ({
                               <GradientButton
                                 label="Delist or Update"
                                 fullWidth
-                                height={45}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                fontSize={16}
                                 borderRadius={23}
                                 onClick={() => setShowUpdateListNFTModal(true)}
                               />
@@ -1619,7 +1627,8 @@ const MainSection = ({
                           <OutlineButton
                             label="Finalize Sale"
                             fullWidth
-                            height={45}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                            fontSize={16}
                             borderRadius={23}
                             onClick={() => processFinalizeSale()}
                           />
@@ -1636,7 +1645,8 @@ const MainSection = ({
                           <OutlineButton
                             label="Cancel Auction"
                             fullWidth
-                            height={45}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                            fontSize={16}
                             borderRadius={23}
                             onClick={() => cancelAuction()}
                           />
@@ -1660,7 +1670,8 @@ const MainSection = ({
                                   <OutlineButton
                                     label="Cancel Auction"
                                     fullWidth
-                                    height={45}
+                                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                    fontSize={16}
                                     borderRadius={23}
                                     onClick={() => nftCurrentPrice === 0 && cancelAuction()}
                                     disabled={nftCurrentPrice > 0}
@@ -1744,12 +1755,20 @@ const MainSection = ({
                                             }}
                                           >
                                             {auctionLoading ? (
-                                              <LoadingPrimaryButton fullWidth height={45} borderRadius={23} />
+                                              <LoadingPrimaryButton
+                                                fullWidth
+                                                height={
+                                                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45
+                                                }
+                                              />
                                             ) : (
                                               <GradientButton
                                                 label="Place Bid"
                                                 fullWidth
-                                                height={45}
+                                                height={
+                                                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45
+                                                }
+                                                fontSize={16}
                                                 borderRadius={23}
                                                 disabled={
                                                   price === '' ||
@@ -1821,7 +1840,8 @@ const MainSection = ({
                                 <OutlineButton
                                   fullWidth
                                   label="List Edition"
-                                  height={45}
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  fontSize={16}
                                   borderRadius={23}
                                   onClick={() => {
                                     setListEditionType('list')
@@ -1835,14 +1855,16 @@ const MainSection = ({
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
                               <OutlineButton
                                 fullWidth
-                                height={45}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                fontSize={16}
                                 borderRadius={23}
                                 label="List Artwork"
                                 onClick={() => setShowListNFTModal(true)}
                               />
                               <GradientButton
                                 fullWidth
-                                height={45}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                fontSize={16}
                                 borderRadius={23}
                                 label="Start Auction"
                                 onClick={() => {
@@ -1860,7 +1882,8 @@ const MainSection = ({
                           <div className="w-full flex gap-[20px] mt-[0px] lg:mt-[20px]">
                             <OutlineButton
                               fullWidth
-                              height={45}
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                              fontSize={16}
                               borderRadius={23}
                               label="Make Offer"
                               type="make-offer"

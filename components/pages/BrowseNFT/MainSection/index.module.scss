@@ -638,12 +638,11 @@
 }
 
 .rightBG {
-  padding-bottom: 50px;
+  padding-bottom: 100px;
   @media (min-width: 1024px) {
     background: var(--background-main-color);
     max-height: calc(100vh - 100px);
     overflow: auto;
-    padding-bottom: 100px;
   }
 }
 
