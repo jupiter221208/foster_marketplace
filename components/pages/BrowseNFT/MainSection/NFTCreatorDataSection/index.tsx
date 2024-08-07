@@ -177,7 +177,7 @@ const NFTCreatorDataSection = props => {
                 <div className={styles.creator}>{auctionStarted === true ? 'Time Remaing' : 'Starts In'}</div>
                 <div>
                   <div className={styles.userTile}>
-                    <div className={`${styles.bidCountContainer} pl-[12px] mt-[-2px]`}>
+                    <div className={`${styles.bidCountContainer} pl-[12px] mt-[-1px]`}>
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div>
                           <div className={styles.endTime}>
