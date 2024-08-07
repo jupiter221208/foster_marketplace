@@ -457,7 +457,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
       {showStudioModal && (
         <div className={styles.fullScreen}>
           <div className="w-full h-full flex items-center">
-            <div className="w-full h-[580px]">
+            <div className="w-full h-[580px] px-[50px]">
               <ShopApparelSection
                 title="Shop Apparel"
                 type="apparel"

@@ -117,7 +117,7 @@ const StudioReleaseCard = props => {
         >
           {apparelList !== null && apparelList !== '' ? (
             <>
-              <img
+              <ImageWithFoster
                 src={
                   imagePath.endsWith('man_sweat_white.png')
                     ? SweatshirtW.src
@@ -141,6 +141,7 @@ const StudioReleaseCard = props => {
                     ? ManLongsLeeveB.src
                     : ''
                 }
+                width={350}
                 className={styles.imageNft}
               />
               <div className={styles.nftImage}>
