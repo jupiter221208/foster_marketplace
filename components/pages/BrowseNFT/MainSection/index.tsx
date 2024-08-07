@@ -1460,7 +1460,7 @@ const MainSection = ({
 
                   {merchCard && (
                     <div className={styles.merchArea}>
-                      <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[11px] ml-[10px] sm:ml-[12px] sm:ml-[16px]">
+                      <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[18px] ml-[10px] sm:ml-[12px] md:ml-[16px]">
                         <div className={styles.assetArea}>
                           <ImageWithFoster
                             width={65}
@@ -1469,20 +1469,23 @@ const MainSection = ({
                           />
                         </div>
                         <div className={styles.contentArea}>
-                          <div className="w-full flex justify-between items-center mt-[4px] lg:mt-[0px]">
+                          <div className="w-full flex justify-between items-center">
                             <div className={styles.merchTitle}>Merch included for each purchase</div>
-                            <div className="hidden sm:block w-[82px] h-[32px] mr-[12px]">
-                              <GradientButton
+                            <div className="hidden sm:block w-[45px] mr-[15px]">
+                              <div className={styles.merchView} onClick={() => setFullScreenMerch(true)}>
+                                {'View »'}
+                              </div>
+                              {/* <GradientButton
                                 label="View"
                                 borderRadius={16}
                                 fontSize={16}
                                 width={82}
                                 height={32}
                                 onClick={() => setFullScreenMerch(true)}
-                              />
+                              /> */}
                             </div>
                           </div>
-                          <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
+                          <div className={styles.merchContent}>{merchCard.name}</div>
                         </div>
                       </div>
                     </div>

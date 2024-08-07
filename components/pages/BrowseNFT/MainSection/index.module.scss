@@ -88,24 +88,32 @@
 }
 
 .assetArea {
-  width: 57px;
-  min-width: 57px;
-  height: 57px;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
   @media (min-width: 640px) {
-    width: 65px;
-    min-width: 65px;
-    height: 65px;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
   }
-  padding: 4px;
-  border-radius: 10px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  
+  
+  // background: rgba(var(--main-bg-color-rgb), 0.05);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   overflow: hidden;
 }
 
 .contentArea {
   width: 100%;
   overflow: hidden;
+}
+
+.merchView {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
+  cursor: pointer;
 }
 
 .merchTitle {
@@ -644,6 +652,7 @@
     max-height: calc(100vh - 100px);
     overflow: auto;
     box-sizing: 0px 3px 6px rgba(#000, 0.16);
+    padding-bottom: 30px;
   }
 }
 
