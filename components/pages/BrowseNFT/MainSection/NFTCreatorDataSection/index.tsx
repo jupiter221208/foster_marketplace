@@ -59,9 +59,16 @@ const NFTCreatorDataSection = props => {
       endEditionTime !== undefined &&
       endEditionTime !== null
     ) {
-      setTimeLeft(calculateAuctionTimeLeft(getStartEditionTime()))
+      let time = getStartEditionTime()
+      if (!time) return
+      setTimeLeft(calculateAuctionTimeLeft(time))
       const timer = setInterval(() => {
-        let time_left = calculateAuctionTimeLeft(getStartEditionTime())
+        let time1 = getStartEditionTime()
+        if (!time1) {
+          setTimeLeft(null)
+          return
+        }
+        let time_left = calculateAuctionTimeLeft(time1)
         setTimeLeft(time_left)
       }, 1000)
 
@@ -87,7 +94,10 @@ const NFTCreatorDataSection = props => {
       let endDate = new Date(endTime)
       let proposalEndTime = endDate.getTime()
       let end_difference = proposalEndTime - new Date().getTime()
-      if (end_difference < 0) setIsEnded(true)
+      if (end_difference < 0) {
+        setIsEnded(true)
+        return null
+      }
       return endTime
     }
   }
@@ -111,6 +121,7 @@ const NFTCreatorDataSection = props => {
       let end_difference = proposalEndTime - new Date().getTime()
       if (end_difference < 0) {
         setIsEnded(true)
+        return null
       }
       return endEditionTime
     }

@@ -524,6 +524,9 @@ const MainSection = ({
         setMerchImages(nftInfo.master_edition?.merchProduct.options.addons)
         setMerchCost(nftInfo.master_edition?.merchProduct.selling_price / 100 / solToUsdRate)
       }
+
+      if (nftInfo?.master_edition?.endTime) {
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftInfo])
@@ -1388,7 +1391,7 @@ const MainSection = ({
               <div className={styles.rightContainer}>
                 <div className={`w-full ${styles.nftDetailCardPadding}`}>
                   <div className="lg:block hidden w-full h-[25px]">
-                    {(nftPrice > 0 || liveAuction) && (
+                    {!nameLoading && (nftPrice > 0 || liveAuction) && !isEnded && (
                       <div className={styles.liveFont}>
                         live
                         <div className={styles.liveType}>
@@ -1403,6 +1406,7 @@ const MainSection = ({
                       </div>
                     )}
                   </div>
+
                   <div className="w-full flex justify-between items-start">
                     <NFTCreatorDataSection
                       nftName={nftName}
@@ -1494,17 +1498,17 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className="w-full flex flex-wrap mt-[0px] lg:mt-[30px]">
+                <div className="w-full flex flex-wrap">
                   <div className={`w-full ${styles.nftDetailCardPadding}`}>
                     {loadListing && (
                       <div
-                        className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[0px] h-[120px] lg:h-[100px] rounded-[12px]`}
+                        className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[30px] h-[120px] lg:h-[100px] rounded-[12px]`}
                       ></div>
                     )}
 
                     {isEditionListing ? (
                       isOwnNft === true ? (
-                        <div className="w-full lg:mt-[10px]">
+                        <div className="w-full lg:mt-[30px]">
                           <GradientButton
                             fullWidth
                             height={45}
@@ -1531,7 +1535,7 @@ const MainSection = ({
                           </div>
                         </div>
                       ) : (
-                        <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[30px] lg:mt-[0px]">
+                        <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 lg:mt-[0px]">
                           <MintEditionCard
                             price={price}
                             maxSupply={editionDetail.maxSupply}
@@ -1539,8 +1543,8 @@ const MainSection = ({
                             buyLimit={nftInfo?.master_edition?.buyLimit}
                             endTime={nftInfo?.master_edition?.endTime}
                             startTime={nftInfo?.master_edition?.startTime}
-                            setIsEnded={setIsEnded}
-                            setIsStarted={setIsStarted}
+                            isEnded={isEnded}
+                            isStarted={isStarted}
                             nftPrice={nftPrice}
                             merchCost={merchCost}
                             setPrice={setPrice}
@@ -1885,7 +1889,7 @@ const MainSection = ({
                         <></>
                       )
                     ) : (
-                      <div></div>
+                      <div className="mt-[-30px]"></div>
                     )}
                   </div>
                 </div>
@@ -1907,7 +1911,7 @@ const MainSection = ({
                 </div>
 
                 <div className="mt-[30px]">
-                  <div className={styles.nftName}>Categories</div>
+                  <div className={styles.cateName}>Categories</div>
                   <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
                     {nftCategories?.map((item, index) => (
                       <div className={styles.category} key={index}>
