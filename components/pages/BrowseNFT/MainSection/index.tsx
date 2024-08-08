@@ -1511,7 +1511,7 @@ const MainSection = ({
                       <></>
                     )}
 
-                    {editionLoading ? (
+                    {(supply?.max === null || supply?.max > 0) && (loading || editionLoading) ? (
                       <div className="w-full h-[87px] rounded-[10px] overflow-hidden mt-[30px]">
                         <div className="skeletonLoader" />
                       </div>
@@ -1547,15 +1547,26 @@ const MainSection = ({
                     <div className={`w-full ${styles.nftDetailCardPadding}`}>
                       {loading || editionLoading ? (
                         <div className="mt-[30px]">
-                          <div className="w-full flex justify-between gap-[15px]">
-                            <div className="w-[40%] h-[45px] rounded-[23px] overflow-hidden">
-                              <div className="skeletonLoader" />
-                            </div>
+                          {supply?.max === null || supply?.max > 0 ? (
+                            <div className="w-full flex justify-between gap-[15px]">
+                              <div className="w-[40%] h-[45px] rounded-[23px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
 
-                            <div className="w-[60%] h-[45px] rounded-[23px] overflow-hidden">
-                              <div className="skeletonLoader" />
+                              <div className="w-[60%] h-[45px] rounded-[23px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            <div className="w-full flex justify-between">
+                              <div className="w-[70px] h-[32px] rounded-[16px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                              <div className="w-[100px] h-[32px] rounded-[16px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                            </div>
+                          )}
                           <div className="w-full h-[45px] rounded-[23px] overflow-hidden mt-[15px]">
                             <div className="skeletonLoader" />
                           </div>
