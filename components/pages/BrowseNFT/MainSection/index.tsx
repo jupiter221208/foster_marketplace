@@ -604,6 +604,7 @@ const MainSection = ({
       }
 
       if (endTimestamp < Math.floor(Date.now() / 1000)) setIsEnded(true)
+      setLoading(false)
     },
     [minBidIncrement]
   )
@@ -706,6 +707,7 @@ const MainSection = ({
       if (!nftDetail) return
 
       if (tokenAccountInfo.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
+        console.log('====================1=============')
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
         let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
           .where(0, Buffer.from(listingConfigDiscriminator))
@@ -720,8 +722,11 @@ const MainSection = ({
 
         let listingReceipt = openListings[0]
         if (listingReceipt) {
+          console.log('====================12=============')
           setLoadListing(true)
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
+          console.log('====================13=============')
+
           let listing = toLazyListing(listingReceipt, auctionHouse)
           let {
             tradeStateAddress,
@@ -733,7 +738,11 @@ const MainSection = ({
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
           setLoadListing(false)
+          setLoading(false)
+          console.log('====================14=============')
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
+          console.log('====================15=============')
+
           let listingAsset = listingAssets[0]
           let { asset, sellerAddress, price } = listingAsset
           let listingData = {
@@ -753,6 +762,7 @@ const MainSection = ({
           }
           setNftListingData(listingData)
         } else {
+          console.log('====================3=============')
           if (!connected) {
             setIsOwnNft(false)
           }
@@ -763,19 +773,21 @@ const MainSection = ({
             tokenAccountInfo.address,
             tokenAccountInfo.mint
           )
-
+          console.log('====================4=============')
           let [listingConfig] = await getListingConfig(
             tokenAccountInfo.owner,
             tokenAccountInfo.address,
             tokenAccountInfo.mint
           )
-
+          console.log('====================5=============')
           await handleAuctionData(auctionListing)
+          console.log('====================6=============')
           auctionListenerHandle = await mx.connection.onAccountChange(
             listingConfig,
             accountInfo => handleAuctionData(parseAuctionListing(accountInfo)),
             'single'
           )
+          console.log('====================7=============')
         }
       }
       setLoading(false)
@@ -1499,7 +1511,7 @@ const MainSection = ({
                       <></>
                     )}
 
-                    {loading || editionLoading ? (
+                    {editionLoading ? (
                       <div className="w-full h-[87px] rounded-[10px] overflow-hidden mt-[30px]">
                         <div className="skeletonLoader" />
                       </div>
