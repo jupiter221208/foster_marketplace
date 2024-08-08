@@ -29,6 +29,7 @@ import SizeList from 'assets/json/print/size-chat-modal.json'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
@@ -321,7 +322,7 @@ const MerchOrderMain = props => {
                           alt=""
                         />
                       </div>
-                      {userDetail.username}
+                      {getDisplayUserName(userDetail.username)}
                     </div>
                   </a>
                 </Link>
