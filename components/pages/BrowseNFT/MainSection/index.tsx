@@ -1518,7 +1518,7 @@ const MainSection = ({
                     ) : (
                       merchCard && (
                         <div className={styles.merchArea}>
-                          <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[18px] ml-[10px] sm:ml-[12px] md:ml-[16px]">
+                          <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[18px] pl-[10px] sm:pl-[12px] md:pl-[16px]">
                             <div className={styles.assetArea}>
                               <ImageWithFoster
                                 width={65}
@@ -1529,7 +1529,7 @@ const MainSection = ({
                             <div className={styles.contentArea}>
                               <div className="w-full flex justify-between items-center">
                                 <div className={styles.merchTitle}>Merch included for each purchase</div>
-                                <div className="hidden sm:block w-[45px] mr-[15px]">
+                                <div className="hidden sm:block min-w-[60px] mr-[15px]">
                                   <div className={styles.merchView} onClick={() => setFullScreenMerch(true)}>
                                     {'View »'}
                                   </div>
@@ -1559,10 +1559,10 @@ const MainSection = ({
                             </div>
                           ) : (
                             <div className="w-full flex justify-between">
-                              <div className="w-[70px] h-[32px] rounded-[16px] overflow-hidden">
+                              <div className="w-[70px] h-[24px] rounded-[12px] overflow-hidden">
                                 <div className="skeletonLoader" />
                               </div>
-                              <div className="w-[100px] h-[32px] rounded-[16px] overflow-hidden">
+                              <div className="w-[100px] h-[24px] rounded-[12px] overflow-hidden">
                                 <div className="skeletonLoader" />
                               </div>
                             </div>

@@ -564,7 +564,7 @@ const AdditionalDetails = props => {
                       <div className="mt-[15px]">
                         <Input
                           value={limitedSupply}
-                          placeholder="Set the total supply for this apparel item"
+                          placeholder="Set the total supply for this item"
                           onChange={value => {
                             setLimitedSupply(validInteger(value))
                           }}
@@ -765,7 +765,7 @@ const AdditionalDetails = props => {
                   <div className="mt-[15px]">
                     <Input
                       value={limitedSupply}
-                      placeholder="Set the total supply for this apparel item"
+                      placeholder="Set the total supply for this item"
                       onChange={value => {
                         setLimitedSupply(validInteger(value))
                       }}
