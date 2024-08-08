@@ -577,7 +577,7 @@ const AdditionalDetails = props => {
                       Release Date <span>*</span>
                     </div>
                   </div>
-                  <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
+                  <div className="flex gap-[45px]">
                     <div
                       className={`flex items-center ${
                         viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
@@ -778,7 +778,7 @@ const AdditionalDetails = props => {
                   Release Date <span>*</span>
                 </div>
               </div>
-              <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
+              <div className="w-full flex gap-[45px]">
                 <div
                   className={`flex items-center ${
                     viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
