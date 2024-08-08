@@ -37,6 +37,9 @@ const ProfileMenuItem = props => {
         } else if (item.id === 3) {
           router.push(`/${username}`)
           return
+        } else if (item.id === 4) {
+          router.push(`/${username}/merch`)
+          return
         } else if (item.id === 2) {
           dispatch({ type: 'set', activeTab: 0 })
           router.push(`/merch-logs`)

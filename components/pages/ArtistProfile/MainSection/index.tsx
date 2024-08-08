@@ -420,7 +420,7 @@ const MainSection = prop => {
                     fontSize={14}
                     onClick={() => {
                       setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
                       inputBannerFile.current.click()
                     }}
                   />
