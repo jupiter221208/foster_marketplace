@@ -74,10 +74,18 @@
 
 .rightTopSection {
   width: 100%;
-  @media (min-width: 1024px) {
-    position: relative;
-    height: calc(100vh - 150px);
+  @media (min-width: 1024px) { 
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 0px;
+    @media (min-height: 840px) { 
+      height: calc(100vh - 150px);
+    }
   }
+  
 }
 
 .moreDetails {
@@ -667,10 +675,12 @@
   padding-bottom: 100px;
   @media (min-width: 1024px) {
     background: var(--background-main-color);
-    max-height: calc(100vh - 100px);
     overflow: auto;
     box-shadow: 0px 3px 6px rgba(#000, 0.16);
     padding-bottom: 100px;
+  }
+  @media (min-height: 900px) {
+    max-height: calc(100vh - 100px);
   }
 }
 
