@@ -2009,7 +2009,7 @@ const MainSection = ({
                   </div>
                 </div>
                 {nameLoading ? (
-                  <div className="w-full mt-[20px]">
+                  <div className="w-full mt-[20px]" ref={detailViewRef}>
                     <div className="w-full h-[32px] rounded-[16px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
