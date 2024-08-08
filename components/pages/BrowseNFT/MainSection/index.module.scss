@@ -76,11 +76,14 @@
   width: 100%;
   @media (min-width: 1024px) { 
     display: flex;
-    height: calc(100vh - 150px);
+    height: 100%;
     flex-direction: column;
     justify-content: space-between;
-    gap: 100px;
+    gap: 50px;
     margin-bottom: 0px;
+    @media (min-height: 840px) { 
+      height: calc(100vh - 150px);
+    }
   }
   
 }
