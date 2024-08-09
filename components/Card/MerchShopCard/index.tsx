@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -17,6 +18,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
 import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
+import FosterIcon from 'assets/icons/foster-icon-13x15.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -87,14 +89,25 @@ const MerchShopCard = props => {
 
   useEffect(() => {
     let list = []
-    data.options.addons.map((item, index) => {
-      let step = currentStep % data.options.addons.length
-      if (index === step) {
-        list.push(true)
-      } else {
-        list.push(false)
-      }
-    })
+    if (data.fulfillment_type === 'foster') {
+      data.options.addons.map((item, index) => {
+        let step = currentStep % data.options.addons.length
+        if (index === step) {
+          list.push(true)
+        } else {
+          list.push(false)
+        }
+      })
+    } else {
+      data.options.product_images.map((item, index) => {
+        let step = currentStep % data.options.product_images.length
+        if (index === step) {
+          list.push(true)
+        } else {
+          list.push(false)
+        }
+      })
+    }
 
     setIndicatorList(list)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,15 +140,29 @@ const MerchShopCard = props => {
           modules={[Autoplay, Lazy, Navigation, Pagination]}
           // loop
         >
-          {data.options.addons.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                <div className={styles.imageContent}>
-                  <ImageWithFoster src={item.mockup_url} width={500} className="max-w-full max-h-full object-cover" />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+          {data.fulfillment_type === 'foster'
+            ? data.options.addons.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                    <div className={styles.imageContent}>
+                      <ImageWithFoster
+                        src={item.mockup_url}
+                        width={500}
+                        className="max-w-full max-h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))
+            : data.options.product_images.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                    <div className={styles.imageContent}>
+                      <ImageWithFoster src={item} width={500} className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
         </Swiper>
         {indicatorList.length > 1 && (
           <div className="absolute left-0 top-[46%] w-full flex justify-between items-center px-[20px]">
@@ -197,7 +224,12 @@ const MerchShopCard = props => {
               <div className="mt-[2px]">
                 <SolanaLogoIcon />
               </div>
-              <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
+              <div className={styles.price}>
+                {(
+                  data.selling_price / 100 / solToUsdRate +
+                  (data.listed_master_edition ? parseFloat(getPriceValue(Number(data.listed_master_edition.price))) : 0)
+                ).toFixed(2)}
+              </div>
             </div>
             <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
               $
@@ -254,7 +286,7 @@ const MerchShopCard = props => {
               <div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                  {showTimer && <div className={styles.saleType}>Ends in</div>}
+                  {/* {showTimer && <div className={styles.saleType}>Ends in</div>} */}
                 </div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleCount}>
@@ -262,7 +294,15 @@ const MerchShopCard = props => {
                       ? `${data.supply - data.current_supply}/${data.supply} left`
                       : `${data.current_supply} sold`}
                   </div>
-                  {showTimer && (
+                  <div className="flex gap-[10px]">
+                    <div className="relative">
+                      <div className={styles.typeIconArea}>
+                        <FosterIcon />
+                      </div>
+                      <div className={styles.tooltip}>Included with purchase of an edition</div>
+                    </div>
+                  </div>
+                  {/* {showTimer && (
                     <div className="flex gap-[4px]">
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div className="flex block justify-center gap-[1px]">
@@ -289,7 +329,7 @@ const MerchShopCard = props => {
                         </div>
                       )}
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             )}

@@ -207,3 +207,23 @@
     margin-top: 4px;
   }
 }
+
+.typeIconArea {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 32px;
+  left: auto;
+  right: auto;
+  background: var(--bg-1E1E1E-F3F2F0);
+  overflow: visible;
+  width: 260px;
+}

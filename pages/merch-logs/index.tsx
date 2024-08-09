@@ -41,6 +41,7 @@ import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { useRouter } from 'next/router'
+import { getTimeDifference } from 'utils/helpers'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -148,24 +149,55 @@ const MerchActivity = () => {
   useEffect(() => {
     if (profileInfo && loadMerchStore === false) {
       setLoadMerchStore(true)
-      StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
+
+      StoreAPI.getStoreByUserId(profileInfo?.id).then(
         res => {
-          setFosterMerchList(res)
+          let list = []
+          res.map(item => {
+            if (
+              (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
+              (item.supply === null || item.supply - item.current_supply > 0)
+            ) {
+              if (item.master_edition_address === null) {
+                list.push(item)
+              } else {
+                if (
+                  item.master_edition_address?.length > 0 &&
+                  (item.listed_master_edition.endTime === null ||
+                    getTimeDifference(item.listed_master_edition.endTime) > 0)
+                ) {
+                  list.push(item)
+                }
+              }
+            }
+          })
+          setMerchStoreList(list)
+
           setIsMerchStoreFetching(false)
         },
         error => {
           setIsMerchStoreFetching(false)
         }
       )
-      StoreAPI.getStoreItemByUser(profileInfo?.id).then(
-        res => {
-          setUserMerchList(res.filter(item => item.master_edition_address === null))
-          setIsMerchStoreFetching(false)
-        },
-        error => {
-          setIsMerchStoreFetching(false)
-        }
-      )
+
+      // StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
+      //   res => {
+      //     setFosterMerchList(res)
+      //     setIsMerchStoreFetching(false)
+      //   },
+      //   error => {
+      //     setIsMerchStoreFetching(false)
+      //   }
+      // )
+      // StoreAPI.getStoreItemByUser(profileInfo?.id).then(
+      //   res => {
+      //     setUserMerchList(res.filter(item => item.master_edition_address === null))
+      //     setIsMerchStoreFetching(false)
+      //   },
+      //   error => {
+      //     setIsMerchStoreFetching(false)
+      //   }
+      // )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
