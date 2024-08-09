@@ -39,3 +39,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.timeLabel {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+}

@@ -17,8 +17,7 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
-import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
-import FosterIcon from 'assets/icons/foster-icon-13x15.svg?component'
+import ThreeDotIcon from 'assets/icons/three-dot-icon-20x5.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -296,7 +295,11 @@ const MerchShopCard = props => {
                       : `${data.current_supply} sold`}
                   </div>
                   <div className="flex gap-[10px]">
-                    <MerchTypeIconMenu type={data.fulfillment_type} />
+                    {showTimer && <MerchTypeIconMenu type={'timer'} timeLeft={timeLeft} />}
+                    <MerchTypeIconMenu
+                      type={data.master_edition_address?.length > 0 ? 'edition' : data.fulfillment_type}
+                      timeLeft={null}
+                    />
                     {/* <div className="relative">
                       <div className={styles.typeIconArea}>
                         <FosterIcon />
