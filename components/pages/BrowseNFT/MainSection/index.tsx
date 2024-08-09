@@ -1337,49 +1337,72 @@ const MainSection = ({
               <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
                 <div className="w-full flex justify-between items-center">
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <div className={`${styles.iconContainer} w-[50px]`}>
-                      <Image
-                        src={save ? TicketGreenIcon : TicketWhiteIcon}
-                        alt=""
-                        className=""
-                        onClick={() => changeSaveStatus()}
-                      />
-                    </div>
-                    <div className={`${styles.iconContainer} w-[80px]`}>
-                      <Image
-                        src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                        alt=""
-                        className=""
-                        onClick={() => changeLikeStatus()}
-                      />
-                      <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                        {likeCount}
+                    {nameLoading ? (
+                      <div className="w-full w-[50px] h-[35px] rounded-[6px] overflow-hidden">
+                        <div className="skeletonLoader" />
                       </div>
-                    </div>
-                    {merchToggle && (
-                      <div className={`${styles.iconContainer} w-[90px]`}>
-                        <MerchGrayIcon />
-                        <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
-                          Merch
+                    ) : (
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        <Image
+                          src={save ? TicketGreenIcon : TicketWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeSaveStatus()}
+                        />
+                      </div>
+                    )}
+                    {nameLoading ? (
+                      <div className="w-full w-[80px] h-[35px] rounded-[6px] overflow-hidden">
+                        <div className="skeletonLoader" />
+                      </div>
+                    ) : (
+                      <div className={`${styles.iconContainer} w-[80px]`}>
+                        <Image
+                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeLikeStatus()}
+                        />
+                        <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                          {likeCount}
                         </div>
                       </div>
                     )}
+                    {merchToggle &&
+                      (nameLoading ? (
+                        <div className="w-full w-[80px] h-[35px] rounded-[6px] overflow-hidden">
+                          <div className="skeletonLoader" />
+                        </div>
+                      ) : (
+                        <div className={`${styles.iconContainer} w-[90px]`}>
+                          <MerchGrayIcon />
+                          <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
+                            Merch
+                          </div>
+                        </div>
+                      ))}
                   </div>
-                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <MenuEditNft
-                      studio={true}
-                      metadata={
-                        nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
-                      }
-                      explorerURL={explorerURL}
-                      setShowNftMeta={setShowNftMeta}
-                      setRemoveMerchModal={setRemoveMerchModal}
-                      setCreateMerchModal={setCreateMerchModal}
-                      merchToggle={merchToggle}
-                      isCreatedNft={isCreatedNft}
-                      setOpenShareModal={setOpenShareModal}
-                    />
-                  </div>
+                  {nameLoading ? (
+                    <div className="w-full min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                      <MenuEditNft
+                        studio={true}
+                        metadata={
+                          nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
+                        }
+                        explorerURL={explorerURL}
+                        setShowNftMeta={setShowNftMeta}
+                        setRemoveMerchModal={setRemoveMerchModal}
+                        setCreateMerchModal={setCreateMerchModal}
+                        merchToggle={merchToggle}
+                        isCreatedNft={isCreatedNft}
+                        setOpenShareModal={setOpenShareModal}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -1407,7 +1430,7 @@ const MainSection = ({
                       <div className="w-full flex justify-between items-start gap-[30px]">
                         {nameLoading ? (
                           <div className="w-full">
-                            <div className="w-[250px] h-[36px] rounded-[18px] overflow-hidden">
+                            <div className="mt-[30px] lg:mt-[0px] w-[250px] h-[36px] rounded-[18px] overflow-hidden">
                               <div className="skeletonLoader" />
                             </div>
                             <div className="w-full flex gap-[15px] mt-[30px]">
@@ -1443,7 +1466,7 @@ const MainSection = ({
                           />
                         )}
                         {nameLoading ? (
-                          <div className="w-full min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                          <div className="w-full lg:block hidden min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
                             <div className="skeletonLoader" />
                           </div>
                         ) : (
@@ -2010,7 +2033,7 @@ const MainSection = ({
                   </div>
                 </div>
                 {nameLoading ? (
-                  <div className="w-full mt-[20px]" ref={detailViewRef}>
+                  <div className="w-full mt-[30px] lg:mt-[20px]" ref={detailViewRef}>
                     <div className="w-full h-[32px] rounded-[16px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>

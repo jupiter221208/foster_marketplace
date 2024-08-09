@@ -131,7 +131,7 @@ const NFTCreatorDataSection = props => {
     <div>
       {nameLoading ? (
         <div
-          className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[15px] lg:mt-[0px] rounded-full`}
+          className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[30px] lg:mt-[0px] rounded-full`}
         ></div>
       ) : (
         <>
