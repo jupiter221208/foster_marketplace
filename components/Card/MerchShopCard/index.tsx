@@ -27,6 +27,7 @@ import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
 import { getPriceValue } from 'utils/strings'
 import StoreMerchActivateModal from 'components/Menu/StoreMerchActivateModal'
+import MerchTypeIconMenu from 'components/Menu/MerchTypeIconMenu'
 
 const MerchShopCard = props => {
   const { username, data } = props
@@ -295,12 +296,13 @@ const MerchShopCard = props => {
                       : `${data.current_supply} sold`}
                   </div>
                   <div className="flex gap-[10px]">
-                    <div className="relative">
+                    <MerchTypeIconMenu type={data.fulfillment_type} />
+                    {/* <div className="relative">
                       <div className={styles.typeIconArea}>
                         <FosterIcon />
                       </div>
                       <div className={styles.tooltip}>Included with purchase of an edition</div>
-                    </div>
+                    </div> */}
                   </div>
                   {/* {showTimer && (
                     <div className="flex gap-[4px]">
