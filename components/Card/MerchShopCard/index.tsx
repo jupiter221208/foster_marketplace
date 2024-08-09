@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -157,7 +156,7 @@ const MerchShopCard = props => {
             : data.options.product_images.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div className={styles.imageContent}>
+                    <div className={styles.imageContentPhysical}>
                       <ImageWithFoster src={item} width={500} className="w-full h-full object-cover" />
                     </div>
                   </div>
