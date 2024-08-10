@@ -31,7 +31,9 @@ const MerchTypeIconMenu = ({ type, timeLeft = null }: MenuSocialShareProps) => {
               setShowTooltip(true)
             }
           }}
-          onMouseLeave={() => setShowTooltip(false)}
+          onMouseLeave={() => {
+            if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') setShowTooltip(false)
+          }}
           onClick={() => {
             if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
               setShowTooltip(true)
