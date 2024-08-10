@@ -154,23 +154,8 @@ const MerchActivity = () => {
         res => {
           let list = []
           res.map(item => {
-            if (
-              (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
-              (item.supply === null || item.supply - item.current_supply > 0)
-            ) {
-              if (item.master_edition_address === null) {
-                list.push(item)
-              } else {
-                if (item.master_edition_address?.length === 0) list.push(item)
-
-                if (
-                  item.master_edition_address?.length > 0 &&
-                  (item.listed_master_edition.endTime === null ||
-                    getTimeDifference(item.listed_master_edition.endTime) > 0)
-                ) {
-                  list.push(item)
-                }
-              }
+            if (item.supply === null || item.supply - item.current_supply > 0) {
+              list.push(item)
             }
           })
           setMerchStoreList(list)
