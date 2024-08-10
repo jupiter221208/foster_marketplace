@@ -12,6 +12,7 @@ import TimerIcon from 'assets/icons/clock-sand-8x15.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import { useViewport } from 'utils'
 
 interface MenuSocialShareProps {
   type: any
@@ -19,11 +20,27 @@ interface MenuSocialShareProps {
 }
 
 const MerchTypeIconMenu = ({ type, timeLeft = null }: MenuSocialShareProps) => {
+  const viewport = useViewport()
   const [showTooltip, setShowTooltip] = useState(false)
   return (
     <div className="relative flex items-center">
       <div>
-        <div onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
+        <div
+          onMouseEnter={() => {
+            if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') {
+              setShowTooltip(true)
+            }
+          }}
+          onMouseLeave={() => setShowTooltip(false)}
+          onClick={() => {
+            if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+              setShowTooltip(true)
+              setTimeout(() => {
+                setShowTooltip(false)
+              }, 2000)
+            }
+          }}
+        >
           <div className={styles.iconContainer}>
             {type === 'foster' ? (
               <FosterIcon />
