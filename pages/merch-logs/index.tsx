@@ -161,6 +161,8 @@ const MerchActivity = () => {
               if (item.master_edition_address === null) {
                 list.push(item)
               } else {
+                if (item.master_edition_address?.length === 0) list.push(item)
+
                 if (
                   item.master_edition_address?.length > 0 &&
                   (item.listed_master_edition.endTime === null ||
