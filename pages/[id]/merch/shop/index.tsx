@@ -67,49 +67,6 @@ const CreatorMerchShop = props => {
       },
       error => {}
     )
-
-    // StoreAPI.getStoreItemByEdition(userId).then(
-    //   res => {
-    //     let result = res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0)
-    //     if (isCreator) {
-    //       setEditionList(
-    //         result.filter(
-    //           item =>
-    //             item.master_edition_address?.length === 0 ||
-    //             (item.master_edition_address?.length > 0 &&
-    //               (item.listed_master_edition.endTime === null ||
-    //                 getTimeDifference(item.listed_master_edition.endTime) > 0) &&
-    //               (item.supply === null || item.supply - item.current_supply > 0))
-    //         )
-    //       )
-    //     } else {
-    //       setEditionList(
-    //         result.filter(
-    //           item =>
-    //             item.master_edition_address?.length > 0 &&
-    //             (item.listed_master_edition.endTime === null ||
-    //               getTimeDifference(item.listed_master_edition.endTime) > 0) &&
-    //             (item.supply === null || item.supply - item.current_supply > 0)
-    //         )
-    //       )
-    //     }
-    //   },
-    //   error => {}
-    // )
-
-    // StoreAPI.getStoreItemByUser(userId).then(
-    //   res => {
-    //     setPhysicalList(
-    //       res.filter(
-    //         item =>
-    //           item.master_edition_address === null &&
-    //           (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
-    //           (item.supply === null || item.supply - item.current_supply > 0)
-    //       )
-    //     )
-    //   },
-    //   error => {}
-    // )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, isCreator])
 
@@ -122,31 +79,6 @@ const CreatorMerchShop = props => {
           </div>
         ))}
       </div>
-
-      {/* {editionList.length > 0 && (
-        <div className={`${styles.title} mt-[30px] lg:mt-[50px] w-full text-center lg:text-start`}>Merch editions</div>
-      )}
-      <div className="grid grid-cols-10 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[15px] xl:mt-[30px]">
-        {editionList.map((item, index) => (
-          <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchShopCard username={username} data={item} />
-          </div>
-        ))}
-      </div>
-
-      {physicalList.length > 0 && (
-        <div className={`${styles.title} mt-[30px] lg:mt-[50px] w-full text-center lg:text-start`}>
-          Physicals by {username}
-        </div>
-      )}
-
-      <div className="grid grid-cols-10 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[15px] xl:mt-[30px]">
-        {physicalList.map((item, index) => (
-          <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchPhysicalCard username={username} data={item} />
-          </div>
-        ))}
-      </div> */}
 
       {/* <div className="sm:hidden block mt-[15px]">
         <Swiper
