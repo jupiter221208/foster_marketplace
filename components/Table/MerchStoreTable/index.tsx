@@ -86,10 +86,12 @@ const MerchStoreTable = props => {
                         <Link href={`/${username}/merch/${item.id}`} passHref>
                           <a>{item.name}</a>
                         </Link>
-                      ) : (
+                      ) : item.master_edition_address.length > 0 ? (
                         <Link href={`/nft/${item.master_edition_address}`} passHref>
                           <a>{item.name}</a>
                         </Link>
+                      ) : (
+                        <>{item.name}</>
                       )}
                     </div>
                   </div>

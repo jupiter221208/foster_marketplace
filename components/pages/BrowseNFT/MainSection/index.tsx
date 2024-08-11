@@ -1609,6 +1609,7 @@ const MainSection = ({
                                       <OutlineButton
                                         fullWidth
                                         height={45}
+                                        fontSize={16}
                                         borderRadius={23}
                                         label="Cancel Listing"
                                         onClick={() => cancelListEdition()}

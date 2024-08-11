@@ -735,7 +735,7 @@ const MerchOrderMain = props => {
           <div className={`mt-[15px] ${styles.divider}`} />
 
           {/* Download Mockups */}
-          {publicKey?.toBase58() === userDetail?.wallet_id && (
+          {publicKey?.toBase58() === userDetail?.wallet_id && productDetail.fulfillment_type === 'foster' && (
             <div className="w-full flex justify-end mt-[35px]">
               <div className={styles.mockups} onClick={() => downloadFiles()}>
                 <DownloadIcon />
