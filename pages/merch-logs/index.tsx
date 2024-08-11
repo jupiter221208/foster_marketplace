@@ -148,18 +148,17 @@ const MerchActivity = () => {
   useEffect(() => {
     if (profileInfo && loadMerchStore === false) {
       setLoadMerchStore(true)
-      StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
+
+      StoreAPI.getStoreByUserId(profileInfo?.id).then(
         res => {
-          setFosterMerchList(res)
-          setIsMerchStoreFetching(false)
-        },
-        error => {
-          setIsMerchStoreFetching(false)
-        }
-      )
-      StoreAPI.getStoreItemByUser(profileInfo?.id).then(
-        res => {
-          setUserMerchList(res.filter(item => item.master_edition_address === null))
+          let list = []
+          res.map(item => {
+            if ((item.supply === null || item.supply - item.current_supply > 0) && item.deleted_at === null) {
+              list.push(item)
+            }
+          })
+          setMerchStoreList(list)
+
           setIsMerchStoreFetching(false)
         },
         error => {
@@ -389,18 +388,17 @@ const MerchActivity = () => {
     setFosterMerchList([])
     setUserMerchList([])
     setIsMerchStoreFetching(true)
-    StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
+
+    StoreAPI.getStoreByUserId(profileInfo?.id).then(
       res => {
-        setFosterMerchList(res)
-        setIsMerchStoreFetching(false)
-      },
-      error => {
-        setIsMerchStoreFetching(false)
-      }
-    )
-    StoreAPI.getStoreItemByUser(profileInfo?.id).then(
-      res => {
-        setUserMerchList(res.filter(item => item.master_edition_address === null))
+        let list = []
+        res.map(item => {
+          if ((item.supply === null || item.supply - item.current_supply > 0) && item.deleted_at === null) {
+            list.push(item)
+          }
+        })
+        setMerchStoreList(list)
+
         setIsMerchStoreFetching(false)
       },
       error => {

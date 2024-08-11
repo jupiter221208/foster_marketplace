@@ -61,6 +61,8 @@ const NotificationMenu = () => {
           if (response !== null) {
             if (response.notifications.length > 0) {
               getNotifications([...response.notifications])
+            } else {
+              setLoading(false)
             }
           }
         },

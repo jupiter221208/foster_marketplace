@@ -60,7 +60,13 @@ const StoreMerchModal = props => {
                   </div>
                   <div className="flex flex-col justify-between">
                     <div className={styles.storeName}>{item.name}</div>
-                    <div className={styles.storeDesc}>{convertMerchDescription(item.description.split(' | ')[0])}</div>
+                    <div className={styles.storeDesc}>
+                      {item.master_edition_address?.length > 0
+                        ? 'Included with purchase of an edition'
+                        : item.fulfillment_type === 'foster'
+                        ? 'Foster-Fulfilled Product'
+                        : 'User Physical'}
+                    </div>
                   </div>
                 </div>
                 <div className="w-full px-[31px] mt-[15px] mb-[40px]">

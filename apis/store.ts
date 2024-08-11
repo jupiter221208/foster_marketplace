@@ -12,7 +12,7 @@ class Store {
   }
 
   getStoreByUserId(user_id) {
-    return client.get(API_URL + 'v1/stores/' + user_id + '/items').then(response => {
+    return client.get(API_URL + 'v1/stores/' + user_id + '/items?include_inactive=true').then(response => {
       if (typeof response.data === 'string') throw new Error(response.data)
 
       return response.data
