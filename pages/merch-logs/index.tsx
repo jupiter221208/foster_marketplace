@@ -393,7 +393,7 @@ const MerchActivity = () => {
       res => {
         let list = []
         res.map(item => {
-          if (item.supply === null || item.supply - item.current_supply > 0) {
+          if ((item.supply === null || item.supply - item.current_supply > 0) && item.deleted_at === null) {
             list.push(item)
           }
         })

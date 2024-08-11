@@ -33,6 +33,7 @@ const CreatorMerchShop = props => {
         let list = []
         res.map(item => {
           if (
+            item.deleted_at === null &&
             (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
             (item.supply === null || item.supply - item.current_supply > 0)
           ) {
