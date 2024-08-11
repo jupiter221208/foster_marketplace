@@ -15,9 +15,8 @@ import { getTimeDifference } from 'utils/helpers'
 const CreatorMerchShop = props => {
   const { username, userId, isCreator } = props
   const [merchList, setMerchList] = useState([])
-  const [editionList, setEditionList] = useState([])
-  const [physicalList, setPhysicalList] = useState([])
   const [screenWidth, setScreenWidth] = useState(375)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -62,21 +61,32 @@ const CreatorMerchShop = props => {
           }
         })
         setMerchList(list)
+        setLoaded(true)
       },
-      error => {}
+      error => {
+        setLoaded(true)
+      }
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, isCreator])
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
-        {merchList.map((item, index) => (
-          <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchShopCard username={username} data={item} />
-          </div>
-        ))}
-      </div>
+      {merchList.length > 0 ? (
+        <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+          {merchList.map((item, index) => (
+            <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+              <MerchShopCard username={username} data={item} />
+            </div>
+          ))}
+        </div>
+      ) : loaded ? (
+        <div className="w-full flex justify-center pt-[100px]">
+          <div className={styles.noItem}>No merch items currently available.</div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }
