@@ -12,14 +12,18 @@ import styles from './index.module.scss'
 const CreatorMerchReviews = props => {
   const { userId } = props
   const [merchList, setMerchList] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
   async function getReviewFromAPI() {
     getReview(userId).then(
       response => {
         let dateSorted = response.sort(compareDate)
         setMerchList(dateSorted)
+        setLoaded(true)
       },
-      error => {}
+      error => {
+        setLoaded(true)
+      }
     )
   }
 
@@ -36,10 +40,12 @@ const CreatorMerchReviews = props => {
               <MerchReviewCard data={item} />
             </div>
           ))
-        ) : (
+        ) : loaded ? (
           <div className="w-full flex justify-center pt-[100px]">
             <div className={styles.noReview}>No reviews yet.</div>
           </div>
+        ) : (
+          <></>
         )}
       </div>
     </div>
