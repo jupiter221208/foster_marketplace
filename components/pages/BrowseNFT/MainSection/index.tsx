@@ -1589,7 +1589,7 @@ const MainSection = ({
                           <div>
                             {isEditionListing ? (
                               isOwnNft === true ? (
-                                <div className="w-full lg:mt-[30px]">
+                                <div className="w-full mt-[30px]">
                                   <GradientButton
                                     fullWidth
                                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
@@ -1715,7 +1715,7 @@ const MainSection = ({
                               getTimeDifferenceWithAuction(endTime) < 0 &&
                               (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                               connected ? (
-                              <div className="w-full mb-1 mt-[0px] lg:mt-[30px] lg:mt-4 lg:mb-5">
+                              <div className="w-full mb-1 mt-[30px] lg:mt-[30px] lg:mb-5">
                                 {nftCurrentPrice > 0 ? (
                                   <OutlineButton
                                     label="Finalize Sale"
@@ -1759,7 +1759,7 @@ const MainSection = ({
                                         setIsStarted={setIsStarted}
                                       />
                                       {isOwnNft === true ? (
-                                        <div className="lg:mt-[10px]">
+                                        <div className="mt-[0px]">
                                           <OutlineButton
                                             label="Cancel Auction"
                                             fullWidth
@@ -1778,7 +1778,7 @@ const MainSection = ({
                                       {showPlaceBidButton &&
                                         !isOwnNft &&
                                         (loading ? (
-                                          <div className="w-full mt-[0px] lg:mt-[10px]">
+                                          <div className="w-full mt-[10px] lg:mt-[10px]">
                                             <div className="w-full flex justify-center">
                                               <div
                                                 className={`${styles.skeletonLoader} w-[100%] h-[80px] lg:h-[80px] rounded-[12px]`}
@@ -1794,7 +1794,7 @@ const MainSection = ({
                                                 </div>
                                               </>
                                             ) : (
-                                              <div className="relative mt-[0px] mt-[0px] lg:mt-[10px]">
+                                              <div className="relative mt-[0px] mt-[10px] lg:mt-[10px]">
                                                 <div className="w-full flex gap-[15px] lg:flex-row flex-col">
                                                   <div className="w-full flex justify-center">
                                                     <PriceInput
