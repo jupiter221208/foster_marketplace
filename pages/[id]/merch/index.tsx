@@ -28,6 +28,7 @@ import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchRevi
 import MerchFilterMenu from 'components/Menu/MerchFilterMenu'
 
 import { getAbsoluteOgUrl, getTwitterUsername } from 'utils/seo'
+import { getDisplayUserName } from 'utils/strings'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -93,7 +94,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 </div>
               </div>
               <div className={styles.merchBy}>Merch by</div>
-              <div className={styles.userName}>{artistInfo?.username}</div>
+              <div className={styles.userName}>{getDisplayUserName(artistInfo?.username)}</div>
             </div>
           </div>
         </div>
