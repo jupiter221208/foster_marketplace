@@ -3,10 +3,7 @@ import MerchShopCard from 'components/Card/MerchShopCard'
 
 // styles
 import styles from './index.module.scss'
-import MerchPhysicalCard from 'components/Card/MerchPysicalCard'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Pagination, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -79,25 +76,6 @@ const CreatorMerchShop = props => {
           </div>
         ))}
       </div>
-
-      {/* <div className="sm:hidden block mt-[15px]">
-        <Swiper
-          slidesPerView={screenWidth / 327} //1.14
-          spaceBetween={10}
-          pagination={{
-            clickable: true,
-          }}
-          className={styles.swiperContainer}
-          modules={[Autoplay, Lazy, Navigation, Pagination]}
-          // loop
-        >
-          {physicalList.map((item, index) => (
-            <SwiperSlide key={index}>
-              <MerchPhysicalCard username={username} data={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div> */}
     </div>
   )
 }
