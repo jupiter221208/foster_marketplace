@@ -496,7 +496,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
             <div className="w-full mt-[30px] lg:mt-[30px]">
               <div className={styles.auctionStart}>End Phase Bid Increasement</div>
               <div className={styles.description}>
-                The end phase bid increment is the amount by which bids increase during the auction's end phase.
+                {"The end phase bid increment is the amount by which bids increase during the auction's end phase."}
               </div>
             </div>
             <div className="mt-[15px] w-full">
