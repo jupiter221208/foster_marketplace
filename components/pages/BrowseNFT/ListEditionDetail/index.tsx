@@ -19,6 +19,8 @@ import PriceInput from 'components/Input/PriceInput'
 // resource
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import CalendarIcon from 'assets/icons/calendar-icon.svg?component'
+
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 import ArrowTopWhiteIcon from 'assets/icons/arrow-up-white.svg?component'
@@ -236,7 +238,7 @@ const ListEditionDetail = ({
         type="time"
         value={value}
         onChange={e => onChange(e.target.value)}
-        style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)' }}
+        // style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)' }}
         className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
       />
     )
@@ -273,19 +275,71 @@ const ListEditionDetail = ({
           </div>
         </div>
 
-        <div className="w-full mt-[20px]">
-          <div className={styles.auctionStart}>
-            Mint Price <span className={styles.auctionAsterisk}>*</span>
+        <div className="w-full">
+          <div className="w-full mt-[20px] lg:mt-[30px]">
+            <div className={styles.auctionStart}>Start Time</div>
           </div>
+          <div
+            className={`w-full flex lg:flex-row flex-col mt-[15px] ${
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[22px]'
+            }`}
+          >
+            <div
+              className={`${styles.radioText} ${
+                startType === 'soon' ? styles.selectedTimeBtn : styles.deselectedTimeBtn
+              }`}
+              onClick={() => {
+                setStartDate(new Date())
+                setStartType('soon')
+              }}
+            >
+              Immediately
+            </div>
+            <div onClick={() => setStartType('later')}>
+              <div className={`w-full startAuctionDatePicker`}>
+                <div
+                  className={`flex justify-between items-center px-[20px] overflow-hidden ${
+                    startType === 'soon' ? styles.deselectedTimeBtn : styles.selectedTimeBtn
+                  }`}
+                >
+                  <div className={`${startType === 'soon' ? styles.deselectedTimeIcon : styles.selectedTimeIcon}`}>
+                    <CalendarIcon alt="" />
+                  </div>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={date => setStartDate(date)}
+                    dateFormat={
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'MM/dd/yyyy' : 'MM/dd/yyyy h:mm aa'
+                    }
+                    formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                    minDate={moment().toDate()}
+                    showTimeInput
+                    timeInputLabel=""
+                    className={`${styles.datePicker}`}
+                    // disabled={startType === 'soon'}
+                    customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                  />
+                  <div className={`${startType === 'soon' ? styles.deselectedTimeIcon : styles.selectedTimeIcon}`}>
+                    <ArrowDownIcon alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full mt-[30px]">
+          <div className={styles.auctionStart}>Edition Price</div>
         </div>
         <div className="mt-[15px] w-full">
           <PriceInput
             value={mintPrice}
             placeholder="Set the price of your editions"
             fullWidth
+            backgroundColor="var(--bg-151515-EEEDEB)"
             type="number"
             min={0}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '45px'}
             onChange={value => {
               if (value < 0) {
                 setMintPrice('')
@@ -296,8 +350,9 @@ const ListEditionDetail = ({
           />
         </div>
 
-        <div className="w-full mt-[20px]">
+        <div className="w-full mt-[30px]">
           <div className="flex gap-[13px]">
+            <div className={styles.merchEdition}>Merch Edition</div>
             <HSwitch
               checked={enableMerch}
               onChange={() => {
@@ -320,8 +375,8 @@ const ListEditionDetail = ({
                 } inline-block h-[18px] w-[18px] transform rounded-full bg-white`}
               />
             </HSwitch>
-            <div className={styles.merchText}>Include merch for each print</div>
           </div>
+          <div className={styles.merchText}>Include merch with each edition purchased</div>
         </div>
 
         {enableMerch && merchCard && (
@@ -331,7 +386,7 @@ const ListEditionDetail = ({
                 <ImageWithFoster width={65} src={merchCard.options.addons[0].mockup_url} />
               </div>
               <div className={styles.contentArea}>
-                <div className={styles.merchTitle}>Merch included for each sale</div>
+                <div className={styles.merchTitle}>Merch ite included</div>
                 <div className={styles.merchContent}>{merchCard.name}</div>
               </div>
             </div>
@@ -357,82 +412,6 @@ const ListEditionDetail = ({
             </div>
           </div>
         )}
-        <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[20px]">
-            <div className={styles.auctionStart}>
-              Start Time <span className={styles.auctionAsterisk}>*</span>
-            </div>
-          </div>
-          <div
-            className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[30px]' : 'gap-[70px]'
-            }`}
-          >
-            <div
-              className={`flex items-center ${
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-              }`}
-            >
-              <input
-                className={styles.radio}
-                type="radio"
-                id="reserve"
-                checked={startType === 'soon'}
-                onChange={() => {
-                  setStartDate(new Date())
-                  setStartType('soon')
-                }}
-              />
-              <div
-                className={styles.radioText}
-                onClick={() => {
-                  setStartDate(new Date())
-                  setStartType('soon')
-                }}
-              >
-                Immediately
-              </div>
-            </div>
-            <div
-              className={`flex items-center ${
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-              }`}
-            >
-              <input
-                className={styles.radio}
-                type="radio"
-                id="reserve"
-                checked={startType === 'later'}
-                onChange={() => setStartType('later')}
-              />
-              <div>
-                <div className="w-full startAuctionDatePicker">
-                  <div className="relative">
-                    <DatePicker
-                      selected={startDate}
-                      onChange={date => setStartDate(date)}
-                      dateFormat={
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                          ? 'MM/dd/yyyy'
-                          : 'MM/dd/yyyy h:mm aa'
-                      }
-                      formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                      minDate={moment().toDate()}
-                      showTimeInput
-                      timeInputLabel=""
-                      className={styles.datePicker}
-                      disabled={startType === 'soon'}
-                      customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                    />
-                    <div className="absolute top-[20px] right-4">
-                      <ArrowDownIcon alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
