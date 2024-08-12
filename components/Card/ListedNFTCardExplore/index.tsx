@@ -200,7 +200,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             </div>
           ) : (
             <div className="h-full flex items-center">
-              <div className={styles.unlisted}>Unlisted</div>
+              <div className={styles.unlisted}>Not listed</div>
             </div>
           )}
         </div>

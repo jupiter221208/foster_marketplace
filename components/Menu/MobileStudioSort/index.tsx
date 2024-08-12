@@ -17,6 +17,8 @@ const MobileStudioSort = props => {
     })
     array[index].checked = true
     setSelectedSort(array)
+    onSort(array)
+    onClose()
   }
 
   return (
@@ -25,7 +27,6 @@ const MobileStudioSort = props => {
         as="div"
         className={styles.container}
         onClose={() => {
-          onSort(selectedSort)
           onClose()
         }}
       >
@@ -80,10 +81,6 @@ const MobileStudioSort = props => {
                 <div className="w-full flex justify-center gap-[50px]">
                   <div className={styles.cancel} onClick={onClose}>
                     Cancel
-                  </div>
-
-                  <div className={styles.cancel} onClick={() => onSort(selectedSort)}>
-                    OK
                   </div>
                 </div>
               </Dialog.Panel>
