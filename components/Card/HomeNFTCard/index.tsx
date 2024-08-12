@@ -62,7 +62,7 @@ const HomeNftCard = props => {
               <Link href={`${window.origin}/${artistName}`} passHref>
                 <a>
                   <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                    <ImageWithFoster src={artistImage} width={100} className="w-[44px] h-[44px] rounded-full" />
+                    <ImageWithFoster src={artistImage} width={360} className="w-[44px] h-[44px] rounded-full" />
                   </div>
                 </a>
               </Link>
