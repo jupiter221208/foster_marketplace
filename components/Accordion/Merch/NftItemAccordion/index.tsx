@@ -19,21 +19,22 @@ const NftItemAccordion = props => {
     <div className="w-full flex flex-wrap mt-[20px]">
       {data.map((item, index) => (
         <div key={index} className="w-full flex flex-wrap mt-[-4px]">
-          <div className={styles.button}>
+          <div
+            className={styles.button}
+            onClick={() => {
+              setItem(item)
+              setOpenModal(true)
+            }}
+          >
             <div className="flex items-center gap-x-4">
-              <div className="w-[25px] h-[25px] rounded-[4px] overflow-hidden">
+              <div className="w-[47px] h-[47px] rounded-[4px] overflow-hidden mt-[-4px]">
                 <MerchNftItem width={54} height={54} url={item.asset_url} />
               </div>
               <div className="ml-[11px]">
                 <div className={styles.title}>{item.nft_name}</div>
               </div>
             </div>
-            <div
-              onClick={() => {
-                setItem(item)
-                setOpenModal(true)
-              }}
-            >
+            <div>
               <ThreeDotIcon />
             </div>
           </div>

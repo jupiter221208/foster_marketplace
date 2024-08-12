@@ -52,7 +52,13 @@ const StoreAccordion = props => {
     <div className="w-full flex flex-wrap mt-[30px]">
       {data.map((item, index) => (
         <div key={index} className="w-full flex flex-wrap mt-[-2px]">
-          <div className={styles.button}>
+          <div
+            className={styles.button}
+            onClick={() => {
+              setItem(item)
+              setOpenModal(true)
+            }}
+          >
             <div className="w-full flex items-center gap-[15px]">
               <div className="w-[47px] h-[47px]">
                 <ImageWithFoster src={getPreviewUrl(item)} width={47} className="w-full h-full object-contain" />
@@ -81,12 +87,7 @@ const StoreAccordion = props => {
                 </div>
               </div>
             </div>
-            <div
-              onClick={() => {
-                setItem(item)
-                setOpenModal(true)
-              }}
-            >
+            <div>
               <ThreeDotIcon />
             </div>
           </div>
