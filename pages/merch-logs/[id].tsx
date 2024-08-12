@@ -63,6 +63,7 @@ const MerchDetail = () => {
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     if (isLoggedIn()) {
+      console.log(id, '=========id========')
       if (parseInt(id) > 1000) {
         setOrderVersion('v2')
         StoreAPI.getOrder(id).then(
@@ -108,10 +109,10 @@ const MerchDetail = () => {
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
       if (options) {
-        let item = orderData.items[0]
+        let item = orderData.items && orderData.items[0]
         let itemDetails = {
-          userId: item.userId,
-          merchId: item.id,
+          userId: item?.userId,
+          merchId: item?.id,
           print: nftName ? nftName['value'] : '',
           quantity: itemData.quantity,
           product: itemData.name,
@@ -440,34 +441,36 @@ const MerchDetail = () => {
                 </a>
               </div>
 
-              <div className="mt-[12px]">
-                {orderTabType === 'sales' ? (
-                  <Button
-                    height="48px"
-                    fontSize="18px"
-                    fontFamily="Muli-SemiBold"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Write a product review"
-                    disabled={true}
-                    backgroundColor="transparent"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    borderWidth={1}
-                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                    width={335}
-                    onClick={() => {}}
-                  />
-                ) : (
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    onClick={() => {
-                      setShowReviewModal(true)
-                    }}
-                  />
-                )}
-              </div>
+              {orderVersion === 'v2' && (
+                <div className="mt-[12px]">
+                  {orderTabType === 'sales' ? (
+                    <Button
+                      height="48px"
+                      fontSize="18px"
+                      fontFamily="Muli-SemiBold"
+                      paddingLeft="37px"
+                      paddingRight="37px"
+                      label="Write a product review"
+                      disabled={true}
+                      backgroundColor="transparent"
+                      borderColor="var(--follow-btn-border-mobile)"
+                      borderWidth={1}
+                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                      width={335}
+                      onClick={() => {}}
+                    />
+                  ) : (
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Write a product review"
+                      onClick={() => {
+                        setShowReviewModal(true)
+                      }}
+                    />
+                  )}
+                </div>
+              )}
 
               {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
@@ -590,34 +593,37 @@ const MerchDetail = () => {
                   />
                 </a>
               </div>
-              <div className="mt-[12px]">
-                {orderTabType === 'sales' ? (
-                  <Button
-                    height="48px"
-                    fontSize="18px"
-                    fontFamily="Muli-SemiBold"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Write a product review"
-                    disabled={true}
-                    backgroundColor="transparent"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    borderWidth={1}
-                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                    width={335}
-                    onClick={() => {}}
-                  />
-                ) : (
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    onClick={() => {
-                      setShowReviewModal(true)
-                    }}
-                  />
-                )}
-              </div>
+              {orderVersion === 'v2' && (
+                <div className="mt-[12px]">
+                  {orderTabType === 'sales' ? (
+                    <Button
+                      height="48px"
+                      fontSize="18px"
+                      fontFamily="Muli-SemiBold"
+                      paddingLeft="37px"
+                      paddingRight="37px"
+                      label="Write a product review"
+                      disabled={true}
+                      backgroundColor="transparent"
+                      borderColor="var(--follow-btn-border-mobile)"
+                      borderWidth={1}
+                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                      width={335}
+                      onClick={() => {}}
+                    />
+                  ) : (
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Write a product review"
+                      onClick={() => {
+                        setShowReviewModal(true)
+                      }}
+                    />
+                  )}
+                </div>
+              )}
+
               {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
                   <GradientButton
@@ -749,35 +755,38 @@ const MerchDetail = () => {
                     />
                   </a>
                 </div>
-                <div className="mt-[12px]">
-                  {orderTabType === 'sales' ? (
-                    <Button
-                      height="48px"
-                      fontSize="18px"
-                      fontFamily="Muli-SemiBold"
-                      paddingLeft="37px"
-                      paddingRight="37px"
-                      label="Write a product review"
-                      disabled={true}
-                      backgroundColor="transparent"
-                      borderColor="var(--follow-btn-border-mobile)"
-                      borderWidth={1}
-                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                      width={335}
-                      onClick={() => {}}
-                    />
-                  ) : (
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Write a product review"
-                      disabled={orderTabType === 'sales'}
-                      onClick={() => {
-                        setShowReviewModal(true)
-                      }}
-                    />
-                  )}
-                </div>
+
+                {orderVersion === 'v2' && (
+                  <div className="mt-[12px]">
+                    {orderTabType === 'sales' ? (
+                      <Button
+                        height="48px"
+                        fontSize="18px"
+                        fontFamily="Muli-SemiBold"
+                        paddingLeft="37px"
+                        paddingRight="37px"
+                        label="Write a product review"
+                        disabled={true}
+                        backgroundColor="transparent"
+                        borderColor="var(--follow-btn-border-mobile)"
+                        borderWidth={1}
+                        color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                        width={335}
+                        onClick={() => {}}
+                      />
+                    ) : (
+                      <OutlineButton
+                        borderColor="var(--follow-btn-border-mobile)"
+                        width={335}
+                        label="Write a product review"
+                        disabled={orderTabType === 'sales'}
+                        onClick={() => {
+                          setShowReviewModal(true)
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
 
                 {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                   <div className="mt-[12px]">
@@ -952,7 +961,7 @@ const MerchDetail = () => {
             ) : SSOrder?.orderStatus === 'shipped' ? (
               <div className={styles.infoValue}>{fulfillment ? fulfillment.trackingNumber : ''}</div>
             ) : (
-              <div className={`${styles.infoValue} text-right`}>
+              <div className={`${styles.infoValue} text-left`}>
                 {orderDetails?.orderNumber === '' && !isOwn
                   ? 'Hidden for Buyer Safety'
                   : trackingDetails === null && connected
@@ -1099,41 +1108,43 @@ const MerchDetail = () => {
               />
             </div>
 
-            <div className="mt-[12px]">
-              {orderTabType === 'sales' ? (
-                <Button
-                  height="48px"
-                  fontSize="16px"
-                  fontFamily="Muli-SemiBold"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  label="Write a product review"
-                  disabled={true}
-                  backgroundColor="transparent"
-                  borderColor="var(--follow-btn-border-mobile)"
-                  borderWidth={1}
-                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                  width={335}
-                  onClick={() => {}}
-                />
-              ) : (
-                <Button
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  label="Write a product review"
-                  backgroundColor="transparent"
-                  borderColor="var(--follow-btn-border-mobile)"
-                  borderWidth={1}
-                  color={'var(--text-gray-200-color)'}
-                  width={335}
-                  onClick={() => {
-                    setShowReviewModal(true)
-                  }}
-                />
-              )}
-            </div>
+            {orderVersion === 'v2' && (
+              <div className="mt-[12px]">
+                {orderTabType === 'sales' ? (
+                  <Button
+                    height="48px"
+                    fontSize="16px"
+                    fontFamily="Muli-SemiBold"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Write a product review"
+                    disabled={true}
+                    backgroundColor="transparent"
+                    borderColor="var(--follow-btn-border-mobile)"
+                    borderWidth={1}
+                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                    width={335}
+                    onClick={() => {}}
+                  />
+                ) : (
+                  <Button
+                    height="48px"
+                    fontSize="16px"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Write a product review"
+                    backgroundColor="transparent"
+                    borderColor="var(--follow-btn-border-mobile)"
+                    borderWidth={1}
+                    color={'var(--text-gray-200-color)'}
+                    width={335}
+                    onClick={() => {
+                      setShowReviewModal(true)
+                    }}
+                  />
+                )}
+              </div>
+            )}
 
             {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
               <div className="mt-[12px]">

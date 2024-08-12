@@ -265,7 +265,7 @@ const ListEditionDetail = ({
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
-      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : 'px-[16px] lg:px-[0px]'}`}>
         <div className="w-full flex justify-between">
           <div className={styles.title} onClick={() => closeModal()}>
             <BackIcon />
@@ -332,7 +332,7 @@ const ListEditionDetail = ({
               </div>
               <div className={styles.contentArea}>
                 <div className={styles.merchTitle}>Merch included for each sale</div>
-                <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
+                <div className={styles.merchContent}>{merchCard.name}</div>
               </div>
             </div>
             <div className="sm:block hidden">
