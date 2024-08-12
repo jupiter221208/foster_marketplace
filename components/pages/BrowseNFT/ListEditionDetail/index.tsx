@@ -276,7 +276,9 @@ const ListEditionDetail = ({
           <div className="w-full mt-[20px] lg:mt-[30px]">
             <div className={styles.auctionStart}>Start Time</div>
           </div>
-          <div className={`w-full sm:flex-row flex-col mt-[15px] ${viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'}`}>
+          <div
+            className={`w-full flex sm:flex-row flex-col mt-[15px] ${viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'}`}
+          >
             <div
               className={`${styles.radioText} ${
                 startType === 'soon' ? styles.selectedTimeBtn : styles.deselectedTimeBtn
