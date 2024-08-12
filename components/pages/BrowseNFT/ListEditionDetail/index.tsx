@@ -276,9 +276,7 @@ const ListEditionDetail = ({
           <div className="w-full mt-[20px] lg:mt-[30px]">
             <div className={styles.auctionStart}>Start Time</div>
           </div>
-          <div
-            className={`w-full flex sm:flex-row flex-col mt-[15px] ${viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'}`}
-          >
+          <div className={`w-full sm:flex-row flex-col mt-[15px] ${viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'}`}>
             <div
               className={`${styles.radioText} ${
                 startType === 'soon' ? styles.selectedTimeBtn : styles.deselectedTimeBtn
@@ -291,7 +289,7 @@ const ListEditionDetail = ({
               Immediately
             </div>
             <div className="w-full" onClick={() => setStartType('later')}>
-              <div className={`w-full listEditionDatePicker`}>
+              <div className={`w-full startAuctionDatePicker`}>
                 <div
                   className={`flex justify-between items-center px-[20px] overflow-hidden ${
                     startType === 'soon' ? styles.deselectedTimeBtn : styles.selectedTimeBtn
@@ -311,7 +309,9 @@ const ListEditionDetail = ({
                     showTimeInput
                     timeInputLabel=""
                     disabled={dateDisabled}
-                    className={`${styles.datePicker}`}
+                    className={`${styles.datePicker} ${
+                      startType === 'soon' ? styles.deselectedPickerText : styles.selectedPickerText
+                    }`}
                     customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
                   />
                   <div className={`${startType === 'soon' ? styles.deselectedTimeIcon : styles.selectedTimeIcon}`}>
