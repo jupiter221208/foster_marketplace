@@ -644,8 +644,9 @@ const MainSection = prop => {
                     </div>
                   </div>
                 ) : (
-                  walletList.map(item => (
+                  walletList.map((item, index) => (
                     <div
+                      key={index}
                       className={styles.shareIcon}
                       onClick={() => {
                         if (item.type === 'twitter') {
@@ -1061,8 +1062,9 @@ const MainSection = prop => {
                 </div>
               </div>
             ) : (
-              walletList.map(item => (
+              walletList.map((item, index) => (
                 <div
+                  key={index}
                   className={styles.shareIcon}
                   onClick={() => {
                     if (item.type === 'twitter') {
