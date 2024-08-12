@@ -29,11 +29,15 @@ import { useViewport, namePublicFile } from 'utils'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-
+import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
+import TwitterWhiteIcon from 'assets/icons/twitter-white-new.svg?component'
+import WebsiteIcon from 'assets/icons/website-white.svg?component'
+import IGWhiteIcon from 'assets/icons/instagram-green-new.svg?component'
+import LandIcon from 'assets/icons/land-icon-new.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon-white.svg?component'
 
 import { copyToClipboard, isLoggedIn } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
@@ -53,6 +57,7 @@ import nftsAPI from 'apis/nfts'
 import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MainSection = prop => {
   const {
@@ -153,7 +158,7 @@ const MainSection = prop => {
       setArtistFollowing(artistInfo.following)
       setArtistFollowers(artistInfo.followers)
 
-      let list = [{ id: 0, label: getShortAddress(artistInfo?.wallet_id), type: 'address' }]
+      let list = []
       if (artistInfo?.twitter_url?.length > 0) list.push({ id: list.length, label: 'Twitter', type: 'twitter' })
       if (artistInfo?.ig_url?.length > 0) list.push({ id: list.length, label: 'Instagram', type: 'instagram' })
       if (artistInfo?.site_url?.length > 0) list.push({ id: list.length, label: 'Website', type: 'website' })
@@ -468,7 +473,7 @@ const MainSection = prop => {
 
       <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-45px] lg:mt-[-70px] z-10">
-          <div className="col-span-9">
+          <div className="col-span-6">
             <div className="w-content relative">
               <ProfileArtistCard
                 isOwn={isOwn}
@@ -486,19 +491,64 @@ const MainSection = prop => {
             </div>
           </div>
 
-          <div className="col-span-3 h-full flex justify-end items-center pt-[30px] lg:pt-[10px]">
+          <div className="col-span-6 h-full flex justify-end items-center pt-[30px] lg:pt-[10px] gap-[15px]">
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
+            ) : (
+              <div
+                className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+                onClick={() => {
+                  copyToClipboard(artistInfo?.wallet_id || '')
+                }}
+              >
+                <FileCopyIcon alt="" />
+                <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
+              </div>
+            )}
+
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
+            ) : (
+              <div
+                className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+                onClick={() => {
+                  router.push(`/${artistInfo?.username}/merch`)
+                }}
+              >
+                <CreatorMerchIcon alt="" />
+                <div className={styles.refereshText}>Merch Store</div>
+              </div>
+            )}
+
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[114px] h-[45px] rounded-[23px]`}></div>
+            ) : (
+              <div className={`${styles.iconContainer} w-[114px] px-[15px] gap-[8px]`} onClick={() => refreshNFT()}>
+                <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
+                  {refreshing ? (
+                    <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                  ) : (
+                    <div>
+                      <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                    </div>
+                  )}
+                </div>
+                <div className={styles.refereshText}>Refresh</div>
+              </div>
+            )}
+
             {!isOwn && (
-              <div className="w-[120px] h-[45px] lg:ml-[10px] overflow-hidden">
+              <div className="w-[120px] h-[45px] overflow-hidden">
                 {!followLoaded && (
-                  <div className="w-[120px] h-[45px] overflow-hidden rounded-[12px]">
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
+                  <div className="w-[120px] h-[45px] overflow-hidden rounded-[23px] overflow-hidden">
+                    <div className="skeletonLoader" />
                   </div>
                 )}
                 {follow ? (
                   hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[120px] h-[45px] rounded-md`}></div>
+                    <div className={`w-[110px] h-[45px] rounded-[23px] overflow-hidden`}>
+                      <div className="skeletonLoader" />
+                    </div>
                   ) : (
                     <OutlineButton
                       width={120}
@@ -510,14 +560,15 @@ const MainSection = prop => {
                     />
                   )
                 ) : hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[120px] h-[45px] rounded-md`}></div>
+                  <div className={`w-[110px] h-[45px] rounded-[23px]`}>
+                    <div className="skeletonLoader" />
+                  </div>
                 ) : (
                   <GradientButton
-                    width={120}
+                    width={110}
                     height={45}
                     color="var(--background-main-color)"
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
+                    backgroundColor="var(--main-bg-color)"
                     fontSize={18}
                     label="Follow"
                     borderRadius={22}
@@ -572,83 +623,71 @@ const MainSection = prop => {
                 )}
               </div>
             </div>
-            <div className="w-full h-[24px] mt-[19px]">
-              <div className="flex gap-[11px] z-10 items-center">
+            <div className="w-full h-[32px] mt-[19px]">
+              <div className="flex gap-[15px] z-10 items-center">
                 {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
+                  <div className="flex gap-[15px] z-10 items-center">
+                    <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
                 ) : (
-                  <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
-                    <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
-                      {refreshing ? (
-                        <Lottie
-                          width={26}
-                          height={26}
-                          animationData={RefreshMobileLottery}
-                          loop={true}
-                          className="mb-1"
-                        />
+                  walletList.map(item => (
+                    <div
+                      className={styles.shareIcon}
+                      onClick={() => {
+                        if (item.type === 'twitter') {
+                          window.open(artistInfo?.twitter_url)
+                        } else if (item.type === 'instagram') {
+                          window.open(artistInfo?.ig_url)
+                        } else if (item.type === 'website') {
+                          window.open(artistInfo?.site_url)
+                        } else if (item.type === 'land') {
+                          window.open(artistInfo?.three_land_url)
+                        } else if (item.type === 'solar') {
+                          window.open(artistInfo?.solarplex_url)
+                        }
+                      }}
+                    >
+                      {item.type === 'twitter' ? (
+                        <TwitterWhiteIcon />
+                      ) : item.type === 'instagram' ? (
+                        <IGWhiteIcon />
+                      ) : item.type === 'website' ? (
+                        <WebsiteIcon />
+                      ) : item.type === 'land' ? (
+                        <LandIcon />
+                      ) : item.type === 'solar' ? (
+                        <SolrPlexIcon />
                       ) : (
-                        <div>
-                          <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                        </div>
+                        <></>
                       )}
                     </div>
-                    <div className={styles.refereshText}>Refresh</div>
-                  </div>
+                  ))
                 )}
 
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <WalletFilterMenu
-                    label={'Links'}
-                    data={walletList}
-                    selectedItem={selectedWallet}
-                    setSelectedItem={item => {
-                      if (item.type === 'address') {
-                        copyToClipboard(artistInfo?.wallet_id || '')
-                      } else if (item.type === 'twitter') {
-                        window.open(artistInfo?.twitter_url)
-                      } else if (item.type === 'instagram') {
-                        window.open(artistInfo?.ig_url)
-                      } else if (item.type === 'website') {
-                        window.open(artistInfo?.site_url)
-                      } else if (item.type === 'land') {
-                        window.open(artistInfo?.three_land_url)
-                      } else if (item.type === 'solar') {
-                        window.open(artistInfo?.solarplex_url)
-                      }
-                    }}
-                  />
-                )}
-
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
+                {!hasLoading && (
                   <div
-                    className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-                    onClick={() => {
-                      router.push(`/${artistInfo?.username}/merch`)
-                    }}
-                  >
-                    <CreatorMerchIcon alt="" />
-                    <div className={styles.refereshText}>Merch</div>
-                  </div>
-                )}
-
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div
-                    className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                    className={`${styles.shareIcon} w-[32px] gap-[9px]`}
                     onClick={() => {
                       setOpenShareModal(true)
                     }}
                   >
                     <div>
-                      <ShareDesktopIcon alt="" />
+                      <ShareSmallIcon alt="" />
                     </div>
-                    <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
                   </div>
                 )}
               </div>
@@ -917,17 +956,17 @@ const MainSection = prop => {
             }
           />
 
-          <div className="absolute flex right-0 top-[60px]">
+          <div className="absolute flex gap-[15p]x right-0 top-[60px]">
             {!isOwn && (
-              <div className="w-[100px] h-[40px] ml-[11px] flex overflow-hidden">
+              <div className="w-[100px] h-[45px] ml-[11px] flex overflow-hidden">
                 {followLoaded ? (
                   follow ? (
                     hasLoading ? (
-                      <div className={`${styles.skeletonLoader} w-[100px] h-[40px] rounded-md`}></div>
+                      <div className={`${styles.skeletonLoader} w-[110px] h-[40px] rounded-md`}></div>
                     ) : (
-                      <OutlineButton
-                        width={100}
-                        height={40}
+                      <GradientButton
+                        width={110}
+                        height={45}
                         fontSize={16}
                         borderRadius={20}
                         label="Following"
@@ -935,17 +974,16 @@ const MainSection = prop => {
                       />
                     )
                   ) : hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[100px] h-[40px] rounded-md`}></div>
+                    <div className={`${styles.skeletonLoader} w-[110px] h-[40px] rounded-md`}></div>
                   ) : (
                     <GradientButton
-                      width={100}
-                      height={40}
-                      backgroundColor01="var(--main-icon-color)"
-                      backgroundColor02="var(--main-icon-color)"
+                      width={110}
+                      height={45}
                       color="var(--background-main-color)"
+                      backgroundColor="var(--main-bg-color)"
                       fontSize={16}
                       label="Follow"
-                      borderRadius={20}
+                      borderRadius={23}
                       onClick={() => followArtist(artistInfo?.wallet_id)}
                     />
                   )
@@ -1002,72 +1040,74 @@ const MainSection = prop => {
             </div>
           )}
         </div>
-        <div className="w-full flex gap-[11px] mt-[15px]">
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
-              <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
-                {refreshing ? (
-                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
-                ) : (
-                  <div>
-                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                  </div>
-                )}
+        <div className="w-full h-[32px] mt-[19px]">
+          <div className="flex gap-[15px] z-10 items-center">
+            {hasLoading ? (
+              <div className="flex gap-[15px] z-10 items-center">
+                <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                  <div className="skeletonLoader" />
+                </div>
+                <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                  <div className="skeletonLoader" />
+                </div>
+                <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                  <div className="skeletonLoader" />
+                </div>
+                <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                  <div className="skeletonLoader" />
+                </div>
+                <div className="w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                  <div className="skeletonLoader" />
+                </div>
               </div>
-              <div className={styles.refereshText}>Refresh</div>
-            </div>
-          )}
+            ) : (
+              walletList.map(item => (
+                <div
+                  className={styles.shareIcon}
+                  onClick={() => {
+                    if (item.type === 'twitter') {
+                      window.open(artistInfo?.twitter_url)
+                    } else if (item.type === 'instagram') {
+                      window.open(artistInfo?.ig_url)
+                    } else if (item.type === 'website') {
+                      window.open(artistInfo?.site_url)
+                    } else if (item.type === 'land') {
+                      window.open(artistInfo?.three_land_url)
+                    } else if (item.type === 'solar') {
+                      window.open(artistInfo?.solarplex_url)
+                    }
+                  }}
+                >
+                  {item.type === 'twitter' ? (
+                    <TwitterWhiteIcon />
+                  ) : item.type === 'instagram' ? (
+                    <IGWhiteIcon />
+                  ) : item.type === 'website' ? (
+                    <WebsiteIcon />
+                  ) : item.type === 'land' ? (
+                    <LandIcon />
+                  ) : item.type === 'solar' ? (
+                    <SolrPlexIcon />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ))
+            )}
 
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-          ) : (
-            <WalletFilterMenu
-              label={'Links'}
-              data={walletList}
-              selectedItem={selectedWallet}
-              setSelectedItem={item => {
-                if (item.type === 'address') {
-                  copyToClipboard(artistInfo?.wallet_id || '')
-                } else if (item.type === 'twitter') {
-                  window.open(artistInfo?.twitter_url)
-                } else if (item.type === 'instagram') {
-                  window.open(artistInfo?.ig_url)
-                } else if (item.type === 'website') {
-                  window.open(artistInfo?.site_url)
-                } else if (item.type === 'land') {
-                  window.open(artistInfo?.three_land_url)
-                } else if (item.type === 'solar') {
-                  window.open(artistInfo?.solarplex_url)
-                }
-              }}
-            />
-          )}
-
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div
-              className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-              onClick={() => {
-                router.push(`/${artistInfo?.username}/merch`)
-              }}
-            >
-              <CreatorMerchIcon alt="" />
-              <div className={styles.refereshText}>Merch</div>
-            </div>
-          )}
-
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setOpenShareModal(true)}>
-              <div>
-                <ShareSmallIcon alt="" />
+            {!hasLoading && (
+              <div
+                className={`${styles.shareIcon} w-[32px] gap-[9px]`}
+                onClick={() => {
+                  setOpenShareModal(true)
+                }}
+              >
+                <div>
+                  <ShareSmallIcon alt="" />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {artistInfo?.bio && (
@@ -1080,6 +1120,52 @@ const MainSection = prop => {
             )}
           </div>
         )}
+
+        <div className="w-full flex items-center pt-[15px] gap-[15px]">
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
+          ) : (
+            <div
+              className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+              onClick={() => {
+                copyToClipboard(artistInfo?.wallet_id || '')
+              }}
+            >
+              <FileCopyIcon alt="" />
+              <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
+            </div>
+          )}
+
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
+          ) : (
+            <div
+              className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+              onClick={() => {
+                router.push(`/${artistInfo?.username}/merch`)
+              }}
+            >
+              <CreatorMerchIcon alt="" />
+              <div className={styles.refereshText}>Merch Store</div>
+            </div>
+          )}
+
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[45px] h-[45px] rounded-[23px]`}></div>
+          ) : (
+            <div className={`${styles.iconContainer} w-[45px]`} onClick={() => refreshNFT()}>
+              <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
+                {refreshing ? (
+                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                ) : (
+                  <div>
+                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="w-full mt-[15px] flex gap-[5px]">
           <div className={styles.statsConatiner}>
