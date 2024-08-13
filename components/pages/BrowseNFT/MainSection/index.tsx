@@ -1759,7 +1759,7 @@ const MainSection = ({
                                         setIsStarted={setIsStarted}
                                       />
                                       {isOwnNft === true ? (
-                                        <div className="mt-[0px]">
+                                        <div className="mt-[15px]">
                                           <OutlineButton
                                             label="Cancel Auction"
                                             fullWidth

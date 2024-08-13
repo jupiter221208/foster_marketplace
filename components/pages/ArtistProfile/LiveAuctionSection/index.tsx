@@ -23,6 +23,7 @@ import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { NftData } from 'types/nft'
+import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home' } = props
@@ -125,10 +126,18 @@ const LiveAuctionSection = props => {
             </div>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {liveAuctionList.map((item: any, index) => (
               <div key={index}>
-                <NFTAuctionCard
+                <LiveAuctionCard
+                  data={item}
+                  onClick={() => {
+                    router.push('/nft/' + item.token_id)
+                  }}
+                  setCardExpired={item => {}}
+                  key={index}
+                />
+                {/* <NFTAuctionCard
                   token_id={item.token_id}
                   image={item.asset_url}
                   nftName={item.nft_name}
@@ -140,7 +149,7 @@ const LiveAuctionSection = props => {
                   endTime={item.end_time}
                   onClick={() => {}}
                   key={index}
-                />
+                /> */}
               </div>
             ))}
           </div>
