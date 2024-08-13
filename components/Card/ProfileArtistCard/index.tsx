@@ -33,7 +33,7 @@ const ProfileArtistCard = props => {
             onClick={setFullScreenView}
           />
           {isOwn && (
-            <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
+            <div className="absolute bottom-0 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
               <div className={styles.iconProfileBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButtonWithSVG

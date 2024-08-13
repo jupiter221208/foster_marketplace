@@ -6,9 +6,6 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import Image from 'next/image'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
@@ -30,7 +27,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
-import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 import TwitterWhiteIcon from 'assets/icons/twitter-white-new.svg?component'
@@ -39,7 +36,9 @@ import IGWhiteIcon from 'assets/icons/instagram-green-new.svg?component'
 import LandIcon from 'assets/icons/land-icon-new.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon-white.svg?component'
 
-import { copyToClipboard, isLoggedIn } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
@@ -54,10 +53,7 @@ import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import nftsAPI from 'apis/nfts'
-import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
-import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
-import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MainSection = prop => {
   const {
@@ -360,7 +356,6 @@ const MainSection = prop => {
       ) : (
         <div className={styles.bannerImage}>
           <img
-            // showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover"
           />
@@ -496,13 +491,15 @@ const MainSection = prop => {
               <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
             ) : (
               <div
-                className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+                className={`${styles.iconContainer} relative w-[142px] px-[8px] gap-[8px]`}
                 onClick={() => {
                   copyToClipboard(artistInfo?.wallet_id || '')
+                  copyClipboardAlert('user-wallet')
                 }}
               >
                 <FileCopyIcon alt="" />
                 <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
+                <CopyClipboardChip identifier="user-wallet" height={45} fontSize={13} />
               </div>
             )}
 
@@ -524,9 +521,9 @@ const MainSection = prop => {
               <div className={`${styles.skeletonLoader} w-[114px] h-[45px] rounded-[23px]`}></div>
             ) : (
               <div className={`${styles.iconContainer} w-[114px] px-[15px] gap-[8px]`} onClick={() => refreshNFT()}>
-                <div className="min-w-[26px] h-[19px] flex items-center">
+                <div className="min-w-[20px] w-[20px] h-[26px] flex items-center">
                   {refreshing ? (
-                    <Lottie width={18} height={18} animationData={RefreshMobileLottery} loop={true} className="mt-1" />
+                    <Lottie width={20} height={20} animationData={RefreshMobileLottery} loop={true} className="mt-1" />
                   ) : (
                     <div>
                       <RefreshMobileIcon />
@@ -989,10 +986,8 @@ const MainSection = prop => {
                     />
                   )
                 ) : (
-                  <div className="w-[80px] h-[29px] rounded-[8px] overflow-hidden">
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
+                  <div className="w-[110px] h-[40px] rounded-[20px] overflow-hidden">
+                    <div className="skeletonLoader" />
                   </div>
                 )}
               </div>
@@ -1123,18 +1118,20 @@ const MainSection = prop => {
           </div>
         )}
 
-        <div className="w-full flex items-center pt-[15px] gap-[15px]">
+        <div className="w-full flex items-center pt-[15px] gap-[11px] lg:gap-[15px]">
           {hasLoading ? (
             <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
           ) : (
             <div
-              className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+              className={`${styles.iconContainer} relative w-[142px] px-[8px] gap-[8px]`}
               onClick={() => {
                 copyToClipboard(artistInfo?.wallet_id || '')
+                copyClipboardAlert('mobile-wallet')
               }}
             >
               <FileCopyIcon alt="" />
               <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
+              <CopyClipboardChip identifier="mobile-wallet" height={45} fontSize={13} />
             </div>
           )}
 
@@ -1156,9 +1153,9 @@ const MainSection = prop => {
             <div className={`${styles.skeletonLoader} w-[45px] h-[45px] rounded-[23px]`}></div>
           ) : (
             <div className={`${styles.iconContainer} w-[45px]`} onClick={() => refreshNFT()}>
-              <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
+              <div className="w-[45px] h-[20px] flex justify-center items-center">
                 {refreshing ? (
-                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                  <Lottie width={18} height={18} animationData={RefreshMobileLottery} loop={true} className="" />
                 ) : (
                   <div>
                     <RefreshMobileIcon />
