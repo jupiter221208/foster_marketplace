@@ -22,7 +22,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
 import { NftData } from 'types/nft'
-import NFTEditionsCard from 'components/Card/NFTEditionsCard'
+import HomeEditionCard from 'components/Card/HomeEditionCard'
 
 const LiveEditionsSection = props => {
   const { category, artist = '', fromPage = 'home' } = props
@@ -124,24 +124,9 @@ const LiveEditionsSection = props => {
             </div>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[30px]">
             {liveAuctionList.map((item: any, index) => (
-              <NFTEditionsCard
-                tokenId={item.tokenId}
-                image={item.assetUrl}
-                nftName={item.nftName}
-                artistName={item.artistUsername}
-                assetType={item.assetType}
-                coverImage={item.coverImageUrl}
-                currentSupply={item.currentSupply}
-                maxSupply={item.maxSupply}
-                price={item.price}
-                endTime={item.endTime}
-                onClick={() => {
-                  router.push('/nft/' + item.tokenId)
-                }}
-                key={index}
-              />
+              <HomeEditionCard data={item} onClick={() => {}} key={index} />
             ))}
           </div>
         )}

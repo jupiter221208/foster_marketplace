@@ -156,16 +156,6 @@ const TabSection = props => {
         <div className="w-full">
           <div className="w-full flex overflow-x-scroll no-scrollbar mt-[34px] gap-2 lg:gap-4">
             <TimeSlotButton
-              label="Quick&nbsp;Buy"
-              height={42}
-              fontFamily={'Muli-Regular'}
-              selected={artworkType === 'listed'}
-              onClick={() => {
-                setArtworkType('listed')
-              }}
-            />
-
-            <TimeSlotButton
               label="Live&nbsp;Auction"
               height={42}
               fontFamily={'Muli-Regular'}
@@ -187,12 +177,12 @@ const TabSection = props => {
             />
 
             <TimeSlotButton
-              label="Studio"
+              label="Quick&nbsp;Buy"
               height={42}
               fontFamily={'Muli-Regular'}
-              selected={artworkType === 'studio'}
+              selected={artworkType === 'listed'}
               onClick={() => {
-                setArtworkType('studio')
+                setArtworkType('listed')
               }}
             />
 
@@ -213,6 +203,16 @@ const TabSection = props => {
               selected={artworkType === 'collected'}
               onClick={() => {
                 setArtworkType('collected')
+              }}
+            />
+
+            <TimeSlotButton
+              label="Studio"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              selected={artworkType === 'studio'}
+              onClick={() => {
+                setArtworkType('studio')
               }}
             />
           </div>

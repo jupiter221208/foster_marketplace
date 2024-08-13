@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 import LoadingComponent from 'pages/explore/LoadingComponent'
 // Import Swiper styles
@@ -16,14 +15,13 @@ import styles from './index.module.scss'
 
 // api
 import dashboardAPI from 'apis/dashboard'
-import NFTCard from 'components/Card/NFTCard'
 import { DashboardAPIData } from 'types/nft'
+import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const ActiveListingSection = props => {
   const { artist = '', fromPage = '' } = props
 
   const router = useRouter()
-  const dispatch = useDispatch()
 
   const [exploreList, setExploreList] = useState<DashboardAPIData[]>([])
   const [page, setPage] = useState(1)
@@ -116,21 +114,23 @@ const ActiveListingSection = props => {
           ></div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[30px]">
             {exploreList.map((item, index) => (
               <div key={index}>
-                <NFTCard
-                  token_id={item.token_id}
+                <HomeNftCard
                   image={item.asset_url}
+                  token_id={item.token_id}
                   nftName={item.nft_name}
                   assetType={item.asset_type}
                   coverImage={item.cover_image_url}
                   artistName={item.artist_username}
+                  artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
                   onClick={() => {
                     router.push(`/nft/${item.token_id}`)
                   }}
+                  key={index}
                 />
               </div>
             ))}

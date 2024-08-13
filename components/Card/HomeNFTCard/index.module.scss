@@ -4,6 +4,7 @@
   width: 100%;
   height: 100%;
   font-weight: 100;
+  position: relative;
 }
 
 .container {
@@ -36,25 +37,18 @@
 
 .hideBtnArea {
   position: absolute;
-  left: 8px;
-  top: 8px;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  @media (min-width: 1024px) {
-    left: 20px;
-    top: 20px;
-    width: 52px;
-    height: 52px;
-    border-radius: 26px;
-  }
-
+  left: 20px;
+  top: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(239, 240, 247, 0.15);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  border: 1px solid #707070;
+  background: rgba(var(--background-main-color), 0.5);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .hideConfirm {
@@ -63,7 +57,7 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  border: 3px solid rgba($text-gray-200-color, 0.1);
+  border: 1px solid rgba($text-gray-200-color, 0.1);
   border-radius: 10px;
   @media (min-width: 1024px) {
     border-radius: 10px;
@@ -90,12 +84,11 @@
   width: 67px;
   height: 26px;
   border-radius: 6px;
-  font-size: 10px;
+  font-size: 16px;
   @media (min-width: 1024px) {
     border-radius: 8px;
     width: 106px;
     height: 40px;
-    font-size: 14px;
   }
   display: flex;
   justify-content: center;
@@ -117,6 +110,7 @@
     width: 106px;
     height: 40px;
   }
+  box-shadow: 0px 3px 6px #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,10 +120,7 @@
 
 .hideButtonText {
   font-family: 'Muli-SemiBold';
-  font-size: 10px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
+  font-size: 16px;
   color: $background-dark-color;
 }
 
@@ -164,6 +155,21 @@
     padding: 16px 21px;
   }
   background: var(--background-main-color);
+}
+
+.hideBtnArea {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(239, 240, 247, 0.15);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .bottomSection {
@@ -272,7 +278,6 @@
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 23px;
-  margin-left: 5px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
