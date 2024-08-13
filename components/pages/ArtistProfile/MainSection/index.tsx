@@ -20,7 +20,7 @@ import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
-import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
+import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg?component'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
@@ -524,12 +524,12 @@ const MainSection = prop => {
               <div className={`${styles.skeletonLoader} w-[114px] h-[45px] rounded-[23px]`}></div>
             ) : (
               <div className={`${styles.iconContainer} w-[114px] px-[15px] gap-[8px]`} onClick={() => refreshNFT()}>
-                <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
+                <div className="min-w-[26px] h-[19px] flex items-center">
                   {refreshing ? (
-                    <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                    <Lottie width={18} height={18} animationData={RefreshMobileLottery} loop={true} className="mt-1" />
                   ) : (
                     <div>
-                      <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                      <RefreshMobileIcon />
                     </div>
                   )}
                 </div>
@@ -581,7 +581,7 @@ const MainSection = prop => {
         </div>
         <div className="w-full flex justify-center">
           <div className="w-full flex flex-wrap z-10">
-            <div className="w-full h-[24px] mt-[19px] flex items-center">
+            <div className="w-full h-[20px] mt-[18px] flex items-center">
               <div className="flex gap-[15px] z-10 items-center">
                 {hasLoading ? (
                   <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-full`}></div>
@@ -623,7 +623,7 @@ const MainSection = prop => {
                 )}
               </div>
             </div>
-            <div className="w-full h-[32px] mt-[19px]">
+            <div className="w-full h-[32px] mt-[15px]">
               <div className="flex gap-[15px] z-10 items-center">
                 {hasLoading ? (
                   <div className="flex gap-[15px] z-10 items-center">
@@ -695,7 +695,7 @@ const MainSection = prop => {
             </div>
 
             {artistInfo?.bio && (
-              <div className={`w-full mt-[30px] ${styles.bioText}`}>
+              <div className={`w-full mt-[15px] ${styles.bioText}`}>
                 {processedNftDescription}
                 {shouldShowReadMore && (
                   <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
@@ -705,7 +705,7 @@ const MainSection = prop => {
               </div>
             )}
 
-            <div className="w-full mt-[30px] mb-[30px] flex gap-[15px] items-center">
+            <div className="w-full mt-[15px] mb-[40px] flex gap-[15px] items-center">
               {!isColletorLoaded ? (
                 <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
               ) : (
@@ -1161,7 +1161,7 @@ const MainSection = prop => {
                   <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
                 ) : (
                   <div>
-                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                    <RefreshMobileIcon />
                   </div>
                 )}
               </div>

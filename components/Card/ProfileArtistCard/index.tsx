@@ -9,7 +9,7 @@ import Image from 'next/image'
 // styles
 import styles from './index.module.scss'
 
-import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 import { getDisplayUserName } from 'utils/strings'
@@ -23,9 +23,6 @@ const ProfileArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        {/* {hasLoading ? (
-          <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
-        ) : ( */}
         <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
           <Image
             src={image}

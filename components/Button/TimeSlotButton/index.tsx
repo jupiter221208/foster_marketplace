@@ -27,8 +27,8 @@ const TimeSlotButton = props => {
       className={`${styles.container} ${className}`}
       style={{
         width: fullWidth ? '100%' : width,
-        color: `${selected ? 'var(--background-main-color)' : '#979EA2'}`,
-        background: `${selected ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}`,
+        color: `${selected ? 'var(--background-main-color)' : 'var(--main-bg-color)'}`,
+        background: `${selected ? 'var(--main-icon-color)' : 'var(--background-main-color)'}`,
         height: height,
         fontFamily: fontFamily,
         fontSize: fontSize,

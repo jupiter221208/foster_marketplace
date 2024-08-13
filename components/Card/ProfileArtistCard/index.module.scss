@@ -31,13 +31,12 @@
   width: 100%;
   text-align: start;
   font-family: 'Muli-ExtraBold';
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 26px;
+  line-height: 29px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
     font-size: 32px;
-    line-height: 44px;
-    margin-top: 16px;
+    line-height: 40px;
+    margin-top: 12px;
   }
   letter-spacing: 0px;
   color: var(--text-gray-200-color);
@@ -58,9 +57,8 @@
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background: rgba(var(--background-main-color-rgb), 0.75);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   @media (min-width: 1024px) {
     width: 46px;
     height: 46px;

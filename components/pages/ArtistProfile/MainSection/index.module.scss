@@ -40,7 +40,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: var(--background-main-color);
+  background: transparent;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
 
@@ -76,10 +76,10 @@
 }
 
 .refereshText {
-  font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .statsConatiner {

@@ -1660,6 +1660,10 @@ h6 {
   stroke: var(--main-icon-color);
 }
 
+[data-name='main-color-stroke'] {
+  stroke: var(--main-bg-color);
+}
+
 [data-name='main-color-icon'] {
   fill: var(--main-bg-color);
 }
