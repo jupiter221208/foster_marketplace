@@ -177,7 +177,7 @@ const NFTCreatorDataSection = props => {
                 </a>
               </Link>
             )}
-            {!isExpired(timeLeft) && timeLeft && (liveAuction || isEditionListing) && (
+            {timeLeft && !isExpired(timeLeft) && (liveAuction || isEditionListing) && (
               <div>
                 <div className={styles.creator}>{auctionStarted === true ? 'Time Remaining' : 'Starts In'}</div>
                 <div>
