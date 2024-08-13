@@ -101,9 +101,7 @@ const ActiveListingSection = props => {
   return (
     exploreList.length !== 0 && (
       <section
-        className={`${styles.container} ${
-          fromPage === 'profile' ? 'mt-[10px] lg:mt-[20px]' : 'mt-[60px] lg:mt-[86px]'
-        }`}
+        className={`${styles.container} ${fromPage === 'profile' ? 'mt-[0px] lg:mt-[20px]' : 'mt-[60px] lg:mt-[86px]'}`}
       >
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
