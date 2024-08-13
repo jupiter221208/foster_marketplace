@@ -34,7 +34,7 @@ import TwitterWhiteIcon from 'assets/icons/twitter-white-new.svg?component'
 import WebsiteIcon from 'assets/icons/website-white.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-green-new.svg?component'
 import LandIcon from 'assets/icons/land-icon-new.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon-white.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
 import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
@@ -557,7 +557,7 @@ const MainSection = prop => {
                     />
                   )
                 ) : hasLoading ? (
-                  <div className={`w-[110px] h-[45px] rounded-[23px]`}>
+                  <div className={`w-[110px] h-[45px] rounded-[23px] overflow-hidden`}>
                     <div className="skeletonLoader" />
                   </div>
                 ) : (

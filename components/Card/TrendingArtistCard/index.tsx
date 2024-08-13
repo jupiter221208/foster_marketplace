@@ -8,7 +8,6 @@ import TwitterWhiteIcon from 'assets/icons/twitter-white-15x15.svg?component'
 import WebsiteIcon from 'assets/icons/website-icon-15x15.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-white-15x15.svg?component'
 import LandIcon from 'assets/icons/land-icon-15x15.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -30,47 +29,6 @@ const TrendingArtistCard = props => {
   return (
     <Link href={`${window.origin}/${artist.username}`} passHref>
       <a className="w-full h-full">
-        {/* {viewport === 'xs' ? (
-          <div className={styles.mobileContainer}>
-            <div className="absolute inset-0 w-full h-full">
-              <ImageWithFoster
-                src={artist.banner_picture}
-                width={800}
-                onClick={() => {}}
-                className="w-full h-full object-cover"
-                showPlaceHolder={false}
-              />
-              <div className={styles.overlay} />
-            </div>
-            <div className="absolute inset-0 w-full h-full">
-              <div className="w-full h-full flex justify-center items-center">
-                <div>
-                  <div className="w-full flex justify-center">
-                    <div className="min-w-[130px] min-h-[130px] w-[130px] h-[130px] overflow-hidden ">
-                      <ImageWithFoster
-                        src={
-                          artist.profile_picture !== null &&
-                          artist.profile_picture !== undefined &&
-                          artist.profile_picture !== ''
-                            ? artist.profile_picture
-                            : Artist.src
-                        }
-                        width={130}
-                        height={130}
-                        onClick={() => {}}
-                        className="object-cover rounded-full"
-                        showPlaceHolder={false}
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-center mt-[30px]">
-                    <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : ( */}
         <div className={styles.layout}>
           <div
             className={`${styles.container}`}
