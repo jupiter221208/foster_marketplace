@@ -127,6 +127,11 @@ const NFTCreatorDataSection = props => {
     }
   }
 
+  const isExpired = time => {
+    if (time['days'] === '00' && time['hours'] && time['minutes'] && time['seconds']) return true
+    return false
+  }
+
   return (
     <div>
       {nameLoading ? (
@@ -162,7 +167,7 @@ const NFTCreatorDataSection = props => {
                     <div className={styles.creator}>Collection</div>
                     <div className={styles.userTile}>
                       <div className="flex gap-[6px] items-center">
-                        <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                        <div className="min-w-[30px] w-[30px] h-[30px] rounded-full overflow-hidden">
                           <ImageWithFoster src={nftCollectionImage} width={60} className="w-full h-full object-cover" />
                         </div>
                         <div className={styles.username}>{getDisplayUserName(nftCollectionName)}</div>
@@ -172,7 +177,7 @@ const NFTCreatorDataSection = props => {
                 </a>
               </Link>
             )}
-            {timeLeft && (liveAuction || isEditionListing) && (
+            {!isExpired(timeLeft) && timeLeft && (liveAuction || isEditionListing) && (
               <div>
                 <div className={styles.creator}>{auctionStarted === true ? 'Time Remaining' : 'Starts In'}</div>
                 <div>
