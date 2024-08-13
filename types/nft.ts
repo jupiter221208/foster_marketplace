@@ -182,13 +182,17 @@ export interface ExploreAPIData {
   url: string
   image: string
   asset_type: string
+  asset_url: string
+  artist_username: string
   cover_image_url: string
   current_bid: number
   reserve_price: number
   end_time: number
+  start_time: number
   price: number
   token_id: string
   name: string
+  nft_name: string
   max_supply: string
   creator: string
   artist_profile_picture: string

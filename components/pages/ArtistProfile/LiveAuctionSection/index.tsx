@@ -21,7 +21,6 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { NftData } from 'types/nft'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
@@ -131,25 +130,13 @@ const LiveAuctionSection = props => {
               <div key={index}>
                 <LiveAuctionCard
                   data={item}
+                  type={item.max_supply === null ? 'open' : 'limit'}
                   onClick={() => {
                     router.push('/nft/' + item.token_id)
                   }}
                   setCardExpired={item => {}}
                   key={index}
                 />
-                {/* <NFTAuctionCard
-                  token_id={item.token_id}
-                  image={item.asset_url}
-                  nftName={item.nft_name}
-                  artistName={item.artist_username}
-                  assetType={item.asset_type}
-                  coverImage={item.cover_image_url}
-                  currentBid={item.current_bid}
-                  reservePrice={item.reserve_price}
-                  endTime={item.end_time}
-                  onClick={() => {}}
-                  key={index}
-                /> */}
               </div>
             ))}
           </div>

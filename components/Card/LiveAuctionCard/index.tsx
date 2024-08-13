@@ -222,7 +222,9 @@ const LiveAuctionCard = props => {
                 <div className={styles.bidCount}>
                   {data.current_bid !== null && data.current_bid > 0
                     ? formattedAmount(data.current_bid)
-                    : formattedAmount(data.reserve_price)}
+                    : data.reserve_price !== null
+                    ? formattedAmount(data.reserve_price)
+                    : ''}
                 </div>
               </div>
             </div>

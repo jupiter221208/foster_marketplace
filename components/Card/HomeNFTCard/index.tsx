@@ -233,13 +233,15 @@ const HomeNftCard = props => {
                       ) : (
                         <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       )}
-                      <div className={styles.priceHome}>{formattedAmount(price)}</div>
+                      <div className=" mt-[3px]">
+                        <div className={styles.priceHome}>{formattedAmount(price)}</div>
+                      </div>
                     </div>
                   </div>
                 ) : (
                   <div>
                     <div className={styles.priceLabel}>Status</div>
-                    <div className="flex justify-center items-center mt-[4px]">
+                    <div className="flex justify-center items-center mt-[6px]">
                       <div className={styles.priceHome}>Not listed</div>
                     </div>
                   </div>
