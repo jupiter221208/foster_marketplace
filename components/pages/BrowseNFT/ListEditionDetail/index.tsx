@@ -303,9 +303,7 @@ const ListEditionDetail = ({
                   <DatePicker
                     selected={startDate}
                     onChange={date => setStartDate(date)}
-                    dateFormat={
-                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'MM/dd/yyyy' : 'MM/dd/yyyy h:mm aa'
-                    }
+                    dateFormat={'MM/dd/yyyy h:mm aa'}
                     formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
                     minDate={moment().toDate()}
                     showTimeInput
