@@ -111,7 +111,7 @@ const ActiveListingSection = props => {
             } w-full lg:w-auto flex items-center gap-4 lg:gap-8`}
           ></div>
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+        <div className="w-full mt-[24px] lg:mt-[34px] z-10">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[30px]">
             {exploreList.map((item, index) => (
               <div key={index}>

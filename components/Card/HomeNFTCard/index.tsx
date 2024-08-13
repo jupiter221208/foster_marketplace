@@ -211,12 +211,12 @@ const HomeNftCard = props => {
             )}
             {showHideButton === true && (
               <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-                <HideIcon />
+                <UnhideIcon />
               </div>
             )}
             {showUnhideButton === true && (
               <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-                <UnhideIcon />
+                <HideIcon />
               </div>
             )}
           </div>

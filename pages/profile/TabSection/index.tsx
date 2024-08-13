@@ -154,7 +154,7 @@ const TabSection = props => {
 
       {activeTab === 0 && (
         <div className="w-full">
-          <div className="w-full flex overflow-x-scroll no-scrollbar mt-[34px] gap-2 lg:gap-4">
+          <div className="w-full flex overflow-x-scroll no-scrollbar mt-[24px] lg:mt-[34px] gap-2 lg:gap-4">
             <TimeSlotButton
               label="Live&nbsp;Auction"
               height={42}

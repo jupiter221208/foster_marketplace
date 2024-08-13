@@ -25,15 +25,15 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-15x15.svg?component'
 import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
-import TwitterWhiteIcon from 'assets/icons/twitter-white-new.svg?component'
-import WebsiteIcon from 'assets/icons/website-white.svg?component'
-import IGWhiteIcon from 'assets/icons/instagram-green-new.svg?component'
-import LandIcon from 'assets/icons/land-icon-new.svg?component'
+import TwitterWhiteIcon from 'assets/icons/twitter-white-15x15.svg?component'
+import WebsiteIcon from 'assets/icons/website-icon-15x15.svg?component'
+import IGWhiteIcon from 'assets/icons/instagram-white-15x15.svg?component'
+import LandIcon from 'assets/icons/land-icon-15x15.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
 import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
@@ -499,7 +499,7 @@ const MainSection = prop => {
               >
                 <FileCopyIcon alt="" />
                 <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
-                <CopyClipboardChip identifier="user-wallet" height={45} fontSize={13} />
+                <CopyClipboardChip message="Wallet address copied" identifier="user-wallet" height={45} fontSize={13} />
               </div>
             )}
 
@@ -1131,7 +1131,7 @@ const MainSection = prop => {
             >
               <FileCopyIcon alt="" />
               <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
-              <CopyClipboardChip identifier="mobile-wallet" height={45} fontSize={13} />
+              <CopyClipboardChip message="Wallet address copied" identifier="mobile-wallet" height={45} fontSize={13} />
             </div>
           )}
 

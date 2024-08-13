@@ -277,7 +277,7 @@ export const copyToClipboard = value => {
 }
 
 export const copyClipboardAlert = identifier => {
-  document.getElementById(identifier).style.display = 'block'
+  document.getElementById(identifier).style.display = 'flex'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
