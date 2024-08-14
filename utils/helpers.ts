@@ -277,7 +277,7 @@ export const copyToClipboard = value => {
 }
 
 export const copyClipboardAlert = identifier => {
-  document.getElementById(identifier).style.display = 'block'
+  document.getElementById(identifier).style.display = 'flex'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
@@ -373,6 +373,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-black-color-rgb', '239, 240, 247')
     doc.style.setProperty('--preload-back-color', 'rgba(32, 36, 39, 0.7)')
     doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--solar-icon-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--background-light-color', '#202427')
     doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')
     doc.style.setProperty('--text-gray-200-color', '#202427')
@@ -716,6 +717,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-242424-FFF', '#FFF')
     doc.style.setProperty('--bg-1a1a1a-EEEDEB', '238, 237, 235')
     doc.style.setProperty('--bg-1E1E1E-EEEDEB', '#EEEDEB')
+    doc.style.setProperty('--bg-151515-EEEDEB', '#EEEDEB')
     doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#DDDCDC')
     doc.style.setProperty('--bg-TRANSPARENT-FFF', '#FFF')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
@@ -742,6 +744,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
     doc.style.setProperty('--preload-back-color', 'rgba(18, 18, 18, 0.3)')
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')
+    doc.style.setProperty('--solar-icon-color', '#eff0f6')
     doc.style.setProperty('--background-light-color', '#eff0f6')
     doc.style.setProperty('--background-light-color-rgb', '239, 240, 247')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
@@ -1089,6 +1092,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-242424-E8E7E6', '#242424')
     doc.style.setProperty('--bg-1a1a1a-EEEDEB', '26, 26, 26')
     doc.style.setProperty('--bg-1E1E1E-EEEDEB', '#1E1E1E')
+    doc.style.setProperty('--bg-151515-EEEDEB', '#151515')
     doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#2B2B2B')
     doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#1E1E1E')

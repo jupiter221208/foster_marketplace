@@ -60,7 +60,7 @@
   border-radius: 25px;
   font-size: 16px;
   color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,7 +102,7 @@
   border-radius: 25px;
   font-size: 16px;
   color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,7 +144,7 @@
   border-radius: 25px;
   font-size: 16px;
   color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,12 +195,9 @@
 
 .datePicker {
   width: 100%;
-  max-width: 125px;
-  height: 45px;
-  background: var(--second-home-bg);
+  height: 50px;
+  background: transparent;
   border-radius: 9px;
-  color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   font-family: 'Muli-Regular';
   font-size: 14px;
   display: flex;
@@ -211,7 +208,7 @@
   outline: none;
   cursor: pointer;
   @media (min-width: 1024px) {
-    max-width: 428px;
+    width: 200px;
   }
 }
 
@@ -244,13 +241,10 @@
 }
 
 .auctionStart {
-  font-family: 'Muli-Regular';
-  @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
-  }
+  font-family: 'Muli-SemiBold';
   font-weight: 100 !important;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 22px;
   color: var(--text-gray-200-color);
   text-align: left;
 }
@@ -305,11 +299,64 @@
 }
 
 .radioText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.7 );
   cursor: pointer;
+}
+
+.selectedTimeBtn {
+  width: 100%;
+  height: 50px;
+  @media (min-width: 1024px) {
+    width: 200px; 
+    min-width: 200px;
+  }
+  @media (min-width: 1440px) {
+    width: 220px; 
+    min-width: 260px;
+  }
+  border-radius: 10px;
+  background: var(--main-icon-color) !important;
+  color: var(--background-main-color);
+  svg {
+    fill: var(--background-main-color);
+  }
+}
+
+.deselectedTimeBtn {
+  width: 100%;
+  height: 50px;
+  @media (min-width: 1024px) {
+    width: 200px; 
+    min-width: 220px;
+  }
+  @media (min-width: 1440px) {
+    width: 260px; 
+    min-width: 260px;
+  }
+  border-radius: 10px;
+  background: transparent !important;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--main-bg-color);
+  svg {
+    fill: var(--main-bg-color);
+  }
+}
+
+.selectedTimeIcon {
+  svg {
+    fill: var(--background-main-color) !important;
+  }
+}
+
+.deselectedTimeIcon {
+  svg {
+    fill: var(--main-bg-color) !important;
+  }
 }
 
 
@@ -359,24 +406,32 @@
   background: white;
 }
 
-.merchText {
+.merchEdition {
   font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}
+
+.merchText {
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .merchArea {
   position: relative;
   width: 100%;
   height: 87px;
-  background: rgba(var(--main-bg-color-rgb), 0.02);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .assetArea {
@@ -384,15 +439,15 @@
   min-width: 65px;
   height: 65px;
   border-radius: 10px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // background: rgba(var(--main-bg-color-rgb), 0.05);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   overflow: hidden;
 }
 
 .merchTitle {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 100;
   color: var(--text-gray-200-color);
   width: 100%;
@@ -429,21 +484,16 @@
 }
 
 .merchButton {
-  width: 82px;
-  height: 32px;
-  color: var(--text-gray-200-color);
-  border-radius: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Muli-SemiBold";
-  font-weight: 100;
-  font-size: 14px;
-  line-height: 18px;
-  margin-top: 13px;
-  margin-right: 16px;
+  margin-top: 15px;
+  margin-right: 11px;
   cursor: pointer;
 }
 
@@ -465,7 +515,7 @@
   width: 100%;
   height: auto;
   padding: 0px 22px;
-  margin-top: 23px;
+  margin-top: 30px;
   background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 10px;

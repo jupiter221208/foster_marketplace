@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 // next components
 
 // components
-import IconTab from 'components/Tab/IconTab'
 import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSection'
 import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
@@ -19,6 +18,7 @@ import TabList from 'assets/json/artist-profile/tab-list.json'
 // styles
 import styles from './index.module.scss'
 import LiveEditionsSection from 'components/pages/ArtistProfile/LiveEditionsSection'
+import ProfileTab from '../../../components/Tab/ProfileTab'
 
 const TabSection = props => {
   const {
@@ -147,24 +147,14 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
-        <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[80px] -ml-[20px]">
+        <ProfileTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       <div className={styles.divider} />
 
       {activeTab === 0 && (
         <div className="w-full">
-          <div className="w-full flex overflow-x-scroll no-scrollbar mt-5 gap-2 lg:gap-4">
-            <TimeSlotButton
-              label="Quick&nbsp;Buy"
-              height={42}
-              fontFamily={'Muli-Regular'}
-              selected={artworkType === 'listed'}
-              onClick={() => {
-                setArtworkType('listed')
-              }}
-            />
-
+          <div className="w-full flex overflow-x-scroll no-scrollbar mt-[24px] lg:mt-[34px] gap-2 lg:gap-4">
             <TimeSlotButton
               label="Live&nbsp;Auction"
               height={42}
@@ -187,12 +177,12 @@ const TabSection = props => {
             />
 
             <TimeSlotButton
-              label="Studio"
+              label="Quick&nbsp;Buy"
               height={42}
               fontFamily={'Muli-Regular'}
-              selected={artworkType === 'studio'}
+              selected={artworkType === 'listed'}
               onClick={() => {
-                setArtworkType('studio')
+                setArtworkType('listed')
               }}
             />
 
@@ -213,6 +203,16 @@ const TabSection = props => {
               selected={artworkType === 'collected'}
               onClick={() => {
                 setArtworkType('collected')
+              }}
+            />
+
+            <TimeSlotButton
+              label="Studio"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              selected={artworkType === 'studio'}
+              onClick={() => {
+                setArtworkType('studio')
               }}
             />
           </div>

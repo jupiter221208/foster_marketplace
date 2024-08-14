@@ -44,6 +44,7 @@ const ActivityAccordion = ({ data }) => {
       case 'ListingAdded':
       case 'ListingCancelled':
       case 'MasterEditionListingCreated':
+      case 'MasterEditionListingCancelled':
       case 'MasterEditionListingUpdated':
       case 'MasterEditionPrintCreated':
       case 'ListingUpdated':
@@ -96,6 +97,9 @@ const ActivityAccordion = ({ data }) => {
       case 'MasterEditionListingCreated':
         type = 'published master edition'
         break
+      case 'MasterEditionListingCancelled':
+        type = 'cancelled master edition'
+        break
       case 'MasterEditionListingUpdated':
         type = 'updated listing master edition'
         break
@@ -146,15 +150,17 @@ const ActivityAccordion = ({ data }) => {
                         </div>
                         <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                       </div>
-                      <div>
-                        <div className="w-fit-content h-[22px] mb-[2px] flex flex-row justify-end items-center">
-                          <SolanaLogoMobileIcon alt="" />
-                          <div className={styles.userName}>&nbsp;{item.amount}</div>
+                      {item.action_type !== 'MasterEditionListingCancelled' && (
+                        <div>
+                          <div className="w-fit-content h-[22px] mb-[2px] flex flex-row justify-end items-center">
+                            <SolanaLogoMobileIcon alt="" />
+                            <div className={styles.userName}>&nbsp;{item.amount}</div>
+                          </div>
+                          <div className={styles.usdValue}>
+                            ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
+                          </div>
                         </div>
-                        <div className={styles.usdValue}>
-                          ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </Disclosure.Panel>

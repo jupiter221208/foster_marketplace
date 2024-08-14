@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -53,13 +52,14 @@ import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
 import BlackButton from 'components/Button/BlackButton'
+import HomeEditionCard from 'components/Card/HomeEditionCard'
+import HomeNftCard from 'components/Card/HomeNFTCard'
+import LiveAuctionCard from 'components/Card/LiveAuctionCard'
+import { useRouter } from 'next/router'
 
 const Explore = () => {
-  const router = useRouter()
   const dispatch = useDispatch()
-
-  // const isLoading = useSelector<any>(state => state.isLoading)
-
+  const router = useRouter()
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
   const collectionCategory = useSelector<any>(state => state.collectionCategory)
@@ -260,11 +260,11 @@ const Explore = () => {
             if (isAvailableAuctionCard(nft)) {
               nfts.push({
                 token_id: nft.token_id,
-                image: nft.asset_url,
-                name: nft.nft_name,
+                asset_url: nft.asset_url,
+                nft_name: nft.nft_name,
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
-                creator: nft.artist_username,
+                artist_username: nft.artist_username,
                 artist_profile_picture: nft.artist_profile_picture,
                 current_supply: nft.current_supply,
                 url: `/nft/${nft.token_id}`,
@@ -280,8 +280,7 @@ const Explore = () => {
               })
             }
           })
-        }
-        if (availability.value === 'editions') {
+        } else if (availability.value === 'editions') {
           let liveEditions = response.filter(nft => {
             if (nft.master_edition?.endTime !== null) {
               let difference = getTimeDifference(nft.master_edition?.endTime)
@@ -294,21 +293,21 @@ const Explore = () => {
             nfts = liveEditions.map(nft => {
               return {
                 token_id: nft.token_id,
-                image: nft.asset_url,
-                name: nft.nft_name,
+                asset_url: nft.asset_url,
+                nft_name: nft.nft_name,
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
-                creator: nft.artist_username,
+                artist_username: nft.artist_username,
                 artist_profile_picture: nft.artist_profile_picture,
                 current_supply: nft.current_supply,
                 url: `/nft/${nft.token_id}`,
-                price: nft.list_price,
                 master_edition: nft.master_edition,
                 max_supply: nft.max_supply,
                 current_bid: nft.current_bid,
                 list_price: nft.list_price,
+                price: nft.master_edition.price,
                 start_time: nft.start_time,
-                end_time: nft.end_time,
+                end_time: nft.master_edition?.endTime,
                 reserve_price: nft.reserve_price,
                 collection_name: nft.collection_name,
               }
@@ -322,11 +321,11 @@ const Explore = () => {
             .map(nft => {
               return {
                 token_id: nft.token_id,
-                image: nft.asset_url,
-                name: nft.nft_name,
+                asset_url: nft.asset_url,
+                nft_name: nft.nft_name,
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
-                creator: nft.artist_username,
+                artist_username: nft.artist_username,
                 artist_profile_picture: nft.artist_profile_picture,
                 current_supply: nft.current_supply,
                 url: `/nft/${nft.token_id}`,
@@ -335,8 +334,8 @@ const Explore = () => {
                 max_supply: nft.max_supply,
                 current_bid: nft.current_bid,
                 list_price: nft.list_price,
-                start_time: nft.start_time,
-                end_time: nft.end_time,
+                start_time: nft.master_edition ? nft.master_edition.startTime : nft.start_time,
+                end_time: nft.master_edition ? nft.master_edition.endTime : nft.end_time,
                 reserve_price: nft.reserve_price,
                 collection_name: nft.collection_name,
               }
@@ -680,7 +679,7 @@ const Explore = () => {
         </div>
         <div className={styles.contentArea}>
           {showFilter && (
-            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[20px] xl:mr-[50px] 3xl:mr-[100px] md:mr-[0px]">
+            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[20px] xl:mr-[50px] 2xl:mr-[50px] md:mr-[0px]">
               {exploreTab === 0 && (
                 <NFTFilter
                   selectedAvailability={selectedAvailability}
@@ -698,121 +697,111 @@ const Explore = () => {
           )}
           <div className={styles.nftArea}>
             {exploreTab === 0 && (
-              <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
+              <div className="w-full grid grid-cols-20 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10">
                 {nftList.length !== 0 &&
                   nftList?.map((item, index) => {
                     return (
                       <div
-                        className={`col-span-12 z-10 ${
-                          showFilter ? 'lg:col-span-6 3xl:col-span-4 ' : 'lg:col-span-4 2xl:col-span-3'
+                        className={`col-span-20 xs:col-span-10 z-10 ${
+                          showFilter ? 'lg:col-span-10 2xl:col-span-5' : 'lg:col-span-5 2xl:col-span-4'
                         }`}
                         key={index}
                       >
                         {selectedAvailability.value === 'timed' ? (
-                          <NFTAuctionCard
-                            token_id={item.token_id}
-                            nftName={item.name}
-                            artistName={item.creator}
-                            image={item.image}
-                            assetType={item.asset_type}
-                            coverImage={item.cover_image_url}
-                            currentBid={item.current_bid}
-                            reservePrice={item.reserve_price}
-                            endTime={item.end_time}
-                            onClick={() => {}}
-                            price={item.price}
+                          <LiveAuctionCard
+                            data={item}
+                            onClick={() => {
+                              router.push('/nft/' + item.token_id)
+                            }}
+                            setCardExpired={item => {}}
                           />
                         ) : selectedAvailability.value === 'editions' ? (
-                          <NFTEditionsCard
-                            tokenId={item.token_id}
-                            image={item.image}
-                            nftName={item.name}
-                            artistName={item.creator}
-                            assetType={item.asset_type}
-                            coverImage={item.cover_image_url}
-                            statTime={item.master_edition?.startTime}
-                            endTime={item.master_edition?.endTime}
-                            price={item.master_edition?.price}
-                            currentSupply={item.current_supply}
-                            maxSupply={item.max_supply}
+                          <HomeEditionCard
+                            data={{
+                              tokenId: item.token_id,
+                              nftName: item.nft_name,
+                              artistUsername: item.artist_username,
+                              coverImageUrl: item.cover_image_url,
+                              assetUrl: item.asset_url,
+                              endTime: item.end_time,
+                              startTime: item.start_time,
+                              price: item.price,
+                              currentSupply: item.current_supply,
+                              maxSupply: item.max_supply,
+                            }}
+                            type={item.max_supply === null ? 'open' : 'limit'}
                             onClick={() => {}}
-                            key={index}
                           />
                         ) : selectedAvailability.value === 'all' ? (
                           item?.master_edition !== null && item?.master_edition !== undefined ? (
-                            <NFTEditionsCard
-                              tokenId={item.token_id}
-                              image={item.image}
-                              nftName={item.name}
-                              artistName={item.creator}
-                              assetType={item.asset_type}
-                              coverImage={item.cover_image_url}
-                              statTime={item.master_edition?.startTime}
-                              endTime={item.master_edition?.endTime}
-                              currentSupply={item.current_supply}
-                              maxSupply={item.max_supply}
-                              price={item.master_edition?.price}
+                            <HomeEditionCard
+                              data={{
+                                tokenId: item.token_id,
+                                nftName: item.nft_name,
+                                artistUsername: item.artist_username,
+                                coverImageUrl: item.cover_image_url,
+                                assetUrl: item.asset_url,
+                                endTime: item.end_time,
+                                startTime: item.start_time,
+                                price: item.master_edition.price,
+                                currentSupply: item.current_supply,
+                                maxSupply: item.max_supply,
+                              }}
+                              type={item.max_supply === null ? 'open' : 'limit'}
                               onClick={() => {}}
-                              key={index}
                             />
                           ) : isAvailableAuctionCard(item) ? (
-                            <NFTAuctionCard
-                              token_id={item.token_id}
-                              nftName={item.name}
-                              artistName={item.creator}
-                              image={item.image}
-                              assetType={item.asset_type}
-                              coverImage={item.cover_image_url}
-                              currentBid={item.current_bid}
-                              reservePrice={item.reserve_price}
-                              endTime={item.end_time}
-                              onClick={() => {}}
-                              price={item.price}
+                            <LiveAuctionCard
+                              data={item}
+                              onClick={() => {
+                                router.push('/nft/' + item.token_id)
+                              }}
+                              setCardExpired={item => {}}
                             />
                           ) : !item.end_time && item.price ? (
-                            <ListedNftCardExplore
-                              nftName={item.name}
+                            <HomeNftCard
+                              nftName={item.nft_name}
                               token_id={item.token_id}
-                              artistName={item.creator}
+                              artistName={item.artist_username}
                               artistImage={item.artist_profile_picture}
-                              image={item.image}
+                              image={item.asset_url}
                               price={item.price}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               onClick={() => {}}
                             />
                           ) : (
-                            <ListedNftCardExplore
+                            <HomeNftCard
                               token_id={item.token_id}
-                              image={item.image}
-                              nftName={item.name}
+                              image={item.asset_url}
+                              nftName={item.nft_name}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
-                              artistName={item.creator}
+                              artistName={item.artist_username}
                               onClick={() => {}}
                               price={item.price}
                             />
                           )
                         ) : !item.end_time && item.price ? (
-                          <ListedNftCardExplore
-                            nftName={item.name}
+                          <HomeNftCard
+                            nftName={item.nft_name}
                             token_id={item.token_id}
-                            artistName={item.creator}
+                            artistName={item.artist_username}
                             artistImage={item.artist_profile_picture}
-                            image={item.image}
+                            image={item.asset_url}
                             price={item.price}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             onClick={() => {}}
                           />
                         ) : (
-                          <ListedNftCardExplore
+                          <HomeNftCard
                             token_id={item.token_id}
-                            image={item.image}
-                            nftName={item.name}
+                            image={item.asset_url}
+                            nftName={item.nft_name}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
-                            artistName={item.creator}
+                            artistName={item.artist_username}
                             onClick={() => {}}
                             price={item.price}
                           />

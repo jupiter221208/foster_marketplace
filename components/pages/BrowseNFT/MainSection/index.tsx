@@ -1236,7 +1236,7 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
-      <div className="w-full h-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
+      <div className="w-full h-full flex flex-wrap justify-between gap-[0px] lg:gap-0">
         <div
           className={`lg:w-[58%] w-full lg:mt-[80px] ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'g-left-container'
@@ -1301,7 +1301,7 @@ const MainSection = ({
         </div>
 
         <div
-          className={`w-full lg:w-[42%] z-10 g-container lg:g-right-container 2xl:pl-[100px] lg:pl-[55px] xl:pl-[80px] ${styles.rightBG}`}
+          className={`w-full lg:w-[42%] z-10 pt-[15px] lg:pt-[0px] g-container lg:g-right-container 2xl:pl-[100px] lg:pl-[55px] xl:pl-[80px] ${styles.rightBG}`}
         >
           {showListEditionDetail ? (
             <div className="">
@@ -1759,7 +1759,7 @@ const MainSection = ({
                                         setIsStarted={setIsStarted}
                                       />
                                       {isOwnNft === true ? (
-                                        <div className="mt-[0px]">
+                                        <div className="mt-[15px]">
                                           <OutlineButton
                                             label="Cancel Auction"
                                             fullWidth

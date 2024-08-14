@@ -1,18 +1,24 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // next components
 import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useDispatch } from 'react-redux'
 
 // images and icons
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
+import HideIcon from 'assets/icons/hide-icon.svg?component'
+import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
+import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
+import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -20,6 +26,9 @@ import { formattedAmount } from 'utils/helpers'
 
 import ImageWithFoster from 'components/ImageWithFoster'
 import { getDisplayUserName } from 'utils/strings'
+
+// apis
+import nftAPI from 'apis/nfts'
 
 const HomeNftCard = props => {
   const {
@@ -34,12 +43,42 @@ const HomeNftCard = props => {
     assetType,
     price,
     onClick,
+    showHideButton = false,
+    showUnhideButton = false,
   } = props
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
-
-  const videoRef = useRef<HTMLVideoElement>()
+  const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
+  const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
   const [hover, setHover] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const performHideNft = () => {
+    setIsLoading(true)
+
+    nftAPI.hideNft(token_id).then(
+      response => {
+        setIsLoading(false)
+        setDisplayHideConfirm(false)
+        dispatch({ type: 'set', hideNftToken: token_id })
+      },
+      error => {}
+    )
+  }
+
+  const performUnhideNft = () => {
+    setIsLoading(true)
+
+    nftAPI.unhideNft(token_id).then(
+      response => {
+        setIsLoading(false)
+        setDisplayUnhideConfirm(false)
+        dispatch({ type: 'set', unhideNftToken: token_id })
+      },
+      error => {}
+    )
+  }
 
   return (
     <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
@@ -62,7 +101,7 @@ const HomeNftCard = props => {
               <Link href={`${window.origin}/${artistName}`} passHref>
                 <a>
                   <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                    <ImageWithFoster src={artistImage} width={100} className="w-[44px] h-[44px] rounded-full" />
+                    <ImageWithFoster src={artistImage} width={360} className="w-[44px] h-[44px] rounded-full" />
                   </div>
                 </a>
               </Link>
@@ -170,21 +209,40 @@ const HomeNftCard = props => {
                 </a>
               </Link>
             )}
+            {showHideButton === true && (
+              <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
+                <UnhideIcon />
+              </div>
+            )}
+            {showUnhideButton === true && (
+              <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
+                <HideIcon />
+              </div>
+            )}
           </div>
 
           <div className={`${styles.bottomSection} ${hover ? styles.bottomHover : ''}`}>
             <div className="w-full">
               <div className="w-full flex justify-between items-center">
-                {price && (
+                {price ? (
                   <div>
                     <div className={styles.priceLabel}>Price</div>
-                    <div className="flex justify-center items-center mt-[4px]">
+                    <div className="flex justify-center items-center mt-[4px] gap-[5px]">
                       {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                         <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       ) : (
                         <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       )}
-                      <div className={styles.priceHome}>{formattedAmount(price)}</div>
+                      <div className=" mt-[3px]">
+                        <div className={styles.priceHome}>{formattedAmount(price)}</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className={styles.priceLabel}>Status</div>
+                    <div className="flex justify-center items-center mt-[6px]">
+                      <div className={styles.priceHome}>Not listed</div>
                     </div>
                   </div>
                 )}
@@ -193,6 +251,69 @@ const HomeNftCard = props => {
           </div>
         </div>
       </div>
+      {displayHideConfirm && (
+        <div className={styles.hideConfirm}>
+          {isLoading ? (
+            <div className={styles.loading}>
+              <LoadingModal open={isLoading} />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div>
+                <div className={styles.hideText}>
+                  This action will hide the artwork from your profile page.
+                  <br />
+                  <br />
+                  Would you like to proceed?
+                </div>
+                <div className="flex gap-[15px] lg:gap-[19px] mt-[50px] justify-center">
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                    Cancel
+                  </div>
+                  <div className={styles.hideButton} onClick={() => performHideNft()}>
+                    <div className="flex gap-[6px]">
+                      {/* <Image src={HideSmallIcon} alt="" /> */}
+                      <div className={styles.hideButtonText}>Hide</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {displayUnhideConfirm && (
+        <div className={styles.hideConfirm}>
+          {isLoading ? (
+            <div className={styles.loading}>
+              <LoadingModal open={isLoading} />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div>
+                <div className={styles.hideText}>
+                  This artwork is currently hidden from your profile page.
+                  <br />
+                  <br />
+                  Would you like to unhide it?
+                </div>
+                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
+                    Cancel
+                  </div>
+                  <div className={styles.hideButton} onClick={() => performUnhideNft()}>
+                    <div className="flex gap-[6px]">
+                      <Image src={UnhideSmallIcon} alt="" />
+                      <div className={styles.hideButtonText}>Unhide</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -29,7 +29,7 @@ const HomeEditionCard = props => {
 
   useEffect(() => {
     if (
-      data.assetType.includes('video') &&
+      data.assetType?.includes('video') &&
       (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&
       data.coverImageUrl == null
     ) {
@@ -50,6 +50,11 @@ const HomeEditionCard = props => {
       return () => clearTimeout(timer)
     }
   }, [data.endTime])
+
+  const isExpired = time => {
+    if (time['days'] === '00' && time['hours'] && time['minutes'] && time['seconds']) return true
+    return false
+  }
 
   return (
     <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
@@ -87,7 +92,7 @@ const HomeEditionCard = props => {
 
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
-            {data.assetType.includes('video') ? (
+            {data.assetType?.includes('video') ? (
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <div className="w-full relative flex justify-center items-center overflow-hidden">
                   <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
@@ -146,7 +151,7 @@ const HomeEditionCard = props => {
                   </a>
                 </Link>
               )
-            ) : data.assetType.includes('audio') ? (
+            ) : data.assetType?.includes('audio') ? (
               <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
                 <a className="w-full h-full">
                   <ImageWithFoster
@@ -181,34 +186,34 @@ const HomeEditionCard = props => {
               </Link>
             )}
 
-            {data.endTime !== null && data.startTime !== data.endTime && (
+            {data.endTime !== null && data.startTime !== data.endTime && timeLeft && !isExpired(timeLeft) && (
               <div className={styles.timeSection}>
                 <ClockSandIcon />
 
                 <div className="flex items-center gap-[2px]">
-                  {timeLeft && timeLeft['days'] !== '00' && (
+                  {timeLeft['days'] !== '00' && (
                     <div>
                       <div className={styles.endTime}>
-                        {timeLeft && timeLeft['days']}
+                        {timeLeft['days']}
                         <div className={styles.bidDesc}>d</div>
                       </div>
                     </div>
                   )}
                   <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['hours']}
+                      {timeLeft['hours']}
                       <div className={styles.bidDesc}>h</div>
                     </div>
                   </div>
                   <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['minutes']}
+                      {timeLeft['minutes']}
                       <div className={styles.bidDesc}>m</div>
                     </div>
                   </div>
                   <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['seconds']}
+                      {timeLeft['seconds']}
                       <div className={styles.bidDesc}>s</div>
                     </div>
                   </div>

@@ -1482,6 +1482,13 @@ h6 {
   }
 }
 
+[data-name='solrplex-icon-white'] {
+  --fill-color: var(--solar-icon-color);
+  [data-fill='a'] {
+    fill: var(--auction-input-bg);
+  }
+}
+
 [data-name='ellipse-effect'] {
   [offset='0'] {
     stop-color: var(--ellipse-svg-1);
@@ -1651,6 +1658,10 @@ h6 {
 
 [data-name='select-collection'] {
   stroke: var(--main-icon-color);
+}
+
+[data-name='main-color-stroke'] {
+  stroke: var(--main-bg-color);
 }
 
 [data-name='main-color-icon'] {

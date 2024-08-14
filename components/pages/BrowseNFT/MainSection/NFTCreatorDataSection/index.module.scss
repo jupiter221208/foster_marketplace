@@ -74,6 +74,9 @@
   line-height: 18px;
   font-weight: 100;
   color: rgba(var(--main-bg-color-rgb), 1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .supplyRound {
