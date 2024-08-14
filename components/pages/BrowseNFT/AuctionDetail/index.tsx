@@ -304,7 +304,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
               setDurationType('72')
             }}
           >
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '72' : '48 hours'}
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '72' : '72 hours'}
           </div>
 
           <div

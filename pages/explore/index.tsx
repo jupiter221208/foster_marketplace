@@ -280,8 +280,7 @@ const Explore = () => {
               })
             }
           })
-        }
-        if (availability.value === 'editions') {
+        } else if (availability.value === 'editions') {
           let liveEditions = response.filter(nft => {
             if (nft.master_edition?.endTime !== null) {
               let difference = getTimeDifference(nft.master_edition?.endTime)
@@ -335,8 +334,8 @@ const Explore = () => {
                 max_supply: nft.max_supply,
                 current_bid: nft.current_bid,
                 list_price: nft.list_price,
-                start_time: nft.start_time,
-                end_time: nft.master_edition?.endTime,
+                start_time: nft.master_edition ? nft.master_edition.startTime : nft.start_time,
+                end_time: nft.master_edition ? nft.master_edition.endTime : nft.end_time,
                 reserve_price: nft.reserve_price,
                 collection_name: nft.collection_name,
               }
@@ -744,42 +743,14 @@ const Explore = () => {
                                 assetUrl: item.asset_url,
                                 endTime: item.end_time,
                                 startTime: item.start_time,
-                                price: item.price,
+                                price: item.master_edition.price,
                                 currentSupply: item.current_supply,
                                 maxSupply: item.max_supply,
                               }}
                               type={item.max_supply === null ? 'open' : 'limit'}
                               onClick={() => {}}
                             />
-                          ) : // <NFTEditionsCard
-                          //   tokenId={item.token_id}
-                          //   image={item.image}
-                          //   nftName={item.name}
-                          //   artistName={item.creator}
-                          //   assetType={item.asset_type}
-                          //   coverImage={item.cover_image_url}
-                          //   statTime={item.master_edition?.startTime}
-                          //   endTime={item.master_edition?.endTime}
-                          //   currentSupply={item.current_supply}
-                          //   maxSupply={item.max_supply}
-                          //   price={item.master_edition?.price}
-                          //   onClick={() => {}}
-                          //   key={index}
-                          // />
-                          isAvailableAuctionCard(item) ? (
-                            // <NFTAuctionCard
-                            //   token_id={item.token_id}
-                            //   nftName={item.name}
-                            //   artistName={item.creator}
-                            //   image={item.image}
-                            //   assetType={item.asset_type}
-                            //   coverImage={item.cover_image_url}
-                            //   currentBid={item.current_bid}
-                            //   reservePrice={item.reserve_price}
-                            //   endTime={item.end_time}
-                            //   onClick={() => {}}
-                            //   price={item.price}
-                            // />
+                          ) : isAvailableAuctionCard(item) ? (
                             <LiveAuctionCard
                               data={item}
                               onClick={() => {
