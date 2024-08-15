@@ -168,9 +168,9 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
           />
         </div>
         <div className="w-full mt-[15px] lg:mt-[45px] z-10">
-          <div className="grid grid-cols-10 lg:grid-cols-20 gap-[10px] lg:gap-[20px] xl:gap-[30px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px]">
             {nftList.map((item, index) => (
-              <div className="col-span-10 sm:col-span-5 lg:col-span-5 2xl:col-span-4" key={index}>
+              <div className="w-full" key={index}>
                 {item.master_edition ? (
                   <HomeEditionCard
                     data={{

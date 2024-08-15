@@ -20,6 +20,7 @@
     @media (min-width: 1024px) {
       margin-top: 0px;
       margin-bottom: 2px;
+      height: calc(100% - 3px)
     }
   }
 }
@@ -80,10 +81,10 @@
   width: 100%;
   overflow: hidden;
   border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  background: rgba(var(--main-bg-color-rgb), 0.05);
+  background: rgba(var(--main-bg-color-rgb), 0.5);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding: 16px 20px;
+  padding: 16px 20px 16px 20px;
   background: var(--background-main-color);
 }
 
@@ -169,7 +170,7 @@
 .bidCountContainer {
   display: flex;
   align-items: center;
-  margin-top: 7px;
+  margin-top: 9px;
 }
 
 .bidName {
