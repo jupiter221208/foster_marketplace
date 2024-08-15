@@ -32,7 +32,7 @@ class Store {
   }
 
   getStoreItemByEdition(user_id) {
-    return client.get(API_URL + 'v1/stores/' + user_id + '/items?include_inactive=true&edition=true').then(response => {
+    return client.get(API_URL + 'v1/stores/' + user_id + '/items?include_inactive=true&edition=true&page=1&per_page=all').then(response => {
       return response.data
     })
   }
