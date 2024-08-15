@@ -697,16 +697,17 @@ const Explore = () => {
           )}
           <div className={styles.nftArea}>
             {exploreTab === 0 && (
-              <div className="w-full grid grid-cols-20 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10">
+              <div
+                className={`grid sm:grid-cols-2 ${
+                  showFilter
+                    ? 'lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4'
+                    : 'lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5'
+                } gap-[10px] lg:gap-[20px] xl:gap-[30px]`}
+              >
                 {nftList.length !== 0 &&
                   nftList?.map((item, index) => {
                     return (
-                      <div
-                        className={`col-span-20 xs:col-span-10 z-10 ${
-                          showFilter ? 'lg:col-span-10 2xl:col-span-5' : 'lg:col-span-5 2xl:col-span-4'
-                        }`}
-                        key={index}
-                      >
+                      <div className="w-full" key={index}>
                         {selectedAvailability.value === 'timed' ? (
                           <LiveAuctionCard
                             data={item}

@@ -310,9 +310,7 @@ const MainSection = props => {
                   //   <EditMetaIcon />
                   // </div>
                   <div className="w-[35px]">
-                    {hasloading ? (
-                      <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>
-                    ) : (
+                    {!hasloading && (
                       <div className={`${styles.iconContainer} w-[35px]`}>
                         <Image
                           src={saved ? TicketGreenIcon : TicketWhiteIcon}
@@ -326,12 +324,16 @@ const MainSection = props => {
                     )}
                   </div>
                 )}
-                {publicKey?.toBase58() === data?.minter_id && (
-                  <MenuCreateCollection
-                    setShowAddToken={() => setShowAddTokenModal(true)}
-                    setShowImportEA={() => setShowImportEAModal(true)}
-                    setShowUploadNew={() => uploadNew()}
-                  />
+                {hasloading ? (
+                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>
+                ) : (
+                  publicKey?.toBase58() === data?.minter_id && (
+                    <MenuCreateCollection
+                      setShowAddToken={() => setShowAddTokenModal(true)}
+                      setShowImportEA={() => setShowImportEAModal(true)}
+                      setShowUploadNew={() => uploadNew()}
+                    />
+                  )
                 )}
                 {hasloading ? (
                   <div className={`${styles.skeletonLoader} w-[87px] h-[35px] mt-[50px] rounded-md`}></div>

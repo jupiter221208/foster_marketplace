@@ -93,6 +93,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         sortedCollectionNfts.map((data, index) => {
           newNftsArr[index].mintAddress = data.token_id
           newNftsArr[index].creators[0].artist_username = data.artist_username
+          newNftsArr[index].creators[0].artist_profile_picture = data.artist_profile_picture
           if (data.list_price) newNftsArr[index].list_price = data.list_price
           else if (data.reserve_price)
             newNftsArr[index].auction = {

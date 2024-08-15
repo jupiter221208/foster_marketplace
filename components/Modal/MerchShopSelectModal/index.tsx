@@ -26,7 +26,7 @@ const MerchShopSelectModal = props => {
       StoreAPI.getStoreItemByEdition(profileInfo?.id).then(
         res => {
           if (res) {
-            setMerchList(res.filter(item => item.master_edition_address === ''))
+            setMerchList(res.filter(item => item.master_edition_address === '' && item.deleted_at === null))
           }
         },
         error => {}

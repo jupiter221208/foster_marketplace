@@ -312,7 +312,7 @@ const AdditionalDetails = props => {
                   <div className={styles.price}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
                 </div>
                 <div className={styles.firstRow}>
-                  <div className={styles.sideText}>Selling Price</div>
+                  <div className={styles.sideText}>Selling&nbsp;Price</div>
                   <div className={styles.price}>
                     {saleMethod.id === 0 ? 'Production Price + Price of Edition' : '$' + sellingPrice}
                   </div>
