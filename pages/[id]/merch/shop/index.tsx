@@ -27,7 +27,7 @@ const CreatorMerchShop = props => {
 
   useEffect(() => {
     if (userId === undefined || userId === null) return
-    StoreAPI.getStoreByUserId(userId).then(
+    StoreAPI.getStoreByUserId(userId, 1, 'all').then(
       res => {
         let list = []
         res.map(item => {

@@ -149,7 +149,7 @@ const MerchActivity = () => {
     if (profileInfo && loadMerchStore === false) {
       setLoadMerchStore(true)
 
-      StoreAPI.getStoreByUserId(profileInfo?.id).then(
+      StoreAPI.getStoreByUserId(profileInfo?.id, 1, 'all').then(
         res => {
           let list = []
           res.map(item => {
@@ -389,7 +389,7 @@ const MerchActivity = () => {
     setUserMerchList([])
     setIsMerchStoreFetching(true)
 
-    StoreAPI.getStoreByUserId(profileInfo?.id).then(
+    StoreAPI.getStoreByUserId(profileInfo?.id, 1, 'all').then(
       res => {
         let list = []
         res.map(item => {

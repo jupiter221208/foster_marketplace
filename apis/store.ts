@@ -11,8 +11,8 @@ class Store {
     })
   }
 
-  getStoreByUserId(user_id) {
-    return client.get(API_URL + 'v1/stores/' + user_id + '/items?include_inactive=true').then(response => {
+  getStoreByUserId(user_id, page, per_page) {
+    return client.get(API_URL + 'v1/stores/' + user_id + `/items?include_inactive=true&page=${page}&per_page=${per_page}`).then(response => {
       if (typeof response.data === 'string') throw new Error(response.data)
 
       return response.data
