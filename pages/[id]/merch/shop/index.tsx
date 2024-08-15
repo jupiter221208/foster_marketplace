@@ -11,12 +11,15 @@ import 'swiper/css/navigation'
 //apis
 import StoreAPI from 'apis/store'
 import { getTimeDifference } from 'utils/helpers'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const CreatorMerchShop = props => {
   const { username, userId, isCreator } = props
   const [merchList, setMerchList] = useState([])
   const [screenWidth, setScreenWidth] = useState(375)
   const [loaded, setLoaded] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(true)
+  const [isFetching, setIsFetching] = useState(true)
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -29,6 +32,7 @@ const CreatorMerchShop = props => {
     if (userId === undefined || userId === null) return
     StoreAPI.getStoreByUserId(userId, 1, 'all').then(
       res => {
+        setIsVisibleFetching(false)
         let list = []
         res.map(item => {
           if (
@@ -80,12 +84,17 @@ const CreatorMerchShop = props => {
             </div>
           ))}
         </div>
-      ) : loaded ? (
+      ) : loaded && !isVisibleFetching ? (
         <div className="w-full flex justify-center pt-[100px]">
           <div className={styles.noItem}>No merch items currently available.</div>
         </div>
       ) : (
         <></>
+      )}
+      {isVisibleFetching && (
+        <div className="w-full h-[150px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
       )}
     </div>
   )
