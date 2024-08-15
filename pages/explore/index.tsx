@@ -700,8 +700,8 @@ const Explore = () => {
               <div
                 className={`grid sm:grid-cols-2 ${
                   showFilter
-                    ? 'lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
-                    : 'lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
+                    ? 'lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4'
+                    : 'lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5'
                 } gap-[10px] lg:gap-[20px] xl:gap-[30px]`}
               >
                 {nftList.length !== 0 &&
