@@ -375,15 +375,20 @@ const TabSection = props => {
       }
     })
     let listingType = null
-    if (listingStatus?.id === 0 || listingStatus?.id === 2) {
-      listingTypeList.map(item => {
-        if (item.checked === true) {
-          listingType = item
-        }
-      })
+    listingTypeList.map(item => {
+      if (item.checked === true) {
+        listingType = item
+      }
+    })
+    if (listingStatus?.id === 0) {
       if (listingType) {
         if (listingType.id === 3) params['listing'] = 'fixed-price'
         else params['listing'] = listingType.value
+        params['per_page'] = 'all'
+      }
+    } else if (listingStatus?.id === 2) {
+      if (listingType.id !== 3) {
+        params['listing'] = listingType.value
         params['per_page'] = 'all'
       }
     } else {
