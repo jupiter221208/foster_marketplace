@@ -180,6 +180,7 @@ const TabSection = props => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
+    console.log(isFetching, loadingData, '==============')
     if (isFetching === true && !loadingData) {
       let nextPage = pages + 1
       getNftItem(nextPage, listingStatusList, listingTypeList, ownershipList, studioList, sortList)
@@ -328,7 +329,7 @@ const TabSection = props => {
 
     DashboardAPI.getArtworkList(wallet, params).then(
       response => {
-        if (loadingData) setLoadingData(false)
+        setLoadingData(false)
         setIsFetching(false)
         let result = []
         response.map(item => {
