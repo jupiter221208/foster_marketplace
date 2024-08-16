@@ -3,12 +3,8 @@ import React, { useEffect, useState } from 'react'
 // next components
 
 // components
-import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSection'
-import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
-import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import LoadingComponent from 'pages/profile/LoadingComponent'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import ListingStatusList from 'assets/json/profile-listing-status.json'
 import ListingTypeList from 'assets/json/profile-listing-type.json'
 import OwnershipList from 'assets/json/profile-ownership.json'
@@ -16,6 +12,8 @@ import StudioList from 'assets/json/profile-studio.json'
 import SortList from 'assets/json/profile-sort.json'
 import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import SortIcon from 'assets/icons/sort-icon-normal.svg?component'
+import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
+import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
@@ -24,7 +22,6 @@ import TabList from 'assets/json/artist-profile/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
-import LiveEditionsSection from 'components/pages/ArtistProfile/LiveEditionsSection'
 import ProfileTab from '../../../components/Tab/ProfileTab'
 import StudioCategoryMenu from 'components/Menu/StudioCategoryMenu'
 
@@ -35,6 +32,9 @@ import { useRouter } from 'next/router'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 import HomeEditionCard from 'components/Card/HomeEditionCard'
 import { isExpired } from 'utils/helpers'
+import BlackButton from 'components/Button/BlackButton'
+import MobileProfileFilter from 'components/Filter/MobileProfileFilter'
+import MobileStudioSort from 'components/Menu/MobileStudioSort'
 
 const TabSection = props => {
   const {
@@ -46,18 +46,9 @@ const TabSection = props => {
     isOwn,
     isLoaded,
     handleNextPage,
-    setArtistEnable,
-    setMerchEnable,
-    setCollectorEnable,
     isVisibleFetchingCreated,
     isFetchingCreated,
     setIsFetchingCreated,
-    isVisibleFetchingCollected,
-    isFetchingCollected,
-    setIsFetchingCollected,
-    isVisibleFetchingMerch,
-    isFetchingMerch,
-    setIsFetchingMerch,
   } = props
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -77,6 +68,8 @@ const TabSection = props => {
   const [studio, setStudio] = useState(null)
   const [sortList, setSortList] = useState([])
   const [sort, setSort] = useState(null)
+  const [openMobileFilter, setOpenMobileFilter] = useState(false)
+  const [openMobileSort, setOpenMobileSort] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -173,14 +166,9 @@ const TabSection = props => {
     if (activeTab === 0) {
     } else if (activeTab === 1) {
       setShowCollections(collections.slice(0, rowCount))
-      setIsFetching(false)
-      setIsVisibleFetching(true)
-      setArtistEnable(false)
-      setMerchEnable(false)
-      setCollectorEnable(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab, artworkType, collections])
+  }, [activeTab, collections])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -191,7 +179,6 @@ const TabSection = props => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
-    console.log(isFetching, '====================isFetching==============')
     if (isFetching === true) {
       let nextPage = pages + 1
       getNftItem(nextPage, listingStatusList, listingTypeList, ownershipList, studioList, sortList)
@@ -205,20 +192,6 @@ const TabSection = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetchingCreated])
-
-  useEffect(() => {
-    if (isFetchingCollected === true) {
-      handleNextPage()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetchingCollected])
-
-  useEffect(() => {
-    if (isFetchingMerch === true) {
-      handleNextPage()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetchingMerch])
 
   const handleListingStatus = index => {
     let array = [...listingStatusList]
@@ -330,10 +303,10 @@ const TabSection = props => {
       params['merch_hub'] = merch.value
     }
 
+    setIsVisibleFetching(true)
+
     DashboardAPI.getArtworkList(wallet, params).then(
       response => {
-        if (params['per_page'] === 'all') setIsVisibleFetching(false)
-
         setIsFetching(false)
 
         let result = []
@@ -359,6 +332,8 @@ const TabSection = props => {
               setIsFetching(true)
             }, 500)
         }
+
+        if (params['per_page'] === 'all') setIsVisibleFetching(false)
       },
       error => {
         setIsVisibleFetching(false)
@@ -375,7 +350,7 @@ const TabSection = props => {
 
       {activeTab === 0 && (
         <div className="w-full">
-          <div className="w-full flex justify-between mt-[30px]">
+          <div className="w-full hidden lg:flex justify-between mt-[30px]">
             <div className="flex gap-[15px]">
               <StudioCategoryMenu
                 menuLabel="Listing Status"
@@ -383,6 +358,7 @@ const TabSection = props => {
                 handleSelectCategory={handleListingStatus}
                 icon={<FilterIcon />}
               />
+
               {(listingStatus?.id === 0 || listingStatus?.id === 2) && (
                 <StudioCategoryMenu
                   menuLabel="Listing Type"
@@ -414,26 +390,43 @@ const TabSection = props => {
               icon={<SortIcon />}
             />
           </div>
+          <div className="w-full flex lg:hidden gap-[11px] justify-between mt-[30px]">
+            <BlackButton
+              label="Filter"
+              onClick={() => setOpenMobileFilter(!openMobileFilter)}
+              fullWidth
+              height="40px"
+              color={'var(--text-gray-200-color)'}
+              icon1={<FilterGrayIcon alt="" />}
+              backgroundColor01="var(--background-main-color)"
+              backgroundColor02="var(--background-main-color)"
+              gradientDirection="bottom"
+              fontFamily="Muli-Regular"
+              fontSize={14}
+              borderRadius={8}
+              borderWidth={1}
+              borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+              direction="rtl"
+            />
 
-          {/* {artworkType === 'all' && (
-            <div className="w-full">
-              <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-              {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
-                <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
-              )}
-            </div>
-          )}
-
-          {artworkType === 'auction' && <LiveAuctionSection category={''} artist={wallet} fromPage={'profile'} />}
-
-          {artworkType === 'studio' && (
-            <div className="w-full">
-              <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} type="studio" />
-              {merchNfts?.length > 0 && isLoaded && isVisibleFetchingMerch && (
-                <LoadingComponent isFetching={isFetchingMerch} setIsFetching={setIsFetchingMerch} />
-              )}
-            </div>
-          )} */}
+            <BlackButton
+              label="Sort"
+              onClick={() => setOpenMobileSort(!openMobileSort)}
+              fullWidth
+              height="40px"
+              color={'var(--text-gray-200-color)'}
+              icon1={<SortGrayIcon alt="" />}
+              backgroundColor01="var(--background-main-color)"
+              backgroundColor02="var(--background-main-color)"
+              gradientDirection="bottom"
+              fontFamily="Muli-Regular"
+              fontSize={14}
+              borderRadius={8}
+              borderWidth={1}
+              borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+              direction="rtl"
+            />
+          </div>
 
           <div className="w-full mt-[30px]">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px]">
@@ -491,6 +484,7 @@ const TabSection = props => {
                     artistImage={item.artistProfilePicture}
                     collectionName={item.collectionName}
                     price={item.listPrice}
+                    showHideButton={true}
                     onClick={() => {
                       router.push(`/nft/${item.tokenId}`)
                     }}
@@ -501,34 +495,49 @@ const TabSection = props => {
             </div>
             {isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
           </div>
-
-          {/* {artworkType === 'collected' && (
-            <div className="w-full">
-              <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-              {collectedNfts.length > 0 && isLoaded && isVisibleFetchingCollected && (
-                <LoadingComponent isFetching={isFetchingCollected} setIsFetching={setIsFetchingCollected} />
-              )}
-            </div>
-          )}
-
-          {artworkType === 'listed' && (
-            <div className="w-full">
-              <ActiveListingSection artist={wallet} fromPage={'profile'} />
-            </div>
-          )}
-
-          {artworkType === 'editions' && <LiveEditionsSection category={''} artist={wallet} fromPage={'profile'} />} */}
         </div>
       )}
 
       {activeTab === 1 && (
         <div className="w-full">
           <CollectionSwiperSection collections={showCollections} showRemoveButton={isOwn} />
-          {collections.length > 0 && isMounted && isVisibleFetching && (
-            <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          {collections.length > 0 && isMounted && isVisibleFetchingCreated && (
+            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
           )}
         </div>
       )}
+
+      <div className="flex lg:hidden w-full">
+        {openMobileFilter && (
+          <MobileProfileFilter
+            listingStatus={listingStatusList}
+            listingType={listingTypeList}
+            ownership={ownershipList}
+            studio={studioList}
+            onFilter={params => {
+              let { listingStatus, listingType, ownership, studio } = params
+              setListingStatusList(listingStatus)
+              setListingTypeList(listingType)
+              setOpenMobileFilter(false)
+              getNftItem(1, listingStatus, listingType, ownership, studio, sortList, true)
+            }}
+            onClose={() => setOpenMobileFilter(false)}
+          />
+        )}
+
+        {openMobileSort && (
+          <MobileStudioSort
+            open={openMobileSort}
+            sort={sortList}
+            onSort={params => {
+              setSortList(params)
+              setOpenMobileSort(false)
+              getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, params, true)
+            }}
+            onClose={() => setOpenMobileSort(false)}
+          />
+        )}
+      </div>
     </div>
   )
 }
