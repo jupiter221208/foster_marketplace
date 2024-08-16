@@ -328,11 +328,20 @@ const TabSection = props => {
         setLoadingData(false)
         setIsFetching(false)
         let result = []
-        response.map(item => {
+
+        var noPrintNfts = response.filter(item => {
+          let index = item.nftName.indexOf(' #')
+          if (index < 0) return true
+          let num = item.nftName.slice(index + 2, item.nftName.length)
+          if (num.length > 0 && parseInt(num) > 0) return false
+          else return true
+        })
+
+        noPrintNfts.map(item => {
           if (item.auction) {
-            if (!isExpired(item.auction.end_time)) result.push(item)
+            if (item.auction.end_time === null || !isExpired(item.auction.end_time)) result.push(item)
           } else if (item.masterEdition) {
-            if (!isExpired(item.masterEdition.endTime)) result.push(item)
+            if (item.masterEdition.endTime === null || !isExpired(item.masterEdition.endTime)) result.push(item)
           } else {
             result.push(item)
           }
