@@ -558,7 +558,11 @@ const TabSection = props => {
               setListingStatusList(listingStatus)
               setListingTypeList(listingType)
               setOpenMobileFilter(false)
-              getNftItem(1, listingStatus, listingType, ownership, studio, sortList, true)
+              setLoadingData(true)
+              setTimeout(() => {
+                setNftList([])
+                getNftItem(1, listingStatus, listingType, ownership, studio, sortList, true)
+              }, 100)
             }}
             onClose={() => setOpenMobileFilter(false)}
           />
@@ -571,7 +575,11 @@ const TabSection = props => {
             onSort={params => {
               setSortList(params)
               setOpenMobileSort(false)
-              getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, params, true)
+              setLoadingData(true)
+              setTimeout(() => {
+                setNftList([])
+                getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, params, true)
+              }, 100)
             }}
             onClose={() => setOpenMobileSort(false)}
           />
