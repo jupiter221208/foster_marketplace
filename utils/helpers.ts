@@ -77,6 +77,16 @@ export const getTimeDifferenceWithAuction = endTime => {
   return difference
 }
 
+export const isExpired = endTime => {
+  let endDate = new Date(endTime)
+  let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = endDate.getTime() - offsetEnd
+
+  let end_difference = proposalEndTime - new Date().getTime()
+  if (end_difference < 0) return true
+  return false
+}
+
 export const isEndDateExpired = endTime => {
   let endDate = new Date(endTime)
   let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000

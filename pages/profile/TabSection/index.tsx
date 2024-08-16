@@ -7,7 +7,7 @@ import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSectio
 import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingComponent from 'pages/profile/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import ListingStatusList from 'assets/json/profile-listing-status.json'
 import ListingTypeList from 'assets/json/profile-listing-type.json'
@@ -34,6 +34,7 @@ import HomeNftCard from 'components/Card/HomeNFTCard'
 import { useRouter } from 'next/router'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 import HomeEditionCard from 'components/Card/HomeEditionCard'
+import { isExpired } from 'utils/helpers'
 
 const TabSection = props => {
   const {
@@ -309,13 +310,14 @@ const TabSection = props => {
     let params = {
       sort: sort,
       page: page,
-      per_page: rowCount,
+      per_page: rowCount.toString(),
     }
     if (ownership && ownership.id !== 2) {
       params['ownership'] = ownership.value
     }
-    if (listingType && listingType.id !== 2) {
+    if (listingType && listingType.id !== 3) {
       params['listing'] = listingType.value
+      params['per_page'] = 'all'
     }
     if (merch && merch.id !== 2) {
       params['merch_hub'] = merch.value
@@ -324,9 +326,18 @@ const TabSection = props => {
     DashboardAPI.getArtworkList(wallet, params).then(
       response => {
         setIsFetching(false)
-
-        if (reset) setNftList(response)
-        else setNftList([...nftList, ...response])
+        let result = []
+        response.map(item => {
+          if (item.auction) {
+            if (!isExpired(item.auction.end_time)) result.push(item)
+          } else if (item.masterEdition) {
+            if (!isExpired(item.masterEdition.endTime)) result.push(item)
+          } else {
+            result.push(item)
+          }
+        })
+        if (reset) setNftList(result)
+        else setNftList([...nftList, ...result])
 
         if (response.length < rowCount) {
           setIsVisibleFetching(false)
@@ -336,7 +347,7 @@ const TabSection = props => {
         }
       },
       error => {
-        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
@@ -390,9 +401,9 @@ const TabSection = props => {
             />
           </div>
 
-          {artworkType === 'all' && (
+          {/* {artworkType === 'all' && (
             <div className="w-full">
-              {/* <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} /> */}
+              <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
               {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
                 <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
               )}
@@ -408,7 +419,7 @@ const TabSection = props => {
                 <LoadingComponent isFetching={isFetchingMerch} setIsFetching={setIsFetchingMerch} />
               )}
             </div>
-          )}
+          )} */}
 
           <div className="w-full mt-[30px]">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px]">
@@ -474,14 +485,10 @@ const TabSection = props => {
                 )
               })}
             </div>
-            {/* <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} type="created" />
-              {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
-                <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
-              )} */}
             {isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
           </div>
 
-          {artworkType === 'collected' && (
+          {/* {artworkType === 'collected' && (
             <div className="w-full">
               <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
               {collectedNfts.length > 0 && isLoaded && isVisibleFetchingCollected && (
@@ -496,7 +503,7 @@ const TabSection = props => {
             </div>
           )}
 
-          {artworkType === 'editions' && <LiveEditionsSection category={''} artist={wallet} fromPage={'profile'} />}
+          {artworkType === 'editions' && <LiveEditionsSection category={''} artist={wallet} fromPage={'profile'} />} */}
         </div>
       )}
 
