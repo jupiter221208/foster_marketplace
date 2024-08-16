@@ -332,13 +332,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         <div className="w-full flex justify-center">
           <div className="g-container">
             <TabSection
-              createdNfts={createdNfts}
-              collectedNfts={collectedNfts}
-              merchNfts={merchNfts}
               collections={collections}
               wallet={artistInfo?.wallet_id}
               isOwn={isOwn}
-              isLoaded={isLoaded}
               handleNextPage={() => handleNextPage()}
               reloadPage={reloadPage}
               isVisibleFetchingCreated={isVisibleFetchingCreated}

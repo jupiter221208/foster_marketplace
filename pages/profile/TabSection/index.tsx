@@ -38,13 +38,9 @@ import MobileStudioSort from 'components/Menu/MobileStudioSort'
 
 const TabSection = props => {
   const {
-    createdNfts,
-    collectedNfts,
-    merchNfts,
     collections,
     wallet,
     isOwn,
-    isLoaded,
     handleNextPage,
     isVisibleFetchingCreated,
     isFetchingCreated,
@@ -56,18 +52,13 @@ const TabSection = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
-  const [artworkType, setArtworkType] = useState('created')
   const [nftList, setNftList] = useState([])
   const [listingStatusList, setListingStatusList] = useState([])
   const [listingStatus, setListingStatus] = useState(null)
   const [listingTypeList, setListingTypeList] = useState([])
-  const [listingType, setListingType] = useState(null)
   const [ownershipList, setOwnershipList] = useState([])
-  const [ownership, setOwnership] = useState(null)
   const [studioList, setStudioList] = useState([])
-  const [studio, setStudio] = useState(null)
   const [sortList, setSortList] = useState([])
-  const [sort, setSort] = useState(null)
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
@@ -106,7 +97,6 @@ const TabSection = props => {
       checked: true,
     }
     array1.push(typeAll)
-    setListingType(typeAll)
     setListingTypeList(array1)
 
     let array2: any[] = []
@@ -122,7 +112,6 @@ const TabSection = props => {
       checked: true,
     }
     array2.push(ownershipAll)
-    setOwnership(ownershipAll)
     setOwnershipList(array2)
 
     let array3: any[] = []
@@ -138,7 +127,6 @@ const TabSection = props => {
       checked: true,
     }
     array3.push(studioAll)
-    setOwnership(studioAll)
     setStudioList(array3)
 
     let array4: any[] = []
@@ -180,7 +168,6 @@ const TabSection = props => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
-    console.log(isFetching, loadingData, '==============')
     if (isFetching === true && !loadingData) {
       let nextPage = pages + 1
       getNftItem(nextPage, listingStatusList, listingTypeList, ownershipList, studioList, sortList)
@@ -217,7 +204,6 @@ const TabSection = props => {
     })
     array[index].checked = true
     setListingTypeList(array)
-    setListingType(array[index])
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
@@ -232,7 +218,6 @@ const TabSection = props => {
     })
     array[index].checked = true
     setOwnershipList(array)
-    setOwnership(array[index])
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
@@ -247,7 +232,6 @@ const TabSection = props => {
     })
     array[index].checked = true
     setStudioList(array)
-    setStudio(array[index])
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
@@ -524,7 +508,7 @@ const TabSection = props => {
                     artistImage={item.artistProfilePicture}
                     collectionName={item.collectionName}
                     price={item.listPrice}
-                    showHideButton={true}
+                    showHideButton={isOwn}
                     onClick={() => {
                       router.push(`/nft/${item.tokenId}`)
                     }}
