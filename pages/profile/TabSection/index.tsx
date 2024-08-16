@@ -35,6 +35,7 @@ import { isExpired } from 'utils/helpers'
 import BlackButton from 'components/Button/BlackButton'
 import MobileProfileFilter from 'components/Filter/MobileProfileFilter'
 import MobileStudioSort from 'components/Menu/MobileStudioSort'
+import { useDispatch, useSelector } from 'react-redux'
 
 const TabSection = props => {
   const {
@@ -46,7 +47,9 @@ const TabSection = props => {
     isFetchingCreated,
     setIsFetchingCreated,
   } = props
+  const hideNftToken = useSelector(state => (state as any).hideNftToken)
   const router = useRouter()
+  const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [isMounted, setIsMounted] = useState(false)
@@ -62,6 +65,15 @@ const TabSection = props => {
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
+
+  useEffect(() => {
+    if (hideNftToken.length > 0) {
+      let newNfts = nftList.filter(item => item.tokenId !== hideNftToken)
+      setNftList(newNfts)
+      dispatch({ type: 'set', hideNftToken: '' })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hideNftToken])
 
   useEffect(() => {
     setTimeout(() => {

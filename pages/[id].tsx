@@ -43,19 +43,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const dispatch = useDispatch()
   const removeCollectionId = useSelector(state => (state as any).removeCollectionId)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
-  const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const [artistStatsInfo, setArtistStatsInfo] = useState<any>({})
   const [collectorStatsInfo, setCollectorStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
-  const [createdNfts, setCreatedNfts] = useState<ArtistsAPIData[]>([])
-  const [collectedNfts, setCollectedNfts] = useState<ArtistsAPIData[]>([])
-  const [merchNfts, setMerchNfts] = useState<ArtistsAPIData[]>([])
   const [collections, setCollections] = useState([])
-  const [artistEnable, setArtistEnable] = useState(true)
-  const [merchEnable, setMerchEnable] = useState(false)
-  const [collectorEnable, setCollectorEnable] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isColletorLoaded, setIsColletorLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
@@ -64,14 +57,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistRowCount, setArtistRowCount] = useState(12)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
-  const [merchCurrentPage, setMerchCurrentPage] = useState(1)
-  const [merchRowCount, setMerchRowCount] = useState(12)
   const [isFetchingCreated, setIsFetchingCreated] = useState(false)
   const [isVisibleFetchingCreated, setIsVisibleFetchingCreated] = useState(false)
-  // const [isFetchingMerch, setIsFetchingMerch] = useState(false)
-  // const [isVisibleFetchingMerch, setIsVisibleFetchingMerch] = useState(false)
-  // const [isFetchingCollected, setIsFetchingCollected] = useState(false)
-  // const [isVisibleFetchingCollected, setIsVisibleFetchingCollected] = useState(false)
   const [hasLoading, setHasLoading] = useState(true)
 
   const setFullScreenView = url => {
@@ -98,17 +85,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       500
     )
   }, [])
-
-  useEffect(() => {
-    if (hideNftToken.length > 0) {
-      let newNfts = createdNfts.filter(item => item.token_id !== hideNftToken)
-      setCreatedNfts(newNfts)
-      let newNfts2 = collectedNfts.filter(item => item.token_id !== hideNftToken)
-      setCollectedNfts(newNfts2)
-      dispatch({ type: 'set', hideNftToken: '' })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hideNftToken])
 
   useEffect(() => {
     ;async () => {
