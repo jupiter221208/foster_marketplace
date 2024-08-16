@@ -202,10 +202,20 @@ const TabSection = props => {
     array[index].checked = true
     setListingStatusList(array)
     setListingStatus(array[index])
+
+    let arrayType = [...listingTypeList]
+    if (index === 0) {
+      arrayType.map(item => {
+        item.checked = false
+      })
+      arrayType[2].checked = true
+      setListingTypeList(arrayType)
+    }
+
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, array, listingTypeList, ownershipList, studioList, sortList, true)
+      getNftItem(1, array, arrayType, ownershipList, studioList, sortList, true)
     }, 500)
   }
 
