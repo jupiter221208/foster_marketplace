@@ -14,6 +14,7 @@ import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import SortIcon from 'assets/icons/sort-icon-normal.svg?component'
 import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
 import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
+import CloseIcon from 'assets/icons/close-white-9x9.svg?component'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
@@ -31,7 +32,6 @@ import HomeNftCard from 'components/Card/HomeNFTCard'
 import { useRouter } from 'next/router'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 import HomeEditionCard from 'components/Card/HomeEditionCard'
-import { isExpired } from 'utils/helpers'
 import BlackButton from 'components/Button/BlackButton'
 import MobileProfileFilter from 'components/Filter/MobileProfileFilter'
 import MobileStudioSort from 'components/Menu/MobileStudioSort'
@@ -65,6 +65,7 @@ const TabSection = props => {
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
+  const [selectedFilterList, setSelectedFilterList] = useState([])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
@@ -151,6 +152,82 @@ const TabSection = props => {
     setSortList(array4)
   }, [])
 
+  const resetFilter = () => {
+    let array = [...listingStatusList]
+    array.map(item => {
+      item.checked = false
+    })
+    array[listingStatusList.length - 1].checked = true
+    setListingStatusList(array)
+    setListingStatus(array[listingStatusList.length - 1])
+
+    let array1 = [...listingTypeList]
+    array1.map(item => {
+      item.checked = false
+    })
+    array1[listingTypeList.length - 1].checked = true
+    setListingTypeList(array1)
+
+    let array2 = [...ownershipList]
+    array2.map(item => {
+      item.checked = false
+    })
+    array2[ownershipList.length - 1].checked = true
+    setOwnershipList(array2)
+
+    let array3 = [...studioList]
+    array3.map(item => {
+      item.checked = false
+    })
+    array3[studioList.length - 1].checked = true
+    setStudioList(array3)
+  }
+
+  const removeFilter = filter => {
+    if (
+      filter === 'Listed' ||
+      filter === 'Not Listed' ||
+      filter === 'Live Auction' ||
+      filter === 'Live Edition' ||
+      filter === 'Quick Buy'
+    ) {
+      let array = [...listingStatusList]
+      array.map(item => {
+        item.checked = false
+      })
+      array[listingStatusList.length - 1].checked = true
+      setListingStatusList(array)
+      setListingStatus(array[listingStatusList.length - 1])
+
+      let array1 = [...listingTypeList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[listingTypeList.length - 1].checked = true
+      setListingTypeList(array1)
+    } else if (filter === 'Created' || filter === 'Collected') {
+      let array1 = [...ownershipList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[ownershipList.length - 1].checked = true
+      setOwnershipList(array1)
+    } else if (filter === 'Merch Enabled' || filter === 'Merch Disabled') {
+      let array1 = [...studioList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[studioList.length - 1].checked = true
+      setStudioList(array1)
+    }
+
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, sortList, true)
+    }, 100)
+  }
+
   useEffect(() => {
     let array: any[] = []
     TabList.map(item => {
@@ -170,6 +247,23 @@ const TabSection = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, collections])
+
+  useEffect(() => {
+    let list = []
+    listingStatusList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    listingTypeList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    ownershipList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    studioList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    setSelectedFilterList(list)
+  }, [listingStatusList, listingTypeList, ownershipList, studioList])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -208,7 +302,13 @@ const TabSection = props => {
       arrayType.map(item => {
         item.checked = false
       })
-      arrayType[2].checked = true
+      arrayType[2].checked = true // Quick Buy
+      setListingTypeList(arrayType)
+    } else {
+      arrayType.map(item => {
+        item.checked = false
+      })
+      arrayType[3].checked = true // All
       setListingTypeList(arrayType)
     }
 
@@ -339,13 +439,13 @@ const TabSection = props => {
         setIsFetching(false)
         // let result = []
 
-        var result = response.filter(item => {
-          let index = item.nftName.indexOf(' #')
-          if (index < 0) return true
-          let num = item.nftName.slice(index + 2, item.nftName.length)
-          if (num.length > 0 && parseInt(num) > 0) return false
-          else return true
-        })
+        // var result = response.filter(item => {
+        //   let index = item.nftName.indexOf(' #')
+        //   if (index < 0) return true
+        //   let num = item.nftName.slice(index + 2, item.nftName.length)
+        //   if (num.length > 0 && parseInt(num) > 0) return false
+        //   else return true
+        // })
 
         // noPrintNfts.map(item => {
         //   if (item.auction) {
@@ -356,17 +456,17 @@ const TabSection = props => {
         //     result.push(item)
         //   }
         // })
-        if (reset) setNftList(result)
-        else setNftList([...nftList, ...result])
+        if (reset) setNftList(response)
+        else setNftList([...nftList, ...response])
 
-        fetchNftData(result)
+        fetchNftData(response)
 
         if (response.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
           setPages(page)
           setIsVisibleFetching(true)
-          if (params['per_page'] !== 'all' && result.length < 5)
+          if (params['per_page'] !== 'all' && response.length < 5)
             setTimeout(() => {
               setIsFetching(true)
             }, 500)
@@ -445,6 +545,34 @@ const TabSection = props => {
               icon={<SortIcon />}
             />
           </div>
+          {selectedFilterList.length > 0 && (
+            <div className="w-full hidden lg:flex mt-[15px] items-center gap-[15px]">
+              <div className="flex gap-[15px]">
+                {selectedFilterList.map((item, index) => {
+                  return (
+                    <div key={index} className={styles.selectedFilter} onClick={() => removeFilter(item)}>
+                      {item}
+                      <CloseIcon />
+                    </div>
+                  )
+                })}
+              </div>
+              <div
+                className={styles.clearAll}
+                onClick={() => {
+                  setSelectedFilterList([])
+                  resetFilter()
+                  setLoadingData(true)
+                  setTimeout(() => {
+                    setNftList([])
+                    getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, sortList, true)
+                  }, 100)
+                }}
+              >
+                Clear&nbsp;all
+              </div>
+            </div>
+          )}
           <div className="w-full flex lg:hidden gap-[11px] justify-between mt-[30px]">
             <BlackButton
               label="Filter"
