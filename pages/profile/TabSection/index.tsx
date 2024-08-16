@@ -70,6 +70,7 @@ const TabSection = props => {
   const [sort, setSort] = useState(null)
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
+  const [loadingData, setLoadingData] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -165,7 +166,7 @@ const TabSection = props => {
 
     if (activeTab === 0) {
     } else if (activeTab === 1) {
-      setShowCollections(collections.slice(0, rowCount))
+      setShowCollections(collections)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, collections])
@@ -179,7 +180,7 @@ const TabSection = props => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
-    if (isFetching === true) {
+    if (isFetching === true && !loadingData) {
       let nextPage = pages + 1
       getNftItem(nextPage, listingStatusList, listingTypeList, ownershipList, studioList, sortList)
     }
@@ -201,7 +202,11 @@ const TabSection = props => {
     array[index].checked = true
     setListingStatusList(array)
     setListingStatus(array[index])
-    getNftItem(1, array, listingTypeList, ownershipList, studioList, sortList, true)
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, array, listingTypeList, ownershipList, studioList, sortList, true)
+    }, 500)
   }
 
   const handleListingType = index => {
@@ -212,7 +217,11 @@ const TabSection = props => {
     array[index].checked = true
     setListingTypeList(array)
     setListingType(array[index])
-    getNftItem(1, listingStatusList, array, ownershipList, studioList, sortList, true)
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, listingStatusList, array, ownershipList, studioList, sortList, true)
+    }, 500)
   }
 
   const handleOwnership = index => {
@@ -223,7 +232,11 @@ const TabSection = props => {
     array[index].checked = true
     setOwnershipList(array)
     setOwnership(array[index])
-    getNftItem(1, listingStatusList, listingTypeList, array, studioList, sortList, true)
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, listingStatusList, listingTypeList, array, studioList, sortList, true)
+    }, 500)
   }
 
   const handleSelectStudio = index => {
@@ -234,7 +247,11 @@ const TabSection = props => {
     array[index].checked = true
     setStudioList(array)
     setStudio(array[index])
-    getNftItem(1, listingStatusList, listingTypeList, ownershipList, array, sortList, true)
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, array, sortList, true)
+    }, 500)
   }
 
   const handleSelectSort = index => {
@@ -244,7 +261,11 @@ const TabSection = props => {
     })
     array[index].checked = true
     setSortList(array)
-    getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, array, true)
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, array, true)
+    }, 100)
   }
 
   const getNftItem = (page, listingStatusList, listingTypeList, ownershipList, studioList, sortList, reset = false) => {
@@ -307,8 +328,8 @@ const TabSection = props => {
 
     DashboardAPI.getArtworkList(wallet, params).then(
       response => {
+        if (loadingData) setLoadingData(false)
         setIsFetching(false)
-
         let result = []
         response.map(item => {
           if (item.auction) {
@@ -321,6 +342,8 @@ const TabSection = props => {
         })
         if (reset) setNftList(result)
         else setNftList([...nftList, ...result])
+
+        fetchNftData(result)
 
         if (response.length < rowCount) {
           setIsVisibleFetching(false)
@@ -339,6 +362,22 @@ const TabSection = props => {
         setIsVisibleFetching(false)
       }
     )
+  }
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.tokenId}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
   }
 
   return (

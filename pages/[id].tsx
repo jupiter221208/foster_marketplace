@@ -206,11 +206,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         //   artist.banner_picture ||= HeaderImage.src
         //   setArtistInfo(artist)
         // }
-        console.log('=========ArtistStatsInfo===============')
         setArtistStatsInfo(response.stats)
 
-        // if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
-        // else setIsVisibleFetchingCreated(false)
+        if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
+        else setIsVisibleFetchingCreated(false)
 
         // let newNfts = []
         // if (reset === true) newNfts = response.nfts
@@ -230,7 +229,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         // })
 
         // setCreatedNfts(noPrintNfts)
-        // setArtistCurrentPage(current_page)
+        setArtistCurrentPage(current_page)
+
+        if (collections.length > 0 && collections.length === response.collections.length)
+          setIsVisibleFetchingCreated(false)
+
         setCollections(response.collections)
 
         if (categoryList.length === 0) setCategoryList(response.categories)
@@ -275,22 +278,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         // setIsVisibleFetchingCollected(false)
       }
     )
-  }
-
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-  const fetchNftData = nfts => {
-    if (nfts.length > 0) {
-      ;(async () => {
-        for (let index = 0; index < nfts.length; index++) {
-          let data = nfts[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
-          if (index % 3 == 2) {
-            await sleep(1000)
-          }
-        }
-      })()
-    }
   }
 
   useEffect(() => {
