@@ -241,7 +241,7 @@ const HomeNftCard = props => {
                 ) : (
                   <div>
                     <div className={styles.priceLabel}>Status</div>
-                    <div className="flex justify-center items-center mt-[3px]">
+                    <div className="flex justify-center items-center mt-[7px]">
                       <div className={styles.priceHome}>Not listed</div>
                     </div>
                   </div>

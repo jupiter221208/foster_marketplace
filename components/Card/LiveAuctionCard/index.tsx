@@ -75,6 +75,12 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
+
+  const isExpired = () => {
+    if (timeLeft && timeLeft['days'] === '00' && timeLeft['hours'] && timeLeft['minutes'] && timeLeft['seconds'])
+      return true
+    return false
+  }
   return (
     <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className={styles.container}>
@@ -209,38 +215,38 @@ const LiveAuctionCard = props => {
 
         <div className={`${styles.bidContainer} ${hover ? styles.bottomHover : ''}`}>
           <div className={styles.bidContentView}>
-            <div className="w-full flex justify-between">
-              <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
-              {timeLeft &&
-              timeLeft['days'] === '00' &&
-              timeLeft['hours'] === '00' &&
-              timeLeft['minutes'] === '00' &&
-              timeLeft['seconds'] === '00' ? (
-                <></>
-              ) : (
+            {isExpired() ? (
+              <div className="w-full flex justify-between">
+                <div className={styles.bidName}>{'Status'}</div>
+              </div>
+            ) : (
+              <div className="w-full flex justify-between">
+                <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
                 <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+              </div>
+            )}
+            <div>
+              {isExpired() ? (
+                <div className={styles.bidCountContainer}>
+                  <div className={styles.bidCount}>{'Auction Ended'}</div>
+                </div>
+              ) : (
+                <div className={styles.bidCountContainer}>
+                  <div className={`h-full mt-[3px] mr-[5px] ${styles.sol_icon_color}`}>
+                    <SolanaLogoMobileIcon alt="" />
+                  </div>
+                  <div className={styles.bidCount}>
+                    {data.current_bid !== null && data.current_bid > 0
+                      ? formattedAmount(data.current_bid)
+                      : data.reserve_price !== null
+                      ? formattedAmount(data.reserve_price)
+                      : ''}
+                  </div>
+                </div>
               )}
             </div>
-            <div>
-              <div className={styles.bidCountContainer}>
-                <div className={`h-full mt-[3px] ${styles.sol_icon_color}`}>
-                  <SolanaLogoMobileIcon alt="" />
-                </div>
-                <div className={styles.bidCount}>
-                  {data.current_bid !== null && data.current_bid > 0
-                    ? formattedAmount(data.current_bid)
-                    : data.reserve_price !== null
-                    ? formattedAmount(data.reserve_price)
-                    : ''}
-                </div>
-              </div>
-            </div>
 
-            {timeLeft &&
-            timeLeft['days'] === '00' &&
-            timeLeft['hours'] === '00' &&
-            timeLeft['minutes'] === '00' &&
-            timeLeft['seconds'] === '00' ? (
+            {isExpired() ? (
               <></>
             ) : (
               <div>

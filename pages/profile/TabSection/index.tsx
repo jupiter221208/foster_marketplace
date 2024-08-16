@@ -184,13 +184,7 @@ const TabSection = props => {
   }
 
   const removeFilter = filter => {
-    if (
-      filter === 'Listed' ||
-      filter === 'Not Listed' ||
-      filter === 'Live Auction' ||
-      filter === 'Live Edition' ||
-      filter === 'Quick Buy'
-    ) {
+    if (filter === 'Listed' || filter === 'Not Listed') {
       let array = [...listingStatusList]
       array.map(item => {
         item.checked = false
@@ -198,7 +192,7 @@ const TabSection = props => {
       array[listingStatusList.length - 1].checked = true
       setListingStatusList(array)
       setListingStatus(array[listingStatusList.length - 1])
-
+    } else if (filter === 'Live Auction' || filter === 'Live Edition' || filter === 'Quick Buy') {
       let array1 = [...listingTypeList]
       array1.map(item => {
         item.checked = false
@@ -297,25 +291,10 @@ const TabSection = props => {
     setListingStatusList(array)
     setListingStatus(array[index])
 
-    let arrayType = [...listingTypeList]
-    if (index === 0) {
-      arrayType.map(item => {
-        item.checked = false
-      })
-      arrayType[2].checked = true // Quick Buy
-      setListingTypeList(arrayType)
-    } else {
-      arrayType.map(item => {
-        item.checked = false
-      })
-      arrayType[3].checked = true // All
-      setListingTypeList(arrayType)
-    }
-
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, array, arrayType, ownershipList, studioList, sortList, true)
+      getNftItem(1, array, listingTypeList, ownershipList, studioList, sortList, true)
     }, 500)
   }
 
@@ -396,14 +375,15 @@ const TabSection = props => {
       }
     })
     let listingType = null
-    if (listingStatus.id === 0 || listingStatus.id === 2) {
+    if (listingStatus?.id === 0 || listingStatus?.id === 2) {
       listingTypeList.map(item => {
         if (item.checked === true) {
           listingType = item
         }
       })
-      if (listingType && listingType.id !== 3) {
-        params['listing'] = listingType.value
+      if (listingType) {
+        if (listingType.id === 3) params['listing'] = 'fixed-price'
+        else params['listing'] = listingType.value
         params['per_page'] = 'all'
       }
     } else {
