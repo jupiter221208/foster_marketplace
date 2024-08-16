@@ -281,6 +281,13 @@ const TabSection = props => {
         sort = item.value
       }
     })
+
+    let params = {
+      sort: sort,
+      page: page,
+      per_page: rowCount.toString(),
+    }
+
     let listingStatus = null
     listingStatusList.map(item => {
       if (item.checked === true) {
@@ -294,7 +301,14 @@ const TabSection = props => {
           listingType = item
         }
       })
+      if (listingType && listingType.id !== 3) {
+        params['listing'] = listingType.value
+        params['per_page'] = 'all'
+      }
+    } else {
+      params['listing'] = 'unlisted'
     }
+
     let ownership = null
     ownershipList.map(item => {
       if (item.checked === true) {
@@ -307,25 +321,21 @@ const TabSection = props => {
         merch = item
       }
     })
-    let params = {
-      sort: sort,
-      page: page,
-      per_page: rowCount.toString(),
-    }
+
     if (ownership && ownership.id !== 2) {
       params['ownership'] = ownership.value
     }
-    if (listingType && listingType.id !== 3) {
-      params['listing'] = listingType.value
-      params['per_page'] = 'all'
-    }
+
     if (merch && merch.id !== 2) {
       params['merch_hub'] = merch.value
     }
 
     DashboardAPI.getArtworkList(wallet, params).then(
       response => {
+        if (params['per_page'] === 'all') setIsVisibleFetching(false)
+
         setIsFetching(false)
+
         let result = []
         response.map(item => {
           if (item.auction) {
@@ -344,6 +354,10 @@ const TabSection = props => {
         } else {
           setPages(page)
           setIsVisibleFetching(true)
+          if (params['per_page'] !== 'all' && result.length < 5)
+            setTimeout(() => {
+              setIsFetching(true)
+            }, 500)
         }
       },
       error => {
