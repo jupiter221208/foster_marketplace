@@ -27,7 +27,6 @@ const LiveAuctionCard = props => {
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [hover, setHover] = useState(false)
   useEffect(() => {
-    console.log(data, '=========data=======')
     if (
       data.asset_type.includes('video') &&
       (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&

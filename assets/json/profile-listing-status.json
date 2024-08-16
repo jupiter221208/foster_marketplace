@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "name": "Listed",
+    "value": "listed"
+  },
+  {
+    "id": 1,
+    "name": "Not Listed",
+    "value": "not-listed"
+  }
+]
