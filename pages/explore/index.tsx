@@ -722,6 +722,7 @@ const Explore = () => {
                               tokenId: item.token_id,
                               nftName: item.nft_name,
                               artistUsername: item.artist_username,
+                              artistProfilePicture: item.artist_profile_picture,
                               coverImageUrl: item.cover_image_url,
                               assetUrl: item.asset_url,
                               endTime: item.end_time,
@@ -740,6 +741,7 @@ const Explore = () => {
                                 tokenId: item.token_id,
                                 nftName: item.nft_name,
                                 artistUsername: item.artist_username,
+                                artistProfilePicture: item.artist_profile_picture,
                                 coverImageUrl: item.cover_image_url,
                                 assetUrl: item.asset_url,
                                 endTime: item.end_time,
@@ -776,6 +778,7 @@ const Explore = () => {
                               token_id={item.token_id}
                               image={item.asset_url}
                               nftName={item.nft_name}
+                              artistImage={item.artist_profile_picture}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.artist_username}
@@ -800,6 +803,7 @@ const Explore = () => {
                             token_id={item.token_id}
                             image={item.asset_url}
                             nftName={item.nft_name}
+                            artistImage={item.artist_profile_picture}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.artist_username}
