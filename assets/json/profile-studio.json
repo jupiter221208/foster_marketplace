@@ -1,12 +1,12 @@
 [
   {
     "id": 0,
-    "name": "Enabled",
+    "name": "Merch Enabled",
     "value": "true"
   },
   {
     "id": 1,
-    "name": "Not Enabled",
+    "name": "Merch Disabled",
     "value": "false"
   }
 ]

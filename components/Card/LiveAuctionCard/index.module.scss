@@ -163,7 +163,7 @@
 .bidCountContainer {
   display: flex;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 9px;
 }
 
 .endTimeContainer {
@@ -188,6 +188,8 @@
 .bidTime {
   font-family: 'Muli-Light';
   font-size: 14px;
+  line-height: 18px;
+
   text-align: right;
   color: rgba(var(--text-gray-200-color-rgb), 0.85);
 }
@@ -205,11 +207,14 @@
   justify-content: center;
   font-family: 'Muli-Light';
   font-size: 16px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 14px;
+    line-height: 16px;
   }
   @media (min-width: 1680px) {
     font-size: 16px;
+    line-height: 18px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
@@ -219,12 +224,14 @@
   justify-content: center;
   font-family: 'Muli-Bold';
   font-size: 16px;
-  line-height: 20px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 14px;
+    line-height: 16px;
   }
   @media (min-width: 1680px) {
     font-size: 16px;
+    line-height: 18px;
   }
   gap: 2px;
   color: var(--text-gray-200-color);

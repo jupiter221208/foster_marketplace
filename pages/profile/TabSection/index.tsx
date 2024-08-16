@@ -337,9 +337,9 @@ const TabSection = props => {
       response => {
         setLoadingData(false)
         setIsFetching(false)
-        let result = []
+        // let result = []
 
-        var noPrintNfts = response.filter(item => {
+        var result = response.filter(item => {
           let index = item.nftName.indexOf(' #')
           if (index < 0) return true
           let num = item.nftName.slice(index + 2, item.nftName.length)
@@ -347,15 +347,15 @@ const TabSection = props => {
           else return true
         })
 
-        noPrintNfts.map(item => {
-          if (item.auction) {
-            if (item.auction.end_time === null || !isExpired(item.auction.end_time)) result.push(item)
-          } else if (item.masterEdition) {
-            if (item.masterEdition.endTime === null || !isExpired(item.masterEdition.endTime)) result.push(item)
-          } else {
-            result.push(item)
-          }
-        })
+        // noPrintNfts.map(item => {
+        //   if (item.auction) {
+        //     if (item.auction.end_time === null || !isExpired(item.auction.end_time)) result.push(item)
+        //   } else if (item.masterEdition) {
+        //     if (item.masterEdition.endTime === null || !isExpired(item.masterEdition.endTime)) result.push(item)
+        //   } else {
+        //     result.push(item)
+        //   }
+        // })
         if (reset) setNftList(result)
         else setNftList([...nftList, ...result])
 

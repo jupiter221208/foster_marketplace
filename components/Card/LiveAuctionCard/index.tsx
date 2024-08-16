@@ -211,11 +211,19 @@ const LiveAuctionCard = props => {
           <div className={styles.bidContentView}>
             <div className="w-full flex justify-between">
               <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
-              <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+              {timeLeft &&
+              timeLeft['days'] === '00' &&
+              timeLeft['hours'] === '00' &&
+              timeLeft['minutes'] === '00' &&
+              timeLeft['seconds'] === '00' ? (
+                <></>
+              ) : (
+                <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+              )}
             </div>
             <div>
               <div className={styles.bidCountContainer}>
-                <div className={`h-full ${styles.sol_icon_color}`}>
+                <div className={`h-full mt-[3px] ${styles.sol_icon_color}`}>
                   <SolanaLogoMobileIcon alt="" />
                 </div>
                 <div className={styles.bidCount}>
@@ -228,36 +236,44 @@ const LiveAuctionCard = props => {
               </div>
             </div>
 
-            <div>
-              <div className={styles.bidCountContainer}>
-                {timeLeft && timeLeft['days'] !== '00' && (
-                  <div>
+            {timeLeft &&
+            timeLeft['days'] === '00' &&
+            timeLeft['hours'] === '00' &&
+            timeLeft['minutes'] === '00' &&
+            timeLeft['seconds'] === '00' ? (
+              <></>
+            ) : (
+              <div>
+                <div className={styles.bidCountContainer}>
+                  {timeLeft && timeLeft['days'] !== '00' && (
+                    <div>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['days']}
+                        <div className={styles.bidDesc}>D</div>
+                      </div>
+                    </div>
+                  )}
+                  <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['days']}
-                      <div className={styles.bidDesc}>D</div>
+                      {timeLeft && timeLeft['hours']}
+                      <div className={styles.bidDesc}>H</div>
                     </div>
                   </div>
-                )}
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['hours']}
-                    <div className={styles.bidDesc}>H</div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['minutes']}
+                      <div className={styles.bidDesc}>M</div>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['minutes']}
-                    <div className={styles.bidDesc}>M</div>
-                  </div>
-                </div>
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['seconds']}
-                    <div className={styles.bidDesc}>S</div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['seconds']}
+                      <div className={styles.bidDesc}>S</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
