@@ -1410,7 +1410,7 @@ const MainSection = ({
                 <div className={styles.rightTopSection}>
                   <div className="w-full">
                     <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                      <div className="lg:block hidden w-full h-[25px]">
+                      {/* <div className="lg:block hidden w-full h-[25px]">
                         {!nameLoading && (nftPrice > 0 || liveAuction) && !isEnded && (
                           <div className={styles.liveFont}>
                             live
@@ -1425,8 +1425,39 @@ const MainSection = ({
                             </div>
                           </div>
                         )}
+                      </div> */}
+                      <div className="w-full flex justify-between items-center">
+                        {nameLoading ? (
+                          <div
+                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[30px] lg:mt-[0px] rounded-full`}
+                          ></div>
+                        ) : (
+                          <div className="flex items-center justify-between mt-[15px] lg:mt-[0px]">
+                            <div className={styles.nftTitle}>{nftName}</div>
+                          </div>
+                        )}
+                        {nameLoading ? (
+                          <div className="w-full lg:block hidden min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                        ) : (
+                          <div className="lg:block hidden">
+                            <MenuEditNft
+                              studio={
+                                nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
+                              }
+                              metadata={true}
+                              explorerURL={explorerURL}
+                              setShowNftMeta={setShowNftMeta}
+                              setRemoveMerchModal={setRemoveMerchModal}
+                              setCreateMerchModal={setCreateMerchModal}
+                              setOpenShareModal={setOpenShareModal}
+                              merchToggle={merchToggle}
+                              isCreatedNft={isCreatedNft}
+                            />
+                          </div>
+                        )}
                       </div>
-
                       <div className="w-full flex justify-between items-start gap-[30px]">
                         {nameLoading ? (
                           <div className="w-full">
@@ -1454,8 +1485,6 @@ const MainSection = ({
                             nftCollectionName={nftCollectionName}
                             nftCollectionImage={nftCollectionImage}
                             nameLoading={nameLoading}
-                            isEditionListing={isEditionListing}
-                            liveAuction={liveAuction}
                             endTime={endTime}
                             startTime={startTime}
                             endEditionTime={nftInfo?.master_edition?.endTime}
@@ -1463,28 +1492,9 @@ const MainSection = ({
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
                             profileImage={nftInfo?.creator_profile_image}
+                            liveAuction={liveAuction}
+                            isEditionListing={isEditionListing}
                           />
-                        )}
-                        {nameLoading ? (
-                          <div className="w-full lg:block hidden min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
-                            <div className="skeletonLoader" />
-                          </div>
-                        ) : (
-                          <div className="lg:block hidden">
-                            <MenuEditNft
-                              studio={
-                                nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
-                              }
-                              metadata={true}
-                              explorerURL={explorerURL}
-                              setShowNftMeta={setShowNftMeta}
-                              setRemoveMerchModal={setRemoveMerchModal}
-                              setCreateMerchModal={setCreateMerchModal}
-                              setOpenShareModal={setOpenShareModal}
-                              merchToggle={merchToggle}
-                              isCreatedNft={isCreatedNft}
-                            />
-                          </div>
                         )}
                       </div>
                       {nameLoading ? (
@@ -1757,6 +1767,8 @@ const MainSection = ({
                                         startTime={startTime}
                                         setIsEnded={setIsEnded}
                                         setIsStarted={setIsStarted}
+                                        liveAuction={liveAuction}
+                                        isEditionListing={isEditionListing}
                                       />
                                       {isOwnNft === true ? (
                                         <div className="mt-[15px]">

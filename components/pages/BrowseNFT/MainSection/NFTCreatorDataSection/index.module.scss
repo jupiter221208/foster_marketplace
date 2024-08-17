@@ -1,25 +1,5 @@
 @import 'assets/scss/variable.module.scss';
 
-.title {
-  font-family: 'Muli-Bold';
-  font-size: 23px;
-  line-height: 29px;
-  @media (min-width: 640px) {
-    font-size: 28px;
-    line-height: 32px;
-  }
-  @media (min-width: 768px) {
-    font-size: 32px;
-    line-height: 46px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 30px;
-    line-height: 36px;
-  }
-
-  color: var(--text-gray-200-color);
-}
-
 .grayText {
   font-family: 'Muli-Light';
   font-size: 14px;
@@ -54,7 +34,7 @@
   font-size: 14px;
   line-height: 18px;
   font-weight: 100;
-  color: rgba(var(--main-bg-color-rgb), 0.8);
+  color: #707070;
 }
 
 .userTile {
