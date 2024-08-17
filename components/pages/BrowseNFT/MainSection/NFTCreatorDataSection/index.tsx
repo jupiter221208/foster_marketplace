@@ -128,7 +128,8 @@ const NFTCreatorDataSection = props => {
   }
 
   const isExpired = time => {
-    if (time['days'] === '00' && time['hours'] && time['minutes'] && time['seconds']) return true
+    if (time['days'] === '00' && time['hours'] === '00' && time['minutes'] === '00' && time['seconds'] === '00')
+      return true
     return false
   }
 
