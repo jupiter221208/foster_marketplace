@@ -125,9 +125,7 @@ const ActiveListingSection = props => {
                   artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
-                  onClick={() => {
-                    router.push(`/nft/${item.token_id}`)
-                  }}
+                  onClick={() => {}}
                   key={index}
                 />
               </div>

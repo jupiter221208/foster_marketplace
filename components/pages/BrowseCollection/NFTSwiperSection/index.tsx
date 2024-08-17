@@ -234,9 +234,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                     collectionName={collectionName}
                     price={item.list_price}
                     showHideButton={showHideButton}
-                    onClick={() => {
-                      gotoNftPage(item.id)
-                    }}
+                    onClick={() => {}}
                   />
                 )}
               </div>
