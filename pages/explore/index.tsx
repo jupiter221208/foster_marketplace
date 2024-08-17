@@ -709,13 +709,7 @@ const Explore = () => {
                     return (
                       <div className="w-full" key={index}>
                         {selectedAvailability.value === 'timed' ? (
-                          <LiveAuctionCard
-                            data={item}
-                            onClick={() => {
-                              router.push('/nft/' + item.token_id)
-                            }}
-                            setCardExpired={item => {}}
-                          />
+                          <LiveAuctionCard data={item} onClick={() => {}} setCardExpired={item => {}} />
                         ) : selectedAvailability.value === 'editions' ? (
                           <HomeEditionCard
                             data={{
@@ -754,13 +748,7 @@ const Explore = () => {
                               onClick={() => {}}
                             />
                           ) : isAvailableAuctionCard(item) ? (
-                            <LiveAuctionCard
-                              data={item}
-                              onClick={() => {
-                                router.push('/nft/' + item.token_id)
-                              }}
-                              setCardExpired={item => {}}
-                            />
+                            <LiveAuctionCard data={item} onClick={() => {}} setCardExpired={item => {}} />
                           ) : !item.end_time && item.price ? (
                             <HomeNftCard
                               nftName={item.nft_name}

@@ -614,9 +614,7 @@ const TabSection = props => {
                       start_time: item.auction?.start_time,
                       end_time: item.auction?.end_time,
                     }}
-                    onClick={() => {
-                      router.push('/nft/' + item.token_id)
-                    }}
+                    onClick={() => {}}
                     setCardExpired={item => {}}
                     key={index}
                   />
@@ -636,9 +634,7 @@ const TabSection = props => {
                       maxSupply: item.maxSupply,
                     }}
                     type={item.maxSupply === null ? 'open' : 'limit'}
-                    onClick={() => {
-                      router.push('/nft/' + item.token_id)
-                    }}
+                    onClick={() => {}}
                     key={index}
                   />
                 ) : (
@@ -653,9 +649,7 @@ const TabSection = props => {
                     collectionName={item.collectionName}
                     price={item.listPrice}
                     showHideButton={isOwn}
-                    onClick={() => {
-                      router.push(`/nft/${item.tokenId}`)
-                    }}
+                    onClick={() => {}}
                     key={index}
                   />
                 )
