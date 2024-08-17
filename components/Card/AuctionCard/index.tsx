@@ -73,7 +73,7 @@ const AuctionCard = props => {
       <div className="w-full flex justify-between ">
         <div className="">
           <div className={styles.highestBid}>{currentPrice > 0 ? 'Highest Bid' : 'Reserve Price'}</div>
-          <div className="flex gap-[4px] mt-[11px]">
+          <div className="flex gap-[6px] mt-[11px]">
             <div className="flex items-center mt-[4px]">
               <SolanaLogoMobileIcon alt="" />
             </div>
