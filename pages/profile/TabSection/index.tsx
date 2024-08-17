@@ -643,7 +643,7 @@ const TabSection = props => {
                     token_id={item.tokenId}
                     nftName={item.nftName}
                     assetType={item.assetType}
-                    coverImage={item.assetUrl}
+                    coverImage={item.coverImageUrl}
                     artistName={item.artistUsername}
                     artistImage={item.artistProfilePicture}
                     collectionName={item.collectionName}
