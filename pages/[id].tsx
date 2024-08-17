@@ -37,7 +37,6 @@ interface ArtistProfileProps {
 }
 
 const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
-  console.log(artistPublicKey, publicArtistData, '==========artistPublicKey, publicArtistData==========')
   useAuthentication()
   const { connected, publicKey } = useWallet()
 
@@ -173,16 +172,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       response => {
         setIsLoaded(true)
         setHasLoading(false)
-
         setIsFetchingCreated(false)
         if (isString(response)) return
-        // let artist = response.artist
+        let artist = response.artist
 
-        // if (refresh && artist) {
-        //   artist.profile_picture ||= AvatarImage.src
-        //   artist.banner_picture ||= HeaderImage.src
-        //   setArtistInfo(artist)
-        // }
+        if (refresh && artist) {
+          artist.profile_picture ||= AvatarImage.src
+          artist.banner_picture ||= HeaderImage.src
+          setArtistInfo(artist)
+        }
         setArtistStatsInfo(response.stats)
 
         if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
