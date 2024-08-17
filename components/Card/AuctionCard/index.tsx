@@ -73,7 +73,7 @@ const AuctionCard = props => {
       <div className="w-full flex justify-between ">
         <div className="">
           <div className={styles.highestBid}>{currentPrice > 0 ? 'Highest Bid' : 'Reserve Price'}</div>
-          <div className="flex gap-[6px] mt-[11px]">
+          <div className="flex gap-[6px] mt-[9px]">
             <div className="flex items-center mt-[4px]">
               <SolanaLogoMobileIcon alt="" />
             </div>
@@ -88,7 +88,7 @@ const AuctionCard = props => {
               <div className={styles.highestBid}>{auctionStarted === true ? 'Time Remaining' : 'Starts In'}</div>
             </div>
 
-            <div className={`${styles.bidCountContainer} pl-[12px] mt-[11px]`}>
+            <div className={`${styles.bidCountContainer} pl-[12px] mt-[9px]`}>
               {timeLeft && timeLeft['days'] !== '00' && (
                 <div>
                   <div className={styles.endTime}>

@@ -199,16 +199,12 @@
 .endTimeContainer {
   margin-left: 4px;
   @media (min-width: 1024px) {
-    margin-left: 2px;
-  }
-  @media (min-width: 1680px) {
     margin-left: 4px;
   }
 }
 
 .endTime {
   display: flex;
-  gap: 2px;
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;

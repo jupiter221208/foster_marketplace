@@ -108,7 +108,6 @@ const MainSection = prop => {
   const [showBannerBoard, setShowBannerBoard] = useState(false)
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
-  const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
   const [descCount, setDescCount] = useState(235)
   const [tempNftDescription, setTempNftDescription] = useState('')
   const [isTruncated, setIsTruncated] = useState(true)

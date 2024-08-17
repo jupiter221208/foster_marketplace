@@ -168,9 +168,6 @@
 .endTimeContainer {
   margin-left: 4px;
   @media (min-width: 1024px) {
-    margin-left: 2px;
-  }
-  @media (min-width: 1680px) {
     margin-left: 4px;
   }
 }
@@ -196,6 +193,7 @@
 .bidCount {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
+  font-weight: 100;
   line-height: 20px;
   color: var(--text-gray-200-color);
 }
@@ -203,35 +201,27 @@
 .bidDesc {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-Light';
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
   font-size: 16px;
   line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 16px;
-  }
-  @media (min-width: 1680px) {
+    @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 18px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: var(--text-gray-200-color);
 }
 
 .endTime {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 16px;
-  }
-  @media (min-width: 1680px) {
     font-size: 16px;
     line-height: 18px;
   }
-  gap: 2px;
   color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;

@@ -37,6 +37,7 @@ interface ArtistProfileProps {
 }
 
 const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
+  console.log(artistPublicKey, publicArtistData, '==========artistPublicKey, publicArtistData==========')
   useAuthentication()
   const { connected, publicKey } = useWallet()
 
