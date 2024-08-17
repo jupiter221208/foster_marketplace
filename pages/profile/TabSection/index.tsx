@@ -380,11 +380,16 @@ const TabSection = props => {
         listingType = item
       }
     })
+    let onlyListed = false
     if (listingStatus?.id === 0) {
       if (listingType) {
-        if (listingType.id === 3) params['listing'] = 'fixed-price'
-        else params['listing'] = listingType.value
-        params['per_page'] = 'all'
+        if (listingType.id === 3) {
+          params['per_page'] = 'all'
+          onlyListed = true
+        } else {
+          params['listing'] = listingType.value
+          params['per_page'] = 'all'
+        }
       }
     } else if (listingStatus?.id === 2) {
       if (listingType.id !== 3) {
@@ -418,7 +423,7 @@ const TabSection = props => {
 
     setIsVisibleFetching(true)
 
-    DashboardAPI.getArtworkList(wallet, params).then(
+    DashboardAPI.getArtworkList(wallet, params, onlyListed).then(
       response => {
         setLoadingData(false)
         setIsFetching(false)

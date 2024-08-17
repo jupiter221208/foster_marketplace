@@ -18,7 +18,14 @@ class Dashboard {
       })
   }
 
-  getArtworkList(user, params) {
+  getArtworkList(user, params, only_listed) {
+    if (only_listed) {
+      return client
+      .get(addNonEmptySearchParams(API_URL + `v1/dashboard/${user}/artworks?listing[]=fixed-price&listing[]=auction&listing[]=master-edition`, params).toString())
+      .then(response => {
+        return response?.data
+      })
+    }
     return client
       .get(addNonEmptySearchParams(API_URL + `v1/dashboard/${user}/artworks`, params).toString())
       .then(response => {
