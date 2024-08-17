@@ -642,6 +642,25 @@ const TabSection = props => {
                     onClick={() => {}}
                     key={index}
                   />
+                ) : item.maxSupply === null || parseInt(item.maxSupply) > 0 ? (
+                  <HomeEditionCard
+                    data={{
+                      tokenId: item.tokenId,
+                      nftName: item.nftName,
+                      artistUsername: item.artistUsername,
+                      artistProfilePicture: item.artistProfilePicture,
+                      coverImageUrl: item.coverImageUrl,
+                      assetUrl: item.assetUrl,
+                      endTime: null,
+                      startTime: null,
+                      price: null,
+                      currentSupply: item.currentSupply,
+                      maxSupply: item.maxSupply,
+                    }}
+                    type={item.maxSupply === null ? 'open' : 'limit'}
+                    onClick={() => {}}
+                    key={index}
+                  />
                 ) : (
                   <HomeNftCard
                     image={item.assetUrl}
