@@ -1804,8 +1804,8 @@ const MainSection = ({
                                               </>
                                             ) : (
                                               <div className="relative mt-[0px] mt-[10px] lg:mt-[10px]">
-                                                <div className="w-full flex gap-[15px] lg:flex-row flex-col">
-                                                  <div className="w-[50%] flex justify-center">
+                                                <div className="w-full flex gap-[15px] sm:flex-row flex-col">
+                                                  <div className="w-full sm:min-w-[50%] flex justify-center">
                                                     <PriceInput
                                                       value={price}
                                                       placeholder="Enter Bid amount"
@@ -1826,7 +1826,7 @@ const MainSection = ({
                                                     />
                                                   </div>
                                                   <div
-                                                    className={`${styles.placeBidBG} w-[50%]`}
+                                                    className={`${styles.placeBidBG} sm:w-[50%]`}
                                                     onClick={async () => {
                                                       if (
                                                         price === '' ||
