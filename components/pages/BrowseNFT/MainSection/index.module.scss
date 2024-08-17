@@ -267,7 +267,7 @@
   font-family: 'Muli-Light';
   font-size: 18px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9)
+  color: #707070;
 }
 
 .nftDetailCard {
@@ -626,7 +626,7 @@
   @media (min-width: 1024px) {
     font-size: 14px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 1);
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
 
 .minValue {

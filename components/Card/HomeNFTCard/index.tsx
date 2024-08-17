@@ -42,6 +42,8 @@ const HomeNftCard = props => {
     collectionName,
     assetType,
     price,
+    currentSupply,
+    maxSupply,
     onClick,
     showHideButton = false,
     showUnhideButton = false,
@@ -246,6 +248,23 @@ const HomeNftCard = props => {
                     </div>
                   </div>
                 )}
+                <div>
+                  {maxSupply === null ? (
+                    <div>
+                      <div className={styles.priceLabel}>Open Edition</div>
+                      <div className={styles.bidCount}>{currentSupply + ' sold'}</div>
+                    </div>
+                  ) : parseInt(maxSupply) > 0 ? (
+                    <div>
+                      <div className={styles.priceLabel}>Limited Edition</div>
+                      <div className={`${styles.bidCount} mt-[9px]`}>
+                        {maxSupply - currentSupply + '/' + maxSupply + ' left'}
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
             </div>
           </div>

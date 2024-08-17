@@ -1429,7 +1429,7 @@ const MainSection = ({
                       <div className="w-full flex justify-between items-center">
                         {nameLoading ? (
                           <div
-                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[30px] lg:mt-[0px] rounded-full`}
+                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[36px] mt-[15px] lg:mt-[0px] rounded-full`}
                           ></div>
                         ) : (
                           <div className="flex items-center justify-between mt-[15px] lg:mt-[0px]">
@@ -1461,9 +1461,6 @@ const MainSection = ({
                       <div className="w-full flex justify-between items-start gap-[30px]">
                         {nameLoading ? (
                           <div className="w-full">
-                            <div className="mt-[30px] lg:mt-[0px] w-[250px] h-[36px] rounded-[18px] overflow-hidden">
-                              <div className="skeletonLoader" />
-                            </div>
                             <div className="w-full flex gap-[15px] mt-[30px]">
                               <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
                                 <div className="skeletonLoader" />
@@ -1895,7 +1892,7 @@ const MainSection = ({
                                                 </div>
                                                 <div className="w-full flex items-center justify-between">
                                                   <div className={styles.minText}>
-                                                    Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
+                                                    Minimum Bid:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
                                                   </div>
                                                   {endPhaseDuration > 0 && (
                                                     <div
