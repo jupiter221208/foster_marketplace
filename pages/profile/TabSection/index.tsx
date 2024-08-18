@@ -268,8 +268,8 @@ const TabSection = props => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
+    setPages(0)
     setNftList([])
-    setIsVisibleFetching(true)
   }, [wallet])
 
   useEffect(() => {
