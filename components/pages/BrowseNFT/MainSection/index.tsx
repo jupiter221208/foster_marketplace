@@ -119,6 +119,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import NFTHistorySection from './NFTHistorySection'
 import NFTCategorySection from './NFTCategorySection'
 import ShopApparelSection from '../ShopApparelSection'
+import NFTDescriptionSection from './NFTDescriptionSection'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -164,7 +165,6 @@ const MainSection = ({
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
   const detailViewRef = useRef(null)
-  const descriptionViewRef = useRef(null)
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
@@ -845,8 +845,6 @@ const MainSection = ({
   }, [nftDescription])
 
   function toggleIsTruncated() {
-    descriptionViewRef.current.scrollTop = 0
-
     setIsTruncated(!isTruncated)
   }
 
@@ -1523,7 +1521,7 @@ const MainSection = ({
                           />
                         )}
                       </div>
-                      {nameLoading ? (
+                      {/* {nameLoading ? (
                         <div className="w-full mt-[30px]">
                           <div className="w-[100px] h-[20px] rounded-[10px] overflow-hidden">
                             <div className="skeletonLoader" />
@@ -1559,7 +1557,7 @@ const MainSection = ({
                         </div>
                       ) : (
                         <></>
-                      )}
+                      )} */}
 
                       {(supply?.max === null || supply?.max > 0) && (loading || editionLoading) ? (
                         <div className="w-full h-[87px] rounded-[10px] overflow-hidden mt-[30px]">
@@ -1593,441 +1591,116 @@ const MainSection = ({
                       )}
                     </div>
 
-                    <div className="w-full flex flex-wrap">
-                      <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                        {loading || editionLoading ? (
-                          <div className="mt-[30px]">
-                            {supply?.max === null || supply?.max > 0 ? (
-                              <div className="w-full flex justify-between gap-[15px]">
-                                <div className="w-[40%] h-[45px] rounded-[23px] overflow-hidden">
-                                  <div className="skeletonLoader" />
-                                </div>
+                    <div className={`w-full ${styles.nftDetailCardPadding}`}>
+                      {loading || editionLoading ? (
+                        <div className="mt-[30px]">
+                          {supply?.max === null || supply?.max > 0 ? (
+                            <div className="w-full flex justify-between gap-[15px]">
+                              <div className="w-[40%] h-[45px] rounded-[23px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
 
-                                <div className="w-[60%] h-[45px] rounded-[23px] overflow-hidden">
-                                  <div className="skeletonLoader" />
-                                </div>
+                              <div className="w-[60%] h-[45px] rounded-[23px] overflow-hidden">
+                                <div className="skeletonLoader" />
                               </div>
-                            ) : (
-                              <div className="w-full flex justify-between">
-                                <div className="w-[70px] h-[24px] rounded-[12px] overflow-hidden">
-                                  <div className="skeletonLoader" />
-                                </div>
-                                <div className="w-[100px] h-[24px] rounded-[12px] overflow-hidden">
-                                  <div className="skeletonLoader" />
-                                </div>
-                              </div>
-                            )}
-                            <div className="w-full h-[45px] rounded-[23px] overflow-hidden mt-[15px]">
-                              <div className="skeletonLoader" />
                             </div>
+                          ) : (
+                            <div className="w-full flex justify-between">
+                              <div className="w-[70px] h-[24px] rounded-[12px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                              <div className="w-[100px] h-[24px] rounded-[12px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                            </div>
+                          )}
+                          <div className="w-full h-[45px] rounded-[23px] overflow-hidden mt-[15px]">
+                            <div className="skeletonLoader" />
                           </div>
-                        ) : (
-                          <div>
-                            {isEditionListing ? (
-                              isOwnNft === true ? (
-                                <div className="w-full mt-[30px]">
-                                  <GradientButton
-                                    fullWidth
-                                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                    fontSize={16}
-                                    borderRadius={23}
-                                    label={'Update/Relist'}
-                                    onClick={() => {
-                                      setListEditionType('update')
-                                      setShowListEditionDetail(true)
-                                      setShowAuctionSection(true)
-                                    }}
-                                  />
-                                  <div className="mt-[15px]">
-                                    {cancelListLoading ? (
-                                      <LoadingSecondaryButton fullWidth height={45} borderRadius={23} />
-                                    ) : (
-                                      <OutlineButton
-                                        fullWidth
-                                        height={45}
-                                        fontSize={16}
-                                        borderRadius={23}
-                                        label="Cancel Listing"
-                                        onClick={() => cancelListEdition()}
-                                      />
-                                    )}
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 lg:mt-[0px]">
-                                  <MintEditionCard
-                                    price={price}
-                                    maxSupply={editionDetail.maxSupply}
-                                    currentSupply={editionDetail.supply}
-                                    buyLimit={nftInfo?.master_edition?.buyLimit}
-                                    endTime={nftInfo?.master_edition?.endTime}
-                                    startTime={nftInfo?.master_edition?.startTime}
-                                    isEnded={isEnded}
-                                    isStarted={isStarted}
-                                    nftPrice={nftPrice}
-                                    merchCost={merchCost}
-                                    setPrice={setPrice}
-                                    mintQty={mintQty}
-                                    setMintQty={setMintQty}
-                                    mintEditionLoading={mintEditionLoading}
-                                    mintEdition={mintEdition}
-                                  />
-                                </div>
-                              )
-                            ) : (
-                              <></>
-                            )}
-
-                            {nftPrice > 0 && !liveAuction ? (
-                              editionType === 'master_oe' || editionType === 'master_le' ? (
-                                <></>
-                              ) : (
-                                <div className="w-full mt-[30px]">
-                                  <div className={`w-full flex gap-[6px] ${styles.border_top}`}>
-                                    <div className="flex items-center">
-                                      <div className="flex items-center mt-[4px]">
-                                        <SolanaLogoMobileIcon alt="" />
-                                      </div>
-                                      <div className={`${styles.solPrice} ml-[4px]`}>{nftPrice.toFixed(2)}</div>
-                                      <div className={`${styles.dollarPrice} ml-[8px]`}>
-                                        ${(nftPrice * solToUsdRate).toFixed(2)}
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  {(isOwnNft === false || isOwnNft === null) && (
-                                    <div className="w-full flex flex-col lg:flex-row mt-[15px] lg:mt-[15px] gap-[15px] lg:gap-[15px]">
-                                      <OutlineButton
-                                        label="Make Offer"
-                                        fullWidth
-                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                        backgroundColor="var(--bg-151515-EEEDEB)"
-                                        fontSize={16}
-                                        borderRadius={23}
-                                        onClick={() => {
-                                          if (!connected) {
-                                            setVisible(true)
-                                            return
-                                          }
-                                          setOpenOfferModal(true)
-                                        }}
-                                      />
-                                      {tradeStateAddress && !buyLoading ? (
-                                        <GradientButton
-                                          fullWidth
-                                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                          fontSize={16}
-                                          borderRadius={23}
-                                          label="Buy Now"
-                                          disabled={!tradeStateAddress}
-                                          onClick={() => quickBuy()}
-                                        />
-                                      ) : (
-                                        <LoadingPrimaryButton
-                                          fullWidth
-                                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                          borderRadius={23}
-                                        />
-                                      )}
-                                    </div>
-                                  )}
-
-                                  {isOwnNft === true ? (
-                                    <div className="w-full flex content-none mt-[15px] lg:mt-[15px]">
-                                      <GradientButton
-                                        label="Delist or Update"
-                                        fullWidth
-                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                        fontSize={16}
-                                        borderRadius={23}
-                                        onClick={() => setShowUpdateListNFTModal(true)}
-                                      />
-                                    </div>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </div>
-                              )
-                            ) : endTime !== null &&
-                              getTimeDifferenceWithAuction(endTime) < 0 &&
-                              (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
-                              connected ? (
-                              <div className="w-full mb-1 mt-[30px] lg:mt-[30px] lg:mb-5">
-                                {nftCurrentPrice > 0 ? (
-                                  <OutlineButton
-                                    label="Finalize Sale"
-                                    fullWidth
-                                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                    fontSize={16}
-                                    borderRadius={23}
-                                    onClick={() => processFinalizeSale()}
-                                  />
-                                ) : isCancelProcessing ? (
-                                  <LoadingSecondaryButton
-                                    label={'Cancel Auction'}
-                                    type="cancel"
-                                    height={45}
-                                    borderRadius={23}
-                                    onClick={() => {}}
-                                    fullWidth
-                                  />
-                                ) : (
-                                  <OutlineButton
-                                    label="Cancel Auction"
-                                    fullWidth
-                                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                    fontSize={16}
-                                    borderRadius={23}
-                                    onClick={() => cancelAuction()}
-                                  />
-                                )}
-                              </div>
-                            ) : liveAuction === true ? (
+                        </div>
+                      ) : (
+                        <div>
+                          {isEditionListing ? (
+                            isOwnNft === true ? (
                               <div className="w-full mt-[30px]">
-                                {!isEnded && (
-                                  <div className={`w-full ${styles.border_top}`}>
-                                    <div className={styles.auctionContainer}>
-                                      <AuctionCard
-                                        currentPrice={nftCurrentPrice}
-                                        reservePrice={nftReservePrice}
-                                        endTime={endTime}
-                                        startTime={startTime}
-                                        setIsEnded={setIsEnded}
-                                        setIsStarted={setIsStarted}
-                                        liveAuction={liveAuction}
-                                        isEditionListing={isEditionListing}
-                                      />
-                                      {isOwnNft === true ? (
-                                        <div className="mt-[15px]">
-                                          <OutlineButton
-                                            label="Cancel Auction"
-                                            fullWidth
-                                            height={
-                                              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45
-                                            }
-                                            fontSize={16}
-                                            borderRadius={23}
-                                            onClick={() => nftCurrentPrice === 0 && cancelAuction()}
-                                            disabled={nftCurrentPrice > 0}
-                                          />
-                                        </div>
-                                      ) : (
-                                        <></>
-                                      )}
-                                      {showPlaceBidButton &&
-                                        !isOwnNft &&
-                                        (loading ? (
-                                          <div className="w-full mt-[10px] lg:mt-[10px]">
-                                            <div className="w-full flex justify-center">
-                                              <div
-                                                className={`${styles.skeletonLoader} w-[100%] h-[80px] lg:h-[80px] rounded-[12px]`}
-                                              ></div>
-                                            </div>
-                                          </div>
-                                        ) : (
-                                          <div>
-                                            {publicKey?.toBase58() === highBidder ? (
-                                              <>
-                                                <div className={styles.highBidText}>
-                                                  You are currently the highest bidder!
-                                                </div>
-                                              </>
-                                            ) : (
-                                              <div className="relative mt-[0px] mt-[10px] lg:mt-[10px]">
-                                                <div className="w-full flex gap-[15px] sm:flex-row flex-col">
-                                                  <div className="w-full sm:min-w-[50%] flex justify-center">
-                                                    <PriceInput
-                                                      value={price}
-                                                      placeholder="Enter Bid amount"
-                                                      backgroundColor={'var(--bg-151515-EEEDEB)'}
-                                                      borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                                                      borderWidth={1}
-                                                      borderRadius={23}
-                                                      fullWidth
-                                                      min={0}
-                                                      height={45}
-                                                      onChange={value => {
-                                                        if (value < 0) {
-                                                          setPrice('')
-                                                        } else {
-                                                          setPrice(value)
-                                                        }
-                                                      }}
-                                                    />
-                                                  </div>
-                                                  <div
-                                                    className={`${styles.placeBidBG} sm:w-[50%]`}
-                                                    onClick={async () => {
-                                                      if (
-                                                        price === '' ||
-                                                        parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                                      )
-                                                        return
-
-                                                      if (isEnded) return
-
-                                                      if (!connected) {
-                                                        setVisible(true)
-                                                        return
-                                                      }
-
-                                                      if (
-                                                        parseFloat(price) >
-                                                        mainWalletBalance + biddingBalance - bidWalletLock
-                                                      ) {
-                                                        setAlertData([
-                                                          {
-                                                            id: 0,
-                                                            title: 'Insufficient Funds',
-                                                            description: 'Not enough funds in wallet for bid amount',
-                                                            type: 'error',
-                                                          },
-                                                        ])
-                                                        setShowAlert(true)
-                                                        return
-                                                      }
-
-                                                      placeBidAndSave(price)
-                                                    }}
-                                                  >
-                                                    {auctionLoading ? (
-                                                      <LoadingPrimaryButton
-                                                        fullWidth
-                                                        height={
-                                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                                            ? 50
-                                                            : 45
-                                                        }
-                                                        borderRadius={23}
-                                                      />
-                                                    ) : (
-                                                      <GradientButton
-                                                        label="Place Bid"
-                                                        fullWidth
-                                                        height={
-                                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                                            ? 50
-                                                            : 45
-                                                        }
-                                                        fontSize={16}
-                                                        borderRadius={23}
-                                                        disabled={
-                                                          price === '' ||
-                                                          parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                                        }
-                                                        onClick={() => {}}
-                                                      />
-                                                    )}
-                                                  </div>
-                                                </div>
-                                                <div className="w-full flex items-center justify-between">
-                                                  <div className={styles.minText}>
-                                                    Minimum Bid:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
-                                                  </div>
-                                                  {endPhaseDuration > 0 && (
-                                                    <div
-                                                      className="flex gap-[6px] items-center"
-                                                      onClick={() => {
-                                                        setAuctionInfoFocus(true)
-                                                        setTimeout(() => {
-                                                          setAuctionInfoFocus(false)
-                                                        }, 2000)
-                                                      }}
-                                                    >
-                                                      <div className={styles.endPhaseText}>End Phase</div>
-                                                      <div
-                                                        onMouseEnter={() => {
-                                                          setAuctionInfoFocus(true)
-                                                          setTimeout(() => {
-                                                            setAuctionInfoFocus(false)
-                                                          }, 3000)
-                                                        }}
-                                                      >
-                                                        <InfoGreenIcon />
-                                                      </div>
-                                                    </div>
-                                                  )}
-                                                </div>
-                                                {auctionInfoFocus && (
-                                                  <div className="absolute w-full flex justify-end top-[10px]">
-                                                    <div className={styles.auctionInfoText}>
-                                                      <div className={styles.auctionInfoTitle}>End Phase</div>
-                                                      Auction uses
-                                                      <span>
-                                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment}{' '}
-                                                        SOL&nbsp;
-                                                      </span>
-                                                      bid increments in the last
-                                                      <span>&nbsp;{Math.floor(endPhaseDuration / 60)} mins.&nbsp;</span>
-                                                    </div>
-                                                  </div>
-                                                )}
-                                              </div>
-                                            )}
-                                          </div>
-                                        ))}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            ) : !loading && nftInfo ? (
-                              isOwnNft === true ? (
-                                <div className="w-full">
-                                  {editionType === 'master_le' || editionType === 'master_oe' ? (
-                                    isEditionListing ? (
-                                      <></>
-                                    ) : (
-                                      <div className="w-full mt-[30px]">
-                                        <OutlineButton
-                                          fullWidth
-                                          label="List Edition"
-                                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                          fontSize={16}
-                                          borderRadius={23}
-                                          onClick={() => {
-                                            setListEditionType('list')
-                                            setShowListEditionDetail(true)
-                                            setShowAuctionSection(true)
-                                          }}
-                                        />
-                                      </div>
-                                    )
+                                <GradientButton
+                                  fullWidth
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  fontSize={16}
+                                  borderRadius={23}
+                                  label={'Update/Relist'}
+                                  onClick={() => {
+                                    setListEditionType('update')
+                                    setShowListEditionDetail(true)
+                                    setShowAuctionSection(true)
+                                  }}
+                                />
+                                <div className="mt-[15px]">
+                                  {cancelListLoading ? (
+                                    <LoadingSecondaryButton fullWidth height={45} borderRadius={23} />
                                   ) : (
-                                    <div className="w-full flex lg:flex-row flex-col gap-[15px] mt-[30px]">
-                                      <OutlineButton
-                                        fullWidth
-                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                        fontSize={16}
-                                        borderRadius={23}
-                                        label="List Artwork"
-                                        onClick={() => setShowListNFTModal(true)}
-                                      />
-                                      <GradientButton
-                                        fullWidth
-                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                        fontSize={16}
-                                        borderRadius={23}
-                                        label="Start Auction"
-                                        onClick={() => {
-                                          setShowAuctionDetail(true)
-                                          setShowAuctionSection(true)
-                                        }}
-                                      />
-                                    </div>
-                                  )}
-                                </div>
-                              ) : isOwnNft === false || isOwnNft === null ? (
-                                editionType === 'master_le' || editionType === 'master_oe' ? (
-                                  <></>
-                                ) : (
-                                  <div className="w-full flex gap-[20px] mt-[30px]">
                                     <OutlineButton
                                       fullWidth
-                                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                      height={45}
                                       fontSize={16}
                                       borderRadius={23}
+                                      label="Cancel Listing"
+                                      onClick={() => cancelListEdition()}
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 lg:mt-[0px]">
+                                <MintEditionCard
+                                  price={price}
+                                  maxSupply={editionDetail.maxSupply}
+                                  currentSupply={editionDetail.supply}
+                                  buyLimit={nftInfo?.master_edition?.buyLimit}
+                                  endTime={nftInfo?.master_edition?.endTime}
+                                  startTime={nftInfo?.master_edition?.startTime}
+                                  isEnded={isEnded}
+                                  isStarted={isStarted}
+                                  nftPrice={nftPrice}
+                                  merchCost={merchCost}
+                                  setPrice={setPrice}
+                                  mintQty={mintQty}
+                                  setMintQty={setMintQty}
+                                  mintEditionLoading={mintEditionLoading}
+                                  mintEdition={mintEdition}
+                                />
+                              </div>
+                            )
+                          ) : (
+                            <></>
+                          )}
+
+                          {nftPrice > 0 && !liveAuction ? (
+                            editionType === 'master_oe' || editionType === 'master_le' ? (
+                              <></>
+                            ) : (
+                              <div className="w-full mt-[30px]">
+                                <div className={`w-full flex gap-[6px] ${styles.border_top}`}>
+                                  <div className="flex items-center">
+                                    <div className="flex items-center mt-[4px]">
+                                      <SolanaLogoMobileIcon alt="" />
+                                    </div>
+                                    <div className={`${styles.solPrice} ml-[4px]`}>{nftPrice.toFixed(2)}</div>
+                                    <div className={`${styles.dollarPrice} ml-[8px]`}>
+                                      ${(nftPrice * solToUsdRate).toFixed(2)}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {(isOwnNft === false || isOwnNft === null) && (
+                                  <div className="w-full flex flex-col lg:flex-row mt-[15px] lg:mt-[15px] gap-[15px] lg:gap-[15px]">
+                                    <OutlineButton
                                       label="Make Offer"
-                                      type="make-offer"
+                                      fullWidth
+                                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                      backgroundColor="var(--bg-151515-EEEDEB)"
+                                      fontSize={16}
+                                      borderRadius={23}
                                       onClick={() => {
                                         if (!connected) {
                                           setVisible(true)
@@ -2036,19 +1709,363 @@ const MainSection = ({
                                         setOpenOfferModal(true)
                                       }}
                                     />
+                                    {tradeStateAddress && !buyLoading ? (
+                                      <GradientButton
+                                        fullWidth
+                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                        fontSize={16}
+                                        borderRadius={23}
+                                        label="Buy Now"
+                                        disabled={!tradeStateAddress}
+                                        onClick={() => quickBuy()}
+                                      />
+                                    ) : (
+                                      <LoadingPrimaryButton
+                                        fullWidth
+                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                        borderRadius={23}
+                                      />
+                                    )}
                                   </div>
-                                )
+                                )}
+
+                                {isOwnNft === true ? (
+                                  <div className="w-full flex content-none mt-[15px] lg:mt-[15px]">
+                                    <GradientButton
+                                      label="Delist or Update"
+                                      fullWidth
+                                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                      fontSize={16}
+                                      borderRadius={23}
+                                      onClick={() => setShowUpdateListNFTModal(true)}
+                                    />
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+                              </div>
+                            )
+                          ) : endTime !== null &&
+                            getTimeDifferenceWithAuction(endTime) < 0 &&
+                            (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
+                            connected ? (
+                            <div className="w-full mb-1 mt-[30px] lg:mt-[30px] lg:mb-5">
+                              {nftCurrentPrice > 0 ? (
+                                <OutlineButton
+                                  label="Finalize Sale"
+                                  fullWidth
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  fontSize={16}
+                                  borderRadius={23}
+                                  onClick={() => processFinalizeSale()}
+                                />
+                              ) : isCancelProcessing ? (
+                                <LoadingSecondaryButton
+                                  label={'Cancel Auction'}
+                                  type="cancel"
+                                  height={45}
+                                  borderRadius={23}
+                                  onClick={() => {}}
+                                  fullWidth
+                                />
                               ) : (
+                                <OutlineButton
+                                  label="Cancel Auction"
+                                  fullWidth
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  fontSize={16}
+                                  borderRadius={23}
+                                  onClick={() => cancelAuction()}
+                                />
+                              )}
+                            </div>
+                          ) : liveAuction === true ? (
+                            <div className="w-full mt-[30px]">
+                              {!isEnded && (
+                                <div className={`w-full ${styles.border_top}`}>
+                                  <div className={styles.auctionContainer}>
+                                    <AuctionCard
+                                      currentPrice={nftCurrentPrice}
+                                      reservePrice={nftReservePrice}
+                                      endTime={endTime}
+                                      startTime={startTime}
+                                      setIsEnded={setIsEnded}
+                                      setIsStarted={setIsStarted}
+                                      liveAuction={liveAuction}
+                                      isEditionListing={isEditionListing}
+                                    />
+                                    {isOwnNft === true ? (
+                                      <div className="mt-[15px]">
+                                        <OutlineButton
+                                          label="Cancel Auction"
+                                          fullWidth
+                                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                          fontSize={16}
+                                          borderRadius={23}
+                                          onClick={() => nftCurrentPrice === 0 && cancelAuction()}
+                                          disabled={nftCurrentPrice > 0}
+                                        />
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {showPlaceBidButton &&
+                                      !isOwnNft &&
+                                      (loading ? (
+                                        <div className="w-full mt-[10px] lg:mt-[10px]">
+                                          <div className="w-full flex justify-center">
+                                            <div
+                                              className={`${styles.skeletonLoader} w-[100%] h-[80px] lg:h-[80px] rounded-[12px]`}
+                                            ></div>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <div>
+                                          {publicKey?.toBase58() === highBidder ? (
+                                            <>
+                                              <div className={styles.highBidText}>
+                                                You are currently the highest bidder!
+                                              </div>
+                                            </>
+                                          ) : (
+                                            <div className="relative mt-[0px] mt-[10px] lg:mt-[10px]">
+                                              <div className="w-full flex gap-[15px] sm:flex-row flex-col">
+                                                <div className="w-full sm:min-w-[50%] flex justify-center">
+                                                  <PriceInput
+                                                    value={price}
+                                                    placeholder="Enter Bid amount"
+                                                    backgroundColor={'var(--bg-151515-EEEDEB)'}
+                                                    borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                                                    borderWidth={1}
+                                                    borderRadius={23}
+                                                    fullWidth
+                                                    min={0}
+                                                    height={45}
+                                                    onChange={value => {
+                                                      if (value < 0) {
+                                                        setPrice('')
+                                                      } else {
+                                                        setPrice(value)
+                                                      }
+                                                    }}
+                                                  />
+                                                </div>
+                                                <div
+                                                  className={`${styles.placeBidBG} sm:w-[50%]`}
+                                                  onClick={async () => {
+                                                    if (
+                                                      price === '' ||
+                                                      parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                                    )
+                                                      return
+
+                                                    if (isEnded) return
+
+                                                    if (!connected) {
+                                                      setVisible(true)
+                                                      return
+                                                    }
+
+                                                    if (
+                                                      parseFloat(price) >
+                                                      mainWalletBalance + biddingBalance - bidWalletLock
+                                                    ) {
+                                                      setAlertData([
+                                                        {
+                                                          id: 0,
+                                                          title: 'Insufficient Funds',
+                                                          description: 'Not enough funds in wallet for bid amount',
+                                                          type: 'error',
+                                                        },
+                                                      ])
+                                                      setShowAlert(true)
+                                                      return
+                                                    }
+
+                                                    placeBidAndSave(price)
+                                                  }}
+                                                >
+                                                  {auctionLoading ? (
+                                                    <LoadingPrimaryButton
+                                                      fullWidth
+                                                      height={
+                                                        viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                                          ? 50
+                                                          : 45
+                                                      }
+                                                      borderRadius={23}
+                                                    />
+                                                  ) : (
+                                                    <GradientButton
+                                                      label="Place Bid"
+                                                      fullWidth
+                                                      height={
+                                                        viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                                          ? 50
+                                                          : 45
+                                                      }
+                                                      fontSize={16}
+                                                      borderRadius={23}
+                                                      disabled={
+                                                        price === '' ||
+                                                        parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                                      }
+                                                      onClick={() => {}}
+                                                    />
+                                                  )}
+                                                </div>
+                                              </div>
+                                              <div className="w-full flex items-center justify-between">
+                                                <div className={styles.minText}>
+                                                  Minimum Bid:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
+                                                </div>
+                                                {endPhaseDuration > 0 && (
+                                                  <div
+                                                    className="flex gap-[6px] items-center"
+                                                    onClick={() => {
+                                                      setAuctionInfoFocus(true)
+                                                      setTimeout(() => {
+                                                        setAuctionInfoFocus(false)
+                                                      }, 2000)
+                                                    }}
+                                                  >
+                                                    <div className={styles.endPhaseText}>End Phase</div>
+                                                    <div
+                                                      onMouseEnter={() => {
+                                                        setAuctionInfoFocus(true)
+                                                        setTimeout(() => {
+                                                          setAuctionInfoFocus(false)
+                                                        }, 3000)
+                                                      }}
+                                                    >
+                                                      <InfoGreenIcon />
+                                                    </div>
+                                                  </div>
+                                                )}
+                                              </div>
+                                              {auctionInfoFocus && (
+                                                <div className="absolute w-full flex justify-end top-[10px]">
+                                                  <div className={styles.auctionInfoText}>
+                                                    <div className={styles.auctionInfoTitle}>End Phase</div>
+                                                    Auction uses
+                                                    <span>
+                                                      &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment}{' '}
+                                                      SOL&nbsp;
+                                                    </span>
+                                                    bid increments in the last
+                                                    <span>&nbsp;{Math.floor(endPhaseDuration / 60)} mins.&nbsp;</span>
+                                                  </div>
+                                                </div>
+                                              )}
+                                            </div>
+                                          )}
+                                        </div>
+                                      ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ) : !loading && nftInfo ? (
+                            isOwnNft === true ? (
+                              <div className="w-full">
+                                {editionType === 'master_le' || editionType === 'master_oe' ? (
+                                  isEditionListing ? (
+                                    <></>
+                                  ) : (
+                                    <div className="w-full mt-[30px]">
+                                      <OutlineButton
+                                        fullWidth
+                                        label="List Edition"
+                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                        fontSize={16}
+                                        borderRadius={23}
+                                        onClick={() => {
+                                          setListEditionType('list')
+                                          setShowListEditionDetail(true)
+                                          setShowAuctionSection(true)
+                                        }}
+                                      />
+                                    </div>
+                                  )
+                                ) : (
+                                  <div className="w-full flex lg:flex-row flex-col gap-[15px] mt-[30px]">
+                                    <OutlineButton
+                                      fullWidth
+                                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                      fontSize={16}
+                                      borderRadius={23}
+                                      label="List Artwork"
+                                      onClick={() => setShowListNFTModal(true)}
+                                    />
+                                    <GradientButton
+                                      fullWidth
+                                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                      fontSize={16}
+                                      borderRadius={23}
+                                      label="Start Auction"
+                                      onClick={() => {
+                                        setShowAuctionDetail(true)
+                                        setShowAuctionSection(true)
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            ) : isOwnNft === false || isOwnNft === null ? (
+                              editionType === 'master_le' || editionType === 'master_oe' ? (
                                 <></>
+                              ) : (
+                                <div className="w-full flex gap-[20px] mt-[30px]">
+                                  <OutlineButton
+                                    fullWidth
+                                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                    fontSize={16}
+                                    borderRadius={23}
+                                    label="Make Offer"
+                                    type="make-offer"
+                                    onClick={() => {
+                                      if (!connected) {
+                                        setVisible(true)
+                                        return
+                                      }
+                                      setOpenOfferModal(true)
+                                    }}
+                                  />
+                                </div>
                               )
                             ) : (
-                              <div></div>
-                            )}
-                          </div>
-                        )}
-                      </div>
+                              <></>
+                            )
+                          ) : (
+                            <div></div>
+                          )}
+                        </div>
+                      )}
                     </div>
+
+                    {nameLoading ? (
+                      <div className="w-full mt-[30px] lg:mt-[20px]" ref={detailViewRef}>
+                        <div className="w-full h-[32px] rounded-[16px] overflow-hidden">
+                          <div className="skeletonLoader" />
+                        </div>
+                        <div className="w-full h-[32px] rounded-[16px] overflow-hidden mt-[15px]">
+                          <div className="skeletonLoader" />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-full mt-[20px]" ref={detailViewRef}>
+                        <NFTDescriptionSection
+                          isTruncated={isTruncated}
+                          processedNftDescription={processedNftDescription}
+                          tempNftDescription={tempNftDescription}
+                          shouldShowReadMore={shouldShowReadMore}
+                          toggleIsTruncated={toggleIsTruncated}
+                        />
+                        <NFTHistorySection mintAddress={nftDetail.mintAddress} />
+                      </div>
+                    )}
                   </div>
+
                   <div
                     className="w-full lg:flex hidden justify-center mb-[70px]"
                     onClick={() => {
@@ -2088,8 +2105,6 @@ const MainSection = ({
                       isNftPrintEdition={isNftPrintEdition()}
                       royalties={nftRoyalties}
                     />
-
-                    <NFTHistorySection mintAddress={nftDetail.mintAddress} />
 
                     <NFTCategorySection nftCategories={nftCategories} />
                   </div>
