@@ -329,6 +329,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     }
   }, [categoryCollectionList, collectionList, collectionNFTs, connected])
 
+  console.log(nftDetail, nftOwner, '========111==========')
   return (
     <div className="w-full min-h-full">
       <Head>

@@ -85,9 +85,8 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
 
     if (!result || !listingResponse) {
       // TODO: show error to user
+      setShowLoading(false)
     }
-
-    setShowLoading(false)
   }
 
   const [nftImage, setNftImage] = useState(data?.image)

@@ -2122,12 +2122,15 @@ const MainSection = ({
         data={nftDetail}
         open={showListNFTModal}
         onClose={(status: string, price) => {
-          setShowListNFTModal(false)
           if (status === 'listed') {
             setIsOwnNft(true)
             setNftPrice(parseFloat(price))
-            reloadNftData()
-            router.reload()
+            // reloadNftData()
+            setTimeout(() => {
+              router.reload()
+            }, 2000)
+          } else {
+            setShowListNFTModal(false)
           }
         }}
       />
