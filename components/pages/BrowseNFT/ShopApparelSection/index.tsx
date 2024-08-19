@@ -58,7 +58,7 @@ const ShopApparelSection = props => {
         <div className={styles.merchTitle}>Shop Merch</div>
         <div className={styles.merchDesc}>Get this artwork printed on merch</div>
 
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-[30px] mt-[15px] lg:mt-[30px]">
+        <div className="w-full grid grid-cols-2 gap-[30px] mt-[15px] lg:mt-[30px]">
           {shopApparelList.map((item: any, index) => (
             <div key={index}>
               {type === 'apparel' ? (
