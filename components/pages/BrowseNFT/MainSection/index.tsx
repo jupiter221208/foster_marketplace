@@ -28,7 +28,6 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
-
 // custom functions
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
@@ -53,8 +52,9 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-gray-18x18.svg?component'
 import MerchGrayIcon from 'assets/icons/merch-gray-icon.svg?component'
-import MoreDetalsIcon from 'assets/lottery/more-details.json'
+import MerchOpenIcon from 'assets/icons/merch-open-icon.svg?component'
 import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
+import MoreDetalsIcon from 'assets/lottery/more-details.json'
 
 // json
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
@@ -1575,9 +1575,9 @@ const MainSection = ({
                               <div className={styles.contentArea}>
                                 <div className="w-full flex justify-between items-center">
                                   <div className={styles.merchTitle}>Merch included for each purchase</div>
-                                  <div className="hidden sm:block min-w-[60px] mr-[15px]">
+                                  <div className="hidden sm:block mr-[13px]">
                                     <div className={styles.merchView} onClick={() => setFullScreenMerch(true)}>
-                                      {'View »'}
+                                      <MerchOpenIcon />
                                     </div>
                                   </div>
                                 </div>
