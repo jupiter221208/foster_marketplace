@@ -1926,23 +1926,7 @@ const MainSection = ({
                                                   </div>
                                                   {endPhaseDuration > 0 && (
                                                     <div
-                                                      className="flex gap-[10px] items-center"
-                                                      onMouseEnter={() => {
-                                                        if (
-                                                          viewport === 'lg' ||
-                                                          viewport === 'xl' ||
-                                                          viewport === '2xl'
-                                                        )
-                                                          setAuctionInfoFocus(true)
-                                                      }}
-                                                      onMouseLeave={() => {
-                                                        if (
-                                                          viewport === 'lg' ||
-                                                          viewport === 'xl' ||
-                                                          viewport === '2xl'
-                                                        )
-                                                          setAuctionInfoFocus(false)
-                                                      }}
+                                                      className="flex gap-[6px] items-center"
                                                       onClick={() => {
                                                         setAuctionInfoFocus(true)
                                                         setTimeout(() => {
@@ -1951,7 +1935,14 @@ const MainSection = ({
                                                       }}
                                                     >
                                                       <div className={styles.endPhaseText}>End Phase</div>
-                                                      <div>
+                                                      <div
+                                                        onMouseEnter={() => {
+                                                          setAuctionInfoFocus(true)
+                                                          setTimeout(() => {
+                                                            setAuctionInfoFocus(false)
+                                                          }, 3000)
+                                                        }}
+                                                      >
                                                         <InfoGreenIcon />
                                                       </div>
                                                     </div>
