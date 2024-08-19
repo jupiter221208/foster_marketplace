@@ -490,8 +490,7 @@ const SingleNft = () => {
           collection_id: collection?.mintAddress.toBase58(),
           edition: 0,
           parent_nft: null,
-          max_supply:
-            editionType?.name == 'Limited Edition' ? maxNum : editionType?.name == 'Open Edition' ? null : '0',
+          max_supply: editionType?.name == 'Limited Edition' ? maxNum : editionType?.name == 'Open Edition' ? null : 0,
         })
         .then(
           response => {
