@@ -53,21 +53,22 @@
 }
 
 .nftTitle {
-  font-family: 'Muli-Bold';
-  font-size: 23px;
-  line-height: 29px;
-  @media (min-width: 640px) {
-    font-size: 28px;
-    line-height: 32px;
-  }
-  @media (min-width: 768px) {
-    font-size: 32px;
-    line-height: 46px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 30px;
-    line-height: 36px;
-  }
+  font-family: 'Ibrand';
+  font-size: 35px;
+  // font-size: 23px;
+  // line-height: 29px;
+  // @media (min-width: 640px) {
+  //   font-size: 28px;
+  //   line-height: 32px;
+  // }
+  // @media (min-width: 768px) {
+  //   font-size: 32px;
+  //   line-height: 46px;
+  // }
+  // @media (min-width: 1024px) {
+  //   font-size: 30px;
+  //   line-height: 36px;
+  // }
 
   color: var(--text-gray-200-color);
 }
@@ -267,7 +268,7 @@
   font-family: 'Muli-Light';
   font-size: 18px;
   line-height: 18px;
-  color: #707070;
+  color: var(--bg-B8B9BD-707070);
 }
 
 .nftDetailCard {
@@ -626,7 +627,7 @@
   @media (min-width: 1024px) {
     font-size: 14px;
   }
-  color: #808080;
+  color: var(--text-gray-200-color);
 }
 
 .minValue {
