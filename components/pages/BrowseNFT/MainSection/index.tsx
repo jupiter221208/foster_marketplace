@@ -1274,7 +1274,7 @@ const MainSection = ({
                     </div>
                   </div>
                   <div className={styles.likeBorder} />
-                  <div>
+                  <div className="flex items-center">
                     <Image
                       src={save ? TicketGreenIcon : TicketWhiteIcon}
                       alt=""
@@ -1368,7 +1368,7 @@ const MainSection = ({
                         </div>
                       </div>
                       <div className={styles.likeBorder} />
-                      <div>
+                      <div className="flex items-center">
                         <Image
                           src={save ? TicketGreenIcon : TicketWhiteIcon}
                           alt=""
@@ -1683,7 +1683,7 @@ const MainSection = ({
                                 <></>
                               ) : (
                                 <div className="w-full mt-[30px]">
-                                  <div className={`w-full flex justify-end gap-[6px] ${styles.border_top}`}>
+                                  <div className={`w-full flex gap-[6px] ${styles.border_top}`}>
                                     <div className="flex items-center">
                                       <div className="flex items-center mt-[4px]">
                                         <SolanaLogoMobileIcon alt="" />
@@ -1701,6 +1701,7 @@ const MainSection = ({
                                         label="Make Offer"
                                         fullWidth
                                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                        backgroundColor="var(--bg-151515-EEEDEB)"
                                         fontSize={16}
                                         borderRadius={23}
                                         onClick={() => {
