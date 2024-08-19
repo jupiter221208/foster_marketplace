@@ -54,7 +54,7 @@ const TabSection = props => {
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
-  const [isVisibleFetching, setIsVisibleFetching] = useState(true)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [nftList, setNftList] = useState([])
   const [listingStatusList, setListingStatusList] = useState([])
   const [listingStatus, setListingStatus] = useState(null)
@@ -269,7 +269,10 @@ const TabSection = props => {
 
   useEffect(() => {
     setPages(0)
-    setNftList([])
+    setTimeout(() => {
+      setIsVisibleFetching(true)
+      setNftList([])
+    }, 500)
   }, [wallet])
 
   useEffect(() => {
