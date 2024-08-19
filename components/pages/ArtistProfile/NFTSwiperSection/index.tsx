@@ -51,9 +51,7 @@ const NFTSwiperSection = props => {
                   collectionName={item.collection_name}
                   price={item.list_price}
                   showHideButton={showHideButton}
-                  onClick={() => {
-                    router.push(`/nft/${item.token_id}`)
-                  }}
+                  onClick={() => {}}
                   key={index}
                 />
               ) : type === 'studio' ? (
@@ -67,9 +65,7 @@ const NFTSwiperSection = props => {
                   artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
-                  onClick={() => {
-                    router.push(`/nft/${item.token_id}`)
-                  }}
+                  onClick={() => {}}
                   key={index}
                 />
               ) : (
@@ -83,9 +79,7 @@ const NFTSwiperSection = props => {
                   artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
-                  onClick={() => {
-                    router.push(`/nft/${item.token_id}`)
-                  }}
+                  onClick={() => {}}
                   key={index}
                 />
               )}

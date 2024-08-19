@@ -1,0 +1,10 @@
+@import 'assets/scss/variable.module.scss';
+
+.ringLoader {
+  display: flex;
+  justify-content: center;
+}
+
+.ringLoader > span > span {
+  opacity: 1 !important;
+}

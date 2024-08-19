@@ -51,8 +51,9 @@ const HomeEditionCard = props => {
     }
   }, [data.endTime])
 
-  const isExpired = time => {
-    if (time['days'] === '00' && time['hours'] && time['minutes'] && time['seconds']) return true
+  const isExpired = () => {
+    if (timeLeft && timeLeft['days'] === '00' && timeLeft['hours'] && timeLeft['minutes'] && timeLeft['seconds'])
+      return true
     return false
   }
 
@@ -186,7 +187,7 @@ const HomeEditionCard = props => {
               </Link>
             )}
 
-            {data.endTime !== null && data.startTime !== data.endTime && timeLeft && !isExpired(timeLeft) && (
+            {data.endTime !== null && data.startTime !== data.endTime && timeLeft && !isExpired() && (
               <div className={styles.timeSection}>
                 <ClockSandIcon />
 
@@ -226,16 +227,22 @@ const HomeEditionCard = props => {
         <div className={`${styles.bidContainer} ${hover ? styles.bottomHover : ''}`}>
           <div className={styles.bidContentView}>
             <div className="w-full flex justify-between">
-              <div className={styles.bidName}>Price</div>
+              <div className={styles.bidName}>{isExpired() ? 'Status' : 'Price'}</div>
               <div className={styles.bidTime}>{type === 'limit' ? 'Limited Edition' : 'Open Edition'}</div>
             </div>
             <div>
-              <div className={styles.bidCountContainer}>
-                <div className={`h-full mt-[2px] ${styles.sol_icon_color}`}>
-                  <SolanaLogoMobileIcon alt="" />
+              {isExpired() ? (
+                <div className={styles.bidCountContainer}>
+                  <div className={styles.bidCount}>{'Edition Ended'}</div>
                 </div>
-                <div className={styles.bidCount}>{getPriceValue(Number(data.price))}</div>
-              </div>
+              ) : (
+                <div className={styles.bidCountContainer}>
+                  <div className={`h-full mt-[2px] mr-[5px] ${styles.sol_icon_color}`}>
+                    <SolanaLogoMobileIcon alt="" />
+                  </div>
+                  <div className={styles.bidCount}>{getPriceValue(Number(data.price))}</div>
+                </div>
+              )}
             </div>
 
             <div>

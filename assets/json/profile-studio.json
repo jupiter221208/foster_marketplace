@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "name": "Merch Enabled",
+    "value": "true"
+  },
+  {
+    "id": 1,
+    "name": "Merch Disabled",
+    "value": "false"
+  }
+]

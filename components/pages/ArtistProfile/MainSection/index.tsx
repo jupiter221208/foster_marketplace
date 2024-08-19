@@ -108,7 +108,6 @@ const MainSection = prop => {
   const [showBannerBoard, setShowBannerBoard] = useState(false)
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
-  const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
   const [descCount, setDescCount] = useState(235)
   const [tempNftDescription, setTempNftDescription] = useState('')
   const [isTruncated, setIsTruncated] = useState(true)
@@ -348,7 +347,7 @@ const MainSection = prop => {
     )
   }
 
-  return viewport === 'md' || viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
       {hasLoading ? (
@@ -468,7 +467,7 @@ const MainSection = prop => {
 
       <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-45px] lg:mt-[-70px] z-10">
-          <div className="col-span-6">
+          <div className="col-span-4 xl:col-span-6">
             <div className="w-content relative">
               <ProfileArtistCard
                 isOwn={isOwn}
@@ -486,7 +485,7 @@ const MainSection = prop => {
             </div>
           </div>
 
-          <div className="col-span-6 h-full flex justify-end items-center pt-[30px] lg:pt-[10px] gap-[15px]">
+          <div className="col-span-8 xl:col-span-6 h-full flex justify-end items-center pt-[30px] lg:pt-[10px] gap-[15px]">
             {hasLoading ? (
               <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
             ) : (
@@ -513,7 +512,7 @@ const MainSection = prop => {
                 }}
               >
                 <CreatorMerchIcon alt="" />
-                <div className={styles.refereshText}>Merch Store</div>
+                <div className={styles.refereshText}>Merch&nbsp;Store</div>
               </div>
             )}
 

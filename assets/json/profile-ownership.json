@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "name": "Created",
+    "value": "created"
+  },
+  {
+    "id": 1,
+    "name": "Collected",
+    "value": "collected"
+  }
+]

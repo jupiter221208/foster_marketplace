@@ -70,3 +70,27 @@
     }
   }
 }
+
+.selectedFilter {
+  width: auto;
+  padding: 6px 9px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clearAll {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
+  cursor: pointer;
+}

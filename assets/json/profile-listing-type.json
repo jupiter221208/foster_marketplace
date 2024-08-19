@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Live Auction",
+    "value": "auction"
+  },
+  {
+    "id": 1,
+    "name": "Live Edition",
+    "value": "master-edition"
+  },
+  {
+    "id": 2,
+    "name": "Quick Buy",
+    "value": "fixed-price"
+  }
+]

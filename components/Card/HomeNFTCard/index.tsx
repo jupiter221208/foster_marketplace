@@ -42,6 +42,8 @@ const HomeNftCard = props => {
     collectionName,
     assetType,
     price,
+    currentSupply,
+    maxSupply,
     onClick,
     showHideButton = false,
     showUnhideButton = false,
@@ -233,7 +235,7 @@ const HomeNftCard = props => {
                       ) : (
                         <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       )}
-                      <div className=" mt-[3px]">
+                      <div className="mt-[3px]">
                         <div className={styles.priceHome}>{formattedAmount(price)}</div>
                       </div>
                     </div>
@@ -241,11 +243,28 @@ const HomeNftCard = props => {
                 ) : (
                   <div>
                     <div className={styles.priceLabel}>Status</div>
-                    <div className="flex justify-center items-center mt-[6px]">
+                    <div className="flex justify-center items-center mt-[7px]">
                       <div className={styles.priceHome}>Not listed</div>
                     </div>
                   </div>
                 )}
+                <div>
+                  {maxSupply === null ? (
+                    <div>
+                      <div className={styles.priceLabel}>Open Edition</div>
+                      <div className={styles.bidCount}>{currentSupply + ' sold'}</div>
+                    </div>
+                  ) : parseInt(maxSupply) > 0 ? (
+                    <div>
+                      <div className={styles.priceLabel}>Limited Edition</div>
+                      <div className={`${styles.bidCount} mt-[9px]`}>
+                        {maxSupply - currentSupply + '/' + maxSupply + ' left'}
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
             </div>
           </div>

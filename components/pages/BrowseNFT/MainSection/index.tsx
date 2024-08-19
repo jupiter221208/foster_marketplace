@@ -1410,7 +1410,7 @@ const MainSection = ({
                 <div className={styles.rightTopSection}>
                   <div className="w-full">
                     <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                      <div className="lg:block hidden w-full h-[25px]">
+                      {/* <div className="lg:block hidden w-full h-[25px]">
                         {!nameLoading && (nftPrice > 0 || liveAuction) && !isEnded && (
                           <div className={styles.liveFont}>
                             live
@@ -1425,45 +1425,16 @@ const MainSection = ({
                             </div>
                           </div>
                         )}
-                      </div>
-
-                      <div className="w-full flex justify-between items-start gap-[30px]">
+                      </div> */}
+                      <div className="w-full flex justify-between items-center">
                         {nameLoading ? (
-                          <div className="w-full">
-                            <div className="mt-[30px] lg:mt-[0px] w-[250px] h-[36px] rounded-[18px] overflow-hidden">
-                              <div className="skeletonLoader" />
-                            </div>
-                            <div className="w-full flex gap-[15px] mt-[30px]">
-                              <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
-                              <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
-                              <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
-                            </div>
-                          </div>
+                          <div
+                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[36px] mt-[15px] lg:mt-[0px] rounded-full`}
+                          ></div>
                         ) : (
-                          <NFTCreatorDataSection
-                            nftName={nftName}
-                            nftCreatorname={nftCreatorname}
-                            nftOwnerUsername={nftOwnerUsername}
-                            nftCollectionAddress={nftCollectionAddress}
-                            nftCollectionName={nftCollectionName}
-                            nftCollectionImage={nftCollectionImage}
-                            nameLoading={nameLoading}
-                            isEditionListing={isEditionListing}
-                            liveAuction={liveAuction}
-                            endTime={endTime}
-                            startTime={startTime}
-                            endEditionTime={nftInfo?.master_edition?.endTime}
-                            startEditionTime={nftInfo?.master_edition?.startTime}
-                            setIsEnded={setIsEnded}
-                            setIsStarted={setIsStarted}
-                            profileImage={nftInfo?.creator_profile_image}
-                          />
+                          <div className="flex items-center justify-between mt-[15px] lg:mt-[0px]">
+                            <div className={styles.nftTitle}>{nftName}</div>
+                          </div>
                         )}
                         {nameLoading ? (
                           <div className="w-full lg:block hidden min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
@@ -1485,6 +1456,42 @@ const MainSection = ({
                               isCreatedNft={isCreatedNft}
                             />
                           </div>
+                        )}
+                      </div>
+                      <div className="w-full flex justify-between items-start gap-[30px]">
+                        {nameLoading ? (
+                          <div className="w-full">
+                            <div className="w-full flex gap-[15px] mt-[30px]">
+                              <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                              <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                              <div className="w-full h-[41px] rounded-[20px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <NFTCreatorDataSection
+                            nftName={nftName}
+                            nftCreatorname={nftCreatorname}
+                            nftOwnerUsername={nftOwnerUsername}
+                            nftCollectionAddress={nftCollectionAddress}
+                            nftCollectionName={nftCollectionName}
+                            nftCollectionImage={nftCollectionImage}
+                            nameLoading={nameLoading}
+                            endTime={endTime}
+                            startTime={startTime}
+                            endEditionTime={nftInfo?.master_edition?.endTime}
+                            startEditionTime={nftInfo?.master_edition?.startTime}
+                            setIsEnded={setIsEnded}
+                            setIsStarted={setIsStarted}
+                            profileImage={nftInfo?.creator_profile_image}
+                            liveAuction={liveAuction}
+                            isEditionListing={isEditionListing}
+                          />
                         )}
                       </div>
                       {nameLoading ? (
@@ -1757,6 +1764,8 @@ const MainSection = ({
                                         startTime={startTime}
                                         setIsEnded={setIsEnded}
                                         setIsStarted={setIsStarted}
+                                        liveAuction={liveAuction}
+                                        isEditionListing={isEditionListing}
                                       />
                                       {isOwnNft === true ? (
                                         <div className="mt-[15px]">
@@ -1795,8 +1804,8 @@ const MainSection = ({
                                               </>
                                             ) : (
                                               <div className="relative mt-[0px] mt-[10px] lg:mt-[10px]">
-                                                <div className="w-full flex gap-[15px] lg:flex-row flex-col">
-                                                  <div className="w-full flex justify-center">
+                                                <div className="w-full flex gap-[15px] sm:flex-row flex-col">
+                                                  <div className="w-full sm:min-w-[50%] flex justify-center">
                                                     <PriceInput
                                                       value={price}
                                                       placeholder="Enter Bid amount"
@@ -1817,7 +1826,7 @@ const MainSection = ({
                                                     />
                                                   </div>
                                                   <div
-                                                    className={`${styles.placeBidBG}`}
+                                                    className={`${styles.placeBidBG} sm:w-[50%]`}
                                                     onClick={async () => {
                                                       if (
                                                         price === '' ||
@@ -1883,7 +1892,7 @@ const MainSection = ({
                                                 </div>
                                                 <div className="w-full flex items-center justify-between">
                                                   <div className={styles.minText}>
-                                                    Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
+                                                    Minimum Bid:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
                                                   </div>
                                                   {endPhaseDuration > 0 && (
                                                     <div

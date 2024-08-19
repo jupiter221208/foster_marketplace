@@ -63,7 +63,6 @@ const MerchDetail = () => {
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     if (isLoggedIn()) {
-      console.log(id, '=========id========')
       if (parseInt(id) > 1000) {
         setOrderVersion('v2')
         StoreAPI.getOrder(id).then(
