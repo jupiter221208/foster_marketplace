@@ -1502,12 +1502,11 @@ const MainSection = ({
                           </div>
                         ) : (
                           <NFTCreatorDataSection
-                            nftName={nftName}
                             nftCreatorname={nftCreatorname}
-                            nftOwnerUsername={nftOwnerUsername}
                             nftCollectionAddress={nftCollectionAddress}
                             nftCollectionName={nftCollectionName}
                             nftCollectionImage={nftCollectionImage}
+                            profileImage={nftInfo?.creator_profile_image}
                             nameLoading={nameLoading}
                             endTime={endTime}
                             startTime={startTime}
@@ -1515,7 +1514,6 @@ const MainSection = ({
                             startEditionTime={nftInfo?.master_edition?.startTime}
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
-                            profileImage={nftInfo?.creator_profile_image}
                             liveAuction={liveAuction}
                             isEditionListing={isEditionListing}
                           />
@@ -1654,11 +1652,10 @@ const MainSection = ({
                               <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 lg:mt-[0px]">
                                 <MintEditionCard
                                   price={price}
+                                  editionType={editionType}
                                   maxSupply={editionDetail.maxSupply}
                                   currentSupply={editionDetail.supply}
                                   buyLimit={nftInfo?.master_edition?.buyLimit}
-                                  endTime={nftInfo?.master_edition?.endTime}
-                                  startTime={nftInfo?.master_edition?.startTime}
                                   isEnded={isEnded}
                                   isStarted={isStarted}
                                   nftPrice={nftPrice}
@@ -1668,6 +1665,12 @@ const MainSection = ({
                                   setMintQty={setMintQty}
                                   mintEditionLoading={mintEditionLoading}
                                   mintEdition={mintEdition}
+                                  endEditionTime={nftInfo?.master_edition?.endTime}
+                                  startEditionTime={nftInfo?.master_edition?.startTime}
+                                  setIsEnded={setIsEnded}
+                                  setIsStarted={setIsStarted}
+                                  liveAuction={liveAuction}
+                                  isEditionListing={isEditionListing}
                                 />
                               </div>
                             )

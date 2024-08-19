@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useViewport } from 'utils'
 
+// utilies
+import { calculateAuctionTimeLeft, calculateTimeLeft } from 'utils/helpers'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
@@ -15,10 +18,10 @@ import GradientButton from 'components/Button/GradientButton'
 const MintEditionCard = props => {
   const {
     price,
+    editionType,
     maxSupply,
     currentSupply,
     buyLimit,
-    endTime,
     isEnded,
     isStarted,
     nftPrice,
@@ -28,13 +31,77 @@ const MintEditionCard = props => {
     setMintQty,
     mintEditionLoading,
     mintEdition,
+    isEditionListing,
+    endEditionTime,
+    startEditionTime,
+    setIsEnded,
+    setIsStarted,
   } = props
   const viewport = useViewport()
-  const [auctionStarted, setAuctionStarted] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(null)
+  const [auctionStarted, setAuctionStarted] = useState(null)
   const [auctionEnded, setAuctionEnded] = useState(false)
   const [total, setTotal] = useState('0.00')
   const [showDetailTotal, setShowDetailTotal] = useState(false)
   const [buyLimitAlert, setBuyLimitAlert] = useState(false)
+
+  useEffect(() => {
+    if (
+      startEditionTime !== undefined &&
+      startEditionTime !== null &&
+      endEditionTime !== undefined &&
+      endEditionTime !== null
+    ) {
+      let time = getStartEditionTime()
+      if (!time) return
+      setTimeLeft(calculateAuctionTimeLeft(time))
+      const timer = setInterval(() => {
+        let time1 = getStartEditionTime()
+        if (!time1) {
+          setTimeLeft(null)
+          return
+        }
+        let time_left = calculateAuctionTimeLeft(time1)
+        setTimeLeft(time_left)
+      }, 1000)
+
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startEditionTime, endEditionTime])
+
+  const getStartEditionTime = () => {
+    let startDate = new Date(startEditionTime)
+    let offset = startDate.getTimezoneOffset() * 60 * 1000
+    let proposalStartTime = startDate.getTime() - offset
+    let difference = proposalStartTime - new Date().getTime()
+
+    if (difference >= 0) {
+      setAuctionStarted(false)
+      return startEditionTime
+    } else {
+      setIsStarted(true)
+      setAuctionStarted(true)
+
+      let endDate = new Date(endEditionTime)
+      let offset = startDate.getTimezoneOffset() * 60 * 1000
+      let proposalEndTime = endDate.getTime() - offset
+      let end_difference = proposalEndTime - new Date().getTime()
+      if (end_difference < 0) {
+        setIsEnded(true)
+        return null
+      }
+      return endEditionTime
+    }
+  }
+
+  const isExpired = time => {
+    if (time['days'] === '00' && time['hours'] === '00' && time['minutes'] === '00' && time['seconds'] === '00')
+      return true
+    return false
+  }
 
   useEffect(() => {
     let total = nftPrice * 1.05 + (merchCost ? merchCost : 0) + 0.01 * 1 + 0.013 * 1 + 0.0003
@@ -50,9 +117,64 @@ const MintEditionCard = props => {
 
   return (
     <div className="w-full">
-      {(endTime === null || (isStarted && !isEnded)) && (
+      {(endEditionTime === null || (isStarted && !isEnded)) && (
         <div className={styles.container}>
-          <div className="w-full">
+          <div className="w-full flex justify-between">
+            <div>
+              <div className={styles.creator}>{editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}</div>
+              <div className={`${styles.supply} mt-[9px]`}>
+                {editionType === 'master_oe'
+                  ? `${currentSupply} Sold`
+                  : `${maxSupply - currentSupply}/${maxSupply} Left`}
+              </div>
+            </div>
+            <div>
+              {timeLeft && !isExpired(timeLeft) && isEditionListing ? (
+                <div>
+                  <div className={`${styles.creator} text-end`}>
+                    {auctionStarted === true ? 'Time Remaining' : 'Starts In'}
+                  </div>
+
+                  <div className={`${styles.bidCountContainer} pl-[12px] mt-[9px]`}>
+                    {timeLeft && timeLeft['days'] !== '00' && (
+                      <div>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['days']}
+                          {timeLeft && <div className={styles.bidDesc}>d</div>}
+                        </div>
+                      </div>
+                    )}
+                    <div className={styles.endTimeContainer}>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['hours']}
+                        {timeLeft && <div className={styles.bidDesc}>h</div>}
+                      </div>
+                    </div>
+                    <div className={styles.endTimeContainer}>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['minutes']}
+                        {timeLeft && <div className={styles.bidDesc}>m</div>}
+                      </div>
+                    </div>
+                    <div className={styles.endTimeContainer}>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['seconds']}
+                        {timeLeft && <div className={styles.bidDesc}>s</div>}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : isEditionListing ? (
+                <div>
+                  <div className={`${styles.creator} text-end`}>{'Time Remaining'}</div>
+                  <div className={`${styles.endTime} mt-[9px]`}>No expiration</div>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          <div className="w-full mt-[15px]">
             <div className="w-full flex gap-[15px] flex-col lg:flex-row">
               <div className={`${auctionStarted && !auctionEnded ? 'w-full lg:w-[180px]' : 'w-full lg:w-[180px]'}`}>
                 <div className={styles.mintQty}>
