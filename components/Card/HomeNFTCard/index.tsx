@@ -252,12 +252,12 @@ const HomeNftCard = props => {
                   {maxSupply === null ? (
                     <div>
                       <div className={styles.priceLabel}>Open Edition</div>
-                      <div className={styles.bidCount}>{currentSupply + ' sold'}</div>
+                      <div className={`${styles.bidCount} mt-[7px]`}>{currentSupply + ' sold'}</div>
                     </div>
                   ) : parseInt(maxSupply) > 0 ? (
                     <div>
                       <div className={styles.priceLabel}>Limited Edition</div>
-                      <div className={`${styles.bidCount} mt-[9px]`}>
+                      <div className={`${styles.bidCount} mt-[7px]`}>
                         {maxSupply - currentSupply + '/' + maxSupply + ' left'}
                       </div>
                     </div>
