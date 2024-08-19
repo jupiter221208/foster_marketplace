@@ -55,8 +55,32 @@ const ShopApparelSection = props => {
   return (
     shopApparelList.length > 0 && (
       <section className={styles.container}>
-        <div className="w-full mt-[15px] lg:mt-[34px]">
-          <Swiper
+        <div className={styles.merchTitle}>Shop Merch</div>
+        <div className={styles.merchDesc}>Get this artwork printed on merch</div>
+
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-[30px] mt-[15px] lg:mt-[34px]">
+          {shopApparelList.map((item: any, index) => (
+            <div key={index}>
+              {type === 'apparel' ? (
+                <StudioReleaseCard
+                  type="nft"
+                  image={getStudioItem(item)}
+                  nftImage={nftCoverUrl}
+                  nftName={nftName}
+                  userName={item.label}
+                  nftCreator={nftCreator}
+                  size={item.range}
+                  onClick={colorNumber => {
+                    dispatch({ type: 'set', apparelColor: colorNumber })
+                    openPage(item)
+                  }}
+                />
+              ) : (
+                <WallArtCard data={item} onClick={() => openPage(item)} />
+              )}
+            </div>
+          ))}
+          {/* <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
               viewport === 'xs'
@@ -102,7 +126,7 @@ const ShopApparelSection = props => {
                 </div>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </Swiper> */}
         </div>
       </section>
     )

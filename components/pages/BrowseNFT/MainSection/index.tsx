@@ -58,6 +58,7 @@ import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
 
 // json
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -117,6 +118,7 @@ import GradientButton from 'components/Button/GradientButton'
 import ImageWithFoster from 'components/ImageWithFoster'
 import NFTHistorySection from './NFTHistorySection'
 import NFTCategorySection from './NFTCategorySection'
+import ShopApparelSection from '../ShopApparelSection'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -125,7 +127,8 @@ export interface MainSectionProps {
   setFullScreenView: any
   reloadNftData: any
   enableMerch: any
-  setShowStudioModal: any
+  setOpenMerchPage: any
+  setMerchData: any
   setCollectionName: any
   fullScreen: boolean
   setShowAuctionSection: any
@@ -140,7 +143,8 @@ const MainSection = ({
   setFullScreenView,
   reloadNftData,
   enableMerch,
-  setShowStudioModal,
+  setOpenMerchPage,
+  setMerchData,
   setCollectionName,
   fullScreen,
   setShowAuctionSection,
@@ -1214,8 +1218,11 @@ const MainSection = ({
           if (response !== null) {
             setMerchToggle(true)
             enableMerch(true)
-            setShowStudioModal(true)
+            // setShowStudioModal(true)
             setCreateMerchModal(false)
+            setTimeout(() => {
+              detailViewRef.current?.scrollIntoView({ behavior: 'smooth' })
+            }, 500)
           }
         },
         err => {}
@@ -1277,7 +1284,12 @@ const MainSection = ({
                   {merchToggle && (
                     <div className={`${styles.iconContainer} w-[90px]`}>
                       <MerchGrayIcon />
-                      <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
+                      <div
+                        className={`${styles.text} mt-[-2px]`}
+                        onClick={() => {
+                          router.push(`/${nftCreatorname}/merch`)
+                        }}
+                      >
                         Merch
                       </div>
                     </div>
@@ -1376,7 +1388,12 @@ const MainSection = ({
                       ) : (
                         <div className={`${styles.iconContainer} w-[90px]`}>
                           <MerchGrayIcon />
-                          <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowStudioModal(true)}>
+                          <div
+                            className={`${styles.text} mt-[-2px]`}
+                            onClick={() => {
+                              router.push(`/${nftCreatorname}/merch`)
+                            }}
+                          >
                             Merch
                           </div>
                         </div>
@@ -2071,6 +2088,22 @@ const MainSection = ({
                     <NFTHistorySection mintAddress={nftDetail.mintAddress} />
 
                     <NFTCategorySection nftCategories={nftCategories} />
+                  </div>
+                )}
+                {merchToggle && (
+                  <div className="w-full">
+                    <ShopApparelSection
+                      title="Shop Apparel"
+                      type="apparel"
+                      nftDetail={nftDetail}
+                      nftCreator={nftCreatorname}
+                      shopApparelList={ShopApparelList}
+                      openMerchPage={data => {
+                        setMerchToggle(false)
+                        setMerchData(data)
+                        setOpenMerchPage(true)
+                      }}
+                    />
                   </div>
                 )}
               </div>

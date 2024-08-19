@@ -139,7 +139,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     const fetchData = async () => {
       if (!nftDetail) return
       if (connected) {
-        console.log(connected, autoConnect, nftDetail, '=============autoConnect==============')
         await nftsAPI.getDetail(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
@@ -243,10 +242,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
         error => {}
       )
     }
-  }
-
-  const handleSelectedTab = item => {
-    setActiveTab(item.id)
   }
 
   useEffect(() => {
@@ -391,7 +386,8 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                       setFullScreenView={setFullScreenView}
                       reloadNftData={reloadNftData}
                       enableMerch={setMerchToggle}
-                      setShowStudioModal={setShowStudioModal}
+                      setOpenMerchPage={setOpenMerchPage}
+                      setMerchData={setMerchData}
                       setCollectionName={setCollectionName}
                       fullScreen={fullScreen}
                       setShowAuctionSection={enable => setShowAuctionSection(enable)}
@@ -453,7 +449,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
         )}
       </div>
 
-      {showStudioModal && (
+      {/* {showStudioModal && (
         <div className={styles.fullScreen}>
           <div className="w-full h-full flex items-center">
             <div className="w-full h-[580px] px-[50px]">
@@ -480,7 +476,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
             <Image src={CloseIcon} alt="" width={18} height={18} />
           </div>
         </div>
-      )}
+      )} */}
 
       {fullScreen && (
         <div className={styles.fullScreen}>
