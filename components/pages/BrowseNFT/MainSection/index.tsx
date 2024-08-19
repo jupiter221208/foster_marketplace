@@ -51,7 +51,7 @@ import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
+import InfoGreenIcon from 'assets/icons/info-gray-18x18.svg?component'
 import MerchGrayIcon from 'assets/icons/merch-gray-icon.svg?component'
 import MoreDetalsIcon from 'assets/lottery/more-details.json'
 import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
@@ -76,7 +76,7 @@ import { cancelListingEdition, createPrint } from 'apis/editions'
 import { useWallets } from 'hooks/useWallets'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { CDN_PREFIX, convertMerchDescription, convertMerchType, getTimeDifferenceWithAuction } from 'utils/helpers'
+import { CDN_PREFIX, getTimeDifferenceWithAuction } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SocialShareModal from 'components/Menu/SocialShareModal'
@@ -1260,16 +1260,8 @@ const MainSection = ({
           <div className="w-full lg:flex hidden mt-[32px] justify-between">
             <div className="flex gap-[15px] items-center">
               <div className="inline">
-                <div className="flex gap-[15px]">
-                  <div className={`${styles.iconContainer} w-[50px]`}>
-                    <Image
-                      src={save ? TicketGreenIcon : TicketWhiteIcon}
-                      alt=""
-                      className=""
-                      onClick={() => changeSaveStatus()}
-                    />
-                  </div>
-                  <div className={`${styles.iconContainer} w-[80px]`}>
+                <div className={styles.likeContainer}>
+                  <div className="flex items-center gap-[6px]">
                     <Image
                       src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
                       alt=""
@@ -1281,7 +1273,16 @@ const MainSection = ({
                       {likeCount}
                     </div>
                   </div>
-                  {merchToggle && (
+                  <div className={styles.likeBorder} />
+                  <div>
+                    <Image
+                      src={save ? TicketGreenIcon : TicketWhiteIcon}
+                      alt=""
+                      className=""
+                      onClick={() => changeSaveStatus()}
+                    />
+                  </div>
+                  {/* {merchToggle && (
                     <div className={`${styles.iconContainer} w-[90px]`}>
                       <MerchGrayIcon />
                       <div
@@ -1293,14 +1294,14 @@ const MainSection = ({
                         Merch
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
 
             <div className="flex gap-[15px] items-center">
               {nftType.includes('vr') || nftType.includes('image') ? (
-                <div className={`${styles.iconContainer} w-[50px]`}>
+                <div className={styles.expandIconContainer}>
                   <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
                     <FullScreenModeIcon />
                   </div>
@@ -1348,13 +1349,26 @@ const MainSection = ({
             <div className={styles.nftDetailCard}>
               <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
                 <div className="w-full flex justify-between items-center">
-                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    {nameLoading ? (
-                      <div className="w-full w-[50px] h-[35px] rounded-[6px] overflow-hidden">
-                        <div className="skeletonLoader" />
+                  {nameLoading ? (
+                    <div className="w-full w-[127px] h-[40px] rounded-[20px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  ) : (
+                    <div className={styles.likeContainer}>
+                      <div className="flex items-center gap-[6px]">
+                        <Image
+                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeLikeStatus()}
+                        />
+
+                        <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowLikeModal(true)}>
+                          {likeCount}
+                        </div>
                       </div>
-                    ) : (
-                      <div className={`${styles.iconContainer} w-[50px]`}>
+                      <div className={styles.likeBorder} />
+                      <div>
                         <Image
                           src={save ? TicketGreenIcon : TicketWhiteIcon}
                           alt=""
@@ -1362,25 +1376,23 @@ const MainSection = ({
                           onClick={() => changeSaveStatus()}
                         />
                       </div>
-                    )}
-                    {nameLoading ? (
-                      <div className="w-full w-[80px] h-[35px] rounded-[6px] overflow-hidden">
-                        <div className="skeletonLoader" />
+                      {/* {merchToggle && (
+                    <div className={`${styles.iconContainer} w-[90px]`}>
+                      <MerchGrayIcon />
+                      <div
+                        className={`${styles.text} mt-[-2px]`}
+                        onClick={() => {
+                          router.push(`/${nftCreatorname}/merch`)
+                        }}
+                      >
+                        Merch
                       </div>
-                    ) : (
-                      <div className={`${styles.iconContainer} w-[80px]`}>
-                        <Image
-                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                          alt=""
-                          className=""
-                          onClick={() => changeLikeStatus()}
-                        />
-                        <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                          {likeCount}
-                        </div>
-                      </div>
-                    )}
-                    {merchToggle &&
+                    </div>
+                  )} */}
+                    </div>
+                  )}
+
+                  {/* {merchToggle &&
                       (nameLoading ? (
                         <div className="w-full w-[80px] h-[35px] rounded-[6px] overflow-hidden">
                           <div className="skeletonLoader" />
@@ -1397,8 +1409,8 @@ const MainSection = ({
                             Merch
                           </div>
                         </div>
-                      ))}
-                  </div>
+                      ))} */}
+
                   {nameLoading ? (
                     <div className="w-full min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
                       <div className="skeletonLoader" />
@@ -1826,7 +1838,7 @@ const MainSection = ({
                                                     <PriceInput
                                                       value={price}
                                                       placeholder="Enter Bid amount"
-                                                      backgroundColor={'transparent'}
+                                                      backgroundColor={'var(--bg-151515-EEEDEB)'}
                                                       borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
                                                       borderWidth={1}
                                                       borderRadius={23}

@@ -1575,6 +1575,10 @@ h6 {
   }
 }
 
+[data-name='info-gray'] {
+  fill: var(--bg-B8B9BD-707070)
+}
+
 [data-name='merch-toggle-disabled'] {
   fill: rgba(var(--main-bg-color-rgb), 0.1);
   stroke: var(--merch-disabled-icon-bg);
