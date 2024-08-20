@@ -337,6 +337,23 @@ const MintEditionCard = props => {
             )}
           </div>
         </div>
+      ) : isEnded ? (
+        <div className={styles.container}>
+          <div className="w-full flex justify-between">
+            <div>
+              <div className={styles.creator}>{editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}</div>
+              <div className={`${styles.supply} mt-[9px]`}>
+                {editionType === 'master_oe'
+                  ? `${currentSupply} Sold`
+                  : `${maxSupply - currentSupply}/${maxSupply} Left`}
+              </div>
+            </div>
+            <div>
+              <div className={`${styles.creator} text-end`}>{'Time Remaining'}</div>
+              <div className={`${styles.supply} mt-[9px] text-end`}>{'Listing Expired'}</div>
+            </div>
+          </div>
+        </div>
       ) : (
         <></>
       )}
