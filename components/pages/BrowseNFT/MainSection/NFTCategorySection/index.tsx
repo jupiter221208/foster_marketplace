@@ -15,21 +15,19 @@ const NFTCategorySection = props => {
 
       <div className={styles.descBorder} />
 
-      {showDetails && (
-        <div>
-          {nftCategories?.length > 0 ? (
-            <div className="w-full flex flex-wrap justify-start items-center mt-[15px] gap-[10px]">
-              {nftCategories?.map((item, index) => (
-                <div className={styles.category} key={index}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className={styles.noCategory}>This artwork has no category attributes</div>
-          )}
-        </div>
-      )}
+      <div>
+        {nftCategories?.length > 0 ? (
+          <div className="w-full flex flex-wrap justify-start items-center mt-[15px] gap-[10px]">
+            {nftCategories?.map((item, index) => (
+              <div className={styles.category} key={index}>
+                {item}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className={styles.noCategory}>This artwork has no category attributes</div>
+        )}
+      </div>
     </div>
   )
 }
