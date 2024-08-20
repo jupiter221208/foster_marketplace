@@ -8,7 +8,6 @@ import Head from 'next/head'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-import NotificationsSearchBox from 'components/Input/NotificationsSearchBox'
 import NotificationsCard from 'components/Card/NotificationsCard'
 import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 
@@ -26,7 +25,6 @@ import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
 import { useDispatch } from 'react-redux'
 import { compareDate, getDateLabel } from 'utils/helpers'
-import NotificationTab from 'components/Tab/NotificationTab'
 import LoadingModal from 'components/Modal/LoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 
