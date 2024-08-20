@@ -1,21 +1,37 @@
 [
   {
     "id": 0,
-    "icon01": "/icons/list-ui-alt-green.svg",
-    "icon02": "/icons/list-ui-alt-gray.svg",
-    "icon03": "/icons/list-ui-alt-gray-light.svg",
-    "icon04": "/icons/list-ui-alt-gray-dark.svg",
     "label": "Artwork",
     "value": "Artwork"
   },
   {
     "id": 1,
-    "icon01": "/icons/collection-green.svg",
-    "icon02": "/icons/collection-gray.svg",
-    "icon03": "/icons/collection-gray-light.svg",
-    "icon04": "/icons/collection-gray-dark.svg",
     "label": "Collections",
-    "value": "Collections",
-    "coming_soon": false
-  }
+    "value": "Collections"
+  },
+  {
+    "id": 2,
+    "label": "Offers",
+    "value": "Offers"
+  },
+  {
+    "id": 3,
+    "label": "Activity",
+    "value": "Activity"
+  },
+  {
+    "id": 4,
+    "label": "Merch Editions",
+    "value": "Merch Editions"
+  },
+  {
+    "id": 5,
+    "label": "Favorites",
+    "value": "Favorites"
+  },
+  {
+    "id": 6,
+    "label": "Hidden",
+    "value": "Hidden"
+  }    
 ]

@@ -6,7 +6,6 @@ import styles from './index.module.scss'
 
 const IconTabButton = props => {
   const { item, onChange } = props
-  const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="relative">

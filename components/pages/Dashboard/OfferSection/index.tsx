@@ -214,7 +214,7 @@ const OfferSection = () => {
 
   return (
     <section className="w-full mt-[16px] lg:mt-[30px]">
-      <div className="w-full flex justify-end z-10">
+      <div className="w-full flex z-10">
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -230,7 +230,7 @@ const OfferSection = () => {
           <LoadingModal open={!offerLoaded} />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
-        <div className="w-full mt-[15px] lg:mt-[34px]">
+        <div className="w-full mt-[15px] lg:mt-[30px]">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
             <OfferTable
               offerType={shownOfferType}
