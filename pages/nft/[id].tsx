@@ -279,19 +279,19 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   }, [collectionId])
 
   // artist collections
-  const [collectionList, setCollectionList] = useState([])
-  useEffect(() => {
-    if (artistInfo !== null && artistInfo.address) {
-      collectionAPI.getOtherCollections(artistInfo.address).then(
-        response => {
-          if (response instanceof Array) {
-            setCollectionList(response)
-          }
-        },
-        error => {}
-      )
-    }
-  }, [artistInfo])
+  // const [collectionList, setCollectionList] = useState([])
+  // useEffect(() => {
+  //   if (artistInfo !== null && artistInfo.address) {
+  //     collectionAPI.getOtherCollections(artistInfo.address).then(
+  //       response => {
+  //         if (response instanceof Array) {
+  //           setCollectionList(response)
+  //         }
+  //       },
+  //       error => {}
+  //     )
+  //   }
+  // }, [artistInfo])
 
   // category collection list
   const [categoryCollectionList, setCategoryCollectionList] = useState([])
@@ -310,7 +310,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   }, [categories])
 
   useEffect(() => {
-    if (categoryCollectionList.length > 0 || collectionList.length > 0 || collectionNFTs.length > 0) {
+    if (categoryCollectionList.length > 0 || collectionNFTs.length > 0) {
       setTabList(prev => {
         if (prev.some(t => t.label === 'Discover More')) {
           return prev
@@ -321,7 +321,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     } else {
       setTabList(prev => prev.filter(t => t.label !== 'Discover More'))
     }
-  }, [categoryCollectionList, collectionList, collectionNFTs, connected])
+  }, [categoryCollectionList, collectionNFTs, connected])
 
   return (
     <div className="w-full min-h-full">
