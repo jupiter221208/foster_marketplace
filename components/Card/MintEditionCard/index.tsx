@@ -201,8 +201,8 @@ const MintEditionCard = props => {
             </div>
           </div>
           <div className="w-full mt-[15px]">
-            <div className="w-full flex gap-[15px] flex-col lg:flex-row">
-              <div className={`${auctionStarted && !auctionEnded ? 'w-full lg:w-[180px]' : 'w-full lg:w-[180px]'}`}>
+            <div className="w-full flex gap-[15px] flex-col lg:flex-col xl:flex-row">
+              <div className={`w-full xl:w-[160px] 2xl:w-[180px]`}>
                 <div className={styles.mintQty}>
                   <div
                     onClick={() => {
@@ -258,7 +258,7 @@ const MintEditionCard = props => {
               <div className="w-full h-[45px] relative">
                 {!showDetailTotal ? (
                   <div className={styles.mintPrice} onClick={() => setShowDetailTotal(true)}>
-                    <div className="w-full flex justify-between px-[24px]">
+                    <div className="w-full flex justify-between px-[24px] xl:px-[18px] 2xl:px-[24px]">
                       <div>Total</div>
                       <div className="flex gap-[6px] items-center">
                         <SolanaLogoIcon className="mt-[2px]" />
