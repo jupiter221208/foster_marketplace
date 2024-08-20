@@ -11,14 +11,8 @@ import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseNFT/MainSection'
 import MerchSection from 'components/pages/BrowseNFT/MerchSection'
-import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
-import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
-import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
-import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
-import SelectedTab from 'components/Tab/SelectedTab'
 
 // custom functions
 import { getNFTCategories, getNftFromDAS, getNftFromRpc, getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'

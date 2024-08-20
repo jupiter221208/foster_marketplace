@@ -51,7 +51,6 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-gray-18x18.svg?component'
-import MerchGrayIcon from 'assets/icons/merch-gray-icon.svg?component'
 import MerchOpenIcon from 'assets/icons/merch-open-icon.svg?component'
 import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
 import MoreDetalsIcon from 'assets/lottery/more-details.json'
@@ -1538,10 +1537,8 @@ const MainSection = ({
                               <div className={styles.contentArea}>
                                 <div className="w-full flex justify-between items-center">
                                   <div className={styles.merchTitle}>Merch included with each edition</div>
-                                  <div className="hidden sm:block mr-[13px] mt-[-8px]">
-                                    <div className={styles.merchView} onClick={() => setFullScreenMerch(true)}>
-                                      <MerchOpenIcon />
-                                    </div>
+                                  <div className="mr-[13px] mt-[-7px]">
+                                    <MerchOpenIcon />
                                   </div>
                                 </div>
                                 <div className={styles.merchContent}>{merchCard.name}</div>
@@ -1562,7 +1559,7 @@ const MainSection = ({
                                   <div className="skeletonLoader" />
                                 </div>
                               ) : (
-                                <div className="w-full h-[202px] rounded-[5px] overflow-hidden">
+                                <div className="w-full h-[80px] rounded-[5px] overflow-hidden">
                                   <div className="skeletonLoader" />
                                 </div>
                               )
@@ -1741,6 +1738,7 @@ const MainSection = ({
                                 <OutlineButton
                                   label="Finalize Sale"
                                   fullWidth
+                                  backgroundColor="var(--bg-151515-EEEDEB)"
                                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
                                   fontSize={16}
                                   borderRadius={23}
@@ -1786,6 +1784,7 @@ const MainSection = ({
                                         <OutlineButton
                                           label="Cancel Auction"
                                           fullWidth
+                                          backgroundColor="var(--bg-151515-EEEDEB)"
                                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
                                           fontSize={16}
                                           borderRadius={23}
@@ -2070,9 +2069,6 @@ const MainSection = ({
                 {nameLoading ? (
                   <div className="w-full mt-[30px] lg:mt-[20px]" ref={detailViewRef}>
                     <div className="w-full h-[32px] rounded-[16px] overflow-hidden">
-                      <div className="skeletonLoader" />
-                    </div>
-                    <div className="w-full h-[32px] rounded-[16px] overflow-hidden mt-[15px]">
                       <div className="skeletonLoader" />
                     </div>
                     <div className="w-full h-[32px] rounded-[16px] overflow-hidden mt-[15px]">

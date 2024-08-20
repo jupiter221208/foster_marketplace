@@ -223,7 +223,7 @@ const StudioReleaseCard = props => {
         </div>
       </div>
       <div className="w-full mt-[10px] flex justify-center">
-        <div className="flex gap-[25px] items-center">
+        <div className={`gap-[25px] items-center ${type === 'nft' ? 'hidden lg:flex' : 'flex'}`}>
           <StudioSelectionColor
             label={''}
             data={ColorType}
