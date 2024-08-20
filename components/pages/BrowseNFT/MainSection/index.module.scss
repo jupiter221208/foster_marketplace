@@ -104,7 +104,7 @@
     gap: 50px;
     margin-bottom: 0px;
     @media (min-height: 840px) { 
-      height: calc(100vh - 150px);
+      min-height: calc(100vh - 150px);
     }
   }
   

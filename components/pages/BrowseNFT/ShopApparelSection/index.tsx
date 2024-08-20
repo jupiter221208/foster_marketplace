@@ -56,7 +56,7 @@ const ShopApparelSection = props => {
     shopApparelList.length > 0 && (
       <section className={styles.container}>
         <div className={styles.merchTitle}>Shop Merch</div>
-        <div className={styles.merchDesc}>Get this artwork printed on merch</div>
+        <div className={styles.border} />
 
         <div className="w-full grid grid-cols-2 gap-[20px] sm:gap-[30px] mt-[15px] lg:mt-[30px]">
           {shopApparelList.map((item: any, index) => (
