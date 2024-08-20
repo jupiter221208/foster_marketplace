@@ -1597,6 +1597,7 @@ const MainSection = ({
                                   ) : (
                                     <OutlineButton
                                       fullWidth
+                                      backgroundColor="var(--bg-151515-EEEDEB)"
                                       height={45}
                                       fontSize={16}
                                       borderRadius={23}
@@ -1757,6 +1758,7 @@ const MainSection = ({
                                 <OutlineButton
                                   label="Cancel Auction"
                                   fullWidth
+                                  backgroundColor="var(--bg-151515-EEEDEB)"
                                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
                                   fontSize={16}
                                   borderRadius={23}
@@ -1962,6 +1964,7 @@ const MainSection = ({
                                       <OutlineButton
                                         fullWidth
                                         label="List Edition"
+                                        backgroundColor="var(--bg-151515-EEEDEB)"
                                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
                                         fontSize={16}
                                         borderRadius={23}
@@ -1977,6 +1980,7 @@ const MainSection = ({
                                   <div className="w-full flex lg:flex-row flex-col gap-[15px] mt-[30px]">
                                     <OutlineButton
                                       fullWidth
+                                      backgroundColor="var(--bg-151515-EEEDEB)"
                                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
                                       fontSize={16}
                                       borderRadius={23}
@@ -2004,6 +2008,7 @@ const MainSection = ({
                                 <div className="w-full flex gap-[20px] mt-[30px]">
                                   <OutlineButton
                                     fullWidth
+                                    backgroundColor="var(--bg-151515-EEEDEB)"
                                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
                                     fontSize={16}
                                     borderRadius={23}
