@@ -117,7 +117,24 @@ const MintEditionCard = props => {
 
   return (
     <div className="w-full">
-      {(endEditionTime === null || (isStarted && !isEnded)) && (
+      {!isEditionListing ? (
+        <div className={styles.container}>
+          <div className="w-full flex justify-between">
+            <div>
+              <div className={styles.creator}>{editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}</div>
+              <div className={`${styles.supply} mt-[9px]`}>
+                {editionType === 'master_oe'
+                  ? `${currentSupply} Sold`
+                  : `${maxSupply - currentSupply}/${maxSupply} Left`}
+              </div>
+            </div>
+            <div>
+              <div className={`${styles.creator} text-end`}>{'Time Remaining'}</div>
+              <div className={`${styles.supply} mt-[9px] text-end`}>{'Not listed'}</div>
+            </div>
+          </div>
+        </div>
+      ) : endEditionTime === null || (isStarted && !isEnded) ? (
         <div className={styles.container}>
           <div className="w-full flex justify-between">
             <div>
@@ -165,10 +182,19 @@ const MintEditionCard = props => {
                   </div>
                 </div>
               ) : isEditionListing ? (
-                <div>
-                  <div className={`${styles.creator} text-end`}>{'Time Remaining'}</div>
-                  <div className={`${styles.endTime} mt-[9px]`}>No expiration</div>
-                </div>
+                endEditionTime === null ? (
+                  <div>
+                    <div className={`${styles.creator} text-end`}>{'Time Remaining'}</div>
+                    <div className={`${styles.endTime} mt-[9px]`}>No expiration</div>
+                  </div>
+                ) : isExpired(timeLeft) ? (
+                  <div>
+                    <div className={`${styles.creator} text-end`}>{'Time Remaining'}</div>
+                    <div className={`${styles.endTime} mt-[9px]`}>Listing expired</div>
+                  </div>
+                ) : (
+                  <></>
+                )
               ) : (
                 <></>
               )}
@@ -311,6 +337,8 @@ const MintEditionCard = props => {
             )}
           </div>
         </div>
+      ) : (
+        <></>
       )}
     </div>
   )

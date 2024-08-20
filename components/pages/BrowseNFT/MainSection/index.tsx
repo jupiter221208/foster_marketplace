@@ -1520,8 +1520,8 @@ const MainSection = ({
                         )}
                       </div>
 
-                      {(supply?.max === null || supply?.max > 0) && (loading || editionLoading) ? (
-                        <div className="w-full h-[87px] rounded-[5px] overflow-hidden mt-[30px]">
+                      {(supply?.max === null || supply?.max > 0) && (loading || editionLoading) && merchCard ? (
+                        <div className="w-full h-[80px] rounded-[5px] overflow-hidden mt-[30px]">
                           <div className="skeletonLoader" />
                         </div>
                       ) : (
@@ -1556,11 +1556,23 @@ const MainSection = ({
                       {loading || editionLoading ? (
                         <div className="mt-[30px]">
                           {supply?.max === null || supply?.max > 0 ? (
-                            <div className="w-full h-[202px] rounded-[5px] overflow-hidden">
-                              <div className="skeletonLoader" />
-                            </div>
+                            isEditionListing ? (
+                              isOwnNft === true ? (
+                                <div className="w-full h-[80px] rounded-[5px] overflow-hidden">
+                                  <div className="skeletonLoader" />
+                                </div>
+                              ) : (
+                                <div className="w-full h-[202px] rounded-[5px] overflow-hidden">
+                                  <div className="skeletonLoader" />
+                                </div>
+                              )
+                            ) : (
+                              <div className="w-full h-[80px] rounded-[5px] overflow-hidden">
+                                <div className="skeletonLoader" />
+                              </div>
+                            )
                           ) : (
-                            <div className="w-full h-[202px] rounded-[5px] overflow-hidden">
+                            <div className="w-full h-[80px] rounded-[5px] overflow-hidden">
                               <div className="skeletonLoader" />
                             </div>
                           )}
@@ -1600,7 +1612,6 @@ const MainSection = ({
                             ) : (
                               <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 lg:mt-[0px]">
                                 <MintEditionCard
-                                  price={price}
                                   editionType={editionType}
                                   maxSupply={editionDetail.maxSupply}
                                   currentSupply={editionDetail.supply}
@@ -1624,7 +1635,31 @@ const MainSection = ({
                               </div>
                             )
                           ) : (
-                            <></>
+                            (editionType === 'master_oe' || editionType === 'master_le') && (
+                              <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 lg:mt-[0px]">
+                                <MintEditionCard
+                                  editionType={editionType}
+                                  maxSupply={editionDetail.maxSupply}
+                                  currentSupply={editionDetail.supply}
+                                  buyLimit={nftInfo?.master_edition?.buyLimit}
+                                  isEnded={isEnded}
+                                  isStarted={isStarted}
+                                  nftPrice={nftPrice}
+                                  merchCost={merchCost}
+                                  setPrice={setPrice}
+                                  mintQty={mintQty}
+                                  setMintQty={setMintQty}
+                                  mintEditionLoading={mintEditionLoading}
+                                  mintEdition={mintEdition}
+                                  endEditionTime={nftInfo?.master_edition?.endTime}
+                                  startEditionTime={nftInfo?.master_edition?.startTime}
+                                  setIsEnded={setIsEnded}
+                                  setIsStarted={setIsStarted}
+                                  liveAuction={liveAuction}
+                                  isEditionListing={isEditionListing}
+                                />
+                              </div>
+                            )
                           )}
 
                           {nftPrice > 0 && !liveAuction ? (
@@ -1767,7 +1802,7 @@ const MainSection = ({
                                         <div className="w-full mt-[10px] lg:mt-[10px]">
                                           <div className="w-full flex justify-center">
                                             <div
-                                              className={`${styles.skeletonLoader} w-[100%] h-[80px] lg:h-[80px] rounded-[12px]`}
+                                              className={`${styles.skeletonLoader} w-[100%] h-[45px] lg:h-[80px] rounded-[12px]`}
                                             ></div>
                                           </div>
                                         </div>
