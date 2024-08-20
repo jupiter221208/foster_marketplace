@@ -1525,14 +1525,10 @@ const MainSection = ({
                         </div>
                       ) : (
                         merchCard && (
-                          <div className={styles.merchArea}>
+                          <div className={styles.merchArea} onClick={() => setFullScreenMerch(true)}>
                             <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[18px] pl-[10px] sm:pl-[12px] md:pl-[16px]">
                               <div className={styles.assetArea}>
-                                <ImageWithFoster
-                                  width={65}
-                                  src={merchCard.options.addons[0].mockup_url}
-                                  onClick={() => setFullScreenMerch(true)}
-                                />
+                                <ImageWithFoster width={65} src={merchCard.options.addons[0].mockup_url} />
                               </div>
                               <div className={styles.contentArea}>
                                 <div className="w-full flex justify-between items-center">
