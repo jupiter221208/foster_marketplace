@@ -736,13 +736,14 @@ const MerchOrderMain = props => {
 
           {/* Download Mockups */}
           {publicKey?.toBase58() === userDetail?.wallet_id && productDetail.fulfillment_type === 'foster' && (
-            <div className="w-full flex justify-end mt-[35px]">
+            <div className="w-full lg:flex hidden justify-end mt-[35px]">
               <div className={styles.mockups} onClick={() => downloadFiles()}>
                 <DownloadIcon />
                 <div>Download Mockups</div>
               </div>
             </div>
           )}
+          <div className="lg:hidden block mb-[100px]" />
         </div>
       </div>
 

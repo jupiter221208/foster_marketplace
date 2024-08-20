@@ -11,14 +11,8 @@ import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseNFT/MainSection'
 import MerchSection from 'components/pages/BrowseNFT/MerchSection'
-import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
-import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
-import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
-import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
-import SelectedTab from 'components/Tab/SelectedTab'
 
 // custom functions
 import { getNFTCategories, getNftFromDAS, getNftFromRpc, getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
@@ -139,7 +133,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     const fetchData = async () => {
       if (!nftDetail) return
       if (connected) {
-        console.log(connected, autoConnect, nftDetail, '=============autoConnect==============')
         await nftsAPI.getDetail(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
@@ -245,10 +238,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     }
   }
 
-  const handleSelectedTab = item => {
-    setActiveTab(item.id)
-  }
-
   useEffect(() => {
     let array: any[] = []
     let list
@@ -290,19 +279,19 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   }, [collectionId])
 
   // artist collections
-  const [collectionList, setCollectionList] = useState([])
-  useEffect(() => {
-    if (artistInfo !== null && artistInfo.address) {
-      collectionAPI.getOtherCollections(artistInfo.address).then(
-        response => {
-          if (response instanceof Array) {
-            setCollectionList(response)
-          }
-        },
-        error => {}
-      )
-    }
-  }, [artistInfo])
+  // const [collectionList, setCollectionList] = useState([])
+  // useEffect(() => {
+  //   if (artistInfo !== null && artistInfo.address) {
+  //     collectionAPI.getOtherCollections(artistInfo.address).then(
+  //       response => {
+  //         if (response instanceof Array) {
+  //           setCollectionList(response)
+  //         }
+  //       },
+  //       error => {}
+  //     )
+  //   }
+  // }, [artistInfo])
 
   // category collection list
   const [categoryCollectionList, setCategoryCollectionList] = useState([])
@@ -321,7 +310,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   }, [categories])
 
   useEffect(() => {
-    if (categoryCollectionList.length > 0 || collectionList.length > 0 || collectionNFTs.length > 0) {
+    if (categoryCollectionList.length > 0 || collectionNFTs.length > 0) {
       setTabList(prev => {
         if (prev.some(t => t.label === 'Discover More')) {
           return prev
@@ -332,7 +321,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     } else {
       setTabList(prev => prev.filter(t => t.label !== 'Discover More'))
     }
-  }, [categoryCollectionList, collectionList, collectionNFTs, connected])
+  }, [categoryCollectionList, collectionNFTs, connected])
 
   return (
     <div className="w-full min-h-full">
@@ -391,7 +380,8 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                       setFullScreenView={setFullScreenView}
                       reloadNftData={reloadNftData}
                       enableMerch={setMerchToggle}
-                      setShowStudioModal={setShowStudioModal}
+                      setOpenMerchPage={setOpenMerchPage}
+                      setMerchData={setMerchData}
                       setCollectionName={setCollectionName}
                       fullScreen={fullScreen}
                       setShowAuctionSection={enable => setShowAuctionSection(enable)}
@@ -453,7 +443,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
         )}
       </div>
 
-      {showStudioModal && (
+      {/* {showStudioModal && (
         <div className={styles.fullScreen}>
           <div className="w-full h-full flex items-center">
             <div className="w-full h-[580px] px-[50px]">
@@ -480,7 +470,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
             <Image src={CloseIcon} alt="" width={18} height={18} />
           </div>
         </div>
-      )}
+      )} */}
 
       {fullScreen && (
         <div className={styles.fullScreen}>

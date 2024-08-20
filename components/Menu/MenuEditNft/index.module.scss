@@ -11,10 +11,8 @@
 .menuArea {
   position: absolute;
   top: 40px;
-
-    left: auto;
-    right: 0px;
-
+  left: auto;
+  right: 0px;
   background: var(--background-main-color);
   border-radius: 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
@@ -45,8 +43,11 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: var(--bg-1E1E1E-F3F2F0);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 16px;
+  // background: var(--bg-1E1E1E-F3F2F0);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // border-radius: 16px;
   -webkit-tap-highlight-color: transparent;
+  &:focus {
+    outline: none;
+  }
 }

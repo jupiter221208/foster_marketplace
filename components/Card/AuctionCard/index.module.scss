@@ -69,7 +69,7 @@
   font-size: 14px;
   line-height: 18px;
   font-weight: 100;
-  color: #707070;
+  color: var(--bg-B8B9BD-707070);
 }
 
 .bidCountContainer {
@@ -81,7 +81,7 @@
 .endTimeContainer {
   margin-left: 4px;
   @media (min-width: 1024px) {
-    margin-left: 6px;
+    margin-left: 5px;
   }
 }
 

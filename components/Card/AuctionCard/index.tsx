@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
-import { useViewport } from 'utils'
 
 const AuctionCard = props => {
   const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted, liveAuction, isEditionListing } =
     props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
-  const viewport = useViewport()
   useEffect(() => {
     if (
       liveAuction &&
