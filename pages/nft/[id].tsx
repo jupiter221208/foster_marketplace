@@ -15,7 +15,7 @@ import MainSection from 'components/pages/BrowseNFT/MainSection'
 import MerchSection from 'components/pages/BrowseNFT/MerchSection'
 
 // custom functions
-import { getNFTCategories, getNftFromDAS, getNftFromRpc, getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
+import { getNftFromDAS, getNftFromRpc, getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -38,9 +38,6 @@ import { isString, optimizeCdnUrlOgImage } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import ModelViewer from 'components/ModelViewer'
 import { NftData } from 'types/nft'
-import { useViewport } from 'utils'
-import collectionAPI from 'apis/collections'
-import dashboardAPI from 'apis/dashboard'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 export interface EditionDetail {
@@ -65,26 +62,21 @@ export interface BrowseNFTProps {
 
 const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   const router = useRouter()
-  const viewport = useViewport()
   const nftType = (nftDetail?.category as string) ?? 'image'
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
-  const [categories, setCategories] = useState(getNFTCategories(nftDetail))
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState<NftData>()
   const [collectionName, setCollectionName] = useState('')
-  const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected, autoConnect } = useWallet()
   const dispatch = useDispatch()
   const [showAuctionSection, setShowAuctionSection] = useState(false)
   const [merchToggle, setMerchToggle] = useState(false)
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
-  const [activityList, setActivityList] = useState([])
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
-  const [showStudioModal, setShowStudioModal] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -138,11 +130,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
-                setArtistInfo({
-                  address: response.creator_address,
-                  name: response.creator_username,
-                  profile_image: response.creator_profile_image,
-                })
                 dispatch({ type: 'set', merchBy: response.creator_username })
               }
             }
@@ -156,11 +143,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
-                setArtistInfo({
-                  address: response.creator_address,
-                  name: response.creator_username,
-                  profile_image: response.creator_profile_image,
-                })
                 dispatch({ type: 'set', merchBy: response.creator_username })
               }
             }
@@ -172,8 +154,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected])
-
-  const collectionId = nftDetail?.collection?.address?.toString()
 
   let nftName = nftDetail?.name ?? ''
   if (editionDetail && !editionDetail?.isSingleNft) {
@@ -208,13 +188,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
         (response: any) => {
           if (!isString(response)) {
             setNftInfo(response)
-            if (response.creator_address !== null) {
-              setArtistInfo({
-                address: response.creator_address,
-                name: response.creator_username,
-                profile_image: response.creator_profile_image,
-              })
-            }
           }
         },
         error => {}
@@ -224,13 +197,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
         (response: any) => {
           if (!isString(response)) {
             setNftInfo(response)
-            if (response.creator_address !== null) {
-              setArtistInfo({
-                address: response.creator_address,
-                name: response.creator_username,
-                profile_image: response.creator_profile_image,
-              })
-            }
           }
         },
         error => {}
@@ -255,73 +221,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     })
     setTabList(array)
   }, [activeTab, merchToggle])
-
-  // more collection nfts
-  const [collectionNFTs, setCollectionNFTs] = useState([])
-  useEffect(() => {
-    if (collectionId !== null) {
-      collectionAPI.getCollectionNft(collectionId).then(
-        response => {
-          if (response instanceof Array) {
-            let resData = response.filter(item => item.token_id !== nftDetail.mintAddress.toString())
-            if (resData.length === 0) return
-            if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
-              setCollectionNFTs(resData.filter(item => item.cover_image_url !== null))
-            } else {
-              setCollectionNFTs(resData)
-            }
-          }
-        },
-        error => {}
-      )
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [collectionId])
-
-  // artist collections
-  // const [collectionList, setCollectionList] = useState([])
-  // useEffect(() => {
-  //   if (artistInfo !== null && artistInfo.address) {
-  //     collectionAPI.getOtherCollections(artistInfo.address).then(
-  //       response => {
-  //         if (response instanceof Array) {
-  //           setCollectionList(response)
-  //         }
-  //       },
-  //       error => {}
-  //     )
-  //   }
-  // }, [artistInfo])
-
-  // category collection list
-  const [categoryCollectionList, setCategoryCollectionList] = useState([])
-
-  useEffect(() => {
-    if (categories !== null && categories !== undefined && categories[0] !== undefined) {
-      dashboardAPI.getTrendingCollections(categories[0], 'week').then(
-        response => {
-          if (response instanceof Array) {
-            setCategoryCollectionList(response)
-          }
-        },
-        error => {}
-      )
-    }
-  }, [categories])
-
-  useEffect(() => {
-    if (categoryCollectionList.length > 0 || collectionNFTs.length > 0) {
-      setTabList(prev => {
-        if (prev.some(t => t.label === 'Discover More')) {
-          return prev
-        } else {
-          return [...prev, { id: 1, label: 'Discover More', value: 'Discover More', selected: false }]
-        }
-      })
-    } else {
-      setTabList(prev => prev.filter(t => t.label !== 'Discover More'))
-    }
-  }, [categoryCollectionList, collectionNFTs, connected])
 
   return (
     <div className="w-full min-h-full">
@@ -391,86 +290,9 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                   </div>
                 </div>
               ))}
-
-            {/* {!showAuctionSection && nftDetail && nftOwner && (
-              <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
-                <div className={styles.selectedTab}>
-                  <div className="g-container">
-                    <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-                  </div>
-                  <div className={styles.selectedTabBorder} />
-                </div>
-
-                <div className={styles.background}>
-                  <div className={`g-container ${styles.mainContainer}`}>
-                    {activeTab === 0 ? (
-                      <NFTActivityInfoSection activityList={activityList} />
-                    ) : activeTab === 1 ? (
-                      <div className="mt-[30px]">
-                        {collectionId && collectionNFTs && (
-                          <MoreCollectionSection
-                            collectionNFTs={collectionNFTs}
-                            collectionId={collectionId}
-                            collectionName={collectionName}
-                            mintAddress={nftDetail.mintAddress.toString()}
-                          />
-                        )}
-                        {artistInfo && collectionList && (
-                          <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
-                        )}
-                        <MoreCategorySection categories={categories} categoryCollectionList={categoryCollectionList} />
-                      </div>
-                    ) : (
-                      merchToggle && (
-                        <ShopApparelSection
-                          title="Shop Apparel"
-                          type="apparel"
-                          nftDetail={nftDetail}
-                          nftCreator={artistInfo?.name}
-                          shopApparelList={ShopApparelList}
-                          openMerchPage={data => {
-                            setMerchData(data)
-                            setOpenMerchPage(true)
-                          }}
-                        />
-                      )
-                    )}
-                  </div>
-                </div>
-              </div>
-            )} */}
           </div>
         )}
       </div>
-
-      {/* {showStudioModal && (
-        <div className={styles.fullScreen}>
-          <div className="w-full h-full flex items-center">
-            <div className="w-full h-[580px] px-[50px]">
-              <ShopApparelSection
-                title="Shop Apparel"
-                type="apparel"
-                nftDetail={nftDetail}
-                nftCreator={artistInfo?.name}
-                shopApparelList={ShopApparelList}
-                openMerchPage={data => {
-                  setShowStudioModal(false)
-                  setMerchData(data)
-                  setOpenMerchPage(true)
-                }}
-              />
-            </div>
-          </div>
-          <div
-            className={styles.closeScreen}
-            onClick={() => {
-              setShowStudioModal(false)
-            }}
-          >
-            <Image src={CloseIcon} alt="" width={18} height={18} />
-          </div>
-        </div>
-      )} */}
 
       {fullScreen && (
         <div className={styles.fullScreen}>
@@ -560,8 +382,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
       error: `could not parse as public key: ${query.id}: ${e.message}`,
     }
   }
-
-  let nftDetail
 
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
