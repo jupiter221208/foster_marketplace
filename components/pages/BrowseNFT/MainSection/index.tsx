@@ -1560,13 +1560,10 @@ const MainSection = ({
                               <div className="skeletonLoader" />
                             </div>
                           ) : (
-                            <div className="w-full h-[202px]">
+                            <div className="w-full h-[202px] rounded-[5px] overflow-hidden">
                               <div className="skeletonLoader" />
                             </div>
                           )}
-                          <div className="w-full h-[45px] rounded-[23px] overflow-hidden mt-[15px]">
-                            <div className="skeletonLoader" />
-                          </div>
                         </div>
                       ) : (
                         <div>
@@ -2060,8 +2057,7 @@ const MainSection = ({
                       isNftPrintEdition={isNftPrintEdition()}
                       royalties={nftRoyalties}
                     />
-
-                    <NFTCategorySection nftCategories={nftCategories} />
+                    {nftCategories.length > 0 && <NFTCategorySection nftCategories={nftCategories} />}
                   </div>
                 )}
                 {merchToggle && (
