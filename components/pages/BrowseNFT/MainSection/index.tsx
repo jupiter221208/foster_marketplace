@@ -1537,7 +1537,7 @@ const MainSection = ({
                               <div className={styles.contentArea}>
                                 <div className="w-full flex justify-between items-center">
                                   <div className={styles.merchTitle}>Merch included with each edition</div>
-                                  <div className="mr-[13px] mt-[-7px]">
+                                  <div className="mr-[13px] mt-[-6px] lg:mt-[-7px]">
                                     <MerchOpenIcon />
                                   </div>
                                 </div>
