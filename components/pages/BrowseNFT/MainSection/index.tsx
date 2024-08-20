@@ -1456,7 +1456,7 @@ const MainSection = ({
                       <div className="w-full flex justify-between items-center">
                         {nameLoading ? (
                           <div
-                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[36px] mt-[15px] lg:mt-[0px] rounded-full`}
+                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[35px] mt-[15px] lg:mt-[0px] rounded-full`}
                           ></div>
                         ) : (
                           <div className="flex items-center justify-between mt-[15px] lg:mt-[0px]">
@@ -1519,46 +1519,9 @@ const MainSection = ({
                           />
                         )}
                       </div>
-                      {/* {nameLoading ? (
-                        <div className="w-full mt-[30px]">
-                          <div className="w-[100px] h-[20px] rounded-[10px] overflow-hidden">
-                            <div className="skeletonLoader" />
-                          </div>
-                          <div className="w-full w-full h-[120px] rounded-[12px] overflow-hidden mt-[15px]">
-                            <div className="skeletonLoader" />
-                          </div>
-                        </div>
-                      ) : nftDescription ? (
-                        <div>
-                          <div className={`w-full h-[auto] mt-[30px]`}>
-                            <div className={styles.descLabel}>Description</div>
-                            <div className={styles.whiteDescription}>
-                              <div
-                                ref={descriptionViewRef}
-                                className={`lg:block hidden  ${
-                                  isTruncated ? 'max-h-[180px]' : 'max-h-[220px] overflow-auto'
-                                }`}
-                              >
-                                {processedNftDescription}
-                                {shouldShowReadMore && (
-                                  <span
-                                    onClick={toggleIsTruncated}
-                                    className={`${styles.greenText} min-w-max cursor-pointer`}
-                                  >
-                                    {isTruncated ? '... Expand' : ' Collapse'}
-                                  </span>
-                                )}
-                              </div>
-                              <div className="lg:hidden block">{tempNftDescription}</div>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <></>
-                      )} */}
 
                       {(supply?.max === null || supply?.max > 0) && (loading || editionLoading) ? (
-                        <div className="w-full h-[87px] rounded-[10px] overflow-hidden mt-[30px]">
+                        <div className="w-full h-[87px] rounded-[5px] overflow-hidden mt-[30px]">
                           <div className="skeletonLoader" />
                         </div>
                       ) : (
@@ -1574,8 +1537,8 @@ const MainSection = ({
                               </div>
                               <div className={styles.contentArea}>
                                 <div className="w-full flex justify-between items-center">
-                                  <div className={styles.merchTitle}>Merch included for each purchase</div>
-                                  <div className="hidden sm:block mr-[13px]">
+                                  <div className={styles.merchTitle}>Merch included with each edition</div>
+                                  <div className="hidden sm:block mr-[13px] mt-[-8px]">
                                     <div className={styles.merchView} onClick={() => setFullScreenMerch(true)}>
                                       <MerchOpenIcon />
                                     </div>
@@ -1593,23 +1556,12 @@ const MainSection = ({
                       {loading || editionLoading ? (
                         <div className="mt-[30px]">
                           {supply?.max === null || supply?.max > 0 ? (
-                            <div className="w-full flex justify-between gap-[15px]">
-                              <div className="w-[40%] h-[45px] rounded-[23px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
-
-                              <div className="w-[60%] h-[45px] rounded-[23px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
+                            <div className="w-full h-[202px] rounded-[5px] overflow-hidden">
+                              <div className="skeletonLoader" />
                             </div>
                           ) : (
-                            <div className="w-full flex justify-between">
-                              <div className="w-[70px] h-[24px] rounded-[12px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
-                              <div className="w-[100px] h-[24px] rounded-[12px] overflow-hidden">
-                                <div className="skeletonLoader" />
-                              </div>
+                            <div className="w-full h-[202px]">
+                              <div className="skeletonLoader" />
                             </div>
                           )}
                           <div className="w-full h-[45px] rounded-[23px] overflow-hidden mt-[15px]">

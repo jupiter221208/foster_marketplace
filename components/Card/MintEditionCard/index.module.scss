@@ -5,7 +5,7 @@
   height: auto;
   margin-top: 30px;
   background: var(--bg-F5F5F3-1E1E1E);
-  border: 1px solid var(--main-icon-color);
+  border: 1px solid var(--bg-535355-DDDEDE);
   padding: 15px 20px;
   border-radius: 5px;
 }
@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
-  background: var(--bg-1E1E1E-F7F6F4);
+  background: var(--bg-151515-EEEDEB);
   border-radius: 23px;
   justify-content: space-between;
 }
@@ -144,15 +144,10 @@
   margin-top: 7px;
 }
 
-
-
 .endTimeContainer {
   margin-left: 4px;
   @media (min-width: 1024px) {
-    margin-left: 2px;
-  }
-  @media (min-width: 1680px) {
-    margin-left: 4px;
+    margin-left: 6px;
   }
 }
 
@@ -163,7 +158,6 @@
   font-size: 18px;
   font-weight: 100;
   line-height: 23px;
-  gap: 2px;
   color: var(--text-gray-200-color);
 }
 
