@@ -71,6 +71,12 @@ const TabSection = props => {
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
   const [selectedFilterList, setSelectedFilterList] = useState([])
+  const [favoriteNfts, setFavoriteNfts] = useState([])
+  const [favoriteCollections, setFavoriteCollections] = useState([])
+  const [hiddenNfts, setHiddenNfts] = useState([])
+  const [activityNfts, setActivityNfts] = useState([])
+  const [offerNftsMade, setOfferNftsMade] = useState([])
+  const [offerNftsReceived, setOfferNftsReceived] = useState([])
 
   useEffect(() => {
     if (isOwn) {
@@ -694,23 +700,33 @@ const TabSection = props => {
 
       {activeTab === 2 && (
         <div className="w-full flex flex-wrap">
-          <OfferSection />
+          <OfferSection
+            offerNftsMade={offerNftsMade}
+            setOfferNftsMade={setOfferNftsMade}
+            offerNftsReceived={offerNftsReceived}
+            setOfferNftsReceived={setOfferNftsReceived}
+          />
         </div>
       )}
 
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
-          <ActivitySection />
+          <ActivitySection activityNfts={activityNfts} setActivityNfts={setActivityNfts} />
         </div>
       )}
       {activeTab === 4 && (
         <div className="w-full flex flex-wrap">
-          <FavoriteSection />
+          <FavoriteSection
+            favoriteNfts={favoriteNfts}
+            favoriteCollections={favoriteCollections}
+            setFavoriteNfts={setFavoriteNfts}
+            setFavoriteCollections={setFavoriteCollections}
+          />
         </div>
       )}
       {activeTab === 5 && (
         <div className="w-full flex flex-wrap">
-          <HiddenSection />
+          <HiddenSection hiddenNfts={hiddenNfts} setHiddenNfts={setHiddenNfts} />
         </div>
       )}
       <div className="flex lg:hidden w-full">

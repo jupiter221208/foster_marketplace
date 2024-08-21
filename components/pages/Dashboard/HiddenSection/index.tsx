@@ -16,7 +16,8 @@ import { DashboardAPIData } from 'types/nft'
 import NewNftCard from 'components/Card/NewNftCard'
 import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
-const HiddenSection = () => {
+const HiddenSection = props => {
+  const { hiddenNfts, setHiddenNfts } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const unhideNftToken = useSelector(state => (state as any).unhideNftToken)
@@ -29,15 +30,19 @@ const HiddenSection = () => {
   const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
-    setLoading(true)
-
-    getHiddenNftData()
+    if (hiddenNfts.length > 0) setAllNftList(hiddenNfts)
+    else {
+      setLoading(true)
+      getHiddenNftData()
+    }
   }, [])
 
   const getHiddenNftData = () => {
     userAPI.getHiddenNFT().then(
       response => {
-        setAllNftList(response.filter(item => item.nft_name !== ''))
+        let list = response.filter(item => item.nft_name !== '')
+        setAllNftList(list)
+        setHiddenNfts(list)
         setLoading(false)
       },
       error => {

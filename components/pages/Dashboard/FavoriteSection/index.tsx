@@ -23,7 +23,8 @@ import { NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import NewNftCard from 'components/Card/NewNftCard'
 
-const FavoriteSection = () => {
+const FavoriteSection = props => {
+  const { favoriteNfts, favoriteCollections, setFavoriteNfts, setFavoriteCollections } = props
   const router = useRouter()
 
   const dispatch = useDispatch()
@@ -42,17 +43,26 @@ const FavoriteSection = () => {
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Artwork' })
 
   useEffect(() => {
-    setLoading(true)
+    if (favoriteNfts.length > 0) setAllNftList(favoriteNfts)
+    else {
+      setLoading(true)
+      getFavoriteNftData()
+    }
 
-    getFavoriteNftData()
-    getFavoriteCollectionData()
+    if (favoriteCollections.length > 0) setCollectionList(favoriteCollections)
+    else {
+      setLoading(true)
+      getFavoriteCollectionData()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getFavoriteNftData = () => {
     userAPI.getFavoriteNFT().then(
       response => {
-        setAllNftList(response.filter(item => item.nft_name?.length > 0))
+        let list = response.filter(item => item.nft_name?.length > 0)
+        setAllNftList(list)
+        setFavoriteNfts(list)
         setLoading(false)
         setTimeout(() => {
           setIsLoaded(true)
@@ -78,6 +88,7 @@ const FavoriteSection = () => {
           (obj, index) => response.findIndex(item => item.collection_id === obj.collection_id) === index
         )
         setCollectionList(list)
+        setFavoriteCollections(list)
         setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
         }, 2000)
