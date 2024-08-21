@@ -33,6 +33,7 @@ import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const NewNftCard = props => {
   const {
@@ -219,10 +220,11 @@ const NewNftCard = props => {
           <div className={styles.bottomSection}>
             {unSave !== null && (
               <div className="w-full">
-                <SecondaryDashboardButton
+                <OutlineButton
                   fullWidth
-                  label="Unsave"
-                  type="unsave"
+                  fontSize={16}
+                  height={45}
+                  label="Remove"
                   onClick={() => {
                     setDisplayUnsaveConfirm(true)
                   }}
@@ -231,10 +233,11 @@ const NewNftCard = props => {
             )}
             {showUnhideButton && (
               <div className="w-full">
-                <SecondaryDashboardButton
+                <OutlineButton
                   fullWidth
+                  fontSize={16}
+                  height={45}
                   label="Unhide"
-                  type="unhide"
                   onClick={() => setDisplayUnhideConfirm(true)}
                 />
               </div>
@@ -259,7 +262,7 @@ const NewNftCard = props => {
                   Would you like to remove it from your favorites?
                 </div>
                 <div className="flex gap-[15px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnsaveConfirm(false)}>
                     Cancel
                   </div>
                   <div className={styles.hideButton} onClick={() => performUnsave()}>

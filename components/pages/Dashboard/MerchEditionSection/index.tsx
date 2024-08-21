@@ -26,8 +26,8 @@ const MerchEditionSection = () => {
 
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
-    { id: 0, label: 'Unclaimable' },
-    { id: 1, label: 'Claimable' },
+    { id: 0, label: 'Unclaimed' },
+    { id: 1, label: 'Claimed' },
   ])
   const [merchList, setMerchList] = useState<any>([])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Unclaimed' })
@@ -87,22 +87,21 @@ const MerchEditionSection = () => {
 
   return (
     <section className={styles.container}>
-      {merchList.length > 0 && (
-        <div className="w-full flex justify-between z-10 items-center">
-          <div className={`${styles.description} lg:block hidden`}>
-            {'Displayed are merch items included with an edition you purchased.'}
-          </div>
-          <DropdownFilterMenu
-            label={selectedItem['label']}
-            data={filterList}
-            selectedItem={selectedItem}
-            setSelectedItem={item => {
-              setSelectedItem(item)
-              setActive(item.id)
-            }}
-          />
+      <div className="w-full flex justify-between z-10 items-center">
+        <div className={`${styles.description} lg:block hidden`}>
+          {'Displayed are merch items included with an edition you purchased.'}
         </div>
-      )}
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setActive(item.id)
+          }}
+        />
+      </div>
+
       {isFetching && merchList.length === 0 && <div className={styles.comingSoon}>No results found.</div>}
 
       <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">

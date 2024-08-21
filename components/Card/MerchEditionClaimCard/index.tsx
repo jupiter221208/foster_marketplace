@@ -81,6 +81,7 @@ const MerchEditionClaimCard = props => {
               /> */}
               <OutlineButton
                 height={45}
+                fontSize={16}
                 label="Order Details"
                 onClick={() => {
                   router.push(`/merch-logs/${data.order_id}`)
@@ -90,7 +91,7 @@ const MerchEditionClaimCard = props => {
             </div>
           ) : (
             <div className="w-full">
-              <OutlineButton height={45} label="Claim Merch" onClick={() => onClaimCard()} fullWidth />
+              <OutlineButton fontSize={16} height={45} label="Claim Merch" onClick={() => onClaimCard()} fullWidth />
 
               {/* <SecondaryDashboardButton label="View" type="next" fullWidth onClick={() => onViewCard()} /> */}
             </div>

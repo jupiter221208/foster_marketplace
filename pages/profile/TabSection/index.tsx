@@ -18,6 +18,7 @@ import CloseIcon from 'assets/icons/close-white-9x9.svg?component'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
+import TabListOwn from 'assets/json/artist-profile/tab-list-own.json'
 
 // resources
 
@@ -70,6 +71,14 @@ const TabSection = props => {
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
   const [selectedFilterList, setSelectedFilterList] = useState([])
+
+  useEffect(() => {
+    if (isOwn) {
+      setTabList(TabListOwn)
+    } else {
+      setTabList(TabList)
+    }
+  }, [isOwn])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
@@ -228,7 +237,12 @@ const TabSection = props => {
 
   useEffect(() => {
     let array: any[] = []
-    TabList.map(item => {
+    let tab_list
+
+    if (isOwn) tab_list = TabListOwn
+    else tab_list = TabList
+
+    tab_list.map(item => {
       let object: any = item
       if (item.id === activeTab) {
         object.selected = true

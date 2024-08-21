@@ -10,6 +10,7 @@ const ImportArtwork = () => {
   return (
     <div className="g-container">
       <div className={styles.title}>Import Artwork</div>
+      <div className={styles.desc}>Import your artworks minted on other platforms.</div>
     </div>
   )
 }
