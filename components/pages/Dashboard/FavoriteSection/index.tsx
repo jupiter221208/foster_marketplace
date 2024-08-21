@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux'
 
 // components
 import CollectionCard from 'components/Card/CollectionCard'
-import LoadingModal from 'components/Modal/LoadingModal'
 import NoDataSection from '../NoDataSection'
 
 // styles
@@ -53,7 +52,7 @@ const FavoriteSection = () => {
   const getFavoriteNftData = () => {
     userAPI.getFavoriteNFT().then(
       response => {
-        setAllNftList(response)
+        setAllNftList(response.filter(item => item.nft_name?.length > 0))
         setLoading(false)
         setTimeout(() => {
           setIsLoaded(true)
@@ -64,7 +63,6 @@ const FavoriteSection = () => {
         }, 2000)
       },
       error => {
-        console.log(error)
         setLoading(false)
         setTimeout(() => {
           setIsLoaded(true)
@@ -160,7 +158,7 @@ const FavoriteSection = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
-
+  console.log(collectionList, '========collectionList========')
   return (
     <section className={styles.container}>
       <div className="w-full flex z-10">
@@ -174,39 +172,38 @@ const FavoriteSection = () => {
           }}
         />
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12">
+      <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">
         {active === 0 &&
           !loading &&
-          nftList.map(
-            (item: any, index) =>
-              item.nft_name && (
-                <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
-                  <NewNftCard
-                    token_id={item.token_id}
-                    image={item.asset_url}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {
-                      router.push(`/nft/${item.token_id}`)
-                    }}
-                    unSave={() => unSaveNft(item.token_id)}
-                  />
-                </div>
-              )
-          )}
+          nftList.map((item: any, index) => (
+            <div key={index}>
+              <NewNftCard
+                token_id={item.token_id}
+                image={item.asset_url}
+                nftName={item.nft_name}
+                assetType={item.asset_type}
+                coverImage={item.cover_image_url}
+                artistName={item.artist_username}
+                artistImage={item.artist_profile_picture}
+                collectionName={item.collection_name}
+                price={item.list_price}
+                onClick={() => {
+                  router.push(`/nft/${item.token_id}`)
+                }}
+                unSave={() => unSaveNft(item.token_id)}
+              />
+            </div>
+          ))}
 
         {active === 1 &&
           !loading &&
           collectionList.map((item: any, index) => (
-            <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+            <div key={index}>
               <CollectionCard
                 image={item.cover_image}
                 nftName={item.collection_name}
                 artistName={item.artist_username}
+                artistImage={item.artist_profile_picture}
                 mintAddress={item.collection_id}
                 link={`/collection/${item.collection_id}`}
                 unSave={() => unSaveCollection(item.collection_id)}
@@ -219,16 +216,9 @@ const FavoriteSection = () => {
           </div>
         )}
       </div>
-      {isLoaded && nftList.length === 0 && (
-        <div className="mt-[15px] lg:mt-[25px]">
-          <NoDataSection
-            title={active === 0 ? "You don't have any saved artwork" : "You don't have any saved collections"}
-            description={
-              active === 0
-                ? "You can add artwork to your favorites by clicking the 'save' icon on the NFT detail page"
-                : "You can save a collection by clicking 'save' from the collection page"
-            }
-          />
+      {isLoaded && !loading && nftList.length === 0 && (
+        <div className="mt-[15px] lg:mt-[0px]">
+          <NoDataSection title={'No favorites found'} description={''} />
         </div>
       )}
       {!loading && isVisibleFetching && (

@@ -29,7 +29,7 @@ const SecondaryDashboardButton = props => {
       }}
     >
       <div className="flex gap-[9px] items-center">
-        <div>
+        <div className="mt-[2px]">
           {type === 'make-offer' ? (
             <MakeOfferIcon />
           ) : type === 'finalize-sale' ? (
