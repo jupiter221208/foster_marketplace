@@ -38,6 +38,9 @@ import MobileStudioSort from 'components/Menu/MobileStudioSort'
 import { useDispatch, useSelector } from 'react-redux'
 import OfferSection from 'components/pages/Dashboard/OfferSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'
+import MerchEditionSection from 'components/pages/Dashboard/MerchEditionSection'
+import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
+import HiddenSection from 'components/pages/Dashboard/HiddenSection'
 
 const TabSection = props => {
   const {
@@ -480,7 +483,7 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[80px] -ml-[20px]">
+      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[80px] lg:-ml-[20px]">
         <ProfileTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       <div className={styles.divider} />
@@ -679,7 +682,26 @@ const TabSection = props => {
           <ActivitySection />
         </div>
       )}
-
+      {activeTab === 4 && (
+        <div className="w-full flex flex-wrap">
+          <MerchEditionSection />
+        </div>
+      )}
+      {activeTab === 5 && (
+        <div className="w-full flex flex-wrap">
+          <FavoriteSection />
+        </div>
+      )}
+      {activeTab === 6 && (
+        <div className="w-full flex flex-wrap">
+          <FavoriteSection />
+        </div>
+      )}
+      {activeTab === 7 && (
+        <div className="w-full flex flex-wrap">
+          <HiddenSection />
+        </div>
+      )}
       <div className="flex lg:hidden w-full">
         {openMobileFilter && (
           <MobileProfileFilter
