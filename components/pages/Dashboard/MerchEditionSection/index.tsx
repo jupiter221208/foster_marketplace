@@ -19,6 +19,7 @@ import styles from './index.module.scss'
 
 // call apis
 import StoreAPI from 'apis/store'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const MerchEditionSection = () => {
   const { profileInfo } = useAuthentication()
@@ -114,9 +115,7 @@ const MerchEditionSection = () => {
 
       {!isFetching && (
         <div className="w-full flex justify-center">
-          <div className="w-[500px] h-[40px]">
-            <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
-          </div>
+          <LoadingElement text="Loading merch editions" />
         </div>
       )}
     </section>

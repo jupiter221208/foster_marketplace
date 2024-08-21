@@ -17,11 +17,12 @@ import { useViewport } from 'utils'
 // api
 import ActivityAPI from 'apis/activity'
 import NoDataSection from '../NoDataSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingComponent from 'pages/profile/LoadingComponent'
 import LoadingModal from 'components/Modal/LoadingModal'
 import { ActivityAPIData } from 'types/nft'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const ActivitySection = () => {
   const viewport = useViewport()
@@ -173,8 +174,8 @@ const ActivitySection = () => {
 
       <div className="w-full z-10 mt-[10px] lg:mt-[-30px]">
         {loading === false ? (
-          <div className="col-span-12">
-            <LoadingModal open={!loading} />
+          <div className="col-span-12 mt-[100px]">
+            <LoadingElement text="Loading activities" />
           </div>
         ) : filteredList.length > 0 ? (
           <div>
@@ -184,8 +185,8 @@ const ActivitySection = () => {
               <ActivityAccordion data={filteredList} />
             )}
             {isVisibleFetching && (
-              <div className="w-full mt-[-50px] mb-[40px]">
-                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+              <div className="w-full mt-[100px] mb-[40px]">
+                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading activity" />
               </div>
             )}
           </div>

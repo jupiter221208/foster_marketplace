@@ -657,7 +657,11 @@ const TabSection = props => {
                 )
               })}
             </div>
-            {isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+            {isVisibleFetching && (
+              <div className="w-full mt-[100px]">
+                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading artworks" />
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -666,7 +670,11 @@ const TabSection = props => {
         <div className="w-full">
           <CollectionSwiperSection collections={showCollections} showRemoveButton={isOwn} />
           {collections.length > 0 && isMounted && isVisibleFetchingCreated && (
-            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
+            <LoadingComponent
+              isFetching={isFetchingCreated}
+              setIsFetching={setIsFetchingCreated}
+              text="Loading collections"
+            />
           )}
         </div>
       )}

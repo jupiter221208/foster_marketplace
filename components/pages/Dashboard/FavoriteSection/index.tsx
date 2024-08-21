@@ -18,7 +18,8 @@ import styles from './index.module.scss'
 import userAPI from 'apis/user'
 import nftAPI from 'apis/nfts'
 import collectionAPI from 'apis/collections'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingComponent from 'pages/profile/LoadingComponent'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 import { NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import NewNftCard from 'components/Card/NewNftCard'
@@ -162,7 +163,7 @@ const FavoriteSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-end z-10">
+      <div className="w-full flex z-10">
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -212,9 +213,11 @@ const FavoriteSection = () => {
               />
             </div>
           ))}
-        <div className="col-span-12 mt-[-100px]">
-          <LoadingModal open={loading} />
-        </div>
+        {loading && (
+          <div className="col-span-12">
+            <LoadingElement text="Loading favorites" />
+          </div>
+        )}
       </div>
       {isLoaded && nftList.length === 0 && (
         <div className="mt-[15px] lg:mt-[25px]">
@@ -229,8 +232,8 @@ const FavoriteSection = () => {
         </div>
       )}
       {!loading && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        <div className="w-full mt-[100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading favorites" />
         </div>
       )}
     </section>

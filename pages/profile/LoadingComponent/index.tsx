@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 
 // third party components
-import Lottie from 'lottie-react'
-import PreLoaderIcon from 'assets/lottery/preloader.json'
 import useOnScreen from 'components/UseOnScreen/useOnScreen'
-
 // json
 
+// styles
+import LoadingElement from './LoadingElement'
+
 const LoadingComponent = props => {
-  const { isFetching, setIsFetching } = props
+  const { isFetching, setIsFetching, text = '' } = props
   const ref = useRef<HTMLDivElement>(null)
   const isVisible = useOnScreen(ref)
 
@@ -21,9 +21,7 @@ const LoadingComponent = props => {
 
   return (
     <div ref={ref} className="w-full flex justify-center">
-      <div className="w-[500px] h-[40px]">
-        <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
-      </div>
+      <LoadingElement text={text} />
     </div>
   )
 }

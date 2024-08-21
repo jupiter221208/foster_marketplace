@@ -27,6 +27,7 @@ import usersAPI from 'apis/user'
 // styles
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -226,8 +227,8 @@ const OfferSection = () => {
         />
       </div>
       {!offerLoaded ? (
-        <div className="col-span-12 mt-[-60px]">
-          <LoadingModal open={!offerLoaded} />
+        <div className="col-span-12 mt-[70px]">
+          <LoadingElement text="Loading offers" />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
         <div className="w-full mt-[15px] lg:mt-[30px]">
@@ -257,8 +258,8 @@ const OfferSection = () => {
       )}
 
       {isVisibleFetching && (
-        <div className="w-full mt-[-50px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        <div className="w-full mt-[100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading offers" />
         </div>
       )}
 
