@@ -98,7 +98,7 @@ const OfferSection = props => {
           } else await fetchOffersMade()
         } else if (shownOfferType === 'received') {
           if (offerNftsReceived.length > 0) {
-            setOffersMade(offerNftsReceived)
+            setOffersReceived(offerNftsReceived)
           } else await fetchOffersReceived()
         }
       } catch (e) {
