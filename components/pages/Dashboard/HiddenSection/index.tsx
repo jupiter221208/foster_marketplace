@@ -99,13 +99,13 @@ const HiddenSection = () => {
             </div>
           ))}
         {loading && (
-          <div className="col-span-12 mt-[70px]">
+          <div className="col-span-12 mt-[80px]">
             <LoadingElement text="Loading your hidden artwork" />
           </div>
         )}
       </div>
       {!loading && isVisibleFetching && (
-        <div className="w-full mt-[70px] mb-[40px]">
+        <div className="w-full mt-[80px] mb-[40px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading your hidden artwork" />
         </div>
       )}

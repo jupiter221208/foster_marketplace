@@ -154,7 +154,7 @@ const ActivitySection = () => {
   }, [filterKey])
 
   return (
-    <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
+    <section className="w-full mt-[16px] lg:mt-[0px] min-h-[250px]">
       <div className="lg:mt-[30px] w-full flex justify-between">
         <div>
           <DropdownFilterMenu

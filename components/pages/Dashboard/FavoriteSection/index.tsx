@@ -211,7 +211,7 @@ const FavoriteSection = () => {
             </div>
           ))}
         {loading && (
-          <div className="col-span-12">
+          <div className="col-span-12 mt-[50px]">
             <LoadingElement text="Loading favorites" />
           </div>
         )}
