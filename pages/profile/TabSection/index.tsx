@@ -702,11 +702,6 @@ const TabSection = props => {
       )}
       {activeTab === 6 && (
         <div className="w-full flex flex-wrap">
-          <FavoriteSection />
-        </div>
-      )}
-      {activeTab === 7 && (
-        <div className="w-full flex flex-wrap">
           <HiddenSection />
         </div>
       )}

@@ -158,7 +158,7 @@ const FavoriteSection = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
-  console.log(collectionList, '========collectionList========')
+
   return (
     <section className={styles.container}>
       <div className="w-full flex z-10">

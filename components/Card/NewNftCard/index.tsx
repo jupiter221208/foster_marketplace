@@ -333,15 +333,7 @@ const NewNftCard = props => {
                     Cancel
                   </div>
                   <div className={styles.hideButton} onClick={() => performUnhideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
+                    <div className="flex">
                       <div className={styles.hideButtonText}>Unhide</div>
                     </div>
                   </div>
