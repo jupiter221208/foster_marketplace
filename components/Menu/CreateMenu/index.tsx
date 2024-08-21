@@ -109,16 +109,12 @@ const CreateMenu = () => {
               <div
                 className={styles.text}
                 onClick={() => {
-                  dispatch({ type: 'set', mintCollectionStep: 1 })
-                  dispatch({ type: 'set', collectionMintAddress: '' })
-                  dispatch({ type: 'set', collectionCoverUrl: '' })
-                  dispatch({ type: 'set', collectionKind: 'ea' })
-                  router.push('/create/collection')
+                  router.push('/import-artwork')
                   setIsMenuOpen(false)
                 }}
               >
                 <EAIcon />
-                Import EA Series
+                Import Artwork
               </div>
               <div
                 className={styles.text}
