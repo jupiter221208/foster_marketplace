@@ -106,18 +106,13 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
 
   return (
     <div className="w-full mt-[60px]">
-      <div className={styles.headerSection}>
-        <div>Arwork</div>
-        <div>Action</div>
-      </div>
-
       {data.map((item, index) => (
         <div key={index} className={styles.row}>
           <div className="w-full flex justify-between">
             <div className="h-[70px] flex items-center gap-[15px]">
               <Link href={`/nft/${item.mint_address}`} passHref>
                 <a>
-                  <div className="w-[43px] h-[43px]">
+                  <div className="w-[70px] h-[70px]">
                     <ActivityTableItem url={item.asset_url} />
                   </div>
                 </a>
@@ -154,6 +149,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
               </div>
             </div>
             <div className={styles.view}>
+              <div className={styles.border} />
               <Link href={`/nft/${item.mint_address}`} passHref>
                 <a>View</a>
               </Link>

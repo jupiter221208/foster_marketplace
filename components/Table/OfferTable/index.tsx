@@ -53,8 +53,8 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
   return (
     <>
       <div className={styles.row}>
-        <div className="flex gap-[30px] items-center">
-          <div className="w-[50px] h-[50px] lg:w-[50px] lg:h-[50px] overflow-hidden rounded-[10px]">
+        <div className="flex gap-[15px] items-center">
+          <div className="w-[70px] h-[70px] lg:w-[70px] lg:h-[70px] overflow-hidden rounded-[10px]">
             {assetImageUrl && (
               <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[10px] object-cover" />
             )}
@@ -74,9 +74,10 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
             <div className={styles.date}>{getLocalDate(new Date(listing.createdAt.toNumber() * 1000))}</div>
           </div>
         </div>
-        <div className="flex items-center">
+
+        <div className="flex w-[82px] gap-[31px] items-center justify-between">
+          <div className={styles.border} />
           {offerType === 'made' ? (
-            // <OutlineButton label="Cancel" onClick={() => onCancel(listing)} width="138px" height="48px" />
             <div className={styles.button} onClick={() => onCancel(listing)}>
               Cancel
             </div>
@@ -94,10 +95,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) => {
   return (
     <div className="w-full">
-      <div className={styles.headerSection}>
-        <div>Arwork</div>
-        <div>Action</div>
-      </div>
       {data.map((listing, index) => (
         <div className="w-full" key={index}>
           <OfferTableRow listing={listing} onAccept={onAccept} onCancel={onCancel} offerType={offerType} />

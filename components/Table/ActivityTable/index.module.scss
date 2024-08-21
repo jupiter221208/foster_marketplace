@@ -47,14 +47,17 @@
 }
 
 .view {
+  width: 82px;
   font-family: 'Muli-Regular';
   font-size: 16px;
   color: var(--text-gray-200-color);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
-  text-decoration: underline;
-  margin-right: 6px;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .headerSection {
@@ -74,9 +77,17 @@
 
 .row {
   width: 100%;
-  height: 70px;
+  height: 90px;
   display: flex;
   align-items: center;
   background: var(--background-main-color);
   padding: 0px 38px;
+  margin-bottom: 20px;
+}
+
+.border {
+  width: 1px;
+  min-width: 1px;
+  height: 55px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
 }
