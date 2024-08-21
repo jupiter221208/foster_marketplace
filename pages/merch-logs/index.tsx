@@ -41,6 +41,7 @@ import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { useRouter } from 'next/router'
+import MerchEditionSection from 'components/pages/Dashboard/MerchEditionSection'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -595,114 +596,115 @@ const MerchActivity = () => {
             <div className={styles.selectedTabBorder} />
           </div>
 
-          <div className="w-full flex justify-between items-center">
-            <div className={`${styles.description} lg:block hidden`}>
-              {activeTab === 0
-                ? merchStoreList.length > 0
-                  ? 'Displayed below are the merch items you created and added to your store.'
-                  : ''
-                : activeTab === 1
-                ? (isActiveNFT && enabledItems.length > 0) || (!isActiveNFT && disabledItems.length > 0)
-                  ? 'Displayed below are legacy studio items.'
-                  : ''
-                : activeTab === 2
-                ? purchases.length > 0
-                  ? 'Displayed below is a record of all your orders.'
-                  : ''
-                : activeTab === 3
-                ? sales.length > 0
-                  ? 'Displayed below is a record of all your sales.'
-                  : ''
-                : ''}
-            </div>
-            {activeTab === 0 && (
-              <div className="w-full lg:w-auto mt-[15px] lg:mt-[0px] flex justify-end">
-                {publicKey?.toBase58() === profileInfo?.wallet_id && (
-                  <div
-                    className={styles.add}
-                    onClick={() => {
-                      router.push(`/${profileInfo?.username}/merch/new`)
-                    }}
-                  >
-                    <div className="">
-                      <PlusIcon />
+          {activeTab != 4 && (
+            <div className="w-full flex justify-between items-center">
+              <div className={`${styles.description} lg:block hidden`}>
+                {activeTab === 0
+                  ? merchStoreList.length > 0
+                    ? 'Displayed below are the merch items you created and added to your store.'
+                    : ''
+                  : activeTab === 1
+                  ? (isActiveNFT && enabledItems.length > 0) || (!isActiveNFT && disabledItems.length > 0)
+                    ? 'Displayed below are legacy studio items.'
+                    : ''
+                  : activeTab === 2
+                  ? purchases.length > 0
+                    ? 'Displayed below is a record of all your orders.'
+                    : ''
+                  : activeTab === 3
+                  ? sales.length > 0
+                    ? 'Displayed below is a record of all your sales.'
+                    : ''
+                  : ''}
+              </div>
+              {activeTab === 0 && (
+                <div className="w-full lg:w-auto mt-[15px] lg:mt-[0px] flex justify-end">
+                  {publicKey?.toBase58() === profileInfo?.wallet_id && (
+                    <div
+                      className={styles.add}
+                      onClick={() => {
+                        router.push(`/${profileInfo?.username}/merch/new`)
+                      }}
+                    >
+                      <div className="">
+                        <PlusIcon />
+                      </div>
+                      <div className="">Add</div>
                     </div>
-                    <div className="">Add</div>
-                  </div>
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
+              {activeTab === 1 && (
+                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                  <TimeSlotButton
+                    label="Active"
+                    height={42}
+                    fontFamily={'Muli-Regular'}
+                    selected={isActiveNFT === true}
+                    onClick={() => {
+                      setIsActiveNft(true)
+                    }}
+                  />
 
-            {activeTab === 1 && (
-              <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                <TimeSlotButton
-                  label="Active"
-                  height={42}
-                  fontFamily={'Muli-Regular'}
-                  selected={isActiveNFT === true}
-                  onClick={() => {
-                    setIsActiveNft(true)
-                  }}
-                />
+                  <TimeSlotButton
+                    label="Eligible"
+                    height={42}
+                    fontFamily={'Muli-Regular'}
+                    selected={isActiveNFT === false}
+                    onClick={() => {
+                      setIsActiveNft(false)
+                    }}
+                  />
+                </div>
+              )}
+              {activeTab === 2 && (
+                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                  <TimeSlotButton
+                    label="Studio NFTs"
+                    height={42}
+                    fontFamily={'Muli-Regular'}
+                    selected={isStudioNFT === true}
+                    onClick={() => {
+                      setIsStudioNft(true)
+                    }}
+                  />
 
-                <TimeSlotButton
-                  label="Eligible"
-                  height={42}
-                  fontFamily={'Muli-Regular'}
-                  selected={isActiveNFT === false}
-                  onClick={() => {
-                    setIsActiveNft(false)
-                  }}
-                />
-              </div>
-            )}
-            {activeTab === 2 && (
-              <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                <TimeSlotButton
-                  label="Studio NFTs"
-                  height={42}
-                  fontFamily={'Muli-Regular'}
-                  selected={isStudioNFT === true}
-                  onClick={() => {
-                    setIsStudioNft(true)
-                  }}
-                />
+                  <TimeSlotButton
+                    label="Merch Store"
+                    height={42}
+                    fontFamily={'Muli-Regular'}
+                    selected={isStudioNFT === false}
+                    onClick={() => {
+                      setIsStudioNft(false)
+                    }}
+                  />
+                </div>
+              )}
+              {activeTab === 3 && (
+                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                  <TimeSlotButton
+                    label="Studio NFTs"
+                    height={42}
+                    fontFamily={'Muli-Regular'}
+                    selected={isStudioSalesNFT === true}
+                    onClick={() => {
+                      setIsStudioSalesNFT(true)
+                    }}
+                  />
 
-                <TimeSlotButton
-                  label="Merch Store"
-                  height={42}
-                  fontFamily={'Muli-Regular'}
-                  selected={isStudioNFT === false}
-                  onClick={() => {
-                    setIsStudioNft(false)
-                  }}
-                />
-              </div>
-            )}
-            {activeTab === 3 && (
-              <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                <TimeSlotButton
-                  label="Studio NFTs"
-                  height={42}
-                  fontFamily={'Muli-Regular'}
-                  selected={isStudioSalesNFT === true}
-                  onClick={() => {
-                    setIsStudioSalesNFT(true)
-                  }}
-                />
-
-                <TimeSlotButton
-                  label="Merch Store"
-                  height={42}
-                  fontFamily={'Muli-Regular'}
-                  selected={isStudioSalesNFT === false}
-                  onClick={() => {
-                    setIsStudioSalesNFT(false)
-                  }}
-                />
-              </div>
-            )}
-          </div>
+                  <TimeSlotButton
+                    label="Merch Store"
+                    height={42}
+                    fontFamily={'Muli-Regular'}
+                    selected={isStudioSalesNFT === false}
+                    onClick={() => {
+                      setIsStudioSalesNFT(false)
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          )}
 
           {activeTab === 0 && (
             <div className="w-full z-10">
@@ -747,7 +749,6 @@ const MerchActivity = () => {
                 />
               </div>
             ))}
-
           {activeTab === 2 && (
             <div className="w-full z-10">
               <ApparelActivity
@@ -765,6 +766,11 @@ const MerchActivity = () => {
                 isStudioNFT={isStudioSalesNFT}
                 isLoading={isStudioSalesNFT ? isVisibleSellerFetching : isVisibleMerchSellerFetching}
               />
+            </div>
+          )}
+          {activeTab === 4 && (
+            <div className="w-full z-10 mt-[15px]">
+              <MerchEditionSection />
             </div>
           )}
 

@@ -87,23 +87,23 @@ const MerchEditionSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between z-10 mt-[16px] lg:mt-[30px]">
-        {/* <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} /> */}
-
-        <DropdownFilterMenu
-          label={selectedItem['label']}
-          data={filterList}
-          selectedItem={selectedItem}
-          setSelectedItem={item => {
-            setSelectedItem(item)
-            setActive(item.id)
-          }}
-        />
-      </div>
-
-      {isFetching && merchList.length === 0 && (
-        <div className={styles.comingSoon}>You don&apos;t have any merch editions.</div>
+      {merchList.length > 0 && (
+        <div className="w-full flex justify-between z-10 items-center">
+          <div className={`${styles.description} lg:block hidden`}>
+            {'Displayed are merch items included with an edition you purchased.'}
+          </div>
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              setActive(item.id)
+            }}
+          />
+        </div>
       )}
+      {isFetching && merchList.length === 0 && <div className={styles.comingSoon}>No results found.</div>}
 
       <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">
         {filteredList.map(item => (
@@ -114,7 +114,7 @@ const MerchEditionSection = () => {
       </div>
 
       {!isFetching && (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mt-[80px]">
           <LoadingElement text="Loading merch editions" />
         </div>
       )}

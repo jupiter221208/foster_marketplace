@@ -38,7 +38,6 @@ import MobileStudioSort from 'components/Menu/MobileStudioSort'
 import { useDispatch, useSelector } from 'react-redux'
 import OfferSection from 'components/pages/Dashboard/OfferSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'
-import MerchEditionSection from 'components/pages/Dashboard/MerchEditionSection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
 import HiddenSection from 'components/pages/Dashboard/HiddenSection'
 
@@ -692,15 +691,10 @@ const TabSection = props => {
       )}
       {activeTab === 4 && (
         <div className="w-full flex flex-wrap">
-          <MerchEditionSection />
-        </div>
-      )}
-      {activeTab === 5 && (
-        <div className="w-full flex flex-wrap">
           <FavoriteSection />
         </div>
       )}
-      {activeTab === 6 && (
+      {activeTab === 5 && (
         <div className="w-full flex flex-wrap">
           <HiddenSection />
         </div>

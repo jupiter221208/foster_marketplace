@@ -21,16 +21,11 @@
   },
   {
     "id": 4,
-    "label": "Merch Editions",
-    "value": "Merch Editions"
-  },
-  {
-    "id": 5,
     "label": "Favorites",
     "value": "Favorites"
   },
   {
-    "id": 6,
+    "id": 5,
     "label": "Hidden",
     "value": "Hidden"
   }    
