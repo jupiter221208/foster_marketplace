@@ -494,7 +494,7 @@ const PhysicalCheckout = ({
             />
           )}
 
-          {helioEnabled && (
+          {orderType === 'v2' && helioEnabled && (
             <div className={styles.helioContainer}>
               <HelioCheckout config={helioConfig} />
             </div>
