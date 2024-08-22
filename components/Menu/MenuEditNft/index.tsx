@@ -42,9 +42,6 @@ const MenuEditNft = ({
   setRemoveMerchModal,
   setOpenShareModal,
 }: MenuSocialShareProps) => {
-  const router = useRouter()
-  const viewport = useViewport()
-
   return (
     <div className="relative flex items-center">
       <Menu>
@@ -79,7 +76,7 @@ const MenuEditNft = ({
                 )}
               </Menu.Item>
             )}
-            {isCreatedNft && (
+            {isCreatedNft && metadata && (
               <Menu.Item>
                 {({ active }) => (
                   <div

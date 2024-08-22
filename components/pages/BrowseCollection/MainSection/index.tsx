@@ -20,7 +20,6 @@ import { namePublicFile, useViewport } from 'utils'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
-import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
@@ -434,7 +433,7 @@ const MainSection = props => {
                   <div className={styles.iconBlurView}>
                     <div className="w-full h-full flex justify-center items-center">
                       <IconButtonWithSVG
-                        icon={<CameraWhiteIcon />}
+                        icon={<EditorGreenIcon />}
                         onClick={() => inputBannerFile.current.click()}
                         backgroundColor="transparent"
                         borderRadius="100%"
