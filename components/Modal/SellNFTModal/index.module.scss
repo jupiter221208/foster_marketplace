@@ -10,7 +10,9 @@
   inset: 0;
   background-color: transparent;
   @media (min-width: 1024px) {
-    background-color: rgba(var(--background-dark-color-rgb), 0.5);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    background-color: rgba(#1a1a1a, 0.6);
   }
 }
 
