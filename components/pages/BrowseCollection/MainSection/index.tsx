@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
-import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { isLoggedIn } from 'utils/helpers'
 import uploadFileToS3 from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
@@ -24,9 +23,9 @@ import avatarImage from 'assets/images/collection-avatar.png'
 import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
-import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -35,7 +34,6 @@ import styles from './index.module.scss'
 import collectionAPI from 'apis/collections'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import CollectionDetailModal from 'components/Modal/CollectionDetailModal'
-import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import Image from 'next/image'
 import MenuCreateCollection from 'components/Menu/MenuCreateCollection'
@@ -266,7 +264,7 @@ const MainSection = props => {
                 <div className={styles.iconBlurView}>
                   <div className="w-full h-full flex justify-center items-center">
                     <IconButtonWithSVG
-                      icon={<CameraWhiteIcon />}
+                      icon={<EditorGreenIcon />}
                       width={40}
                       height={40}
                       iconWidth={40}
