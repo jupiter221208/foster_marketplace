@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 // next component
+import { isString } from 'utils/helpers'
 
 //components
 import Radio from 'components/Radio/SwipRadio'
@@ -16,6 +17,7 @@ import styles from './index.module.scss'
 
 // api
 import StoreAPI from 'apis/store'
+import Alert from 'components/Alert'
 
 const MerchClaimShippingMethod = props => {
   const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, rawList, mintAddress, onNext, onBack } =
@@ -25,9 +27,18 @@ const MerchClaimShippingMethod = props => {
   const [tax, setTax] = useState(null)
   const [total, setTotal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
-    let name = ''
+    setAlertData([
+      {
+        id: 0,
+        title: 'Duplicate claimes',
+        description: 'This print nft is already claimed.',
+        type: 'error',
+      },
+    ])
 
     let methods = []
     if (isUniteState()) {
@@ -181,7 +192,16 @@ const MerchClaimShippingMethod = props => {
 
     StoreAPI.checkout(params).then(
       response => {
-        onNext(response.orderNumber)
+        if (isString(response)) {
+          if (response.includes('Duplicate claims')) {
+            setShowAlert(true)
+            setTimeout(() => {
+              setShowAlert(false)
+            }, 3000)
+          }
+        } else {
+          onNext(response.orderNumber)
+        }
         setIsLoading(false)
       },
       error => {
@@ -224,7 +244,7 @@ const MerchClaimShippingMethod = props => {
                 <div className={`${styles.divider} mt-[15px]`} />
                 <div className="w-full flex justify-between mt-[20px]">
                   <div className={styles.orderTotal}>Total</div>
-                  <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
+                  <div className={styles.subPrice}>${total ? total.toFixed(2) : '---'}</div>
                 </div>
               </div>
             </div>
@@ -244,6 +264,13 @@ const MerchClaimShippingMethod = props => {
           <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

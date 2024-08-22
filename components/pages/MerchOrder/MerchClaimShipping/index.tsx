@@ -324,7 +324,7 @@ const MerchClaimShipping = props => {
         <div className="w-full mt-[30px]">
           <div className="mt-[15px]">
             <div className="w-full flex justify-between items-center">
-              <div className={styles.desc}>Select Size</div>
+              <div className={styles.sizeChart}>Select Size</div>
               <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
                 Size Chart »
               </div>
