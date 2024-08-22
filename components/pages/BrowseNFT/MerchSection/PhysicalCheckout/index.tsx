@@ -160,7 +160,7 @@ const PhysicalCheckout = ({
       var name = item.name
       var apparel = findElement(options, 'name', 'apparel')
       apparel = apparel ? apparel['value'] : ''
-      var size = findElement(options, 'name', 'size')['value']
+      var size = findElement(options, 'name', 'size')
       size = size ? size['value'] : ''
 
       if (type === 'apparel') {

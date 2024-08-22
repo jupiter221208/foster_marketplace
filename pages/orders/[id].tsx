@@ -98,7 +98,7 @@ const OrderSection = props => {
     <div className="w-full">
       <div className="w-full h-full flex lg:flex-row flex-col">
         <div
-          className={`w-[58%] h-full ${
+          className={`w-[58%] h-full flex items-center ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
           }`}
         >
@@ -116,7 +116,7 @@ const OrderSection = props => {
             </div>
           ) : merchType === 'foster' || merchType === 'user' ? (
             <div className="w-full lg:flex lg:h-[705px]">
-              <div className="hidden lg:block mt-[70px] w-[140px]">
+              <div className="hidden lg:block w-[140px]">
                 <div className="w-full lg:block hidden">
                   <div className={styles.backStore} onClick={() => router.push(`/${userName}/merch`)}>
                     <ArrowLeftIcon />
@@ -141,7 +141,7 @@ const OrderSection = props => {
               </div>
               {selectedMerch && (
                 <div className="w-full flex justify-center">
-                  <div className="lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]">
+                  <div className="lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[0px]">
                     <div className={styles.imageArea}>
                       <div
                         className={styles.imageContent}
