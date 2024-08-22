@@ -43,6 +43,7 @@ const HomeNftCard = props => {
     price,
     currentSupply,
     maxSupply,
+    parentNft = null,
     onClick,
     showHideButton = false,
     showUnhideButton = false,
@@ -247,23 +248,25 @@ const HomeNftCard = props => {
                     </div>
                   </div>
                 )}
-                <div>
-                  {maxSupply === null ? (
-                    <div>
-                      <div className={styles.priceLabel}>Open Edition</div>
-                      <div className={`${styles.bidCount} mt-[7px]`}>{currentSupply + ' sold'}</div>
-                    </div>
-                  ) : parseInt(maxSupply) > 0 ? (
-                    <div>
-                      <div className={styles.priceLabel}>Limited Edition</div>
-                      <div className={`${styles.bidCount} mt-[7px]`}>
-                        {maxSupply - currentSupply + '/' + maxSupply + ' left'}
+                {!parentNft && (
+                  <div>
+                    {maxSupply === null ? (
+                      <div>
+                        <div className={styles.priceLabel}>Open Edition</div>
+                        <div className={`${styles.bidCount} mt-[7px]`}>{currentSupply + ' sold'}</div>
                       </div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
+                    ) : parseInt(maxSupply) > 0 ? (
+                      <div>
+                        <div className={styles.priceLabel}>Limited Edition</div>
+                        <div className={`${styles.bidCount} mt-[7px]`}>
+                          {maxSupply - currentSupply + '/' + maxSupply + ' left'}
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

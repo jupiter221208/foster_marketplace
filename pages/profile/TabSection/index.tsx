@@ -674,6 +674,7 @@ const TabSection = props => {
                     artistImage={item.artistProfilePicture}
                     collectionName={item.collectionName}
                     price={item.listPrice}
+                    parentNft={item.parentNft}
                     showHideButton={isOwn}
                     currentSupply={item.currentSupply}
                     maxSupply={item.maxSupply}
