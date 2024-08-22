@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // next components
 import { useRouter } from 'next/router'
@@ -21,6 +20,7 @@ import { NftData } from 'types/nft'
 import HomeNftCard from 'components/Card/HomeNFTCard'
 import HomeEditionCard from 'components/Card/HomeEditionCard'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
+import { getTimeDifference } from 'utils/helpers'
 
 type NFTSwiperSectionTypes = {
   nfts: NftData[]
@@ -30,7 +30,6 @@ type NFTSwiperSectionTypes = {
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSectionTypes) => {
   const router = useRouter()
-  const dispatch = useDispatch()
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -45,7 +44,11 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
       const listeNfts = nfts.filter(item => item.list_price != null)
       setQuickBuyNfts(listeNfts)
 
-      const editionNfts = nfts.filter(item => item.master_edition != null)
+      const editionNfts = nfts.filter(
+        item =>
+          item.master_edition != null &&
+          (item.master_edition?.endTime === null || getTimeDifference(item.master_edition?.endTime) > 0)
+      )
       setLiveEditionNfts(editionNfts)
 
       const auctionNfts = nfts.filter(item => item.auction != null)
