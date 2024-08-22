@@ -31,6 +31,7 @@ const ImportArtwork = () => {
   const router = useRouter()
   const { profileInfo } = useAuthentication()
   const { metaplex } = useMetaplex()
+  const [loading, setLoading] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [importing, setImporting] = useState(false)
   const [importedSuccess, setImportedSuccess] = useState(false)
@@ -40,7 +41,9 @@ const ImportArtwork = () => {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (!publicKey || !connected) return
+    if (!publicKey || !connected || !metaplex || loading) return
+
+    setLoading(true)
     ;(async () => {
       let nfts = await getMyNFTs(metaplex)
       let params = {
@@ -52,9 +55,8 @@ const ImportArtwork = () => {
         response => {
           let addressListDB = []
           response.map(res => addressListDB.push(res.tokenId))
-          let eligibleNfts = nfts.filter(
-            item => item.name?.length > 0 && !addressListDB.some(address => item.mintAddress === address)
-          )
+          let filteredNfts = nfts.filter(item => item.collectionDetails === null && item.name?.length > 0)
+          let eligibleNfts = filteredNfts.filter(item => !addressListDB.some(address => item.mintAddress === address))
           let newNfts = []
           eligibleNfts.map(nft => newNfts.push({ ...nft, checked: false }))
           setNftList(newNfts)
