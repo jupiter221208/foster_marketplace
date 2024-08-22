@@ -240,6 +240,7 @@ const Explore = () => {
       medium: medium.value,
       market: market.value,
       sort: sort.value,
+      is_print: false,
       page: page + 1,
       per_page: count,
     }).then(
