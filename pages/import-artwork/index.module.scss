@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .title {
-  margin-top: 54px;
+  margin-top: 40px;
   font-size: 30px;
   font-weight: 100;
   line-height: 38px;
@@ -15,5 +15,197 @@
   font-weight: 100;
   line-height: 20px;
   font-family: 'Muli-Regular';
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.loadingScreen {
+  width: 920px;
+  height: 420px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successScreen {
+  width: 920px;
+  height: 380px;
+  @media (min-width: 576px)  {
+  height: 420px;
+  }
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success {
+  font-family: "Muli-SemiBold";
+  font-weight: 100;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
+
+.successMsg {
+  margin-top: 15px;
+  font-family: "Muli-Regular";
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  text-align: center;
+}
+
+.viewProfile {
+  margin-top: 56px;
+  @media (min-width: 576px)  {
+    width: 343px;  
+  }
+  width: 300px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: var(--main-icon-color);
+  font-family: "Muli-SemiBold";
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--background-main-color);
+  text-align: center;
+  cursor: pointer;
+}
+
+.mainScreen {
+  width: 920px;
+  height: 715px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.searchArea {
+  width: 100%;
+  height: 45px;
+  padding-left: 15px;
+  padding-right: 0px;
+  border-radius: 12px;
+  background: var(--bg-151515-EEEDEB);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  @media (min-width: 414px) {
+    padding-left: 10px;
+  }
+  @media (min-width: 1024px) {
+    justify-content: center;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 15px;
+  }
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
+.inputArea {
+  margin-left: 10px;
+  @media (min-width: 1024px) {
+    margin-left: 20px;
+    flex: 1;
+  }
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+  background-color: transparent;
+  outline: none;
+}
+
+.selectAll {
+  width: 160px;
+  height: 40px;
+  border-radius: 20px;
+  background: var(--main-icon-color);
+  font-style: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--background-main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+.selectNone {
+  width: 160px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+  font-style: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tableHeader {
+  font-style: 'Muli-Light';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+
+.row {
+  background: var(--bg-151515-EEEDEB);
+  width: 100%;
+  height: 70px;
+  margin-bottom: 10px;
+  padding: 0px 30px 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.importBtn {
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  background: var(--main-icon-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--background-main-color);
+  cursor: pointer;
+}
+
+.artworkSelected {
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
   color: var(--text-gray-200-color);
 }
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+

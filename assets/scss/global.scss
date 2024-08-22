@@ -1625,6 +1625,13 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='checked-icon'] {
+  fill: var(--main-icon-color);
+  [data-fill='a'] {
+    fill: var(--bg-2B2F32-FFF);
+  }
+}
+
 [data-name='file-copy-icon'] {
   fill: var(--main-icon-color);
 }
