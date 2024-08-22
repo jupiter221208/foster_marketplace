@@ -153,7 +153,7 @@ const ImportArtwork = () => {
                 />
               </div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[30px]">
+            <div className="w-full hidden sm:flex justify-between items-center mt-[30px]">
               <div className="flex gap-[15px]">
                 <div className={styles.selectAll} onClick={() => checkAll()}>
                   Select All
@@ -164,6 +164,21 @@ const ImportArtwork = () => {
               </div>
               <div className={styles.artworkSelected}>
                 {count} of {allList.length} artworks selected
+              </div>
+            </div>
+            <div className="w-full block sm:hidden mt-[30px]">
+              <div className="w-full flex gap-[15px]">
+                <div className={styles.selectAll} onClick={() => checkAll()}>
+                  Select All
+                </div>
+                <div className={styles.selectNone} onClick={() => checkNone()}>
+                  Select None
+                </div>
+              </div>
+              <div className="w-full flex justify-end mt-[15px]">
+                <div className={styles.artworkSelected}>
+                  {count} of {allList.length} artworks selected
+                </div>
               </div>
             </div>
             <div className="w-full flex justify-between mt-[30px]">
