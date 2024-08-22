@@ -19,9 +19,9 @@
   },
   {
     "id": 3,
-    "label": "Import EA Series",
+    "label": "Import Artwork",
     "type": "collection_ea",
-    "path": "/create/collection"
+    "path": "/import-artwork"
   },
   {
     "id": 4,
