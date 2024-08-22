@@ -11,6 +11,7 @@ const initialState = {
   openMobileSearchBox: false,
   openConnectWallet: false,
   createTab: null,
+  profileTab: '',
   exploreTab: 0,
   availabilityFilter: 3,
   artworkSort: '',

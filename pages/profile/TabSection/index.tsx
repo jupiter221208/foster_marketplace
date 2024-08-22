@@ -53,6 +53,7 @@ const TabSection = props => {
     setIsFetchingCreated,
   } = props
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
+  const profileTab = useSelector<any>(state => state.profileTab)
   const router = useRouter()
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -138,12 +139,18 @@ const TabSection = props => {
       array2.push(object)
     })
     let ownershipAll = {
-      id: 3,
+      id: 2,
       name: 'All',
       value: '',
       checked: true,
     }
     array2.push(ownershipAll)
+    if (profileTab === 'created') {
+      array2[0].checked = true
+      array2[1].checked = false
+      array2[2].checked = false
+      dispatch({ type: 'set', profileTab: '' })
+    }
     setOwnershipList(array2)
 
     let array3: any[] = []
