@@ -16,6 +16,7 @@ import TabNoAddList from 'assets/json/browse-collection/tab-list-no-add.json'
 // styles
 import styles from './index.module.scss'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
+import ProfileTab from 'components/Tab/ProfileTab'
 
 // apis
 
@@ -60,8 +61,8 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
-        <IconTab
+      <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px] lg:-ml-[18px]">
+        <ProfileTab
           tabList={minter === publicKey?.toString() ? tabList : tabNoAdd}
           onChange={item => handleSelectedTab(item)}
         />
