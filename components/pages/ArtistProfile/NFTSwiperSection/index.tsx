@@ -6,20 +6,16 @@ import { useRouter } from 'next/router'
 // third party components
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 import { FadeLoader } from 'react-spinners'
 
 // styles
 import styles from './index.module.scss'
 
 // redux
-import NFTCreatedCard from 'components/Card/NFTCreatedCard'
-import NFTStudioCard from 'components/Card/NFTStudioCard'
 import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const NFTSwiperSection = props => {
   const { nfts, showHideButton, isLoaded, type = 'normal' } = props
-  const router = useRouter()
 
   return !isLoaded ? (
     <section className={styles.container}>
@@ -50,6 +46,7 @@ const NFTSwiperSection = props => {
                   artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
+                  parentNft={item.parent_nft}
                   showHideButton={showHideButton}
                   onClick={() => {}}
                   key={index}
@@ -65,6 +62,7 @@ const NFTSwiperSection = props => {
                   artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
+                  parentNft={item.parent_nft}
                   onClick={() => {}}
                   key={index}
                 />
@@ -79,6 +77,7 @@ const NFTSwiperSection = props => {
                   artistImage={item.artist_profile_picture}
                   collectionName={item.collection_name}
                   price={item.list_price}
+                  parentNft={item.parent_nft}
                   onClick={() => {}}
                   key={index}
                 />

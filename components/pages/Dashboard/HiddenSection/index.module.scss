@@ -10,14 +10,12 @@
 }
 
 .comingSoon {
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 28px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
   margin-top: 40px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 44px;
-    margin-top: 100px;
+    margin-top: 70px;
   }
   color: var(--text-gray-200-color);
   text-align: center;

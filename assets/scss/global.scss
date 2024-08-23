@@ -95,6 +95,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Erstoria';
+  src: url('../fonts/Erstoria/Erstoria.ttf');
+  font-weight: 100;
+  font-style: normal;
+}
+
+
+
 :root {
   --brand-01-color: #5ac3ba;
   --brand-02-color: #378287;
@@ -1614,6 +1623,13 @@ h6 {
 
 [data-name='social-icon'] {
   fill: var(--main-icon-color);
+}
+
+[data-name='checked-icon'] {
+  fill: var(--main-icon-color);
+  [data-fill='a'] {
+    fill: var(--bg-2B2F32-FFF);
+  }
 }
 
 [data-name='file-copy-icon'] {

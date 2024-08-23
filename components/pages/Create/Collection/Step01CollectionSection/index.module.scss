@@ -11,7 +11,7 @@
   height: fit-content;
   padding: 16px 16px 16px 0px;
   @media (min-width: 1024px) {
-    padding: 50px 0px 80px 57px;
+    padding: 50px 0px 40px 57px;
   }
   display: flex;
   justify-content: center;
@@ -34,6 +34,20 @@
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   text-align: center;
+}
+
+.exchangeArt {
+  @media (min-width: 1024px) {
+    margin-top: 75px;
+  }
+  font-family: "Muli-Light";
+  font-size: 16px;
+  line-height: 20px;
+  span {
+    text-decoration: underline;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  cursor: pointer;
 }
 
 .bannerImageArea {

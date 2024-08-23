@@ -15,8 +15,6 @@ import { Menu, Transition } from '@headlessui/react'
 import styles from './index.module.scss'
 
 // resources
-import SunIcon from 'assets/icons/sun-icon-dark.svg?component'
-import MoonIcon from 'assets/icons/moon-icon-dark.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 import ProfileMenuItem from '../ProfileMenuItem'

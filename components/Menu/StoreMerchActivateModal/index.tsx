@@ -16,7 +16,7 @@ import CloseIconMobile from 'assets/icons/close-wallet-mobile.svg?component'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const StoreMerchActivateModal = props => {
-  const { open, close } = props
+  const { open, close, username } = props
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -61,7 +61,7 @@ const StoreMerchActivateModal = props => {
                 <div className={styles.separator} />
                 <div className="w-full px-[21px] sm:px-[32px] mt-[12px] sm:mt-[25px]">
                   <div className={styles.text}>
-                    {`To attach this merch item to an edition, go to your dashboard, select the edition, and toggle "include merch for each print." If you haven't minted an edition yet, you can do so now or at a later time.`}
+                    {`To attach this merch item to an edition, go to your profile, select the edition, and toggle "include merch for each print." If you haven't minted an edition yet, you can do so now or at a later time.`}
                   </div>
                 </div>
                 <div className="w-full flex justify-center sm:justify-end px-[21px] sm:px-[32px] mt-[20px] sm:mt-[50px]">
@@ -83,7 +83,8 @@ const StoreMerchActivateModal = props => {
                       width={133}
                       height={40}
                       onClick={() => {
-                        router.push('/dashboard?tab=0&filter=1')
+                        dispatch({ type: 'set', profileTab: 'created' })
+                        router.push(`/${username}`)
                         close()
                       }}
                     />

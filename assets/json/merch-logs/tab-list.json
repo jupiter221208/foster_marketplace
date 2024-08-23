@@ -2,5 +2,6 @@
   { "id": 0, "label": "Merch Store", "value": "merch", "disabled": false },
   { "id": 1, "label": "Studio NFTs", "value": "enabled", "disabled": false },
   { "id": 2, "label": "Purchases", "value": "purchases", "disabled": false },
-  { "id": 3, "label": "Sales", "value": "sales", "disabled": false }
+  { "id": 3, "label": "Sales", "value": "sales", "disabled": false },
+  { "id": 4, "label": "Claim Merch", "value": "claim", "disabled": false }
 ]

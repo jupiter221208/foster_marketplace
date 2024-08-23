@@ -494,6 +494,15 @@ const Step01CollectionSection = props => {
                       )}
                     </div>
                   </div>
+                  <div
+                    className={styles.exchangeArt}
+                    onClick={() => {
+                      setCollectionType('ea')
+                      setShowEAModal(true)
+                    }}
+                  >
+                    Or, <span>import your series from Exchange Art</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -750,6 +759,15 @@ const Step01CollectionSection = props => {
                 )}
               </div>
             </div>
+            <div
+              className={styles.exchangeArt}
+              onClick={() => {
+                setCollectionType('ea')
+                setShowEAModal(true)
+              }}
+            >
+              Or, <span>import your series from Exchange Art</span>
+            </div>
           </div>
 
           {/* upload artwork part */}
@@ -845,8 +863,7 @@ const Step01CollectionSection = props => {
       <ImportEAModal
         open={showEAModal}
         onClose={() => {
-          router.push('/')
-          // setShowEAModal(false)
+          setShowEAModal(false)
         }}
         onImportUrl={importEACollection}
       />

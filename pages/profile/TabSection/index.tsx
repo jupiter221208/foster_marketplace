@@ -18,6 +18,7 @@ import CloseIcon from 'assets/icons/close-white-9x9.svg?component'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
+import TabListOwn from 'assets/json/artist-profile/tab-list-own.json'
 
 // resources
 
@@ -36,6 +37,10 @@ import BlackButton from 'components/Button/BlackButton'
 import MobileProfileFilter from 'components/Filter/MobileProfileFilter'
 import MobileStudioSort from 'components/Menu/MobileStudioSort'
 import { useDispatch, useSelector } from 'react-redux'
+import OfferSection from 'components/pages/Dashboard/OfferSection'
+import ActivitySection from 'components/pages/Dashboard/ActivitySection'
+import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
+import HiddenSection from 'components/pages/Dashboard/HiddenSection'
 
 const TabSection = props => {
   const {
@@ -48,6 +53,7 @@ const TabSection = props => {
     setIsFetchingCreated,
   } = props
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
+  const profileTab = useSelector<any>(state => state.profileTab)
   const router = useRouter()
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -66,6 +72,20 @@ const TabSection = props => {
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
   const [selectedFilterList, setSelectedFilterList] = useState([])
+  const [favoriteNfts, setFavoriteNfts] = useState([])
+  const [favoriteCollections, setFavoriteCollections] = useState([])
+  const [hiddenNfts, setHiddenNfts] = useState([])
+  const [activityNfts, setActivityNfts] = useState([])
+  const [offerNftsMade, setOfferNftsMade] = useState([])
+  const [offerNftsReceived, setOfferNftsReceived] = useState([])
+
+  useEffect(() => {
+    if (isOwn) {
+      setTabList(TabListOwn)
+    } else {
+      setTabList(TabList)
+    }
+  }, [isOwn])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
@@ -119,12 +139,18 @@ const TabSection = props => {
       array2.push(object)
     })
     let ownershipAll = {
-      id: 3,
+      id: 2,
       name: 'All',
       value: '',
       checked: true,
     }
     array2.push(ownershipAll)
+    if (profileTab === 'created') {
+      array2[0].checked = true
+      array2[1].checked = false
+      array2[2].checked = false
+      dispatch({ type: 'set', profileTab: '' })
+    }
     setOwnershipList(array2)
 
     let array3: any[] = []
@@ -224,7 +250,12 @@ const TabSection = props => {
 
   useEffect(() => {
     let array: any[] = []
-    TabList.map(item => {
+    let tab_list
+
+    if (isOwn) tab_list = TabListOwn
+    else tab_list = TabList
+
+    tab_list.map(item => {
       let object: any = item
       if (item.id === activeTab) {
         object.selected = true
@@ -435,25 +466,7 @@ const TabSection = props => {
       response => {
         setLoadingData(false)
         setIsFetching(false)
-        // let result = []
 
-        // var result = response.filter(item => {
-        //   let index = item.nftName.indexOf(' #')
-        //   if (index < 0) return true
-        //   let num = item.nftName.slice(index + 2, item.nftName.length)
-        //   if (num.length > 0 && parseInt(num) > 0) return false
-        //   else return true
-        // })
-
-        // noPrintNfts.map(item => {
-        //   if (item.auction) {
-        //     if (item.auction.end_time === null || !isExpired(item.auction.end_time)) result.push(item)
-        //   } else if (item.masterEdition) {
-        //     if (item.masterEdition.endTime === null || !isExpired(item.masterEdition.endTime)) result.push(item)
-        //   } else {
-        //     result.push(item)
-        //   }
-        // })
         if (reset) setNftList(response)
         else setNftList([...nftList, ...response])
 
@@ -496,7 +509,7 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[80px] -ml-[20px]">
+      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[80px] lg:-ml-[20px]">
         <ProfileTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       <div className={styles.divider} />
@@ -661,6 +674,7 @@ const TabSection = props => {
                     artistImage={item.artistProfilePicture}
                     collectionName={item.collectionName}
                     price={item.listPrice}
+                    parentNft={item.parentNft}
                     showHideButton={isOwn}
                     currentSupply={item.currentSupply}
                     maxSupply={item.maxSupply}
@@ -670,7 +684,11 @@ const TabSection = props => {
                 )
               })}
             </div>
-            {isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+            {isVisibleFetching && (
+              <div className="w-full mt-[100px]">
+                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading artworks" />
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -679,11 +697,46 @@ const TabSection = props => {
         <div className="w-full">
           <CollectionSwiperSection collections={showCollections} showRemoveButton={isOwn} />
           {collections.length > 0 && isMounted && isVisibleFetchingCreated && (
-            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
+            <LoadingComponent
+              isFetching={isFetchingCreated}
+              setIsFetching={setIsFetchingCreated}
+              text="Loading collections"
+            />
           )}
         </div>
       )}
 
+      {activeTab === 2 && (
+        <div className="w-full flex flex-wrap">
+          <OfferSection
+            offerNftsMade={offerNftsMade}
+            setOfferNftsMade={setOfferNftsMade}
+            offerNftsReceived={offerNftsReceived}
+            setOfferNftsReceived={setOfferNftsReceived}
+          />
+        </div>
+      )}
+
+      {activeTab === 3 && (
+        <div className="w-full flex flex-wrap">
+          <ActivitySection activityNfts={activityNfts} setActivityNfts={setActivityNfts} />
+        </div>
+      )}
+      {activeTab === 4 && (
+        <div className="w-full flex flex-wrap">
+          <FavoriteSection
+            favoriteNfts={favoriteNfts}
+            favoriteCollections={favoriteCollections}
+            setFavoriteNfts={setFavoriteNfts}
+            setFavoriteCollections={setFavoriteCollections}
+          />
+        </div>
+      )}
+      {activeTab === 5 && (
+        <div className="w-full flex flex-wrap">
+          <HiddenSection hiddenNfts={hiddenNfts} setHiddenNfts={setHiddenNfts} />
+        </div>
+      )}
       <div className="flex lg:hidden w-full">
         {openMobileFilter && (
           <MobileProfileFilter

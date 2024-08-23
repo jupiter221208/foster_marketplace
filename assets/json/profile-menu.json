@@ -1,7 +1,6 @@
 [
   { "id": 0, "label": "Profile", "path": "/" },
   { "id": 3, "label": "My Profile", "path": "/" },
-  { "id": 1, "label": "Dashboard", "path": "/dashboard" },
   { "id": 6, "label": "Settings", "path": "/settings" },
   { "id": 4, "label": "My Store", "path": "/" },
   { "id": 2, "label": "Studio Hub", "path": "/merch-logs" },

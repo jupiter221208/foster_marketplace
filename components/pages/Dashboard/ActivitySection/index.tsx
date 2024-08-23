@@ -17,23 +17,24 @@ import { useViewport } from 'utils'
 // api
 import ActivityAPI from 'apis/activity'
 import NoDataSection from '../NoDataSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-import LoadingModal from 'components/Modal/LoadingModal'
+import LoadingComponent from 'pages/profile/LoadingComponent'
 import { ActivityAPIData } from 'types/nft'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
-const ActivitySection = () => {
+const ActivitySection = props => {
+  const { activityNfts, setActivityNfts } = props
   const viewport = useViewport()
   const [loading, setLoading] = useState(false)
-  const [rowCount, setRowCount] = useState(10)
+  const rowCount = 10
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [activityList, setActivityList] = useState<ActivityAPIData[]>([])
   const [allList, setAllList] = useState<ActivityAPIData[]>([])
   const [filteredList, setFilteredList] = useState<ActivityAPIData[]>([])
   const [searchKey, setSearchKey] = useState('')
-  const [filterKey, setFilterKey] = useState('')
+  const [filterKey, setFilterKey] = useState(null)
   const [filterList, setFilterList] = useState([
     { id: 0, label: 'All Filter', search: '' },
     { id: 1, label: 'Auction Started', search: 'AuctionStarted' },
@@ -51,6 +52,20 @@ const ActivitySection = () => {
   const { publicKey } = useWallet()
 
   useEffect(() => {
+    if (activityNfts.length > 0) {
+      console.log(rowCount, activityNfts.slice(0, rowCount), '===============activityNfts==========')
+      setLoading(true)
+      setFilteredList(activityNfts.slice(0, rowCount))
+      setAllList(activityNfts)
+      setActivityList(activityNfts)
+      if (activityNfts.length > rowCount) setIsVisibleFetching(true)
+    }
+  }, [])
+
+  console.log(filteredList, '============filteredList=================')
+  useEffect(() => {
+    if (activityNfts.length > 0) return
+
     ActivityAPI.getUserActivity(publicKey?.toBase58()).then(response => {
       if (response.length === 0) {
         setLoading(true)
@@ -60,9 +75,12 @@ const ActivitySection = () => {
       response.reverse().map((item, index) => {
         tempItem.push(item)
       })
+
       setAllList(tempItem)
       setActivityList(tempItem)
+      setActivityNfts(tempItem)
       setFilteredList(tempItem.slice(0, rowCount))
+
       if (tempItem.length > rowCount) setIsVisibleFetching(true)
       setLoading(true)
     })
@@ -117,6 +135,8 @@ const ActivitySection = () => {
   }
 
   useEffect(() => {
+    if (filterKey === null) return
+
     setFilteredList([])
 
     if (filterKey === '') {
@@ -153,11 +173,8 @@ const ActivitySection = () => {
   }, [filterKey])
 
   return (
-    <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
+    <section className="w-full mt-[16px] lg:mt-[0px] min-h-[250px]">
       <div className="lg:mt-[30px] w-full flex justify-between">
-        <div className="w-[185px] lg:w-full">
-          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-        </div>
         <div>
           <DropdownFilterMenu
             label={selectedItem['label']}
@@ -169,12 +186,15 @@ const ActivitySection = () => {
             }}
           />
         </div>
+        <div className="w-[185px] lg:w-[auto]">
+          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+        </div>
       </div>
 
       <div className="w-full z-10 mt-[10px] lg:mt-[-30px]">
         {loading === false ? (
-          <div className="col-span-12">
-            <LoadingModal open={!loading} />
+          <div className="col-span-12 mt-[100px]">
+            <LoadingElement text="Loading activity" />
           </div>
         ) : filteredList.length > 0 ? (
           <div>
@@ -184,17 +204,14 @@ const ActivitySection = () => {
               <ActivityAccordion data={filteredList} />
             )}
             {isVisibleFetching && (
-              <div className="w-full mt-[-50px] mb-[40px]">
-                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+              <div className="w-full mt-[100px] mb-[40px]">
+                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading activity" />
               </div>
             )}
           </div>
         ) : (
           <div className="mt-[40px] lg:mt-[130px]">
-            <NoDataSection
-              title="No activity history available"
-              description="This tab displays a log of all your activity on Foster Marketplace"
-            />
+            <NoDataSection title="No results found" description="" />
           </div>
         )}
       </div>

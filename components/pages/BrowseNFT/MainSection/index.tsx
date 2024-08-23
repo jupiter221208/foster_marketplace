@@ -1469,10 +1469,10 @@ const MainSection = ({
                         ) : (
                           <div className="lg:block hidden">
                             <MenuEditNft
-                              studio={
+                              studio={true}
+                              metadata={
                                 nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
                               }
-                              metadata={true}
                               explorerURL={explorerURL}
                               setShowNftMeta={setShowNftMeta}
                               setRemoveMerchModal={setRemoveMerchModal}

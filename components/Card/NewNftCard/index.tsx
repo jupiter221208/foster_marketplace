@@ -33,6 +33,7 @@ import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const NewNftCard = props => {
   const {
@@ -42,6 +43,7 @@ const NewNftCard = props => {
     coverImage = '',
     fallBack = '',
     artistName,
+    artistImage,
     collectionName,
     assetType,
     price,
@@ -55,7 +57,7 @@ const NewNftCard = props => {
   const [play, setPlay] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
-  const [showEditBtn, setShowEditBtn] = useState(false)
+  const [displayUnsaveConfirm, setDisplayUnsaveConfirm] = useState(false)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -85,6 +87,11 @@ const NewNftCard = props => {
     )
   }
 
+  const performUnsave = () => {
+    setIsLoading(true)
+    unSave()
+  }
+
   const videoRef = useRef<HTMLVideoElement>()
 
   return (
@@ -92,7 +99,13 @@ const NewNftCard = props => {
       <div className={styles.container}>
         <div className="relative w-full overflow-hidden">
           <div className={styles.topSection}>
-            <div className={styles.nftName}>{nftName}</div>
+            <div>
+              <div className={styles.nftName}>{nftName}</div>
+              <div className={styles.artistName}>{artistName}</div>
+            </div>
+            <div className="w-[45px] h-[45px] rounded-[23px] overflow-hidden">
+              <ImageWithFoster width={100} src={artistImage} alt="" className="w-full h-full object-cover" />
+            </div>
           </div>
           <div className={styles.imageArea}>
             {assetType?.includes('video') ? (
@@ -207,22 +220,24 @@ const NewNftCard = props => {
           <div className={styles.bottomSection}>
             {unSave !== null && (
               <div className="w-full">
-                <SecondaryDashboardButton
+                <OutlineButton
                   fullWidth
-                  label="Unsave"
-                  type="unsave"
+                  fontSize={16}
+                  height={45}
+                  label="Remove"
                   onClick={() => {
-                    unSave()
+                    setDisplayUnsaveConfirm(true)
                   }}
                 />
               </div>
             )}
             {showUnhideButton && (
               <div className="w-full">
-                <SecondaryDashboardButton
+                <OutlineButton
                   fullWidth
+                  fontSize={16}
+                  height={45}
                   label="Unhide"
-                  type="unhide"
                   onClick={() => setDisplayUnhideConfirm(true)}
                 />
               </div>
@@ -230,6 +245,37 @@ const NewNftCard = props => {
           </div>
         </div>
       </div>
+
+      {displayUnsaveConfirm && (
+        <div className={styles.hideConfirm}>
+          {isLoading ? (
+            <div className={styles.loading}>
+              <LoadingModal open={isLoading} />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div>
+                <div className={styles.hideText}>
+                  This artwork is currently bookmarked.
+                  <br />
+                  <br />
+                  Would you like to remove it from your favorites?
+                </div>
+                <div className="flex gap-[15px] lg:gap-[19px] mt-[50px] justify-center">
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnsaveConfirm(false)}>
+                    Cancel
+                  </div>
+                  <div className={styles.hideButton} onClick={() => performUnsave()}>
+                    <div className="flex">
+                      <div className={styles.hideButtonText}>Remove</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {displayHideConfirm && (
         <div className={styles.hideConfirm}>
@@ -290,15 +336,7 @@ const NewNftCard = props => {
                     Cancel
                   </div>
                   <div className={styles.hideButton} onClick={() => performUnhideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
+                    <div className="flex">
                       <div className={styles.hideButtonText}>Unhide</div>
                     </div>
                   </div>

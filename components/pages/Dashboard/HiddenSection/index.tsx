@@ -11,12 +11,13 @@ import styles from './index.module.scss'
 
 // api
 import userAPI from 'apis/user'
-import LoadingModal from 'components/Modal/LoadingModal'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingComponent from 'pages/profile/LoadingComponent'
 import { DashboardAPIData } from 'types/nft'
 import NewNftCard from 'components/Card/NewNftCard'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
-const HiddenSection = () => {
+const HiddenSection = props => {
+  const { hiddenNfts, setHiddenNfts } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const unhideNftToken = useSelector(state => (state as any).unhideNftToken)
@@ -29,15 +30,19 @@ const HiddenSection = () => {
   const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
-    setLoading(true)
-
-    getHiddenNftData()
+    if (hiddenNfts.length > 0) setAllNftList(hiddenNfts)
+    else {
+      setLoading(true)
+      getHiddenNftData()
+    }
   }, [])
 
   const getHiddenNftData = () => {
     userAPI.getHiddenNFT().then(
       response => {
-        setAllNftList(response.filter(item => item.nft_name !== ''))
+        let list = response.filter(item => item.nft_name !== '')
+        setAllNftList(list)
+        setHiddenNfts(list)
         setLoading(false)
       },
       error => {
@@ -78,17 +83,16 @@ const HiddenSection = () => {
 
   return (
     <section className={styles.container}>
-      {!loading && allNftList.length === 0 && (
-        <div className={styles.comingSoon}>You don&apos;t have any hidden nfts.</div>
-      )}
-      <div className="w-full mt-[15px] lg:mt-[0px] gap-4 lg:gap-[34px] grid grid-cols-12">
+      {!loading && allNftList.length === 0 && <div className={styles.comingSoon}>No hidden artworks found</div>}
+      <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">
         {!loading &&
           nftList.map((item: any, index) => (
-            <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+            <div key={index}>
               <NewNftCard
                 token_id={item.token_id}
                 image={item.asset_url}
                 nftName={item.nft_name}
+                artistImage={item.artist_profile_picture}
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
@@ -99,13 +103,15 @@ const HiddenSection = () => {
               />
             </div>
           ))}
-        <div className="col-span-12">
-          <LoadingModal open={loading} />
-        </div>
+        {loading && (
+          <div className="col-span-12 mt-[80px]">
+            <LoadingElement text="Loading your hidden artwork" />
+          </div>
+        )}
       </div>
       {!loading && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        <div className="w-full mt-[80px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading your hidden artwork" />
         </div>
       )}
     </section>

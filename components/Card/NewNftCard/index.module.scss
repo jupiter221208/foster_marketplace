@@ -7,6 +7,7 @@
   }
   height: auto;
   background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   cursor: pointer;
   border-radius: 10px;
   overflow: hidden;
@@ -26,7 +27,6 @@
     height: 52px;
     border-radius: 26px;
   }
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,11 +41,8 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  border: 3px solid rgba($text-gray-200-color, 0.1);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 8px;
-  @media (min-width: 1024px) {
-    border-radius: 8px;
-  }
   background: rgba(#1a1a1a, 0.75);
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
@@ -53,28 +50,19 @@
 }
 
 .hideText {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  padding: 0px 10px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    padding: 0px 20px;
-  }
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  padding: 0px 20px;
   color: $text-gray-200-color;
   text-align: center;
 }
 
 .hideCancelButton {
-  width: 67px;
-  height: 26px;
+  width: 106px;
+  height: 40px;
   border-radius: 6px;
-  font-size: 10px;
-  @media (min-width: 640px) {
-    border-radius: 8px;
-    width: 106px;
-    height: 40px;
-    font-size: 14px;
-  }
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,15 +87,13 @@
   justify-content: center;
   align-items: center;
   background: $brand-09-color;
+  box-shadow: 0px 3px 6px #121212;
   cursor: pointer;
 }
 
 .hideButtonText {
   font-family: 'Muli-SemiBold';
-  font-size: 10px;
-  @media (min-width: 640px) {
-    font-size: 14px;
-  }
+  font-size: 16px;
   color: $background-dark-color;
 }
 
@@ -125,29 +111,21 @@
 
 .topSection {
   width: 100%;
-  height: 50px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background: var(--background-main-color);
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0px 15px;
 }
 
 .bottomSection {
   width: 100%;
-  height: 50px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background: var(--background-main-color);
+  height: 75px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
+  padding: 0px 13px;
 }
 
 .bottomBtn {
@@ -268,23 +246,16 @@
 
 .nftNameForHome {
   font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 15px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  margin-top: 0px;
-  letter-spacing: 0;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
   color: var(--text-gray-200-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .nftName {
   font-family: 'Muli-Regular';
   font-size: 16px;
+  font-weight: 100;
   line-height: 20px;
   color: var(--text-gray-200-color);
   white-space: nowrap;
@@ -309,14 +280,13 @@
 
 .artistName {
   font-family: 'Muli-Light';
+  font-size: 14px;
   font-weight: 100;
-  font-size: 10px;
-  line-height: 13px;
+  margin-top: 7px;
   color: var(--main-icon-color);
-  @media (min-width: 640px) {
-    font-size: 14px;
-    margin-top: 8px;
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .priceHome {

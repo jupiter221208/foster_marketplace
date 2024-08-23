@@ -17,7 +17,6 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import HideIcon from 'assets/icons/hide-icon.svg?component'
 import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
-import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
 
 // styles
@@ -44,6 +43,7 @@ const HomeNftCard = props => {
     price,
     currentSupply,
     maxSupply,
+    parentNft = null,
     onClick,
     showHideButton = false,
     showUnhideButton = false,
@@ -229,13 +229,13 @@ const HomeNftCard = props => {
                 {price ? (
                   <div>
                     <div className={styles.priceLabel}>Price</div>
-                    <div className="flex justify-center items-center mt-[4px] gap-[5px]">
+                    <div className="flex justify-center items-center mt-[5px] gap-[5px]">
                       {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                         <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       ) : (
                         <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       )}
-                      <div className="mt-[3px]">
+                      <div className="mt-[0px]">
                         <div className={styles.priceHome}>{formattedAmount(price)}</div>
                       </div>
                     </div>
@@ -248,23 +248,25 @@ const HomeNftCard = props => {
                     </div>
                   </div>
                 )}
-                <div>
-                  {maxSupply === null ? (
-                    <div>
-                      <div className={styles.priceLabel}>Open Edition</div>
-                      <div className={`${styles.bidCount} mt-[7px]`}>{currentSupply + ' sold'}</div>
-                    </div>
-                  ) : parseInt(maxSupply) > 0 ? (
-                    <div>
-                      <div className={styles.priceLabel}>Limited Edition</div>
-                      <div className={`${styles.bidCount} mt-[7px]`}>
-                        {maxSupply - currentSupply + '/' + maxSupply + ' left'}
+                {!parentNft && (
+                  <div>
+                    {maxSupply === null ? (
+                      <div>
+                        <div className={styles.priceLabel}>Open Edition</div>
+                        <div className={`${styles.bidCount} mt-[7px]`}>{currentSupply + ' sold'}</div>
                       </div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
+                    ) : parseInt(maxSupply) > 0 ? (
+                      <div>
+                        <div className={styles.priceLabel}>Limited Edition</div>
+                        <div className={`${styles.bidCount} mt-[7px]`}>
+                          {maxSupply - currentSupply + '/' + maxSupply + ' left'}
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

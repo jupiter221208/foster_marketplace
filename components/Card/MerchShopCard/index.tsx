@@ -357,7 +357,11 @@ const MerchShopCard = props => {
       )}
 
       {showActivateModal && (
-        <StoreMerchActivateModal open={showActivateModal} close={() => setShowActivateModal(false)} />
+        <StoreMerchActivateModal
+          open={showActivateModal}
+          close={() => setShowActivateModal(false)}
+          username={username}
+        />
       )}
     </div>
   )

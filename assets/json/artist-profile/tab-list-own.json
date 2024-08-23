@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "label": "Artwork",
+    "value": "Artwork"
+  },
+  {
+    "id": 1,
+    "label": "Collections",
+    "value": "Collections"
+  },
+  {
+    "id": 2,
+    "label": "Offers",
+    "value": "Offers"
+  },
+  {
+    "id": 3,
+    "label": "Activity",
+    "value": "Activity"
+  },
+  {
+    "id": 4,
+    "label": "Favorites",
+    "value": "Favorites"
+  },
+  {
+    "id": 5,
+    "label": "Hidden",
+    "value": "Hidden"
+  }    
+]

@@ -11,16 +11,20 @@ import { useViewport } from 'utils'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
 const CollectionCard = props => {
-  const { image, nftName, link, artistName, collectionName, unSave = null } = props
-  const dispatch = useDispatch()
+  const { image, nftName, link, artistName, artistImage, collectionName, unSave = null } = props
   const router = useRouter()
-  const viewport = useViewport()
 
   return (
     <div className={styles.container}>
       <div className="relative w-full overflow-hidden">
         <div className={styles.topSection}>
-          <div className={styles.nftName}>{nftName}</div>
+          <div>
+            <div className={styles.nftName}>{nftName}</div>
+            <div className={styles.artistName}>{artistName}</div>
+          </div>
+          <div className="w-[45px] h-[45px] rounded-[23px] overflow-hidden">
+            <ImageWithFoster width={100} src={artistImage} alt="" className="w-full h-full object-cover" />
+          </div>
         </div>
         <Link href={link} passHref>
           <a>

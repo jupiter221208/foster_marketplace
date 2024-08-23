@@ -19,6 +19,7 @@ import styles from './index.module.scss'
 
 // call apis
 import StoreAPI from 'apis/store'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const MerchEditionSection = () => {
   const { profileInfo } = useAuthentication()
@@ -86,38 +87,34 @@ const MerchEditionSection = () => {
 
   return (
     <section className={styles.container}>
-      {isFetching && (
-        <div className="w-full flex justify-between z-10">
-          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-
-          <DropdownFilterMenu
-            label={selectedItem['label']}
-            data={filterList}
-            selectedItem={selectedItem}
-            setSelectedItem={item => {
-              setSelectedItem(item)
-              setActive(item.id)
-            }}
-          />
+      <div className="w-full flex justify-between z-10 items-center">
+        <div className={`${styles.description} lg:block hidden`}>
+          {'Displayed are merch items included with an edition you purchased.'}
         </div>
-      )}
-      {isFetching && merchList.length === 0 && (
-        <div className={styles.comingSoon}>You don&apos;t have any merch editions.</div>
-      )}
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setActive(item.id)
+          }}
+        />
+      </div>
 
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
+      {isFetching && merchList.length === 0 && <div className={styles.comingSoon}>No results found.</div>}
+
+      <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">
         {filteredList.map(item => (
-          <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.id}>
+          <div key={item.id}>
             <MerchEditionClaimCard data={item} />
           </div>
         ))}
       </div>
 
       {!isFetching && (
-        <div className="w-full flex justify-center">
-          <div className="w-[500px] h-[40px]">
-            <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
-          </div>
+        <div className="w-full flex justify-center mt-[80px]">
+          <LoadingElement text="Loading merch editions" />
         </div>
       )}
     </section>

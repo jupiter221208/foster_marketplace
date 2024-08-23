@@ -27,8 +27,10 @@ import usersAPI from 'apis/user'
 // styles
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
-const OfferSection = () => {
+const OfferSection = props => {
+  const { offerNftsMade, setOfferNftsMade, offerNftsReceived, setOfferNftsReceived } = props
   const viewport = useViewport()
   const { refreshToken } = useAuthentication()
   const router = useRouter()
@@ -62,7 +64,9 @@ const OfferSection = () => {
   const fetchOffersMade = useCallback(
     async (force: boolean = false) => {
       if (!mx || (offersMade && !force)) return
-      setOffersMade(await getMyBids(mx))
+      let offers = await getMyBids(mx)
+      setOffersMade(offers)
+      setOfferNftsMade(offers)
     },
     [mx, offersMade]
   )
@@ -71,7 +75,9 @@ const OfferSection = () => {
     async (force: boolean = false) => {
       if (!mx || (offersReceived && !force)) return
       let received = await getReceivedBids(mx)
-      setOffersReceived(received.reverse())
+      let received_reverse = received.reverse()
+      setOffersReceived(received_reverse)
+      setOfferNftsReceived(received_reverse)
     },
     [mx, offersReceived]
   )
@@ -86,12 +92,18 @@ const OfferSection = () => {
     ;(async () => {
       setOfferLoaded(false)
       try {
-        if (shownOfferType === 'made') await fetchOffersMade()
-        else if (shownOfferType === 'received') await fetchOffersReceived()
+        if (shownOfferType === 'made') {
+          if (offerNftsMade.length > 0) {
+            setOffersMade(offerNftsMade)
+          } else await fetchOffersMade()
+        } else if (shownOfferType === 'received') {
+          if (offerNftsReceived.length > 0) {
+            setOffersReceived(offerNftsReceived)
+          } else await fetchOffersReceived()
+        }
       } catch (e) {
         console.error(e)
       }
-      dispatch({ type: 'set', isLoading: false })
       setOfferLoaded(true)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,7 +226,7 @@ const OfferSection = () => {
 
   return (
     <section className="w-full mt-[16px] lg:mt-[30px]">
-      <div className="w-full flex justify-end z-10">
+      <div className="w-full flex z-10">
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -226,11 +238,11 @@ const OfferSection = () => {
         />
       </div>
       {!offerLoaded ? (
-        <div className="col-span-12 mt-[-60px]">
-          <LoadingModal open={!offerLoaded} />
+        <div className="col-span-12 mt-[70px]">
+          <LoadingElement text="Loading offers" />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
-        <div className="w-full mt-[15px] lg:mt-[34px]">
+        <div className="w-full mt-[15px] lg:mt-[30px]">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
             <OfferTable
               offerType={shownOfferType}
@@ -249,16 +261,13 @@ const OfferSection = () => {
         </div>
       ) : (
         <div className="mt-[35px] lg:mt-[60px]">
-          <NoDataSection
-            title="You don't have any active offers right now"
-            description="This tab shows any active offer you made or received on Foster Marketplace"
-          />
+          <NoDataSection title="No results found" description="" />
         </div>
       )}
 
       {isVisibleFetching && (
-        <div className="w-full mt-[-50px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        <div className="w-full mt-[100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading offers" />
         </div>
       )}
 

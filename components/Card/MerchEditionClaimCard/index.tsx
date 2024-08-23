@@ -18,6 +18,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 // api
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchEditionClaimCard = props => {
   const { data } = props
@@ -54,7 +55,7 @@ const MerchEditionClaimCard = props => {
           </div>
         </div>
 
-        <div className={styles.imageArea}>
+        <div className={styles.imageArea} onClick={() => onViewCard()}>
           <div className={styles.imageContent}>
             <div className="w-full h-full p-4">
               <ImageWithFoster
@@ -69,20 +70,30 @@ const MerchEditionClaimCard = props => {
         <div className={styles.bottomSection}>
           {data.order_id ? (
             <div className="w-full">
-              <SecondaryDashboardButton
+              {/* <SecondaryDashboardButton
                 label="Order Details"
                 type="order-details"
                 fullWidth
+                height={45}
                 onClick={() => {
                   router.push(`/merch-logs/${data.order_id}`)
                 }}
+              /> */}
+              <OutlineButton
+                height={45}
+                fontSize={16}
+                label="Order Details"
+                onClick={() => {
+                  router.push(`/merch-logs/${data.order_id}`)
+                }}
+                fullWidth
               />
             </div>
           ) : (
-            <div className="w-full flex">
-              <PrimaryDashboardButton label="Claim Merch" type="merch" onClick={() => onClaimCard()} fullWidth />
+            <div className="w-full">
+              <OutlineButton fontSize={16} height={45} label="Claim Merch" onClick={() => onClaimCard()} fullWidth />
 
-              <SecondaryDashboardButton label="View" type="next" fullWidth onClick={() => onViewCard()} />
+              {/* <SecondaryDashboardButton label="View" type="next" fullWidth onClick={() => onViewCard()} /> */}
             </div>
           )}
         </div>

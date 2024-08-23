@@ -28,7 +28,6 @@ import { isString } from 'utils/helpers'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import TabSection from './profile/TabSection'
-import { ArtistsAPIData } from 'types/nft'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
