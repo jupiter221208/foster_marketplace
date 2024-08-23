@@ -568,7 +568,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className="absolute w-[122px] h-[53px] right-[0px] bottom-[0px] z-[10]">
+                  <div className="mt-[30px] w-full h-[53px] flex justify-end z-[10]">
                     <GradientButton
                       label="Next"
                       disabled={disabledNextButton}
@@ -668,7 +668,7 @@ const Step01CollectionSection = props => {
             </div>
           </div>
 
-          <div className="w-full flex flex-wrap justify-center mt-[30px]">
+          <div className="w-full flex flex-wrap mt-[30px]">
             <div className="w-full flex justify-start">
               <div className={styles.collectionBannerImage}>
                 Collection Cover Image<span>*</span>
