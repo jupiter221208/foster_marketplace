@@ -52,7 +52,13 @@ const HomeEditionCard = props => {
   }, [data.endTime])
 
   const isExpired = () => {
-    if (timeLeft && timeLeft['days'] === '00' && timeLeft['hours'] && timeLeft['minutes'] && timeLeft['seconds'])
+    if (
+      timeLeft &&
+      timeLeft['days'] === '00' &&
+      timeLeft['hours'] === '00' &&
+      timeLeft['minutes'] === '00' &&
+      timeLeft['seconds'] === '00'
+    )
       return true
     return false
   }

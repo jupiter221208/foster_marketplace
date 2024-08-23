@@ -10,7 +10,6 @@ import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
 // custom functions
 import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -24,7 +23,6 @@ import GradientButton from 'components/Button/GradientButton'
 const OpenEditionCard = ({ data }) => {
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
   const [timeLeft, setTimeLeft] = useState(null)
   const [loaded, setLoaded] = useState(false)
   const onClick = () => {}
