@@ -243,7 +243,7 @@ const AdditionalDetails = props => {
 
   const generateDescription = (selectedCard, tech, color) => {
     let description = ''
-    let technique = tech === 'dtg' ? 'Direct-to-Garment' : 'Embroidery'
+    let technique = tech === 'dtg' ? 'direct-to-garment' : 'embroidery'
     let side = getCardSide()
     if (selectedCard.id === 0) {
       description = `Step into premium comfort with this ${color} hoodie, made from tight-knit cotton/poly fleece and a 100% cotton face. Crafted using ${technique} on the ${side}. Street-ready style for an elevated, everyday look.`
@@ -260,33 +260,39 @@ const AdditionalDetails = props => {
   }
 
   const getCardSide = () => {
-    let card_side = ''
-    const { technique, side, detailSide } = productDetail
+    let card_side = []
+    const { snapshotAssetUrl, technique, side, detailSide } = productDetail
     if (technique === 'dtg') {
-      if (side === 'front') {
-        if (detailSide === 'front') card_side = 'Full Front'
-        else if (detailSide === 'chest') card_side = 'Left Chest'
-        else if (detailSide === 'center') card_side = 'Center Chest'
-      } else if (side === 'back') {
-        card_side = 'Back'
-      } else if (side === 'right') {
-        card_side = 'Right Sleeve'
-      } else if (side === 'left') {
-        card_side = 'Left Sleeve'
+      if (snapshotAssetUrl.front !== '') {
+        if (detailSide === 'front') card_side.push('full front')
+        else if (detailSide === 'chest') card_side.push('left chest')
+        else if (detailSide === 'center') card_side.push('center chest')
+      }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back')
+      }
+      if (snapshotAssetUrl.right !== '') {
+        card_side.push('right sleeve')
+      }
+      if (snapshotAssetUrl.left !== '') {
+        card_side.push('left sleeve')
       }
     } else {
-      if (side === 'front') {
-        if (detailSide === 'chest') card_side = 'Left Chest'
-        else if (detailSide === 'center') card_side = 'Center Chest'
-      } else if (side === 'back') {
-        card_side = 'Back'
-      } else if (side === 'right') {
-        card_side = 'Right Wrist'
-      } else if (side === 'left') {
-        card_side = 'Left Wrist'
+      if (snapshotAssetUrl.front !== '') {
+        if (detailSide === 'chest') card_side.push('left chest')
+        else if (detailSide === 'center') card_side.push('center chest')
+      }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back')
+      }
+      if (snapshotAssetUrl.right !== '') {
+        card_side.push('right wrist')
+      }
+      if (snapshotAssetUrl.left !== '') {
+        card_side.push('left wrist')
       }
     }
-    return card_side
+    return card_side.join(', ')
   }
 
   const selectAssetItem = item => {
