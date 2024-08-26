@@ -56,7 +56,6 @@ export interface BrowseNFTProps {
   nftDetail?: NftData
   nftOwner?: any
   editionDetail?: EditionDetail
-  mintAddress?: PublicKey
   error?: string
 }
 
@@ -68,13 +67,10 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState<NftData>()
-  const [collectionName, setCollectionName] = useState('')
   const { connected, autoConnect } = useWallet()
   const dispatch = useDispatch()
-  const [showAuctionSection, setShowAuctionSection] = useState(false)
   const [merchToggle, setMerchToggle] = useState(false)
   const [activeTab, setActiveTab] = useState<any>(0)
-  const [tabList, setTabList] = useState<any[]>(TabList)
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
 
@@ -219,7 +215,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
       }
       array.push(object)
     })
-    setTabList(array)
   }, [activeTab, merchToggle])
 
   return (
@@ -281,9 +276,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                       enableMerch={setMerchToggle}
                       setOpenMerchPage={setOpenMerchPage}
                       setMerchData={setMerchData}
-                      setCollectionName={setCollectionName}
                       fullScreen={fullScreen}
-                      setShowAuctionSection={enable => setShowAuctionSection(enable)}
                       setMerchImages={images => setProcessMerchImage(images, 0)}
                       setFullScreenMerch={setFullScreenMerch}
                     />
@@ -373,16 +366,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     res.setHeader('cache-control', 'max-age=1800, s-maxage=3600')
   }
 
-  let mintAddress: PublicKey
-  try {
-    mintAddress = new PublicKey(query.id)
-  } catch (e: any) {
-    console.error(e)
-    return {
-      error: `could not parse as public key: ${query.id}: ${e.message}`,
-    }
-  }
-
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
@@ -402,7 +385,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
       nftDetail,
       nftOwner,
       editionDetail,
-      mintAddress,
     }
   } catch (e: any) {
     console.error(e)
