@@ -133,7 +133,7 @@ const MerchDTGSection = props => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
-    setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
+    setProductDetail({ snapshotAssetUrl: newAsset, technique, color, side: cardSide, detailSide: embPlace })
 
     setCurPercentage(0)
 
@@ -210,7 +210,7 @@ const MerchDTGSection = props => {
       newAsset[cardSide] = imgDataString
       newAsset[cardSide + '_raw'] = assetUrl
       setSnapshotAsset(newAsset)
-      setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
+      setProductDetail({ snapshotAssetUrl: newAsset, technique, color, side: cardSide, detailSide: embPlace })
       setProcessingImage(false)
 
       if (newCanvas !== '') {
@@ -1142,6 +1142,8 @@ const MerchDTGSection = props => {
           setProductDetail({
             snapshotAssetUrl: { front: '', back: '', right: '', left: '' },
             technique: newTechnique,
+            side: cardSide,
+            detailSide: embPlace,
             color: newColor,
           })
           setAssetUrl(null)

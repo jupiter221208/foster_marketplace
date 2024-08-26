@@ -171,13 +171,17 @@ const AdditionalDetails = props => {
     let { snapshotAssetUrl, selectedCard, technique, color, name, description } = productDetail
     if (productDetail.product?.id === 0) {
       setPriceBase(selectedCard.price[technique])
-      setDescription(
-        selectedCard.name +
-          ' | ' +
-          (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
-          ' | ' +
-          getFirstUpperString(color)
-      )
+
+      let desc = generateDescription(selectedCard, technique, color)
+
+      setDescription(desc)
+      // setDescription(
+      //   selectedCard.name +
+      //     ' | ' +
+      //     (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
+      //     ' | ' +
+      //     getFirstUpperString(color)
+      // )
 
       if (snapshotAssetUrl.front !== '') {
         urls.push(snapshotAssetUrl.front)
@@ -236,6 +240,54 @@ const AdditionalDetails = props => {
     setProfit(parseFloat(sellingPrice) - (priceBase + priceFB + priceRight + priceLeft))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingPrice])
+
+  const generateDescription = (selectedCard, tech, color) => {
+    let description = ''
+    let technique = tech === 'dtg' ? 'Direct-to-Garment' : 'Embroidery'
+    let side = getCardSide()
+    if (selectedCard.id === 0) {
+      description = `Step into premium comfort with this ${color} hoodie, made from tight-knit cotton/poly fleece and a 100% cotton face. Crafted using ${technique} on the ${side}. Street-ready style for an elevated, everyday look.`
+    } else if (selectedCard.id === 1) {
+      description = `Heavyweight fabric. Soft, structured comfort. This ${color} long sleeve brings feng shui and flavor, printed using ${technique} on the ${side}.`
+    } else if (selectedCard.id === 2) {
+      description = `This ${color} tee is a closet staple—crafted from heavyweight cotton for a bold, structured feel. Designed using ${technique} on the ${side}.`
+    } else if (selectedCard.id === 3) {
+      description = `A closet staple, redefined. This ${color} crewneck delivers everyday comfort with an elevated touch and fleece base; printed using ${technique} on the ${side}.`
+    } else {
+      description = `Designed for the eco-conscious, this fitted ${color} women's tee is crafted from soft, organic cotton. Printed using ${technique} on the ${side}. Feel the difference.`
+    }
+    return description
+  }
+
+  const getCardSide = () => {
+    let card_side = ''
+    const { technique, side, detailSide } = productDetail
+    if (technique === 'dtg') {
+      if (side === 'front') {
+        if (detailSide === 'center') card_side = 'Full Front'
+        else if (detailSide === 'chest') card_side = 'Left Chest'
+        else if (detailSide === 'center') card_side = 'Center Chest'
+      } else if (side === 'back') {
+        card_side = 'Back'
+      } else if (side === 'right') {
+        card_side = 'Right Sleeve'
+      } else if (side === 'left') {
+        card_side = 'Left Sleeve'
+      }
+    } else {
+      if (side === 'front') {
+        if (detailSide === 'chest') card_side = 'Left Chest'
+        else if (detailSide === 'center') card_side = 'Center Chest'
+      } else if (side === 'back') {
+        card_side = 'Back'
+      } else if (side === 'right') {
+        card_side = 'Right Wrist'
+      } else if (side === 'left') {
+        card_side = 'Left Wrist'
+      }
+    }
+    return card_side
+  }
 
   const selectAssetItem = item => {
     let urls = []
