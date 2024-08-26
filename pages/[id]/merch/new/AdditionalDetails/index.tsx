@@ -264,7 +264,7 @@ const AdditionalDetails = props => {
     const { technique, side, detailSide } = productDetail
     if (technique === 'dtg') {
       if (side === 'front') {
-        if (detailSide === 'center') card_side = 'Full Front'
+        if (detailSide === 'front') card_side = 'Full Front'
         else if (detailSide === 'chest') card_side = 'Left Chest'
         else if (detailSide === 'center') card_side = 'Center Chest'
       } else if (side === 'back') {

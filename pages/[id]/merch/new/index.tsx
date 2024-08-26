@@ -100,7 +100,7 @@ const NewCreatorMerch = () => {
     if (productDetail.shipping.id === 3) return 'd_seller'
   }
 
-  const createProduct = async () => {    
+  const createProduct = async () => {
     if (profileInfo && additionDetail && productDetail) {
       setIsCreating(true)
       var userId = profileInfo?.id

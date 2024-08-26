@@ -662,7 +662,8 @@ const MerchOrderMain = props => {
             <div>
               {productDetail.fulfillment_type === 'foster' && (
                 <div className="mt-[15px]">
-                  <div className="w-full flex justify-between mt-[7px]">
+                  <div className={styles.descValue}>{tempNftDescription}</div>
+                  {/* <div className="w-full flex justify-between mt-[7px]">
                     <div className={styles.content}>Apparel Type</div>
                     <div className={styles.contentValue}>{ProductTypeList[productDetail.product_type_id - 1].name}</div>
                   </div>
@@ -681,7 +682,7 @@ const MerchOrderMain = props => {
                   <div className="w-full flex justify-between mt-[6px]">
                     <div className={styles.content}>Color</div>
                     <div className={styles.contentValue}>{getFirstUpperString(productDetail.options.color)}</div>
-                  </div>
+                  </div> */}
                 </div>
               )}
               {productDetail.fulfillment_type === 'user' && (
