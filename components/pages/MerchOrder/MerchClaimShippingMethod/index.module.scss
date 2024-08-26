@@ -3,9 +3,11 @@
 .container {
   width: 100%;
   min-height: 700px;
+  height: 100%;
   background: var(--background-main-color);
   @media (min-width: 1024px) {
     border: 1px solid var(--bg-303030-DDDCDC);
+    height: auto;
   }
   border-radius: 10px;
 }
