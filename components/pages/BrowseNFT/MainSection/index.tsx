@@ -129,9 +129,7 @@ export interface MainSectionProps {
   enableMerch: any
   setOpenMerchPage: any
   setMerchData: any
-  setCollectionName: any
   fullScreen: boolean
-  setShowAuctionSection: any
   setFullScreenMerch: any
   setMerchImages: any
 }
@@ -145,9 +143,7 @@ const MainSection = ({
   enableMerch,
   setOpenMerchPage,
   setMerchData,
-  setCollectionName,
   fullScreen,
-  setShowAuctionSection,
   setFullScreenMerch,
   setMerchImages,
 }: MainSectionProps) => {
@@ -799,7 +795,6 @@ const MainSection = ({
       if (nftDetail.collection) {
         const collectionMetadata = await getNftFromDAS(mx, nftDetail.collection.address)
         if (collectionMetadata) {
-          setCollectionName(collectionMetadata.content.metadata.name)
           setNftCollectionImage(collectionMetadata.content.links.image)
           setNftCollectionName(collectionMetadata.content.metadata.name)
         }
@@ -1322,7 +1317,6 @@ const MainSection = ({
                 fromNFT={true}
                 onClose={() => {
                   setShowListEditionDetail(false)
-                  setShowAuctionSection(false)
                 }}
                 merchItem={merchCard}
               />
@@ -1337,7 +1331,6 @@ const MainSection = ({
                 }}
                 onClose={() => {
                   setShowAuctionDetail(false)
-                  setShowAuctionSection(false)
                 }}
                 fromNFT={true}
               />
@@ -1584,7 +1577,6 @@ const MainSection = ({
                                   onClick={() => {
                                     setListEditionType('update')
                                     setShowListEditionDetail(true)
-                                    setShowAuctionSection(true)
                                   }}
                                 />
                                 <div className="mt-[15px]">
@@ -1967,7 +1959,6 @@ const MainSection = ({
                                         onClick={() => {
                                           setListEditionType('list')
                                           setShowListEditionDetail(true)
-                                          setShowAuctionSection(true)
                                         }}
                                       />
                                     </div>
@@ -1991,7 +1982,6 @@ const MainSection = ({
                                       label="Start Auction"
                                       onClick={() => {
                                         setShowAuctionDetail(true)
-                                        setShowAuctionSection(true)
                                       }}
                                     />
                                   </div>

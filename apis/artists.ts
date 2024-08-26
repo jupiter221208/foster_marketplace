@@ -19,12 +19,6 @@ class Artists {
         })
   }
 
-  getArtistByUsername(username) {
-    return client.get(API_URL + 'v1/artists/' + username + '/username').then(response => {
-      return response.data
-    })
-  }
-
   getMerchNfts(wallet_id, per_page, page, enabled = true) {
     return client
       .get(API_URL + 'v1/artists/' + wallet_id + '/merch-hub-nfts?enabled=' + enabled + '&per_page=' + per_page + '&page=' + page)
@@ -46,12 +40,6 @@ class Artists {
         .then(response => {
           return response.data
         })
-  }
-
-  getExploreCircus(wallet_id) {
-    return client.get(API_URL + 'v1/artists/' + wallet_id + '/explore-the-circus').then(response => {
-      return response.data
-    })
   }
 
   getFollowings(wallet_id) {
