@@ -251,7 +251,7 @@ const AdditionalDetails = props => {
     } else if (selectedCard.id === 1) {
       description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
     } else if (selectedCard.id === 2) {
-      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique}on the ${side}.`
+      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
     } else if (selectedCard.id === 3) {
       description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
     } else {
@@ -269,28 +269,28 @@ const AdditionalDetails = props => {
         else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
       }
-      if (snapshotAssetUrl.back !== '') {
-        card_side.push('back')
-      }
       if (snapshotAssetUrl.right !== '') {
         card_side.push('right sleeve')
       }
       if (snapshotAssetUrl.left !== '') {
         card_side.push('left sleeve')
       }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back')
+      }
     } else {
       if (snapshotAssetUrl.front !== '') {
         if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
-      }
-      if (snapshotAssetUrl.back !== '') {
-        card_side.push('back')
       }
       if (snapshotAssetUrl.right !== '') {
         card_side.push('right wrist')
       }
       if (snapshotAssetUrl.left !== '') {
         card_side.push('left wrist')
+      }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back(DTG)')
       }
     }
     return card_side.join(', ')
@@ -339,7 +339,7 @@ const AdditionalDetails = props => {
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
               <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Production Details</div>
-              <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div>
+              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -522,7 +522,7 @@ const AdditionalDetails = props => {
             </div>
             <div className="w-full sm:mt-[30px] mt-[20px]">
               <div className={styles.title}>Production Details</div>
-              <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div>
+              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
