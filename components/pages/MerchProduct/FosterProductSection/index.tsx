@@ -122,6 +122,7 @@ const FosterProductSection = props => {
         }}
         onContinue={type => {
           if (isSaved()) setShowQuestionModal(false)
+          setProductDetail(null)
           setSelectedCard(selectedItem)
         }}
       />

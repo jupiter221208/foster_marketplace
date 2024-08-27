@@ -45,6 +45,7 @@ const NewCreatorMerch = () => {
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
+    console.log(productDetail, '========productDetail=========')
     if (!productDetail) {
       setNextEnabled(false)
       return
