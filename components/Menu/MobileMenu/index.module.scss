@@ -150,7 +150,7 @@
 
 .signIn {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
+  font-size: 18px;
   color: var(--text-gray-200-color);
   cursor: pointer;
 }
@@ -161,9 +161,16 @@
   background: rgba(var(--main-bg-color-rgb), 0.1);
 }
 
-
 .navBorder {
   width: calc(100% + 32px);
   height: 1px;
   background: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.colorMode {
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
 }

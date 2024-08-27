@@ -33,6 +33,8 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
 import WalletIcon from 'assets/icons/wallet-icon.svg?component'
+import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
+import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
@@ -266,16 +268,16 @@ const MyWalletSubMenu = props => {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className={open ? styles.openContainer : styles.container}>
+          <Disclosure.Button className={`${styles.container} ${open ? '' : styles.bottomBorder}`}>
             <div className="flex items-center">
-              <WalletIcon />
+              {/* <WalletIcon /> */}
 
-              <div className={open ? styles.openLabel : styles.label}>{label}</div>
+              <div className={styles.label}>{label}</div>
             </div>
-            {open ? <DownIcon /> : <RightIcon />}
+            {open ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}
           </Disclosure.Button>
 
-          <Disclosure.Panel className="w-full relative px-1 pt-4 pb-2 text-sm text-gray-500">
+          <Disclosure.Panel className={`w-full relative mt-[-4px] pb-2 text-sm text-gray-500 ${styles.bottomBorder}`}>
             <div className="w-full">
               {/* main wallet part */}
               <div className="w-full justify-between">

@@ -10,26 +10,18 @@ import { Disclosure } from '@headlessui/react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 
-import RightIcon from 'assets/icons/right-icon.svg?component'
-import DownIcon from 'assets/icons/down-icon.svg?component'
-import ExploreIcon from 'assets/icons/explore-icon.svg?component'
-import PlusIcon from 'assets/icons/plus-icon.svg?component'
-import LeaderboardsIcon from 'assets/icons/leaderboards-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon-menu.svg?component'
-import StatsIcon from 'assets/icons/statistic-icon-menu.svg?component'
-import DAOIcon from 'assets/icons/dao-icon-menu.svg?component'
-import ResourceIcon from 'assets/icons/resource-icon-menu.svg?component'
 import EcosystemIcon from 'assets/icons/ecosystem-icon.svg?component'
 import NftCategoryIcon from 'assets/icons/dashboard-icon.svg?component'
 import NftCollectionIcon from 'assets/icons/collection-icon.svg?component'
 import NftArtistIcon from 'assets/icons/artist-icon.svg?component'
 import SettingsIcon from 'assets/icons/setting-icon.svg?component'
-import MerchIcon from 'assets/icons/merch-menu-icon.svg?component'
-import StudioIcon from 'public/icons/merch-icon.svg?component'
 import CreatorIcon from 'assets/icons/creator-icon.svg?component'
 import CollectorIcon from 'assets/icons/collector-icon.svg?component'
 import MobileEAIcon from 'assets/icons/create-ea-icon-mobile.svg?component'
 import MobileMerchIcon from 'assets/icons/create-merch-icon-mobile.svg?component'
+import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
+import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -99,11 +91,11 @@ const AccordionMenu = props => {
       {({ open }) => (
         <>
           <Disclosure.Button
-            className={open ? styles.openContainer : styles.container}
+            className={`${styles.container} ${open ? '' : styles.bottomBorder}`}
             onClick={() => handleSoloMenuItemClick()}
           >
             <div className="flex items-center">
-              {type === 'avatar' ? (
+              {/* {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : type === 'explore' ? (
                 <ExploreIcon />
@@ -123,16 +115,16 @@ const AccordionMenu = props => {
                 <ResourceIcon />
               ) : (
                 <Image src={open ? openIcon : icon} alt="" />
-              )}
-              <div className={open ? styles.openLabel : styles.label}>{label}</div>
+              )} */}
+              <div className={styles.label}>{label}</div>
             </div>
-            {data.length > 0 && (open ? <DownIcon /> : <RightIcon />)}
+            {data.length > 0 && (open ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />)}
           </Disclosure.Button>
           {data.length > 0 && (
-            <Disclosure.Panel className="px-[15px] pt-0 pb-2 text-sm text-gray-500">
+            <Disclosure.Panel className={`w-full -mt-[6px] pb-2 text-sm text-gray-500 ${styles.bottomBorder}`}>
               {data.map((item, index) => (
                 <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>
-                  <div className="w-[46px] h-[46px] flex justify-center items-center">
+                  <div className="w-[24px] h-[36px] flex justify-start items-center">
                     {type === 'avatar' && item.id === 0 ? (
                       <div className="w-10 h-10 flex justify-center items-center">
                         <div className={styles.imageArea}>
@@ -140,11 +132,9 @@ const AccordionMenu = props => {
                         </div>
                       </div>
                     ) : item.type === 'merch' ? (
-                      <div className="px-[1px]">
-                        <MerchIcon />
-                      </div>
+                      <MobileMerchIcon />
                     ) : item.type === 'dashboard' ? (
-                      <div className="px-[10px] py-2">
+                      <div className="">
                         <DashboardIcon />
                       </div>
                     ) : item.type === 'settings' ? (
@@ -158,9 +148,9 @@ const AccordionMenu = props => {
                     ) : item.type === 'single_nft' ? (
                       <NftArtistIcon />
                     ) : item.type === 'edition' ? (
-                      <NftCategoryIcon />
-                    ) : item.type === 'collection_nft' ? (
                       <NftCollectionIcon />
+                    ) : item.type === 'collection_nft' ? (
+                      <NftCategoryIcon />
                     ) : item.type === 'collection_ea' ? (
                       <MobileEAIcon />
                     ) : item.type === 'studio' ? (
