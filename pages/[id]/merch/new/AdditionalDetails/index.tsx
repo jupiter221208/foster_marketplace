@@ -22,10 +22,10 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
+import { validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
-  const { productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
+  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -242,19 +242,20 @@ const AdditionalDetails = props => {
   }, [sellingPrice])
 
   const generateDescription = (selectedCard, tech, color) => {
+    console.log
     let description = ''
     let technique = tech === 'dtg' ? 'direct-to-garment' : 'embroidery'
     let side = getCardSide()
     if (selectedCard.id === 0) {
-      description = `Step into premium comfort with this ${color} hoodie, made from tight-knit cotton/poly fleece and a 100% cotton face. Crafted using ${technique} on the ${side}. Street-ready style for an elevated, everyday look.`
+      description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
     } else if (selectedCard.id === 1) {
-      description = `Heavyweight fabric. Soft, structured comfort. This ${color} long sleeve brings feng shui and flavor, printed using ${technique} on the ${side}.`
+      description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
     } else if (selectedCard.id === 2) {
-      description = `This ${color} tee is a closet staple—crafted from heavyweight cotton for a bold, structured feel. Designed using ${technique} on the ${side}.`
+      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique}on the ${side}.`
     } else if (selectedCard.id === 3) {
-      description = `A closet staple, redefined. This ${color} crewneck delivers everyday comfort with an elevated touch and fleece base; printed using ${technique} on the ${side}.`
+      description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
     } else {
-      description = `Designed for the eco-conscious, this fitted ${color} women's tee is crafted from soft, organic cotton. Printed using ${technique} on the ${side}. Feel the difference.`
+      description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
     }
     return description
   }
