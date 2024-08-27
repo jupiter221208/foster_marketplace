@@ -61,7 +61,7 @@ const StoreMerchActivateModal = props => {
                 <div className={styles.separator} />
                 <div className="w-full px-[21px] sm:px-[32px] mt-[12px] sm:mt-[25px]">
                   <div className={styles.text}>
-                    {`To attach this merch item to an edition, go to your profile, select the edition, and toggle "include merch for each print." If you haven't minted an edition yet, you can do so now or at a later time.`}
+                    {`To attach a merch item to an edition, go to your profile, select the edition, and toggle "include merch for each print" when listing it. If you haven’t minted the edition yet, you can do so now or later.`}
                   </div>
                 </div>
                 <div className="w-full flex justify-center sm:justify-end px-[21px] sm:px-[32px] mt-[20px] sm:mt-[50px]">
