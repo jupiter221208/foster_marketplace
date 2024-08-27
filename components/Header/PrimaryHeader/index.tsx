@@ -22,10 +22,12 @@ import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
+import MenuWhiteIcon from 'assets/icons/hamburger-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterLogo from 'assets/logo-new.svg?component'
+import FosterLogoMobile from 'assets/logo-new-mobile.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -287,8 +289,7 @@ const PrimaryHeader = () => {
           <div className="g-container flex justify-between items-center relative">
             <div className="absolute inset-0 w-full flex justify-center items-center z-[10]">
               <div className="flex gap-[6px] cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-                <FosterLogo className={styles.logoIcon} />
-                <div className={styles.logoFont}>foster</div>
+                <FosterLogoMobile />
               </div>
             </div>
 
@@ -303,21 +304,8 @@ const PrimaryHeader = () => {
                 <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
               </div>
 
-              <div>
-                <IconButtonWithSVG
-                  icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
-                      <path
-                        id="bars-2"
-                        d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
-                        transform="translate(-2 -6)"
-                        fill="var(--mint-btn-bg-1)"
-                      />
-                    </svg>
-                  }
-                  onClick={() => handleOpenMobileMenu()}
-                  backgroundColor="transparent"
-                />
+              <div className="w-[39px] h-[39px] flex justify-center items-center">
+                <MenuWhiteIcon onClick={() => handleOpenMobileMenu()} />
               </div>
             </div>
           </div>
