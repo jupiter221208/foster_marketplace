@@ -15,7 +15,6 @@ import SearchBox from 'components/Input/SearchBox'
 import ExploreMenu from 'components/Menu/ExploreMenu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
 import { useAuthentication } from 'hooks/useAuthentication'

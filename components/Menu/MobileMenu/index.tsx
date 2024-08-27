@@ -140,8 +140,8 @@ const MobileMenu = () => {
             />
             <MyWalletSubMenu label="Wallet" type="" />
 
-            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} username={profileInfo?.username} />
+            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
           </div>
         ) : (
