@@ -65,7 +65,12 @@
   font-weight: 100;
   line-height: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
-  margin-bottom: 10px;
+  @media (min-width: 1024px) {
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+  margin-top: 15px;
+  margin-bottom: 0px;
 }
 
 .rightContainer {
