@@ -148,17 +148,6 @@ const PrimaryHeader = () => {
     setLightMode(changeTo)
   }
 
-  const handleSelectMenu = (item: any) => {
-    if (connected) {
-      // router.push(item.path)
-      if (item.type === 'collection_nft') {
-        dispatch({ type: 'set', mintCollectionStep: 1 })
-      }
-    } else {
-      setVisible(true)
-    }
-  }
-
   const handleOpenShoppingCart = () => {
     if (connected) {
       dispatch({ type: 'set', openMobileMenu: false })
@@ -187,12 +176,7 @@ const PrimaryHeader = () => {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
-      <div
-        className={`${styles.blurContainer} justify-center transition-all lg:flex hidden`}
-        // className={`${styles.blurContainer} ${
-        //   isScrollingTop ? 'top-0' : '-top-28'
-        // }  justify-center transition-all lg:flex hidden`}
-      >
+      <div className={`${styles.blurContainer} justify-center transition-all lg:flex hidden`}>
         <nav className="w-full max-w-[1920px] relative">
           <div className="w-full h-full flex justify-between g-container">
             <div className={`flex lg:gap-[15px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}>
@@ -203,10 +187,6 @@ const PrimaryHeader = () => {
                 <FosterLogo className={styles.logoIcon} />
                 <div className={styles.logoFont}>foster</div>
               </div>
-
-              {/* <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                Studio
-              </div> */}
 
               <div>
                 <CreateMenu />

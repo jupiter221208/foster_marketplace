@@ -282,7 +282,6 @@ const MainSection = ({
   const [createMerchModal, setCreateMerchModal] = useState(false)
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
-  const [loadListing, setLoadListing] = useState(false)
   const [editionLoading, setEditionLoading] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
   const [editionType, setEditionType] =
@@ -720,7 +719,6 @@ const MainSection = ({
 
         let listingReceipt = openListings[0]
         if (listingReceipt) {
-          setLoadListing(true)
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
 
           let listing = toLazyListing(listingReceipt, auctionHouse)
@@ -733,7 +731,6 @@ const MainSection = ({
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
-          setLoadListing(false)
           setLoading(false)
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
 
@@ -1393,7 +1390,7 @@ const MainSection = ({
                             className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[35px] mt-[15px] lg:mt-[0px] rounded-full`}
                           ></div>
                         ) : (
-                          <div className="flex items-center justify-between mt-[15px] lg:mt-[0px]">
+                          <div className="flex items-center justify-between mt-[10px] lg:mt-[0px]">
                             <div className={styles.nftTitle}>{nftName}</div>
                           </div>
                         )}

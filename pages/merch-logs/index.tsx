@@ -566,10 +566,10 @@ const MerchActivity = () => {
             </div>
           ) : (
             <div className="w-full mb-[30px]">
-              <div className="w-full flex justify-center my-[30px]">
+              {/* <div className="w-full flex justify-center my-[30px]">
                 <FosterLogoMobileIcon />
-              </div>
-              <div className="flex gap-[5px] mt-[0px] lg:mt-[56px]">
+              </div> */}
+              <div className="flex gap-[5px] mt-[20px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
                     <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
