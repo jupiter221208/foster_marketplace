@@ -259,19 +259,19 @@
 
 .endTime {
   display: flex;
-  gap: 2px;
-  font-family: 'Muli-SemiBold';
+  gap: 1px;
+  font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 20px;
   color: var(--text-gray-200-color);
 }
 
 .bidDesc {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-Regular';
   font-weight: 100;
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: (--text-gray-200-color);
 }
 
 .skeletonLoader:empty {
