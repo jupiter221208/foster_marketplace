@@ -175,13 +175,6 @@ const AdditionalDetails = props => {
       let desc = generateDescription(selectedCard, technique, color)
 
       setDescription(desc)
-      // setDescription(
-      //   selectedCard.name +
-      //     ' | ' +
-      //     (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
-      //     ' | ' +
-      //     getFirstUpperString(color)
-      // )
 
       if (snapshotAssetUrl.front !== '') {
         urls.push(snapshotAssetUrl.front)
@@ -388,9 +381,10 @@ const AdditionalDetails = props => {
               <div className={styles.title}>Release Details</div>
               {saleMethod.id === 0 ? (
                 <div className={`${styles.releaseDetail} mt-[15px]`}>
-                  Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
-                  activate it when listing an edition as a bonus for each purchase. The production cost will be added to
-                  the listing price.
+                  {`Merch editions let creators bundle merch with their master editions listings, offering collectors a
+                  bonus with every print they purchase. Once published, this merch item will be visible only to you
+                  until activated. To activate it, go to your profile, select the edition, and toggle 'include merch for
+                  each print.' The production cost will be added to the listing price.`}
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
@@ -561,9 +555,10 @@ const AdditionalDetails = props => {
             </div>
             {saleMethod.id === 0 && (
               <div className={styles.includePurchase}>
-                Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
-                activate it when listing an edition as a bonus for each purchase. The production cost will be added to
-                the listing price.
+                {`Merch editions let creators bundle merch with their master editions listings, offering collectors a
+                  bonus with every print they purchase. Once published, this merch item will be visible only to you
+                  until activated. To activate it, go to your profile, select the edition, and toggle 'include merch for
+                  each print.' The production cost will be added to the listing price.`}
               </div>
             )}
             {saleMethod.id === 1 && (
