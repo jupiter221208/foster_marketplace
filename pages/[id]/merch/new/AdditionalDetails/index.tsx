@@ -22,10 +22,10 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
+import { validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
-  const { productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
+  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -175,13 +175,6 @@ const AdditionalDetails = props => {
       let desc = generateDescription(selectedCard, technique, color)
 
       setDescription(desc)
-      // setDescription(
-      //   selectedCard.name +
-      //     ' | ' +
-      //     (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
-      //     ' | ' +
-      //     getFirstUpperString(color)
-      // )
 
       if (snapshotAssetUrl.front !== '') {
         urls.push(snapshotAssetUrl.front)
@@ -242,19 +235,20 @@ const AdditionalDetails = props => {
   }, [sellingPrice])
 
   const generateDescription = (selectedCard, tech, color) => {
+    console.log
     let description = ''
     let technique = tech === 'dtg' ? 'direct-to-garment' : 'embroidery'
     let side = getCardSide()
     if (selectedCard.id === 0) {
-      description = `Step into premium comfort with this ${color} hoodie, made from tight-knit cotton/poly fleece and a 100% cotton face. Crafted using ${technique} on the ${side}. Street-ready style for an elevated, everyday look.`
+      description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
     } else if (selectedCard.id === 1) {
-      description = `Heavyweight fabric. Soft, structured comfort. This ${color} long sleeve brings feng shui and flavor, printed using ${technique} on the ${side}.`
+      description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
     } else if (selectedCard.id === 2) {
-      description = `This ${color} tee is a closet staple—crafted from heavyweight cotton for a bold, structured feel. Designed using ${technique} on the ${side}.`
+      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
     } else if (selectedCard.id === 3) {
-      description = `A closet staple, redefined. This ${color} crewneck delivers everyday comfort with an elevated touch and fleece base; printed using ${technique} on the ${side}.`
+      description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
     } else {
-      description = `Designed for the eco-conscious, this fitted ${color} women's tee is crafted from soft, organic cotton. Printed using ${technique} on the ${side}. Feel the difference.`
+      description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
     }
     return description
   }
@@ -268,28 +262,28 @@ const AdditionalDetails = props => {
         else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
       }
-      if (snapshotAssetUrl.back !== '') {
-        card_side.push('back')
-      }
       if (snapshotAssetUrl.right !== '') {
         card_side.push('right sleeve')
       }
       if (snapshotAssetUrl.left !== '') {
         card_side.push('left sleeve')
       }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back')
+      }
     } else {
       if (snapshotAssetUrl.front !== '') {
         if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
-      }
-      if (snapshotAssetUrl.back !== '') {
-        card_side.push('back')
       }
       if (snapshotAssetUrl.right !== '') {
         card_side.push('right wrist')
       }
       if (snapshotAssetUrl.left !== '') {
         card_side.push('left wrist')
+      }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back(DTG)')
       }
     }
     return card_side.join(', ')
@@ -338,7 +332,7 @@ const AdditionalDetails = props => {
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
               <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Production Details</div>
-              <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div>
+              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -387,9 +381,10 @@ const AdditionalDetails = props => {
               <div className={styles.title}>Release Details</div>
               {saleMethod.id === 0 ? (
                 <div className={`${styles.releaseDetail} mt-[15px]`}>
-                  Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
-                  activate it when listing an edition as a bonus for each purchase. The production cost will be added to
-                  the listing price.
+                  {`Merch editions let creators bundle merch with their master editions listings, offering collectors a
+                  bonus with every print they purchase. Once published, this merch item will be visible only to you
+                  until activated. To activate it, go to your profile, select the edition, and toggle 'include merch for
+                  each print.' The production cost will be added to the listing price.`}
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
@@ -521,7 +516,7 @@ const AdditionalDetails = props => {
             </div>
             <div className="w-full sm:mt-[30px] mt-[20px]">
               <div className={styles.title}>Production Details</div>
-              <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div>
+              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -560,9 +555,10 @@ const AdditionalDetails = props => {
             </div>
             {saleMethod.id === 0 && (
               <div className={styles.includePurchase}>
-                Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
-                activate it when listing an edition as a bonus for each purchase. The production cost will be added to
-                the listing price.
+                {`Merch editions let creators bundle merch with their master editions listings, offering collectors a
+                  bonus with every print they purchase. Once published, this merch item will be visible only to you
+                  until activated. To activate it, go to your profile, select the edition, and toggle 'include merch for
+                  each print.' The production cost will be added to the listing price.`}
               </div>
             )}
             {saleMethod.id === 1 && (

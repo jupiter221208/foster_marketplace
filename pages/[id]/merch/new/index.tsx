@@ -320,6 +320,7 @@ const NewCreatorMerch = () => {
         {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
         {currentStep >= 2 && (
           <AdditionalDetails
+            username={profileInfo.username}
             productDetail={productDetail}
             step={currentStep}
             additionDetail={additionDetail}

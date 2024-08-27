@@ -230,16 +230,18 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   <div className="w-full mt-[30px] flex justify-center">
                     <div className="flex gap-[50px]">
                       <div
-                        className={selectedMerch.id === 0 ? styles.arrowBtnDisabled : styles.arrowButton}
-                        onClick={() => selectedMerch.id > 0 && onClickMerch(selectedMerch.id - 1)}
+                        className={styles.arrowButton}
+                        onClick={() =>
+                          selectedMerch.id > 0 ? onClickMerch(selectedMerch.id - 1) : onClickMerch(merchList.length - 1)
+                        }
                       >
                         <LeftBtnIcon />
                       </div>
                       <div
-                        className={
-                          selectedMerch.id === merchList.length - 1 ? styles.arrowBtnDisabled : styles.arrowButton
+                        className={styles.arrowButton}
+                        onClick={() =>
+                          selectedMerch.id < merchList.length - 1 ? onClickMerch(selectedMerch.id + 1) : onClickMerch(0)
                         }
-                        onClick={() => selectedMerch.id < merchList.length - 1 && onClickMerch(selectedMerch.id + 1)}
                       >
                         <RightBtnIcon />
                       </div>

@@ -16,7 +16,7 @@ const MerchProductCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageArea}>
+      <div className={styles.imageArea} onClick={() => onSelectedCard(data)}>
         <div className={styles.imageContent}>
           <img src={data.image} />
         </div>

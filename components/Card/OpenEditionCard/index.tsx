@@ -250,7 +250,7 @@ const OpenEditionCard = ({ data }) => {
                     <div className={styles.priceLabel}>Edition Closes</div>
                   </div>
                   <div className="flex justify-end mt-[12px] mb-[29px]">
-                    <div className="flex items-center gap-[2px] ">
+                    <div className="flex items-center">
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div>
                           <div className={styles.endTime}>

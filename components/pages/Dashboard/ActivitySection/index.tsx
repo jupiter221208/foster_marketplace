@@ -53,7 +53,6 @@ const ActivitySection = props => {
 
   useEffect(() => {
     if (activityNfts.length > 0) {
-      console.log(rowCount, activityNfts.slice(0, rowCount), '===============activityNfts==========')
       setLoading(true)
       setFilteredList(activityNfts.slice(0, rowCount))
       setAllList(activityNfts)
@@ -62,7 +61,6 @@ const ActivitySection = props => {
     }
   }, [])
 
-  console.log(filteredList, '============filteredList=================')
   useEffect(() => {
     if (activityNfts.length > 0) return
 

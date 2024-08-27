@@ -24,15 +24,20 @@ const ProfileArtistCard = props => {
     <div className={styles.container}>
       <div className={styles.avatarArea}>
         <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-          <Image
-            src={image}
-            alt=""
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            className="rounded-full"
-            onClick={setFullScreenView}
-          />
-          {isOwn && (
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full`}></div>
+          ) : (
+            <Image
+              src={image}
+              alt=""
+              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+              className="rounded-full"
+              onClick={setFullScreenView}
+            />
+          )}
+
+          {!hasLoading && isOwn && (
             <div className="absolute bottom-0 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
               <div className={styles.iconProfileBlurView}>
                 <div className="w-full h-full flex justify-center items-center">

@@ -128,7 +128,7 @@ const MobileMenu = () => {
     <div className={styles.menu}>
       <div className={styles.container}>
         {connected ? (
-          <div className="w-full flex flex-wrap gap-[10px]">
+          <div className="w-full flex flex-wrap">
             <AccordionNewProfileMenu
               icon={profileImage}
               label={getDisplayUserName(profileName)}
@@ -138,16 +138,16 @@ const MobileMenu = () => {
               logout={logout}
               handleThemeMode={handleThemeMode}
             />
-            <MyWalletSubMenu label="My Wallet" type="" />
+            <MyWalletSubMenu label="Wallet" type="" />
 
-            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} username={profileInfo?.username} />
+            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
           </div>
         ) : (
           <div className="w-full">
-            <div className="w-full mb-[22px]">
-              <div className="w-full h-[74px] flex justify-between items-center">
+            <div className="w-full">
+              <div className="w-full h-[53px] flex justify-between items-center">
                 <div
                   className={styles.signIn}
                   onClick={() => {
@@ -157,15 +157,12 @@ const MobileMenu = () => {
                 >
                   Sign in
                 </div>
-                <button className="ml-7" onClick={() => handleThemeMode()}>
-                  {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-                </button>
               </div>
               <div className={styles.signBorder} />
             </div>
-            <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
-              <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
+            <div className="w-full flex flex-col flex-wrap items-start">
               <AccordionMenu label="Create" type="create" data={CreateMenuList} />
+              <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
               <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
             </div>
             <Alert
@@ -178,7 +175,12 @@ const MobileMenu = () => {
             />
           </div>
         )}
-        <div className={styles.separator} />
+
+        <div className="w-full flex items-center gap-[15px] mt-[30px]">
+          <button onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</button>
+          <div className={styles.colorMode}>{lightMode ? 'Light Mode' : 'Dark Mode'}</div>
+        </div>
+
         <div className="w-full mt-[15px]">
           <div className={styles.footerText}>
             <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">

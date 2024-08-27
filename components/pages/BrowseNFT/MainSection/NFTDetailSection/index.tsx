@@ -59,7 +59,7 @@ const NFTDetailSection = props => {
       <div className={styles.border} />
 
       <div className="w-full ">
-        {editionDetail && (isNftMasterEdition || isNftPrintEdition) ? (
+        {/* {editionDetail && (isNftMasterEdition || isNftPrintEdition) ? (
           <div>
             <div className="w-full flex justify-between items-center mt-[15px]">
               <div className={styles.label}>Token Type</div>
@@ -86,38 +86,36 @@ const NFTDetailSection = props => {
               </div>
             )}
           </div>
-        ) : (
-          <div>
-            <div className="w-full flex justify-between items-center mt-[15px]">
-              <div className={styles.label}>Medium</div>
-              <div className={styles.value}>{getType(nftType)}</div>
-            </div>
-            {dimensions && (
-              <div className="w-full flex justify-between items-center mt-[6px]">
-                <div className={styles.label}>Dimensions</div>
-                <div className={styles.value}>
-                  {dimensions.width}px by {dimensions.height}px
-                </div>
-              </div>
-            )}
+        ) : ( */}
+        <div>
+          <div className="w-full flex justify-between items-center mt-[15px]">
+            <div className={styles.label}>Medium</div>
+            <div className={styles.value}>{getType(nftType)}</div>
           </div>
-        )}
+          {dimensions && (
+            <div className="w-full flex justify-between items-center mt-[6px]">
+              <div className={styles.label}>Dimensions</div>
+              <div className={styles.value}>
+                {dimensions.width}px by {dimensions.height}px
+              </div>
+            </div>
+          )}
+        </div>
+        {/* )} */}
 
         <div className="w-full flex justify-between items-center mt-[6px]">
           <div className={styles.label}>Royalties</div>
           <div className={styles.value}>{royalties}%</div>
         </div>
 
-        {!isNftMasterEdition && (
-          <div className="w-full flex justify-between items-center mt-[6px]">
-            <div className={styles.label}>Owner</div>
-            <Link href={`/${nftOwnerUsername}`} passHref>
-              <a>
-                <div className={styles.username}>{getDisplayUserName(nftOwnerUsername)}</div>
-              </a>
-            </Link>
-          </div>
-        )}
+        <div className="w-full flex justify-between items-center mt-[6px]">
+          <div className={styles.label}>Owner</div>
+          <Link href={`/${nftOwnerUsername}`} passHref>
+            <a>
+              <div className={styles.username}>{getDisplayUserName(nftOwnerUsername)}</div>
+            </a>
+          </Link>
+        </div>
 
         {editionDetail && isNftPrintEdition && (
           <div
