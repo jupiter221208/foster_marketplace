@@ -56,22 +56,16 @@
   font-family: 'Erstoria';
   font-size: 35px;
   line-height: 42px;
-  // font-size: 23px;
-  // line-height: 29px;
-  // @media (min-width: 640px) {
-  //   font-size: 28px;
-  //   line-height: 32px;
-  // }
-  // @media (min-width: 768px) {
-  //   font-size: 32px;
-  //   line-height: 46px;
-  // }
-  // @media (min-width: 1024px) {
-  //   font-size: 30px;
-  //   line-height: 36px;
-  // }
-
   color: var(--text-gray-200-color);
+}
+
+.editionName {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-bottom: 10px;
 }
 
 .rightContainer {
@@ -79,14 +73,10 @@
   display: flex;
   flex-wrap: wrap;
   min-height: auto;
-  // border: 1px solid var(--bg-303030-DDDCDC);
-  // background: var(--background-main-color);
-  // border-radius: 5px;
   margin-top: 10px;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     margin-top: 0px;
     min-height: 653px;
     padding: 0px;

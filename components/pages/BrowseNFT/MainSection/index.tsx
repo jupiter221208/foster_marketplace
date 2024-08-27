@@ -1274,19 +1274,6 @@ const MainSection = ({
                       onClick={() => changeSaveStatus()}
                     />
                   </div>
-                  {/* {merchToggle && (
-                    <div className={`${styles.iconContainer} w-[90px]`}>
-                      <MerchGrayIcon />
-                      <div
-                        className={`${styles.text} mt-[-2px]`}
-                        onClick={() => {
-                          router.push(`/${nftCreatorname}/merch`)
-                        }}
-                      >
-                        Merch
-                      </div>
-                    </div>
-                  )} */}
                 </div>
               </div>
             </div>
@@ -1366,40 +1353,8 @@ const MainSection = ({
                           onClick={() => changeSaveStatus()}
                         />
                       </div>
-                      {/* {merchToggle && (
-                    <div className={`${styles.iconContainer} w-[90px]`}>
-                      <MerchGrayIcon />
-                      <div
-                        className={`${styles.text} mt-[-2px]`}
-                        onClick={() => {
-                          router.push(`/${nftCreatorname}/merch`)
-                        }}
-                      >
-                        Merch
-                      </div>
-                    </div>
-                  )} */}
                     </div>
                   )}
-
-                  {/* {merchToggle &&
-                      (nameLoading ? (
-                        <div className="w-full w-[80px] h-[35px] rounded-[6px] overflow-hidden">
-                          <div className="skeletonLoader" />
-                        </div>
-                      ) : (
-                        <div className={`${styles.iconContainer} w-[90px]`}>
-                          <MerchGrayIcon />
-                          <div
-                            className={`${styles.text} mt-[-2px]`}
-                            onClick={() => {
-                              router.push(`/${nftCreatorname}/merch`)
-                            }}
-                          >
-                            Merch
-                          </div>
-                        </div>
-                      ))} */}
 
                   {nameLoading ? (
                     <div className="w-full min-w-[32px] w-[32px] h-[32px] rounded-[16px] overflow-hidden">
@@ -1429,22 +1384,9 @@ const MainSection = ({
                 <div className={styles.rightTopSection}>
                   <div className="w-full">
                     <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                      {/* <div className="lg:block hidden w-full h-[25px]">
-                        {!nameLoading && (nftPrice > 0 || liveAuction) && !isEnded && (
-                          <div className={styles.liveFont}>
-                            live
-                            <div className={styles.liveType}>
-                              {nftPrice > 0 && !liveAuction
-                                ? editionType === 'master_oe' || editionType === 'master_le'
-                                  ? 'edition'
-                                  : 'listing'
-                                : liveAuction === true
-                                ? 'auction'
-                                : ''}
-                            </div>
-                          </div>
-                        )}
-                      </div> */}
+                      {(editionType === 'print_oe' || editionType === 'print_le') && (
+                        <div className={styles.editionName}>{`Edition Print #${editionDetail?.print?.number}`}</div>
+                      )}
                       <div className="w-full flex justify-between items-center">
                         {nameLoading ? (
                           <div
