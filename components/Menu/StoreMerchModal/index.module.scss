@@ -15,7 +15,7 @@
   position: absolute;
   left: 1px;
   right: 1px;
-  bottom: 0px;
+  bottom: -100%;
   width: auto;
   height: auto;
   @media (min-width: 1024px) {
@@ -25,10 +25,19 @@
     left: auto;
     right: auto;
     top: auto;
-    bottom: auto;
+    bottom: -100%;
   }
   background: var(--background-main-color);
   border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  transition: bottom 0.5s ease;
+}
+
+.hide {
+  bottom: -100%;
+}
+
+.show {
+  bottom: 0px
 }
 
 .topSection {
