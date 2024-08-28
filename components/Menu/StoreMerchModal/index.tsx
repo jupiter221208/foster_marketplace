@@ -25,6 +25,7 @@ const StoreMerchModal = props => {
       }, 100)
     }
   }, [open])
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={close}>
