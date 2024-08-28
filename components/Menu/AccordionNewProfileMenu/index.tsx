@@ -11,7 +11,7 @@ import { Disclosure } from '@headlessui/react'
 import NotificationIcon from 'assets/icons/notification-icon-menu.svg?component'
 import MerchHubIcon from 'assets/icons/merch-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon.svg?component'
-import SettingIcon from 'assets/icons/setting-icon.svg?component'
+import SettingIcon from 'assets/icons/setting-icon-17x17.svg?component'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 

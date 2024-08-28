@@ -21,7 +21,7 @@ import styles from './index.module.scss'
 import StudioClothSign from 'assets/images/studio-sign.png'
 import StudioClothDIY from 'assets/images/studio-diy.png'
 import StudioCreateSection from 'components/pages/Studio/StudioCreateSection'
-import StudioBallonIcon from 'assets/icons/studio-ballon.svg?component'
+import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
 
 const Studio = () => {
   const router = useRouter()
@@ -131,7 +131,7 @@ const Studio = () => {
 
       <div className={styles.studioBG}>
         <div className="flex justify-center">
-          <StudioBallonIcon />
+          <FosterLogoIcon />
         </div>
         <div className="flex justify-center mt-[15px] sm:mt-[30px]">
           <div className={styles.studioDesc}>A MERCH TOOL FOR ARTISTS ON SOLANA</div>
