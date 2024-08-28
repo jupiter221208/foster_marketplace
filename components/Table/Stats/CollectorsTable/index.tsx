@@ -1,15 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
 
-// custom functions
-import { useViewport } from 'utils'
-
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
@@ -19,8 +15,6 @@ import Link from 'next/link'
 
 const CollectorsTable = props => {
   const { data } = props
-  const viewport = useViewport()
-  const dispatch = useDispatch()
   const router = useRouter()
 
   return (
@@ -65,13 +59,13 @@ const CollectorsTable = props => {
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {parseFloat(item.purchase_volume).toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {item.highest_purchase}
                 </div>
               </td>

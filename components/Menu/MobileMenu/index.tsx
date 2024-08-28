@@ -176,8 +176,8 @@ const MobileMenu = () => {
           </div>
         )}
 
-        <div className="w-full flex items-center gap-[15px] mt-[30px]">
-          <button onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</button>
+        <div className="w-full flex items-center gap-[15px] mt-[30px]" onClick={() => handleThemeMode()}>
+          <button>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</button>
           <div className={styles.colorMode}>{lightMode ? 'Light Mode' : 'Dark Mode'}</div>
         </div>
 

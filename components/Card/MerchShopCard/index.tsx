@@ -299,41 +299,7 @@ const MerchShopCard = props => {
                       type={data.master_edition_address?.length > 0 ? 'edition' : data.fulfillment_type}
                       timeLeft={null}
                     />
-                    {/* <div className="relative">
-                      <div className={styles.typeIconArea}>
-                        <FosterIcon />
-                      </div>
-                      <div className={styles.tooltip}>Included with purchase of an edition</div>
-                    </div> */}
                   </div>
-                  {/* {showTimer && (
-                    <div className="flex gap-[4px]">
-                      {timeLeft && timeLeft['days'] !== '00' && (
-                        <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.saleCount}>{timeLeft['days']}</div>
-                          <div className={styles.saleCount}>d</div>
-                        </div>
-                      )}
-                      {timeLeft && timeLeft['hours'] !== '00' && (
-                        <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.saleCount}>{timeLeft['hours']}</div>
-                          <div className={styles.saleCount}>h</div>
-                        </div>
-                      )}
-                      {timeLeft && timeLeft['minutes'] !== '00' && (
-                        <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.saleCount}>{timeLeft && timeLeft['minutes']}</div>
-                          <div className={styles.saleCount}>m</div>
-                        </div>
-                      )}
-                      {timeLeft && timeLeft['seconds'] !== '00' && (
-                        <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.saleCount}>{timeLeft && timeLeft['seconds']}</div>
-                          <div className={styles.saleCount}>s</div>
-                        </div>
-                      )}
-                    </div>
-                  )} */}
                 </div>
               </div>
             )}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -28,7 +28,6 @@ import StatsAPI from 'apis/stats'
 
 const Stats = () => {
   const viewport = useViewport()
-  const dispatch = useDispatch()
   const status = useSelector<any>(state => state.activeTab)
 
   const [activeTab, setActiveTab] = useState<any>(0)

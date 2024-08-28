@@ -4,13 +4,6 @@ import React, { useEffect, useState } from 'react'
 import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-
 // functions
 import { useViewport } from 'utils'
 
@@ -19,10 +12,9 @@ import styles from './index.module.scss'
 
 //apis
 import StatsAPI from 'apis/stats'
-import StatsArtistCard from 'components/Card/StatsArtistCard'
 import LoadingModal from 'components/Modal/LoadingModal'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-SwiperCore.use([Navigation])
+import LoadingComponent from 'pages/profile/LoadingComponent'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const CreatorsSection = props => {
   const { creators } = props
@@ -113,65 +105,10 @@ const CreatorsSection = props => {
   return (
     <div className={styles.container}>
       {loading && (
-        <div className="mt-10">
-          <LoadingModal open={loading} />
+        <div className="mt-[100px]">
+          <LoadingElement text="Loading creators" />
         </div>
       )}
-
-      {/* {!loading &&
-        (list.length === 0 ? (
-          !searchLoading ? (
-            <div />
-          ) : (
-            <div className="w-full mb-0 lg:mb-20 h-[267px] lg:mt-[25px] lg:h-[406px]">
-              <LoadingModal open={searchLoading} />
-            </div>
-          )
-        ) : (
-          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
-            <Swiper
-              navigation={true}
-              slidesPerView={
-                viewport === 'xs'
-                  ? 2
-                  : viewport === 'sm'
-                  ? 2.5
-                  : viewport === 'md'
-                  ? 3
-                  : viewport === 'lg'
-                  ? 3
-                  : viewport === 'xl'
-                  ? screenWidth >= 1400
-                    ? 4
-                    : 3.7
-                  : viewport === '2xl'
-                  ? screenWidth >= 1768
-                    ? 5
-                    : 4
-                  : 3
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              className={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                  ? 'noScrollNavigationSwiper'
-                  : 'auctionNavigationSwiper'
-              }
-            >
-              {list.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <StatsArtistCard data={item} type="creators" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        ))} */}
 
       {!loading && (
         <div className="w-full mt-[25px]">
@@ -187,7 +124,7 @@ const CreatorsSection = props => {
 
       {!loading && searchLoading && !isVisibleFetching && (
         <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingModal open={searchLoading} />
+          <LoadingElement text="Loading creators" />
         </div>
       )}
 
@@ -201,7 +138,7 @@ const CreatorsSection = props => {
 
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading creators" />
         </div>
       )}
     </div>

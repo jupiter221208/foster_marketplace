@@ -1,5 +1,4 @@
-import { Fragment } from 'react'
-import { useRouter } from 'next/router'
+import { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -11,12 +10,21 @@ import { getPriceValue } from 'utils/strings'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import { convertMerchDescription, getDateTimeLabel, getTimeDifference } from 'utils/helpers'
+import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const StoreMerchModal = props => {
   const { open, close, item, onBuyNow, showTimer, timeLeft, startDate } = props
   const { solToUsdRate } = useSolToUsdRate()
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        setShow(true)
+      }, 100)
+    }
+  }, [open])
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -33,18 +41,10 @@ const StoreMerchModal = props => {
           <div className={styles.bgView} />
         </Transition.Child>
 
-        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center">
-          <div className={styles.modalView}>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Dialog.Panel className="w-full h-full">
+        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center" onClick={() => close()}>
+          <div className={`${styles.modalView} ${show ? styles.show : styles.hide}`}>
+            <div>
+              <div className="w-full h-full">
                 <div className={styles.topSection}>
                   <div className="w-[41px] h-[41px]">
                     <ImageWithFoster
@@ -158,8 +158,8 @@ const StoreMerchModal = props => {
                     )}
                   </div>
                 </div>
-              </Dialog.Panel>
-            </Transition.Child>
+              </div>
+            </div>
           </div>
         </div>
       </Dialog>

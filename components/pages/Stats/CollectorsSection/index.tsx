@@ -4,24 +4,14 @@ import React, { useEffect, useState } from 'react'
 import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-
-// functions
-import { useViewport } from 'utils'
-
 // styles
 import styles from './index.module.scss'
 
 //apis
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-SwiperCore.use([Navigation])
+import LoadingComponent from 'pages/profile/LoadingComponent'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const CollectorsSection = props => {
   const { collectors } = props
@@ -114,8 +104,8 @@ const CollectorsSection = props => {
   return (
     <div className={styles.container}>
       {loading && (
-        <div className="mt-[40px] mb-[160px]">
-          <LoadingModal open={loading} />
+        <div className="mt-[100px] mb-[160px]">
+          <LoadingElement text="Loading collectors" />
         </div>
       )}
 
@@ -133,7 +123,7 @@ const CollectorsSection = props => {
 
       {!loading && searchLoading && !isVisibleFetching && (
         <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingModal open={searchLoading} />
+          <LoadingElement text="Loading collectors" />
         </div>
       )}
 
@@ -147,7 +137,7 @@ const CollectorsSection = props => {
 
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading collectors" />
         </div>
       )}
     </div>
