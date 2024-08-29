@@ -54,6 +54,23 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
       let currency = this as unknown as CurrencyInterface;
       let connection = await currency.getProvider();
 
+      // wait for upto 60s for the account to exist
+      let fundingAccount = data.feePayer;
+      let fundingAccountInfo;
+      for (let i = 1; i <= 30; i++) {
+        console.log(`waiting for funding account to receive balance: attempt ${i}`);
+        fundingAccountInfo = await connection.getAccountInfo(fundingAccount, "finalized");
+        if (fundingAccountInfo) {
+          console.log("success!");
+          break;
+        }
+        await sleep(2000);
+      }
+      if (!fundingAccountInfo?.lamports)
+        throw new Error(
+          `could not confirm existing of funding account in 30 attempts: ${fundingAccount}`
+        );
+
       let retryCount = 5;
       let signature: string | null = null;
       outer: for (let i = 0; i < retryCount; i++) {
