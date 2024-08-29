@@ -1,0 +1,23 @@
+@import 'assets/scss/variable.module.scss';
+
+.solPrice {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.dollarPrice {
+  font-family: 'Muli-Light';
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--bg-B8B9BD-707070);
+}
+
+.border_top {
+  @media (min-width: 1024px) {
+    border-top: none;
+    padding-top: 0;
+  }
+}
