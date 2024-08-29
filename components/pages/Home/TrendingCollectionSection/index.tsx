@@ -128,7 +128,7 @@ const TrendingCollectionSection = props => {
 
           <div className="sm:hidden w-full flex justify-between items-center">
             <div className={styles.title}>Top&nbsp;Collections</div>
-            <HomeFilterMenu
+            {/* <HomeFilterMenu
               label=""
               data={DayList}
               selectedItem={period}
@@ -136,7 +136,7 @@ const TrendingCollectionSection = props => {
                 setPeriod(item)
                 handleChangeActive(item.id)
               }}
-            />
+            /> */}
           </div>
           <div className="sm:block hidden">
             <SeeMoreButton

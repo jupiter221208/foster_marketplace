@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-width: 550px;
+  // max-width: 550px;
   width: 100%;
   height: auto;
   position: relative;
@@ -15,7 +15,9 @@
   position: relative;
   overflow: hidden;
   z-index: 0;
-  background: var(--bg-new-color);
+  // background: var(--bg-new-color);
+  background: linear-gradient(to bottom, var(--bg-1A1A1A-E5E1DD), var(--bg-151515-EEEDEB));
+
 }
 
 .bgImage {

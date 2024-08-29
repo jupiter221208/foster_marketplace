@@ -26,7 +26,11 @@ const TopCollectionCard = props => {
               </div>
               <div>
                 <div className={styles.collection}>{collectionName}</div>
-                <div className={styles.creator}>{artistName}</div>
+                <Link href={`/${artistName}`} passHref>
+                  <a>
+                    <div className={styles.creator}>{artistName}</div>
+                  </a>
+                </Link>
               </div>
             </div>
           </div>

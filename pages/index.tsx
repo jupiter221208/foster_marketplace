@@ -13,7 +13,7 @@ import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 
 // images
 import PreviewImage from 'assets/images/preview-image.png'
-import SolonaLogoIcon from 'assets/icons/solana-logo-black.svg?component'
+import SolonaLogoIcon from 'assets/icons/solana-logo-44x50.svg?component'
 import ArrowIcon from 'assets/icons/arrow-right-13x10.svg?component'
 
 // custom functions
@@ -30,12 +30,10 @@ import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
 
 // api
 import dashboardAPI from 'apis/dashboard'
-import ShopMerchSection from 'components/pages/Home/ShopMerchSection'
 
 const Home = () => {
   const viewport = useViewport()
   const router = useRouter()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
   let pageTitle = 'Foster Marketplace'
@@ -70,17 +68,6 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // useEffect(() => {
-  //   if (editionList && Array.isArray(editionList)) {
-  //     const openEditions = editionList.filter(item => item.maxSupply === '0' || item.maxSupply === null)
-  //     setOpenEditionList(openEditions)
-  //     const limitEditions = editionList.filter(
-  //       item => item.maxSupply !== null && item.maxSupply !== '0' && item.maxSupply !== item.currentSupply
-  //     )
-  //     setLimitedEditionList(limitEditions)
-  //   }
-  // }, [editionList])
-
   return (
     // <MaintenancePage />
     <div className="w-full">
@@ -105,26 +92,21 @@ const Home = () => {
           <MainSection />
         </div>
       </div>
-      {/* <PopularCategorySection type="home" /> */}
       <div className={styles.liveAuctionBG}>
         <div className="g-container">
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      {/* {openEditionList.length > 0 && ( */}
       <div className={styles.editionSection}>
         <div className="g-container w-full">
           <OpenEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={openEditionList} />
         </div>
       </div>
-      {/* )} */}
-      {/* {limitedEditionList.length > 0 && ( */}
       <div className={styles.limitEditionSection}>
         <div className="g-container">
           <LimitedEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={limitedEditionList} />
         </div>
       </div>
-      {/* )} */}
       <div className={styles.newReleaseSection}>
         <div className="g-container">
           <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />
@@ -135,10 +117,10 @@ const Home = () => {
         <div className={styles.pushingBoundary}>
           <div className="g-container w-full flex justify-center items-center">
             <div className="lg:flex hidden gap-[28px]">
-              <div className={styles.boundaryIcon}>
+              <div>
                 <SolonaLogoIcon />
               </div>
-              <div className="mt-[-5px]">
+              <div className="">
                 <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana</div>
                 <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
               </div>
@@ -155,7 +137,7 @@ const Home = () => {
             {/* Mobile */}
             <div className="lg:hidden block gap-[28px]">
               <div className="w-full flex justify-center">
-                <div className={styles.boundaryIcon}>
+                <div>
                   <SolonaLogoIcon />
                 </div>
               </div>
@@ -167,8 +149,11 @@ const Home = () => {
                 </div>
               </div>
               <div className="w-full flex justify-center mt-[27px]">
-                <div className={styles.exploreBtn} onClick={() => router.push('/explore')}>
-                  Explore Art
+                <div className={styles.buyButton} onClick={() => router.push('/explore')}>
+                  <div>Explore Art</div>
+                  <div className={styles.buttonIcon}>
+                    <ArrowIcon className={styles.arrowIcon} />
+                  </div>
                 </div>
               </div>
             </div>

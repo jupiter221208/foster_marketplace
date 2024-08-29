@@ -283,19 +283,12 @@ const OpenEditionCard = ({ data }) => {
               )}
               <div>
                 <div className="flex justify-end">
-                  <div className={styles.buyButton}>
+                  <div className={styles.buyButton} onClick={() => router.push(`/nft/${data.tokenId}`)}>
                     <div>Buy Edition</div>
                     <div className={styles.buttonIcon}>
                       <ArrowIcon />
                     </div>
                   </div>
-                  {/* <GradientButton
-                    label="Buy Edition"
-                    borderRadius={25}
-                    width={140}
-                    height={50}
-                    onClick={() => router.push(`/nft/${data.tokenId}`)}
-                  /> */}
                 </div>
               </div>
             </div>

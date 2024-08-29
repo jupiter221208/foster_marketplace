@@ -197,9 +197,9 @@
 }
 
 .endTimeContainer {
-  margin-left: 4px;
+  margin-left: 2px;
   @media (min-width: 1024px) {
-    margin-left: 4px;
+    margin-left: 2px;
   }
 }
 
@@ -212,11 +212,11 @@
 }
 
 .bidDesc {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-SemiBold';
   font-weight: 100;
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: var(--text-gray-200-color);
 }
 
 .bottomHover {
