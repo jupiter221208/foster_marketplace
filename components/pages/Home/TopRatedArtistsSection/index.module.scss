@@ -39,3 +39,15 @@
   background: var(--time-slot-bg);
   padding: 0px 6px;
 }
+
+.line {
+  position: absolute;
+  width: auto;
+  height: 15px;
+  border-radius: 8px;
+  left: 235px;
+  right: 235px;
+  top: auto;
+  bottom: auto;
+  background: linear-gradient(to right, var(--bg-151515-E5E1DD), var(--bg-242424-EEEDEB));
+}

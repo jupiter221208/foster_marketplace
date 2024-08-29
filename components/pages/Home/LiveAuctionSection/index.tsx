@@ -157,7 +157,9 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10 ml-[5px]">
+      <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
+        <div className={styles.line} />
+
         <div className="sm:block hidden">
           <HomeFilterMenu
             label="Live Auctions"
@@ -169,6 +171,7 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
+
         <div className="sm:hidden w-full flex justify-between items-center">
           <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
           <HomeFilterMenu
