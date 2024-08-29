@@ -76,7 +76,8 @@ const MarketplaceReleaseSection = props => {
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="relative w-full flex justify-between items-center z-10">
+          <div className={styles.line} />
           <div className={`${styles.title}`}>New Releases</div>
           <div className="lg:block hidden">
             <SeeMoreButton
@@ -89,7 +90,7 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[26px] mt-[25px] lg:mt-[30px] z-10 sm:px-[7px] lg:px-[0px]">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[26px] mt-[17px] lg:mt-[30px] z-10 sm:px-[7px] lg:px-[0px]">
           {marketplaceReleaseList.map((item, index) => (
             <div
               key={index}

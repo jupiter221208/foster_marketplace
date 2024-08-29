@@ -40,48 +40,24 @@ const PrimaryFooter = () => {
             </div>
 
             <div className="flex flex-wrap mt-[40px] gap-5">
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    iconWidth={20}
-                    iconHeight={20}
-                    icon={<InstagramLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <InstagramLightGreenIcon className={styles.iconColor} />
                 </a>
               </div>
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    iconWidth={20}
-                    iconHeight={20}
-                    icon={<DiscordLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <DiscordLightGreenIcon className={styles.iconColor} />
                 </a>
               </div>
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    iconWidth={20}
-                    iconHeight={20}
-                    icon={<TwitterLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <TwitterLightGreenIcon className={styles.iconColor} />
                 </a>
               </div>
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    iconWidth={20}
-                    iconHeight={20}
-                    icon={<GithubLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <GithubLightGreenIcon className={styles.iconColor} />
                 </a>
               </div>
             </div>
@@ -264,31 +240,19 @@ const PrimaryFooter = () => {
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
             </div> */}
             <div className="flex flex-wrap mt-[44px] gap-[18px] justify-center">
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    icon={<InstagramLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <InstagramLightGreenIcon />
                 </a>
               </div>
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    icon={<DiscordLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <DiscordLightGreenIcon />
                 </a>
               </div>
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    icon={<TwitterLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <TwitterLightGreenIcon />
                 </a>
               </div>
               {/* <div>
@@ -296,13 +260,9 @@ const PrimaryFooter = () => {
                   <IconButton backgroundColor="var(--social-bg-color)" icon={TelegramLightGreenIcon} onClick={() => {}} />
                 </a>
               </div> */}
-              <div>
+              <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
-                    icon={<GithubLightGreenIcon />}
-                    onClick={() => {}}
-                  />
+                  <GithubLightGreenIcon />
                 </a>
               </div>
             </div>

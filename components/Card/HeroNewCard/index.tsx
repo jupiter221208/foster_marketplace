@@ -12,7 +12,7 @@ import { getDisplayUserName } from 'utils/strings'
 import styles from './index.module.scss'
 
 // resources
-import SolanaIcon from 'assets/icons/solana-logo-green.svg'
+// import SolanaIcon from 'assets/icons/solana-logo-green.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ImageWithFoster from 'components/ImageWithFoster'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
@@ -21,18 +21,21 @@ const HeroNewCard = ({ data }) => {
   const onClick = () => {}
   return (
     <div className={styles.container}>
-      <ImageWithFoster
+      {/* <ImageWithFoster
         src={data.asset_url}
         originalSrc={data.cover_image_url}
-        // showPlaceHolder={false}
         width={1280}
         className="w-full h-full inset-0"
-      />
-      <div className={styles.overlay} />
-      <div className="g-container absolute inset-0 flex justify-center items-center">
+      /> */}
+      {/* <div className={styles.overlay} /> */}
+      <div className="g-container absolute inset-0 flex justify-center">
         <div className={styles.cardArea}>
           <div className={styles.imageArea}>
-            {data.asset_type.includes('image') ? (
+            {data.artist_profile_picture === null ? (
+              <div className={`w-full h-full overflow-hidden`}>
+                <div className="skeletonLoader" />
+              </div>
+            ) : data.asset_type.includes('image') ? (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
                   <div className="w-full h-full flex justify-center">
@@ -123,11 +126,11 @@ const HeroNewCard = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="g-container absolute w-full h-[100px] left-[0px] bottom-[18px] flex justify-between">
+      <div className="g-container absolute w-full h-[47px] left-[0px] bottom-[57px] flex justify-center">
         <div className="flex items-center">
           <div className="">
             {data.artist_profile_picture === null && (
-              <div className={`w-[66px] h-[66px] rounded-full overflow-hidden`}>
+              <div className={`w-[47px] h-[47px] rounded-full overflow-hidden`}>
                 <div className="skeletonLoader" />
               </div>
             )}
@@ -138,12 +141,12 @@ const HeroNewCard = ({ data }) => {
                     {data.artist_profile_picture.length > 0 ? (
                       <ImageWithFoster
                         src={data.artist_profile_picture}
-                        width={60}
-                        height={60}
+                        width={47}
+                        height={47}
                         className="rounded-full overflow-hidden"
                       />
                     ) : (
-                      <Image src={DefaultAvatar} width={60} height={60} className="rounded-full" alt="" />
+                      <Image src={DefaultAvatar} width={47} height={47} className="rounded-full" alt="" />
                     )}
                   </a>
                 </Link>
@@ -177,7 +180,7 @@ const HeroNewCard = ({ data }) => {
             )}
           </div>
         </div>
-        <div className="h-full flex items-center">
+        {/* <div className="h-full flex items-center">
           {data.list_price === undefined ? (
             <div className={`w-[100px] h-[30px] rounded-full overflow-hidden mt-4`}>
               <div className="skeletonLoader" />
@@ -191,7 +194,7 @@ const HeroNewCard = ({ data }) => {
               <div className={`${styles.price} ml-[5px]`}>{data.list_price}</div>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   )

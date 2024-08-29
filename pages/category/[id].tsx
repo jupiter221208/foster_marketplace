@@ -135,25 +135,51 @@ const Category = () => {
         </div>
         {cateQuery.length > 0 && (
           <div className="flex justify-center">
-            <div className="g-container lg:pt-[70px]">
-              <TrendingCollectionSection category={cateQuery} loop={false} />
-              <MostPopularSection category={cateQuery} />
-              <MarketplaceReleaseSection category={cateQuery} setVisibleBoundary={() => {}} />
-              <LiveAuctionSection category={cateQuery} fromPage={'category'} />
-              <FreshMintSection category={cateQuery} />
+            <div className="w-full">
+              <div className={styles.newReleaseSection}>
+                <div className="g-container">
+                  <TrendingCollectionSection category={cateQuery} loop={false} />
+                </div>
+              </div>
+              <div className={styles.liveAuctionBG}>
+                <div className="g-container mt-[60px]">
+                  <MostPopularSection category={cateQuery} />
+                </div>
+              </div>
+              <div className={styles.newReleaseSection}>
+                <div className="g-container">
+                  <MarketplaceReleaseSection category={cateQuery} setVisibleBoundary={() => {}} />
+                </div>
+              </div>
+              <div className={styles.liveAuctionBG}>
+                <div className="g-container">
+                  <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+                </div>
+              </div>
+              <div className={styles.newReleaseSection}>
+                <div className="g-container">
+                  <FreshMintSection category={cateQuery} />
+                </div>
+              </div>
               {/* <PopularCategorySection type="category" /> */}
-
-              <OpenEditionSection
-                category={cateQuery}
-                isEditionLoaded={isEditionLoaded}
-                editionList={openEditionList}
-              />
-
-              <LimitedEditionSection
-                category={cateQuery}
-                isEditionLoaded={isEditionLoaded}
-                editionList={limitedEditionList}
-              />
+              <div className={styles.liveAuctionBG}>
+                <div className="g-container">
+                  <OpenEditionSection
+                    category={cateQuery}
+                    isEditionLoaded={isEditionLoaded}
+                    editionList={openEditionList}
+                  />
+                </div>
+              </div>
+              <div className={styles.newReleaseSection}>
+                <div className="g-container">
+                  <LimitedEditionSection
+                    category={cateQuery}
+                    isEditionLoaded={isEditionLoaded}
+                    editionList={limitedEditionList}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         )}

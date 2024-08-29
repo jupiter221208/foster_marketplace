@@ -198,7 +198,6 @@ const MainSection = ({
   const [showNftMeta, setShowNftMeta] = useState(false)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
-  const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
@@ -273,7 +272,6 @@ const MainSection = ({
   const [nftCollectionImage, setNftCollectionImage] = useState('')
 
   const [nftPrice, setNftPrice] = useState(0)
-  const [merchCost, setMerchCost] = useState(null)
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [nftCreatorname, setNftCreatorname] = useState('')
   const [nftListingData, setNftListingData] = useState(null)
@@ -527,7 +525,6 @@ const MainSection = ({
       if (nftInfo.master_edition?.merchProduct) {
         setMerchCard(nftInfo.master_edition?.merchProduct)
         setMerchImages(nftInfo.master_edition?.merchProduct.options.addons)
-        setMerchCost(nftInfo.master_edition?.merchProduct.selling_price / 100 / solToUsdRate)
       }
 
       if (nftInfo?.master_edition?.endTime) {
@@ -561,11 +558,6 @@ const MainSection = ({
   useEffect(() => {
     if (publicKey !== null && sellerAddress !== null) {
       setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
-    }
-    if (publicKey !== null && nftInfo?.creator_address !== null && nftInfo?.owner_address !== null) {
-      setIsCreatedNft(
-        publicKey?.toBase58() === nftInfo?.creator_address && publicKey?.toBase58() === nftInfo?.owner_address
-      )
     }
   }, [publicKey, sellerAddress, nftInfo])
 
@@ -1369,7 +1361,10 @@ const MainSection = ({
                         setRemoveMerchModal={setRemoveMerchModal}
                         setCreateMerchModal={setCreateMerchModal}
                         merchToggle={merchToggle}
-                        isCreatedNft={isCreatedNft}
+                        isCreatedNft={
+                          publicKey?.toBase58() === nftInfo?.creator_address &&
+                          publicKey?.toBase58() === nftInfo?.owner_address
+                        }
                         setOpenShareModal={setOpenShareModal}
                       />
                     </div>
@@ -1387,7 +1382,7 @@ const MainSection = ({
                       <div className="w-full flex justify-between items-center">
                         {nameLoading ? (
                           <div
-                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[35px] mt-[15px] lg:mt-[0px] rounded-full`}
+                            className={`${styles.skeletonLoader} ${styles.nftTitle} w-[240px] h-[42px] mt-[15px] lg:mt-[0px] rounded-full`}
                           ></div>
                         ) : (
                           <div className="flex items-center justify-between mt-[10px] lg:mt-[0px]">
@@ -1411,7 +1406,10 @@ const MainSection = ({
                               setCreateMerchModal={setCreateMerchModal}
                               setOpenShareModal={setOpenShareModal}
                               merchToggle={merchToggle}
-                              isCreatedNft={isCreatedNft}
+                              isCreatedNft={
+                                publicKey?.toBase58() === nftInfo?.creator_address &&
+                                publicKey?.toBase58() === nftInfo?.owner_address
+                              }
                             />
                           </div>
                         )}
@@ -1544,7 +1542,7 @@ const MainSection = ({
                                   isEnded={isEnded}
                                   isStarted={isStarted}
                                   nftPrice={nftPrice}
-                                  merchCost={merchCost}
+                                  merchCost={nftInfo?.master_edition?.merchProduct?.selling_price / 100 / solToUsdRate}
                                   setPrice={setPrice}
                                   mintQty={mintQty}
                                   setMintQty={setMintQty}
@@ -1570,7 +1568,7 @@ const MainSection = ({
                                   isEnded={isEnded}
                                   isStarted={isStarted}
                                   nftPrice={nftPrice}
-                                  merchCost={merchCost}
+                                  merchCost={nftInfo?.master_edition?.merchProduct?.selling_price / 100 / solToUsdRate}
                                   setPrice={setPrice}
                                   mintQty={mintQty}
                                   setMintQty={setMintQty}

@@ -1,0 +1,59 @@
+@import 'assets/scss/variable.module.scss';
+
+.layout {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  height: 75px;
+  background: var(--bg-1A1A1A-F3F2F0);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.order {
+  width: auto;
+  @media (min-width: 640px) {
+    width: 46px;
+  }
+  height: 37px;
+  font-family: "Muli-Bold";
+  font-size: 37px;
+  font-weight: 100;
+  line-height: 37px;
+  text-align: center;
+  color: var(--bg-new-color);
+  text-shadow: 
+        -1px -1px 0 #707070,  /* top left */
+        1px -1px 0 #707070,   /* top right */
+        -1px 1px 0 #707070,   /* bottom left */
+        1px 1px 0 #707070;
+}
+
+.image {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--bg-303030-DDDCDC);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.collection {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.creator {
+  margin-top: 8px;
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 20px;
+  color: #707070;
+}

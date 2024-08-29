@@ -5,7 +5,7 @@
   height: 100px;
   position: relative;
   background: var(--nav-bg-color);
-  border-bottom: 1px solid var(--header-bottom-color);
+  // border-bottom: 1px solid var(--header-bottom-color);
   // box-shadow: 0px 0px 6px var(--nav-bg-shadow);
   
   .linkNames * {
@@ -33,7 +33,7 @@
   height: 80px;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  background: var(--header-mobile-bg-color);
+  background: var(--nav-bg-color);
   z-index: 9999;
 }
 

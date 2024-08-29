@@ -35,7 +35,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
-        {(data.asset_url === null || data.asset_url === '') &&
+        {/* {(data.asset_url === null || data.asset_url === '') &&
         (data.cover_image_url === null || data.cover_image_url === '') ? (
           <div></div>
         ) : data.asset_type.includes('video') || data.asset_type.includes('audio') ? (
@@ -64,7 +64,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
             width={width}
             className={`w-[${width}px] h-full object-cover`}
           />
-        )}
+        )} */}
       </div>
       <div className="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] z-10">
         <div className="px-[15px] mt-[110px] z-10">

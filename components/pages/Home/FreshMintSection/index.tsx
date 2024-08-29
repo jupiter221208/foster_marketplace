@@ -27,6 +27,7 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
+import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const FreshMintSection = props => {
   const { category } = props
@@ -61,7 +62,9 @@ const FreshMintSection = props => {
   return (
     freshMintsList.length > 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="relative w-full flex justify-between items-center z-10">
+          <div className={styles.line} />
+
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-between items-center z-10">
@@ -110,7 +113,19 @@ const FreshMintSection = props => {
             {freshMintsList.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                  <NFTCard
+                  <HomeNftCard
+                    image={item.asset_url}
+                    token_id={item.token_id}
+                    nftName={item.nft_name}
+                    assetType={item.asset_type}
+                    coverImage={item.cover_image_url}
+                    artistName={item.artist_username}
+                    artistImage={item.artist_profile_picture}
+                    collectionName={item.collection_name}
+                    price={item.list_price}
+                    onClick={() => {}}
+                  />
+                  {/* <NFTCard
                     token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}
@@ -122,7 +137,7 @@ const FreshMintSection = props => {
                     onClick={() => {
                       router.push(`/nft/${item.token_id}`)
                     }}
-                  />
+                  /> */}
                 </div>
               </SwiperSlide>
             ))}

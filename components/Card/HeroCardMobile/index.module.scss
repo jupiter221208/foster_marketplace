@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-width: 550px;
+  // max-width: 550px;
   width: 100%;
   height: auto;
   position: relative;
@@ -15,6 +15,9 @@
   position: relative;
   overflow: hidden;
   z-index: 0;
+  // background: var(--bg-new-color);
+  background: linear-gradient(to bottom, var(--bg-1A1A1A-E5E1DD), var(--bg-151515-EEEDEB));
+
 }
 
 .bgImage {
@@ -115,7 +118,7 @@
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 18px;
-  color: rgba(239, 240, 247, 0.9);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -171,7 +174,7 @@
 .creatorName {
   font-family: 'Muli-Light';
   font-size: 14px;
-  color: rgba(239, 240, 247, 0.9);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   display: flex;
   align-items: center;
 }

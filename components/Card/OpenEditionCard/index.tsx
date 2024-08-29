@@ -5,7 +5,7 @@ import Image from 'next/image'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
-import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -16,9 +16,9 @@ import styles from './index.module.scss'
 
 // resources
 import SolanaIcon from 'assets/icons/solana-logo-14x12.svg?component'
+import ArrowIcon from 'assets/icons/arrow-right-13x10.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
-import GradientButton from 'components/Button/GradientButton'
 
 const OpenEditionCard = ({ data }) => {
   const viewport = useViewport()
@@ -249,7 +249,7 @@ const OpenEditionCard = ({ data }) => {
                   <div className="flex justify-end">
                     <div className={styles.priceLabel}>Edition Closes</div>
                   </div>
-                  <div className="flex justify-end mt-[12px] mb-[29px]">
+                  <div className="flex justify-end mt-[9px] mb-[29px]">
                     <div className="flex items-center">
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div>
@@ -283,13 +283,12 @@ const OpenEditionCard = ({ data }) => {
               )}
               <div>
                 <div className="flex justify-end">
-                  <GradientButton
-                    label="Buy Edition"
-                    borderRadius={25}
-                    width={140}
-                    height={50}
-                    onClick={() => router.push(`/nft/${data.tokenId}`)}
-                  />
+                  <div className={styles.buyButton} onClick={() => router.push(`/nft/${data.tokenId}`)}>
+                    <div>Buy Edition</div>
+                    <div className={styles.buttonIcon}>
+                      <ArrowIcon />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -41,9 +41,6 @@ const LiveAuctionSection = props => {
   const dispatch = useDispatch()
 
   const [liveAuctionList, setLiveAuctionList] = useState<DashboardAPIData[]>([])
-  const [active, setActive] = useState<any>(1)
-  const [cardLoop, setCardLoop] = useState(true)
-  const [type, setType] = useState('recent_started')
   const [isLoaded, setIsLoaded] = useState(false)
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -108,8 +105,6 @@ const LiveAuctionSection = props => {
           }
         })
         setLiveAuctionList(lists)
-        if (lists.length > 3) setCardLoop(true)
-        else setCardLoop(false)
 
         if (isLoaded === false) {
           setShowSection(true)
@@ -128,24 +123,18 @@ const LiveAuctionSection = props => {
       }
   }
   const handleChangeActive = value => {
-    setActive(value)
-
     switch (value) {
       case 0:
         getLiveAuctionsFromServer(category, artist, 'upcoming')
-        setType('upcoming')
         break
       case 1:
         getLiveAuctionsFromServer(category, artist, 'recent_started')
-        setType('recent_started')
         break
       case 2:
         getLiveAuctionsFromServer(category, artist, 'end_soon')
-        setType('end_soon')
         break
       default:
         getLiveAuctionsFromServer(category, artist, 'recent_started')
-        setType('recent_started')
         break
     }
   }
@@ -157,7 +146,9 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10 ml-[5px]">
+      <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
+        <div className={styles.line} />
+
         <div className="sm:block hidden">
           <HomeFilterMenu
             label="Live Auctions"
@@ -169,6 +160,7 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
+
         <div className="sm:hidden w-full flex justify-between items-center">
           <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
           <HomeFilterMenu

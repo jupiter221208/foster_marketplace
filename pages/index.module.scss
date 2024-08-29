@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  background: var(--bg-1A1A1A-E8E7E5);
 }
 
 .liveAuctionBG {
@@ -11,29 +12,28 @@
   display: flex;
   justify-content: center;
   background: transparent;
-  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
 
 .newReleaseSection {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: var(--bg-141313-E8E7E5);
+  background: var(--bg-1A1A1A-E8E7E5);
 }
 
 .editionSection {
   width: 100%;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  background: var(--bg-141313-F3F2F0);
+  // border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--bg-1A1A1A-E8E7E5);
 }
 
 .limitEditionSection {
   width: 100%;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
 
 .liveEditions {
@@ -52,9 +52,9 @@
   @media (min-width: 1024px) {
     padding: 50px 0px;
   }
-  background: #1E1E1E;
-  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--bg-151515-1A1A1A);
+  // border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
 }
@@ -63,7 +63,7 @@
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background: #95dbd5;
+  background: #eff0f6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +99,7 @@
     font-family: "Muli-Light";
     font-size: 16px;
     line-height: 20px;
-    margin-top: 2px;
+    margin-top: 5px;
   }
   color: var(#eff0f6, 0.9);
 }
@@ -108,8 +108,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background: var(--bg-141313-E8E7E5);
-  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: transparent;
+  // background: var(--bg-141313-E8E7E5);
+  // border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
 
 .shopMerchSection {
@@ -145,4 +146,34 @@
     color: #1a1a1a;
   }
   cursor: pointer;
+}
+
+.buyButton {
+  width: 184px;
+  height: 50px;
+  border-radius: 25px;
+  padding-left: 23px;
+  padding-right: 8px;
+  background: #FFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: #171717;
+  cursor: pointer;
+}
+
+.buttonIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background: #1A1A1A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrowIcon {
+  fill: #FFF !important;
 }
