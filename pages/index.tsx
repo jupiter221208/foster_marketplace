@@ -14,6 +14,7 @@ import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 // images
 import PreviewImage from 'assets/images/preview-image.png'
 import SolonaLogoIcon from 'assets/icons/solana-logo-black.svg?component'
+import ArrowIcon from 'assets/icons/arrow-right-13x10.svg?component'
 
 // custom functions
 import { useDetectRouterPath, useViewport } from 'utils'
@@ -141,8 +142,14 @@ const Home = () => {
                 <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana</div>
                 <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
               </div>
-              <div className={styles.exploreBtn} onClick={() => router.push('/explore')}>
+              {/* <div className={styles.exploreBtn} onClick={() => router.push('/explore')}>
                 Explore Art
+              </div> */}
+              <div className={styles.buyButton} onClick={() => router.push('/explore')}>
+                <div>Explore Art</div>
+                <div className={styles.buttonIcon}>
+                  <ArrowIcon className={styles.arrowIcon} />
+                </div>
               </div>
             </div>
             {/* Mobile */}
