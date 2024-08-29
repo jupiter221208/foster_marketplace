@@ -34,6 +34,7 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { DashboardAPIData } from 'types/nft'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
 import OutlineButton from 'components/Button/OutlineButton'
+import TopCollectionCard from 'components/Card/TopCollectionCard'
 
 const TrendingCollectionSection = props => {
   const { category, loop } = props
@@ -43,7 +44,7 @@ const TrendingCollectionSection = props => {
   const [trendingList, setTrendingList] = useState<DashboardAPIData[]>([])
   const [active, setActive] = useState<any>(1)
   const [isLoading, setIsLoading] = useState(false)
-  const [period, setPeriod] = useState(DayList[2])
+  const [period, setPeriod] = useState(DayList[3])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -63,7 +64,7 @@ const TrendingCollectionSection = props => {
 
   useEffect(() => {
     setTrendingList([])
-    getTrendingCollectionsFromServer(category, 'week')
+    getTrendingCollectionsFromServer(category, 'all')
   }, [category])
 
   const getTrendingCollectionsFromServer = (category, period) => {
@@ -72,7 +73,7 @@ const TrendingCollectionSection = props => {
       response => {
         setIsLoading(false)
         if (response instanceof Array) {
-          setTrendingList(response)
+          setTrendingList(response.slice(0, 20))
         }
       },
       error => {
@@ -107,8 +108,10 @@ const TrendingCollectionSection = props => {
   return (
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
-          <div className="sm:block hidden">
+        <div className="relative w-full flex justify-between items-center z-10">
+          <div className={styles.line} />
+
+          {/* <div className="sm:block hidden">
             <HomeFilterMenu
               label="Trending Collections"
               data={DayList}
@@ -118,9 +121,13 @@ const TrendingCollectionSection = props => {
                 handleChangeActive(item.id)
               }}
             />
+          </div> */}
+          <div className="sm:block hidden">
+            <div className={styles.title}>Top&nbsp;Collections</div>
           </div>
+
           <div className="sm:hidden w-full flex justify-between items-center">
-            <div className={styles.title}>Trending&nbsp;Collections</div>
+            <div className={styles.title}>Top&nbsp;Collections</div>
             <HomeFilterMenu
               label=""
               data={DayList}
@@ -149,40 +156,23 @@ const TrendingCollectionSection = props => {
             </div>
           </div>
         ) : (
-          <div
-            className="w-full relative mt-[20px] lg:mt-[30px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[0px]"
-            id="trendArtistMobile"
-          >
-            {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
-              <Swiper
-                navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={
-                  viewport === 'xs' ? 1 : viewport === 'sm' || viewport === 'md' ? 1.4 : viewport === '2xl' ? 4 : 3
-                }
-                spaceBetween={viewport === 'xs' ? 10 : 20}
-                modules={[Autoplay, Lazy, Navigation]}
-                className={`${trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper pb-0'} ${
-                  styles.noPaddingBottom
-                }`}
-              >
-                {trendingList.map((item: any, index) => (
-                  <SwiperSlide key={index}>
-                    <TrendingCollectionCard
-                      collectionID={item.collection_id}
-                      image={item.cover_image}
-                      collectionName={item.collection_name}
-                      artistName={item.artist_username}
-                      nftCount={item.number_in_collections}
-                      avatar={item.artist_profile_picture}
-                      key={index}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )}
+          <div className="mt-[20px] sm:mt-[30px] w-full grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[20px] 2xl:gap-[45px]">
+            {trendingList?.map((item: any, index) => (
+              <div key={index}>
+                <TopCollectionCard
+                  collectionID={item.collection_id}
+                  image={item.cover_image}
+                  collectionName={item.collection_name}
+                  artistName={item.artist_username}
+                  nftCount={item.number_in_collections}
+                  avatar={item.artist_profile_picture}
+                  rank={index + 1}
+                />
+              </div>
+            ))}
           </div>
         )}
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[-80px]">
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
           <div className="w-full max-w-[300px] z-10">
             <OutlineButton
               label="See More"

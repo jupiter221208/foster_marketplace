@@ -100,7 +100,7 @@ const TopRatedArtistsSection = () => {
           />
         </div>
 
-        <div className="sm:hidden w-full flex justify-between items-center g-container">
+        <div className="sm:hidden w-full flex justify-between items-center">
           <div className={styles.title}>Top&nbsp;Creators</div>
           <HomeFilterMenu
             label=""

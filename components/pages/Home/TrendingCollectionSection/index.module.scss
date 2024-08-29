@@ -32,7 +32,19 @@
   @media (min-width: 1024px) {
     font-size: 24px;
   }
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.line {
+  position: absolute;
+  width: auto;
+  height: 15px;
+  border-radius: 8px;
+  left: 235px;
+  right: 235px;
+  top: auto;
+  bottom: auto;
+  background: linear-gradient(to right, var(--bg-151515-E5E1DD), var(--bg-242424-EEEDEB));
 }
 
 .seeMore {
