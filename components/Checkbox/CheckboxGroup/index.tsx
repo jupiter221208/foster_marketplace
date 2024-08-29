@@ -14,7 +14,7 @@ const CheckboxGroup = props => {
           <div
             id={`check-label-${index}`}
             key={index}
-            className="col-span-12 lg:col-span-6 xl:col-span-4 3xl:col-span-3 flex items-center gap-[20px]"
+            className="col-span-12 lg:col-span-6 2xl:col-span-4 3xl:col-span-3 flex items-center gap-[20px]"
           >
             <input
               className={`${styles.checkbox} ${item.disabled ? `opacity-60` : ``}`}
