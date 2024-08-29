@@ -131,8 +131,8 @@ const MainSection = () => {
           </div>
         </div>
         <div className="hidden lg:flex w-full">
-          <div className="w-full h-[592px] relative">
-            <div className="absolute w-full h-[590px] inset-0">
+          <div className="w-full h-[592px] relative flex justify-center">
+            <div className="w-[850px] h-[590px]">
               <Fade
                 duration={3000}
                 transitionDuration={600}
@@ -140,12 +140,12 @@ const MainSection = () => {
                 canSwipe={true}
                 autoplay={true}
                 prevArrow={
-                  <div className={`${styles.arrowBG} ml-[60px] xl:ml-[120px] 2xl:ml-[150px]`}>
+                  <div className={`${styles.arrowBG} ml-[0px]`}>
                     <ArrowLeftGreenIcon alt="" />
                   </div>
                 }
                 nextArrow={
-                  <div className={`${styles.arrowBG} mr-[60px] xl:mr-[120px] 2xl:mr-[150px]`}>
+                  <div className={`${styles.arrowBG} mr-[0px]`}>
                     <ArrowRightGreenIcon alt="" />
                   </div>
                 }
@@ -159,9 +159,9 @@ const MainSection = () => {
                 })}
               </Fade>
             </div>
-            <div className={styles.heroBorder} />
+            {/* <div className={styles.heroBorder} /> */}
           </div>
-          {heroCardOpacity === 0 && (
+          {/* {heroCardOpacity === 0 && (
             <div className="absolute inset-0 flex justify-center items-center">
               <div className={styles.loadingText}>
                 <div className="flex items-center w-[200px]">
@@ -169,7 +169,7 @@ const MainSection = () => {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />

@@ -290,7 +290,7 @@ const PrimaryHeader = () => {
           </div>
         </div>
 
-        {router.pathname === '/' ? <div className={styles.divider} /> : <div className={styles.divider} />}
+        {/* {router.pathname === '/' ? <div className={styles.divider} /> : <div className={styles.divider} />} */}
       </div>
     </div>
   )
