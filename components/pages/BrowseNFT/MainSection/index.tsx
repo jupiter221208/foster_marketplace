@@ -51,7 +51,6 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-gray-18x18.svg?component'
-import MerchOpenIcon from 'assets/icons/merch-open-icon.svg?component'
 import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
 import MoreDetalsIcon from 'assets/lottery/more-details.json'
 
@@ -114,11 +113,11 @@ import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
-import ImageWithFoster from 'components/ImageWithFoster'
 import NFTHistorySection from './NFTHistorySection'
 import NFTCategorySection from './NFTCategorySection'
 import ShopApparelSection from '../ShopApparelSection'
 import NFTDescriptionSection from './NFTDescriptionSection'
+import NFTEditionMerchCard from './NFTEditionMerchCard'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1455,22 +1454,11 @@ const MainSection = ({
                         </div>
                       ) : (
                         merchCard && (
-                          <div className={styles.merchArea} onClick={() => setFullScreenMerch(true)}>
-                            <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[18px] pl-[10px] sm:pl-[12px] md:pl-[16px]">
-                              <div className={styles.assetArea}>
-                                <ImageWithFoster width={65} src={merchCard.options.addons[0].mockup_url} />
-                              </div>
-                              <div className={styles.contentArea}>
-                                <div className="w-full flex justify-between items-center">
-                                  <div className={styles.merchTitle}>Merch included with each edition</div>
-                                  <div className="mr-[13px] mt-[-6px] lg:mt-[-7px]">
-                                    <MerchOpenIcon />
-                                  </div>
-                                </div>
-                                <div className={styles.merchContent}>{merchCard.name}</div>
-                              </div>
-                            </div>
-                          </div>
+                          <NFTEditionMerchCard
+                            url={merchCard.options.addons[0].mockup_url}
+                            name={merchCard.name}
+                            setFullScreenMerch={setFullScreenMerch}
+                          />
                         )
                       )}
                     </div>
