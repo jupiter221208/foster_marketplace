@@ -43,10 +43,10 @@ const PrimaryFooter = () => {
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
+                    // backgroundColor="var(--social-bg-color)"
                     iconWidth={20}
                     iconHeight={20}
-                    icon={<InstagramLightGreenIcon />}
+                    icon={<InstagramLightGreenIcon className={styles.iconColor} />}
                     onClick={() => {}}
                   />
                 </a>
@@ -54,10 +54,10 @@ const PrimaryFooter = () => {
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
+                    // backgroundColor="var(--social-bg-color)"
                     iconWidth={20}
                     iconHeight={20}
-                    icon={<DiscordLightGreenIcon />}
+                    icon={<DiscordLightGreenIcon className={styles.iconColor} />}
                     onClick={() => {}}
                   />
                 </a>
@@ -65,10 +65,10 @@ const PrimaryFooter = () => {
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
+                    // backgroundColor="var(--social-bg-color)"
                     iconWidth={20}
                     iconHeight={20}
-                    icon={<TwitterLightGreenIcon />}
+                    icon={<TwitterLightGreenIcon className={styles.iconColor} />}
                     onClick={() => {}}
                   />
                 </a>
@@ -76,10 +76,10 @@ const PrimaryFooter = () => {
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
-                    backgroundColor="var(--social-bg-color)"
+                    // backgroundColor="var(--social-bg-color)"
                     iconWidth={20}
                     iconHeight={20}
-                    icon={<GithubLightGreenIcon />}
+                    icon={<GithubLightGreenIcon className={styles.iconColor} />}
                     onClick={() => {}}
                   />
                 </a>

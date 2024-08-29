@@ -185,11 +185,11 @@ const Home = () => {
         </div>
       </div>
 
-      <div className={styles.shopMerchSection}>
+      {/* <div className={styles.shopMerchSection}>
         <div className="g-container">
           <ShopMerchSection />
         </div>
-      </div>
+      </div> */}
 
       {/* <CreateSellNFTSection /> */}
       {/* <FullScreenLoadingModal open={isLoading} /> */}
