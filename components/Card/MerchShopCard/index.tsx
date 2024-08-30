@@ -285,7 +285,6 @@ const MerchShopCard = props => {
               <div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                  {/* {showTimer && <div className={styles.saleType}>Ends in</div>} */}
                 </div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleCount}>

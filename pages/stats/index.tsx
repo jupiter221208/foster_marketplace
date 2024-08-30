@@ -207,7 +207,6 @@ const Stats = () => {
               <CollectorsSection collectors={collectors} />
             </div>
           )}
-          {/* {activeTab === 4 && <MarketplaceSection />} */}
         </div>
       </div>
       <StatsPreviewModal
@@ -217,7 +216,6 @@ const Stats = () => {
           setPreviewMode(false)
         }}
       />
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
