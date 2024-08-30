@@ -34,38 +34,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageBG}>
-        {/* {(data.asset_url === null || data.asset_url === '') &&
-        (data.cover_image_url === null || data.cover_image_url === '') ? (
-          <div></div>
-        ) : data.asset_type.includes('video') || data.asset_type.includes('audio') ? (
-          <ImageWithFoster
-            src={
-              data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            width={width}
-            className="w-full h-full object-cover"
-          />
-        ) : data.asset_type.includes('vr') ? (
-          <div className={`aspect-square w-full h-full`}>
-            <ImageWithFoster src={data.cover_image_url} width={width} className="w-full h-full object-cover" />
-          </div>
-        ) : (
-          <ImageWithFoster
-            src={
-              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                ? data.asset_url
-                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            width={width}
-            className={`w-[${width}px] h-full object-cover`}
-          />
-        )} */}
-      </div>
+      <div className={styles.imageBG}></div>
       <div className="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] z-10">
         <div className="px-[15px] mt-[110px] z-10">
           <div className={styles.imageArea}>
