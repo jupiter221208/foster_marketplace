@@ -125,19 +125,6 @@ const FreshMintSection = props => {
                     price={item.list_price}
                     onClick={() => {}}
                   />
-                  {/* <NFTCard
-                    token_id={item.token_id}
-                    image={item.asset_url}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {
-                      router.push(`/nft/${item.token_id}`)
-                    }}
-                  /> */}
                 </div>
               </SwiperSlide>
             ))}
