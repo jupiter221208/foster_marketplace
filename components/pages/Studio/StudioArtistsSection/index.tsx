@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
-// third party components
-import { useDispatch } from 'react-redux'
-
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -35,7 +32,6 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
 
   const [artistsList, setArtistsList] = useState<any[]>([])
   const [page, setPage] = useState(1)

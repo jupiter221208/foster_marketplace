@@ -384,18 +384,6 @@ const DaoLandingPage = props => {
           }}
         />
       </div>
-      {/* <div className="w-full flex justify-end">
-        <ExplorePagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          rowCount={rowCount}
-          setRowCount={count => {
-            selectRowCount(count)
-          }}
-          handleNext={handleNextPage}
-          handlePrev={handlePreviousPage}
-        />
-      </div> */}
       <div className="w-full h-[100px]" />
       <DaoSubmitModal
         data={{}}

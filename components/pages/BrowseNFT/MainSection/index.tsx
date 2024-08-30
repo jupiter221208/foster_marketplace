@@ -44,13 +44,11 @@ import {
 } from 'utils/auctioneer.util'
 
 // images and icons
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import InfoGreenIcon from 'assets/icons/info-gray-18x18.svg?component'
 import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
 import MoreDetalsIcon from 'assets/lottery/more-details.json'
 
@@ -109,7 +107,6 @@ import MintEditionCard from 'components/Card/MintEditionCard'
 import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
