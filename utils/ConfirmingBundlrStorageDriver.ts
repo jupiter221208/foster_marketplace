@@ -1,5 +1,12 @@
+import { BigNumber } from "bignumber.js";
 import { BundlrStorageDriver } from "@metaplex-foundation/js";
-import { ComputeBudgetProgram, Transaction, type Connection } from "@solana/web3.js";
+import {
+  ComputeBudgetProgram,
+  Connection,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+} from "@solana/web3.js";
 import { sendTransactionWithRetry } from "utils/transactions";
 
 async function sleep(time) {
@@ -12,7 +19,31 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
 
     this._bundlr ??= await this.initBundlr();
 
-    this._bundlr.currencyConfig.sendTx = async function (data) {
+    this._bundlr.currencyConfig.createTx = async function (amount, to, _fee) {
+      const pubkey = new PublicKey(await this.getPublicKey());
+      const transaction = new Transaction({
+        feePayer: pubkey,
+      });
+      transaction.add(
+        ComputeBudgetProgram.setComputeUnitLimit({
+          units: 500,
+        }),
+        ComputeBudgetProgram.setComputeUnitPrice({
+          microLamports: 20_000_000,
+        }),
+        SystemProgram.transfer({
+          fromPubkey: pubkey,
+          toPubkey: new PublicKey(to),
+          lamports: new BigNumber(amount).toNumber(),
+        })
+      );
+      return {
+        tx: transaction,
+        txId: undefined,
+      };
+    };
+
+    this._bundlr.currencyConfig.sendTx = async function (data: Transaction) {
       interface CurrencyInterface {
         getProvider(): Promise<Connection>;
         wallet: {
@@ -22,20 +53,29 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
 
       let currency = this as unknown as CurrencyInterface;
       let connection = await currency.getProvider();
-      data.add(
-        ComputeBudgetProgram.setComputeUnitLimit({
-          units: 500,
-        }),
-        ComputeBudgetProgram.setComputeUnitPrice({
-          microLamports: 20_000_000,
-        })
-      );
+
+      // wait for upto 60s for the account to exist
+      let fundingAccount = data.feePayer;
+      let fundingAccountInfo;
+      for (let i = 1; i <= 30; i++) {
+        console.log(`waiting for funding account to receive balance: attempt ${i}`);
+        fundingAccountInfo = await connection.getAccountInfo(fundingAccount, "finalized");
+        if (fundingAccountInfo) {
+          console.log("success!");
+          break;
+        }
+        await sleep(2000);
+      }
+      if (!fundingAccountInfo?.lamports)
+        throw new Error(
+          `could not confirm existing of funding account in 30 attempts: ${fundingAccount}`
+        );
 
       let retryCount = 5;
       let signature: string | null = null;
       outer: for (let i = 0; i < retryCount; i++) {
         let { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
-        data.blockhash = blockhash;
+        data.recentBlockhash = blockhash;
         data.lastValidBlockHeight = lastValidBlockHeight;
         let signedTransaction = await currency.wallet.signTransaction(data);
 
@@ -43,7 +83,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
           `attempting to send irys funding transaction: attempt ${i + 1} of ${retryCount}`
         );
         signature = await sendTransactionWithRetry({
-          connection,
+          connection: new Connection(connection.rpcEndpoint),
           transaction: signedTransaction,
           maxHeight: lastValidBlockHeight,
           skipPreflight: true,
