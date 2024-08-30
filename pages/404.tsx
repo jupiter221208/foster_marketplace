@@ -2,9 +2,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-// third party components
-import { useDispatch } from 'react-redux'
-
 // custom functions
 import { useDetectRouterPath } from 'utils'
 
@@ -19,8 +16,6 @@ import styles from './404.module.scss'
 
 const Custom404Page = () => {
   const router = useRouter()
-  // const isLoading = useSelector<any>(state => state.isLoading)
-  const dispatch = useDispatch()
   useDetectRouterPath(useRouter())
 
   return (
