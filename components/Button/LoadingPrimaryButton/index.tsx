@@ -11,7 +11,7 @@ import LoadingIcon from 'assets/lottery/loader-green.json'
 import styles from './index.module.scss'
 
 const LoadingPrimaryButton = props => {
-  const { fullWidth, width, height = 50, borderRadius = 10 } = props
+  const { fullWidth, width, height = 50, borderRadius = 10, text = 'Transaction Processing' } = props
 
   return (
     <button
@@ -26,7 +26,7 @@ const LoadingPrimaryButton = props => {
       <div className="w-[30px]">
         <Lottie animationData={LoadingIcon} loop={true} />
       </div>
-      <div>Transaction Processing</div>
+      <div>{text}</div>
     </button>
   )
 }

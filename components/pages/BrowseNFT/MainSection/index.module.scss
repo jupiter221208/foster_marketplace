@@ -289,15 +289,6 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
-.placeBidBG {
-  width: 100%;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
 .placeBidEnabledLightBG {
   background-color: #242424;
 }
@@ -437,34 +428,6 @@
   }
 }
 
-.auctionInfoTitle {
-  font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: var(--main-icon-color);
-  @media (min-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-.auctionInfoText {
-  width: fit-content;
-  position: relative;
-  background: var(--background-main-color);
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  border-radius: 16px;
-  padding: 12px 16px 16px 16px;
-  margin-left: 16px;
-  margin-top: 4px;
-  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
-  z-index: 1000;
-  color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
 .fixedPrice {
   font-family: 'Muli-Light';
   font-size: 16px;
@@ -524,17 +487,6 @@
   cursor: pointer;
 }
 
-.minText {
-  font-size: 14px;
-  font-family: 'Muli-Light';
-  font-weight: 100;
-  line-height: 14px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  color: var(--bg-B8B9BD-707070);
-}
-
 .minValue {
   font-size: 12px;
   font-family: 'Muli-Light';
@@ -544,14 +496,7 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
-.endPhaseText {
-  font-size: 14px;
-  font-family: 'Muli-Light';
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  color: var(--bg-B8B9BD-707070);
-}
+
 
 .collectionContainer {
   display: flex;
