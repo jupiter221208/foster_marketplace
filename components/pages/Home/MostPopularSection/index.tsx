@@ -15,7 +15,6 @@ import 'swiper/css/navigation'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'

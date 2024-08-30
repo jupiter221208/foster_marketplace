@@ -14,7 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
