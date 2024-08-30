@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 
 // custom components
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // custom functions
 import { useDetectRouterPath } from 'utils'
