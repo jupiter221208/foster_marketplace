@@ -26,7 +26,6 @@ const CollectionNftLeftSection = props => {
     setEnableCoverImageDialog,
     onChangeCoverImage,
     handleShowAlert,
-    setCollectionType,
     setShowEAModal,
   } = props
 
@@ -216,7 +215,6 @@ const CollectionNftLeftSection = props => {
           <div
             className={styles.exchangeArt}
             onClick={() => {
-              setCollectionType('ea')
               setShowEAModal(true)
             }}
           >

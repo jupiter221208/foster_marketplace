@@ -15,7 +15,7 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
-import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
+import { getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
@@ -70,15 +70,11 @@ const Step01CollectionSection = props => {
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [collectionType, setCollectionType] = useState<any>('foster')
   const [showEAModal, setShowEAModal] = useState(false)
-  const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
-  const [eaTags, setEATags] = useState<string[]>([])
   const [enableImageDialog, setEnableImageDialog] = useState(false)
   const [enableCoverImageDialog, setEnableCoverImageDialog] = useState(false)
 
   useEffect(() => {
-    setCollectionType(collectionKind)
     if (collectionKind === 'ea') {
       setShowEAModal(true)
     }
@@ -210,7 +206,6 @@ const Step01CollectionSection = props => {
 
     try {
       let collectionInfo = await getEACollectionInfo(url)
-      setEACollectionInfo(collectionInfo)
 
       let { name, description, primaryCategory, secondaryCategory, tags = [] } = collectionInfo.info
 
@@ -227,7 +222,6 @@ const Step01CollectionSection = props => {
 
       onChangeCollectionName(name)
       onChangeDescription(description)
-      setEATags(eaTags)
 
       let { thumbnailPath, bannerPath } = collectionInfo.assets
       let coverName = thumbnailPath.match(/[^\/]*$/)?.[0] || 'cover.png'
@@ -317,7 +311,6 @@ const Step01CollectionSection = props => {
               setEnableCoverImageDialog={setEnableCoverImageDialog}
               onChangeCoverImage={onChangeCoverImage}
               handleShowAlert={handleShowAlert}
-              setCollectionType={setCollectionType}
               setShowEAModal={setShowEAModal}
             />
           </div>
@@ -408,7 +401,6 @@ const Step01CollectionSection = props => {
             setEnableCoverImageDialog={setEnableCoverImageDialog}
             onChangeCoverImage={onChangeCoverImage}
             handleShowAlert={handleShowAlert}
-            setCollectionType={setCollectionType}
             setShowEAModal={setShowEAModal}
           />
 

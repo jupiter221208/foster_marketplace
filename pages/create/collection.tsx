@@ -50,7 +50,6 @@ const Collection = () => {
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
   const collectionMintName = useSelector(state => (state as any).collectionMintName)
   const collectionCoverUrl = useSelector(state => (state as any).collectionCoverUrl)
-  const [screenLoaded, setScreenLoaded] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
@@ -75,11 +74,6 @@ const Collection = () => {
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
-    // dispatch({ type: 'set', isLoading: false })
-    setTimeout(() => {
-      setScreenLoaded(true)
-    }, 1000)
-
     let array: any[] = []
     CategoryList.map(item => {
       let object: any = item
@@ -214,7 +208,6 @@ const Collection = () => {
       object.name = ''
       object.description = ''
       if (item.type.split('/')[0] === 'audio') {
-        // object.croppedImage = URL.createObjectURL(coverImage[0])
         object.croppedImage = collectionCoverUrl
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
