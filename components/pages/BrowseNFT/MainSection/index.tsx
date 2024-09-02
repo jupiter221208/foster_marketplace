@@ -152,7 +152,7 @@ const MainSection = ({
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const { solToUsdRate } = useSolToUsdRate()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [nftLoading, setNftLoading] = useState<boolean>(true)
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
@@ -591,7 +591,7 @@ const MainSection = ({
       }
 
       if (endTimestamp < Math.floor(Date.now() / 1000)) setIsEnded(true)
-      setLoading(false)
+      setNftLoading(false)
     },
     [minBidIncrement]
   )
@@ -720,7 +720,7 @@ const MainSection = ({
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
-          setLoading(false)
+          setNftLoading(false)
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
 
           let listingAsset = listingAssets[0]
@@ -765,7 +765,7 @@ const MainSection = ({
           )
         }
       }
-      setLoading(false)
+      setNftLoading(false)
 
       dispatch({ type: 'set', isLoading: false })
 
@@ -1445,7 +1445,7 @@ const MainSection = ({
                         )}
                       </div>
 
-                      {(supply?.max === null || supply?.max > 0) && (loading || editionLoading) && merchCard ? (
+                      {(supply?.max === null || supply?.max > 0) && (nftLoading || editionLoading) && merchCard ? (
                         <div className="w-full h-[80px] rounded-[5px] overflow-hidden mt-[30px]">
                           <div className="skeletonLoader" />
                         </div>
@@ -1461,7 +1461,7 @@ const MainSection = ({
                     </div>
 
                     <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                      {loading || editionLoading ? (
+                      {nftLoading || editionLoading ? (
                         <div className="mt-[30px]">
                           {supply?.max === null || supply?.max > 0 ? (
                             isEditionListing ? (
@@ -1627,7 +1627,7 @@ const MainSection = ({
                                     )}
                                     {showPlaceBidButton &&
                                       !isOwnNft &&
-                                      (loading ? (
+                                      (nftLoading ? (
                                         <div className="w-[100%] h-[45px] lg:h-[80px] rounded-[12px] overflow-hidden">
                                           <div className="skeletonLoader" />
                                         </div>
@@ -1668,28 +1668,24 @@ const MainSection = ({
                                 </div>
                               )}
                             </div>
-                          ) : !loading && nftInfo ? (
+                          ) : !nftLoading && nftInfo ? ( // NFT Normal
                             isOwnNft === true ? (
                               <div className="w-full">
-                                {editionType === 'master_le' || editionType === 'master_oe' ? (
-                                  isEditionListing ? (
-                                    <></>
-                                  ) : (
-                                    <div className="w-full mt-[30px]">
-                                      <OutlineButton
-                                        fullWidth
-                                        label="List Edition"
-                                        backgroundColor="var(--bg-151515-EEEDEB)"
-                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                        fontSize={16}
-                                        borderRadius={23}
-                                        onClick={() => {
-                                          setListEditionType('list')
-                                          setShowListEditionDetail(true)
-                                        }}
-                                      />
-                                    </div>
-                                  )
+                                {isNftMasterEdition() && !isEditionListing ? (
+                                  <div className="w-full mt-[30px]">
+                                    <OutlineButton
+                                      fullWidth
+                                      label="List Edition"
+                                      backgroundColor="var(--bg-151515-EEEDEB)"
+                                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                      fontSize={16}
+                                      borderRadius={23}
+                                      onClick={() => {
+                                        setListEditionType('list')
+                                        setShowListEditionDetail(true)
+                                      }}
+                                    />
+                                  </div>
                                 ) : (
                                   <div className="w-full flex lg:flex-row flex-col gap-[15px] mt-[30px]">
                                     <OutlineButton
@@ -1714,34 +1710,30 @@ const MainSection = ({
                                   </div>
                                 )}
                               </div>
-                            ) : isOwnNft === false || isOwnNft === null ? (
-                              editionType === 'master_le' || editionType === 'master_oe' ? (
-                                <></>
-                              ) : (
-                                <div className="w-full flex gap-[20px] mt-[30px]">
-                                  <OutlineButton
-                                    fullWidth
-                                    backgroundColor="var(--bg-151515-EEEDEB)"
-                                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
-                                    fontSize={16}
-                                    borderRadius={23}
-                                    label="Make Offer"
-                                    type="make-offer"
-                                    onClick={() => {
-                                      if (!connected) {
-                                        setVisible(true)
-                                        return
-                                      }
-                                      setOpenOfferModal(true)
-                                    }}
-                                  />
-                                </div>
-                              )
+                            ) : (isOwnNft === false || isOwnNft === null) && !isNftMasterEdition() ? (
+                              <div className="w-full flex gap-[20px] mt-[30px]">
+                                <OutlineButton
+                                  fullWidth
+                                  backgroundColor="var(--bg-151515-EEEDEB)"
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 45}
+                                  fontSize={16}
+                                  borderRadius={23}
+                                  label="Make Offer"
+                                  type="make-offer"
+                                  onClick={() => {
+                                    if (!connected) {
+                                      setVisible(true)
+                                      return
+                                    }
+                                    setOpenOfferModal(true)
+                                  }}
+                                />
+                              </div>
                             ) : (
                               <></>
                             )
                           ) : (
-                            <div></div>
+                            <></>
                           )}
                         </div>
                       )}
