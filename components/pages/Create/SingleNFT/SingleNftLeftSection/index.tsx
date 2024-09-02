@@ -1,6 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
 import { useViewport } from 'utils'
 
 // third-party
@@ -39,9 +37,8 @@ const SingleNftLeftSection = props => {
     handleDeleteNftArt,
   } = props
 
-  const router = useRouter()
   const viewport = useViewport()
-  const dispatch = useDispatch()
+
   return (
     <div className={styles.container}>
       {nftArt === null ? (

@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react'
 // components
 import Input from 'components/Input'
 
-// solana
-import { useMetaplex } from 'hooks/useMetaplex'
-import { getMyCollectionNFTs } from 'utils/nfts.utils'
-
 // custom functions
 import { useViewport } from 'utils'
 import { validDigits } from 'utils/helpers'
@@ -44,27 +40,14 @@ const Step03SingleNFTSection = props => {
     handleSelectCategory,
     showCategoryList,
     setShowCategoryList,
-    onClickCancelCategory,
     onNextStep,
     onBack,
   } = props
   const viewport = useViewport()
-  const { metaplex: mx } = useMetaplex()
   const [edition, setEdition] = useState(EditionList[0])
   const [showAlert, setShowAlert] = useState(false)
-  const [enableMintBtn, setEnableMintBtn] = useState(false)
   const [maxNum, setMaxNum] = useState(MaxNumberList[0])
   const [supply, setSupply] = useState(0)
-
-  let alertData = [
-    {
-      id: 0,
-      title: 'Percentage Error',
-      description: `The sum of percentage should be 100%.`,
-      type: 'warning',
-    },
-  ]
-  const [collectionList, setCollectionList] = useState([])
 
   useEffect(() => {
     setDisabledNextButton(false)
@@ -73,34 +56,26 @@ const Step03SingleNFTSection = props => {
   }, [])
 
   useEffect(() => {
-    getMyCollectionNFTs(mx).then(setCollectionList)
-  }, [mx])
-
-  useEffect(() => {
     if (creatorList.length === 0) return
 
     if (creatorList.length === 1 && creatorList[0].address === '' && disabledNextButton) {
       setDisabledNextButton(false)
       setShowAlert(false)
-      setEnableMintBtn(true)
     }
 
     let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
     if (totalShares === 100) {
       if (disabledNextButton) setDisabledNextButton(false)
       setShowAlert(false)
-      setEnableMintBtn(true)
     } else {
       setDisabledNextButton(true)
       setShowAlert(true)
-      setEnableMintBtn(false)
     }
 
     let enabled = true
     for (let i = 0; i < creatorList.length; i++) {
       let creator = creatorList[i]
       if (creator.address.length === 0 || !isValidPublicKey(creator.address)) {
-        setEnableMintBtn(false)
         enabled = false
         break
       }
@@ -266,7 +241,6 @@ const Step03SingleNFTSection = props => {
       {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
 
       <div className={styles.button} onClick={() => addAnotherCreator()}>
-        {/* <CrossPlusIcon /> */}
         Add Creator
       </div>
 
@@ -428,7 +402,6 @@ const Step03SingleNFTSection = props => {
       </div>
       {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
       <div className={styles.button} onClick={() => addAnotherCreator()}>
-        {/* <CrossPlusIcon /> */}
         Add Creator
       </div>
 

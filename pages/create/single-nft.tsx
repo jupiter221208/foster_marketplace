@@ -51,13 +51,9 @@ const SingleNft = () => {
   const createTab = useSelector<any>(state => state.createTab)
 
   const [screenWidth, setScreenWidth] = useState(1920)
-  const [screenLoaded, setScreenLoaded] = useState(false)
   const [isMinting, setIsMinting] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
-      setScreenLoaded(true)
-    }, 1000)
     setScreenWidth(window.innerWidth)
   }, [])
 
@@ -91,7 +87,6 @@ const SingleNft = () => {
   const [artWidth, setArtWidth] = useState(0)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
-  const [coverImageProcessing, setCoverImageProcessing] = useState(false)
   const [nftUrl, setNftUrl] = useState<string>()
 
   useEffect(() => {
@@ -201,7 +196,6 @@ const SingleNft = () => {
       } else if (nftArt[0].type === 'video/mp4') {
         const type = nftArt[0].type.split('/')[0]
         setNftType(type)
-        setCoverImageProcessing(true)
         let canvas = document.createElement('canvas')
         let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
         hidden_video.src = URL.createObjectURL(nftArt[0])
@@ -215,7 +209,6 @@ const SingleNft = () => {
 
           canvas.toBlob(blob => {
             setNftImage(URL.createObjectURL(blob))
-            setCoverImageProcessing(false)
           })
         })
         hidden_video.currentTime = 5
@@ -308,15 +301,6 @@ const SingleNft = () => {
 
     array[index].checked = !array[index].checked
     setCategoryList(array)
-  }
-
-  const handleCancelCategory = () => {
-    let array = [...categoryList]
-    array.map(item => {
-      item.checked = false
-    })
-    setCategoryList(categoryList => [...categoryList, array])
-    setShowCategoryList(false)
   }
 
   useEffect(() => {
@@ -664,7 +648,6 @@ const SingleNft = () => {
                             <Step01SingleNFTSection
                               nftType={nftType}
                               nftCover={nftCover}
-                              setNftArt={item => handleChangeNftArt(item)}
                               setNftCover={item => handleChangeNftCover(item)}
                               nftImage={nftImage}
                               setNftImage={setNftImage}
@@ -691,7 +674,6 @@ const SingleNft = () => {
                             disabledNextButton={disabledNextButton}
                             categoryList={categoryList}
                             handleSelectCategory={index => handleSelectCategory(index)}
-                            onClickCancelCategory={() => handleCancelCategory()}
                             onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                             onBack={() => handleChangeCurrentStep(currentStep - 1)}
                           />
@@ -871,7 +853,6 @@ const SingleNft = () => {
         }}
         dimension={selectedDimension}
       />
-      {/* <FullScreenLoadingModal open={screenLoaded && isLoading} /> */}
     </div>
   )
 }

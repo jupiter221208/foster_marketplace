@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // next components
@@ -8,9 +8,6 @@ import { useRouter } from 'next/router'
 import Lottie from 'lottie-react'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import OutlineButton from 'components/Button/OutlineButton'
-import LinkTextButton from 'components/Button/LinkTextButton'
-import TweetMintButton from 'components/Button/TweetMintButton'
-import MintOutlineButton from 'components/Button/MintOutlineButton'
 
 // resources
 import MintSuccessIcon from 'assets/lottery/mint-success.json'
@@ -22,8 +19,6 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 //explorer
-import { getExplorerUrl } from 'utils/explorer'
-import { useConnection } from '@solana/wallet-adapter-react'
 import { TwitterShareButton } from 'react-share'
 
 // api
@@ -33,8 +28,6 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import ImageWithFoster from 'components/ImageWithFoster'
-import SecondaryButton from 'components/Button/SecondaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import GradientButton from 'components/Button/GradientButton'
 
 const SuccessMintSingleNFTSection = props => {
@@ -44,11 +37,6 @@ const SuccessMintSingleNFTSection = props => {
   const dispatch = useDispatch()
   const viewport = useViewport()
   const openSellNFTModal = useSelector<any>(state => state.openSellNFTModal)
-  const { connection } = useConnection()
-  const explorerURL = useMemo(
-    () => getExplorerUrl(connection.rpcEndpoint, nftAddress?.toBase58()),
-    [nftAddress, connection]
-  )
   const nftDetailUrl = globalThis.window?.origin + '/nft/' + nftAddress
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
@@ -141,9 +129,6 @@ const SuccessMintSingleNFTSection = props => {
                 </div>
               </div>
             </div>
-            {/* <div className="mt-[44px]">
-              <LinkTextButton label="View on SolanaFM" link={explorerURL} />
-            </div> */}
           </div>
           <div className="absolute inset-0">
             <Lottie animationData={MintSuccessIcon} loop={false} />
