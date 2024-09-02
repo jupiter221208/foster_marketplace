@@ -62,11 +62,13 @@ const Category = () => {
   useEffect(() => {
     if (cateQuery?.length > 0) {
       dashboardAPI.getListedEditions(cateQuery, '', 1, 15).then(response => {
-        if (Array.isArray(response.limitedEditions)) {
-          setLimitedEditionList(response.limitedEditions)
-        }
-        if (Array.isArray(response.openEditions)) {
-          setOpenEditionList(response.openEditions)
+        if (response) {
+          if (Array.isArray(response.limitedEditions)) {
+            setLimitedEditionList(response.limitedEditions)
+          }
+          if (Array.isArray(response.openEditions)) {
+            setOpenEditionList(response.openEditions)
+          }
         }
         setIsEditionLoaded(true)
       }),

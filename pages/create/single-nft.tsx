@@ -87,7 +87,7 @@ const SingleNft = () => {
   const [artWidth, setArtWidth] = useState(0)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
-  const [nftUrl, setNftUrl] = useState<string>()
+  const [nftUrl, setNftUrl] = useState<string>(null)
 
   useEffect(() => {
     if (createTab !== null) {
@@ -470,14 +470,20 @@ const SingleNft = () => {
           max_supply: editionType?.name == 'Limited Edition' ? maxNum : editionType?.name == 'Open Edition' ? null : 0,
         })
         .then(
-          response => {
-            console.log(response)
-          },
+          response => {},
           error => {
             console.log(error)
           }
         )
       setCurrentStep(4)
+      setNftName('')
+      setDescription('')
+      setCategoryList([])
+      setNftArt(null)
+      setNftCover(null)
+      setNftType('image')
+      setNftImage('')
+      setNftUrl(null)
     } catch (error) {
       console.error(error)
     } finally {
