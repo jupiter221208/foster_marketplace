@@ -55,7 +55,7 @@ const CollectionCard = props => {
             <div className="w-full">
               <OutlineButton
                 fullWidth
-                label="Unsave"
+                label="Remove"
                 fontSize={16}
                 height={45}
                 onClick={() => {
