@@ -133,7 +133,6 @@ const ListEditionDetail = ({
   const handleListEdition = async () => {
     try {
       setIsLoading(true)
-
       let listing = await listMasterEdition({
         mintAddress: data.mintAddress,
         price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
@@ -218,12 +217,11 @@ const ListEditionDetail = ({
           master_edition_address: data.mintAddress,
           supply: data.supply?.max,
         })
-
       updateEditionListing({
         mintAddress: data.mintAddress,
         price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
         startTime: startDate.toISOString().split('.')[0],
-        endTime: endDate.toISOString().split('.')[0],
+        endTime: endDate?.toISOString().split('.')[0],
         buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
       }).then(response => {
         onSuccess(data?.name)
