@@ -43,6 +43,10 @@
 }
 
 .line {
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
   position: absolute;
   width: auto;
   height: 15px;
