@@ -15,7 +15,7 @@ import MainSection from 'components/pages/BrowseNFT/MainSection'
 import MerchSection from 'components/pages/BrowseNFT/MerchSection'
 
 // custom functions
-import { getNftFromDAS, getNftFromRpc, getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
+import { getNftFromDAS, getNftFromRpc, getNFTOwner } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -30,8 +30,6 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
-import TabList from 'assets/json/browse-nft/auction-list.json'
-import MerchTabList from 'assets/json/browse-nft/merch-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString, optimizeCdnUrlOgImage } from 'utils/helpers'
@@ -69,8 +67,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   const [nftInfo, setNftInfo] = useState<NftData>()
   const { connected, autoConnect } = useWallet()
   const dispatch = useDispatch()
-  const [merchToggle, setMerchToggle] = useState(false)
-  const [activeTab, setActiveTab] = useState<any>(0)
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
 
@@ -200,22 +196,22 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     }
   }
 
-  useEffect(() => {
-    let array: any[] = []
-    let list
-    if (merchToggle) {
-      list = MerchTabList
-    } else list = TabList
-    list.map(item => {
-      let object: any = item
-      if (item.id === activeTab) {
-        object.selected = true
-      } else {
-        object.selected = false
-      }
-      array.push(object)
-    })
-  }, [activeTab, merchToggle])
+  // useEffect(() => {
+  //   let array: any[] = []
+  //   let list
+  //   if (merchToggle) {
+  //     list = MerchTabList
+  //   } else list = TabList
+  //   list.map(item => {
+  //     let object: any = item
+  //     if (item.id === activeTab) {
+  //       object.selected = true
+  //     } else {
+  //       object.selected = false
+  //     }
+  //     array.push(object)
+  //   })
+  // }, [activeTab, merchToggle])
 
   return (
     <div className="w-full min-h-full">
@@ -273,7 +269,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                       nftInfo={nftInfo}
                       setFullScreenView={setFullScreenView}
                       reloadNftData={reloadNftData}
-                      enableMerch={setMerchToggle}
                       setOpenMerchPage={setOpenMerchPage}
                       setMerchData={setMerchData}
                       fullScreen={fullScreen}

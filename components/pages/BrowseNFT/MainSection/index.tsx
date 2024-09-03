@@ -123,7 +123,6 @@ export interface MainSectionProps {
   nftInfo: any
   setFullScreenView: any
   reloadNftData: any
-  enableMerch: any
   setOpenMerchPage: any
   setMerchData: any
   fullScreen: boolean
@@ -137,7 +136,6 @@ const MainSection = ({
   nftInfo,
   setFullScreenView,
   reloadNftData,
-  enableMerch,
   setOpenMerchPage,
   setMerchData,
   fullScreen,
@@ -212,6 +210,39 @@ const MainSection = ({
   const [descCount, setDescCount] = useState(280)
 
   useEffect(() => {
+    ;(async () => {
+      if (!nftDetail) return
+      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
+      setSellerAddress(tokenAccount.owner)
+
+      const creators = nftDetail.creators.map(c => ({
+        ...c,
+        address: new PublicKey(c.address),
+      }))
+
+      let createAddress = getNFTArtistPublicKey({ creators })
+      let { username: creatorName } = await usersAPI.get(createAddress)
+      setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
+
+      if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
+        let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+        setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
+      } else {
+        setNftOwnerUsername(creatorName)
+      }
+
+      setNameLoading(false)
+      setTokenAccountInfo(tokenAccount)
+
+      if (nftDetail.collection) {
+        const collectionMetadata = await getNftFromDAS(mx, nftDetail.collection.address)
+        if (collectionMetadata) {
+          setNftCollectionImage(collectionMetadata.content.links.image)
+          setNftCollectionName(collectionMetadata.content.metadata.name)
+        }
+      }
+    })()
+
     setAlertData([
       {
         id: 0,
@@ -511,7 +542,6 @@ const MainSection = ({
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
       setMerchToggle(merch_hub_enabled)
-      enableMerch(merch_hub_enabled)
       setLikeCount(likes)
       setShareCount(shares)
       setSaveCount(saves)
@@ -522,9 +552,6 @@ const MainSection = ({
       if (nftInfo.master_edition?.merchProduct) {
         setMerchCard(nftInfo.master_edition?.merchProduct)
         setMerchImages(nftInfo.master_edition?.merchProduct.options.addons)
-      }
-
-      if (nftInfo?.master_edition?.endTime) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -556,7 +583,7 @@ const MainSection = ({
     if (publicKey !== null && sellerAddress !== null) {
       setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
     }
-  }, [publicKey, sellerAddress, nftInfo])
+  }, [publicKey, sellerAddress])
 
   const handleAuctionData = useCallback(
     async (auctionListing: AuctionListing) => {
@@ -617,33 +644,26 @@ const MainSection = ({
     if (!supply) {
       return
     }
-    let type: any = 'normal'
     if (supply.max === 0) {
-      type = 'normal'
       setEditionType('normal')
     } else if (supply.max === null) {
       if (supply.parent === null) {
-        type = 'master_oe'
         setEditionType('master_oe')
         getEditionListingStatus()
       } else {
-        type = 'print_oe'
         setEditionType('print_oe')
         fetch(`/nft/${supply.parent}`)
       }
     } else if (supply.max > 0) {
       if (supply.parent === null) {
-        type = 'master_le'
         setEditionType('master_le')
         getEditionListingStatus()
       } else {
-        type = 'print_le'
         setEditionType('print_le')
         fetch(`/nft/${supply.parent}`)
       }
     } else {
       setEditionType('normal')
-      type = 'normal'
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supply])
@@ -658,33 +678,34 @@ const MainSection = ({
     return false
   }
 
-  useEffect(() => {
-    ;(async () => {
-      if (!nftDetail) return
-      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
-      setSellerAddress(tokenAccount.owner)
+  // useEffect(() => {
+  //   console.log(nftDetail, '=========1=========')
+  //   ;(async () => {
+  //     if (!nftDetail) return
+  //     let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
+  //     setSellerAddress(tokenAccount.owner)
 
-      const creators = nftDetail.creators.map(c => ({
-        ...c,
-        address: new PublicKey(c.address),
-      }))
+  //     const creators = nftDetail.creators.map(c => ({
+  //       ...c,
+  //       address: new PublicKey(c.address),
+  //     }))
 
-      let createAddress = getNFTArtistPublicKey({ creators })
-      let { username: creatorName } = await usersAPI.get(createAddress)
-      setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
+  //     let createAddress = getNFTArtistPublicKey({ creators })
+  //     let { username: creatorName } = await usersAPI.get(createAddress)
+  //     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
-      if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
-        let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
-        setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
-      } else {
-        setNftOwnerUsername(creatorName)
-      }
+  //     if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
+  //       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+  //       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
+  //     } else {
+  //       setNftOwnerUsername(creatorName)
+  //     }
 
-      setNameLoading(false)
-      setTokenAccountInfo(tokenAccount)
-    })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nftDetail])
+  //     setNameLoading(false)
+  //     setTokenAccountInfo(tokenAccount)
+  //   })()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [nftDetail])
 
   useEffect(() => {
     if (!tokenAccountInfo) return
@@ -776,18 +797,18 @@ const MainSection = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAccountInfo])
 
-  useEffect(() => {
-    ;(async () => {
-      if (nftDetail.collection) {
-        const collectionMetadata = await getNftFromDAS(mx, nftDetail.collection.address)
-        if (collectionMetadata) {
-          setNftCollectionImage(collectionMetadata.content.links.image)
-          setNftCollectionName(collectionMetadata.content.metadata.name)
-        }
-      }
-    })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nftDetail])
+  // useEffect(() => {
+  //   ;(async () => {
+  //     if (nftDetail.collection) {
+  //       const collectionMetadata = await getNftFromDAS(mx, nftDetail.collection.address)
+  //       if (collectionMetadata) {
+  //         setNftCollectionImage(collectionMetadata.content.links.image)
+  //         setNftCollectionName(collectionMetadata.content.metadata.name)
+  //       }
+  //     }
+  //   })()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [nftDetail])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -893,6 +914,7 @@ const MainSection = ({
   }
 
   const cancelAuction = async () => {
+    console.log('===============cancel===============')
     setIsCancelProcessing(true)
     try {
       const { auction } = await cancelListing(mx, new PublicKey(mintAddress), sellerAddress)
@@ -1195,8 +1217,6 @@ const MainSection = ({
         response => {
           if (response !== null) {
             setMerchToggle(true)
-            enableMerch(true)
-            // setShowStudioModal(true)
             setCreateMerchModal(false)
             setTimeout(() => {
               detailViewRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -1210,7 +1230,6 @@ const MainSection = ({
         response => {
           if (response !== null) {
             setMerchToggle(false)
-            enableMerch(false)
             setRemoveMerchModal(false)
           }
         },
@@ -1686,7 +1705,7 @@ const MainSection = ({
                                       }}
                                     />
                                   </div>
-                                ) : (
+                                ) : !isNftMasterEdition() ? (
                                   <div className="w-full flex lg:flex-row flex-col gap-[15px] mt-[30px]">
                                     <OutlineButton
                                       fullWidth
@@ -1708,6 +1727,8 @@ const MainSection = ({
                                       }}
                                     />
                                   </div>
+                                ) : (
+                                  <></>
                                 )}
                               </div>
                             ) : (isOwnNft === false || isOwnNft === null) && !isNftMasterEdition() ? (
