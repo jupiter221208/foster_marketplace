@@ -9,6 +9,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import { useRouter } from 'next/router'
 import { useViewport } from 'utils'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const CollectionCard = props => {
   const { image, nftName, link, artistName, artistImage, collectionName, unSave = null } = props
@@ -40,10 +41,11 @@ const CollectionCard = props => {
         <div className={styles.bottomSection}>
           {unSave === null ? (
             <div className="w-full">
-              <SecondaryDashboardButton
+              <OutlineButton
                 fullWidth
                 label="View"
-                type="next"
+                fontSize={16}
+                height={45}
                 onClick={() => {
                   router.push(link)
                 }}
@@ -51,10 +53,11 @@ const CollectionCard = props => {
             </div>
           ) : (
             <div className="w-full">
-              <SecondaryDashboardButton
+              <OutlineButton
                 fullWidth
                 label="Unsave"
-                type="unsave"
+                fontSize={16}
+                height={45}
                 onClick={() => {
                   unSave()
                 }}

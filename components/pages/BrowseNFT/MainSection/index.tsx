@@ -914,7 +914,6 @@ const MainSection = ({
   }
 
   const cancelAuction = async () => {
-    console.log('===============cancel===============')
     setIsCancelProcessing(true)
     try {
       const { auction } = await cancelListing(mx, new PublicKey(mintAddress), sellerAddress)

@@ -206,16 +206,6 @@ const NewNftCard = props => {
                 </a>
               </Link>
             )}
-            {/* {showHideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
-            </div>
-          )}
-          {showUnhideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
-            </div>
-          )} */}
           </div>
           <div className={styles.bottomSection}>
             {unSave !== null && (
