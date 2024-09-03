@@ -44,7 +44,7 @@ const MarketplaceReleaseSection = props => {
       ;(async () => {
         for (let index = 0; index < marketplaceReleaseList.length; index++) {
           let data = marketplaceReleaseList[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (data.token_id !== undefined) fetch(`/nft/${data.token_id}`).then(e => e.text())
           if (index % 4 == 3) {
             await sleep(1000)
           }

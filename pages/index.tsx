@@ -126,9 +126,6 @@ const Home = () => {
                 <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana</div>
                 <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
               </div>
-              {/* <div className={styles.exploreBtn} onClick={() => router.push('/explore')}>
-                Explore Art
-              </div> */}
               <div className={styles.buyButton} onClick={() => router.push('/explore')}>
                 <div>Explore Art</div>
                 <div className={styles.buttonIcon}>
@@ -184,9 +181,6 @@ const Home = () => {
           <ShopMerchSection />
         </div>
       </div> */}
-
-      {/* <CreateSellNFTSection /> */}
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
