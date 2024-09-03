@@ -476,14 +476,6 @@ const SingleNft = () => {
           }
         )
       setCurrentStep(4)
-      setNftName('')
-      setDescription('')
-      setCategoryList([])
-      setNftArt(null)
-      setNftCover(null)
-      setNftType('image')
-      setNftImage('')
-      setNftUrl(null)
     } catch (error) {
       console.error(error)
     } finally {
@@ -846,7 +838,6 @@ const SingleNft = () => {
           nftImage={nftImage}
           artWidth={artWidth}
           nftAddress={nftAddress}
-          nftMetadata={nftMetadata}
         />
       )}
       <NftImageEditorModal

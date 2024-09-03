@@ -31,7 +31,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import GradientButton from 'components/Button/GradientButton'
 
 const SuccessMintSingleNFTSection = props => {
-  const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
+  const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
