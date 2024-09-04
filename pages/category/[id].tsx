@@ -14,12 +14,12 @@ import { getCategoryPreviewImage } from 'assets/images/categories'
 
 // components
 // import FreshMintSection from 'components/pages/Home/FreshMintSection'
-import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
-import MostPopularSection from 'components/pages/Home/MostPopularSection'
-import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
-import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
-import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
+// import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
+// import MostPopularSection from 'components/pages/Home/MostPopularSection'
+// import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
+// import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
+// import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
+// import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -36,12 +36,12 @@ import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import dashboardAPI from 'apis/dashboard'
 
 const FreshMintSection = React.lazy(() => import('components/pages/Home/FreshMintSection'))
-// const TrendingCollectionSection = React.lazy(() => import('components/pages/Home/TrendingCollectionSection'))
-// const MostPopularSection = React.lazy(() => import('components/pages/Home/MostPopularSection'))
-// const MarketplaceReleaseSection = React.lazy(() => import('components/pages/Home/MarketplaceReleaseSection'))
-// const LiveAuctionSection = React.lazy(() => import('components/pages/Home/LiveAuctionSection'))
-// const OpenEditionSection = React.lazy(() => import('components/pages/Home/OpenEditionSection'))
-// const LimitedEditionSection = React.lazy(() => import('components/pages/Home/LimitedEditionSection'))
+const TrendingCollectionSection = React.lazy(() => import('components/pages/Home/TrendingCollectionSection'))
+const MostPopularSection = React.lazy(() => import('components/pages/Home/MostPopularSection'))
+const MarketplaceReleaseSection = React.lazy(() => import('components/pages/Home/MarketplaceReleaseSection'))
+const LiveAuctionSection = React.lazy(() => import('components/pages/Home/LiveAuctionSection'))
+const OpenEditionSection = React.lazy(() => import('components/pages/Home/OpenEditionSection'))
+const LimitedEditionSection = React.lazy(() => import('components/pages/Home/LimitedEditionSection'))
 
 const Category = () => {
   const viewport = useViewport()
@@ -152,47 +152,58 @@ const Category = () => {
               <div className={styles.newReleaseSection}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <FreshMintSection category={cateQuery} />
+                    <TrendingCollectionSection category={cateQuery} loop={false} />
+                  </Suspense>
+                </div>
+              </div>
+              <div className={styles.liveAuctionBG}>
+                <div className="g-container mt-[60px]">
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <MostPopularSection category={cateQuery} />
                   </Suspense>
                 </div>
               </div>
               <div className={styles.newReleaseSection}>
                 <div className="g-container">
-                  <TrendingCollectionSection category={cateQuery} loop={false} />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <MarketplaceReleaseSection category={cateQuery} setVisibleBoundary={() => {}} />
+                  </Suspense>
                 </div>
               </div>
               <div className={styles.liveAuctionBG}>
-                <div className="g-container mt-[60px]">
-                  <MostPopularSection category={cateQuery} />
+                <div className="g-container">
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+                  </Suspense>
                 </div>
               </div>
               <div className={styles.newReleaseSection}>
                 <div className="g-container">
-                  <MarketplaceReleaseSection category={cateQuery} setVisibleBoundary={() => {}} />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <FreshMintSection category={cateQuery} />
+                  </Suspense>
                 </div>
               </div>
               <div className={styles.liveAuctionBG}>
                 <div className="g-container">
-                  <LiveAuctionSection category={cateQuery} fromPage={'category'} />
-                </div>
-              </div>
-
-              <div className={styles.liveAuctionBG}>
-                <div className="g-container">
-                  <OpenEditionSection
-                    category={cateQuery}
-                    isEditionLoaded={isEditionLoaded}
-                    editionList={openEditionList}
-                  />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <OpenEditionSection
+                      category={cateQuery}
+                      isEditionLoaded={isEditionLoaded}
+                      editionList={openEditionList}
+                    />
+                  </Suspense>
                 </div>
               </div>
               <div className={styles.newReleaseSection}>
                 <div className="g-container">
-                  <LimitedEditionSection
-                    category={cateQuery}
-                    isEditionLoaded={isEditionLoaded}
-                    editionList={limitedEditionList}
-                  />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <LimitedEditionSection
+                      category={cateQuery}
+                      isEditionLoaded={isEditionLoaded}
+                      editionList={limitedEditionList}
+                    />
+                  </Suspense>
                 </div>
               </div>
             </div>
