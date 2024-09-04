@@ -126,7 +126,7 @@ const MerchShopCard = props => {
   }
   return (
     <div className={styles.container}>
-      <div className="relative">
+      <div className={styles.topSection}>
         <Swiper
           slidesPerView={1}
           spaceBetween={10}

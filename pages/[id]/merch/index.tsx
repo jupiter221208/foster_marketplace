@@ -106,8 +106,8 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-between">
-            <div className="gap-[24px] hidden sm:flex">
+          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-end">
+            {/* <div className="gap-[24px] hidden sm:flex">
               <div
                 className={styles.profile}
                 onClick={() => {
@@ -129,8 +129,8 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                   <div className="mt-[-2px]">Badges</div>
                 </div>
               </div>
-            </div>
-            <div className="block sm:hidden">
+            </div> */}
+            {/* <div className="block sm:hidden">
               <MerchFilterMenu
                 label={merchMenu.label}
                 data={ShopList}
@@ -140,7 +140,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                   setActiveTab(item.id)
                 }}
               />
-            </div>
+            </div> */}
             <div className="flex gap-[15px] sm:gap-[25px]">
               {publicKey?.toBase58() === artistInfo?.wallet_id && (
                 <div
@@ -172,8 +172,8 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 isCreator={publicKey?.toBase58() === artistInfo?.wallet_id}
               />
             )}
-            {activeTab === 1 && <CreatorMerchReviews userId={artistInfo?.id} />}
-            {activeTab === 2 && <CreatorMerchBadges />}
+            {/* {activeTab === 1 && <CreatorMerchReviews userId={artistInfo?.id} />}
+            {activeTab === 2 && <CreatorMerchBadges />} */}
           </div>
         </div>
       </div>
