@@ -38,103 +38,102 @@ const FreshMintSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [freshMintsList, setFreshMintsList] = useState<DashboardAPIData[]>([])
+  fetchUserData(category).then(setFreshMintsList)
 
-  useEffect(() => {
-    fetchUserData(category).then(response => {
-      if (response !== null && response !== undefined) {
-        setFreshMintsList(response)
-      }
-    })
-  }, [category])
+  // useEffect(() => {
+  //   fetchUserData(category).then(response => {
+  //     if (response !== null && response !== undefined) {
+  //       setFreshMintsList(response)
+  //     }
+  //   })
+  // }, [category])
 
   return (
-    freshMintsList?.length > 0 && (
-      <section className={styles.container}>
-        <div className="relative w-full flex justify-between items-center z-10">
-          <div className={styles.line} />
+    <section className={styles.container}>
+      <div className="relative w-full flex justify-between items-center z-10">
+        <div className={styles.line} />
 
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-between items-center z-10">
-                <div className={styles.title}>Fresh Mints</div>
-              </div>
-            ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
-            )}
-          </div>
-          <div className="hidden lg:flex z-10">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 1 })
-                router.push('/explore')
-              }}
-            />
-          </div>
+        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className="w-full flex justify-between items-center z-10">
+              <div className={styles.title}>Fresh Mints</div>
+            </div>
+          ) : (
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
+          )}
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.13
-                : viewport === 'sm'
-                ? 1.92
-                : viewport === 'md'
-                ? 2
-                : viewport === '2xl'
-                ? 5
-                : viewport === 'xl'
-                ? 4
-                : 4
-            }
-            spaceBetween={
-              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
-            loop={freshMintsList?.length > 4}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
+        <div className="hidden lg:flex z-10">
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 1 })
+              router.push('/explore')
             }}
-          >
-            {freshMintsList.map((item, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                  <HomeNftCard
-                    image={item.asset_url}
-                    token_id={item.token_id}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    artistImage={item.artist_profile_picture}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {}}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          />
         </div>
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
-          <div className="w-full max-w-[300px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 1 })
-                router.push('/explore')
-              }}
-              fontSize="16px"
-              height="41px"
-              borderRadius="8px"
-            />
-          </div>
+      </div>
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+        <Swiper
+          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          slidesPerView={
+            viewport === 'xs'
+              ? 1.13
+              : viewport === 'sm'
+              ? 1.92
+              : viewport === 'md'
+              ? 2
+              : viewport === '2xl'
+              ? 5
+              : viewport === 'xl'
+              ? 4
+              : 4
+          }
+          spaceBetween={
+            viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
+          }
+          modules={[Autoplay, Lazy, Navigation]}
+          className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+          loop={freshMintsList?.length > 4}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+        >
+          {freshMintsList.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+                <HomeNftCard
+                  image={item.asset_url}
+                  token_id={item.token_id}
+                  nftName={item.nft_name}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  artistName={item.artist_username}
+                  artistImage={item.artist_profile_picture}
+                  collectionName={item.collection_name}
+                  price={item.list_price}
+                  onClick={() => {}}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
+        <div className="w-full max-w-[300px] z-10">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 1 })
+              router.push('/explore')
+            }}
+            fontSize="16px"
+            height="41px"
+            borderRadius="8px"
+          />
         </div>
-      </section>
-    )
+      </div>
+    </section>
   )
 }
 
