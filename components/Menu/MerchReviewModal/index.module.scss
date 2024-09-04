@@ -27,7 +27,8 @@
     top: auto;
     bottom: auto;
   }
-  background: #1a1a1a;
+  overflow: hidden;
+  background: var(--background-main-color);
   border: 1px solid rgba(#eff0f6, 0.1);
   transition: bottom 0.5s ease;
 }
@@ -53,8 +54,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 34px;
-  padding-right: 34px;
+  @media (min-width: 640px) {
+    padding-left: 34px;
+    padding-right: 34px;
+  }
+  padding-left: 16px;
+  padding-right: 16px;
   font-family: 'Muli-SemiBold';
   font-weight: 100;
   font-size: 24px;
@@ -72,8 +77,14 @@
   position: absolute;
   top: 22px;
   right: 25px;
+  svg {
+    fill: var(--main-bg-color) !important;
+  }
 }
 
+.closeIcon {
+  
+}
 .username {
   font-family: "Muli-SemiBold";
   font-size: 16px;

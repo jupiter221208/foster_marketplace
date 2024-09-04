@@ -6,7 +6,6 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // resources
-import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'

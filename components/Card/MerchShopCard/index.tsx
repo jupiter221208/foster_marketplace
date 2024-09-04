@@ -137,7 +137,7 @@ const MerchShopCard = props => {
           onSwiper={setSwiper}
           className={styles.swiperContainer}
           modules={[Autoplay, Lazy, Navigation, Pagination]}
-          // loop
+          loop={true}
         >
           {data.fulfillment_type === 'foster'
             ? data.options.addons.map((item, index) => (

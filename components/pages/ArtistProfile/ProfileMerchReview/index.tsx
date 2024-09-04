@@ -40,7 +40,7 @@ const ProfileMerchReview = props => {
   return (
     <div>
       <div className="flex gap-[12px] items-center">
-        <RatingBar value={rating} onRating={() => {}} clickable={false} />
+        <RatingBar value={rating} onRating={() => {}} clickable={false} greenMode={true} />
         <div className={styles.count} onClick={() => setOpenReviewModal(true)}>
           ({count})
         </div>

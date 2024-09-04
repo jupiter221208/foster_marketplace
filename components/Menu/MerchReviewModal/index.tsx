@@ -7,7 +7,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import MerchReviewCard from 'components/Card/MerchReviewCard'
 
 // resources
-import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -43,7 +43,7 @@ const MerchReviewModal = props => {
           <div className={`${styles.modalView} ${show ? styles.show : styles.hide}`}>
             <div className={styles.headerSection}>
               <div>Reviews</div>
-              <div className={styles.closeBtn} onClick={() => close()}>
+              <div onClick={() => close()}>
                 <CloseIcon />
               </div>
             </div>

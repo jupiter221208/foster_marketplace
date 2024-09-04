@@ -31,7 +31,10 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
-  padding: 30px;
+  @media (min-width: 640px) {
+    padding: 30px;
+  }
+  padding: 11px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.05);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
