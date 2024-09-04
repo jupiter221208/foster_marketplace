@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
 // next components
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -28,38 +27,28 @@ import { DashboardAPIData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
 import HomeNftCard from 'components/Card/HomeNFTCard'
 
+const fetchUserData = async category => {
+  const response = await dashboardAPI.getFreshMints(category)
+  return response
+}
+
 const FreshMintSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [allFreshMintsList, setAllFreshMintsList] = useState<DashboardAPIData[]>([])
   const [freshMintsList, setFreshMintsList] = useState<DashboardAPIData[]>([])
-  const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
-    dashboardAPI.getFreshMints(category).then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setAllFreshMintsList(response)
-          setFreshMintsList(response)
-          if (response.length > 4) setCardLoop(true)
-          else setCardLoop(false)
-        }
-      },
-      error => {
-        console.log(error)
+    fetchUserData(category).then(response => {
+      if (response !== null && response !== undefined) {
+        setFreshMintsList(response)
       }
-    )
+    })
   }, [category])
 
-  useEffect(() => {
-    if (allFreshMintsList.length === 0) return
-    setFreshMintsList(allFreshMintsList)
-  }, [viewport, allFreshMintsList])
-
   return (
-    freshMintsList.length > 0 && (
+    freshMintsList?.length > 0 && (
       <section className={styles.container}>
         <div className="relative w-full flex justify-between items-center z-10">
           <div className={styles.line} />
@@ -103,7 +92,7 @@ const FreshMintSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
-            loop={cardLoop}
+            loop={freshMintsList?.length > 4}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,

@@ -83,60 +83,17 @@ const TrendingCollectionSection = props => {
     )
   }
 
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        getTrendingCollectionsFromServer(category, 'day')
-        break
-      case 1:
-        getTrendingCollectionsFromServer(category, 'week')
-        break
-      case 2:
-        getTrendingCollectionsFromServer(category, 'month')
-        break
-      case 3:
-        getTrendingCollectionsFromServer(category, 'all')
-        break
-      default:
-        getTrendingCollectionsFromServer(category, 'week')
-        break
-    }
-  }
-
   return (
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
         <div className="relative w-full flex justify-between items-center z-10">
           <div className={styles.line} />
-
-          {/* <div className="sm:block hidden">
-            <HomeFilterMenu
-              label="Trending Collections"
-              data={DayList}
-              selectedItem={period}
-              setSelectedItem={item => {
-                setPeriod(item)
-                handleChangeActive(item.id)
-              }}
-            />
-          </div> */}
           <div className="sm:block hidden">
             <div className={styles.title}>Top&nbsp;Collections</div>
           </div>
 
           <div className="sm:hidden w-full flex justify-between items-center">
             <div className={styles.title}>Top&nbsp;Collections</div>
-            {/* <HomeFilterMenu
-              label=""
-              data={DayList}
-              selectedItem={period}
-              setSelectedItem={item => {
-                setPeriod(item)
-                handleChangeActive(item.id)
-              }}
-            /> */}
           </div>
           <div className="sm:block hidden">
             <SeeMoreButton
