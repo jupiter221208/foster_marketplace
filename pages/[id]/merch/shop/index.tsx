@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import MerchShopCard from 'components/Card/MerchShopCard'
+import { getTimeDifference } from 'utils/helpers'
 
-// styles
-import styles from './index.module.scss'
-
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
+// components
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 //apis
 import StoreAPI from 'apis/store'
-import { getTimeDifference } from 'utils/helpers'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+
+// styles
+import styles from './index.module.scss'
 
 const CreatorMerchShop = props => {
   const { username, userId, isCreator } = props

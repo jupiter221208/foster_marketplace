@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -29,6 +29,8 @@ import MerchFilterMenu from 'components/Menu/MerchFilterMenu'
 
 import { getAbsoluteOgUrl, getTwitterUsername } from 'utils/seo'
 import { getDisplayUserName } from 'utils/strings'
+import SkeletonLoader from 'components/SkeletonLoader'
+import ProfileMerchReview from 'components/pages/ArtistProfile/ProfileMerchReview'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -75,7 +77,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
         <link rel="icon" href="/logo.png" />
       </Head>
 
-      <div className="w-full h-[187px] sm:h-[350px] relative">
+      <div className="w-full h-[235px] sm:h-[350px] relative">
         <img
           src={artistInfo?.banner_picture?.length > 0 ? artistInfo?.banner_picture : BannerImage.src}
           alt=""
@@ -95,11 +97,11 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
               </div>
               <div className={styles.merchBy}>Merch by</div>
               <div className={styles.userName}>{getDisplayUserName(artistInfo?.username)}</div>
+              <div className="flex justify-center mt-[16px]">
+                <ProfileMerchReview userId={artistInfo?.id} username={artistInfo?.username} />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="absolute inset-0">
-          <div className={styles.tabBorder} />
         </div>
       </div>
       <div className="w-full flex justify-center">

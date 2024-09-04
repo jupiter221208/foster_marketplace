@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import StarFullAsset from 'assets/icons/star-full.svg?component'
 import StarEmptyAsset from 'assets/icons/star-empty.svg?component'
@@ -8,6 +8,10 @@ import styles from './index.module.scss'
 
 const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true }) => {
   const [rating, setRating] = useState(value)
+
+  useEffect(() => {
+    setRating(value)
+  }, [value])
 
   return (
     <div className="flex">

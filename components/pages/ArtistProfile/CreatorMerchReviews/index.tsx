@@ -4,8 +4,6 @@ import { compareDate } from 'utils/helpers'
 import MerchReviewCard from 'components/Card/MerchReviewCard'
 import { getReview } from 'apis/merch'
 
-// json
-
 // styles
 import styles from './index.module.scss'
 
