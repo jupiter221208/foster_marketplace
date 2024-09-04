@@ -91,14 +91,14 @@ const FreshMintSection = props => {
             viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
           }
           modules={[Autoplay, Lazy, Navigation]}
-          className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+          className={freshMintsList?.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
           loop={freshMintsList?.length > 4}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
           }}
         >
-          {freshMintsList.map((item, index) => (
+          {freshMintsList?.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 <HomeNftCard
