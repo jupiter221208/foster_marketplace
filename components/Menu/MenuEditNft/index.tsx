@@ -60,9 +60,9 @@ const MenuEditNft = ({
               <Menu.Item>
                 {({ active }) => (
                   <div
-                    className={`${styles.menuItem} ${metadata ? '' : 'opacity-[80%]'} mb-[15px]`}
+                    className={`${styles.menuItem} mb-[15px]`}
                     onClick={() => {
-                      if (metadata) setShowNftMeta(true)
+                      setShowNftMeta(true)
                     }}
                   >
                     <EditMetaIcon alt="" />
