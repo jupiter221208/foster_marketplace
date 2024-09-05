@@ -1502,7 +1502,11 @@ const MainSection = ({
                                 isEnded={isEnded}
                                 isStarted={isStarted}
                                 nftPrice={nftPrice}
-                                merchCost={nftInfo?.master_edition?.merchProduct?.selling_price / 100 / solToUsdRate}
+                                merchCost={
+                                  nftInfo?.master_edition?.merchProduct?.selling_price
+                                    ? nftInfo?.master_edition?.merchProduct?.selling_price / 100 / solToUsdRate
+                                    : null
+                                }
                                 setPrice={setPrice}
                                 mintQty={mintQty}
                                 setMintQty={setMintQty}
