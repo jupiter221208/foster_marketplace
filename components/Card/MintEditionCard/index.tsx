@@ -43,7 +43,7 @@ const MintEditionCard = props => {
   const [total, setTotal] = useState('0.00')
   const [showDetailTotal, setShowDetailTotal] = useState(false)
   const [buyLimitAlert, setBuyLimitAlert] = useState(false)
-  console.log(merchCost, '============merchCost===========')
+
   useEffect(() => {
     if (
       startEditionTime !== undefined &&
