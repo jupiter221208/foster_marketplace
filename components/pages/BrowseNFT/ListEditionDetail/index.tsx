@@ -154,7 +154,7 @@ const ListEditionDetail = ({
       let printDelegateAccount
       for (let i = 0; i < 5; i++) {
         console.log(`delegating master edition: attempt ${i + 1}`)
-        printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
+        printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'confirmed')
         if (printDelegateAccount.exists) break
 
         let signature = await delegateEdition({
@@ -163,7 +163,7 @@ const ListEditionDetail = ({
           delegate,
         })
         if (!signature) console.error(`could not delegate ${mint} to ${delegate}`)
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        await new Promise(resolve => setTimeout(resolve, 2000))
       }
 
       if (!printDelegateAccount.exists) {
@@ -275,7 +275,9 @@ const ListEditionDetail = ({
             <div className={styles.auctionStart}>Start Time</div>
           </div>
           <div
-            className={`w-full flex sm:flex-row flex-col mt-[15px] ${viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'}`}
+            className={`w-full flex flex-col sm:flex-row lg:flex-col xl:flex-row mt-[15px] ${
+              viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'
+            }`}
           >
             <div
               className={`${styles.radioText} ${

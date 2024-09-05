@@ -204,12 +204,12 @@
   justify-content: flex-start;
   align-items: center;
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 10px;
   outline: none;
   cursor: pointer;
   text-align: center;
   @media (min-width: 1024px) {
-    width: 200px;
+    min-width: 165px;
     text-align: start;
   }
 }
@@ -313,14 +313,17 @@
 .selectedTimeBtn {
   width: 100%;
   height: 50px;
-  @media (min-width: 1024px) {
-    width: 200px; 
-    min-width: 200px;
-  }
-  @media (min-width: 1440px) {
-    width: 220px; 
-    min-width: 260px;
-  }
+  // @media (min-width: 1024px) {
+  //   width: 100px; 
+  // }
+  // @media (min-width: 1440px) {
+  //   width: 220px; 
+  //   min-width: 220px;
+  // }
+  // @media (min-width: 1680px) {
+  //   width: 220px; 
+  //   min-width: 260px;
+  // }
   border-radius: 10px;
   background: var(--main-icon-color) !important;
   color: var(--background-main-color);
@@ -332,14 +335,14 @@
 .deselectedTimeBtn {
   width: 100%;
   height: 50px;
-  @media (min-width: 1024px) {
-    width: 200px; 
-    min-width: 220px;
-  }
-  @media (min-width: 1440px) {
-    width: 260px; 
-    min-width: 260px;
-  }
+  // @media (min-width: 1024px) {
+  //   width: 200px; 
+  //   min-width: 220px;
+  // }
+  // @media (min-width: 1440px) {
+  //   width: 260px; 
+  //   min-width: 260px;
+  // }
   border-radius: 10px;
   background: transparent !important;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);

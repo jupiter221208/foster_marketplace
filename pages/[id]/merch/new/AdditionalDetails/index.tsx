@@ -417,6 +417,8 @@ const AdditionalDetails = props => {
                           ? '∞'
                           : days.length === 0
                           ? hours + ' hours'
+                          : hours.length === 0
+                          ? days + ' days'
                           : days + ' days' + ', ' + hours + ' hours'}
                       </div>
                     </div>
@@ -490,6 +492,8 @@ const AdditionalDetails = props => {
                         ? '∞'
                         : days.length === 0
                         ? hours + ' hours'
+                        : hours.length === 0
+                        ? days + ' days'
                         : days + ' days' + ', ' + hours + ' hours'}
                     </div>
                   </div>

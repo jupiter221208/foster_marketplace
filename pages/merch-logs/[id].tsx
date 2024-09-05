@@ -118,6 +118,7 @@ const MerchDetail = () => {
           userId: item?.userId,
           merchId: item?.id,
           print: nftName ? nftName['value'] : '',
+          description: item?.description,
           quantity: itemData.quantity,
           product: itemData.name,
           size: size ? size['value'] : '',
