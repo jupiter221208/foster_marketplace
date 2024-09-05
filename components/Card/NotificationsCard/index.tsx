@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -25,7 +24,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 const NotificationsCard = props => {
   const { data, onClickMarkAsRead } = props
-  const dispatch = useDispatch()
   const viewport = useViewport()
 
   const [list, setList] = useState<any[]>([])

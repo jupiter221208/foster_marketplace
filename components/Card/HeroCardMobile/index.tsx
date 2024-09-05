@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 // custom functions
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -16,21 +14,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
-  const [loaded, setLoaded] = useState(false)
-  const [width, setWidth] = useState(375)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoaded(true)
-      setProfileLoaded(true)
-    }, 2000)
-
-    setWidth(window.innerWidth)
-  }, [])
 
   return (
     <div className={styles.container}>
@@ -88,9 +72,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                       layout="fill"
                       className="w-full h-full object-cover"
                       onClick={() => onClick()}
-                      onLoadingComplete={() => {
-                        setLoaded(true)
-                      }}
+                      onLoadingComplete={() => {}}
                     />
                   )}
                 </div>
@@ -110,9 +92,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                     layout="fill"
                     className="w-full h-full object-cover"
                     onClick={() => onClick()}
-                    onLoadingComplete={() => {
-                      setLoaded(true)
-                    }}
+                    onLoadingComplete={() => {}}
                   />
                 )
               ) : (
@@ -122,9 +102,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                   layout="fill"
                   className={styles.imageNft}
                   onClick={() => onClick()}
-                  onLoadingComplete={() => {
-                    setLoaded(true)
-                  }}
+                  onLoadingComplete={() => {}}
                 />
               )}
             </div>

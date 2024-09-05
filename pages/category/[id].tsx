@@ -100,7 +100,45 @@ const Category = () => {
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
   const LoadingSpinner = () => {
-    return <div className="w-full h-[100px] flex items-center justify-center">Loading process...</div>
+    return (
+      <div className="w-full h-[645px] lg:h-[610px]">
+        <div className="w-[163px] h-[36px] mt-[60px] rounded-[18px] overflow-hidden">
+          <div className="skeletonLoader" />
+        </div>
+        <div className="min-w-full h-[415px] lg:flex hidden justify-center gap-[29px] mt-[26px]">
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+        </div>
+        <div className="w-full lg:hidden flex gap-[15px] justify-center mt-[20px]">
+          <div className="min-w-[300px] w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+
+          <div className="w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+        </div>
+
+        <div className="w-full lg:hidden flex justify-center mt-[30px]">
+          <div className="w-[300px] h-[45px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+        </div>
+      </div>
+    )
   }
   return (
     <div className="w-full">

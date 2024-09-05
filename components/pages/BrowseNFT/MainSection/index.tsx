@@ -678,35 +678,6 @@ const MainSection = ({
     return false
   }
 
-  // useEffect(() => {
-  //   console.log(nftDetail, '=========1=========')
-  //   ;(async () => {
-  //     if (!nftDetail) return
-  //     let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
-  //     setSellerAddress(tokenAccount.owner)
-
-  //     const creators = nftDetail.creators.map(c => ({
-  //       ...c,
-  //       address: new PublicKey(c.address),
-  //     }))
-
-  //     let createAddress = getNFTArtistPublicKey({ creators })
-  //     let { username: creatorName } = await usersAPI.get(createAddress)
-  //     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
-
-  //     if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
-  //       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
-  //       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
-  //     } else {
-  //       setNftOwnerUsername(creatorName)
-  //     }
-
-  //     setNameLoading(false)
-  //     setTokenAccountInfo(tokenAccount)
-  //   })()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [nftDetail])
-
   useEffect(() => {
     if (!tokenAccountInfo) return
 
@@ -796,19 +767,6 @@ const MainSection = ({
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAccountInfo])
-
-  // useEffect(() => {
-  //   ;(async () => {
-  //     if (nftDetail.collection) {
-  //       const collectionMetadata = await getNftFromDAS(mx, nftDetail.collection.address)
-  //       if (collectionMetadata) {
-  //         setNftCollectionImage(collectionMetadata.content.links.image)
-  //         setNftCollectionName(collectionMetadata.content.metadata.name)
-  //       }
-  //     }
-  //   })()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [nftDetail])
 
   const processFinalizeSale = async () => {
     let data = {
