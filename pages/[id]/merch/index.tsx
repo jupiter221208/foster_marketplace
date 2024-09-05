@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { getAbsoluteOgUrl, getTwitterUsername } from 'utils/seo'
+import { getDisplayUserName } from 'utils/strings'
 
 // next component
 import Head from 'next/head'
@@ -9,28 +11,19 @@ import Head from 'next/head'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
+import ProfileMerchReview from 'components/pages/ArtistProfile/ProfileMerchReview'
 
 // images
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
-import LeftArrowIcon from 'assets/icons/arrow-left-white-big.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import PreviewImage from 'assets/images/studio-preview-image-user.png'
 
 // json
-import ShopList from 'assets/json/merch-shop/menu-list.json'
 
 // styles
 import styles from './index.module.scss'
-import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadges'
-import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchReviews'
-import MerchFilterMenu from 'components/Menu/MerchFilterMenu'
-
-import { getAbsoluteOgUrl, getTwitterUsername } from 'utils/seo'
-import { getDisplayUserName } from 'utils/strings'
-import SkeletonLoader from 'components/SkeletonLoader'
-import ProfileMerchReview from 'components/pages/ArtistProfile/ProfileMerchReview'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -47,9 +40,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const router = useRouter()
   const { publicKey } = useWallet()
 
-  const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)
-  const [merchMenu, setMerchMenu] = useState(ShopList[0])
 
   let username = publicArtistData?.username ?? '<not found>'
   let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
@@ -107,40 +98,6 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-end">
-            {/* <div className="gap-[24px] hidden sm:flex">
-              <div
-                className={styles.profile}
-                onClick={() => {
-                  let path = window.location.href
-                  router.push(path.substring(0, path.lastIndexOf('/')))
-                }}
-              >
-                <LeftArrowIcon className="mt-[2px]" />
-                Profile
-              </div>
-              <div className="flex gap-[8px] sm:gap-[15px]">
-                <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
-                  <div className="mt-[-2px]">Shop</div>
-                </div>
-                <div className={activeTab === 1 ? styles.selected : styles.unselected} onClick={() => setActiveTab(1)}>
-                  <div className="mt-[-2px]">Reviews</div>
-                </div>
-                <div className={activeTab === 2 ? styles.selected : styles.unselected} onClick={() => setActiveTab(2)}>
-                  <div className="mt-[-2px]">Badges</div>
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="block sm:hidden">
-              <MerchFilterMenu
-                label={merchMenu.label}
-                data={ShopList}
-                selectedItem={merchMenu}
-                setSelectedItem={item => {
-                  setMerchMenu(item)
-                  setActiveTab(item.id)
-                }}
-              />
-            </div> */}
             <div className="flex gap-[15px] sm:gap-[25px]">
               {publicKey?.toBase58() === artistInfo?.wallet_id && (
                 <div
@@ -165,15 +122,13 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
             </div>
           </div>
           <div className="w-full mt-[20px] sm:mt-[30px] pb-[150px]">
-            {activeTab === 0 && artistInfo && (
+            {artistInfo && (
               <CreatorMerchShop
                 username={artistInfo?.username}
                 userId={artistInfo?.id}
                 isCreator={publicKey?.toBase58() === artistInfo?.wallet_id}
               />
             )}
-            {/* {activeTab === 1 && <CreatorMerchReviews userId={artistInfo?.id} />}
-            {activeTab === 2 && <CreatorMerchBadges />} */}
           </div>
         </div>
       </div>

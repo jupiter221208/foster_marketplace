@@ -196,23 +196,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
     }
   }
 
-  // useEffect(() => {
-  //   let array: any[] = []
-  //   let list
-  //   if (merchToggle) {
-  //     list = MerchTabList
-  //   } else list = TabList
-  //   list.map(item => {
-  //     let object: any = item
-  //     if (item.id === activeTab) {
-  //       object.selected = true
-  //     } else {
-  //       object.selected = false
-  //     }
-  //     array.push(object)
-  //   })
-  // }, [activeTab, merchToggle])
-
   return (
     <div className="w-full min-h-full">
       <Head>

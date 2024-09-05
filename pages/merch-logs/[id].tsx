@@ -984,17 +984,6 @@ const MerchDetail = () => {
             )}
           </div>
 
-          {/* <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Complete</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
-            ) : (
-              <div className={styles.infoValue}>
-                {paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-              </div>
-            )}
-          </div> */}
-
           {merchType !== 'foster' && merchType !== 'user' && (
             <div className="w-full mt-[20px]">
               <div className={styles.infoTitle}>Creator&nbsp;Commission</div>

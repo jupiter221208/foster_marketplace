@@ -31,7 +31,6 @@ const Dao = () => {
   const { connected, publicKey } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
-  // const [isLoading, setIsLoading] = useState(true)
   const [nfts, setNfts] = useState([])
 
   const { id } = router.query
@@ -41,7 +40,6 @@ const Dao = () => {
 
   useEffect(() => {
     ;(async () => {
-      // setIsLoading(true)
       if (connected) {
         let nfts: any = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
@@ -65,7 +63,6 @@ const Dao = () => {
 
   const getProposal = async () => {
     if (proposal_id === null) {
-      // setIsLoading(false)
       return
     }
 
@@ -74,24 +71,6 @@ const Dao = () => {
         proposal_id,
       }
       let response = await axios.post('/api/dao/proposal-detail', vote)
-      // setIsLoading(false)
-      // let response = {
-      //   data: {
-      //     success: true,
-      //     proposals: [
-      //       {
-      //         id: 2,
-      //         title: 'CBC Product 0531',
-      //         category: 'Product',
-      //         author: 'Nicholas',
-      //         vote_start: '2023-09-08 12:00:00',
-      //         vote_duration: 120,
-      //         total_votes: 300,
-      //         approved_votes: 240,
-      //       },
-      //     ],
-      //   },
-      // }
       if (response.data.success === true) {
         let proposals = response.data.proposals
 
@@ -105,7 +84,6 @@ const Dao = () => {
               ...element,
               status: 'closed',
               vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected',
-              // vote_result: 'Passed',
             }
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_element = { ...element, status: 'live' }
@@ -116,9 +94,7 @@ const Dao = () => {
           setProposal(new_element)
         }
       }
-    } catch {
-      // setIsLoading(false)
-    }
+    } catch {}
   }
 
   const viewport = useViewport()
@@ -146,8 +122,6 @@ const Dao = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full relative flex justify-center">
-        {/* <FullScreenLoadingModal open={isLoading} /> */}
-
         {proposal !== null && (
           <DaoLandingDetail
             publicKey={publicKey}

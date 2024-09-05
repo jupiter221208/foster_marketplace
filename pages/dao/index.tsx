@@ -13,7 +13,6 @@ import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 
 // styles
@@ -71,9 +70,6 @@ const Dao = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
 
-      {/* {daoPage === 'start' ? (
-          <DaoComingSoon onConnect={() => setDaoPage('landing')} />
-        ) :  */}
       <div className="w-full z-10">
         <DaoLandingPage turkyNfts={turkyNfts} nftIsLoaded={nftIsLoaded} />
       </div>

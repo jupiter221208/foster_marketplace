@@ -52,7 +52,6 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
   const [shippingData, setShippingData] = useState(null)
   const [shippingLocal, setShippingLocal] = useState(true)
   const [totalCost, setTotalCost] = useState(null)
-  const [merchSize, setMerchSize] = useState('L')
   const [merchList, setMerchList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
@@ -62,7 +61,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
       ? {
           id: 1,
           quantity: 1,
-          size: merchSize,
+          size: 'L',
           color: productDetail.options.color,
           name: productDetail.name,
           description: productDetail.description,

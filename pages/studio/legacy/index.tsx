@@ -18,7 +18,7 @@ import { useDetectRouterPath } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
@@ -29,8 +29,6 @@ const StudioLegacy = () => {
     selected: true,
     data: 'all',
   })
-  // const isLoading = useSelector<any>(state => state.isLoading)
-  const dispatch = useDispatch()
   const router = useRouter()
   useDetectRouterPath(useRouter())
 
@@ -87,7 +85,6 @@ const StudioLegacy = () => {
         <div className="w-full flex justify-center mt-[30px]">
           <div className="g-container">
             <NewStudioReleasesSection type={'trending'} heroValue={heroState} onChange={setHeroState} />
-            {/* <FullScreenLoadingModal open={isLoading} /> */}
           </div>
         </div>
       )}
@@ -95,7 +92,6 @@ const StudioLegacy = () => {
         <div className="w-full flex justify-center mb-[30px]">
           <div className="g-container">
             <NewStudioReleasesSection type={'release'} heroValue={heroState} onChange={setHeroState} />
-            {/* <FullScreenLoadingModal open={isLoading} /> */}
           </div>
         </div>
       )}

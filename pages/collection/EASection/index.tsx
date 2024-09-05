@@ -152,8 +152,6 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
 
     await nftAPI.batchIndex(nftInfos.filter(nft => nft?.isMutable).map(({ mintAddress }) => mintAddress.toString()))
 
-    // TODO: show success message
-    //
     setTimeout(() => {
       // setIsProcessing(false)
       onSuccess()

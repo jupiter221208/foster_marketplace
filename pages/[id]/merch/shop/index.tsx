@@ -14,17 +14,9 @@ import styles from './index.module.scss'
 const CreatorMerchShop = props => {
   const { username, userId, isCreator } = props
   const [merchList, setMerchList] = useState([])
-  const [screenWidth, setScreenWidth] = useState(375)
   const [loaded, setLoaded] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(true)
-
-  useEffect(() => {
-    const resizeFunction = () => {
-      setScreenWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
 
   useEffect(() => {
     if (userId === undefined || userId === null) return

@@ -19,7 +19,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import PreviewImage from 'assets/images/preview-image.png'
 import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
-import FosterLogoMobileIcon from 'assets/icons/foster-hero-logo-mobile.svg?component'
 
 // resources
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
