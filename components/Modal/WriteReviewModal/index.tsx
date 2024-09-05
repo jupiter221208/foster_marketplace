@@ -36,8 +36,8 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [successReview, setSuccessReview] = useState(false)
 
+  console.log(itemDetails, '============itemDetails========')
   useEffect(() => {
     function handleResize() {
       let screenWidth = window.innerWidth
@@ -58,7 +58,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
       setTitle('')
       setContent('')
       setUrls([])
-      setSuccessReview(false)
     }
   }, [open])
 
@@ -108,7 +107,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
             type: 'failure',
           },
         ])
-        setSuccessReview(false)
         setShowAlert(true)
       }
     )
@@ -210,21 +208,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
                     </div>
                     <div>
                       <div className={styles.productTitle}>{itemDetails?.print}</div>
-                      <div className={styles.productType}>
-                        {itemDetails?.apparel.slice(0, descCount)}&nbsp;/&nbsp;
-                        {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                          ? 'Small'
-                          : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                          ? 'Medium'
-                          : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                          ? 'Large'
-                          : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                          ? 'X-Large'
-                          : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                          ? '2X-Large'
-                          : ''}
-                        &nbsp;/&nbsp;{itemDetails?.color}
-                      </div>
+                      <div className={styles.productType}>{itemDetails?.description}</div>
                     </div>
                   </div>
                   <div className="mt-[20px]">
@@ -232,7 +216,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
                       Overall rating <span>*</span>
                     </div>
                     <div className="mt-[10px]">
-                      {/* <RatingBar value={3.5} outOf={5} /> */}
                       <RatingBar onRating={handleRating} />
                     </div>
                   </div>
