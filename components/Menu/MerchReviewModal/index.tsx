@@ -39,7 +39,7 @@ const MerchReviewModal = props => {
           <div className={styles.bgView} />
         </Transition.Child>
 
-        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center" onClick={() => close()}>
+        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center">
           <div className={`${styles.modalView} ${show ? styles.show : styles.hide}`}>
             <div className={styles.headerSection}>
               <div>Reviews</div>
@@ -52,12 +52,14 @@ const MerchReviewModal = props => {
                 <div className={styles.username}>{username + ' has no reviews yet'}</div>
               </div>
             ) : (
-              <div className="w-full px-[16px] sm:px-[34px]">
-                {merchList?.map((item, index) => (
-                  <div className="w-full mt-[0px] sm:mt-[20px] mb-[60px]" key={index}>
-                    <MerchReviewCard data={item} />
-                  </div>
-                ))}
+              <div className="w-full h-full max-h-[626px] px-[16px] sm:px-[34px] overflow-auto">
+                <div className="pb-[120px] sm:pb-[60px]">
+                  {merchList?.map((item, index) => (
+                    <div className="w-full mt-[0px] sm:mt-[20px] mb-[20px]" key={index}>
+                      <MerchReviewCard data={item} />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
