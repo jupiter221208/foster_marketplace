@@ -111,7 +111,7 @@ const MerchReviewCard = props => {
                     setShowImage(true)
                   }}
                 >
-                  <ImageWithFoster src={image} width={100} className="max-w-full max-h-full object-cover" />
+                  <ImageWithFoster src={image} width={100} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
@@ -134,7 +134,7 @@ const MerchReviewCard = props => {
                   setShowImage(true)
                 }}
               >
-                <ImageWithFoster src={image} width={100} className="max-w-full max-h-full object-cover" />
+                <ImageWithFoster src={image} width={100} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
