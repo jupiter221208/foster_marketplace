@@ -60,18 +60,6 @@ const Bar = props => {
         </div>
       </div>
 
-      {/* <div className="w-full lg:hidden flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[20px] mb-[20px] px-[10px] lg:px-[0px]">
-        <span className={styles.time}>{formatDuration(curTime)}</span>
-        <div className={styles.playButton}>
-          <IconButtonWithSVG
-            icon={playing ? <PauseWhiteIcon className="ml-[2px]" /> : <PlayWhiteIcon className="ml-[2px]" />}
-            onClick={() => onPlay()}
-            backgroundColor="transparent"
-          />
-        </div>
-        <span className={styles.time}>{formatDuration(duration)}</span>
-      </div> */}
-
       <div className={styles.bar}>
         <div
           id="bar__progress"

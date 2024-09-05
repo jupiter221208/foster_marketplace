@@ -1,7 +1,6 @@
 import React from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import Lottie from 'lottie-react'

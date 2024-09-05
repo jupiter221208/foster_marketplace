@@ -8,7 +8,6 @@ function shouldUseHeliusCdn(url: URL): boolean {
   let hostname = url.hostname
   if (hostname == 'cdn.helius-rpc.com') return false
 
-  // return hostname.match(/^([^.]+.)?arweave\.net$/i)
   return true
 }
 
@@ -72,16 +71,7 @@ const ImageWithFoster = ({
     width,
     height,
   })
-  // const srcUrls = [heliusUrl, src, originalSrc].filter(url => url)
-  // const [currentSrcIndex, setCurrentSrcIndex] = useState<number>(0)
 
-  // first try to load image from heliusUrl with <img>
-  // if that doesn't work, then try src with next/image
-  // if that doesn't work, then try originalSrc with next/image
-  // if that doesn't work, then try heliusUrl with next/image
-  // if that doesn't work, then try src with <img>
-  // if that doesn't work, then try originalSrc with <img>
-  // finally, throw an error
   const srcSpecs = [
     { url: heliusUrl, useNextImage: false },
     { url: src, useNextImage: true },
@@ -102,25 +92,19 @@ const ImageWithFoster = ({
 
   const handleError = useCallback(
     e => {
-      // let newIndex = currentSrcIndex + 1
-      // if (newIndex < srcUrls.length) setCurrentSrcIndex(newIndex)
       let newIndex = currentSrcSpecIndex + 1
       if (newIndex < srcSpecs.length) setCurrentSrcSpecIndex(newIndex)
       else return onError?.(e)
     },
-    // [srcUrls, currentSrcIndex, onError]
     [srcSpecs, currentSrcSpecIndex, onError]
   )
 
   return (
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
       <div className="w-full h-full flex justify-center items-center z-1000">
-        {/* {useNextImage || heliusUrl != srcUrls[currentSrcIndex] ? ( */}
         {srcSpecs[currentSrcSpecIndex]?.useNextImage ? (
           <Image
-            // src={srcUrls[currentSrcIndex]}
             src={srcSpecs[currentSrcSpecIndex]?.url}
-            // onLoad={handleLoad}
             onLoadingComplete={handleLoad}
             loading="lazy"
             layout="fill"
@@ -129,7 +113,6 @@ const ImageWithFoster = ({
             {...rest}
           />
         ) : srcSpecs[currentSrcSpecIndex]?.url ? (
-          // <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
           <img
             src={srcSpecs[currentSrcSpecIndex]?.url}
             onLoad={handleLoad}

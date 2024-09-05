@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 // next components
 
 // third party components
@@ -9,9 +9,6 @@ import DownIcon from 'assets/icons/down-menu-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-
-// solana
-import Radio from 'components/Radio'
 
 const DropdownSizeMenu = props => {
   const { data, selectedItem, setSelectedItem } = props

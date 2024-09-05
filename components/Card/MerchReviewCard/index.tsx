@@ -31,29 +31,6 @@ const MerchReviewCard = props => {
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.topSection}>
-        <div className="w-full sm:w-auto flex gap-[15px] sm:gap-[20px] items-center">
-          <div className="w-[50px] min-w-[50px] h-[50px] rounded-full overflow-hidden">
-            <ImageWithFoster src={data.user_picture} className="w-full h-full object-cover" />
-          </div>
-          <div className="w-full">
-            <div className="w-full flex justify-between">
-              <div className={styles.username}>{data.username}</div>
-            </div>
-            <div className={`mt-[8px] text-center ${styles.productType}`}>{data.product_name}</div>
-          </div>
-        </div>
-
-        <div className="hidden sm:block">
-          <div className={`${styles.reviewer} text-end sm:block hidden`}>Overall Rating</div>
-          <div className="mt-[0px] sm:mt-[9px]">
-            <RatingBar value={data.rating} onRating={() => {}} clickable={true} />
-          </div>
-        </div>
-      </div>
-      <div className="w-full px-[16px] sm:px-[28px]">
-        <div className={styles.separator} />
-      </div> */}
       <div className="w-full py-[20px] block sm:hidden">
         <div className="w-full flex gap-[8px]">
           <div className="w-[74px] h-[74px]">

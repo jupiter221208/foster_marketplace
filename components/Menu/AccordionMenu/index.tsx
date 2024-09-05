@@ -95,27 +95,6 @@ const AccordionMenu = props => {
             onClick={() => handleSoloMenuItemClick()}
           >
             <div className="flex items-center">
-              {/* {type === 'avatar' ? (
-                <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
-              ) : type === 'explore' ? (
-                <ExploreIcon />
-              ) : type === 'create' ? (
-                <PlusIcon />
-              ) : type === 'leaderboards' ? (
-                <LeaderboardsIcon />
-              ) : type === 'dashboard' ? (
-                <DashboardIcon />
-              ) : type === 'stats' ? (
-                <StatsIcon />
-              ) : type === 'dao' ? (
-                <DAOIcon />
-              ) : type === 'studio' ? (
-                <StudioIcon />
-              ) : type === 'resources' ? (
-                <ResourceIcon />
-              ) : (
-                <Image src={open ? openIcon : icon} alt="" />
-              )} */}
               <div className={styles.label}>{label}</div>
             </div>
             {data.length > 0 && (open ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />)}

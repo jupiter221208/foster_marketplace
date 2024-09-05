@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, type MutableRefObject } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // web3
 import { type PublicKey } from '@solana/web3.js'
@@ -101,7 +100,6 @@ const OfferAccordionItem = ({
              
             <div className={styles.secondRow}>
                 <div className={styles.title}>Time</div>
-                {/* <div className={styles.text}>{timeSince(listing.createdAt.toNumber())}</div> */}
                 <div className={styles.text}>{getLocalDate(new Date(listing.createdAt.toNumber() * 1000))}</div>
               </div>
 
@@ -117,15 +115,7 @@ const OfferAccordionItem = ({
                 <div className={styles.title}>{offerType === 'made' ? 'Seller' : 'Buyer'}</div>
                 <div className={styles.text}>{ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}</div>
               </div>
-              {/* <div className={styles.firstRow}>
-                <div className="w-full flex justify-center">
-                  <div className={styles.help}>
-                    {offerType === 'made'
-                      ? 'Would you like to cancel the offer?'
-                      : 'Would you like to accept the offer?'}
-                  </div>
-                </div>
-              </div> */}
+
               <div className={styles.thirdRow}>
                 {offerType === 'made' ? (
                   <OutlineButton

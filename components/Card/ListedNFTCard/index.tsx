@@ -20,7 +20,6 @@ import { ListingsAPIData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
-import { useDispatch } from 'react-redux'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
 
@@ -45,8 +44,7 @@ const ListedNFTCard = ({
   finalizeSale,
   processingNft,
 }: ListedNFTCardProps) => {
-  const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
-  const dispatch = useDispatch()
+  const { address, name, uri, price, endTime, highestBid } = data
   const [showEditBtn, setShowEditBtn] = useState(false)
   const { metaplex: mx } = useMetaplex()
   const [deficiency, setDeficiency] = useState(0)

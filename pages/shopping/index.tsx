@@ -33,7 +33,6 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 import nftsAPI from 'apis/nfts'
-import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
@@ -239,8 +238,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         </div>
       )}
-
-      {/* <FullScreenLoadingModal open={showLoading} /> */}
     </div>
   )
 }

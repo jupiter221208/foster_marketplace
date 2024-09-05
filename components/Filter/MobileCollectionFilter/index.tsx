@@ -9,7 +9,6 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // json
-import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import CategoryList from 'assets/json/popular-category.json'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
