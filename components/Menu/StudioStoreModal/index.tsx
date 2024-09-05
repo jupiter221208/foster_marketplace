@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import { useRouter } from 'next/router'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'

@@ -93,21 +93,7 @@ const ProfileMenuItem = props => {
               <MerchHubIcon className={styles.profileIconFill} />
             ) : item.id === 3 ? (
               <StatsIcon />
-            ) : // : item.id === 4 ? (
-            //   mouseHover ? (
-            //     <DaoHoverIcon />
-            //   ) : (
-            //     <DaoIcon />
-            //   )
-            // )
-            // item.id === 5 ? (
-            //   mouseHover ? (
-            //     <ResourceHoverIcon />
-            //   ) : (
-            //     <ResourceIcon />
-            //   )
-            // ) :
-            item.id === 6 ? (
+            ) : item.id === 6 ? (
               <SettingIcon className={styles.iconFill} />
             ) : item.id === 7 ? (
               <LogoutIcon className={styles.iconFill} />
@@ -123,64 +109,3 @@ const ProfileMenuItem = props => {
   )
 }
 export default ProfileMenuItem
-
-// {
-//   item.id === 0 ? (
-//     <div className="w-full h-40 ml-2 mr-2 flex flex-col justify-center items-center">
-//       <div className={styles.imageArea}>
-//         <Image src={avatar} alt="" width={24} height={24} className="rounded-full w-full h-full" />
-//       </div>
-//       <span>{item.label}</span>
-//     </div>
-//   ) : (
-//     <div className="w-10 h-10 ml-2 mr-2 flex justify-center items-center">
-//       {item.id === 1 ? (
-//         mouseHover ? (
-//           <DashboardHoverIcon />
-//         ) : (
-//           <DashboardIcon />
-//         )
-//       ) : item.id === 2 ? (
-//         mouseHover ? (
-//           <MerchHubHoverIcon />
-//         ) : (
-//           <MerchHubIcon />
-//         )
-//       ) : item.id === 3 ? (
-//         mouseHover ? (
-//           <StatsHoverIcon />
-//         ) : (
-//           <StatsIcon />
-//         )
-//       ) : // : item.id === 4 ? (
-//       //   mouseHover ? (
-//       //     <DaoHoverIcon />
-//       //   ) : (
-//       //     <DaoIcon />
-//       //   )
-//       // )
-//       // item.id === 5 ? (
-//       //   mouseHover ? (
-//       //     <ResourceHoverIcon />
-//       //   ) : (
-//       //     <ResourceIcon />
-//       //   )
-//       // ) :
-//       item.id === 6 ? (
-//         mouseHover ? (
-//           <SettingHoverIcon />
-//         ) : (
-//           <SettingIcon />
-//         )
-//       ) : item.id === 7 ? (
-//         mouseHover ? (
-//           <LogoutHoverIcon />
-//         ) : (
-//           <LogoutIcon />
-//         )
-//       ) : (
-//         <div />
-//       )}
-//     </div>
-//   )
-// }

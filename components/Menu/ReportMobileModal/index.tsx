@@ -9,7 +9,6 @@ import { Dialog, Transition } from '@headlessui/react'
 // resources
 import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-white.svg'
 import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-white.svg'
-import PhysicalPrintIcon from 'assets/icons/physical-print-icon-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'

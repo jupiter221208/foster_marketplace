@@ -138,7 +138,6 @@ const LikeModal = props => {
                                 }}
                               >
                                 {getDisplayUserName(item.username)}
-                                {/* {ownWallet === wallet && <div className={styles.text}>is following you</div>} */}
                               </div>
                             </div>
                             {ownWallet !== item.wallet_id && (

@@ -3,9 +3,6 @@ import React, { Fragment } from 'react'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
-// next components
-import Image from 'next/image'
-
 // foster component
 import CategoryChip from 'components/Chip/CategoryChip'
 

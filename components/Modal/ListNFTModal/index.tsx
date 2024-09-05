@@ -6,9 +6,6 @@ import { Dialog, Transition } from '@headlessui/react'
 // third party components
 import { useDispatch } from 'react-redux'
 
-// next components
-import Image from 'next/image'
-
 // custom components
 import PriceInput from 'components/Input/PriceInput'
 

@@ -1,13 +1,11 @@
 import React, { Fragment } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import CloseIcon from 'assets/icons/close-white-black.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import CategoryProductIcon from 'assets/icons/dao-category-product.svg?component'
 import CategoryLiftIcon from 'assets/icons/dao-category-lift.svg?component'

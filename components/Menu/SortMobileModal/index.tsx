@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'

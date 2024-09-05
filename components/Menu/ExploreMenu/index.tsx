@@ -2,7 +2,7 @@ import React, { MutableRefObject, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 // third party components
-import { Menu as HMenu, Transition } from '@headlessui/react'
+import { Menu as HMenu } from '@headlessui/react'
 
 import Link from 'next/link'
 

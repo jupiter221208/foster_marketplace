@@ -1,16 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 
-// next components
-import Image from 'next/image'
-
 // third party components
-import { useViewport } from 'utils'
 import { Dialog, Transition } from '@headlessui/react'
-
-// componenets
-
-// resources
-import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'
