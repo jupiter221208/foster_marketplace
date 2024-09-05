@@ -43,7 +43,7 @@ const MerchReviewImageModal = ({ image, open, onClose }) => {
           >
             <Dialog.Panel className={styles.modalView} onClick={closeModal}>
               <div className={styles.mainView}>
-                <ImageWithFoster src={image} className="w-full h-full object-contain" />
+                <ImageWithFoster src={image} width={500} className="w-full h-full object-contain" />
               </div>
             </Dialog.Panel>
           </Transition.Child>
