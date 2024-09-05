@@ -52,7 +52,7 @@ export async function delegateEdition({
   })
 
   let printDelegateAccount = await metaplex.rpc().getAccount(printDelegate)
-  if (printDelegateAccount.exists) return null
+  if (printDelegateAccount.exists) return "already delegated"
 
   let delegateIx = new TransactionInstruction({
     keys: [
@@ -142,6 +142,7 @@ export async function delegateEdition({
     connection: metaplex.connection,
     transaction: signedTx,
     maxHeight: latestBlockhash.lastValidBlockHeight,
+    retryInterval: 4000,
   })
 }
 
@@ -167,7 +168,7 @@ export async function revokeDelegateEdition({
   })
 
   let printDelegateAccount = await metaplex.rpc().getAccount(printDelegate)
-  if (!printDelegateAccount.exists) return null
+  if (!printDelegateAccount.exists) return "already revoked"
 
   let delegateIx = new TransactionInstruction({
     keys: [
@@ -257,5 +258,6 @@ export async function revokeDelegateEdition({
     connection: metaplex.connection,
     transaction: signedTx,
     maxHeight: latestBlockhash.lastValidBlockHeight,
+    retryInterval: 4000,
   })
 }
