@@ -126,7 +126,7 @@ const MerchShopCard = props => {
   }
   return (
     <div className={styles.container}>
-      <div className="relative">
+      <div className={styles.topSection}>
         <Swiper
           slidesPerView={1}
           spaceBetween={10}
@@ -137,7 +137,7 @@ const MerchShopCard = props => {
           onSwiper={setSwiper}
           className={styles.swiperContainer}
           modules={[Autoplay, Lazy, Navigation, Pagination]}
-          // loop
+          loop={true}
         >
           {data.fulfillment_type === 'foster'
             ? data.options.addons.map((item, index) => (
@@ -285,7 +285,6 @@ const MerchShopCard = props => {
               <div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                  {/* {showTimer && <div className={styles.saleType}>Ends in</div>} */}
                 </div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleCount}>

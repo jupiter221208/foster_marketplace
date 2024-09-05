@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -25,7 +24,6 @@ import { useViewport } from 'utils'
 const Resources = () => {
   const viewport = useViewport()
   const [selectedCard, setSelectedCard] = useState(-1)
-  const [title, setTitle] = useState('')
   const [searchList, setSearchList] = useState(QAList[0])
   const [searchKeyword, setSearchKeyword] = useState('')
   const [content, setContent] = useState<any[]>([])
@@ -38,7 +36,6 @@ const Resources = () => {
   useEffect(() => {
     if (resourceList.length === 0) return
     if (selectedCard === -1) return
-    setTitle(resourceList[selectedCard].title)
     setSearchList(QAList[selectedCard])
   }, [resourceList, selectedCard])
 

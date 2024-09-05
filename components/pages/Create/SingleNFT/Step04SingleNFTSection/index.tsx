@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // components
-import Input from 'components/Input'
 import GradientButton from 'components/Button/GradientButton'
-
-// solana
-import { useMetaplex } from 'hooks/useMetaplex'
-import { getMyCollectionNFTs } from 'utils/nfts.utils'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -36,29 +31,11 @@ const Step04SingleNFTSection = props => {
     onBack,
   } = props
   const viewport = useViewport()
-  const { metaplex: mx } = useMetaplex()
-  const [selectedCollectionName, setSelectedCollectionName] = useState(null)
-  const [showAlert, setShowAlert] = useState(false)
-  const [enableMintBtn, setEnableMintBtn] = useState(false)
   const [displayCategory, setDisplayCategory] = useState(false)
-
-  let alertData = [
-    {
-      id: 0,
-      title: 'Percentage Error',
-      description: `The sum of percentage should be 100%.`,
-      type: 'warning',
-    },
-  ]
-  const [collectionList, setCollectionList] = useState([])
-
-  useEffect(() => {
-    getMyCollectionNFTs(mx).then(setCollectionList)
-  }, [mx])
 
   useEffect(() => {
     if (categoryList) {
-      let list = categoryList.filter((item, index) => item.checked === true)
+      let list = categoryList.filter(item => item.checked === true)
       if (list.length > 0) {
         setDisplayCategory(true)
       } else {
@@ -71,24 +48,12 @@ const Step04SingleNFTSection = props => {
     if (creatorList === null || creatorList.length === 0) return
 
     if (creatorList.length === 1 && creatorList[0].address === '') {
-      setShowAlert(false)
-      setEnableMintBtn(true)
       return
-    }
-
-    let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
-    if (totalShares === 100) {
-      setShowAlert(false)
-      setEnableMintBtn(true)
-    } else {
-      setShowAlert(true)
-      setEnableMintBtn(false)
     }
 
     for (let i = 0; i < creatorList.length; i++) {
       let creator = creatorList[i]
       if (creator.address.length === 0) {
-        setEnableMintBtn(false)
         break
       }
     }
@@ -118,7 +83,6 @@ const Step04SingleNFTSection = props => {
             </div>
             {editionType?.name === 'Limited Edition' && (
               <div>
-                {/* <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Total Supply</div> */}
                 <div>
                   <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
                 </div>
@@ -180,7 +144,6 @@ const Step04SingleNFTSection = props => {
             </div>
             {editionType?.name === 'Limited Edition' && (
               <div>
-                {/* <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Total Supply</div> */}
                 <div className="w-[100px]">
                   <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
                 </div>

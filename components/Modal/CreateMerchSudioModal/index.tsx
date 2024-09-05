@@ -1,13 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
-
-// custom components
-import IconButton from 'components/Button/IconButton'
-
-// images and icons
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -46,18 +40,6 @@ const CreateMerchSudioModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={styles.modalView}>
-                {/* <div className="absolute top-2 right-2 lg:top-4 lg:right-4">
-                  <IconButton
-                    icon={CloseWhiteIcon}
-                    onClick={() => close()}
-                    backgroundColor="#585B5D"
-                    width="30px"
-                    height="30px"
-                    borderRadius="15px"
-                    iconWidth={12}
-                    iconHeight={!2}
-                  />
-                </div> */}
                 <div className="w-full mt-4 lg:mt-0">
                   <div className={styles.title}>Foster Studio</div>
                 </div>

@@ -1,8 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
-// next components
-
-// third party components
-import { Menu, Transition } from '@headlessui/react'
+import React, { useEffect, useState } from 'react'
 
 // images and icons
 import DownIcon from 'assets/icons/down-icon-small.svg?component'

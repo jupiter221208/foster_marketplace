@@ -202,9 +202,7 @@ const MobileMenu = () => {
               router.push('/resources')
             }}
           >
-            {/* <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer"> */}
             Resources
-            {/* </a> */}
           </div>
           <div className={styles.footerText}>
             <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">

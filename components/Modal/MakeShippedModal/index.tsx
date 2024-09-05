@@ -1,7 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
-
-// next components
-import Image from 'next/image'
+import { Fragment, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'

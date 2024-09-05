@@ -9,27 +9,20 @@ import Dropzone from 'react-dropzone'
 import Alert from 'components/Alert'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Textarea from 'components/Input/Textarea'
-import CategoryListModal from 'components/Modal/CategoryListModal'
 import Input from 'components/Input'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // images and icons
-import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
-import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
-
-// json
-import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
 import { limit } from 'utils/strings'
-import Chip from 'components/Chip'
 
 const Step01SingleNFTSection = props => {
   const {
@@ -37,7 +30,6 @@ const Step01SingleNFTSection = props => {
     nftImage,
     setNftImage,
     nftCover,
-    setNftArt,
     setNftCover,
     setTakeSnapshotStatus,
     selectedDimension,
@@ -228,41 +220,6 @@ const Step01SingleNFTSection = props => {
       ) : (
         <div className="w-full">
           <div className="mt-5">
-            {/* <Dropzone
-              onDropAccepted={acceptedFiles => {
-                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
-              }}
-              onDropRejected={rejectedFiles => {
-                handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
-              }}
-              accept={{
-                'image/jpeg': [],
-                'image/png': [],
-                'image/gif': [],
-                'video/mp4': [],
-                'audio/mpeg': [],
-                'audio/wav': [],
-                'model/gltf-binary': ['.glb'],
-              }}
-              maxFiles={1}
-              maxSize={104857600}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <section className={styles.dropzone}>
-                  <div {...getRootProps()} className={styles.selectArea}>
-                    <input {...getInputProps()} />
-                    <UploadGreenIcon alt="" />
-                    <p className={styles.uploadText}>Upload Here</p>
-                    <p className={styles.text}>
-                      Supported File Formats
-                      <br />
-                      .png .jpeg .mp4 .gif .glb
-                    </p>
-                    <p className={styles.greenText}>Max File Size 100mb</p>
-                  </div>
-                </section>
-              )}
-            </Dropzone> */}
             {nftType === 'vr' && (
               <>
                 <div className={styles.coverImgMsg}>

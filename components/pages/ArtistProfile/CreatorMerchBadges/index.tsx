@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import MerchBadgeCard from 'components/Card/MerchBadgeCard'
+import React, { useState } from 'react'
+
+import MerchBadgeNewCard from 'components/Card/MerchBadgeNewCard'
 
 // json
 import BadgeList from 'assets/json/merch-logs/badge-list.json'
 
 // styles
 import styles from './index.module.scss'
-import MerchBadgeNewCard from 'components/Card/MerchBadgeNewCard'
 
 const CreatorMerchBadges = () => {
   const [merchList, setMerchList] = useState(BadgeList)

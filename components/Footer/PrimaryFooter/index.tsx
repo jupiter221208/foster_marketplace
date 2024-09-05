@@ -1,17 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // next components
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-
 // custom components
 
 // custom functions
 import { useViewport } from 'utils'
 
 // images and icons
-import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg?component'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg?component'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg?component'
@@ -20,7 +17,6 @@ import FosterLogo from 'assets/logo-new.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const PrimaryFooter = () => {
   const viewport = useViewport()
@@ -80,24 +76,7 @@ const PrimaryFooter = () => {
                 <Link href="/stats">Leaderboards</Link>
               </div>
             </div>
-            {/* <div className="max-w-[347px] block justify-start">
-            <div className={styles.title}>About</div>
-            <div className={`${styles.linkText} !mt-[49px]`}>
-              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
-                Foster Labs
-              </a>
-            </div>
-            <div className={styles.linkText}>
-              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
-                Turkey Circus
-              </a>
-            </div>           
-            <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
-                Privacy Policy
-              </a>
-            </div>
-          </div> */}
+
             <div className="max-w-[347px] block justify-start">
               <div className={styles.title}>Resources</div>
               <div className={`${styles.linkText} !mt-[34px]`}>
@@ -114,16 +93,7 @@ const PrimaryFooter = () => {
                   Brand & Design
                 </a>
               </div>
-              {/* <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
-                Development
-              </a>
-            </div> */}
-              {/* <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
-                Community
-              </a>
-            </div> */}
+
               <div className={styles.linkText}>
                 <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
               </div>
@@ -134,12 +104,6 @@ const PrimaryFooter = () => {
               </div>
             </div>
           </div>
-          {/*<div className="max-w-[347px] block justify-start">
-             <div className={styles.title}>Stay Connected</div>
-            <div className="mt-[29px]">
-              <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
-            </div> 
-          </div>*/}
         </div>
       ) : (
         <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
@@ -151,12 +115,6 @@ const PrimaryFooter = () => {
               <FosterLogo className={styles.logoIcon} />
               <div className={styles.logoFont}>foster</div>
             </div>
-            {/* <div
-              className="w-full mt-[70px] mr-[50px] flex justify-end cursor-pointer"
-              onClick={() => handleThemeMode()}
-            >
-              {lightMode ? <LightDarkModeMobileIcon /> : <DarkLightModeMobileIcon />}
-            </div> */}
           </div>
           <div className="w-full flex justify-around mt-[70px]">
             <div className="w-full block justify-center text-center">
@@ -186,11 +144,7 @@ const PrimaryFooter = () => {
                   Turkey Circus
                 </a>
               </div>
-              {/* <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_CAREERS} rel="noopener noreferrer">
-                  Careers
-                </a>
-              </div> */}
+
               <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
                   Terms of Service
@@ -218,11 +172,7 @@ const PrimaryFooter = () => {
                   Brand & Design
                 </a>
               </div>
-              {/* <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
-                  Development
-                </a>
-              </div> */}
+
               <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
                   Community
@@ -235,10 +185,6 @@ const PrimaryFooter = () => {
           </div>
 
           <div className="w-full block justify-center text-center mt-[42px]">
-            {/* <div className={styles.stayTitle}>Stay Connected</div>
-            <div className="mt-[26px] flex justify-center z-10">
-              <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
-            </div> */}
             <div className="flex flex-wrap mt-[44px] gap-[18px] justify-center">
               <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
@@ -255,11 +201,7 @@ const PrimaryFooter = () => {
                   <TwitterLightGreenIcon />
                 </a>
               </div>
-              {/* <div>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButton backgroundColor="var(--social-bg-color)" icon={TelegramLightGreenIcon} onClick={() => {}} />
-                </a>
-              </div> */}
+
               <div className={styles.socialBtn}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
                   <GithubLightGreenIcon />

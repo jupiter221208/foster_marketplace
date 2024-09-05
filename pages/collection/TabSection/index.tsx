@@ -80,23 +80,6 @@ const TabSection = props => {
           <ActivitySection collectionId={collectionId} hasloading={hasloading} />
         </div>
       )}
-
-      {/* {activeTab === 2 && (
-        <div className="w-full flex flex-wrap z-10">
-          <AboutSection description={description} categories={categories} />
-        </div>
-      )} */}
-
-      {/* {activeTab === 2 && (
-        <div className="w-full flex flex-wrap z-10">
-          <AddSection
-            collectionId={collectionId}
-            coverUrl={coverUrl}
-            collectionName={collectionName}
-            handleCollectionImport={handleCollectionImport}
-          />
-        </div>
-      )} */}
     </div>
   )
 }

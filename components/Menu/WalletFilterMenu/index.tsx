@@ -72,8 +72,6 @@ const WalletFilterMenu = props => {
                       >
                         {item.label}
                       </div>
-
-                      {/* <CopyClipboardChip identifier="wallet-address" /> */}
                     </div>
                   ))}
                 </div>

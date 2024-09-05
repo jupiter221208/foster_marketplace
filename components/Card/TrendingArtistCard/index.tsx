@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 
 // images and icons
@@ -11,14 +11,11 @@ import LandIcon from 'assets/icons/land-icon-15x15.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { useViewport } from 'utils'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const TrendingArtistCard = props => {
-  const { artist, onClick } = props
-  const viewport = useViewport()
-  const [hover, setHover] = useState(false)
+  const { artist } = props
 
   const onClickSocialButton = (e, link) => {
     e.preventDefault()
@@ -30,12 +27,7 @@ const TrendingArtistCard = props => {
     <Link href={`${window.origin}/${artist.username}`} passHref>
       <a className="w-full h-full">
         <div className={styles.layout}>
-          <div
-            className={`${styles.container}`}
-            onClick={() => {}}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-          >
+          <div className={`${styles.container}`} onClick={() => {}} onMouseEnter={() => {}} onMouseLeave={() => {}}>
             <div className="sm:block hidden">
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>

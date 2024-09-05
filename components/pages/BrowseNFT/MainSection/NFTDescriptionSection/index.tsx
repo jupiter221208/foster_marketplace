@@ -1,11 +1,5 @@
 import React, { useRef, useState } from 'react'
 
-// components
-import NFTActivityInfoSection from 'components/pages/BrowseNFT/MainSection/NFTActivityInfoSection'
-
-// utilies
-import { compareDate } from 'utils/helpers'
-
 // resources
 import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'

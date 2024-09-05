@@ -1,12 +1,7 @@
 import React from 'react'
 
-// next components
-// import Image from 'next/image'
-
 // styles
 import styles from './index.module.scss'
-// import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
-// import TwitterBackgroundGreenIcon from 'assets/icons/twitter-background-green.svg'
 
 const TweetMintButton = props => {
   const {

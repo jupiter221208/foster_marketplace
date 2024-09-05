@@ -1,12 +1,4 @@
-import React, { useState, useEffect } from 'react'
-
-// next components
-import Image from 'next/image'
-
-// custom functions
-import { useViewport } from 'utils'
-
-// images and icons
+import React from 'react'
 
 // styles
 import styles from './index.module.scss'

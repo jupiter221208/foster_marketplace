@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -40,7 +40,7 @@ const OpenEditionSection = props => {
       ;(async () => {
         for (let index = 0; index < editionList.length; index++) {
           let data = editionList[index]
-          fetch(`/nft/${data.tokenId}`).then(e => e.text())
+          if (data.token_id !== undefined) fetch(`/nft/${data.tokenId}`).then(e => e.text())
           if (index % 4 == 3) {
             await sleep(1000)
           }

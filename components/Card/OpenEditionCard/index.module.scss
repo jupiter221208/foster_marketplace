@@ -111,6 +111,7 @@
   display: flex;
   gap: 21px;
   align-items: center;
+  overflow: hidden;
 }
 
 .nftNames {
@@ -190,9 +191,11 @@
 .avatar {
   width: 45px;
   height: 45px;
+  border-radius: 23px;
   @media (min-width: 1440px) {
     width: 66px;
     height: 66px;
+    border-radius: 33px;
   }
 }
 

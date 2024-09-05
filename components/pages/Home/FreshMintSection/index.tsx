@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
 // next components
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -14,7 +13,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -29,35 +27,31 @@ import { DashboardAPIData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
 import HomeNftCard from 'components/Card/HomeNFTCard'
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const fetchFreshMintData = async category => {
+  const response = await dashboardAPI.getFreshMints(category)
+  return response
+}
+
 const FreshMintSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [allFreshMintsList, setAllFreshMintsList] = useState<DashboardAPIData[]>([])
   const [freshMintsList, setFreshMintsList] = useState<DashboardAPIData[]>([])
-  const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
-    dashboardAPI.getFreshMints(category).then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setAllFreshMintsList(response)
-          setFreshMintsList(response)
-          if (response.length > 4) setCardLoop(true)
-          else setCardLoop(false)
-        }
-      },
-      error => {
-        console.log(error)
-      }
-    )
+    fetchFreshMintData(category).then(setFreshMintsList)
   }, [category])
 
-  useEffect(() => {
-    if (allFreshMintsList.length === 0) return
-    setFreshMintsList(allFreshMintsList)
-  }, [viewport, allFreshMintsList])
+  // useEffect(() => {
+  //   fetchUserData(category).then(response => {
+  //     if (response !== null && response !== undefined) {
+  //       setFreshMintsList(response)
+  //     }
+  //   })
+  // }, [category])
 
   return (
     freshMintsList.length > 0 && (
@@ -103,14 +97,14 @@ const FreshMintSection = props => {
               viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
-            loop={cardLoop}
+            className={freshMintsList?.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+            loop={freshMintsList?.length > 4}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
           >
-            {freshMintsList.map((item, index) => (
+            {freshMintsList?.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                   <HomeNftCard
@@ -125,19 +119,6 @@ const FreshMintSection = props => {
                     price={item.list_price}
                     onClick={() => {}}
                   />
-                  {/* <NFTCard
-                    token_id={item.token_id}
-                    image={item.asset_url}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {
-                      router.push(`/nft/${item.token_id}`)
-                    }}
-                  /> */}
                 </div>
               </SwiperSlide>
             ))}

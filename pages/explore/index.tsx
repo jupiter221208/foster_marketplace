@@ -5,6 +5,8 @@ import Head from 'next/head'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
+import { getTimeDifference, isAvailableDate } from 'utils/helpers'
+import { ExploreAPIData } from 'types/nft'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -16,6 +18,15 @@ import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
 import SelectedTab from 'components/Tab/SelectedTab'
 import EcosystemCard from 'components/Card/EcosystemCard'
+import SortMobileModal from 'components/Menu/SortMobileModal'
+import LoadingComponent from './LoadingComponent'
+import IconTab from 'components/Tab/IconTab'
+import OrderSelect from 'components/Select/OrderSelect'
+import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
+import BlackButton from 'components/Button/BlackButton'
+import HomeEditionCard from 'components/Card/HomeEditionCard'
+import HomeNftCard from 'components/Card/HomeNFTCard'
+import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // json
 import TabList from 'assets/json/explore/tab-list.json'
@@ -41,25 +52,9 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 
 // apis
 import ExploreAPI from 'apis/explore'
-import SortMobileModal from 'components/Menu/SortMobileModal'
-import NFTAuctionCard from 'components/Card/NFTAuctionCard'
-import { getTimeDifference, isAvailableDate } from 'utils/helpers'
-import LoadingComponent from './LoadingComponent'
-import { ExploreAPIData } from 'types/nft'
-import IconTab from 'components/Tab/IconTab'
-import OrderSelect from 'components/Select/OrderSelect'
-import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
-import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
-import NFTEditionsCard from 'components/Card/NFTEditionsCard'
-import BlackButton from 'components/Button/BlackButton'
-import HomeEditionCard from 'components/Card/HomeEditionCard'
-import HomeNftCard from 'components/Card/HomeNFTCard'
-import LiveAuctionCard from 'components/Card/LiveAuctionCard'
-import { useRouter } from 'next/router'
 
 const Explore = () => {
   const dispatch = useDispatch()
-  const router = useRouter()
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
   const collectionCategory = useSelector<any>(state => state.collectionCategory)

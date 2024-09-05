@@ -1,7 +1,5 @@
 import React from 'react'
 
-// next components
-
 // styles
 import styles from './index.module.scss'
 
@@ -10,7 +8,6 @@ import NftCollectionIcon from 'assets/icons/collection-icon.svg?component'
 import NftArtistIcon from 'assets/icons/artist-icon.svg?component'
 import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
 import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
-import Link from 'next/link'
 
 const MenuItem = props => {
   const { key, item, onSelect } = props

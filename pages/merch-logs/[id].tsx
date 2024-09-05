@@ -6,6 +6,18 @@ import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useWallet } from '@solana/wallet-adapter-react'
 
+// components
+import { getOrder, ShipStationShipment } from 'apis/merch'
+import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
+import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
+import { getShortAddress } from 'utils/strings'
+import { useAuthentication } from 'hooks/useAuthentication'
+import Alert from 'components/Alert'
+import WriteReviewModal from 'components/Modal/WriteReviewModal'
+import MakeShippedModal from 'components/Modal/MakeShippedModal'
+import Button from 'components/Button'
+import GradientButton from 'components/Button/GradientButton'
+
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ArrowLeftIcon from 'assets/icons/back-arrow.svg?component'
@@ -16,15 +28,6 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // api
 import StoreAPI from 'apis/store'
-import { getOrder, ShipStationShipment } from 'apis/merch'
-import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
-import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
-import { getShortAddress } from 'utils/strings'
-import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
-import { useAuthentication } from 'hooks/useAuthentication'
-import WriteReviewModal from 'components/Modal/WriteReviewModal'
-import MakeShippedModal from 'components/Modal/MakeShippedModal'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -52,6 +55,8 @@ const MerchDetail = () => {
   const [commission, setCommission] = useState(null)
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [showShippedModal, setShowShippedModal] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   const [merchType, setMerchType] = useState('')
 
@@ -984,17 +989,6 @@ const MerchDetail = () => {
             )}
           </div>
 
-          {/* <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Complete</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
-            ) : (
-              <div className={styles.infoValue}>
-                {paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-              </div>
-            )}
-          </div> */}
-
           {merchType !== 'foster' && merchType !== 'user' && (
             <div className="w-full mt-[20px]">
               <div className={styles.infoTitle}>Creator&nbsp;Commission</div>
@@ -1164,6 +1158,17 @@ const MerchDetail = () => {
         previewUrl={previewUrl}
         itemDetails={itemDetails}
         onClose={() => setShowReviewModal(false)}
+        onSuccess={() => {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Review Submitted!',
+              description: 'Your review has been successfully sent to the seller',
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+        }}
       />
 
       <MakeShippedModal
@@ -1171,6 +1176,14 @@ const MerchDetail = () => {
         orderId={orderData?.id}
         onClose={() => setShowShippedModal(false)}
         onSuccess={() => router.reload()}
+      />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )

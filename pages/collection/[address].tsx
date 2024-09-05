@@ -230,7 +230,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           </div>
         )}
       </div>
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
@@ -275,9 +274,7 @@ BrowseCollection.getInitialProps = async function ({ req, query }): Promise<Brow
         artist_username: '',
         collection_name: (name || json?.name) ?? '',
         description: json?.description ?? '',
-        // TODO: use default banner image for collections not minted on foster
         banner_image: '',
-        // TODO: use default cover image for collections with broken images
         cover_image: json?.image || '',
         minted_on_foster: false,
         views: 0,

@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // next components
 import Link from 'next/link'
-
-// custom components
-import GradientButton from 'components/Button/GradientButton'
-
-// images and icons
-import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
-import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import { NftData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
-import OutlineButton from 'components/Button/OutlineButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
@@ -33,9 +21,7 @@ type MyNFTCardTypes = {
 
 const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListNFT, active }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
-  const dispatch = useDispatch()
   const [nftImage, setNftImage] = useState(data.image)
-  const [showEditBtn, setShowEditBtn] = useState(false)
 
   useEffect(() => {
     setNftImage(data.image)

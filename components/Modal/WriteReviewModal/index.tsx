@@ -27,7 +27,7 @@ import Dropzone from 'react-dropzone'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
+const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
@@ -94,16 +94,9 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
     writeReview(itemDetails.merchId, params).then(
       response => {
         setLoading(false)
-        setAlertData([
-          {
-            id: 0,
-            title: 'Successful Submission!',
-            description: "You've successfully submitted the review",
-            type: 'success',
-          },
-        ])
-        setSuccessReview(true)
-        setShowAlert(true)
+
+        onClose()
+        onSuccess()
       },
       error => {
         setLoading(false)
@@ -352,7 +345,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
             open={showAlert}
             close={() => {
               setShowAlert(false)
-              if (successReview) onClose()
             }}
             data={alertData}
           />

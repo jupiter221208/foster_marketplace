@@ -1,0 +1,13 @@
+@import 'assets/scss/variable.module.scss';
+
+.count {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
+  color: #fff;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // images and icons
 import RightIcon from 'assets/icons/right-icon-white.svg?component'
@@ -8,10 +8,8 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 
 const OrdersAccordion = props => {
-  const { data, type } = props
+  const { data } = props
   const router = useRouter()
-  const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any | null>(null)
 
   return (
     <div className="w-full flex flex-wrap mt-[30px]">

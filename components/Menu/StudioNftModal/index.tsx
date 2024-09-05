@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import { useRouter } from 'next/router'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -10,9 +9,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import styles from './index.module.scss'
 
 // call apis
-import { getTimeDifference, getYMDString } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
-import ImageWithFoster from 'components/ImageWithFoster'
 import MerchNftItem from 'components/Card/MerchNftItem'
 
 const StudioNftModal = props => {

@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 // custom functions
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -16,56 +14,11 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
-  const [loaded, setLoaded] = useState(false)
-  const [width, setWidth] = useState(375)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoaded(true)
-      setProfileLoaded(true)
-    }, 2000)
-
-    setWidth(window.innerWidth)
-  }, [])
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageBG}>
-        {/* {(data.asset_url === null || data.asset_url === '') &&
-        (data.cover_image_url === null || data.cover_image_url === '') ? (
-          <div></div>
-        ) : data.asset_type.includes('video') || data.asset_type.includes('audio') ? (
-          <ImageWithFoster
-            src={
-              data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            width={width}
-            className="w-full h-full object-cover"
-          />
-        ) : data.asset_type.includes('vr') ? (
-          <div className={`aspect-square w-full h-full`}>
-            <ImageWithFoster src={data.cover_image_url} width={width} className="w-full h-full object-cover" />
-          </div>
-        ) : (
-          <ImageWithFoster
-            src={
-              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                ? data.asset_url
-                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            width={width}
-            className={`w-[${width}px] h-full object-cover`}
-          />
-        )} */}
-      </div>
+      <div className={styles.imageBG}></div>
       <div className="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] z-10">
         <div className="px-[15px] mt-[110px] z-10">
           <div className={styles.imageArea}>
@@ -119,9 +72,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                       layout="fill"
                       className="w-full h-full object-cover"
                       onClick={() => onClick()}
-                      onLoadingComplete={() => {
-                        setLoaded(true)
-                      }}
+                      onLoadingComplete={() => {}}
                     />
                   )}
                 </div>
@@ -141,9 +92,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                     layout="fill"
                     className="w-full h-full object-cover"
                     onClick={() => onClick()}
-                    onLoadingComplete={() => {
-                      setLoaded(true)
-                    }}
+                    onLoadingComplete={() => {}}
                   />
                 )
               ) : (
@@ -153,9 +102,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                   layout="fill"
                   className={styles.imageNft}
                   onClick={() => onClick()}
-                  onLoadingComplete={() => {
-                    setLoaded(true)
-                  }}
+                  onLoadingComplete={() => {}}
                 />
               )}
             </div>

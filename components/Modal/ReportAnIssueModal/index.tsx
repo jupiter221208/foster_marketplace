@@ -284,17 +284,6 @@ const ReportAnIssueModal = props => {
                       </button>
                     </div>
                   </form>
-                  {/* <div className="w-full mt-[60px] lg:mt-[100px] mb-[20px] flex justify-center">
-                    <Button
-                      label="Submit Report"
-                      onClick={() => setStep(3)}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                      color={'#202427'}
-                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
-                      fontFamily={'Muli-Bold'}
-                    />
-                  </div> */}
                 </Dialog.Panel>
               ) : (
                 <Dialog.Panel className={styles.modalView}>

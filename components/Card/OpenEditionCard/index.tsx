@@ -19,6 +19,8 @@ import SolanaIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import ArrowIcon from 'assets/icons/arrow-right-13x10.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const OpenEditionCard = ({ data }) => {
   const viewport = useViewport()
@@ -48,7 +50,7 @@ const OpenEditionCard = ({ data }) => {
               <a>
                 <div className={styles.nftShadow}>
                   {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
-                    <img
+                    <ImageWithFoster
                       src={
                         data.coverImageUrl !== '' && data.coverImageUrl !== null && data.coverImageUrl !== undefined
                           ? data.coverImageUrl
@@ -58,10 +60,6 @@ const OpenEditionCard = ({ data }) => {
                       }
                       alt=""
                       className={`${styles.noSelect} ${styles.nftImage}`}
-                      onLoad={() => {
-                        setLoaded(true)
-                      }}
-                      loading="lazy"
                     />
                   ) : (
                     <div></div>
@@ -184,25 +182,18 @@ const OpenEditionCard = ({ data }) => {
 
       <div className={styles.infoBox}>
         <div className={styles.avatarArea}>
-          {data.artistProfilePicture === null && (
-            <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
-          )}
-          {data.artistProfilePicture !== null && data.artistProfilePicture !== undefined && (
-            <div className={styles.avatar}>
-              <Link href={`/${data.artistUsername}`} passHref>
-                <a>
-                  <img
-                    src={
-                      data.artistProfilePicture.length > 0 ? data.artistProfilePicture : 'images/dashboard-avatar.png'
-                    }
-                    alt=""
-                    className={`${styles.noSelect} rounded-full`}
-                    loading="lazy"
-                  />
-                </a>
-              </Link>
-            </div>
-          )}
+          <div className={styles.avatar}>
+            <Link href={`/${data.artistUsername}`} passHref>
+              <a>
+                <ImageWithFoster
+                  src={data.artistProfilePicture ?? DefaultAvatar}
+                  alt=""
+                  className="w-full h-full rounded-full overflow-hidden"
+                />
+              </a>
+            </Link>
+          </div>
+
           <div className={styles.nftNames}>
             {data.nftName === '' ? (
               <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>

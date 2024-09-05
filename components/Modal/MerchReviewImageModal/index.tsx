@@ -6,7 +6,6 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // resources
-import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -44,7 +43,7 @@ const MerchReviewImageModal = ({ image, open, onClose }) => {
           >
             <Dialog.Panel className={styles.modalView} onClick={closeModal}>
               <div className={styles.mainView}>
-                <ImageWithFoster src={image} className="w-full h-full object-contain" />
+                <ImageWithFoster src={image} width={1000} className="w-full h-full object-contain" />
               </div>
             </Dialog.Panel>
           </Transition.Child>

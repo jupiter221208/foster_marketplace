@@ -12,7 +12,6 @@ import { getDisplayUserName } from 'utils/strings'
 import styles from './index.module.scss'
 
 // resources
-// import SolanaIcon from 'assets/icons/solana-logo-green.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ImageWithFoster from 'components/ImageWithFoster'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
@@ -21,13 +20,6 @@ const HeroNewCard = ({ data }) => {
   const onClick = () => {}
   return (
     <div className={styles.container}>
-      {/* <ImageWithFoster
-        src={data.asset_url}
-        originalSrc={data.cover_image_url}
-        width={1280}
-        className="w-full h-full inset-0"
-      /> */}
-      {/* <div className={styles.overlay} /> */}
       <div className="g-container absolute inset-0 flex justify-center">
         <div className={styles.cardArea}>
           <div className={styles.imageArea}>
@@ -180,21 +172,6 @@ const HeroNewCard = ({ data }) => {
             )}
           </div>
         </div>
-        {/* <div className="h-full flex items-center">
-          {data.list_price === undefined ? (
-            <div className={`w-[100px] h-[30px] rounded-full overflow-hidden mt-4`}>
-              <div className="skeletonLoader" />
-            </div>
-          ) : (
-            <div className="flex items-center">
-              <div className={styles.listedFor}>Listed for</div>
-              <div className="mt-1 ml-[9px]">
-                <img src={SolanaIcon.src} alt="" />
-              </div>
-              <div className={`${styles.price} ml-[5px]`}>{data.list_price}</div>
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   )

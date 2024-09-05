@@ -51,7 +51,6 @@ const PrimaryHeader = () => {
   const { profileInfo } = useAuthentication()
   const [isNewNotification, setIsNewNotification] = useState(false)
   const [isScrollTop, setIsScrollTop] = useState(true)
-  const [isScrollingTop, setIsScrollingTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
 
   const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
@@ -70,13 +69,10 @@ const PrimaryHeader = () => {
 
       if (position < 250) {
         setLastScrollPosition(position)
-        setIsScrollingTop(true)
       } else if (position > lastScrollPosition) {
         setLastScrollPosition(position)
-        setIsScrollingTop(false)
       } else if (position < lastScrollPosition) {
         setLastScrollPosition(position)
-        setIsScrollingTop(true)
       }
     }, 50)
 
@@ -289,8 +285,6 @@ const PrimaryHeader = () => {
             </div>
           </div>
         </div>
-
-        {/* {router.pathname === '/' ? <div className={styles.divider} /> : <div className={styles.divider} />} */}
       </div>
     </div>
   )

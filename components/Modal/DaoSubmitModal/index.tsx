@@ -119,18 +119,6 @@ const DaoSubmitModal = props => {
       vote_start: startDate,
       vote_duration: days * 24 + hours,
     }
-    // let proposal = {
-    //   author: 'Nicholas-FP',
-    //   eta_timeline: 'eee',
-    //   metrics: 'ccc',
-    //   overview: 'bbbb',
-    //   title: 'aaaa',
-    //   treasury: 'dd',
-    //   category: 'Product',
-    //   vote_duration: '2641',
-    //   vote_start: '2023-05-18T19:33:55.891Z',
-    //   walletId: 'FPCjmizgwG6EsBYH4w3aMvPiZbEnRgCzsuwVJu6rT8eo',
-    // }
     onSubmit(proposal)
   }
 

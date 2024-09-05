@@ -3,9 +3,11 @@
 .container {
   position: relative;
   width: 100%;
-  background: var(--background-main-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 5px;
+  // background: var(--background-main-color);
+  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  @media (min-width: 640px) {
+    border-radius: 5px;
+  }
 }
 
 .topSection {
@@ -35,8 +37,16 @@
   color: rgba(var(--main-bg-color-rgb), 0.8);
   @media (min-width: 640px) {
     font-family: 'Muli-Light';
-
   }
+}
+
+.user {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--main-bg-color);
+  margin-top: 7px;
 }
 
 .username {

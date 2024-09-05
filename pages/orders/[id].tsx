@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getOrder } from 'apis/merch'
 import { findElement } from 'utils/helpers'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // styles
 import styles from './index.module.scss'
@@ -18,7 +17,6 @@ import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
 import { useViewport } from 'utils'
 
 // api
-import UserAPI from 'apis/user'
 import StoreAPI from 'apis/store'
 import { useSelector } from 'react-redux'
 

@@ -196,6 +196,14 @@
   overflow: hidden;
 }
 
+.helioContainer > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .helioContainer > div > div  {
   border-radius: 20px !important;  
   background: transparent !important;

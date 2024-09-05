@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useViewport } from 'utils'
 
 // utilies
-import { calculateAuctionTimeLeft, calculateTimeLeft } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
@@ -40,7 +40,6 @@ const MintEditionCard = props => {
   const viewport = useViewport()
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
-  const [auctionEnded, setAuctionEnded] = useState(false)
   const [total, setTotal] = useState('0.00')
   const [showDetailTotal, setShowDetailTotal] = useState(false)
   const [buyLimitAlert, setBuyLimitAlert] = useState(false)

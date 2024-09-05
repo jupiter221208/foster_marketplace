@@ -174,27 +174,14 @@ const NFTAssetSection = props => {
               </div>
             </>
           ) : (
-            <>
-              <div className="absolute inset-0">
-                <ImageWithFoster
-                  src={nftCoverUrl}
-                  width={900}
-                  showPlaceHolder={false}
-                  className="min-w-full min-h-full object-cover"
-                />
-              </div>
-              {/* <div className={styles.videoArea}>
-                <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
-                  <source type="video/mp4" src={nftAssetUrl} />
-                </video>
-              </div>
-              {!nftAssetUrl && (
-                <div className={styles.errorMessage}>
-                  <ErrorMessageIcon />
-                  <div>Video File Missing</div>
-                </div>
-              )} */}
-            </>
+            <div className="absolute inset-0">
+              <ImageWithFoster
+                src={nftCoverUrl}
+                width={900}
+                showPlaceHolder={false}
+                className="min-w-full min-h-full object-cover"
+              />
+            </div>
           )}
           <div className={styles.blurImage} />
         </div>

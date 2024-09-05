@@ -115,110 +115,12 @@
   display: flex;
 }
 
-.merchArea {
-  position: relative;
-  width: 100%;
-  height: 87px;
-  @media (min-width: 640px) {
-    height: 87px;
-  }
-  background: var(--bg-151515-EEEDEB-Gradient);
-  border: 1px solid var(--bg-535355-DDDEDE);
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.assetArea {
-  width: 50px;
-  min-width: 50px;
-  height: 50px;
-  @media (min-width: 640px) {
-    width: 50px;
-    min-width: 50px;
-    height: 50px;
-  }
-  
-  
-  // background: rgba(var(--main-bg-color-rgb), 0.05);
-  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  overflow: hidden;
-}
-
-.contentArea {
-  width: 100%;
-  overflow: hidden;
-}
-
 .merchView {
   font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   color: var(--main-icon-color);
   cursor: pointer;
-}
-
-.merchTitle {
-  font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 18px;
-  font-weight: 100;
-  color: var(--text-gray-200-color);
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  @media (min-width: 1024px) {
-    width: 80%;
-    font-size: 16px;
-    line-height: 20px;
-    // overflow: visible;
-  }
-}
-
-.merchContent {
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
-  font-weight: 100;
-  color: var(--text-gray-200-color);
-  margin-top: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-  max-width: 230px;
-  @media (min-width: 640px) {
-    max-width: 330px;
-    overflow: visible;
-    margin-top: 5px;
-  }
-  @media (min-width: 1024px) {
-    max-width: 190px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    margin-top: 11px;
-  }
-  @media (min-width: 1200px) {
-    max-width: 250px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    margin-top: 11px;
-  }
-  @media (min-width: 1440px) {
-    max-width: 300px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  @media (min-width: 1800px) {
-    max-width: 330px;
-  }
 }
 
 .merchButton {
@@ -250,21 +152,6 @@
 
 .liveType {
   color: var(--main-icon-color) !important;
-}
-
-.solPrice {
-  font-family: 'Muli-SemiBold';
-  font-weight: 100;
-  font-size: 18px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
-}
-
-.dollarPrice {
-  font-family: 'Muli-Light';
-  font-size: 18px;
-  line-height: 18px;
-  color: var(--bg-B8B9BD-707070);
 }
 
 .nftDetailCard {
@@ -402,15 +289,6 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
-.placeBidBG {
-  width: 100%;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
 .placeBidEnabledLightBG {
   background-color: #242424;
 }
@@ -449,34 +327,6 @@
 
 .placeBidDisabledColor {
   color: rgb(239, 240, 246, 0.5);
-}
-
-.highBidText {
-  width: auto;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
-  color: var(--main-bg-color);
-  margin: 10px 18px;
-  text-align: center;
-  @media (min-width: 1024px) {
-    margin: 0px;
-    height: 53px;
-    margin-top: 15px;
-    border-radius: 12px;
-    font-size: 14px;
-  }
-  @media (min-width: 1440px) {
-    font-size: 16px;
-  }
-  @media (min-width: 1600px) {
-    font-size: 18px;
-  }
 }
 
 .editionFirstRow {
@@ -550,34 +400,6 @@
   }
 }
 
-.auctionInfoTitle {
-  font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: var(--main-icon-color);
-  @media (min-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-.auctionInfoText {
-  width: fit-content;
-  position: relative;
-  background: var(--background-main-color);
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  border-radius: 16px;
-  padding: 12px 16px 16px 16px;
-  margin-left: 16px;
-  margin-top: 4px;
-  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
-  z-index: 1000;
-  color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
 .fixedPrice {
   font-family: 'Muli-Light';
   font-size: 16px;
@@ -637,17 +459,6 @@
   cursor: pointer;
 }
 
-.minText {
-  font-size: 14px;
-  font-family: 'Muli-Light';
-  font-weight: 100;
-  line-height: 14px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  color: var(--bg-B8B9BD-707070);
-}
-
 .minValue {
   font-size: 12px;
   font-family: 'Muli-Light';
@@ -657,14 +468,7 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
-.endPhaseText {
-  font-size: 14px;
-  font-family: 'Muli-Light';
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  color: var(--bg-B8B9BD-707070);
-}
+
 
 .collectionContainer {
   display: flex;

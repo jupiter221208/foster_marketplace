@@ -1,7 +1,6 @@
 import React from 'react'
 
 // next components
-import Image from 'next/image'
 
 // assets
 import RightArrow from '/assets/icons/arrow-right-black.svg?component'

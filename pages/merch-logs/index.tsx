@@ -19,7 +19,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import PreviewImage from 'assets/images/preview-image.png'
 import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
-import FosterLogoMobileIcon from 'assets/icons/foster-hero-logo-mobile.svg?component'
 
 // resources
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
@@ -42,6 +41,7 @@ import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { useRouter } from 'next/router'
 import MerchEditionSection from 'components/pages/Dashboard/MerchEditionSection'
+import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadges'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -615,6 +615,8 @@ const MerchActivity = () => {
                   ? sales.length > 0
                     ? 'Displayed below is a record of all your sales.'
                     : ''
+                  : activeTab === 5
+                  ? 'Unlock studio badges and their associated perks as you accomplish specific milestones.'
                   : ''}
               </div>
               {activeTab === 0 && (
@@ -771,6 +773,12 @@ const MerchActivity = () => {
           {activeTab === 4 && (
             <div className="w-full z-10 mt-[15px]">
               <MerchEditionSection />
+            </div>
+          )}
+
+          {activeTab === 5 && (
+            <div className="w-full z-10 mt-[15px]">
+              <CreatorMerchBadges />
             </div>
           )}
 

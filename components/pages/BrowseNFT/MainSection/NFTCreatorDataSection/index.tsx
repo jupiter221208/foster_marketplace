@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import Link from 'next/link'
 // components
@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 // resources
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -27,7 +28,11 @@ const NFTCreatorDataSection = props => {
                 <div className={styles.userTile}>
                   <div className="flex gap-[6px] items-center">
                     <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
-                      <ImageWithFoster src={profileImage} width={60} className="w-full h-full object-cover" />
+                      <ImageWithFoster
+                        src={profileImage ?? DefaultAvatar}
+                        width={60}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className={styles.username}>{getDisplayUserName(nftCreatorname)}</div>
                   </div>

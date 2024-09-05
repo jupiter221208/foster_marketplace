@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useDispatch } from 'react-redux'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
@@ -20,7 +19,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 const EcosystemCard = props => {
   const { data } = props
   const viewport = useViewport()
-  const dispatch = useDispatch()
   return (
     <Link href={`/${data.artist.username}`} passHref>
       <a>

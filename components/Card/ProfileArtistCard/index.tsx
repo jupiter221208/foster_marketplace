@@ -65,7 +65,6 @@ const ProfileArtistCard = props => {
             </div>
           )}
         </div>
-        {/* )} */}
       </div>
 
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

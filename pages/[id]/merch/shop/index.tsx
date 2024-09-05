@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import MerchShopCard from 'components/Card/MerchShopCard'
+import { getTimeDifference } from 'utils/helpers'
+
+// components
+import LoadingComponent from 'pages/explore/LoadingComponent'
+
+//apis
+import StoreAPI from 'apis/store'
 
 // styles
 import styles from './index.module.scss'
 
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
-
-//apis
-import StoreAPI from 'apis/store'
-import { getTimeDifference } from 'utils/helpers'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-
 const CreatorMerchShop = props => {
   const { username, userId, isCreator } = props
   const [merchList, setMerchList] = useState([])
-  const [screenWidth, setScreenWidth] = useState(375)
   const [loaded, setLoaded] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(true)
-
-  useEffect(() => {
-    const resizeFunction = () => {
-      setScreenWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
 
   useEffect(() => {
     if (userId === undefined || userId === null) return

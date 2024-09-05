@@ -46,14 +46,6 @@ const StudioSignature = () => {
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [total, setTotal] = useState(0)
-  // useEffect(() => {
-  // StoreAPI.getStoreTypes().then(
-  //   res => {
-  //   },
-  //   error => {}
-  // )
-  // getStoreItem(pages, rowCount, [], [], [], [], priceValue, false)
-  // }, [])
 
   useEffect(() => {
     if (isFetching === true) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -9,14 +9,12 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // functions
-import { getPercentValue } from 'utils/strings'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
-import { Router } from 'next/router'
 
 const MarketplacesAccordion = props => {
   const { data } = props
