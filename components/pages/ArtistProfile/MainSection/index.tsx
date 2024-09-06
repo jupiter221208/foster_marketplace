@@ -25,16 +25,9 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import ShareSmallIcon from 'assets/icons/share-black-15x15.svg?component'
 import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
-import TwitterWhiteIcon from 'assets/icons/twitter-white-15x15.svg?component'
-import WebsiteIcon from 'assets/icons/website-icon-15x15.svg?component'
-import IGWhiteIcon from 'assets/icons/instagram-white-15x15.svg?component'
-import LandIcon from 'assets/icons/land-icon-15x15.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
 import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
@@ -358,6 +351,7 @@ const MainSection = prop => {
           <img
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover"
+            alt=""
           />
           {isOwn && (
             <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">

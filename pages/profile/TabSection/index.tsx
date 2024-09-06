@@ -191,6 +191,7 @@ const TabSection = props => {
       array4.push(object)
     })
     setSortList(array4)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const resetFilter = () => {

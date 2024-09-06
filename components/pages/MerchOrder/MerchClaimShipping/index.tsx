@@ -149,6 +149,7 @@ const MerchClaimShipping = props => {
       })
       setSizeList(sizes)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId])
 
   useEffect(() => {

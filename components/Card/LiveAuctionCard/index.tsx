@@ -112,6 +112,7 @@ const LiveAuctionCard = props => {
                 <img
                   src={data?.artist_profile_picture}
                   onClick={() => {}}
+                  alt=""
                   width={44}
                   height={44}
                   className="w-[44px] rounded-full"

@@ -311,7 +311,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                     setSelectedMerchImage(list[index].url)
                   }}
                 >
-                  <img src={item.url} className="max-w-full max-h-full object-conver" />
+                  <img src={item.url} className="max-w-full max-h-full object-conver" alt="" />
                 </div>
               ))}
             </div>

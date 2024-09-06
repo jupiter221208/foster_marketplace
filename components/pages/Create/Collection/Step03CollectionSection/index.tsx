@@ -122,7 +122,7 @@ const Step03CollectionSection = props => {
                 )}
                 <div className="absolute right-[111px] top-[25px]">
                   <div className={styles.collectionName}>
-                    <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} />
+                    <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} alt="" />
                     {collectionMintName}
                   </div>
                 </div>
@@ -137,7 +137,7 @@ const Step03CollectionSection = props => {
               <div className={styles.nftContainer} key={index} onClick={() => setSelectedCollectionFile(item)}>
                 <div className="w-full flex justify-between px-[20px]">
                   <div className={styles.collectionName}>
-                    <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} />
+                    <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} alt="" />
                     {collectionMintName}
                   </div>
                   {startUpload && (

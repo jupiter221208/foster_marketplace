@@ -109,6 +109,7 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (cardSide === 'front' && snapshotAsset[cardSide].length === 0) setShowEmbPosModal(true)
     else setShowEmbPosModal(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
 
   useEffect(() => {

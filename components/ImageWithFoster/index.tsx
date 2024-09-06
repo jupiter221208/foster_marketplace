@@ -118,6 +118,7 @@ const ImageWithFoster = ({
             onLoad={handleLoad}
             loading="lazy"
             onError={handleError}
+            alt=""
             {...rest}
           />
         ) : (

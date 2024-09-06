@@ -58,12 +58,14 @@ const MerchClaimModal = ({ open, onClose, data }) => {
         cost: data.selling_price / 100,
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   useEffect(() => {
     if (merchSize) {
       setPrintData({ ...printData, size: merchSize })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchSize])
 
   const closeModal = () => {

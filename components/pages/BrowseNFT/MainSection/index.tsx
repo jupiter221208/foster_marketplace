@@ -274,6 +274,7 @@ const MainSection = ({
     handleResize()
 
     return () => window.removeEventListener('resize', handleResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

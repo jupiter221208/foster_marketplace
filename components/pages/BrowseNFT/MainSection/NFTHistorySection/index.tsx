@@ -31,7 +31,7 @@ const NFTHistorySection = props => {
       },
       error => {}
     )
-  }, [])
+  }, [mintAddress])
 
   return (
     <div className="w-full mt-[15px]">

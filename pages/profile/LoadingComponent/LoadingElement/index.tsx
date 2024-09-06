@@ -13,6 +13,7 @@ const LoadingElement = props => {
 
   let loadingText = text
   const [showText, setShowText] = useState(loadingText)
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (loadingText.length - text.length == 0) loadingText = text + '.'
@@ -25,6 +26,7 @@ const LoadingElement = props => {
     return () => {
       clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
