@@ -353,7 +353,8 @@ export const optimizeCdnUrl = (urlString: string, options?: Record<string, strin
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([k, v]) => k + '=' + v.toString())
         .join(',')
-      if (new URL(assetUrl).hostname == 'arweave.net') url.pathname = `/cdn-cgi/image/${parameters}/${assetUrl}`
+      if (['arweave.net', 'gateway.irys.xyz'].includes(new URL(assetUrl).hostname))
+        url.pathname = `/cdn-cgi/image/${parameters}/${assetUrl}`
     }
   } catch (e: any) {
     console.error(`could not optimize cdn url: ${urlString}: ${e?.message}`)

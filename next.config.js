@@ -39,6 +39,7 @@ const nextConfig = {
       'static.wixstatic.com',
       'shdw-drive.genesysgo.net',
       'cdn.helius-rpc.com',
+      'gateway.irys.xyz',
     ],
   },
   sassOptions: {

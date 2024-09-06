@@ -14,7 +14,7 @@ async function sleep(time) {
 }
 
 export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
-  async bundlr() {
+  override async bundlr() {
     const nodeAddress = this._options.address;
 
     this._bundlr ??= await this.initBundlr();
@@ -129,5 +129,14 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
     };
 
     return this._bundlr;
+  }
+
+  override async uploadAll(files) {
+    let urls = await super.uploadAll(files);
+    return urls.map((arweave) => {
+      let url = new URL(arweave);
+      url.hostname = "gateway.irys.xyz";
+      return url.toString();
+    });
   }
 }
