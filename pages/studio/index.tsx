@@ -80,9 +80,9 @@ const Studio = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* <div className="absolute inset-0">
+                <div className="absolute inset-0">
                   <div className={styles.mask} />
-                </div> */}
+                </div>
               </div>
               <div className="absolute inset-0 flex justify-center items-center">
                 <div>
@@ -114,9 +114,9 @@ const Studio = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* <div className="absolute inset-0">
+                <div className="absolute inset-0">
                   <div className={styles.mask} />
-                </div> */}
+                </div>
               </div>
               <div className="absolute inset-0 flex justify-center items-center">
                 <div>

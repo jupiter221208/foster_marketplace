@@ -34,6 +34,7 @@ import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 // apis
 import dashboardAPI from 'apis/dashboard'
+import TopRatedArtistsSection from 'components/pages/Home/TopRatedArtistsSection'
 
 const FreshMintSection = React.lazy(() => import('components/pages/Home/FreshMintSection'))
 const TrendingCollectionSection = React.lazy(() => import('components/pages/Home/TrendingCollectionSection'))
@@ -187,17 +188,32 @@ const Category = () => {
         {cateQuery.length > 0 && (
           <div className="flex justify-center">
             <div className="w-full">
+              <div className={styles.liveAuctionBG}>
+                <div className="g-container">
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+                  </Suspense>
+                </div>
+              </div>
               <div className={styles.newReleaseSection}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <TrendingCollectionSection category={cateQuery} loop={false} />
+                    <OpenEditionSection
+                      category={cateQuery}
+                      isEditionLoaded={isEditionLoaded}
+                      editionList={openEditionList}
+                    />
                   </Suspense>
                 </div>
               </div>
               <div className={styles.liveAuctionBG}>
-                <div className="g-container mt-[60px]">
+                <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <MostPopularSection category={cateQuery} />
+                    <LimitedEditionSection
+                      category={cateQuery}
+                      isEditionLoaded={isEditionLoaded}
+                      editionList={limitedEditionList}
+                    />
                   </Suspense>
                 </div>
               </div>
@@ -209,38 +225,33 @@ const Category = () => {
                 </div>
               </div>
               <div className={styles.liveAuctionBG}>
-                <div className="g-container">
+                <div className="g-container mt-[60px]">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+                    <MostPopularSection category={cateQuery} />
                   </Suspense>
                 </div>
               </div>
+
               <div className={styles.newReleaseSection}>
+                <div className="g-container">
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <TopRatedArtistsSection />
+                  </Suspense>
+                </div>
+              </div>
+
+              <div className={styles.liveAuctionBG}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
                     <FreshMintSection category={cateQuery} />
                   </Suspense>
                 </div>
               </div>
+
               <div className={styles.liveAuctionBG}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <OpenEditionSection
-                      category={cateQuery}
-                      isEditionLoaded={isEditionLoaded}
-                      editionList={openEditionList}
-                    />
-                  </Suspense>
-                </div>
-              </div>
-              <div className={styles.newReleaseSection}>
-                <div className="g-container">
-                  <Suspense fallback={<LoadingSpinner />}>
-                    <LimitedEditionSection
-                      category={cateQuery}
-                      isEditionLoaded={isEditionLoaded}
-                      editionList={limitedEditionList}
-                    />
+                    <TrendingCollectionSection category={cateQuery} loop={false} />
                   </Suspense>
                 </div>
               </div>
