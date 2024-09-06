@@ -22,6 +22,7 @@ import StudioClothSign from 'assets/images/studio-sign.png'
 import StudioClothDIY from 'assets/images/studio-diy.png'
 import StudioCreateSection from 'components/pages/Studio/StudioCreateSection'
 import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const Studio = () => {
   const router = useRouter()
@@ -73,7 +74,11 @@ const Studio = () => {
             <div className={styles.imageContent}>
               <div className="absolute inset-0">
                 <div className="absolute inset-0">
-                  <img src={StudioClothSign.src} alt="" />
+                  <ImageWithFoster
+                    src={'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-1-page.webp'}
+                    quality={100}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute inset-0">
                   <div className={styles.mask} />
@@ -103,7 +108,11 @@ const Studio = () => {
             <div className={styles.imageContent}>
               <div className="absolute inset-0">
                 <div className="absolute inset-0">
-                  <img src={StudioClothDIY.src} alt="" />
+                  <ImageWithFoster
+                    src={'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-2-page.webp'}
+                    quality={100}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute inset-0">
                   <div className={styles.mask} />

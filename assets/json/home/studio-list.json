@@ -6,8 +6,8 @@
       "description": "Your one-stop shop for unparalleled merch customization,<br/>token-gated merch editions, and signature merch stores.<br/>Built for creators, brands, and communities on Solana.",
       "descMobile": "Your one-stop shop for unparalleled merch customization, token-gated merch editions, and signature merch stores. Built for creators, brands, and communities on Solana.",
       "button": "Learn More",
-      "desktop_image": "/images/studio/studio-2-desktop.png",
-      "mobile_image": "/images/studio/studio-2-mobile.png"
+      "desktop_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-2-desktop.webp",
+      "mobile_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-2-mobile.webp"
     },
     {
       "id": 1,
@@ -15,8 +15,8 @@
       "description": "Solana native eCommerce with frictionless checkout—SOL,<br/>USDC, or credit card.<br/><br/>Sell studio merch and custom physicals—all in one place.",
       "descMobile": "Solana native eCommerce with frictionless checkout—SOL, USDC, or credit card.<br/><br/>Sell studio merch and custom physicals—all in one place.",
       "button": "Setup Store",
-      "desktop_image": "/images/studio/studio-3-desktop.png",
-      "mobile_image": "/images/studio/studio-3-mobile.png"
+      "desktop_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-3-desktop.webp",
+      "mobile_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-3-mobile.webp"
     },
     {
       "id": 2,
@@ -24,8 +24,8 @@
       "description": "Studio pushes boundaries with digital experiences that<br/>activate lasting memories, deepen connections, and drive<br/>engagement.",
       "descMobile": "Studio pushes boundaries with digital experiences that activate lasting memories, deepen connections, and drive engagement.",
       "button": "Explore Studio",
-      "desktop_image": "/images/studio/studio-4-desktop.png",
-      "mobile_image": "/images/studio/studio-4-mobile.png"
+      "desktop_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-4-desktop.webp",
+      "mobile_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-4-mobile.webp"
     },
     {
       "id": 3,
@@ -33,7 +33,7 @@
       "description": "Release your merch on your terms.<br/>Take full control of design, price, and scarcity.",
       "descMobile":  "Release your merch on your terms.<br/>Take full control of design, price, and scarcity.",
       "button": "Design Merch",
-      "desktop_image": "/images/studio/studio-1-desktop.png",
-      "mobile_image": "/images/studio/studio-1-mobile.png"
+      "desktop_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-1-desktop.webp",
+      "mobile_image": "https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-1-mobile.webp"
     }
  ]

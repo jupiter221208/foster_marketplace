@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 // next components
-import Image from 'next/image'
 
 import ImageWithFoster from 'components/ImageWithFoster'
 
@@ -55,7 +54,7 @@ const StudioSeasonCard = ({ data }) => {
       <div className={styles.imageArea}>
         <ImageWithFoster
           src={viewport === 'xs' ? data.mobile_image : data.desktop_image}
-          alt=""
+          quality={100}
           className="w-full h-full object-cover"
         />
       </div>
