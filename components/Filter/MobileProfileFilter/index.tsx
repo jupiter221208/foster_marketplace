@@ -8,14 +8,15 @@ import GradientButton from 'components/Button/GradientButton'
 import styles from './index.module.scss'
 
 const MobileProfileFilter = props => {
-  const { listingStatus, listingType, ownership, studio, onClose, onFilter } = props
+  const { listingStatus, listingType, ownership, studio, tokenType, onClose, onFilter } = props
 
   const [selectedListing, setSelectedListing] = useState(null)
   const [listingStatusList, setListingStatusList] = useState<any>(listingStatus)
   const [listingTypeList, setListingTypeList] = useState<any>(listingType)
   const [ownershipList, setOwnershipList] = useState<any>(ownership)
   const [studioList, setStudioList] = useState<any>(studio)
-  console.log(listingStatus, listingType, ownership, studio)
+  const [tokenTypeList, setTokenTypeList] = useState<any>(tokenType)
+
   useEffect(() => {
     listingStatusList.map(item => {
       if (item.checked) setSelectedListing(item)
@@ -58,6 +59,15 @@ const MobileProfileFilter = props => {
     setStudioList(array)
   }
 
+  const handleSelectTokenType = index => {
+    let array = [...tokenTypeList]
+    array.map(item => {
+      item.checked = false
+    })
+    array[index].checked = true
+    setTokenTypeList(array)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -84,7 +94,7 @@ const MobileProfileFilter = props => {
           </div>
         ))}
 
-        {(selectedListing?.id === 0 || selectedListing?.id === 2) && (
+        {(selectedListing?.id === 0 || selectedListing?.id === listingStatusList.length) && (
           <div>
             <div className={styles.title}>Listing Type</div>
             {listingTypeList.map((item, index) => (
@@ -156,6 +166,29 @@ const MobileProfileFilter = props => {
             />
           </div>
         ))}
+
+        <div className={styles.title}>Token Type</div>
+        {tokenTypeList.map((item, index) => (
+          <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
+            <label
+              className={`${styles.checkmark}`}
+              onClick={() => {
+                handleSelectTokenType(index)
+              }}
+            >
+              {item.name}
+            </label>
+            <input
+              className={`${styles.checkbox}`}
+              type="checkbox"
+              id={item.id}
+              checked={item.checked}
+              onChange={() => {
+                handleSelectTokenType(index)
+              }}
+            />
+          </div>
+        ))}
       </div>
       <div className={styles.bottomArea}>
         <div className="w-[94px]">
@@ -184,6 +217,7 @@ const MobileProfileFilter = props => {
                 listingType: listingTypeList,
                 ownership: ownershipList,
                 studio: studioList,
+                tokenType: tokenTypeList,
               })
             }
             fullWidth
