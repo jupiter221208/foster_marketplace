@@ -108,7 +108,7 @@ const TabSection = props => {
       array.push(object)
     })
     let listingAll = {
-      id: 2,
+      id: 4,
       name: 'All',
       value: '',
       checked: true,
@@ -210,7 +210,7 @@ const TabSection = props => {
   }
 
   const removeFilter = filter => {
-    if (filter === 'Listed' || filter === 'Not Listed') {
+    if (filter === 'Listed' || filter === 'Not Listed' || filter === 'Expired' || filter === 'Starting Soon') {
       let array = [...listingStatusList]
       array.map(item => {
         item.checked = false
@@ -430,11 +430,18 @@ const TabSection = props => {
           params['per_page'] = 'all'
         }
       }
-    } else if (listingStatus?.id === 2) {
+    } else if (listingStatus?.id === 4) {
+      // All
       if (listingType.id !== 3) {
         params['listing'] = listingType.value
         params['per_page'] = 'all'
       }
+    } else if (listingStatus?.id === 2) {
+      // Expired
+      params['listing'] = 'expired'
+    } else if (listingStatus?.id === 3) {
+      // Expired
+      params['listing'] = 'upcoming'
     } else {
       params['listing'] = 'unlisted'
     }
