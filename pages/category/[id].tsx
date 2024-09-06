@@ -158,19 +158,19 @@ const Category = () => {
       </Head>
       <div className={styles.container}>
         <div className="relative w-full">
-          {categoryInfo?.banner_type === 'image' ? (
-            <div className={styles.imageContainer}>
-              <img
+          {/* {categoryInfo?.banner_type === 'image' ? ( */}
+          <div className={styles.imageContainer}>
+            {/* <img
                 src={viewport === 'xs' ? categoryInfo?.mobile_banner : categoryInfo?.banner}
                 alt=""
                 className="w-full object-cover opacity-90"
-              />
-              <div className={styles.imageArea}>{categoryInfo?.name}</div>
-            </div>
-          ) : (
+              /> */}
+            <div className={styles.imageArea}>{categoryInfo?.name}</div>
+          </div>
+          {/* ) : (
             <></>
-          )}
-          {categoryInfo?.banner_type === 'video' ? (
+          )} */}
+          {/* {categoryInfo?.banner_type === 'video' ? (
             <div className={styles.imageContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <img src={categoryInfo?.mobile_banner} alt="" className="w-full object-cover" />
@@ -182,7 +182,7 @@ const Category = () => {
             </div>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
         {cateQuery.length > 0 && (
           <div className="flex justify-center">

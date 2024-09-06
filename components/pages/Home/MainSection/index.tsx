@@ -145,17 +145,7 @@ const MainSection = () => {
                 })}
               </Fade>
             </div>
-            {/* <div className={styles.heroBorder} /> */}
           </div>
-          {/* {heroCardOpacity === 0 && (
-            <div className="absolute inset-0 flex justify-center items-center">
-              <div className={styles.loadingText}>
-                <div className="flex items-center w-[200px]">
-                  <Lottie animationData={LoadingIcon} loop={true} />
-                </div>
-              </div>
-            </div>
-          )} */}
         </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />

@@ -8,54 +8,8 @@
   height: 400px;
   overflow: hidden;
   position: relative;
-  width: 1920px;
-  margin-top: -80px;
-  @media (min-width: 375px) {
-    width: 100%;
-    max-height: 400px;
-    height: auto;
-    margin-top: 0;
-  }
-}
-
-.title {
-  position: absolute;
-  font-family: 'Muli-Bold';
-  line-height: 24px;
-  font-size: 18px;
-  bottom: 8px;
-  left: 14px;
-  @media (min-width: 640px) {
-    bottom: 12px;
-    left: 20px;
-    line-height: 24px;
-  }
-  @media (min-width: 768px) {
-    bottom: 18px;
-    left: 28px;
-    font-family: 'KCDurhamBoxcar';
-    font-size: 35px;
-  }
-  @media (min-width: 1024px) {
-    font-family: 'KCDurhamBoxcar';
-    bottom: 22px;
-    left: 32px;
-    font-size: 50px;
-  }
-  @media (min-width: 1280px) {
-    font-family: 'KCDurhamBoxcar';
-    bottom: 26px;
-    left: 36px;
-    font-size: 60px;
-  }
-  @media (min-width: 1536px) {
-    font-family: 'KCDurhamBoxcar';
-    bottom: 30px;
-    left: 40px;
-    font-size: 80px;
-  }
-  letter-spacing: 0;
-  color: $text-gray-200-color;
+  width: 100%;
+  background: linear-gradient(to top right, #242424, #0A0A0A);
 }
 
 .imageArea {
@@ -67,14 +21,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  font-family: 'JunkDog';
+  font-family: 'Erstoria';
   font-size: 50px;
   color: #ffffff;
   background: rgba(var(--background-dark-color-rgb), 0.5);
   z-index: 10;
   @media (max-width: 1024px) {
-    font-family: 'JunkDog';
-  font-size: 30px;
+    font-size: 30px;
   }
 }
 
