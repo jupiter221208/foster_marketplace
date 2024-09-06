@@ -33,7 +33,7 @@ const StudioHeroSection = props => {
   return isLoaded && studioList.length > 0 ? (
     <section className={styles.container}>
       <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
-        <div className={styles.title}>{'Studio Season II'}</div>
+        <div className={styles.title}>{'Foster Studio'}</div>
       </div>
       <div className={`${styles.editionSwiper}`}>
         <Swiper

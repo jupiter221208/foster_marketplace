@@ -81,9 +81,10 @@ const Studio = () => {
               </div>
               <div className="absolute inset-0 flex justify-center items-center">
                 <div>
-                  <div className={styles.title}>Signature Creator Merch</div>
-                  <div className={styles.desc}>
-                    {'Shop exclusive merch by Solana’s top artists. Discover limited-edition apparel and collectibles.'}
+                  <div className={styles.title}>Studio 2.0</div>
+                  <div className="mt-[9px]">
+                    <div className={styles.desc}>{'Shop exclusive merch by Solana’s top artists.'}</div>
+                    <div className={styles.desc}>{'Discover limited-edition apparel and collectibles.'}</div>
                   </div>
                   <div className="flex justify-center mt-[30px]">
                     <div className={styles.shopNow} onClick={() => router.push('/studio/signature')}>
@@ -110,11 +111,10 @@ const Studio = () => {
               </div>
               <div className="absolute inset-0 flex justify-center items-center">
                 <div>
-                  <div className={styles.title}>DIY: Curate Custom Merch</div>
-                  <div className={styles.desc}>
-                    {
-                      'Select artwork from our Studio NFT Library and create your own merch. Choose a garment and place the design.'
-                    }
+                  <div className={styles.title}>Studio 1.0</div>
+                  <div className="mt-[9px]">
+                    <div className={styles.desc}>{'Select artwork from the Studio NFT Library.'}</div>
+                    <div className={styles.desc}>{'Curate your own merch.'}</div>
                   </div>
                   <div className="flex justify-center mt-[30px]">
                     <div className={styles.shopNow} onClick={() => router.push('/studio/legacy')}>
