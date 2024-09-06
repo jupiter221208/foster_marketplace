@@ -95,7 +95,7 @@ const Home = () => {
           <MainSection />
         </div>
       </div>
-      <div className={styles.editionSection}>
+      <div className={styles.studioHeroSection}>
         <div className="g-container w-full">
           <StudioHeroSection isEditionLoaded={isEditionLoaded} />
         </div>

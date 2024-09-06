@@ -9,7 +9,6 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-color: var(--profile-card-bg);
 }
 
 .topMask {
@@ -113,13 +112,13 @@
   border-radius: 25px;
   padding-left: 23px;
   padding-right: 8px;
-  background: var(--bg-FFF-202427);
+  background: #FFF;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Muli-SemiBold';
   font-size: 18px;
-  color: var(--bg-171717-F3F2F0);
+  color: #171717;
   cursor: pointer;
 }
 
@@ -127,10 +126,13 @@
   width: 36px;
   height: 36px;
   border-radius: 18px;
-  background: var(--bg-1A1A1A-F3F2F0);
+  background: #1A1A1A;
   display: flex;
   justify-content: center;
   align-items: center;
+  svg {
+    fill: #FFF !important;
+  }
 }
 
 .collectionName {

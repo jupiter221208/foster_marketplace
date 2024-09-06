@@ -37,7 +37,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
   const [showAlert, setShowAlert] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  console.log(itemDetails, '============itemDetails========')
   useEffect(() => {
     function handleResize() {
       let screenWidth = window.innerWidth
