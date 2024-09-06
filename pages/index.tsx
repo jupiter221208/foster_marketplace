@@ -97,7 +97,7 @@ const Home = () => {
       </div>
       <div className={styles.editionSection}>
         <div className="g-container w-full">
-          <StudioHeroSection />
+          <StudioHeroSection isEditionLoaded={isEditionLoaded} />
         </div>
       </div>
       <div className={styles.liveAuctionBG}>

@@ -22,12 +22,10 @@ const StudioSeasonCard = ({ data }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <Image
+        <ImageWithFoster
           src={viewport === 'xs' ? data.mobile_image : data.desktop_image}
           alt=""
-          width={viewport === 'xs' ? 320 : 1440}
-          height={viewport === 'xs' ? 460 : 580}
-          className="object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
 
@@ -35,13 +33,15 @@ const StudioSeasonCard = ({ data }) => {
         <div>
           <div className={styles.studioTitle}>
             <p>{data.title}</p>
-            <p dangerouslySetInnerHTML={{ __html: data.description }} />
+            <p dangerouslySetInnerHTML={{ __html: viewport === 'xs' ? data.descMobile : data.description }} />
           </div>
         </div>
-        <div className={styles.buyButton} onClick={() => router.push('/studio')}>
-          <div>{data.button}</div>
-          <div className={styles.buttonIcon}>
-            <ArrowIcon />
+        <div className="w-full flex justify-center sm:justify-start">
+          <div className={styles.buyButton} onClick={() => router.push('/studio')}>
+            <div>{data.button}</div>
+            <div className={styles.buttonIcon}>
+              <ArrowIcon />
+            </div>
           </div>
         </div>
       </div>
