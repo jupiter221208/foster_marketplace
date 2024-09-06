@@ -30,6 +30,7 @@ import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
 
 // api
 import dashboardAPI from 'apis/dashboard'
+import StudioHeroSection from 'components/pages/Home/StudioHeroSection'
 
 const Home = () => {
   const viewport = useViewport()
@@ -92,6 +93,11 @@ const Home = () => {
       <div className="w-full flex justify-center">
         <div className="max-w-[1920px] w-full px-4 lg:px-0">
           <MainSection />
+        </div>
+      </div>
+      <div className={styles.editionSection}>
+        <div className="g-container w-full">
+          <StudioHeroSection />
         </div>
       </div>
       <div className={styles.liveAuctionBG}>

@@ -2,8 +2,33 @@
     {
       "id": 0,
       "title": "Studio 2.0 is Live!",
-      "description": "Your one-stop shop for unparalleled merch customization,\ntoken-gated merch editions, and signature merch stores.\nBuilt for creators, brands, and communities on Solana.",
+      "description": "Your one-stop shop for unparalleled merch customization,<br/>token-gated merch editions, and signature merch stores.<br/>Built for creators, brands, and communities on Solana.",
       "button": "Learn More",
-      "desktop_image": "/images/studio/studio-1-deskopt.png"
+      "desktop_image": "/images/studio/studio-2-desktop.png",
+      "mobile_image": "/images/studio/studio-2-mobile.png"
+    },
+    {
+      "id": 1,
+      "title": "A new home for your physicals",
+      "description": "Solana native eCommerce with frictionless checkout—SOL, USDC, or credit card.<br/><br/>Sell studio merch and custom physicals—all in one place.",
+      "button": "Setup Store",
+      "desktop_image": "/images/studio/studio-3-desktop.png",
+      "mobile_image": "/images/studio/studio-3-mobile.png"
+    },
+    {
+      "id": 2,
+      "title": "Explore Studio",
+      "description": "Season II pushes boundaries with digital experiences that activate lasting memories, deepen connections, and drive engagement.",
+      "button": "Setup Store",
+      "desktop_image": "/images/studio/studio-4-desktop.png",
+      "mobile_image": "/images/studio/studio-4-mobile.png"
+    },
+    {
+      "id": 3,
+      "title": "Enhanced Design Tools",
+      "description": "Release your merch on your terms.<br/>Take full control of design, price, and scarcity.",
+      "button": "Design Merch",
+      "desktop_image": "/images/studio/studio-1-desktop.png",
+      "mobile_image": "/images/studio/studio-1-mobile.png"
     }
  ]

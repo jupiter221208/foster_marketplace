@@ -1,10 +1,4 @@
-import React, { useEffect } from 'react'
-
-// next components
-import { useRouter } from 'next/router'
-
-// third party components
-import { useDispatch } from 'react-redux'
+import React from 'react'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -22,26 +16,24 @@ import studioList from 'assets/json/home/studio-list.json'
 // styles
 import styles from './index.module.scss'
 import StudioSeasonCard from 'components/Card/StudioSeasonCard'
+import { TRUE } from 'sass'
 
 // call apis
 
 const StudioHeroSection = props => {
   const { isEditionLoaded } = props
   const viewport = useViewport()
-  const router = useRouter()
-  const dispatch = useDispatch()
 
   return studioList.length > 0 ? (
     <section className={styles.container}>
       <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
-        <div className={styles.line} />
         <div className={styles.title}>{'Studio Season II'}</div>
       </div>
-      <div className={`${styles.editionSwiper} lg:block hidden`}>
+      <div className={`${styles.editionSwiper}`}>
         <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={1.36}
-          spaceBetween={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 20 : 0}
+          navigation={viewport === 'xs' ? false : true}
+          slidesPerView={viewport === 'xs' ? 1 : 1.36}
+          spaceBetween={viewport === 'xs' ? 0 : 20}
           centeredSlides={true}
           loop={studioList.length > 1}
           modules={[Navigation]}
