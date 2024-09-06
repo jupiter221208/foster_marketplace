@@ -75,14 +75,14 @@ const Studio = () => {
               <div className="absolute inset-0">
                 <div className="absolute inset-0">
                   <ImageWithFoster
-                    src={'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-1-page.webp'}
+                    src={'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-2-bg.webp'}
                     quality={100}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute inset-0">
+                {/* <div className="absolute inset-0">
                   <div className={styles.mask} />
-                </div>
+                </div> */}
               </div>
               <div className="absolute inset-0 flex justify-center items-center">
                 <div>
@@ -109,14 +109,14 @@ const Studio = () => {
               <div className="absolute inset-0">
                 <div className="absolute inset-0">
                   <ImageWithFoster
-                    src={'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-2-page.webp'}
+                    src={'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/studio-1-bg.webp'}
                     quality={100}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute inset-0">
+                {/* <div className="absolute inset-0">
                   <div className={styles.mask} />
-                </div>
+                </div> */}
               </div>
               <div className="absolute inset-0 flex justify-center items-center">
                 <div>
