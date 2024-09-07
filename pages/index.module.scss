@@ -18,7 +18,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background: var(--bg-1A1A1A-E8E7E5);
+  // background: var(--bg-1A1A1A-E8E7E5);
+  background: radial-gradient(var(--bg-242424-F3F2F0), var(--bg-0A0A0A-E8E7E5));
 }
 
 .studioHeroSection {

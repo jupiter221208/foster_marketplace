@@ -100,9 +100,9 @@ const Home = () => {
           <StudioHeroSection isEditionLoaded={isEditionLoaded} />
         </div>
       </div>
-      <div className={styles.liveAuctionBG}>
+      <div className={styles.limitEditionSection}>
         <div className="g-container">
-          <LiveAuctionSection category={''} fromPage={'home'} />
+          <LimitedEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={limitedEditionList} />
         </div>
       </div>
       <div className={styles.editionSection}>
@@ -110,9 +110,9 @@ const Home = () => {
           <OpenEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={openEditionList} />
         </div>
       </div>
-      <div className={styles.limitEditionSection}>
+      <div className={styles.liveAuctionBG}>
         <div className="g-container">
-          <LimitedEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={limitedEditionList} />
+          <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
       <div className={styles.newReleaseSection}>
