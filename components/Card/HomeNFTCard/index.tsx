@@ -126,12 +126,7 @@ const HomeNftCard = props => {
                             }}
                           />
                         ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
-                          <ImageWithFoster
-                            width={360}
-                            src={coverImage}
-                            alt=""
-                            className="max-w-full max-h-full object-cover"
-                          />
+                          <ImageWithFoster width={360} src={coverImage} alt="" className="w-full h-full object-cover" />
                         ) : (
                           <div
                             className="w-full h-full absolute"
@@ -172,13 +167,18 @@ const HomeNftCard = props => {
                     <div className="w-full h-full">
                       {assetType?.includes('vr') ? (
                         coverImage !== null && coverImage !== '' ? (
-                          <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                          <ImageWithFoster src={coverImage} width={360} className="w-full h-full object-cover" />
                         ) : (
                           <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                         )
                       ) : assetType?.includes('audio') ? (
                         coverImage !== null && coverImage !== '' ? (
-                          <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
+                          <ImageWithFoster
+                            src={coverImage}
+                            width={360}
+                            onClick={onClick}
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
                           <Image
                             src={DefaultNftBG}
@@ -193,7 +193,7 @@ const HomeNftCard = props => {
                           width={360}
                           originalSrc={fallBack}
                           onClick={onClick}
-                          className="max-w-full max-h-full w-full h-full object-contain"
+                          className="w-full h-full object-cover"
                         />
                       ) : image !== null && image !== '' ? (
                         <ImageWithFoster
@@ -201,7 +201,7 @@ const HomeNftCard = props => {
                           width={360}
                           originalSrc={fallBack}
                           onClick={onClick}
-                          className="max-w-full max-h-full w-full h-full object-contain"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
                         <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />

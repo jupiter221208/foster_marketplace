@@ -118,7 +118,7 @@ const HomeEditionCard = props => {
                           src={data.coverImageUrl}
                           width={500}
                           onClick={onClick}
-                          className="max-w-full max-h-full object-cover"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
                         <div
@@ -164,7 +164,7 @@ const HomeEditionCard = props => {
                   <ImageWithFoster
                     src={data.coverImageUrl}
                     width={500}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
@@ -176,7 +176,7 @@ const HomeEditionCard = props => {
                     src={data.coverImageUrl}
                     width={500}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -187,7 +187,7 @@ const HomeEditionCard = props => {
                     src={data.assetUrl}
                     width={500}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="mw-full h-full object-cover"
                   />
                 </a>
               </Link>

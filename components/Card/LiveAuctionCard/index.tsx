@@ -142,7 +142,7 @@ const LiveAuctionCard = props => {
                           src={data.cover_image_url}
                           width={500}
                           onClick={onClick}
-                          className="max-w-full max-h-full object-cover"
+                          className="-w-full h-full object-cover"
                         />
                       ) : (
                         <div
@@ -188,7 +188,7 @@ const LiveAuctionCard = props => {
                   <ImageWithFoster
                     src={data.cover_image_url}
                     width={500}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
@@ -200,7 +200,7 @@ const LiveAuctionCard = props => {
                     src={data.cover_image_url}
                     width={500}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -211,7 +211,7 @@ const LiveAuctionCard = props => {
                     src={data.asset_url}
                     width={500}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>

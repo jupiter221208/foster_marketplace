@@ -76,7 +76,6 @@ const MarketplaceReleaseSection = props => {
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="relative w-full flex justify-between items-center z-10">
-          <div className={styles.line} />
           <div className={`${styles.title}`}>New Releases</div>
           <div className="lg:block hidden">
             <SeeMoreButton
