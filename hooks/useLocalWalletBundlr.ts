@@ -22,7 +22,7 @@ export const useLocalWalletBundlr = () => {
     let metaplex = Metaplex.make(connection);
     metaplex.storage().setDriver(
       new ConfirmingBundlrStorageDriver(metaplex, {
-        address: process.env.BUNDLR_ADDRESS || "",
+        network: process.env.WALLET_ADAPTER_NETWORK || "",
         providerUrl: process.env.PROVIDER_URL || "",
         timeout: 60000,
       })
