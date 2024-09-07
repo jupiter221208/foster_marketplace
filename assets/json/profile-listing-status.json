@@ -1,12 +1,22 @@
 [
   {
+    "id": 1,
+    "name": "Not Listed",
+    "value": "not-listed"
+  },
+  {
     "id": 0,
     "name": "Listed",
     "value": "listed"
   },
   {
-    "id": 1,
-    "name": "Not Listed",
-    "value": "not-listed"
+    "id": 2,
+    "name": "Expired",
+    "value": "expired"
+  },
+  {
+    "id": 3,
+    "name": "Starting Soon",
+    "value": "upcoming"
   }
 ]

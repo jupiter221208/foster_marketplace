@@ -27,6 +27,7 @@ const CreatorMerchReviews = props => {
 
   useEffect(() => {
     getReviewFromAPI()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

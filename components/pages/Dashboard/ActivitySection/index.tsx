@@ -59,6 +59,7 @@ const ActivitySection = props => {
       setActivityList(activityNfts)
       if (activityNfts.length > rowCount) setIsVisibleFetching(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

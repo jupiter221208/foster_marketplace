@@ -92,6 +92,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
         setSelectedMerch(list[0])
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
   const onClickMerch = key => {

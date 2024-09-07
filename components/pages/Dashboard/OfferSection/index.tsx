@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import OfferTable from 'components/Table/OfferTable'
 import OfferAccordion from 'components/Accordion/OfferAccordion'
 import Alert from 'components/Alert'
-import LoadingModal from 'components/Modal/LoadingModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -68,6 +67,7 @@ const OfferSection = props => {
       setOffersMade(offers)
       setOfferNftsMade(offers)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mx, offersMade]
   )
 
@@ -79,6 +79,7 @@ const OfferSection = props => {
       setOffersReceived(received_reverse)
       setOfferNftsReceived(received_reverse)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mx, offersReceived]
   )
 

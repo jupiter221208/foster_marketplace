@@ -7,10 +7,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 
 // components
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
-import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import MerchEditionClaimCard from 'components/Card/MerchEditionClaimCard'
-import Lottie from 'lottie-react'
-import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // styles
 import styles from './index.module.scss'
@@ -50,6 +47,7 @@ const MerchEditionSection = () => {
       setMerchList(claimedList)
       setFilteredList(claimedList)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
 
   const getMerchList = () => {

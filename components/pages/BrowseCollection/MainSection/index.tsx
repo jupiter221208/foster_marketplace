@@ -226,34 +226,18 @@ const MainSection = props => {
               <>
                 {croppedBanner !== '' ? (
                   <div className={styles.headerImage}>
-                    <img
-                      // showPlaceHolder={false}
-                      src={croppedBanner}
-                      className="w-full h-[350px] object-cover"
-                    />
+                    <img src={croppedBanner} className="w-full h-[350px] object-cover" alt="" />
                   </div>
                 ) : data?.banner_image ? (
                   <div className={styles.headerImage}>
-                    <img
-                      // showPlaceHolder={false}
-                      src={data.banner_image}
-                      className="w-full h-[350px] object-cover"
-                    />
+                    <img src={data.banner_image} className="w-full h-[350px] object-cover" alt="" />
                   </div>
                 ) : data?.cover_image ? (
                   <div className={styles.headerImage}>
-                    <img
-                      // showPlaceHolder={false}
-                      src={data?.cover_image}
-                      className="w-full h-[350px] object-cover"
-                    />
+                    <img src={data?.cover_image} className="w-full h-[350px] object-cover" alt="" />
                   </div>
                 ) : (
-                  <img
-                    // showPlaceHolder={false}
-                    src={bannerImage.src}
-                    className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] "
-                  />
+                  <img src={bannerImage.src} className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] " alt="" />
                 )}
               </>
             )}

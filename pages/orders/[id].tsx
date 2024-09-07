@@ -90,6 +90,7 @@ const OrderSection = props => {
 
       setUsername(merchData?.username)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderData])
 
   return (

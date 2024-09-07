@@ -5,18 +5,10 @@
   width: 100%;
   max-height: 575px;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-color: var(--profile-card-bg);
-  border: solid 1px rgb(var(--text-gray-200-color-rgb), 0.1);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 4fr 1fr;
-  }
 }
 
 .topMask {
@@ -34,12 +26,13 @@
 }
 
 .imageArea {
-  background: rgba(var(--main-bg-color-rgb), 0.05);
-  min-height: 575px;
-  @media (max-width: 1600px) {
-    min-height: 450px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 460px;
+  @media (min-width: 640px) {
+    height: 580px;
   }
-  z-index: 100;
 }
 
 .imageContent {
@@ -61,48 +54,15 @@
 }
 
 .infoBox {
-  padding: 30px 40px 30px 30px;
+  position: absolute;
+  inset: 0;
+  padding: 50px 25px;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
   z-index: 100;
   @media (min-width: 1024px) {
-    padding: 30px;
-  }
-  @media (min-width: 1440px) {
-    padding: 43px 35px 30px 35px;
-  }
-}
-
-.cardArea {
-  position: absolute;
-  bottom: 8px;
-  left: 12px;
-  width: auto;
-  border-radius: 10px;
-  max-height: 114px;
-  height: 74px;
-  padding: 18px 30px 18px 14px;
-  background: transparent; //(var(--collection-card-bg-rgb), 0.4);
-  // -webkit-backdrop-filter: blur(20px);
-  // backdrop-filter: blur(20px);
-  @media (min-width: 1024px) {
-    position: absolute;
-    bottom: 40px;
-    left: 35px;
-    right: 40px;
-    height: 100px;
-    border-radius: 24px;
-    padding: 15px 18px;
-  }
-  @media (min-width: 1536px) {
-    position: absolute;
-    bottom: 40px;
-    left: 35px;
-    right: 40px;
-    height: 100%;
-    border-radius: 30px;
-    padding: 20px 35px;
+    padding: 43px 50px;
   }
 }
 
@@ -114,42 +74,51 @@
   overflow: hidden;
 }
 
-.nftNames {
+.studioTitle {
   p:first-child {
-    font-family: 'Muli-SemiBold';
-    font-size: 20px;
-    @media (min-width: 1440px) {
-      font-size: 22px;
-      line-height: 30px;
+    font-family: 'Muli-Bold';
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    @media (min-width: 640px) {
+      font-size: 30px;
+      line-height: 38px;
+      text-align: start;
+
     }
-    color: var(--text-gray-200-color);
+    color: #FFF;
   }
   p:nth-child(2) {
-    font-family: 'Muli-Light'; 
+    font-family: 'Muli-Regular'; 
     font-size: 16px;
-    margin-top: 2px;
-    @media (min-width: 1440px) {
-      margin-top: 3px;
-      font-size: 18px;
-      line-height: 23px;
+    line-height: 20px;
+    margin-top: 45px;
+    text-align: center;
+    @media (min-width: 640px) {
+      margin-top: 17px;
+      font-size: 16px;
+      line-height: 20px;
+      text-align: start;
+
     }
-    color: rgba(var(--main-bg-color-rgb), 0.9);
+    color: #FFF;
   }
 }
 
 .buyButton {
-  width: 184px;
+  width: fit-content;
   height: 50px;
+  gap: 11px;
   border-radius: 25px;
   padding-left: 23px;
   padding-right: 8px;
-  background: var(--bg-FFF-202427);
+  background: #FFF;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Muli-SemiBold';
   font-size: 18px;
-  color: var(--bg-171717-F3F2F0);
+  color: #171717;
   cursor: pointer;
 }
 
@@ -157,10 +126,13 @@
   width: 36px;
   height: 36px;
   border-radius: 18px;
-  background: var(--bg-1A1A1A-F3F2F0);
+  background: #1A1A1A;
   display: flex;
   justify-content: center;
   align-items: center;
+  svg {
+    fill: #FFF !important;
+  }
 }
 
 .collectionName {

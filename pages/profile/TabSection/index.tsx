@@ -9,6 +9,7 @@ import ListingStatusList from 'assets/json/profile-listing-status.json'
 import ListingTypeList from 'assets/json/profile-listing-type.json'
 import OwnershipList from 'assets/json/profile-ownership.json'
 import StudioList from 'assets/json/profile-studio.json'
+import TokenTypeList from 'assets/json/profile-token-type.json'
 import SortList from 'assets/json/profile-sort.json'
 import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import SortIcon from 'assets/icons/sort-icon-normal.svg?component'
@@ -30,7 +31,6 @@ import StudioCategoryMenu from 'components/Menu/StudioCategoryMenu'
 // api
 import DashboardAPI from 'apis/dashboard'
 import HomeNftCard from 'components/Card/HomeNFTCard'
-import { useRouter } from 'next/router'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 import HomeEditionCard from 'components/Card/HomeEditionCard'
 import BlackButton from 'components/Button/BlackButton'
@@ -54,7 +54,6 @@ const TabSection = props => {
   } = props
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
   const profileTab = useSelector<any>(state => state.profileTab)
-  const router = useRouter()
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -67,6 +66,7 @@ const TabSection = props => {
   const [listingTypeList, setListingTypeList] = useState([])
   const [ownershipList, setOwnershipList] = useState([])
   const [studioList, setStudioList] = useState([])
+  const [tokenTypeList, setTokenTypeList] = useState([])
   const [sortList, setSortList] = useState([])
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
@@ -108,7 +108,7 @@ const TabSection = props => {
       array.push(object)
     })
     let listingAll = {
-      id: 2,
+      id: 4,
       name: 'All',
       value: '',
       checked: true,
@@ -168,6 +168,21 @@ const TabSection = props => {
     array3.push(studioAll)
     setStudioList(array3)
 
+    let arrayTokenType: any[] = []
+    TokenTypeList.map(item => {
+      let object: any = item
+      object.checked = false
+      arrayTokenType.push(object)
+    })
+    let ttAll = {
+      id: TokenTypeList.length,
+      name: 'All',
+      value: '',
+      checked: true,
+    }
+    arrayTokenType.push(ttAll)
+    setTokenTypeList(arrayTokenType)
+
     let array4: any[] = []
     SortList.map(item => {
       let object: any = item
@@ -176,6 +191,7 @@ const TabSection = props => {
       array4.push(object)
     })
     setSortList(array4)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const resetFilter = () => {
@@ -207,10 +223,17 @@ const TabSection = props => {
     })
     array3[studioList.length - 1].checked = true
     setStudioList(array3)
+
+    let arrayTT = [...tokenTypeList]
+    arrayTT.map(item => {
+      item.checked = false
+    })
+    arrayTT[tokenTypeList.length - 1].checked = true
+    setTokenTypeList(arrayTT)
   }
 
   const removeFilter = filter => {
-    if (filter === 'Listed' || filter === 'Not Listed') {
+    if (filter === 'Listed' || filter === 'Not Listed' || filter === 'Expired' || filter === 'Starting Soon') {
       let array = [...listingStatusList]
       array.map(item => {
         item.checked = false
@@ -239,12 +262,19 @@ const TabSection = props => {
       })
       array1[studioList.length - 1].checked = true
       setStudioList(array1)
+    } else if (filter === '1 of 1' || filter === 'Master Edition' || filter === 'Printed Edition') {
+      let array1 = [...tokenTypeList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[tokenTypeList.length - 1].checked = true
+      setTokenTypeList(array1)
     }
 
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, sortList, true)
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, tokenTypeList, sortList, true)
     }, 100)
   }
 
@@ -287,8 +317,11 @@ const TabSection = props => {
     studioList.map(item => {
       if (item.checked === true && item.name !== 'All') list.push(item.name)
     })
+    tokenTypeList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
     setSelectedFilterList(list)
-  }, [listingStatusList, listingTypeList, ownershipList, studioList])
+  }, [listingStatusList, listingTypeList, ownershipList, studioList, tokenTypeList])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -309,7 +342,7 @@ const TabSection = props => {
   useEffect(() => {
     if (isFetching === true && !loadingData) {
       let nextPage = pages + 1
-      getNftItem(nextPage, listingStatusList, listingTypeList, ownershipList, studioList, sortList)
+      getNftItem(nextPage, listingStatusList, listingTypeList, ownershipList, studioList, tokenTypeList, sortList)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
@@ -333,7 +366,7 @@ const TabSection = props => {
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, array, listingTypeList, ownershipList, studioList, sortList, true)
+      getNftItem(1, array, listingTypeList, ownershipList, studioList, tokenTypeList, sortList, true)
     }, 500)
   }
 
@@ -347,7 +380,7 @@ const TabSection = props => {
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, listingStatusList, array, ownershipList, studioList, sortList, true)
+      getNftItem(1, listingStatusList, array, ownershipList, studioList, tokenTypeList, sortList, true)
     }, 500)
   }
 
@@ -361,7 +394,7 @@ const TabSection = props => {
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, listingStatusList, listingTypeList, array, studioList, sortList, true)
+      getNftItem(1, listingStatusList, listingTypeList, array, studioList, tokenTypeList, sortList, true)
     }, 500)
   }
 
@@ -375,7 +408,21 @@ const TabSection = props => {
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, listingStatusList, listingTypeList, ownershipList, array, sortList, true)
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, array, tokenTypeList, sortList, true)
+    }, 500)
+  }
+
+  const handleSelectTokenType = index => {
+    let array = [...tokenTypeList]
+    array.map(item => {
+      item.checked = false
+    })
+    array[index].checked = true
+    setTokenTypeList(array)
+    setLoadingData(true)
+    setTimeout(() => {
+      setNftList([])
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, array, sortList, true)
     }, 500)
   }
 
@@ -389,11 +436,20 @@ const TabSection = props => {
     setLoadingData(true)
     setTimeout(() => {
       setNftList([])
-      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, array, true)
+      getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, tokenTypeList, array, true)
     }, 100)
   }
 
-  const getNftItem = (page, listingStatusList, listingTypeList, ownershipList, studioList, sortList, reset = false) => {
+  const getNftItem = (
+    page,
+    listingStatusList,
+    listingTypeList,
+    ownershipList,
+    studioList,
+    tokenTypeList,
+    sortList,
+    reset = false
+  ) => {
     let sort = 'price-descending'
     sortList.map(item => {
       if (item.checked === true) {
@@ -430,11 +486,18 @@ const TabSection = props => {
           params['per_page'] = 'all'
         }
       }
-    } else if (listingStatus?.id === 2) {
+    } else if (listingStatus?.id === 4) {
+      // All
       if (listingType.id !== 3) {
         params['listing'] = listingType.value
         params['per_page'] = 'all'
       }
+    } else if (listingStatus?.id === 2) {
+      // Expired
+      params['listing'] = 'expired'
+    } else if (listingStatus?.id === 3) {
+      // Expired
+      params['listing'] = 'upcoming'
     } else {
       params['listing'] = 'unlisted'
     }
@@ -445,19 +508,28 @@ const TabSection = props => {
         ownership = item
       }
     })
+    if (ownership && ownership.id !== ownershipList.length) {
+      params['ownership'] = ownership.value
+    }
+
     let merch = null
     studioList.map(item => {
       if (item.checked === true) {
         merch = item
       }
     })
-
-    if (ownership && ownership.id !== 2) {
-      params['ownership'] = ownership.value
+    if (merch && merch.id !== studioList.length) {
+      params['merch_hub'] = merch.value
     }
 
-    if (merch && merch.id !== 2) {
-      params['merch_hub'] = merch.value
+    let tokenType = null
+    tokenTypeList.map(item => {
+      if (item.checked === true) {
+        tokenType = item
+      }
+    })
+    if (tokenType && tokenType.id !== tokenTypeList.length) {
+      params['token_type'] = tokenType.value
     }
 
     setIsVisibleFetching(true)
@@ -525,7 +597,7 @@ const TabSection = props => {
                 icon={<FilterIcon />}
               />
 
-              {(listingStatus?.id === 0 || listingStatus?.id === 2) && (
+              {(listingStatus?.id === 0 || listingStatus?.id === 4) && (
                 <StudioCategoryMenu
                   menuLabel="Listing Type"
                   categoryList={listingTypeList}
@@ -545,6 +617,13 @@ const TabSection = props => {
                 menuLabel="Studio"
                 categoryList={studioList}
                 handleSelectCategory={handleSelectStudio}
+                icon={<FilterIcon />}
+              />
+
+              <StudioCategoryMenu
+                menuLabel="Token Type"
+                categoryList={tokenTypeList}
+                handleSelectCategory={handleSelectTokenType}
                 icon={<FilterIcon />}
               />
             </div>
@@ -576,7 +655,16 @@ const TabSection = props => {
                   setLoadingData(true)
                   setTimeout(() => {
                     setNftList([])
-                    getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, sortList, true)
+                    getNftItem(
+                      1,
+                      listingStatusList,
+                      listingTypeList,
+                      ownershipList,
+                      studioList,
+                      tokenTypeList,
+                      sortList,
+                      true
+                    )
                   }, 100)
                 }}
               >
@@ -744,15 +832,16 @@ const TabSection = props => {
             listingType={listingTypeList}
             ownership={ownershipList}
             studio={studioList}
+            tokenType={tokenTypeList}
             onFilter={params => {
-              let { listingStatus, listingType, ownership, studio } = params
+              let { listingStatus, listingType, ownership, studio, tokenType } = params
               setListingStatusList(listingStatus)
               setListingTypeList(listingType)
               setOpenMobileFilter(false)
               setLoadingData(true)
               setTimeout(() => {
                 setNftList([])
-                getNftItem(1, listingStatus, listingType, ownership, studio, sortList, true)
+                getNftItem(1, listingStatus, listingType, ownership, studio, tokenType, sortList, true)
               }, 100)
             }}
             onClose={() => setOpenMobileFilter(false)}
@@ -769,7 +858,16 @@ const TabSection = props => {
               setLoadingData(true)
               setTimeout(() => {
                 setNftList([])
-                getNftItem(1, listingStatusList, listingTypeList, ownershipList, studioList, params, true)
+                getNftItem(
+                  1,
+                  listingStatusList,
+                  listingTypeList,
+                  ownershipList,
+                  studioList,
+                  tokenTypeList,
+                  params,
+                  true
+                )
               }, 100)
             }}
             onClose={() => setOpenMobileSort(false)}

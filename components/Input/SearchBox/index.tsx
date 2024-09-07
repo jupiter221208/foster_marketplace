@@ -296,6 +296,41 @@ const SearchBox = props => {
                     </div>
                   </div>
                 </div>
+                <div>
+                  <div className={styles.searchTopic}>STORES</div>
+                  <div className="w-[220px] flex gap-[10px] mt-[20px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                </div>
                 <div className="lg:hidden block w-full h-[50px]" />
               </div>
             </div>
@@ -374,36 +409,75 @@ const SearchBox = props => {
                   </div>
                 </div>
               )}
-              <div className="w-full sm:w-[220px]">
-                {searchList.collections.length !== 0 && (
+              {searchList.collections.length !== 0 && (
+                <div className="w-full sm:w-[220px]">
                   <div className={`${styles.searchTopic} mb-[18px]`}>COLLECTIONS</div>
-                )}
-                <div className="w-full flex flex-wrap gap-[9px]">
-                  {searchList.collections.map((item, index) => (
-                    <div
-                      key={index}
-                      className={styles.selection}
-                      onClick={() => {
-                        router.push(`/collection/${item.id}`)
-                        setFocus(false)
-                        handleClose()
-                      }}
-                    >
-                      <div className="min-w-[36px] w-[36px] lg:w-[46px] lg:min-w-[46px] h-[36px] lg:h-[46px] mr-5">
-                        <ImageWithFoster
-                          src={item.image_url}
-                          width={50}
-                          className="object-cover rounded-[10px] w-full h-full"
-                        />
+                  <div className="w-full flex flex-wrap gap-[9px]">
+                    {searchList.collections.map((item, index) => (
+                      <div
+                        key={index}
+                        className={styles.selection}
+                        onClick={() => {
+                          router.push(`/collection/${item.id}`)
+                          setFocus(false)
+                          handleClose()
+                        }}
+                      >
+                        <div className="min-w-[36px] w-[36px] lg:w-[46px] lg:min-w-[46px] h-[36px] lg:h-[46px] mr-5">
+                          <ImageWithFoster
+                            src={item.image_url}
+                            width={50}
+                            className="object-cover rounded-[10px] w-full h-full"
+                          />
+                        </div>
+                        <div>
+                          <div className={styles.text}>{getShortName(item.name)}</div>
+                          <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
+                        </div>
                       </div>
-                      <div>
-                        <div className={styles.text}>{getShortName(item.name)}</div>
-                        <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+              {searchList.artists.length !== 0 && (
+                <div className="w-full sm:w-[220px]">
+                  {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>STORES</div>}
+                  <div className="w-full flex flex-wrap gap-[9px]">
+                    {searchList.artists.map((item, index) => (
+                      <div
+                        key={index}
+                        className={styles.selection}
+                        onClick={() => {
+                          router.push(`/${item.name}/merch`)
+                          setFocus(false)
+                          handleClose()
+                        }}
+                      >
+                        <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] mr-5">
+                          {item.image_url.length > 0 ? (
+                            <ImageWithFoster
+                              width={50}
+                              src={item.image_url}
+                              className="object-cover rounded-full w-full h-full"
+                            />
+                          ) : (
+                            <Image
+                              src={DefaultAvatar}
+                              alt=""
+                              width={35}
+                              height={35}
+                              layout="responsive"
+                              objectFit="cover"
+                              className="rounded-full"
+                            />
+                          )}
+                        </div>
+                        <div className={styles.text}>{getDisplayUserName(item.name)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="lg:hidden block w-full h-[100px]" />
             </div>
           </div>

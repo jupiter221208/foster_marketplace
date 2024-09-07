@@ -35,6 +35,7 @@ const HiddenSection = props => {
       setLoading(true)
       getHiddenNftData()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getHiddenNftData = () => {

@@ -34,6 +34,7 @@ import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 // apis
 import dashboardAPI from 'apis/dashboard'
+import TopRatedArtistsSection from 'components/pages/Home/TopRatedArtistsSection'
 
 const FreshMintSection = React.lazy(() => import('components/pages/Home/FreshMintSection'))
 const TrendingCollectionSection = React.lazy(() => import('components/pages/Home/TrendingCollectionSection'))
@@ -158,19 +159,19 @@ const Category = () => {
       </Head>
       <div className={styles.container}>
         <div className="relative w-full">
-          {categoryInfo?.banner_type === 'image' ? (
-            <div className={styles.imageContainer}>
-              <img
+          {/* {categoryInfo?.banner_type === 'image' ? ( */}
+          <div className={styles.imageContainer}>
+            {/* <img
                 src={viewport === 'xs' ? categoryInfo?.mobile_banner : categoryInfo?.banner}
                 alt=""
                 className="w-full object-cover opacity-90"
-              />
-              <div className={styles.imageArea}>{categoryInfo?.name}</div>
-            </div>
-          ) : (
+              /> */}
+            <div className={styles.imageArea}>{categoryInfo?.name}</div>
+          </div>
+          {/* ) : (
             <></>
-          )}
-          {categoryInfo?.banner_type === 'video' ? (
+          )} */}
+          {/* {categoryInfo?.banner_type === 'video' ? (
             <div className={styles.imageContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <img src={categoryInfo?.mobile_banner} alt="" className="w-full object-cover" />
@@ -182,22 +183,37 @@ const Category = () => {
             </div>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
         {cateQuery.length > 0 && (
           <div className="flex justify-center">
             <div className="w-full">
+              <div className={styles.liveAuctionBG}>
+                <div className="g-container">
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+                  </Suspense>
+                </div>
+              </div>
               <div className={styles.newReleaseSection}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <TrendingCollectionSection category={cateQuery} loop={false} />
+                    <OpenEditionSection
+                      category={cateQuery}
+                      isEditionLoaded={isEditionLoaded}
+                      editionList={openEditionList}
+                    />
                   </Suspense>
                 </div>
               </div>
               <div className={styles.liveAuctionBG}>
-                <div className="g-container mt-[60px]">
+                <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <MostPopularSection category={cateQuery} />
+                    <LimitedEditionSection
+                      category={cateQuery}
+                      isEditionLoaded={isEditionLoaded}
+                      editionList={limitedEditionList}
+                    />
                   </Suspense>
                 </div>
               </div>
@@ -209,38 +225,33 @@ const Category = () => {
                 </div>
               </div>
               <div className={styles.liveAuctionBG}>
-                <div className="g-container">
+                <div className="g-container mt-[60px]">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+                    <MostPopularSection category={cateQuery} />
                   </Suspense>
                 </div>
               </div>
+
               <div className={styles.newReleaseSection}>
+                <div className="g-container">
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <TopRatedArtistsSection />
+                  </Suspense>
+                </div>
+              </div>
+
+              <div className={styles.liveAuctionBG}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
                     <FreshMintSection category={cateQuery} />
                   </Suspense>
                 </div>
               </div>
+
               <div className={styles.liveAuctionBG}>
                 <div className="g-container">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <OpenEditionSection
-                      category={cateQuery}
-                      isEditionLoaded={isEditionLoaded}
-                      editionList={openEditionList}
-                    />
-                  </Suspense>
-                </div>
-              </div>
-              <div className={styles.newReleaseSection}>
-                <div className="g-container">
-                  <Suspense fallback={<LoadingSpinner />}>
-                    <LimitedEditionSection
-                      category={cateQuery}
-                      isEditionLoaded={isEditionLoaded}
-                      editionList={limitedEditionList}
-                    />
+                    <TrendingCollectionSection category={cateQuery} loop={false} />
                   </Suspense>
                 </div>
               </div>

@@ -210,6 +210,8 @@
   text-align: center;
   @media (min-width: 1024px) {
     min-width: 165px;
+  }
+  @media (min-width: 1280px) {
     text-align: start;
   }
 }
