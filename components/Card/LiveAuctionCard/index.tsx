@@ -26,6 +26,7 @@ const LiveAuctionCard = props => {
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [hover, setHover] = useState(false)
+  const nftWidth = 600
   useEffect(() => {
     if (
       data.asset_type.includes('video') &&
@@ -140,7 +141,7 @@ const LiveAuctionCard = props => {
                       ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
                         <ImageWithFoster
                           src={data.cover_image_url}
-                          width={500}
+                          width={nftWidth}
                           onClick={onClick}
                           className="-w-full h-full object-cover"
                         />
@@ -187,7 +188,7 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.cover_image_url}
-                    width={500}
+                    width={nftWidth}
                     className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
@@ -198,7 +199,7 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.cover_image_url}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
                     className="w-full h-full object-cover"
                   />
@@ -209,7 +210,7 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.asset_url}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
                     className="w-full h-full object-cover"
                   />

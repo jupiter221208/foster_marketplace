@@ -26,7 +26,7 @@ const HomeEditionCard = props => {
   const [play, setPlay] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
   const [hover, setHover] = useState(false)
-
+  const nftWidth = 600
   useEffect(() => {
     if (
       data.assetType?.includes('video') &&
@@ -116,7 +116,7 @@ const HomeEditionCard = props => {
                       ) : data.coverImageUrl != null && data.coverImageUrl !== '' ? (
                         <ImageWithFoster
                           src={data.coverImageUrl}
-                          width={500}
+                          width={nftWidth}
                           onClick={onClick}
                           className="w-full h-full object-cover"
                         />
@@ -163,7 +163,7 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.coverImageUrl}
-                    width={500}
+                    width={nftWidth}
                     className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
@@ -174,7 +174,7 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.coverImageUrl}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
                     className="w-full h-full object-cover"
                   />
@@ -185,7 +185,7 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.assetUrl}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
                     className="mw-full h-full object-cover"
                   />

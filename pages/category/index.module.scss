@@ -5,7 +5,10 @@
 }
 
 .imageContainer {
-  height: 400px;
+  height: 132px;
+  @media (min-width: 1024px) {
+    height: 400px;
+  }
   overflow: hidden;
   position: relative;
   width: 100%;

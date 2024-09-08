@@ -55,7 +55,7 @@ const MarketplaceReleaseSection = props => {
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
+    dashboardAPI.getMarketplaceReleases(category, '', page, 10).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response.filter(nft => nft.asset_type !== 'uknown').slice(5, response.length))
         setVisibleBoundary(true)
