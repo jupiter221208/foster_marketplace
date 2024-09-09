@@ -27,7 +27,6 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
-import { useAuthentication } from 'hooks/useAuthentication'
 
 // call apis
 import userAPI from 'apis/user'
@@ -150,7 +149,9 @@ const ProfileSetupModal = () => {
         async response => {
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
-            router.push(`/${response.username}`)
+            setTimeout(() => {
+              router.push(`/${response.username}`)
+            }, 1000)
           }
           closeModal()
         },
