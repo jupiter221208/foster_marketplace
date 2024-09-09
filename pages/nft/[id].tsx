@@ -115,6 +115,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(nftDetail, '============nftDetail============')
       if (!nftDetail) return
       if (connected) {
         await nftsAPI.getDetail(nftDetail.mintAddress).then(

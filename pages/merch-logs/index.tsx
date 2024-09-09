@@ -586,11 +586,13 @@ const MerchActivity = () => {
               </div>
             </div>
           )}
-          <div className="relative mt-[0px] lg:mt-[86px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
+          <div className="relative mt-[0px] lg:mt-[86px] w-full h-auto flex lg:justify-start justify-center z-10">
             <SelectedTab
               tabList={tabList}
               onChange={item => {
-                handleSelectedTab(item)
+                if (item.coming_soon === true) {
+                  return
+                } else handleSelectedTab(item)
               }}
             />
             <div className={styles.selectedTabBorder} />

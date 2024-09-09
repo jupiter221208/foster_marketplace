@@ -221,9 +221,9 @@ const MainSection = ({
       }))
 
       let createAddress = getNFTArtistPublicKey({ creators })
-      let { username: creatorName } = await usersAPI.get(createAddress)
+      let { username: creatorName, profile_picture } = await usersAPI.get(createAddress)
       setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
-
+      setNftCreatorUrl(profile_picture)
       if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
         let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
         setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
@@ -303,6 +303,7 @@ const MainSection = ({
   const [nftPrice, setNftPrice] = useState(0)
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [nftCreatorname, setNftCreatorname] = useState('')
+  const [nftCreatorUrl, setNftCreatorUrl] = useState(null)
   const [nftListingData, setNftListingData] = useState(null)
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [merchToggle, setMerchToggle] = useState(false)
@@ -819,9 +820,9 @@ const MainSection = ({
     }))
 
     let createAddress = getNFTArtistPublicKey({ creators })
-    let { username: creatorName } = await usersAPI.get(createAddress)
+    let { username: creatorName, profile_picture } = await usersAPI.get(createAddress)
     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
-
+    setNftCreatorUrl(profile_picture)
     if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
@@ -1409,15 +1410,7 @@ const MainSection = ({
                             nftCollectionAddress={nftCollectionAddress}
                             nftCollectionName={nftCollectionName}
                             nftCollectionImage={nftCollectionImage}
-                            profileImage={nftInfo?.creator_profile_image}
-                            nameLoading={nameLoading}
-                            endTime={endTime}
-                            startTime={startTime}
-                            endEditionTime={nftInfo?.master_edition?.endTime}
-                            startEditionTime={nftInfo?.master_edition?.startTime}
-                            setIsEnded={setIsEnded}
-                            setIsStarted={setIsStarted}
-                            liveAuction={liveAuction}
+                            profileImage={nftCreatorUrl}
                           />
                         )}
                       </div>

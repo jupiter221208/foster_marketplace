@@ -386,7 +386,7 @@ const MainSection = prop => {
           {showBannerBoard && (
             <div className={styles.bannerBoard}>
               <div className={styles.boardTitle}>Upload your profile banner</div>
-              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+              <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
               <div className="flex justify-end mt-[15px]">
                 <div className="flex gap-[9px]">
                   <OutlineButton
@@ -449,8 +449,10 @@ const MainSection = prop => {
                     fontSize={14}
                     onClick={() => {
                       setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                      router.push('/settings')
+                      setTimeout(() => {
+                        localStorage.setItem('isVisibleSocialBoard', 'false')
+                        router.push('/settings')
+                      }, 500)
                     }}
                   />
                 </div>
@@ -696,7 +698,7 @@ const MainSection = prop => {
         {showBannerBoard && (
           <div className={styles.bannerBoard}>
             <div className={styles.boardTitle}>Upload your profile banner</div>
-            <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+            <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
             <div className="flex justify-end mt-[25px]">
               <div className="flex gap-[9px]">
                 <OutlineButton

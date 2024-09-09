@@ -28,11 +28,11 @@ const NFTCreatorDataSection = props => {
                 <div className={styles.userTile}>
                   <div className="flex gap-[6px] items-center">
                     <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
-                      <ImageWithFoster
-                        src={profileImage ?? DefaultAvatar}
-                        width={60}
-                        className="w-full h-full object-cover"
-                      />
+                      {profileImage?.length > 0 ? (
+                        <ImageWithFoster src={profileImage} width={60} className="w-full h-full object-cover" />
+                      ) : (
+                        <img src={DefaultAvatar.src} alt="" />
+                      )}
                     </div>
                     <div className={styles.username}>{getDisplayUserName(nftCreatorname)}</div>
                   </div>

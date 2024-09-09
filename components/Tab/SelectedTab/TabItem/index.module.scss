@@ -72,18 +72,12 @@
 }
 
 .tooltip {
-  position: absolute;
-  left: 0;
-  top: 10;
-  width: 360px;
   background: rgba(var(--background-light-color), 0.2);
-  border: 1px solid rgba(var(--background-light-color), 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-radius: 8px;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  padding: 18px 18px;
   font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 24px;
-  color: var(--text-gray-200-color);
+  line-height: 18px;
+  color: white;
 }
