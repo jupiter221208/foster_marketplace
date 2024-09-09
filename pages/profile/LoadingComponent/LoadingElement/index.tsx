@@ -11,10 +11,10 @@ import styles from './index.module.scss'
 const LoadingElement = props => {
   const { text = '' } = props
 
-  let loadingText = text
-  const [showText, setShowText] = useState(loadingText)
+  const [showText, setShowText] = useState(text)
 
   useEffect(() => {
+    let loadingText = text
     const timer = setInterval(() => {
       if (loadingText.length - text.length == 0) loadingText = text + '.'
       else if (loadingText.length - text.length == 1) loadingText = text + '..'
