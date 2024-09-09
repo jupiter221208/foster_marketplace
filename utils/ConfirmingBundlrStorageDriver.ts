@@ -159,8 +159,8 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
       this.network == "mainnet-beta"
         ? "arweave.net"
         : // switch to irys gateway for devnet if needed
-          // "gateway.irys.xyz"
-          "arweave.net";
+          "gateway.irys.xyz";
+          // "arweave.net";
 
     let urls = await super.uploadAll(files);
     return urls.map((arweave) => {
