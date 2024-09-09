@@ -449,8 +449,10 @@ const MainSection = prop => {
                     fontSize={14}
                     onClick={() => {
                       setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                      router.push('/settings')
+                      setTimeout(() => {
+                        localStorage.setItem('isVisibleSocialBoard', 'false')
+                        router.push('/settings')
+                      }, 500)
                     }}
                   />
                 </div>
