@@ -86,8 +86,6 @@ const TopRatedArtistsSection = () => {
   return (
     <section className={styles.container}>
       <div className="relative w-full flex justify-between items-center z-10 ">
-        <div className={styles.line} />
-
         <div className="sm:block hidden">
           <HomeFilterMenu
             label="Top Creators"

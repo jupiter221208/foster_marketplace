@@ -26,6 +26,7 @@ const LiveAuctionCard = props => {
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [hover, setHover] = useState(false)
+  const nftWidth = 600
   useEffect(() => {
     if (
       data.asset_type.includes('video') &&
@@ -140,9 +141,9 @@ const LiveAuctionCard = props => {
                       ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
                         <ImageWithFoster
                           src={data.cover_image_url}
-                          width={500}
+                          width={nftWidth}
                           onClick={onClick}
-                          className="max-w-full max-h-full object-cover"
+                          className="-w-full h-full object-cover"
                         />
                       ) : (
                         <div
@@ -187,8 +188,8 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.cover_image_url}
-                    width={500}
-                    className="max-w-full max-h-full object-cover"
+                    width={nftWidth}
+                    className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
@@ -198,9 +199,9 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.cover_image_url}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -209,9 +210,9 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.asset_url}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>

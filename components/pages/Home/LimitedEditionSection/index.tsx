@@ -53,7 +53,6 @@ const LimitedEditionSection = props => {
   return editionList?.length > 0 ? (
     <section className={styles.container}>
       <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
-        <div className={styles.line} />
         <div className={styles.title}>Limited&nbsp;Editions</div>
         <div className="z-10 sm:block hidden">
           <SeeMoreButton

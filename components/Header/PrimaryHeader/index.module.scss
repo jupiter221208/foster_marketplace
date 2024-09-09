@@ -41,7 +41,7 @@
   position: fixed;
   width: 100%;
   height: 80px;
-  background: var(--bg-new-color);
+  background: var(--nav-bg-color);
   z-index: 9999;
 }
 
@@ -55,7 +55,7 @@
   align-items: center;
   width: 100%;
   height: 80px;
-  background: transparent;
+  background: var(--nav-bg-color);
   z-index: 10000;
 }
 

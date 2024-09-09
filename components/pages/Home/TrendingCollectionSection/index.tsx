@@ -87,7 +87,6 @@ const TrendingCollectionSection = props => {
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
         <div className="relative w-full flex justify-between items-center z-10">
-          <div className={styles.line} />
           <div className="sm:block hidden">
             <div className={styles.title}>Top&nbsp;Collections</div>
           </div>

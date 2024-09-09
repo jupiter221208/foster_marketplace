@@ -147,8 +147,6 @@ const LiveAuctionSection = props => {
   return showSection ? (
     <section className={styles.container}>
       <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
-        <div className={styles.line} />
-
         <div className="sm:block hidden">
           <HomeFilterMenu
             label="Live Auctions"

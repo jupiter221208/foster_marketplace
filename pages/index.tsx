@@ -90,19 +90,19 @@ const Home = () => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="w-full flex justify-center">
+      {/* <div className="w-full flex justify-center">
         <div className="max-w-[1920px] w-full px-4 lg:px-0">
           <MainSection />
         </div>
-      </div>
+      </div> */}
       <div className={styles.studioHeroSection}>
         <div className="g-container w-full">
           <StudioHeroSection isEditionLoaded={isEditionLoaded} />
         </div>
       </div>
-      <div className={styles.liveAuctionBG}>
+      <div className={styles.limitEditionSection}>
         <div className="g-container">
-          <LiveAuctionSection category={''} fromPage={'home'} />
+          <LimitedEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={limitedEditionList} />
         </div>
       </div>
       <div className={styles.editionSection}>
@@ -110,9 +110,9 @@ const Home = () => {
           <OpenEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={openEditionList} />
         </div>
       </div>
-      <div className={styles.limitEditionSection}>
+      <div className={styles.liveAuctionBG}>
         <div className="g-container">
-          <LimitedEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={limitedEditionList} />
+          <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
       <div className={styles.newReleaseSection}>

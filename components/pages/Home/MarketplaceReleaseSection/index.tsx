@@ -55,9 +55,9 @@ const MarketplaceReleaseSection = props => {
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
+    dashboardAPI.getMarketplaceReleases(category, '', page, 10).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setAllMarketplaceReleaseList(response.filter(nft => nft.asset_type !== 'uknown').slice(5, response.length))
+        setAllMarketplaceReleaseList(response.filter(nft => nft.asset_type !== 'uknown'))
         setVisibleBoundary(true)
       }
     }),
@@ -76,7 +76,6 @@ const MarketplaceReleaseSection = props => {
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="relative w-full flex justify-between items-center z-10">
-          <div className={styles.line} />
           <div className={`${styles.title}`}>New Releases</div>
           <div className="lg:block hidden">
             <SeeMoreButton

@@ -26,7 +26,7 @@ const HomeEditionCard = props => {
   const [play, setPlay] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
   const [hover, setHover] = useState(false)
-
+  const nftWidth = 600
   useEffect(() => {
     if (
       data.assetType?.includes('video') &&
@@ -116,9 +116,9 @@ const HomeEditionCard = props => {
                       ) : data.coverImageUrl != null && data.coverImageUrl !== '' ? (
                         <ImageWithFoster
                           src={data.coverImageUrl}
-                          width={500}
+                          width={nftWidth}
                           onClick={onClick}
-                          className="max-w-full max-h-full object-cover"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
                         <div
@@ -163,8 +163,8 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.coverImageUrl}
-                    width={500}
-                    className="max-w-full max-h-full object-cover"
+                    width={nftWidth}
+                    className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
@@ -174,9 +174,9 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.coverImageUrl}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -185,9 +185,9 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.assetUrl}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="mw-full h-full object-cover"
                   />
                 </a>
               </Link>
