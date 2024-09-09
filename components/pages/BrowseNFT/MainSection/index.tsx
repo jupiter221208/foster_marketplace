@@ -223,7 +223,7 @@ const MainSection = ({
       let createAddress = getNFTArtistPublicKey({ creators })
       let { username: creatorName, profile_picture } = await usersAPI.get(createAddress)
       setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
-      setNftCreatorUrl(profile_picture !== null ? profile_picture : null)
+      setNftCreatorUrl(profile_picture)
       if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
         let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
         setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
@@ -822,7 +822,7 @@ const MainSection = ({
     let createAddress = getNFTArtistPublicKey({ creators })
     let { username: creatorName, profile_picture } = await usersAPI.get(createAddress)
     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
-    setNftCreatorUrl(profile_picture !== null ? profile_picture : null)
+    setNftCreatorUrl(profile_picture)
     if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
