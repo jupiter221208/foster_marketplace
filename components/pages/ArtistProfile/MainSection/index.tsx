@@ -386,7 +386,7 @@ const MainSection = prop => {
           {showBannerBoard && (
             <div className={styles.bannerBoard}>
               <div className={styles.boardTitle}>Upload your profile banner</div>
-              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+              <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
               <div className="flex justify-end mt-[15px]">
                 <div className="flex gap-[9px]">
                   <OutlineButton

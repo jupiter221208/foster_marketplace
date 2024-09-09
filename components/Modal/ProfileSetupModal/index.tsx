@@ -20,6 +20,7 @@ import { useViewport, namePublicFile } from 'utils'
 // images
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import CameraIcon from 'assets/icons/camera-white.svg'
+import CameraMobileIcon from 'assets/icons/camera-white-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -259,9 +260,13 @@ const ProfileSetupModal = () => {
                             />
                             <div className={styles.cameraArea}>
                               <IconButton
-                                width={50}
-                                height={50}
-                                icon={CameraIcon}
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
+                                icon={
+                                  viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                    ? CameraMobileIcon
+                                    : CameraIcon
+                                }
                                 onClick={() => inputFile?.current?.click()}
                                 backgroundColor="transparent"
                               />
@@ -278,11 +283,24 @@ const ProfileSetupModal = () => {
                         </div>
                         <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
                           <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[30px]">
-                            <OutlineButton label="Skip" width={175} onClick={() => closeModal()} />
+                            <OutlineButton
+                              label="Skip"
+                              width={175}
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+                              onClick={() => closeModal()}
+                            />
                             {isSaving || uploadingToS3 ? (
-                              <LoadingButton width={175} />
+                              <LoadingButton
+                                width={175}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+                              />
                             ) : (
-                              <GradientButton label="Save" width={175} onClick={() => handleSaveUsermame()} />
+                              <GradientButton
+                                label="Save"
+                                width={175}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+                                onClick={() => handleSaveUsermame()}
+                              />
                             )}
                           </div>
                         </div>

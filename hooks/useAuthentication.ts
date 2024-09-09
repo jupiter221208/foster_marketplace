@@ -73,9 +73,8 @@ export function useAuthentication(): UseAuthenticationReturn {
 
           setCookie('token', token, { maxAge: 60 * 6 * 24 })
 
-          // if (new_user) dispatch({ type: 'set', profileSetup: true })
-          dispatch({ type: 'set', profileSetup: true })
-          
+          if (new_user) dispatch({ type: 'set', profileSetup: true })
+
           dispatch({ type: 'set', profileInfo: user })
           dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
           dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
