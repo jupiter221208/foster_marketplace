@@ -1,5 +1,5 @@
 import { BigNumber } from "bignumber.js";
-import { BundlrStorageDriver } from "@metaplex-foundation/js";
+import { BundlrStorageDriver, Metaplex } from "@metaplex-foundation/js";
 import {
   ComputeBudgetProgram,
   Connection,
@@ -13,8 +13,31 @@ async function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+export interface ConfirmingBundlrStorageDriverConstructorArgs {
+  network: string;
+  providerUrl: string;
+  timeout: number;
+}
+
 export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
-  async bundlr() {
+  network: string;
+
+  constructor(
+    metaplex: Metaplex,
+    { network, providerUrl, timeout }: ConfirmingBundlrStorageDriverConstructorArgs
+  ) {
+    let address =
+      network == "mainnet-beta" ? "https://turbo.ardrive.io" : "https://devnet.bundlr.network";
+    super(metaplex, {
+      address,
+      providerUrl,
+      timeout,
+    });
+
+    this.network = network;
+  }
+
+  override async bundlr() {
     const nodeAddress = this._options.address;
 
     this._bundlr ??= await this.initBundlr();
@@ -129,5 +152,21 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
     };
 
     return this._bundlr;
+  }
+
+  override async uploadAll(files) {
+    let hostname =
+      this.network == "mainnet-beta"
+        ? "arweave.net"
+        : // switch to irys gateway for devnet if needed
+          "gateway.irys.xyz";
+          // "arweave.net";
+
+    let urls = await super.uploadAll(files);
+    return urls.map((arweave) => {
+      let url = new URL(arweave);
+      url.hostname = hostname;
+      return url.toString();
+    });
   }
 }
