@@ -29,7 +29,7 @@ const NFTCreatorDataSection = props => {
                   <div className="flex gap-[6px] items-center">
                     <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
                       <ImageWithFoster
-                        src={profileImage ?? DefaultAvatar}
+                        src={profileImage?.length > 0 ? profileImage : DefaultAvatar}
                         width={60}
                         className="w-full h-full object-cover"
                       />
