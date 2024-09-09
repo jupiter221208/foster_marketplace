@@ -169,7 +169,7 @@ const Stats = () => {
       </Head>
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
-          <div className="relative mt-[10px] lg:mt-[24px] w-full h-auto flex relative overflow-hidden  justify-between z-10">
+          <div className="relative mt-[10px] lg:mt-[24px] w-full h-auto flex relative overflow-hidden justify-between z-10">
             <SelectedTab
               tabList={tabList}
               onChange={item => {
