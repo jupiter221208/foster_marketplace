@@ -155,9 +155,8 @@ const ProfileSetupModal = () => {
             setTimeout(() => {
               router.push(`/${response.username}`)
             }, 1000)
-          } else {
-            closeModal()
           }
+          closeModal()
         },
         error => {
           console.log(error)
