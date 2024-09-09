@@ -18,7 +18,6 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport, namePublicFile } from 'utils'
 
 // images
-import LogoBigIcon from 'assets/logo-big.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import CameraIcon from 'assets/icons/camera-white.svg'
 
@@ -33,6 +32,7 @@ import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import Alert from 'components/Alert'
 import { getShortAddress } from 'utils/strings'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
@@ -51,7 +51,7 @@ const ProfileSetupModal = () => {
   const inputFile = useRef<any>(null)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-
+  const [isSaving, setIsSaving] = useState(false)
   const { publicKey } = useWallet()
 
   const handleChangeAvatar = event => {
@@ -127,22 +127,24 @@ const ProfileSetupModal = () => {
       setErrorMessage("The display name can't be empty.")
       return
     }
+    setIsSaving(true)
+
     let validate_check = await userAPI.validateUsername({ username: displayName })
     if (!validate_check) {
       setErrorMessage('This display name is already taken.')
+      setIsSaving(false)
+
       return
     }
-
     updateUserName()
   }
 
   const updateUserName = () => {
     let user_name = displayName
-    if (displayName.includes('***')) user_name = publicKey.toBase58()
+    if (displayName.includes('...')) user_name = publicKey.toBase58()
 
     localStorage.setItem('isVisibleBannerBoard', 'true')
     localStorage.setItem('isVisibleSocialBoard', 'true')
-
     userAPI
       .update({ wallet_id: publicKey?.toBase58() || '', username: user_name, profile_picture: profilePictureUrl })
       .then(
@@ -152,11 +154,13 @@ const ProfileSetupModal = () => {
             setTimeout(() => {
               router.push(`/${response.username}`)
             }, 1000)
+          } else {
+            closeModal()
           }
-          closeModal()
         },
         error => {
           console.log(error)
+          setIsSaving(false)
         }
       )
   }
@@ -210,76 +214,76 @@ const ProfileSetupModal = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className={styles.modalView}>
-                    <div className={styles.rightBack}>
+                    {/* <div className={styles.rightBack}>
                       <Image src={LogoBigIcon} alt="" width={566} height={657} />
-                    </div>
-                    <div className="w-full h-full grid grid-cols-12 z-10">
-                      <div className="col-span-12 lg:col-span-7 z-10">
-                        <div className={styles.leftPanel}>
-                          <div className={styles.title}>Welcome to Foster Marketplace!</div>
-                          <p className={styles.text}>
-                            {
-                              'You can edit your display name and profile image now or at a later time from your profile settings.'
-                            }
-                          </p>
-                          <div className="mt-[16px]">
-                            <div className={styles.displayName}>Display Name</div>
-                            <Input
-                              error={errorMessage}
-                              placeholder="Choose your display name"
-                              color="#eff0f6"
-                              backgroundColor="var(--profile-setup-input-bg)"
-                              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
-                              onChange={(value: string) => {
-                                if (errorMessage.length > 0) setErrorMessage('')
-                                setDisplayName(value)
-                              }}
-                              value={displayName}
+                    </div> */}
+
+                    <div className="z-10">
+                      <div className={styles.leftPanel}>
+                        <div className={styles.title}>Welcome to Foster Marketplace!</div>
+                        <p className={styles.text}>
+                          {'You can edit your display name and profile image now or at a later time.'}
+                        </p>
+                        <div className="mt-[37px] lg:mt-[31px]">
+                          <div className={styles.displayName}>Display Name</div>
+                          <Input
+                            error={errorMessage}
+                            placeholder="Choose your display name"
+                            color="#eff0f6"
+                            borderWidth="0px"
+                            backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                            borderColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                            borderRadius={10}
+                            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
+                            onChange={(value: string) => {
+                              if (errorMessage.length > 0) setErrorMessage('')
+                              setDisplayName(value)
+                            }}
+                            value={displayName}
+                          />
+                        </div>
+                        <div className="w-full flex justify-center mt-[33px] lg:mt-[41px]">
+                          <div className={styles.avatarArea}>
+                            <img
+                              src={
+                                croppedAvatar !== ''
+                                  ? croppedAvatar
+                                  : avatar !== undefined
+                                  ? avatar.src
+                                  : DefaultAvatar.src
+                              }
+                              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 95 : 152}
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 95 : 152}
+                              alt=""
+                              className="object-cover rounded-full"
                             />
-                          </div>
-                          <div className="w-full flex justify-center mt-[41px]">
-                            <div className={styles.avatarArea}>
-                              <img
-                                src={
-                                  croppedAvatar !== ''
-                                    ? croppedAvatar
-                                    : avatar !== undefined
-                                    ? avatar.src
-                                    : DefaultAvatar.src
-                                }
-                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 152}
-                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 152}
-                                alt=""
-                                className="object-cover rounded-full"
+                            <div className={styles.cameraArea}>
+                              <IconButton
+                                width={50}
+                                height={50}
+                                icon={CameraIcon}
+                                onClick={() => inputFile?.current?.click()}
+                                backgroundColor="transparent"
                               />
-                              <div className={styles.cameraArea}>
-                                <IconButton
-                                  icon={CameraIcon}
-                                  onClick={() => inputFile?.current?.click()}
-                                  backgroundColor="transparent"
-                                />
-                                <input
-                                  type="file"
-                                  id="file"
-                                  accept="image/png, image/jpeg"
-                                  ref={inputFile}
-                                  style={{ display: 'none' }}
-                                  onChange={event => handleChangeAvatar(event)}
-                                />
-                              </div>
+                              <input
+                                type="file"
+                                id="file"
+                                accept="image/png, image/jpeg"
+                                ref={inputFile}
+                                style={{ display: 'none' }}
+                                onChange={event => handleChangeAvatar(event)}
+                              />
                             </div>
                           </div>
-                          <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
-                            <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[96px]">
-                              <OutlineButton
-                                label="Skip"
-                                color="#eff0f6"
-                                borderColor="rgba(239, 240, 247, 0.25)"
-                                fullWidth
-                                onClick={() => updateUserName()}
-                              />
-                              <GradientButton label="Save" fullWidth onClick={() => handleSaveUsermame()} />
-                            </div>
+                        </div>
+                        <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
+                          <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[30px]">
+                            <OutlineButton label="Skip" width={175} onClick={() => closeModal()} />
+                            {isSaving || uploadingToS3 ? (
+                              <LoadingButton width={175} />
+                            ) : (
+                              <GradientButton label="Save" width={175} onClick={() => handleSaveUsermame()} />
+                            )}
                           </div>
                         </div>
                       </div>
