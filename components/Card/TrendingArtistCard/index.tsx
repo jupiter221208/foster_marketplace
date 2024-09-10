@@ -73,7 +73,7 @@ const TrendingArtistCard = props => {
                   showPlaceHolder={false}
                 />
               </div>
-              <div className="w-full flex justify-between">
+              <div className="w-full flex justify-between gap-[10px]">
                 <div className="mt-[10px] sm:mt-[16px]">
                   <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
                   <div className="flex gap-[6px] mt-[6px] sm:mt-[9px]">
@@ -82,7 +82,7 @@ const TrendingArtistCard = props => {
                   </div>
                 </div>
 
-                <div className="sm:flex hidden gap-[10px] mt-[16px] mr-[18px]">
+                <div className="sm:flex flex-wrap hidden gap-[5px] xl:gap-[10px] mt-[16px] mr-[10px] xl:mr-[18px]">
                   {artist.twitter_url !== null && artist.twitter_url.length > 0 && (
                     <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.twitter_url)}>
                       <TwitterWhiteIcon />

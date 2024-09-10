@@ -84,6 +84,9 @@
   border-bottom-right-radius: 10px;
   padding: 13px 20px;
   @media (min-width: 1024px) {
+    padding: 16px 10px;
+  }
+  @media (min-width: 1200px) {
     padding: 16px 21px;
   }
 }
@@ -162,7 +165,7 @@
 .bidCountContainer {
   display: flex;
   align-items: center;
-  margin-top: 9px;
+  margin-top: 8px;
 }
 
 .endTimeContainer {
@@ -174,6 +177,14 @@
 
 .bidName {
   font-family: 'Muli-Light';
+  @media (min-width: 1024px) {
+    font-size: 13px;
+    line-height: 18px;  
+  }
+  @media (min-width: 1200px) {
+    font-size: 14px;
+    line-height: 18px;  
+  }
   font-size: 14px;
   line-height: 18px;
   font-weight: 100;
@@ -182,6 +193,14 @@
 }
 
 .bidTime {
+  @media (min-width: 1024px) {
+    font-size: 13px;
+    line-height: 18px;  
+  }
+  @media (min-width: 1200px) {
+    font-size: 14px;
+    line-height: 18px;  
+  }
   font-family: 'Muli-Light';
   font-size: 14px;
   line-height: 18px;
@@ -219,6 +238,10 @@
   font-size: 16px;
   line-height: 18px;
   @media (min-width: 1024px) {
+    font-size: 15px;
+    line-height: 18px;
+  }
+  @media (min-width: 1200px) {
     font-size: 16px;
     line-height: 18px;
   }
