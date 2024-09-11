@@ -30,7 +30,7 @@ const Custom404Page = () => {
           <div className={styles.logoFont}>foster</div>
         </div>
 
-        <div className="w-full flex flex-col justify-center items-center mt-[-10px] lg:mt-[-80px]">
+        <div className="w-full flex flex-col justify-center items-center mt-[-10px] lg:mt-[-40px]">
           <div className="w-[270px] lg:w-[400px]">
             <Lottie animationData={PageNotFound} loop={true} />
           </div>
@@ -44,9 +44,7 @@ const Custom404Page = () => {
           </div>
         </div>
       </div>
-      <div className={styles.bottomSection}>
-        <div className={styles.allRights}>{`© 2024 Foster Marketplace. All Rights Reserved`}</div>
-      </div>
+      <div className={styles.bottomSection}>{`© 2024 Foster Marketplace. All Rights Reserved`}</div>
     </div>
   )
 }
