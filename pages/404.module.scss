@@ -1,107 +1,95 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  background-color: var(--background-black-color);
+  background-color: #F9F7EE;
   min-height: 100vh;
   overflow: hidden;
+  position: relative;
 }
 
-.title {
-  font-family: 'BebasKai';
-  font-size: 80px;
-  letter-spacing: 5px;
-  color: var(--text-gray-200-color);
+.logoIcon {
+  scale: 1;
+  overflow: visible;
+  fill: #1A1A1A;
+}
+
+.logoFont {
+  font-family: "Ibrand" !important;
+  font-size: 37px !important;
+  margin-top: 6px;
+  color: #1A1A1A
+}
+
+.oops {
+  font-family: "Muli-Bold";
+  font-size: 24px;
   font-weight: 100;
-
-  @media (max-width: 1024px) {
-    font-size: 30px;
-    text-align: center;
+  margin-top: 20px;
+  @media (min-width: 1024px) {
+    font-size: 50px;
+    margin-top: 15px;
   }
+  color: #0A0A0A
 }
 
-.text {
-  font-family: 'Muli-Regular';
-  font-size: 22px;
-  margin-top: 30px;
-  color: rgb(var(--main-bg-color-rgb), 0.8);
+.content {
+  font-family: "Muli-Regular";
+  font-size: 18px;
+  font-weight: 100;
+  @media (min-width: 640px) {
+    font-size: 20px;
+    max-width: 707px;
+    margin-top: 20px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    max-width: 707px;
+    margin-top: 20px;
+  }
+  max-width: 290px;
+  color: #2A2A2A;
+  text-align: center;
+  margin-top: 15px;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 18px;
-    text-align: center;
+.return {
+  width: 244px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 16;
+  color: #F9F7EE;
+  background: #0A0A0A;
+  border-radius: 25px;
+  margin-top: 30px;
+  @media (min-width: 1024px) {
+    margin-top: 37px;
+  }
+  cursor: pointer;
+}
+
+.bottomSection {
+  width: 100%;
+  height: 132px;
+  margin-top: 100px;
+  background: #2A2A2A;
+  @media (min-height: 700px) {
+    position: absolute;
+    height: 184px;
+    bottom: 0;
     margin-top: 0px;
   }
 }
 
-.button {
-  margin-top: 57px;
-  padding: 0.7em 1.35em;
-  border: solid 1px rgb(var(--main-bg-color-rgb), 0.25);
-  border-radius: 12px;
-  max-width: max-content;
-
-  @media (max-width: 1024px) {
-    margin-top: 30px;
-  }
-}
-
-.iconBox {
+.allRights {
   position: absolute;
-  right: 600px;
-  @media (max-width: 1024px) {
-    position: relative;
-    right: 0;
-  }
-  @media (max-width: 685px) {
-    right: 80px;
-  }
-  @media (max-width: 500px) {
-    right: 145px;
-  }
-  @media (max-width: 415px) {
-    right: 150px;
-  }
-  @media (max-width: 391px) {
-    right: 165px;
-  }
-  @media (max-width: 376px) {
-    right: 175px;
-  }
-}
-
-.iconLogoBox {
-  position: absolute;
-  svg {
-    position: relative;
-    opacity: 0.8;
-    width: 547px;
-    @media (max-width: 1024px) {
-      width: 350px;
-      bottom: -250px;
-      right: -170px;
-    }
-  }
-}
-.ellipseBox {
-  position: absolute;
-
-  svg {
-    position: relative;
-    top: -250px;
-    left: -300px;
-    opacity: 0.8;
-    @media (max-width: 1024px) {
-      opacity: 0.4;
-      top: -200px;
-    }
-  }
-  svg:nth-child(2) {
-    position: relative;
-    top: -1300px;
-    left: -160px;
-    opacity: 0.4;
-    @media (max-width: 1024px) {
-      opacity: 0.2;
-      top: -1200px;
-    }
-  }
+  bottom: 33px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 100;
+  font-family: 'Muli-Light';
+  color: rgba(#EFF0F6, 0.6);
 }
