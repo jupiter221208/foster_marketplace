@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 // next components
-import Image from 'next/image'
 
 // third party components
-import Dropzone from 'react-dropzone'
 import { limit } from 'utils/strings'
 
 // components
@@ -17,10 +15,9 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
-import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
+import { getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
-import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 
 // json
@@ -33,14 +30,12 @@ import styles from './index.module.scss'
 import uploadFileToS3API from 'apis/aws'
 import ImportEAModal from 'components/Modal/ImportEAModal'
 import { validDigits } from 'utils/helpers'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useRouter } from 'next/router'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import Chip from 'components/Chip'
+import CollectionNftLeftSection from '../CollectionNftLeftSection'
 
 const Step01CollectionSection = props => {
   const {
@@ -75,15 +70,11 @@ const Step01CollectionSection = props => {
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [collectionType, setCollectionType] = useState<any>('foster')
   const [showEAModal, setShowEAModal] = useState(false)
-  const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
-  const [eaTags, setEATags] = useState<string[]>([])
   const [enableImageDialog, setEnableImageDialog] = useState(false)
   const [enableCoverImageDialog, setEnableCoverImageDialog] = useState(false)
 
   useEffect(() => {
-    setCollectionType(collectionKind)
     if (collectionKind === 'ea') {
       setShowEAModal(true)
     }
@@ -215,7 +206,6 @@ const Step01CollectionSection = props => {
 
     try {
       let collectionInfo = await getEACollectionInfo(url)
-      setEACollectionInfo(collectionInfo)
 
       let { name, description, primaryCategory, secondaryCategory, tags = [] } = collectionInfo.info
 
@@ -232,7 +222,6 @@ const Step01CollectionSection = props => {
 
       onChangeCollectionName(name)
       onChangeDescription(description)
-      setEATags(eaTags)
 
       let { thumbnailPath, bannerPath } = collectionInfo.assets
       let coverName = thumbnailPath.match(/[^\/]*$/)?.[0] || 'cover.png'
@@ -314,191 +303,16 @@ const Step01CollectionSection = props => {
         <div className={`${styles.conatiner} w-full flex gap-[95px] relative`}>
           {/* left part */}
           <div className="">
-            <div className={styles.leftContainer}>
-              <div className="w-full">
-                <div className={styles.collectionBannerImage}>
-                  Collection Banner Image<span>*</span>
-                </div>
-                <div className="w-[550px] mt-[15px]">
-                  <div className={styles.bannerImageArea}>
-                    {bannerCroppedImage === undefined ? (
-                      <Dropzone
-                        onDrop={acceptedFiles => {
-                          if (acceptedFiles.length !== 0) {
-                            setEnableImageDialog(true)
-                            onChangeBannerImage(acceptedFiles)
-                          } else handleShowAlert('banner', 'unknown')
-                        }}
-                        onDropRejected={rejectedFiles => {
-                          handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
-                        }}
-                        maxFiles={1}
-                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={104857600}
-                      >
-                        {({ getRootProps, getInputProps, open }) => (
-                          <section className={styles.dropzone}>
-                            <div {...getRootProps()} className={styles.selectBannerArea}>
-                              <input {...getInputProps()} />
-                              <p className={styles.uploadText}>Upload File</p>
-                              <p className={styles.text}>
-                                Supported File Formats
-                                <br />
-                                .png and .jpeg
-                              </p>
-                              <p className={styles.greenText}>Max File Size 100mb</p>
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    ) : (
-                      <div>
-                        <Image
-                          src={bannerCroppedImage}
-                          width={550}
-                          height={158}
-                          alt=""
-                          objectFit="cover"
-                          className="rounded-[10px] overflow-hidden"
-                        />
-                        <div className="absolute bottom-2 right-[10px] z-[1000]">
-                          <Dropzone
-                            onDrop={acceptedFiles => {
-                              if (acceptedFiles.length !== 0) {
-                                setEnableImageDialog(true)
-                                onChangeBannerImage(acceptedFiles)
-                              } else handleShowAlert('banner', 'unknown')
-                            }}
-                            onDropRejected={rejectedFiles => {
-                              handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
-                            }}
-                            maxFiles={1}
-                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                            maxSize={104857600}
-                          >
-                            {({ getRootProps, getInputProps, open }) => (
-                              <section>
-                                <button onClick={open} style={{ display: 'none' }}>
-                                  open
-                                </button>
-                                <div {...getRootProps()}>
-                                  <input {...getInputProps()} />
-                                  <div className={styles.iconBlurView}>
-                                    <div className="w-full h-full flex justify-center items-center">
-                                      <IconButtonWithSVG
-                                        width={40}
-                                        height={40}
-                                        iconWidth={40}
-                                        iconHeight={40}
-                                        icon={<EditorGreenIcon />}
-                                        onClick={() => {}}
-                                        backgroundColor="transparent"
-                                        borderColor="transparent"
-                                        borderRadius="100%"
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              </section>
-                            )}
-                          </Dropzone>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="relative mt-[34px]">
-                  <div className={styles.collectionBannerImage}>
-                    Collection Cover Image<span>*</span>
-                  </div>
-                  <div className="w-full flex justify-start z-0 mt-[15px]">
-                    <div className={styles.coverImageArea}>
-                      {coverCroppedImage === undefined ? (
-                        <Dropzone
-                          onDropAccepted={acceptedFiles => {
-                            if (acceptedFiles.length !== 0) {
-                              setEnableCoverImageDialog(true)
-                              onChangeCoverImage(acceptedFiles)
-                            } else handleShowAlert('cover', 'unknown')
-                          }}
-                          onDropRejected={rejectedFiles => {
-                            handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                          }}
-                          maxFiles={1}
-                          accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                          maxSize={10485760}
-                        >
-                          {({ getRootProps, getInputProps, open }) => (
-                            <section className={styles.dropzone}>
-                              <div {...getRootProps()} className={styles.selectArea}>
-                                <input {...getInputProps()} />
-                                <p className={styles.uploadText}>Upload File</p>
-                                <p className={styles.text}>
-                                  Supported File Formats
-                                  <br />
-                                  .png and .jpeg
-                                </p>
-                                <p className={styles.greenText}>Max File Size 10mb</p>
-                              </div>
-                            </section>
-                          )}
-                        </Dropzone>
-                      ) : (
-                        <div>
-                          <Image
-                            src={coverCroppedImage}
-                            width={304}
-                            height={304}
-                            alt=""
-                            objectFit="cover"
-                            className="rounded-[10px] overflow-hidden"
-                          />
-                          <div className="absolute bottom-2 right-[10px]">
-                            <Dropzone
-                              onDropAccepted={acceptedFiles => {
-                                if (acceptedFiles.length !== 0) {
-                                  setEnableCoverImageDialog(true)
-                                  onChangeCoverImage(acceptedFiles)
-                                } else handleShowAlert('cover', 'unknown')
-                              }}
-                              onDropRejected={rejectedFiles => {
-                                handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                              }}
-                              maxFiles={1}
-                              accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                              maxSize={10485760}
-                            >
-                              {({ getRootProps, getInputProps, open }) => (
-                                <section>
-                                  <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    <div className={styles.iconBlurView}>
-                                      <div className="w-full h-full flex justify-center items-center">
-                                        <IconButtonWithSVG
-                                          width={40}
-                                          height={40}
-                                          iconWidth={40}
-                                          iconHeight={40}
-                                          icon={<EditorGreenIcon />}
-                                          onClick={() => {}}
-                                          backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
-                                          borderColor="transparent"
-                                          borderRadius="100%"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </section>
-                              )}
-                            </Dropzone>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CollectionNftLeftSection
+              bannerCroppedImage={bannerCroppedImage}
+              setEnableImageDialog={setEnableImageDialog}
+              onChangeBannerImage={onChangeBannerImage}
+              coverCroppedImage={coverCroppedImage}
+              setEnableCoverImageDialog={setEnableCoverImageDialog}
+              onChangeCoverImage={onChangeCoverImage}
+              handleShowAlert={handleShowAlert}
+              setShowEAModal={setShowEAModal}
+            />
           </div>
           {/* right part */}
           <div className="flex-1 z-0">
@@ -561,7 +375,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className="absolute w-[122px] h-[53px] right-[0px] bottom-[0px] z-[10]">
+                  <div className="mt-[30px] w-full h-[53px] flex justify-end z-[10]">
                     <GradientButton
                       label="Next"
                       disabled={disabledNextButton}
@@ -579,191 +393,16 @@ const Step01CollectionSection = props => {
       ) : (
         // mobile part
         <div className="mb-[47px]">
-          <div className="w-full flex flex-wrap justify-center">
-            <div className="w-full flex justify-start">
-              <div className={styles.collectionBannerImage}>
-                Collection Banner Image<span>*</span>
-              </div>
-            </div>
-            <div className="w-full z-0 mt-[9px]">
-              <div className={styles.bannerImageArea}>
-                {bannerCroppedImage === undefined ? (
-                  <Dropzone
-                    onDrop={acceptedFiles => {
-                      if (acceptedFiles.length !== 0) {
-                        setEnableImageDialog(true)
-                        onChangeBannerImage(acceptedFiles)
-                      } else handleShowAlert('banner', 'uknown')
-                    }}
-                    onDropRejected={rejectedFiles => {
-                      handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
-                    }}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={104857600}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section className={styles.dropzone}>
-                        <div {...getRootProps()} className={styles.selectBannerArea}>
-                          <input {...getInputProps()} />
-                          <p className={styles.uploadText}>Upload File</p>
-                          <p className={styles.text}>
-                            Supported file formats
-                            <br />
-                            .png and .jpeg
-                          </p>
-                          <p className={styles.greenText}>Max File Size 100mb</p>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                ) : (
-                  <div className="relative">
-                    <Image
-                      src={bannerCroppedImage}
-                      width={375}
-                      height={120}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[10px] overflow-hidden"
-                    />
-                    <div className="absolute bottom-2 right-[10px]">
-                      <Dropzone
-                        onDrop={acceptedFiles => {
-                          if (acceptedFiles.length !== 0) {
-                            setEnableImageDialog(true)
-                            onChangeBannerImage(acceptedFiles)
-                          } else handleShowAlert('banner', 'uknown')
-                        }}
-                        onDropRejected={rejectedFiles => {
-                          handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
-                        }}
-                        maxFiles={1}
-                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={104857600}
-                      >
-                        {({ getRootProps, getInputProps, open }) => (
-                          <section>
-                            <div {...getRootProps()}>
-                              <input {...getInputProps()} />
-                              <div className={styles.iconBlurView}>
-                                <div className="w-full h-full flex justify-center items-center">
-                                  <IconButtonWithSVG
-                                    width={40}
-                                    height={40}
-                                    iconWidth={40}
-                                    iconHeight={40}
-                                    icon={<EditorGreenIcon />}
-                                    onClick={() => {}}
-                                    backgroundColor="transparent"
-                                    borderColor="transparent"
-                                    borderRadius="100%"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full flex flex-wrap justify-center mt-[30px]">
-            <div className="w-full flex justify-start">
-              <div className={styles.collectionBannerImage}>
-                Collection Cover Image<span>*</span>
-              </div>
-            </div>
-            <div className="w-full z-0 mt-[9px]">
-              <div className={styles.coverImageArea}>
-                {coverCroppedImage === undefined ? (
-                  <Dropzone
-                    onDropAccepted={acceptedFiles => {
-                      if (acceptedFiles.length !== 0) {
-                        setEnableCoverImageDialog(true)
-                        onChangeCoverImage(acceptedFiles)
-                      } else handleShowAlert('cover', 'unknown')
-                    }}
-                    onDropRejected={rejectedFiles => {
-                      handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                    }}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={104857600}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section className={styles.dropzone}>
-                        <div {...getRootProps()} className={styles.selectArea}>
-                          <input {...getInputProps()} />
-                          <p className={styles.uploadText}>Upload File</p>
-                          <p className={styles.text}>
-                            Supported file formats
-                            <br />
-                            .png and .jpeg
-                          </p>
-                          <p className={styles.greenText}>Max File Size 100mb</p>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                ) : (
-                  <div>
-                    <Image
-                      src={coverCroppedImage}
-                      width={140}
-                      height={140}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[10px] overflow-hidden"
-                    />
-                    <div className="absolute bottom-2 right-[10px]">
-                      <Dropzone
-                        onDropAccepted={acceptedFiles => {
-                          if (acceptedFiles.length !== 0) {
-                            setEnableImageDialog(true)
-                            onChangeCoverImage(acceptedFiles)
-                          } else handleShowAlert('cover', 'unknown')
-                        }}
-                        onDropRejected={rejectedFiles => {
-                          handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                        }}
-                        maxFiles={1}
-                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={104857600}
-                      >
-                        {({ getRootProps, getInputProps, open }) => (
-                          <section>
-                            <div {...getRootProps()}>
-                              <input {...getInputProps()} />
-                              <div className={styles.iconBlurView}>
-                                <div className="w-full h-full flex justify-center items-center">
-                                  <IconButtonWithSVG
-                                    width={40}
-                                    height={40}
-                                    iconWidth={40}
-                                    iconHeight={40}
-                                    icon={<EditorGreenIcon />}
-                                    onClick={() => {}}
-                                    backgroundColor="transparent"
-                                    borderColor="transparent"
-                                    borderRadius="100%"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <CollectionNftLeftSection
+            bannerCroppedImage={bannerCroppedImage}
+            setEnableImageDialog={setEnableImageDialog}
+            onChangeBannerImage={onChangeBannerImage}
+            coverCroppedImage={coverCroppedImage}
+            setEnableCoverImageDialog={setEnableCoverImageDialog}
+            onChangeCoverImage={onChangeCoverImage}
+            handleShowAlert={handleShowAlert}
+            setShowEAModal={setShowEAModal}
+          />
 
           {/* upload artwork part */}
           <div className="w-full">
@@ -858,8 +497,7 @@ const Step01CollectionSection = props => {
       <ImportEAModal
         open={showEAModal}
         onClose={() => {
-          router.push('/create/single-nft')
-          // setShowEAModal(false)
+          setShowEAModal(false)
         }}
         onImportUrl={importEACollection}
       />

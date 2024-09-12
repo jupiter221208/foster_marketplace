@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import { getOrder, OrderData } from 'apis/merch'
 import { findElement } from 'utils/helpers'
 
@@ -11,7 +10,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // component
-import MerchStepper from 'components/MerchStepper'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ShoppingCartPhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/ShoppingCartPhysicalCheckout'
 
@@ -21,7 +19,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 const OrderSection = props => {
   const router = useRouter()
-  const dispatch = useDispatch()
   const { id } = router.query
 
   const [orderData, setOrderData] = useState<OrderData | null>(null)

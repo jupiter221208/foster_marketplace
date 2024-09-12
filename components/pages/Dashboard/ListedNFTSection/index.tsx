@@ -26,7 +26,7 @@ import { PublicKey, Keypair } from '@solana/web3.js'
 // call apis
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
-import { cancelListingEdition, getEditionList } from 'apis/editions'
+import { getEditionList } from 'apis/editions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,68 +11,17 @@ import SearchBox from 'components/Input/SearchBox'
 // styles
 import styles from './index.module.scss'
 
-// apis
-import searchAPI from 'apis/search'
-
 const MobileSearchBox = () => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const dispatch = useDispatch()
 
-  const [searchKeyword, setSearchKeyword] = useState<any>('')
-
-  const [searchList, setSearchList] = useState<any>({ nfts: [], artists: [], collections: [] })
-  const [searchData, setSearchData] = useState<any>({ nfts: [], artists: [], collections: [] })
-
-  useEffect(() => {
-    if (searchKeyword !== '') {
-      setTimeout(() => {
-        setSearchList({ nfts: [], artists: [], collections: [] })
-        searchAPI.search(searchKeyword).then(
-          response => {
-            let object: any = {}
-            object.nfts = response.nfts
-            object.artists = response.artists
-            object.collections = response.collections
-            setSearchList(object)
-          },
-          error => {
-            console.log(error)
-          }
-        )
-      }, 500)
-    } else {
-      setSearchList({ nfts: [], artists: [], collections: [] })
-    }
-  }, [searchKeyword])
-
-  const handleClear = () => {
-    setSearchKeyword('')
-  }
-
   const handleClose = () => {
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
-    setSearchList({ nfts: [], artists: [], collections: [] })
   }
-
-  useEffect(() => {
-    if (searchKeyword.length > 0) {
-      setSearchData(searchList)
-    } else {
-      setSearchData({ nfts: [], artists: [], collections: [] })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchList])
 
   return (
     <div className={styles.menu}>
-      <SearchBox
-        value={searchKeyword}
-        placeholder="Search"
-        onChange={value => setSearchKeyword(value)}
-        searchList={searchData}
-        onClick={() => handleClear()}
-        onClose={() => handleClose()}
-      />
+      <SearchBox onCloseSearch={() => handleClose()} />
     </div>
   )
 }

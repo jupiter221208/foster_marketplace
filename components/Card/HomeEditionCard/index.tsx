@@ -26,10 +26,10 @@ const HomeEditionCard = props => {
   const [play, setPlay] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
   const [hover, setHover] = useState(false)
-
+  const nftWidth = 600
   useEffect(() => {
     if (
-      data.assetType.includes('video') &&
+      data.assetType?.includes('video') &&
       (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&
       data.coverImageUrl == null
     ) {
@@ -50,6 +50,18 @@ const HomeEditionCard = props => {
       return () => clearTimeout(timer)
     }
   }, [data.endTime])
+
+  const isExpired = () => {
+    if (
+      timeLeft &&
+      timeLeft['days'] === '00' &&
+      timeLeft['hours'] === '00' &&
+      timeLeft['minutes'] === '00' &&
+      timeLeft['seconds'] === '00'
+    )
+      return true
+    return false
+  }
 
   return (
     <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
@@ -87,7 +99,7 @@ const HomeEditionCard = props => {
 
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
-            {data.assetType.includes('video') ? (
+            {data.assetType?.includes('video') ? (
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <div className="w-full relative flex justify-center items-center overflow-hidden">
                   <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
@@ -104,9 +116,9 @@ const HomeEditionCard = props => {
                       ) : data.coverImageUrl != null && data.coverImageUrl !== '' ? (
                         <ImageWithFoster
                           src={data.coverImageUrl}
-                          width={500}
+                          width={nftWidth}
                           onClick={onClick}
-                          className="max-w-full max-h-full object-cover"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
                         <div
@@ -146,13 +158,13 @@ const HomeEditionCard = props => {
                   </a>
                 </Link>
               )
-            ) : data.assetType.includes('audio') ? (
+            ) : data.assetType?.includes('audio') ? (
               <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.coverImageUrl}
-                    width={500}
-                    className="max-w-full max-h-full object-cover"
+                    width={nftWidth}
+                    className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
@@ -162,9 +174,9 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.coverImageUrl}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -173,42 +185,42 @@ const HomeEditionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.assetUrl}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="mw-full h-full object-cover"
                   />
                 </a>
               </Link>
             )}
 
-            {data.endTime !== null && data.startTime !== data.endTime && (
+            {data.endTime !== null && data.startTime !== data.endTime && timeLeft && !isExpired() && (
               <div className={styles.timeSection}>
                 <ClockSandIcon />
 
                 <div className="flex items-center gap-[2px]">
-                  {timeLeft && timeLeft['days'] !== '00' && (
+                  {timeLeft['days'] !== '00' && (
                     <div>
                       <div className={styles.endTime}>
-                        {timeLeft && timeLeft['days']}
+                        {timeLeft['days']}
                         <div className={styles.bidDesc}>d</div>
                       </div>
                     </div>
                   )}
                   <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['hours']}
+                      {timeLeft['hours']}
                       <div className={styles.bidDesc}>h</div>
                     </div>
                   </div>
                   <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['minutes']}
+                      {timeLeft['minutes']}
                       <div className={styles.bidDesc}>m</div>
                     </div>
                   </div>
                   <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['seconds']}
+                      {timeLeft['seconds']}
                       <div className={styles.bidDesc}>s</div>
                     </div>
                   </div>
@@ -221,16 +233,22 @@ const HomeEditionCard = props => {
         <div className={`${styles.bidContainer} ${hover ? styles.bottomHover : ''}`}>
           <div className={styles.bidContentView}>
             <div className="w-full flex justify-between">
-              <div className={styles.bidName}>Price</div>
+              <div className={styles.bidName}>{isExpired() ? 'Status' : 'Price'}</div>
               <div className={styles.bidTime}>{type === 'limit' ? 'Limited Edition' : 'Open Edition'}</div>
             </div>
             <div>
-              <div className={styles.bidCountContainer}>
-                <div className={`h-full mt-[2px] ${styles.sol_icon_color}`}>
-                  <SolanaLogoMobileIcon alt="" />
+              {isExpired() ? (
+                <div className={styles.bidCountContainer}>
+                  <div className={styles.bidCount}>{'Edition Ended'}</div>
                 </div>
-                <div className={styles.bidCount}>{getPriceValue(Number(data.price))}</div>
-              </div>
+              ) : (
+                <div className={styles.bidCountContainer}>
+                  <div className={`h-full mt-[2px] mr-[5px] ${styles.sol_icon_color}`}>
+                    <SolanaLogoMobileIcon alt="" />
+                  </div>
+                  <div className={styles.bidCount}>{getPriceValue(Number(data.price))}</div>
+                </div>
+              )}
             </div>
 
             <div>

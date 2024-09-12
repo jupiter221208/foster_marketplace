@@ -14,73 +14,42 @@ import 'swiper/css/navigation'
 
 // styles
 import styles from './index.module.scss'
+import GradientButton from 'components/Button/GradientButton'
+import { useRouter } from 'next/router'
 
 const ApparelActivity = props => {
-  const { activities, pendingList, allList, type, isLoading } = props
-
-  const [searchWord, setSearchWord] = useState<any>('')
-  const [filter, setFilter] = useState(0)
-  const [list, setList] = useState<any[]>([])
-
-  useEffect(() => {
-    setActivityList()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, filter])
-
-  const setActivityList = () => {
-    if (filter === 0) setList(activities)
-    else if (filter === 1) setList(pendingList)
-    else setList(allList)
-  }
-
-  useEffect(() => {
-    let length = searchWord?.length
-    let searchData = []
-    if (length > 0) {
-      if (filter === 0) searchData = activities
-      else if (filter === 1) searchData = pendingList
-      else searchData = allList
-      const results = searchData.filter(({ id }) => {
-        return id.toString().includes(searchWord.toLowerCase())
-      })
-      setList(results)
-    } else {
-      if (length === 0) {
-        setActivityList()
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchWord])
+  const { activities, type, isLoading, isStudioNFT = false } = props
+  const router = useRouter()
 
   return (
     <div className={styles.container}>
-      <div className="hidden lg:block">
-        {activities.length > 0 && (
-          <CreatorSearchSection
-            placeholder={'Search'}
-            searchWord={searchWord}
-            setSearchWord={value => setSearchWord(value.toString())}
-            onFilter={value => setFilter(value)}
-          />
-        )}
-      </div>
-
-      {list.length > 0 && (
+      {activities.length > 0 && (
         <div className="mt-[10px]">
-          <TableSections data={list} type={type} />
+          <TableSections data={activities} type={type} isStudioNFT={isStudioNFT} />
         </div>
       )}
 
-      {!isLoading && activities?.length === 0 && searchWord.length === 0 && (
+      {!isLoading && activities?.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[0px]">
-          <div className={styles.noArtwork}>
-            {type === 'purchases' ? 'No order history detected' : 'No sales history detected'}
-          </div>
-          <div className={styles.noData}>
-            {type === 'purchases'
-              ? "This tab displays any orders you've placed via Creator Studio"
-              : "This tab displays the orders received for artwork you've enabled Creator Studio"}
-          </div>
+          {type === 'purchases' ? (
+            <div className="w-full mt-[50px] lg:mt-[0px]">
+              <div className={styles.noArtwork}>No order history detected</div>
+              <div className={styles.text}>Explore merch from your favorite artists </div>
+              <div className="w-full flex justify-center mt-[30px]">
+                <GradientButton
+                  label="Shop Studio"
+                  width={144}
+                  height={54}
+                  borderRadius={30}
+                  onClick={() => router.push('/studio')}
+                />
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className={styles.noArtwork}>No results found</div>
+            </div>
+          )}
         </div>
       )}
     </div>

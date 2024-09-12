@@ -15,18 +15,18 @@ import SearchBox from 'components/Input/SearchBox'
 import ExploreMenu from 'components/Menu/ExploreMenu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
+import MenuWhiteIcon from 'assets/icons/hamburger-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
-import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterLogo from 'assets/logo-new.svg?component'
+import FosterLogoMobile from 'assets/logo-new-mobile.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -37,11 +37,11 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 // call apis
-import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
 import NotificationMenu from 'components/Menu/NotificationMenu'
 import ShoppingCartMenu from 'components/Menu/ShoppingCartMenu'
+import CreateMenu from 'components/Menu/CreateMenu'
 
 const PrimaryHeader = () => {
   const router = useRouter()
@@ -49,11 +49,8 @@ const PrimaryHeader = () => {
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [isNewNotification, setIsNewNotification] = useState(false)
   const [isScrollTop, setIsScrollTop] = useState(true)
-  const [isScrollingTop, setIsScrollingTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
 
   const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
@@ -61,9 +58,7 @@ const PrimaryHeader = () => {
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
 
-  let timer = null
-
-  let lastScrollPosition = 0
+  const [lastScrollPosition, setLastScrollPosition] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -73,18 +68,16 @@ const PrimaryHeader = () => {
       else setIsScrollTop(true)
 
       if (position < 250) {
-        lastScrollPosition = position
-        setIsScrollingTop(true)
+        setLastScrollPosition(position)
       } else if (position > lastScrollPosition) {
-        lastScrollPosition = position
-        setIsScrollingTop(false)
+        setLastScrollPosition(position)
       } else if (position < lastScrollPosition) {
-        lastScrollPosition = position
-        setIsScrollingTop(true)
+        setLastScrollPosition(position)
       }
     }, 50)
 
     return () => clearInterval(intervalId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -123,32 +116,6 @@ const PrimaryHeader = () => {
   }, [profileInfo])
 
   useEffect(() => {
-    if (searchKeyword !== '' && searchKeyword.length >= 2) {
-      if (timer) {
-        clearTimeout(timer)
-        timer = null
-      }
-      timer = setTimeout(() => {
-        setSearchList({ nfts: [], artists: [], collections: [] })
-        searchAPI.search(searchKeyword).then(
-          response => {
-            let object: any = {}
-            object.nfts = response.nfts
-            object.artists = response.artists
-            object.collections = response.collections
-            setSearchList(object)
-          },
-          error => {
-            console.log(error)
-          }
-        )
-      }, 500)
-    } else {
-      setSearchList({ nfts: [], artists: [], collections: [] })
-    }
-  }, [searchKeyword])
-
-  useEffect(() => {
     if (markAsRead) {
       setIsNewNotification(false)
       dispatch({ type: 'set', markAsRead: false })
@@ -168,28 +135,13 @@ const PrimaryHeader = () => {
   const handleThemeMode = (changeTo = !lightMode) => {
     setColorTheme(changeTo)
     dispatch({ type: 'set', lightMode: changeTo })
-    setLightMode(changeTo)
-  }
-
-  const handleClear = () => {
-    setSearchKeyword('')
-    setSearchList({ nfts: [], artists: [], collections: [] })
-  }
-
-  const handleClose = () => {
-    setSearchKeyword('')
-    setSearchList({ nfts: [], artists: [], collections: [] })
-  }
-
-  const handleSelectMenu = (item: any) => {
-    if (connected) {
-      // router.push(item.path)
-      if (item.type === 'collection_nft') {
-        dispatch({ type: 'set', mintCollectionStep: 1 })
-      }
+    if (changeTo) {
+      localStorage.setItem('lightDarkMode', 'true')
     } else {
-      setVisible(true)
+      localStorage.setItem('lightDarkMode', 'false')
     }
+
+    setLightMode(changeTo)
   }
 
   const handleOpenShoppingCart = () => {
@@ -220,27 +172,10 @@ const PrimaryHeader = () => {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
-      <div
-        className={`${styles.blurContainer} ${
-          isScrollingTop ? 'top-0' : '-top-28'
-        }  justify-center transition-all lg:flex hidden`}
-      >
+      <div className={`${styles.blurContainer} justify-center transition-all lg:flex hidden`}>
         <nav className="w-full max-w-[1920px] relative">
-          <div className="absolute inset-0 w-full flex justify-center items-center">
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              onClick={() => handleClear()}
-              onClose={() => handleClose()}
-            />
-          </div>
-
           <div className="w-full h-full flex justify-between g-container">
-            <div
-              className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}
-            >
+            <div className={`flex lg:gap-[15px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}>
               <div
                 className="flex gap-[6px] cursor-pointer items-center mr-[15px]"
                 onClick={() => handleGotoHomepage()}
@@ -249,8 +184,8 @@ const PrimaryHeader = () => {
                 <div className={styles.logoFont}>foster</div>
               </div>
 
-              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                Studio
+              <div>
+                <CreateMenu />
               </div>
 
               <div>
@@ -262,22 +197,10 @@ const PrimaryHeader = () => {
                   performerList={ExploreMenuList.performerList}
                 />
               </div>
-
-              <div
-                className={styles.studioMenu}
-                onClick={() => {
-                  if (!connected) {
-                    setVisible(true)
-                    return
-                  }
-                  dispatch({ type: 'set', createTab: null })
-                  router.push('/create/single-nft')
-                }}
-              >
-                Create
-              </div>
             </div>
-
+            <div className="w-full flex items-center mt-[4px] lg:ml-[5px] xl:ml-[10px] 2xl:ml-[20px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
+              <SearchBox placeholder="Search" />
+            </div>
             <div className="flex items-center my-auto min-w-max z-[10001]">
               <div className="flex">
                 {connected && (
@@ -297,13 +220,13 @@ const PrimaryHeader = () => {
                 )}
 
                 {connected && isNewNotification && (
-                  <div className="absolute ml-[155px] mt-[-10px]">
+                  <div className="absolute ml-[175px] mt-[-10px]">
                     <Lottie animationData={NotifyAlarmIcon} loop={true} />
                   </div>
                 )}
 
                 {connected && (
-                  <button className="mr-[20px]" onClick={() => handleThemeMode()}>
+                  <button className="mr-[30px]" onClick={() => handleThemeMode()}>
                     {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                   </button>
                 )}
@@ -323,7 +246,7 @@ const PrimaryHeader = () => {
               </div>
 
               {!connected && (
-                <button className="ml-7" onClick={() => handleThemeMode()}>
+                <button className="ml-[30px]" onClick={() => handleThemeMode()}>
                   {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                 </button>
               )}
@@ -341,8 +264,7 @@ const PrimaryHeader = () => {
           <div className="g-container flex justify-between items-center relative">
             <div className="absolute inset-0 w-full flex justify-center items-center z-[10]">
               <div className="flex gap-[6px] cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-                <FosterLogo className={styles.logoIcon} />
-                <div className={styles.logoFont}>foster</div>
+                <FosterLogoMobile />
               </div>
             </div>
 
@@ -357,27 +279,12 @@ const PrimaryHeader = () => {
                 <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
               </div>
 
-              <div>
-                <IconButtonWithSVG
-                  icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
-                      <path
-                        id="bars-2"
-                        d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
-                        transform="translate(-2 -6)"
-                        fill="var(--mint-btn-bg-1)"
-                      />
-                    </svg>
-                  }
-                  onClick={() => handleOpenMobileMenu()}
-                  backgroundColor="transparent"
-                />
+              <div className="w-[39px] h-[39px] flex justify-center items-center">
+                <MenuWhiteIcon onClick={() => handleOpenMobileMenu()} />
               </div>
             </div>
           </div>
         </div>
-
-        {router.pathname === '/' ? <div className={styles.divider} /> : <div className={styles.divider} />}
       </div>
     </div>
   )

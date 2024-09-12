@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 
 // third party components
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom functions
@@ -28,6 +28,7 @@ interface PrimaryLayoutProps {
 
 const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openShoppingCart = useSelector<any>(state => state.openShoppingCart)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
@@ -35,33 +36,47 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const { connected } = useWallet()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   useEffect(() => {
-    setColorTheme(lightDarkMode)
+    let lightDarkMode = localStorage.getItem('lightDarkMode')
+    if (lightDarkMode === null || lightDarkMode === undefined) {
+      localStorage.setItem('lightDarkMode', 'false')
+      setColorTheme(false)
+      dispatch({ type: 'set', lightMode: false })
+    } else if (lightDarkMode === 'true') {
+      setColorTheme(true)
+      dispatch({ type: 'set', lightMode: true })
+    } else {
+      setColorTheme(false)
+      dispatch({ type: 'set', lightMode: false })
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className={styles.container}>
-      <>
-        {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
-        <PrimaryHeader />
-        <ConnectWalletModal />
-        {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
-        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
-        {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-          <ShoppingCartMobileMenu />
-        )}
+    lightDarkMode !== null && (
+      <div className={styles.container}>
+        <>
+          {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
+          <PrimaryHeader />
+          <ConnectWalletModal />
+          {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
+          {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
+          {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+            <ShoppingCartMobileMenu />
+          )}
 
-        <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
-          {children}
-        </main>
-        {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-          <PrimaryFooter />
-        ) : (
-          <div className="w-full h-[100px]" />
-        )}
-        {connected && profileSetup && <ProfileSetupModal />}
-      </>
-    </div>
+          <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
+            {children}
+          </main>
+          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+            <PrimaryFooter />
+          ) : (
+            <div className="w-full h-[100px]" />
+          )}
+          {connected && profileSetup && <ProfileSetupModal />}
+        </>
+      </div>
+    )
   )
 }
 

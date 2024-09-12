@@ -43,10 +43,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // opacity: 0.8;
-  // &:not([disabled]):hover {
-  //   box-shadow: 0px 5px 15px rgba(var(--single-nft-btn-color), 0.6);
-  // }
 }
 
 .menuBlur {
@@ -56,15 +52,14 @@
   right: 0;
   margin-top: 28px;
   transform-origin: top right;
-  background-color: var(--header-bg-color);
-  border-radius: 12px;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background-color: var(--bg-1E1E1E-F3F2F0);
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
 }
 
 .menuArea {
   background: transparent;
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
   border-radius: 12px;
   padding: 15px;
 }
@@ -209,23 +204,19 @@
 .walletCard {
   width: 100%;
   border-radius: 12px;
-  background: rgba(var(--background-light-color), 0.05);
-  padding: 13px;
-
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
 .depositWithdraw {
-  background: var(--social-bg-color);
   border-radius: 16px;
 }
 
 .iconArea {
   width: 46px;
   aspect-ratio: 1/1;
-  margin-right: 20px;
+  margin-right: 30px;
   border-radius: 50px;
   background-color: rgba(var(--main-bg-color-rgb), 0.05);
   display: flex;

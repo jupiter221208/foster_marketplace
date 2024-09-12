@@ -1,12 +1,4 @@
-import React, { useState, useEffect } from 'react'
-
-// next components
-import Image from 'next/image'
-
-// custom functions
-import { useViewport } from 'utils'
-
-// images and icons
+import React from 'react'
 
 // styles
 import styles from './index.module.scss'
@@ -16,9 +8,9 @@ const MerchProductCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageArea}>
+      <div className={styles.imageArea} onClick={() => onSelectedCard(data)}>
         <div className={styles.imageContent}>
-          <img src={data.image} />
+          <img src={data.image} alt="" />
         </div>
       </div>
       <div className="w-full mt-[10px]">

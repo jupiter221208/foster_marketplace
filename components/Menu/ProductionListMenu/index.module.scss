@@ -1,9 +1,10 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 100%;
+  width: 100% !important;
   @media (min-width: 1024px) {
-    width: 600px;
+    width: 100% !important;
+    max-width: 600px;
     font-size: 16px;
     gap: 7px;
     padding: 13px 15px;
@@ -14,7 +15,7 @@
   font-size: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  background: var(--bg-TRANSPARENT-FFF);
+  background: var(--background-main-color);
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -31,22 +32,24 @@
 
 .menuArea {
   position: absolute;
-  width: 100%;
+  width: 100% !important;
   max-height: 200px;
   @media (min-width: 1024px) {
-    width: 600px;
+    width: 100% !important;
+    max-width: 600px;
     top: 50px;
     padding: 10px 15px;
+    background: var(--background-main-color);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
   }
-  
+  background: var(--background-main-color);
   top: 50px;
   padding: 6px 8px;
   
-  background: var(--bg-TRANSPARENT-FFF);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+
   overflow: auto;
   cursor: pointer;
   z-index: 100;

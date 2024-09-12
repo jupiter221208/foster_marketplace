@@ -1,0 +1,56 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  font-family: 'Muli-Regular' !important;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  &:hover {
+    color: #95dbd5;
+  }
+}
+
+.menuArea {
+  position: fixed;
+  top: 105px;
+  width: 200px;
+  height: auto;
+  padding: 15px 20px;
+  background-color: var(--bg-1E1E1E-F3F2F0);
+  border-radius: 10px;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
+.menuItem {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.text {
+  font-family: 'Muli-Regular' !important;
+  font-size: 16px !important;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  &:hover {
+    color: var(--main-icon-color);
+  }
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

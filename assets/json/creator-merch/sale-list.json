@@ -1,10 +1,12 @@
 [
   {
     "id": 0,
-    "label": "Included with the purchase of an edition"
+    "label": "Included with the purchase of an edition",
+    "type": "edition"
   },
   {
     "id": 1,
-    "label": "Purchased as a standalone item from my merch store"
+    "label": "Purchased as a standalone item from my merch store",
+    "type": "standalone"
   }
 ]

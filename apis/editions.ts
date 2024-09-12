@@ -18,6 +18,7 @@ export interface ListMasterEditionRequest {
   startTime?: string
   endTime?: string
   buyLimit?: number
+  linkedMerchProduct?: number
 }
 
 export interface CreatePrintTransaction {

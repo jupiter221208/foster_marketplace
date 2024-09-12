@@ -5,26 +5,26 @@ import Image from 'next/image'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
-import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 
 // custom functions
 import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
 import SolanaIcon from 'assets/icons/solana-logo-14x12.svg?component'
+import ArrowIcon from 'assets/icons/arrow-right-13x10.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
-import GradientButton from 'components/Button/GradientButton'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const OpenEditionCard = ({ data }) => {
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
   const [timeLeft, setTimeLeft] = useState(null)
   const [loaded, setLoaded] = useState(false)
   const onClick = () => {}
@@ -43,24 +43,6 @@ const OpenEditionCard = ({ data }) => {
 
   return (
     <div className={styles.container}>
-      {/* <div className="absolute w-full h-full flex items-center z-10 opacity-[25%]">
-        <img
-          src={
-            data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-              ? data.asset_url
-              : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-              ? data.cover_image_url
-              : ''
-          }
-          alt=""
-          className="w-full object-cover"
-          onLoad={() => {
-            setLoaded(true)
-          }}
-          loading="lazy"
-        />
-      </div> */}
-
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.assetType.includes('image') ? (
@@ -68,20 +50,16 @@ const OpenEditionCard = ({ data }) => {
               <a>
                 <div className={styles.nftShadow}>
                   {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
-                    <img
+                    <ImageWithFoster
                       src={
-                        data.assetUrl !== '' && data.assetUrl !== null && data.assetUrl !== undefined
-                          ? data.assetUrl
-                          : data.coverImageUrl !== '' && data.coverImageUrl !== null && data.coverImageUrl !== undefined
+                        data.coverImageUrl !== '' && data.coverImageUrl !== null && data.coverImageUrl !== undefined
                           ? data.coverImageUrl
+                          : data.assetUrl !== '' && data.assetUrl !== null && data.assetUrl !== undefined
+                          ? data.assetUrl
                           : ''
                       }
                       alt=""
                       className={`${styles.noSelect} ${styles.nftImage}`}
-                      onLoad={() => {
-                        setLoaded(true)
-                      }}
-                      loading="lazy"
                     />
                   ) : (
                     <div></div>
@@ -204,25 +182,18 @@ const OpenEditionCard = ({ data }) => {
 
       <div className={styles.infoBox}>
         <div className={styles.avatarArea}>
-          {data.artistProfilePicture === null && (
-            <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
-          )}
-          {data.artistProfilePicture !== null && data.artistProfilePicture !== undefined && (
-            <div className={styles.avatar}>
-              <Link href={`/${data.artistUsername}`} passHref>
-                <a>
-                  <img
-                    src={
-                      data.artistProfilePicture.length > 0 ? data.artistProfilePicture : 'images/dashboard-avatar.png'
-                    }
-                    alt=""
-                    className={`${styles.noSelect} rounded-full`}
-                    loading="lazy"
-                  />
-                </a>
-              </Link>
-            </div>
-          )}
+          <div className={styles.avatar}>
+            <Link href={`/${data.artistUsername}`} passHref>
+              <a>
+                <ImageWithFoster
+                  src={data.artistProfilePicture ?? DefaultAvatar}
+                  alt=""
+                  className="w-full h-full rounded-full overflow-hidden"
+                />
+              </a>
+            </Link>
+          </div>
+
           <div className={styles.nftNames}>
             {data.nftName === '' ? (
               <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
@@ -269,8 +240,8 @@ const OpenEditionCard = ({ data }) => {
                   <div className="flex justify-end">
                     <div className={styles.priceLabel}>Edition Closes</div>
                   </div>
-                  <div className="flex justify-end mt-[12px] mb-[29px]">
-                    <div className="flex items-center gap-[2px] ">
+                  <div className="flex justify-end mt-[9px] mb-[29px]">
+                    <div className="flex items-center">
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div>
                           <div className={styles.endTime}>
@@ -303,13 +274,12 @@ const OpenEditionCard = ({ data }) => {
               )}
               <div>
                 <div className="flex justify-end">
-                  <GradientButton
-                    label="Buy Edition"
-                    borderRadius={25}
-                    width={140}
-                    height={50}
-                    onClick={() => router.push(`/nft/${data.tokenId}`)}
-                  />
+                  <div className={styles.buyButton} onClick={() => router.push(`/nft/${data.tokenId}`)}>
+                    <div>Buy Edition</div>
+                    <div className={styles.buttonIcon}>
+                      <ArrowIcon />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

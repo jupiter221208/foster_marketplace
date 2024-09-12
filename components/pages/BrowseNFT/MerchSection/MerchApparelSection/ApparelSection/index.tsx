@@ -57,7 +57,6 @@ const ApparelSection = props => {
             quality: 1,
           })
           let imgUrl = await uploadApparelSection(imgDataString)
-          console.log(imgUrl, '================imgUrl===========')
           dispatch({ type: 'set', printImageUrl: imgUrl })
         } else {
           newCanvas.item(1).selectable = true

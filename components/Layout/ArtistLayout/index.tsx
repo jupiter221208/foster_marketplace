@@ -18,7 +18,7 @@ import ShoppingCartMobileMenu from 'components/Menu/ShoppingCartMobileMenu'
 // styles
 import styles from './index.module.scss'
 import { setColorTheme } from 'utils/helpers'
-import ArtistHeader from 'components/Header/ArtistHeader'
+import PrimaryHeader from 'components/Header/PrimaryHeader'
 
 interface ArtistLayoutProps {
   children?: any
@@ -41,7 +41,7 @@ const ArtistLayout: FC<ArtistLayoutProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       <>
-        <ArtistHeader />
+        <PrimaryHeader />
         <ConnectWalletModal />
         {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
         {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}

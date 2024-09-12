@@ -5,6 +5,13 @@
 @import 'assets/scss/variable.module.scss';
 
 @font-face {
+  font-family: 'Muli-ExtraLight';
+  src: url('../fonts/muli/Muli-ExtraLight.ttf');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Muli-Light';
   src: url('../fonts/muli/Muli-Light.ttf');
   font-weight: 100;
@@ -54,6 +61,13 @@
 }
 
 @font-face {
+  font-family: 'Labirt';
+  src: url('../fonts/Labirt/Labirt.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Betha';
   src: url('../fonts/Betha/Betha.ttf');
   font-weight: normal;
@@ -80,6 +94,15 @@
   font-weight: 100;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Erstoria';
+  src: url('../fonts/Erstoria/Erstoria.ttf');
+  font-weight: 100;
+  font-style: normal;
+}
+
+
 
 :root {
   --brand-01-color: #5ac3ba;
@@ -474,6 +497,30 @@ h6 {
   }
   // background-color: var(--background-main-color);
 }
+
+.skeletonLoader:empty {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.05;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
 #heroSwiper .swiper .swiper-slide {
   transform: scale(0.9);
   transition: all 0.4s;
@@ -611,7 +658,7 @@ h6 {
   width: 8px;
   height: 8px;
   border-radius: 4px;
-  background: #eff0f6;
+  background: var(--main-bg-color);
   @media (max-width: 640px) {
     width: 4px;
     height: 4px;
@@ -1122,10 +1169,7 @@ h6 {
     font-size: 16px;
     height: 80px;
   }
-  @media (min-width: 1536px) {
-    font-size: 18px;
-  }
-
+  
   line-height: 24px;
   letter-spacing: 0;
 }
@@ -1444,6 +1488,13 @@ h6 {
   }
 }
 
+[data-name='solrplex-icon-white'] {
+  --fill-color: var(--solar-icon-color);
+  [data-fill='a'] {
+    fill: var(--auction-input-bg);
+  }
+}
+
 [data-name='ellipse-effect'] {
   [offset='0'] {
     stop-color: var(--ellipse-svg-1);
@@ -1475,6 +1526,19 @@ h6 {
 
 [data-name='info-gray-small'] {
   fill: var(--main-icon-color);
+}
+
+[data-name='merch-badge-bg'] {
+  fill: var(--background-main-color);
+  stroke: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+[data-name='small-merch-badge-bg'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.05);
+}
+
+[data-name='diamond-bg'] {
+  fill: rgba(var(--bg-F3F2F0-202427), 0.05);
 }
 
 
@@ -1517,6 +1581,10 @@ h6 {
   }
 }
 
+[data-name='info-gray'] {
+  fill: var(--bg-B8B9BD-707070)
+}
+
 [data-name='merch-toggle-disabled'] {
   fill: rgba(var(--main-bg-color-rgb), 0.1);
   stroke: var(--merch-disabled-icon-bg);
@@ -1554,6 +1622,13 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='checked-icon'] {
+  fill: var(--main-icon-color);
+  [data-fill='a'] {
+    fill: var(--bg-2B2F32-FFF);
+  }
+}
+
 [data-name='file-copy-icon'] {
   fill: var(--main-icon-color);
 }
@@ -1568,6 +1643,13 @@ h6 {
 
 [data-name='share-icon'] {
   fill: var(--main-bg-color);
+  [data-fill='a'] {
+    fill: var(--main-bg-color);
+  }
+}
+
+[data-name='studio-ballon-icon'] {
+  fill: var(--main-icon-color);
   [data-fill='a'] {
     fill: var(--main-bg-color);
   }
@@ -1595,8 +1677,16 @@ h6 {
   stroke: var(--main-icon-color);
 }
 
+[data-name='main-color-stroke'] {
+  stroke: var(--main-bg-color);
+}
+
 [data-name='main-color-icon'] {
   fill: var(--main-bg-color);
+}
+
+[data-name='main-color-icon-70'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.7);
 }
 
 [data-name='close-icon'] {

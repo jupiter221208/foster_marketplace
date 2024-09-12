@@ -46,12 +46,10 @@ import GradientButton from 'components/Button/GradientButton'
 const Collection = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
   const collectionMintName = useSelector(state => (state as any).collectionMintName)
   const collectionCoverUrl = useSelector(state => (state as any).collectionCoverUrl)
-  const [screenLoaded, setScreenLoaded] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
@@ -76,11 +74,6 @@ const Collection = () => {
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
-    // dispatch({ type: 'set', isLoading: false })
-    setTimeout(() => {
-      setScreenLoaded(true)
-    }, 1000)
-
     let array: any[] = []
     CategoryList.map(item => {
       let object: any = item
@@ -104,7 +97,7 @@ const Collection = () => {
 
       await refreshToken()
       // TODO: calculate real file size
-      await ensureLocalWalletBalance(0.1 * 1e9, 'confirmed')
+      await ensureLocalWalletBalance(0.1 * 1e9)
 
       // for now, just fund with 0.1 sol which is little over 1GB
       const categories = categoryList.filter(item => item.checked)
@@ -215,7 +208,6 @@ const Collection = () => {
       object.name = ''
       object.description = ''
       if (item.type.split('/')[0] === 'audio') {
-        // object.croppedImage = URL.createObjectURL(coverImage[0])
         object.croppedImage = collectionCoverUrl
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)

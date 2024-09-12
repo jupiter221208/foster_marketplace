@@ -4,6 +4,7 @@
   width: 100%;
   height: 100%;
   font-weight: 100;
+  position: relative;
 }
 
 .container {
@@ -18,6 +19,7 @@
     @media (min-width: 1024px) {
       padding-top: 0px;
       padding-bottom: 2px;
+      height: calc(100% - 1px)
     }
   }
 }
@@ -36,25 +38,18 @@
 
 .hideBtnArea {
   position: absolute;
-  left: 8px;
-  top: 8px;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  @media (min-width: 1024px) {
-    left: 20px;
-    top: 20px;
-    width: 52px;
-    height: 52px;
-    border-radius: 26px;
-  }
-
+  left: 20px;
+  top: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(239, 240, 247, 0.15);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  border: 1px solid #707070;
+  background: rgba(var(--background-main-color), 0.5);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .hideConfirm {
@@ -63,7 +58,7 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  border: 3px solid rgba($text-gray-200-color, 0.1);
+  border: 1px solid rgba($text-gray-200-color, 0.1);
   border-radius: 10px;
   @media (min-width: 1024px) {
     border-radius: 10px;
@@ -90,12 +85,11 @@
   width: 67px;
   height: 26px;
   border-radius: 6px;
-  font-size: 10px;
+  font-size: 16px;
   @media (min-width: 1024px) {
     border-radius: 8px;
     width: 106px;
     height: 40px;
-    font-size: 14px;
   }
   display: flex;
   justify-content: center;
@@ -117,6 +111,7 @@
     width: 106px;
     height: 40px;
   }
+  box-shadow: 0px 3px 6px #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,10 +121,7 @@
 
 .hideButtonText {
   font-family: 'Muli-SemiBold';
-  font-size: 10px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
+  font-size: 16px;
   color: $background-dark-color;
 }
 
@@ -152,32 +144,49 @@
 
 .imageInfoHome {
   width: 100%;
+  height: 80px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 23px;
+  padding: 0px 23px;
   @media (min-width: 640px) {
-    padding: 13px 20px;
+    padding: 0px 20px;
   }
   @media (min-width: 768px) {
-    padding: 16px 21px;
+    padding: 0px 21px;
   }
   background: var(--background-main-color);
 }
 
+.hideBtnArea {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(#1a1a1a, 0.5);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+}
+
 .bottomSection {
   width: 100%;
+  height: 80px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 23px;
+  padding: 0px 23px;
   @media (min-width: 640px) {
-    padding: 12px 20px;
+    padding: 0px 20px;
   }
   @media (min-width: 768px) {
-    padding: 14px 21px;
+    padding: 0px 21px;
   }
   border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: var(--background-main-color);
@@ -192,7 +201,7 @@
 .priceLabel {
   font-family: 'Muli-Light';
   font-size: 14px;
-  line-height: 15px;
+  line-height: 18px;
   color: rgba(var(--main-bg-color-rgb), 0.85);
 }
 
@@ -271,10 +280,17 @@
 .priceHome {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-  line-height: 23px;
-  margin-left: 5px;
+  line-height: 22px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
+}
+
+.bidCount {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--text-gray-200-color);
+  text-align: end;
 }
 
 .sol_icon_color {

@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // components
-import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
-
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 // json
 
@@ -15,65 +10,20 @@ import 'swiper/css/navigation'
 // styles
 import styles from './index.module.scss'
 
-// apis
-import OutlineButton from 'components/Button/OutlineButton'
-
 const NftItemActivity = props => {
   const { activities, type, isLoading, action, actionAll } = props
-
-  const [searchWord, setSearchWord] = useState<any>('')
-  const [list, setList] = useState<any[]>([])
-
-  useEffect(() => {
-    let length = searchWord?.length
-    if (length > 0) {
-      const results = activities.filter(({ nft_name }) => {
-        return nft_name.toLowerCase().includes(searchWord.toLowerCase())
-      })
-      setList(results)
-    } else {
-      if (length === 0) {
-        setList(activities)
-      }
-    }
-  }, [searchWord, activities])
-
   return (
     <div className={styles.container}>
-      <div className="w-full hidden lg:flex justify-between ">
-        {activities.length > 0 && (
-          <SearchSection
-            placeholder={'Search'}
-            searchWord={searchWord}
-            setSearchWord={value => setSearchWord(value.toString())}
-          />
-        )}
-        {activities.length > 0 && (
-          <OutlineButton
-            width={138}
-            borderColor={'var(--back-btn-border-mobile)'}
-            label={type === 'enabled' ? 'Disable All' : 'Enable All'}
-            onClick={() => {
-              actionAll()
-            }}
-          />
-        )}
-      </div>
-
-      {list.length > 0 && (
+      {activities.length > 0 && (
         <div className="w-full mt-[10px]">
-          <TableSections data={list} type={type} action={action} actionAll={actionAll} />
+          <TableSections data={activities} type={type} action={action} actionAll={actionAll} />
         </div>
       )}
-      {!isLoading && activities.length === 0 && searchWord.length === 0 && (
-        <div className="w-full mt-[50px] lg:mt-[0px]">
-          <div className={styles.noArtwork}>
-            {type === 'enabled' ? 'You have no artworks currently enabled for merch' : 'No eligible artworks detected'}
-          </div>
-          <div className={styles.noData}>
-            {type === 'enabled'
-              ? 'Go to the eligible artwork tab to select the artwork you would like enabled for merch orders'
-              : 'This tab displays any artworks you created that are eligible for Creator Studio'}
+      {!isLoading && activities.length === 0 && (
+        <div className="w-full mt-[50px] lg:mt-[50px]">
+          <div className={styles.noArtwork}>No Eligible Artworks Detected</div>
+          <div className={styles.text}>
+            To be eligible for the studio, you must be both the creator and the owner of the NFT.
           </div>
         </div>
       )}

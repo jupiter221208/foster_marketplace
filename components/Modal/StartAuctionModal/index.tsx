@@ -92,7 +92,7 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
           >
             <Dialog.Panel className={styles.modalView}>
               {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-                <div className="w-[50%] lg:block hidden">
+                <div className="w-[60%] lg:block hidden">
                   <div className="w-full h-full flex justify-center items-center px-[100px]">
                     <div className={styles.nftArea}>
                       <div className={styles.imageArea}>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 // next component
 
 // styles
@@ -7,20 +6,23 @@ import styles from './index.module.scss'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { useRouter } from 'next/router'
-import { useViewport } from 'utils'
-import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const CollectionCard = props => {
-  const { image, nftName, link, artistName, collectionName, unSave = null } = props
-  const dispatch = useDispatch()
+  const { image, nftName, link, artistName, artistImage, unSave = null } = props
   const router = useRouter()
-  const viewport = useViewport()
 
   return (
     <div className={styles.container}>
       <div className="relative w-full overflow-hidden">
         <div className={styles.topSection}>
-          <div className={styles.nftName}>{nftName}</div>
+          <div>
+            <div className={styles.nftName}>{nftName}</div>
+            <div className={styles.artistName}>{artistName}</div>
+          </div>
+          <div className="w-[45px] h-[45px] rounded-[23px] overflow-hidden">
+            <ImageWithFoster width={100} src={artistImage} alt="" className="w-full h-full object-cover" />
+          </div>
         </div>
         <Link href={link} passHref>
           <a>
@@ -36,10 +38,11 @@ const CollectionCard = props => {
         <div className={styles.bottomSection}>
           {unSave === null ? (
             <div className="w-full">
-              <SecondaryDashboardButton
+              <OutlineButton
                 fullWidth
                 label="View"
-                type="next"
+                fontSize={16}
+                height={45}
                 onClick={() => {
                   router.push(link)
                 }}
@@ -47,10 +50,11 @@ const CollectionCard = props => {
             </div>
           ) : (
             <div className="w-full">
-              <SecondaryDashboardButton
+              <OutlineButton
                 fullWidth
-                label="Unsave"
-                type="unsave"
+                label="Remove"
+                fontSize={16}
+                height={45}
                 onClick={() => {
                   unSave()
                 }}

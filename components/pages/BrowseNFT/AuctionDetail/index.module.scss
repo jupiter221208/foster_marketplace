@@ -6,11 +6,11 @@
   height: 100%;
   padding: 0px 16px 0px 16px;
   @media (min-width: 1024px) {
-    max-height: 85vh;
+    height: 90vh;
     padding: 0px 0px 0px 30px;
     width: calc(100% + 30px);
     padding-right: 30px;
-    overflow: scroll;
+    overflow: auto;
   }
   font-weight: 100;
 }
@@ -18,11 +18,11 @@
 .nftBG {
   padding: 0px !important;
   @media (min-width: 1024px) {
-    padding: 0px 30px 0px 30px !important;
-    background: var(--background-main-color);
-    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-    border-radius: 10px;
-    height: 80vh !important;
+    padding: 0px !important;
+    // background: var(--background-main-color);
+    // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    // border-radius: 10px;
+    height: 100% !important;
   }
 }
 
@@ -39,8 +39,46 @@
   }
 }
 
+.timeSelected {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  color: var(--twitter-text-color);
+  background: var(--main-icon-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @media (min-width: 1024px) {
+    width: 120px;
+    height: 50px;
+  }
+  -webkit-tap-highlight-color: transparent;
+}
+
+.timeDeselected {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @media (min-width: 1024px) {
+    width: 120px;
+    height: 50px;
+  }
+  -webkit-tap-highlight-color: transparent;
+}
+
 .durationSelected {
-  width: 160px;
+  width: 140px;
   height: 50px;
   border-radius: 30px;
   font-family: 'Muli-Regular';
@@ -59,13 +97,13 @@
 }
 
 .durationDeselected {
-  width: 160px;
+  width: 140px;
   height: 50px;
   border-radius: 30px;
   font-family: 'Muli-Regular';
   font-size: 16px;
   color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,12 +152,10 @@
 
 .datePicker {
   width: 100%;
-  max-width: 125px;
   height: 45px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
+  background: transparent;
   border-radius: 9px;
-  color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--text-gray-200-color), 0.1);
+  // border: 1px solid rgba(var(--text-gray-200-color), 0.1);
   font-family: 'Muli-Regular';
   font-size: 14px;
   display: flex;
@@ -130,7 +166,7 @@
   outline: none;
   cursor: pointer;
   @media (min-width: 1024px) {
-    max-width: 428px;
+    max-width: 280px;
   }
 }
 
@@ -162,9 +198,9 @@
 
 .auctionStart {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  font-weight: 100;
-  line-height: 20px;
+  font-weight: 100 !important;
+  font-size: 18px;
+  line-height: 22px;
   color: var(--text-gray-200-color);
   text-align: left;
 }
@@ -175,17 +211,17 @@
 
 .description {
   font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   margin-top: 10px;
 }
 
 .descriptionSpan {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color), 0.9);
 }
 
 .radio {
@@ -218,11 +254,72 @@
 }
 
 .radioText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.7);
   cursor: pointer;
+}
+
+.selectedTimeBtn {
+  width: 100%;
+  height: 50px;
+  @media (min-width: 1024px) {
+    width: 200px; 
+    min-width: 200px;
+  }
+  @media (min-width: 1560px) {
+    width: 260px; 
+    min-width: 260px;
+  }
+  border-radius: 10px;
+  background: var(--main-icon-color) !important;
+  color: var(--background-main-color);
+  svg {
+    fill: var(--background-main-color);
+  }
+}
+
+.deselectedTimeBtn {
+  width: 100%;
+  height: 50px;
+  @media (min-width: 1024px) {
+    width: 200px; 
+    min-width: 200px;
+  }
+  @media (min-width: 1560px) {
+    width: 260px; 
+    min-width: 260px;
+  }
+  border-radius: 10px;
+  background: transparent !important;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--main-bg-color);
+  svg {
+    fill: var(--main-bg-color);
+  }
+}
+
+.selectedTimeIcon {
+  svg {
+    fill: var(--background-main-color) !important;
+  }
+}
+
+.deselectedTimeIcon {
+  svg {
+    fill: var(--main-bg-color) !important;
+  }
+}
+
+.selectedPickerText {
+  color: var(--background-main-color);
+}
+
+.deselectedPickerText {
+  color: var(--main-bg-color)
 }
 
 .startAuction {

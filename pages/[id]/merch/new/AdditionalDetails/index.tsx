@@ -22,17 +22,17 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
+import { validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
-  const { productDetail, step, setEnableNext } = props
+  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
   const [apparelUrl, setApparelUrl] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [saleMethod, setSaleMethod] = useState({ id: -1, label: '' })
+  const [saleMethod, setSaleMethod] = useState({ id: -1, label: '', type: '' })
   const [sellingPrice, setSellingPrice] = useState('')
   const [profit, setProfit] = useState(0)
   const [maxSupplyItem, setMaxSupplyItem] = useState(MaxSupplyList[0])
@@ -41,6 +41,7 @@ const AdditionalDetails = props => {
 
   const [startType, setStartType] = useState('soon')
   const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('24')
   const [day, setDay] = useState('')
@@ -61,20 +62,20 @@ const AdditionalDetails = props => {
     )
   }
 
-  const endDate = useMemo(() => {
+  useEffect(() => {
     let plusDays = Number(days)
     let plusHours = Number(hours)
 
     if (days === '') plusDays = 0
     if (hours === '') plusHours = 0
 
-    const endDate = new Date(startDate)
-    endDate.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
+    const endTime = new Date(startDate)
+    endTime.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
 
     const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const dayOfWeek = day[endDate.getDay()]
+    const dayOfWeek = day[endTime.getDay()]
     setDay(dayOfWeek)
-    return endDate
+    setEndDate(endTime)
   }, [startDate, days, hours])
 
   useEffect(() => {
@@ -84,14 +85,21 @@ const AdditionalDetails = props => {
     }
 
     if (productDetail.product?.id === 0) {
-      if (saleMethod.id === 1 && profit <= 0) {
+      if (saleMethod.id === -1) {
         setEnableNext(false)
         return
       }
 
-      if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
-        setEnableNext(false)
-        return
+      if (saleMethod.id === 1) {
+        if (profit <= 0) {
+          setEnableNext(false)
+          return
+        }
+
+        if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
+          setEnableNext(false)
+          return
+        }
       }
     } else {
       if (sellingPrice === '' || parseFloat(sellingPrice) <= 0) {
@@ -110,17 +118,63 @@ const AdditionalDetails = props => {
   }, [title, saleMethod, profit, sellingPrice, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
 
   useEffect(() => {
+    setAdditionDetail({ ...additionDetail, name: title })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, description })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [description])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, selling_price: parseFloat(sellingPrice) })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sellingPrice])
+
+  useEffect(() => {
+    if (saleMethod.id === 0) {
+      setAdditionDetail({
+        ...additionDetail,
+        sale_method: saleMethod.type,
+        selling_price: priceBase + priceFB + priceRight + priceLeft,
+      })
+    } else {
+      setAdditionDetail({ ...additionDetail, sale_method: saleMethod.type })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saleMethod])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, supply: parseInt(limitedSupply) })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limitedSupply])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, sale_start_at: startDate })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startDate])
+
+  useEffect(() => {
+    if (releaseDurationItem.id === 1) setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endDate])
+
+  useEffect(() => {
+    if (releaseDurationItem.id === 0) setAdditionDetail({ ...additionDetail, sale_end_at: null })
+    else setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [releaseDurationItem])
+
+  useEffect(() => {
     let urls = []
     let { snapshotAssetUrl, selectedCard, technique, color, name, description } = productDetail
     if (productDetail.product?.id === 0) {
       setPriceBase(selectedCard.price[technique])
-      setDescription(
-        selectedCard.name +
-          ' | ' +
-          (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
-          ' | ' +
-          getFirstUpperString(color)
-      )
+
+      let desc = generateDescription(selectedCard, technique, color)
+
+      setDescription(desc)
 
       if (snapshotAssetUrl.front !== '') {
         urls.push(snapshotAssetUrl.front)
@@ -172,6 +226,7 @@ const AdditionalDetails = props => {
       setAssetUrls(assetUrl)
       setApparelUrl(assetUrl[0].url)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
   useEffect(() => {
@@ -179,6 +234,61 @@ const AdditionalDetails = props => {
     setProfit(parseFloat(sellingPrice) - (priceBase + priceFB + priceRight + priceLeft))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingPrice])
+
+  const generateDescription = (selectedCard, tech, color) => {
+    console.log
+    let description = ''
+    let technique = tech === 'dtg' ? 'direct-to-garment' : 'embroidery'
+    let side = getCardSide()
+    if (selectedCard.id === 0) {
+      description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
+    } else if (selectedCard.id === 1) {
+      description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
+    } else if (selectedCard.id === 2) {
+      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
+    } else if (selectedCard.id === 3) {
+      description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
+    } else {
+      description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+    }
+    return description
+  }
+
+  const getCardSide = () => {
+    let card_side = []
+    const { snapshotAssetUrl, technique, side, detailSide } = productDetail
+    if (technique === 'dtg') {
+      if (snapshotAssetUrl.front !== '') {
+        if (detailSide === 'front') card_side.push('full front')
+        else if (detailSide === 'chest') card_side.push('left chest')
+        else if (detailSide === 'center') card_side.push('center chest')
+      }
+      if (snapshotAssetUrl.right !== '') {
+        card_side.push('right sleeve')
+      }
+      if (snapshotAssetUrl.left !== '') {
+        card_side.push('left sleeve')
+      }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back')
+      }
+    } else {
+      if (snapshotAssetUrl.front !== '') {
+        if (detailSide === 'chest') card_side.push('left chest')
+        else if (detailSide === 'center') card_side.push('center chest')
+      }
+      if (snapshotAssetUrl.right !== '') {
+        card_side.push('right wrist')
+      }
+      if (snapshotAssetUrl.left !== '') {
+        card_side.push('left wrist')
+      }
+      if (snapshotAssetUrl.back !== '') {
+        card_side.push('back(DTG)')
+      }
+    }
+    return card_side.join(', ')
+  }
 
   const selectAssetItem = item => {
     let urls = []
@@ -198,7 +308,7 @@ const AdditionalDetails = props => {
       <div className="w-full lg:w-[46%]">
         <div className={styles.assetView}>
           <div className="w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] ">
-            <img src={apparelUrl} width={700} className="w-full h-full object-cover" />
+            <img src={apparelUrl} width={700} className="w-full h-full object-contain" alt="" />
           </div>
         </div>
         <div className="w-full flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[30px] mb-[30px]">
@@ -208,7 +318,7 @@ const AdditionalDetails = props => {
               className={item.selected ? styles.selectedItem : styles.deselectedItem}
               onClick={() => selectAssetItem(item)}
             >
-              <div className="sm:w-[110px] sm:h-[110px] w-[78px] h-[78px]">
+              <div className="w-full h-full">
                 <ImageWithFoster src={item.url} width={110} className="w-full h-full object-cover" />
               </div>
             </div>
@@ -222,8 +332,8 @@ const AdditionalDetails = props => {
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
-              <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Product & Design Details</div>
-              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
+              <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Production Details</div>
+              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -255,7 +365,7 @@ const AdditionalDetails = props => {
                   <div className={styles.price}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
                 </div>
                 <div className={styles.firstRow}>
-                  <div className={styles.sideText}>Selling Price</div>
+                  <div className={styles.sideText}>Selling&nbsp;Price</div>
                   <div className={styles.price}>
                     {saleMethod.id === 0 ? 'Production Price + Price of Edition' : '$' + sellingPrice}
                   </div>
@@ -271,13 +381,11 @@ const AdditionalDetails = props => {
             <div className="w-full mt-[20px] sm:mt-[30px] mb-[100px]">
               <div className={styles.title}>Release Details</div>
               {saleMethod.id === 0 ? (
-                <div className={`${styles.desc} mt-[15px]`}>
-                  Upon publishing this merch item, it will be saved to your brand & design library. When you are listing
-                  an edition, you can choose to toggle this merch item for every edition purchased. Once you have
-                  enabled this merch item, it will become available as an added bonus to your collectors. If you enable
-                  this merch item when listing an edition, please note that the production price for this merch item
-                  will be added to the listing price. As a merch edition, your profit will be dictated by the listing
-                  price of the edition.
+                <div className={`${styles.releaseDetail} mt-[15px]`}>
+                  {`Merch editions let creators bundle merch with their master editions listings, offering collectors a
+                  bonus with every print they purchase. Once published, this merch item will be visible only to you
+                  until activated. To activate it, go to your profile, select the edition, and toggle 'include merch for
+                  each print.' The production cost will be added to the listing price.`}
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
@@ -289,32 +397,34 @@ const AdditionalDetails = props => {
                     <div className={styles.sideText}>Max Supply</div>
                     <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
                   </div>
-                  {maxSupplyItem.id === 1 && (
-                    <div>
-                      <div className={styles.firstRow}>
-                        <div className={styles.sideText}>Release Date</div>
-                        <div className={styles.price}>
-                          {startType === 'soon'
-                            ? 'Immediately'
-                            : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
-                        </div>
-                      </div>
-                      <div className={styles.secondRow}>
-                        <div className={styles.sideText}>Release Duration</div>
-                        <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
-                      </div>
-                      <div className={styles.firstRow}>
-                        <div className={styles.sideText}>Limited Duration</div>
-                        <div className={styles.price}>
-                          {releaseDurationItem.id === 0
-                            ? '∞'
-                            : days.length === 0
-                            ? hours + ' hours'
-                            : days + ' days' + ', ' + hours + ' hours'}
-                        </div>
+                  {/* {maxSupplyItem.id === 1 && ( */}
+                  <div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Release Date</div>
+                      <div className={styles.price}>
+                        {startType === 'soon'
+                          ? 'Immediately'
+                          : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
                       </div>
                     </div>
-                  )}
+                    <div className={styles.secondRow}>
+                      <div className={styles.sideText}>Release Duration</div>
+                      <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
+                    </div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Limited Duration</div>
+                      <div className={styles.price}>
+                        {releaseDurationItem.id === 0
+                          ? '∞'
+                          : days.length === 0
+                          ? hours + ' hours'
+                          : hours.length === 0
+                          ? days + ' days'
+                          : days + ' days' + ', ' + hours + ' hours'}
+                      </div>
+                    </div>
+                  </div>
+                  {/* )} */}
                 </div>
               )}
             </div>
@@ -325,7 +435,7 @@ const AdditionalDetails = props => {
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
-              <div className={`mt-[30px] ${styles.title}`}>Product Description</div>
+              <div className={`mt-[20px] ${styles.title}`}>Product Description</div>
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
@@ -344,9 +454,9 @@ const AdditionalDetails = props => {
                   <div className={styles.price}>${(parseFloat(sellingPrice) * 0.05).toFixed(2)}</div>
                 </div>
                 <div className={styles.firstRow}>
-                  <div className={styles.sideText}>Total</div>
+                  <div className={styles.sideText}>Seller Payout</div>
                   <div className={styles.price}>
-                    ${(parseFloat(sellingPrice) + parseFloat(sellingPrice) * 0.05).toFixed(2)}
+                    ${(parseFloat(sellingPrice) - parseFloat(sellingPrice) * 0.05).toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -383,6 +493,8 @@ const AdditionalDetails = props => {
                         ? '∞'
                         : days.length === 0
                         ? hours + ' hours'
+                        : hours.length === 0
+                        ? days + ' days'
                         : days + ' days' + ', ' + hours + ' hours'}
                     </div>
                   </div>
@@ -408,8 +520,8 @@ const AdditionalDetails = props => {
               />
             </div>
             <div className="w-full sm:mt-[30px] mt-[20px]">
-              <div className={styles.title}>Product & Design Details</div>
-              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
+              <div className={styles.title}>Production Details</div>
+              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -448,8 +560,10 @@ const AdditionalDetails = props => {
             </div>
             {saleMethod.id === 0 && (
               <div className={styles.includePurchase}>
-                This method of sale allows will save the item to your merch brand & design library. When you are listing
-                an edition, you can choose to toggle on merch for every edition purchased
+                {`Merch editions let creators bundle merch with their master editions listings, offering collectors a
+                  bonus with every print they purchase. Once published, this merch item will be visible only to you
+                  until activated. To activate it, go to your profile, select the edition, and toggle 'include merch for
+                  each print.' The production cost will be added to the listing price.`}
               </div>
             )}
             {saleMethod.id === 1 && (
@@ -509,7 +623,7 @@ const AdditionalDetails = props => {
                       <div className="mt-[15px]">
                         <Input
                           value={limitedSupply}
-                          placeholder="Set the total supply for this apparel item"
+                          placeholder="Set the total supply for this item"
                           onChange={value => {
                             setLimitedSupply(validInteger(value))
                           }}
@@ -522,7 +636,7 @@ const AdditionalDetails = props => {
                       Release Date <span>*</span>
                     </div>
                   </div>
-                  <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
+                  <div className="flex gap-[45px]">
                     <div
                       className={`flex items-center ${
                         viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
@@ -710,7 +824,7 @@ const AdditionalDetails = props => {
                   <div className="mt-[15px]">
                     <Input
                       value={limitedSupply}
-                      placeholder="Set the total supply for this apparel item"
+                      placeholder="Set the total supply for this item"
                       onChange={value => {
                         setLimitedSupply(validInteger(value))
                       }}
@@ -723,7 +837,7 @@ const AdditionalDetails = props => {
                   Release Date <span>*</span>
                 </div>
               </div>
-              <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
+              <div className="w-full flex gap-[45px]">
                 <div
                   className={`flex items-center ${
                     viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'

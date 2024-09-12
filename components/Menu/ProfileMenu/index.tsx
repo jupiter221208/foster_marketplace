@@ -15,8 +15,6 @@ import { Menu, Transition } from '@headlessui/react'
 import styles from './index.module.scss'
 
 // resources
-import SunIcon from 'assets/icons/sun-icon-dark.svg?component'
-import MoonIcon from 'assets/icons/moon-icon-dark.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 import ProfileMenuItem from '../ProfileMenuItem'
@@ -153,30 +151,6 @@ const ProfileMenu = props => {
                   }}
                 />
               ))}
-
-              {/* <div className="w-full flex min-h-[40px] items-center">
-                <div className={`${styles.themeContainer} ${lightMode ? 'bg-[#20242725]' : 'bg-[#eff0f616]'}`}>
-                  <button
-                    onClick={() => handleThemeMode(true)}
-                    className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
-                      lightMode ? 'text-[#1A1A1A] bg-[#F3F2F0]' : 'text-[#eff0f6b6]'
-                    }`}
-                  >
-                    <SunIcon className={lightMode ? 'fill-[#1A1A1A]' : 'fill-[#EFF0F6]'} />
-                    <span className="ml-4">Light Mode</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleThemeMode(false)}
-                    className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
-                      !lightMode ? 'text-[#EFF0F6] bg-[#242424]' : 'text-[#1a1a1ab4]'
-                    }`}
-                  >
-                    <MoonIcon className={lightMode ? 'fill-[#202427]' : 'fill-[#95DBD5]'} />
-                    <span className="ml-4">Dark Mode</span>
-                  </button>
-                </div>
-              </div> */}
             </div>
           </Transition>
         )}

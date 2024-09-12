@@ -1,0 +1,317 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  max-height: 575px;
+  height: 100%;
+  border-radius: 10px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.topMask {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--background-black-color), 90%),
+    rgba(var(--background-black-color), 0%)
+  );
+}
+
+.imageArea {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 460px;
+  @media (min-width: 640px) {
+    height: 580px;
+  }
+}
+
+.imageContent {
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 45px;
+  // box-shadow: 0px 0px 10px rgba(#202427, 0.1);
+}
+
+.nftImage {
+  object-fit: contain;
+  max-height: 360px;
+  @media (min-width: 1600px) {
+    max-height: 485px;
+  }
+}
+
+.infoBox {
+  position: absolute;
+  inset: 0;
+  padding: 50px 25px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  z-index: 100;
+  @media (min-width: 1024px) {
+    padding: 43px 50px;
+  }
+}
+
+.avatarArea {
+  width: fit-content;
+  display: flex;
+  gap: 21px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.studioTitle {
+  p:first-child {
+    font-family: 'Muli-Bold';
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    @media (min-width: 640px) {
+      font-size: 30px;
+      line-height: 38px;
+      text-align: start;
+
+    }
+    color: #FFF;
+  }
+  p:nth-child(2) {
+    font-family: 'Muli-Regular'; 
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 45px;
+    text-align: center;
+    @media (min-width: 640px) {
+      margin-top: 17px;
+      font-size: 16px;
+      line-height: 20px;
+      text-align: start;
+
+    }
+    color: #FFF;
+  }
+}
+
+.buyButton {
+  width: fit-content;
+  height: 50px;
+  gap: 11px;
+  border-radius: 25px;
+  padding-left: 23px;
+  padding-right: 8px;
+  background: #FFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: #171717;
+  cursor: pointer;
+}
+
+.buttonIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background: #1A1A1A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    fill: #FFF !important;
+  }
+}
+
+.collectionName {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--brand-03-color);
+  @media (min-width: 1024px) {
+    margin-top: 4px;
+    font-family: 'Muli-Bold';
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--brand-03-color);
+  }
+  @media (min-width: 1536px) {
+    margin-top: 4px;
+    font-family: 'Muli-Bold';
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--brand-03-color);
+  }
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 23px;
+  @media (min-width: 1440px) {
+    width: 66px;
+    height: 66px;
+    border-radius: 33px;
+  }
+}
+
+.btnBox {
+  display: flex;
+  gap: 16px;
+  background: var(--hero-avatar-bg-rgb);
+}
+
+.firstBtn {
+  width: 120px;
+  height: 40px;
+  font-size: 14px;
+  @media (min-width: 1280px) {
+    width: 130px;
+    height: 45px;
+    font-size: 16px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-SemiBold';
+  border-radius: 12px;
+  color: var(--pagination-down-icon);
+  border: solid 1px rgba(var(--background-light-color-rgb), 0.25);
+}
+
+.secondBtn {
+  width: 80px;
+  height: 40px;
+  @media (min-width: 1280px) {
+    width: 100px;
+    height: 45px;
+    font-size: 16px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  border-radius: 12px;
+  background-color: var(--main-icon-color);
+  color: var(--time-slog-bg);
+}
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
+  margin-top: -2px;
+  color: var(--text-gray-200-color);
+}
+
+.priceLabel {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--artwork-table-tr);
+}
+
+.sold {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--text-gray-200-color);
+}
+
+.priceBox {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  align-items: center;
+}
+
+.noSelect {
+  user-select: none;
+  // box-shadow: 0px 3px 6px rgba(#000, 0.16);
+}
+
+.endTimeContainer {
+  margin-left: 4px;
+  @media (min-width: 1024px) {
+    margin-left: 2px;
+  }
+  @media (min-width: 1680px) {
+    margin-left: 4px;
+  }
+}
+
+.endTime {
+  display: flex;
+  gap: 1px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--text-gray-200-color);
+}
+
+.bidDesc {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 22px;
+  color: (--text-gray-200-color);
+}
+
+.skeletonLoader:empty {
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
+  }
+
+  &.prod-name {
+    height: 20px;
+  }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
+  }
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.sol_icon_color {
+  * {
+    fill: var(--main-icon-color);
+  }
+}

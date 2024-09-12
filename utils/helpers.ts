@@ -77,6 +77,16 @@ export const getTimeDifferenceWithAuction = endTime => {
   return difference
 }
 
+export const isExpired = endTime => {
+  let endDate = new Date(endTime)
+  let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = endDate.getTime() - offsetEnd
+
+  let end_difference = proposalEndTime - new Date().getTime()
+  if (end_difference < 0) return true
+  return false
+}
+
 export const isEndDateExpired = endTime => {
   let endDate = new Date(endTime)
   let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
@@ -145,6 +155,21 @@ export const getDateLabel = date => {
   return month + ' ' + day + ', ' + year
 }
 
+export const getDateTimeLabel = date => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let month = months[date.getMonth()]
+  let day = date.getDate()
+  let year = date.getFullYear()
+  let hours = date.getHours()
+  let mins = date.getMinutes()
+  return month + ' ' + day + ', ' + year + ' ' + hours + ':' + mins
+}
+
+export const getYMDString = date => {
+  let month = date.getMonth() + 1
+  return month + '/' + date.getDate() + '/' + date.getFullYear()
+}
+
 export const getTimeLabel = date => {
   var localDate = new Date(date)
   let hours = localDate.getHours()
@@ -152,6 +177,19 @@ export const getTimeLabel = date => {
 
   return hours + ':' + mins
 }
+
+export const convertMerchDescription = desc => {
+  if (desc === 'Unisex Premium Hoodie') return 'Premium Hoodie'
+  else if (desc === 'Unisex Organic Cotton T-Shirt') return 'Premium Tee'
+  else if (desc === 'Unisex Long Sleeve Tee') return 'Premium Long Sleeve'
+  else if (desc === 'Unisex Eco Sweatshirt') return 'Premium Crewneck'
+  else if (desc === "Women's Fitted Eco Tee") return 'Women’s Tee'
+}
+
+export const convertMerchType = type => {
+    if (type === 'Direct-to-Garment') return 'DTG'
+    return type
+  }
 
 export const findElement = (arr, propName, propValue) => {
   for (var i = 0; i < arr.length; i++) if (arr[i][propName] == propValue) return arr[i]
@@ -249,7 +287,7 @@ export const copyToClipboard = value => {
 }
 
 export const copyClipboardAlert = identifier => {
-  document.getElementById(identifier).style.display = 'block'
+  document.getElementById(identifier).style.display = 'flex'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
@@ -315,7 +353,8 @@ export const optimizeCdnUrl = (urlString: string, options?: Record<string, strin
         .sort(([a], [b]) => a.localeCompare(b))
         .map(([k, v]) => k + '=' + v.toString())
         .join(',')
-      if (new URL(assetUrl).hostname == 'arweave.net') url.pathname = `/cdn-cgi/image/${parameters}/${assetUrl}`
+      if (['arweave.net', 'gateway.irys.xyz'].includes(new URL(assetUrl).hostname))
+        url.pathname = `/cdn-cgi/image/${parameters}/${assetUrl}`
     }
   } catch (e: any) {
     console.error(`could not optimize cdn url: ${urlString}: ${e?.message}`)
@@ -345,13 +384,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-black-color-rgb', '239, 240, 247')
     doc.style.setProperty('--preload-back-color', 'rgba(32, 36, 39, 0.7)')
     doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--solar-icon-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--background-light-color', '#202427')
     doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty('--sort-item-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--header-bg-color', 'rgba(244, 243, 240, 0.8)')
-    doc.style.setProperty('--nav-bg-color', 'rgba(243, 242, 240, 0.75)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(238, 237, 235, 0.75)')
     doc.style.setProperty('--nav-bg-shadow', 'rgba(32, 36, 39, 0.4)')
     doc.style.setProperty('--second-home-bg', '#FFF')
     doc.style.setProperty('--header-bottom-color', '#CCCDD4')
@@ -662,17 +702,26 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-95dbd5-707070', '#707070')
     doc.style.setProperty('--bg-95dbd5-FFF', '#FFF')
     doc.style.setProperty('--bg-eff0f6-707070', '#707070')
+    doc.style.setProperty('--bg-F5F5F3-1E1E1E', '#F5F3F2')
+    doc.style.setProperty('--bg-B8B9BD-707070', '#707070')
+    doc.style.setProperty('--bg-535355-DDDEDE', '#DDDEDE')
+    doc.style.setProperty('--bg-95DBD5-DDDEDE', '#DDDEDE')
     doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-303030-202427', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--bg-303030-D3D3D2', '#D3D3D2')
     doc.style.setProperty('--bg-303030-DDDCDC', '#DDDCDC')
     doc.style.setProperty('--bg-303030-D1D1CF', '#D1D1CF')
-    doc.style.setProperty('--bg-timer-card', 'rgba(244, 243, 240, 0.8)')
+    doc.style.setProperty('--bg-timer-card', 'rgba(244, 243, 240, 0.8)') 
     doc.style.setProperty('--bg-141313-E8E7E5', '#E8E7E5')
+    doc.style.setProperty('--bg-151515-E8E7E5', '#E8E7E5')
+    doc.style.setProperty('--bg-1A1A1A-E8E7E5', '#E8E7E5')
     doc.style.setProperty('--bg-141313-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-1A1A1A-202427', '#202427')
+    doc.style.setProperty('--bg-1A1A1A-E5E1DD', '#E5E1DD')
+    doc.style.setProperty('--bg-151515-E5E1DD', '#E5E1DD')
     doc.style.setProperty('--bg-9bdbd5-20242725', 'rgba(32, 36, 39, 0.25)')
     doc.style.setProperty('--bg-1A1A1A-4A4D50', '#4A4D50')
+    doc.style.setProperty('--bg-1A1A1A-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-1A1A1A-FFF', '#FFF')
     doc.style.setProperty('--bg-212121-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-212121-202427', '#202427')
@@ -681,16 +730,31 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-4D6A67-202427', '#202427')
     doc.style.setProperty('--bg-4D6A67-484B4E', '#484B4E')
     doc.style.setProperty('--bg-3A3A3A-202427', '#202427')
+    doc.style.setProperty('--bg-FFF-202427', '#202427')
     doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '255, 255, 255')
     doc.style.setProperty('--bg-242424-EFF0F605', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--bg-242424-E8E7E6', '#E8E7E6')
     doc.style.setProperty('--bg-242424-FFF', '#FFF')
+    doc.style.setProperty('--bg-242424-EEEDEB', '#EEEDEB')
+    doc.style.setProperty('--bg-242424-E5E1DD', '#E5E1DD')
+    doc.style.setProperty('--bg-0A0A0A-E5E1DD', '#E5E1DD')
     doc.style.setProperty('--bg-1a1a1a-EEEDEB', '238, 237, 235')
+    doc.style.setProperty('--bg-1E1E1E-EEEDEB', '#EEEDEB')
+    doc.style.setProperty('--bg-151515-1A1A1A', '#1A1A1A')
+    doc.style.setProperty('--bg-151515-EEEDEB', '#EEEDEB')
+    doc.style.setProperty('--bg-151515-EEEDEB-Gradient', 'linear-gradient(to bottom, #EEEDEB, #F3F2F0)')
     doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#DDDCDC')
     doc.style.setProperty('--bg-TRANSPARENT-FFF', '#FFF')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-1E1E1E-F7F6F4', '#F7F6F4')
     doc.style.setProperty('--bg-171717-FFF', '#FFF')
+    doc.style.setProperty('--bg-171717-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-EFF0F610-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#D1D1CF')
+    doc.style.setProperty('--bg-0A0A0A-E8E7E5', '#E8E7E5')
+    doc.style.setProperty('--bg-242424-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-F3F2F0-202427', '32, 36, 39')
+    doc.style.setProperty('--bg-2B2F32-FFF', '#FFF')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -709,13 +773,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
     doc.style.setProperty('--preload-back-color', 'rgba(18, 18, 18, 0.3)')
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')
+    doc.style.setProperty('--solar-icon-color', '#eff0f6')
     doc.style.setProperty('--background-light-color', '#eff0f6')
     doc.style.setProperty('--background-light-color-rgb', '239, 240, 247')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
     doc.style.setProperty('--sort-item-color', '#eff0f6')
     doc.style.setProperty('--header-bg-color', 'rgba(18, 18, 18, 0.7)')
-    doc.style.setProperty('--nav-bg-color', 'rgba(27, 27, 27, 0.75)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(42, 42, 42, 0.75)')
     doc.style.setProperty('--nav-bg-shadow', 'rgba(0, 0, 0, 0.4)')
     doc.style.setProperty('--second-home-bg', '#242424')
     doc.style.setProperty('--header-bottom-color', 'rgba(239, 240, 247, 0.15)')
@@ -1028,9 +1093,16 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-303030-D9D8D7', '#303030')
     doc.style.setProperty('--bg-95dbd5-707070', '#95dbd5')
     doc.style.setProperty('--bg-95dbd5-FFF', '#95dbd5')
+    doc.style.setProperty('--bg-F5F5F3-1E1E1E', '#1E1E1E')
+    doc.style.setProperty('--bg-151515-E8E7E5', '#151515')
+    doc.style.setProperty('--bg-1A1A1A-E8E7E5', '#1A1A1A')
     doc.style.setProperty('--bg-eff0f6-707070', '#eff0f6')
+    doc.style.setProperty('--bg-B8B9BD-707070', '#B8B9BD')
+    doc.style.setProperty('--bg-535355-DDDEDE', '#535355')
+    doc.style.setProperty('--bg-95DBD5-DDDEDE', '#95DBD5')
     doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#1C1C1C')
     doc.style.setProperty('--bg-303030-202427', '#303030')
+    doc.style.setProperty('--bg-FFF-202427', '#FFF')
     doc.style.setProperty('--bg-303030-D3D3D2', '#303030')
     doc.style.setProperty('--bg-303030-DDDCDC', '#303030')
     doc.style.setProperty('--bg-303030-D1D1CF', '#303030')
@@ -1038,8 +1110,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-141313-E8E7E5', '#141313')
     doc.style.setProperty('--bg-141313-F3F2F0', '#141313')
     doc.style.setProperty('--bg-1A1A1A-202427', '#1A1A1A')
+    doc.style.setProperty('--bg-1A1A1A-E5E1DD', '#1A1A1A')
+    doc.style.setProperty('--bg-151515-E5E1DD', '#151515')
+    doc.style.setProperty('--bg-242424-EEEDEB', '#242424')
     doc.style.setProperty('--bg-9bdbd5-20242725', '#95dbd5')
     doc.style.setProperty('--bg-1A1A1A-4A4D50', '#1A1A1A')
+    doc.style.setProperty('--bg-1A1A1A-F3F2F0', '#1A1A1A')
     doc.style.setProperty('--bg-1A1A1A-FFF', '#1A1A1A')
     doc.style.setProperty('--bg-212121-F3F2F0', '#212121')
     doc.style.setProperty('--bg-EFF0F610-F3F2F0', 'rgba(239, 240, 247, 0.1)')
@@ -1052,11 +1128,24 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '26, 26, 26')
     doc.style.setProperty('--bg-242424-EFF0F605', '#242424')
     doc.style.setProperty('--bg-242424-FFF', '#242424')
+    doc.style.setProperty('--bg-242424-E8E7E6', '#242424')
+    doc.style.setProperty('--bg-242424-E5E1DD', '#242424')
+    doc.style.setProperty('--bg-0A0A0A-E5E1DD', '#0A0A0A')
     doc.style.setProperty('--bg-1a1a1a-EEEDEB', '26, 26, 26')
+    doc.style.setProperty('--bg-1E1E1E-EEEDEB', '#1E1E1E')
+    doc.style.setProperty('--bg-151515-1A1A1A', '#151515')
+    doc.style.setProperty('--bg-151515-EEEDEB', '#151515')
+    doc.style.setProperty('--bg-151515-EEEDEB-Gradient', 'linear-gradient(to bottom, #151515, #1A1A1A)')
     doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#2B2B2B')
     doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#1E1E1E')
+    doc.style.setProperty('--bg-1E1E1E-F7F6F4', '#1E1E1E')
     doc.style.setProperty('--bg-171717-FFF', '#171717')
+    doc.style.setProperty('--bg-171717-F3F2F0', '#171717')
     doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#2C2C2C')
+    doc.style.setProperty('--bg-0A0A0A-E8E7E5', '#0A0A0A')
+    doc.style.setProperty('--bg-242424-F3F2F0', '#242424')
+    doc.style.setProperty('--bg-2B2F32-FFF', '#2B2F32')
+    doc.style.setProperty('--bg-F3F2F0-202427', '243, 242, 240')
   }
 }

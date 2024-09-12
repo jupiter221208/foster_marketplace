@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react'
-import { useRouter } from 'next/router'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
-import { useViewport } from 'utils'
 
 // images and icons
 import PlusIcon from 'assets/icons/plus-white-icon.svg?component'

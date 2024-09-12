@@ -33,6 +33,8 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
 import WalletIcon from 'assets/icons/wallet-icon.svg?component'
+import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
+import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
@@ -266,16 +268,16 @@ const MyWalletSubMenu = props => {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className={open ? styles.openContainer : styles.container}>
+          <Disclosure.Button className={`${styles.container} ${open ? '' : styles.bottomBorder}`}>
             <div className="flex items-center">
-              <WalletIcon />
+              {/* <WalletIcon /> */}
 
-              <div className={open ? styles.openLabel : styles.label}>{label}</div>
+              <div className={styles.label}>{label}</div>
             </div>
-            {open ? <DownIcon /> : <RightIcon />}
+            {open ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}
           </Disclosure.Button>
 
-          <Disclosure.Panel className="w-full relative px-1 pt-4 pb-2 text-sm text-gray-500">
+          <Disclosure.Panel className={`w-full relative mt-[-4px] pb-2 text-sm text-gray-500 ${styles.bottomBorder}`}>
             <div className="w-full">
               {/* main wallet part */}
               <div className="w-full justify-between">
@@ -303,28 +305,9 @@ const MyWalletSubMenu = props => {
                     </div>
                     <CopyClipboardChip identifier="main-wallet" />
                   </div>
-                  {/* <div className="py-2 cursor-pointer" onClick={() => setShowMainWallet(!showMainWallet)}>
-                    <Image src={EllipseGroupWhiteIcon} />
-                  </div> */}
                 </div>
               </div>
-              {/* {showMainWallet && (
-                <div className="w-full flex flex-wrap">
-                  <div className="w-full flex items-center cursor-pointer hover:opacity-80">
-                    <Image src={ChangeWalletIcon} alt="" />
-                    <div className={styles.whiteText}>Change wallet</div>
-                  </div>
-                  <div
-                    className="w-full flex items-center cursor-pointer hover:opacity-80"
-                    onClick={() => {
-                      handleDisconnect()
-                    }}
-                  >
-                    <Image src={DisconnectWalletIcon} alt="" />
-                    <div className={styles.whiteText}>Disconnect wallet</div>
-                  </div>
-                </div>
-              )} */}
+
               {/* offer wallet part */}
               <div className="my-4">
                 <div className="w-full flex justify-between">
@@ -385,15 +368,6 @@ const MyWalletSubMenu = props => {
                       Withdraw
                     </div>
                   </div>
-                  {/* <div
-                    className="pt-3 cursor-pointer"
-                    onClick={() => {
-                      setShowOfferWallet(!showOfferWallet)
-                      setShowBiddingWallet(false)
-                    }}
-                  >
-                    <EllipseGroupWhiteIcon alt="" />
-                  </div> */}
                 </div>
               </div>
               <div className={styles.depositWithdraw}>
@@ -402,40 +376,6 @@ const MyWalletSubMenu = props => {
                     <div className={styles.cardTypeText}>
                       {offerStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
                     </div>
-                    {/* <div
-                      className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                      onClick={() => {
-                        if (offerStatus === 'deposit') setOfferStatus('')
-                        else setOfferStatus('deposit')
-                        setWalletAmount('')
-                        setOfferPrice(0)
-                        setOfferErrorMessage('')
-                      }}
-                    >
-                      {offerStatus === 'deposit' ? <NounAddLightGreenIcon alt="" /> : <NounAddGrayIcon alt="" />}
-                      <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                        Deposit from Main Wallet
-                      </div>
-                    </div>
-                    <div
-                      className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                      onClick={() => {
-                        if (offerStatus === 'withdraw') setOfferStatus('')
-                        else setOfferStatus('withdraw')
-                        setWalletAmount('')
-                        setOfferPrice(0)
-                        setOfferErrorMessage('')
-                      }}
-                    >
-                      {offerStatus === 'withdraw' ? (
-                        <NounSubtractLightGreenIcon alt="" />
-                      ) : (
-                        <NounSubtractGrayIcon alt="" />
-                      )}
-                      <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
-                        Withdraw to Main Wallet
-                      </div>
-                    </div> */}
                   </div>
                 )}
                 {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
@@ -541,15 +481,6 @@ const MyWalletSubMenu = props => {
                     </div>
                     <CopyClipboardChip identifier="bidding-wallet" />
                   </div>
-                  {/* <div
-                    className="pt-3 cursor-pointer"
-                    onClick={() => {
-                      setShowBiddingWallet(!showBiddingWallet)
-                      setShowOfferWallet(false)
-                    }}
-                  >
-                    <EllipseGroupWhiteIcon alt="" />
-                  </div> */}
                   <div className="flex gap-[9px] items-center">
                     <div
                       className={biddingStatus === 'deposit' ? styles.cardGrayText : styles.cardWhiteText}
@@ -594,41 +525,6 @@ const MyWalletSubMenu = props => {
                     <div className={styles.cardTypeText}>
                       {biddingStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
                     </div>
-                    {/* <div
-                      className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                      onClick={() => {
-                        if (biddingStatus === 'deposit') setBiddingStatus('')
-                        else setBiddingStatus('deposit')
-                        setWalletAmount('')
-                        setBiddingPrice(0)
-                        setBiddingErrorMessage('')
-                      }}
-                    >
-                      {biddingStatus === 'deposit' ? <NounAddLightGreenIcon alt="" /> : <NounAddGrayIcon alt="" />}
-
-                      <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                        Deposit from Main Wallet
-                      </div>
-                    </div> */}
-                    {/* <div
-                      className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                      onClick={() => {
-                        if (biddingStatus === 'withdraw') setBiddingStatus('')
-                        else setBiddingStatus('withdraw')
-                        setWalletAmount('')
-                        setBiddingPrice(0)
-                        setBiddingErrorMessage('')
-                      }}
-                    >
-                      {biddingStatus === 'withdraw' ? (
-                        <NounSubtractLightGreenIcon alt="" />
-                      ) : (
-                        <NounSubtractGrayIcon alt="" />
-                      )}
-                      <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
-                        Withdraw to Main Wallet
-                      </div>
-                    </div> */}
                   </div>
                 )}
                 {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (

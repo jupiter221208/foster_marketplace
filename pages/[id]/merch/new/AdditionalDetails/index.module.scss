@@ -24,8 +24,8 @@
     height: 120px;
   }
   @media (min-width: 1024px) {
-    width: 130px;
-    height: 130px;
+    width: 126px;
+    height: 126px;
   }
   border: 2px solid var(--main-icon-color);
   border-radius: 10px;
@@ -43,8 +43,8 @@
     height: 120px;
   }
   @media (min-width: 1024px) {
-    width: 130px;
-    height: 130px;
+    width: 126px;
+    height: 126px;
   }
   border: 2px solid var(--bg-303030-DDDCDC);
   border-radius: 10px;
@@ -66,10 +66,23 @@
 }
 
 .desc {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);  
+  }
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.releaseDetail {
+  font-family: 'Muli-Light';
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
     color: rgba(var(--text-gray-200-color-rgb), 0.8);  
   }
   font-size: 16px;
@@ -106,8 +119,8 @@
 
 .sideText {
   font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 100;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   @media (min-width: 640px) {
@@ -118,10 +131,11 @@
 
 .price {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 100;
   color: var(--text-gray-200-color);
+  text-align: end;
   @media (min-width: 640px) {
     font-size: 16px;
     line-height: 20px;

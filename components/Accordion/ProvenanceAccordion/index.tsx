@@ -1,29 +1,20 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // next components
-import Link from 'next/link'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getSliceAddress } from 'utils/helpers'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import OutlineButton from 'components/Button/OutlineButton'
-import { getExplorerUrl } from 'utils/explorer'
-import { useConnection } from '@solana/wallet-adapter-react'
 import GradientButton from 'components/Button/GradientButton'
 
 const ProvenanceAccordion = props => {
   const { data } = props
-  const dispatch = useDispatch()
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)

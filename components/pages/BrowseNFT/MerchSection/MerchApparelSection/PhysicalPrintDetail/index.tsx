@@ -51,6 +51,7 @@ const PhysicalPrintDetail = props => {
   const [size, setSize] = useState({
     id: 2,
     name: 'L',
+    label: 'L',
   })
   const [color, setColor] = useState({
     id: 0,
@@ -135,7 +136,8 @@ const PhysicalPrintDetail = props => {
       if (genderType === 'youth') {
         setSize({
           id: 2,
-          name: 'YM',
+          name: 'L',
+          label: 'L',
         })
       }
       ApparelType.map(item => {

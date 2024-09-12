@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -9,7 +9,7 @@ import Image from 'next/image'
 // styles
 import styles from './index.module.scss'
 
-import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 import { getDisplayUserName } from 'utils/strings'
@@ -23,20 +23,22 @@ const ProfileArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        {/* {hasLoading ? (
-          <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
-        ) : ( */}
         <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-          <Image
-            src={image}
-            alt=""
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            className="rounded-full"
-            onClick={setFullScreenView}
-          />
-          {isOwn && (
-            <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full`}></div>
+          ) : (
+            <Image
+              src={image}
+              alt=""
+              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+              className="rounded-full"
+              onClick={setFullScreenView}
+            />
+          )}
+
+          {!hasLoading && isOwn && (
+            <div className="absolute bottom-0 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
               <div className={styles.iconProfileBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButtonWithSVG
@@ -63,7 +65,6 @@ const ProfileArtistCard = props => {
             </div>
           )}
         </div>
-        {/* )} */}
       </div>
 
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

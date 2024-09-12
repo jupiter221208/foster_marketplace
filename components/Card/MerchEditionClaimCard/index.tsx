@@ -1,27 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // next components
 
 // Web3
 
 // images and icons
-import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
+
+import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import MerchEditionViewModal from 'components/Modal/MerchEditionViewModal'
+import MerchClaimModal from 'components/Modal/MerchClaimModal'
 
 // styles
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 // api
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
-import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
-import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
-import MerchEditionViewModal from 'components/Modal/MerchEditionViewModal'
-import MerchClaimModal from 'components/Modal/MerchClaimModal'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchEditionClaimCard = props => {
   const { data } = props
-  const [showEditBtn, setShowEditBtn] = useState(false)
+  const router = useRouter()
   const [showViewCard, setShowViewCard] = useState(false)
   const [showClaimCard, setShowClaimCard] = useState(false)
 
@@ -38,47 +39,58 @@ const MerchEditionClaimCard = props => {
       <div className="relative w-full overflow-hidden">
         <div className={styles.topSection}>
           <div>
-            <div className={styles.productName}>{data.product_name}</div>
-            <div className={styles.editionName}>{data.edition_name}</div>
+            <div className={styles.productName}>{data.name}</div>
+            <Link href={`/nft/${data.nft.token_id}`} passHref>
+              <a>
+                <div className={styles.nftName}>{data.nft.nft_name}</div>
+              </a>
+            </Link>
           </div>
-          <div className={styles.avatarArea}>
-            <ImageWithFoster src={data.avatar_url} width={800} className="w-full h-full object-cover" />
+          <div className={styles.avatar}>
+            <Link href={`/${data.username}`} passHref>
+              <a>
+                <ImageWithFoster src={data.user_profile_picture} width={44} className="object-cover" />
+              </a>
+            </Link>
           </div>
         </div>
 
-        <div className={styles.imageArea}>
+        <div className={styles.imageArea} onClick={() => onViewCard()}>
           <div className={styles.imageContent}>
             <div className="w-full h-full p-4">
-              <ImageWithFoster src={data.urls[0].src} width={800} className="w-full h-full object-cover" />
+              <ImageWithFoster
+                src={data.options.addons[0].mockup_url}
+                width={800}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
 
         <div className={styles.bottomSection}>
-          <div className="w-full flex">
-            <PrimaryDashboardButton label="Claim Merch" type="merch" onClick={() => onClaimCard()} fullWidth />
-
-            <SecondaryDashboardButton label="View" type="next" fullWidth onClick={() => onViewCard()} />
-          </div>
+          {data.order_id ? (
+            <div className="w-full">
+              <OutlineButton
+                height={45}
+                fontSize={16}
+                label="Order Details"
+                onClick={() => {
+                  router.push(`/merch-logs/${data.order_id}`)
+                }}
+                fullWidth
+              />
+            </div>
+          ) : (
+            <div className="w-full">
+              <OutlineButton fontSize={16} height={45} label="Claim Merch" onClick={() => onClaimCard()} fullWidth />
+            </div>
+          )}
         </div>
-        {showEditBtn && (
-          <div className={styles.overlay}>
-            <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>
-              <CloseIcon />
-            </div>
-            <div className={styles.bottomBtn}>
-              <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-                <PrimaryButton label="Claim Merch" type="merch" onClick={() => onClaimCard()} fullWidth />
-
-                <SecondaryButton label="View" type="next" fullWidth onClick={() => onViewCard()} />
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
-      <MerchEditionViewModal urls={data.urls} open={showViewCard} onClose={() => setShowViewCard(false)} />
-      <MerchClaimModal urls={data.urls} open={showClaimCard} onClose={() => setShowClaimCard(false)} />
+      <MerchEditionViewModal urls={data.options.addons} open={showViewCard} onClose={() => setShowViewCard(false)} />
+
+      <MerchClaimModal data={data} open={showClaimCard} onClose={() => setShowClaimCard(false)} />
     </div>
   )
 }

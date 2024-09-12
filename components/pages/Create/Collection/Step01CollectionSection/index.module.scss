@@ -11,7 +11,7 @@
   height: fit-content;
   padding: 16px 16px 16px 0px;
   @media (min-width: 1024px) {
-    padding: 50px 0px 80px 57px;
+    padding: 50px 0px 40px 57px;
   }
   display: flex;
   justify-content: center;
@@ -39,6 +39,12 @@
 .bannerImageArea {
   width: 100%;
   height: 120px;
+  @media (min-width: 414px) {
+    height: 140px;
+  }
+  @media (min-width: 768px) {
+    height: 158px;
+  }
   @media (min-width: 1024px) {
     width: 550px;
     height: 158px;
@@ -63,16 +69,6 @@
   }
 }
 
-.coverImageArea {
-  width: 140px;
-  height: 140px;
-  @media (min-width: 1024px) {
-    width: 304px;
-    height: 304px;
-  }
-  position: relative;
-}
-
 .collectionName {
   font-family: 'Muli-Bold';
   font-size: 22px;
@@ -80,18 +76,6 @@
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   text-align: center;
-}
-
-.collectionBannerImage {
-  font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  color: var(--text-gray-200-color);
-  span {
-    color: var(--main-icon-color);
-  }
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 .descriptionArea {
@@ -156,32 +140,6 @@
   z-index: 100;
 }
 
-.dropzone {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  background: rgba(var(--main-bg-color-rgb), 0.02);
-  border: 1px dashed rgba(var(--main-bg-color-rgb), 0.25);
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-}
-
-.uploadText {
-  font-family: 'Muli-SemiBold';
-  font-size: 15px;
-  line-height: 20px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 25px;
-  }
-  letter-spacing: 0;
-  color: var(--text-gray-200-color);
-  span {
-    color: var(--main-icon-color);
-  }
-}
-
 .selectArea {
   width: 100%;
   height: auto;
@@ -233,19 +191,6 @@
   letter-spacing: 0;
 }
 
-.text {
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 18px;
-  }
-  letter-spacing: 0;
-  margin-top: 12px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
-}
-
 .textCover {
   font-family: 'Muli-Regular';
   font-size: 11px;
@@ -261,19 +206,6 @@
   letter-spacing: 0;
   margin-top: 12px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
-}
-
-.greenText {
-  font-family: 'Muli-Light';
-  font-size: 11px;
-  line-height: 19px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 24px;
-  }
-  letter-spacing: 0;
-  margin-top: 12px;
-  color: var(--main-icon-color);
 }
 
 .greenTextCover {

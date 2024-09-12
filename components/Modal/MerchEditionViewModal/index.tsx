@@ -16,7 +16,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchEditionViewModal = ({ urls, open, onClose }) => {
   const [assetUrls, setAssetUrls] = useState([])
-  const [selectedAsset, setSelectedAsset] = useState(urls[0])
+  const [selectedAsset, setSelectedAsset] = useState(urls[0].mockup_url)
 
   const closeModal = () => {
     onClose()
@@ -25,8 +25,8 @@ const MerchEditionViewModal = ({ urls, open, onClose }) => {
   useEffect(() => {
     let asset_urls = []
     urls.map((asset, index) => {
-      if (index === 0) asset_urls.push({ id: index, url: asset, selected: true })
-      else asset_urls.push({ id: index, url: asset, selected: false })
+      if (index === 0) asset_urls.push({ id: index, url: asset.mockup_url, selected: true })
+      else asset_urls.push({ id: index, url: asset.mockup_url, selected: false })
     })
     setAssetUrls(asset_urls)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,7 +77,7 @@ const MerchEditionViewModal = ({ urls, open, onClose }) => {
               <div className="mt-[100px]">
                 <div className="w-full flex justify-center">
                   <div className="w-[375px] h-[375px] sm:w-[600px] sm:h-[600px]">
-                    <ImageWithFoster src={selectedAsset.src} width={600} className="w-full h-full" />
+                    <ImageWithFoster src={selectedAsset} width={600} className="w-full h-full" />
                   </div>
                 </div>
                 <div className="w-full flex justify-center mt-[30px]">
@@ -88,7 +88,7 @@ const MerchEditionViewModal = ({ urls, open, onClose }) => {
                         className={item.selected ? styles.selected : styles.unselected}
                         onClick={() => selectAssetItem(item)}
                       >
-                        <ImageWithFoster src={item.url.src} width={130} className="w-full h-full" />
+                        <ImageWithFoster src={item.url} width={130} className="w-full h-full" />
                       </div>
                     ))}
                   </div>

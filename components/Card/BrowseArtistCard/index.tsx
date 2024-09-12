@@ -1,6 +1,4 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -8,7 +6,7 @@ import Image from 'next/image'
 // custom functions
 import { useViewport } from 'utils'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
-import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -17,16 +15,11 @@ import { getDisplayUserName } from 'utils/strings'
 
 const BrowseArtistCard = props => {
   const { image, collectionName, artistName, artistAddress, hasloading, showEditIcon, onClickEdit } = props
-  const router = useRouter()
-  const dispatch = useDispatch()
   const viewport = useViewport()
 
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        {/* {hasloading ? (
-          <div className={`${styles.skeletonLoader} ${styles.avatar}`}></div>
-        ) : ( */}
         <div className="relative">
           <div className={styles.avatar}>
             {image && (
@@ -42,7 +35,7 @@ const BrowseArtistCard = props => {
           {showEditIcon && (
             <div className="absolute left-[64px] lg:left-[120px] bottom-[-4px] lg:bottom-0">
               <IconButtonWithSVG
-                icon={<CameraWhiteIcon />}
+                icon={<EditorGreenIcon />}
                 width={38}
                 height={38}
                 iconWidth={38}

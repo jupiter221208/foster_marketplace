@@ -4,11 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 // components
-import Alert from 'components/Alert'
-
 import Chip from 'components/Chip'
-import Input from 'components/Input'
-
 import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
@@ -18,11 +14,7 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 // call apis
-import Button from 'components/Button'
 import LoadingButton from 'components/Button/LoadingButton'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const Step01ReviewSection = props => {
@@ -37,13 +29,10 @@ const Step01ReviewSection = props => {
     mintCollection,
     isMinting,
     onChangeCurrentStep,
-    onNext,
   } = props
   const viewport = useViewport()
 
   // variables
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertData, setAlertData] = useState<any[]>([])
   const [displayCategory, setDisplayCategory] = useState(false)
 
   useEffect(() => {
@@ -166,14 +155,6 @@ const Step01ReviewSection = props => {
           </div>
         </div>
       )}
-
-      <Alert
-        open={showAlert}
-        close={() => {
-          setShowAlert(false)
-        }}
-        data={alertData}
-      />
     </div>
   )
 }

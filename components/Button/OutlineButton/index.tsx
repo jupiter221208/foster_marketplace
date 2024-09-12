@@ -51,7 +51,7 @@ const OutlineButton = props => {
         gap: gap,
       }}
     >
-      {label !== '' && <div>{label}</div>}
+      {label !== '' && <div className="mt-[-2px]">{label}</div>}
       {direction === 'ltr' && icon !== '' && (
         <div className="flex items-center">
           <Image src={icon} alt="" />

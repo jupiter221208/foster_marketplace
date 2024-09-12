@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // next components
 import { useRouter } from 'next/router'
@@ -9,7 +8,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -19,8 +17,10 @@ import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
-import NFTEditionsCard from 'components/Card/NFTEditionsCard'
-import NFTAuctionCard from 'components/Card/NFTAuctionCard'
+import HomeNftCard from 'components/Card/HomeNFTCard'
+import HomeEditionCard from 'components/Card/HomeEditionCard'
+import LiveAuctionCard from 'components/Card/LiveAuctionCard'
+import { getTimeDifference } from 'utils/helpers'
 
 type NFTSwiperSectionTypes = {
   nfts: NftData[]
@@ -30,7 +30,6 @@ type NFTSwiperSectionTypes = {
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSectionTypes) => {
   const router = useRouter()
-  const dispatch = useDispatch()
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -45,7 +44,11 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
       const listeNfts = nfts.filter(item => item.list_price != null)
       setQuickBuyNfts(listeNfts)
 
-      const editionNfts = nfts.filter(item => item.master_edition != null)
+      const editionNfts = nfts.filter(
+        item =>
+          item.master_edition != null &&
+          (item.master_edition?.endTime === null || getTimeDifference(item.master_edition?.endTime) > 0)
+      )
       setLiveEditionNfts(editionNfts)
 
       const auctionNfts = nfts.filter(item => item.auction != null)
@@ -168,56 +171,59 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
           />
         </div>
         <div className="w-full mt-[15px] lg:mt-[45px] z-10">
-          <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px]">
             {nftList.map((item, index) => (
-              <div className="col-span-12 lg:col-span-3" key={index}>
+              <div className="w-full" key={index}>
                 {item.master_edition ? (
-                  <NFTEditionsCard
-                    tokenId={item.id}
-                    image={item.content.files[1]?.uri}
-                    nftName={item.content.metadata.name}
-                    artistName={item.creators[0].artist_username}
-                    assetType={item.category}
-                    coverImage={
-                      item.content.files[0]?.cdn_uri ||
-                      item.content.files[0]?.uri ||
-                      item.content.links.image ||
-                      DefaultNftBG.src
-                    }
-                    statTime={item.master_edition?.startTime}
-                    endTime={item.master_edition?.endTime}
-                    price={item.master_edition?.price}
-                    currentSupply={item.supply?.print_current_supply}
-                    maxSupply={item.max_supply}
+                  <HomeEditionCard
+                    data={{
+                      tokenId: item.id,
+                      nftName: item.content.metadata.name,
+                      artistUsername: item.creators[0].artist_username,
+                      artistProfilePicture: item.creators[0].artist_profile_picture,
+                      coverImageUrl:
+                        item.content.files[0]?.cdn_uri ||
+                        item.content.files[0]?.uri ||
+                        item.content.links.image ||
+                        DefaultNftBG.src,
+                      assetUrl: item.content.files[1]?.uri,
+                      endTime: item.master_edition?.endTime,
+                      startTime: item.master_edition?.startTime,
+                      price: item.master_edition?.price,
+                      currentSupply: item.supply?.print_current_supply,
+                      maxSupply: item.max_supply,
+                    }}
+                    type={item.max_supply === null ? 'open' : 'limit'}
                     onClick={() => {
                       gotoNftPage(item.id)
                     }}
-                    key={index}
                   />
                 ) : item.auction ? (
-                  <NFTAuctionCard
-                    token_id={item.id}
-                    nftName={item.content.metadata.name}
-                    artistName={item.creators[0].artist_username}
-                    image={item.content.files[1]?.uri}
-                    assetType={item.category}
-                    coverImage={
-                      item.content.files[0]?.cdn_uri ||
-                      item.content.files[0]?.uri ||
-                      item.content.links.image ||
-                      DefaultNftBG.src
-                    }
-                    currentBid={item.auction.current_bid}
-                    reservePrice={item.auction.list_price}
-                    endTime={item.auction.end_time}
+                  <LiveAuctionCard
+                    data={{
+                      token_id: item.id,
+                      asset_url: item.content.files[1]?.uri,
+                      artist_username: item.creators[0].artist_username,
+                      asset_type: item.category,
+                      artist_profile_picture: item.creators[0].artist_profile_picture,
+                      cover_image_url:
+                        item.content.files[0]?.cdn_uri ||
+                        item.content.files[0]?.uri ||
+                        item.content.links.image ||
+                        DefaultNftBG.src,
+                      current_bid: item.auction?.current_bid,
+                      reserve_price: item.auction?.list_price,
+                      start_time: item.auction?.start_time,
+                      end_time: item.auction?.end_time,
+                    }}
                     onClick={() => {
                       gotoNftPage(item.id)
                     }}
                   />
                 ) : (
-                  <NFTCard
-                    token_id={item.id}
+                  <HomeNftCard
                     image={item.content.files[1]?.uri}
+                    token_id={item.id}
                     nftName={item.content.metadata.name}
                     assetType={item.category}
                     coverImage={
@@ -226,15 +232,12 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                       item.content.links.image ||
                       DefaultNftBG.src
                     }
-                    fallBack={item.content.links.image || DefaultNftBG.src}
                     artistName={item.creators[0].artist_username}
+                    artistImage={item.creators[0].artist_profile_picture}
                     collectionName={collectionName}
-                    artistId={item.creators[0].address}
                     price={item.list_price}
                     showHideButton={showHideButton}
-                    onClick={() => {
-                      gotoNftPage(item.id)
-                    }}
+                    onClick={() => {}}
                   />
                 )}
               </div>

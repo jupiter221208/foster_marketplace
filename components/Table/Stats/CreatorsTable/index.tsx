@@ -8,7 +8,7 @@ import Image from 'next/image'
 // custom functions
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
@@ -63,13 +63,13 @@ const CreatorsTable = props => {
               <td className="text-center">{item.unique_collectors}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {parseFloat(item.total_sales).toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {parseFloat(item.highest_sale).toFixed(2)}
                 </div>
               </td>

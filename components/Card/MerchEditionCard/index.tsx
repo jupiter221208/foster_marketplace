@@ -11,15 +11,22 @@ import ImageWithFoster from 'components/ImageWithFoster'
 const MerchEditionCard = props => {
   const { data, onApplyCard } = props
 
+  const getTechnique = () => {
+    return data.description?.split(' | ')[2]
+  }
+
+  const getColor = () => {
+    return data.description?.split(' | ')[3]
+  }
   return (
     <div className={styles.container}>
       <div className="w-full h-[54px] flex items-center px-[22px]">
-        <div className={styles.title}>merch_identifier</div>
+        <div className={styles.title}>{data.name}</div>
       </div>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           <ImageWithFoster
-            src={data.image}
+            src={data.options.addons[0].mockup_url}
             width={500}
             className="max-w-full max-h-full object-cover"
             onClick={() => {}}
@@ -27,9 +34,9 @@ const MerchEditionCard = props => {
         </div>
       </div>
       <div className="w-full px-[13px]">
-        <div className={`${styles.content} mt-[11px]`}>Technique: Embroidery</div>
-        <div className={`${styles.content} mt-[4px]`}>Placements: Center Chest, Back, Left Sleeve</div>
-        <div className={`${styles.content} mt-[4px]`}>Production Cost: $62.49</div>
+        <div className={`${styles.content} mt-[11px]`}>Technique: {getTechnique()}</div>
+        <div className={`${styles.content} mt-[4px]`}>Color: {getColor()}</div>
+        <div className={`${styles.content} mt-[4px]`}>Production Cost: ${data.selling_price / 100}</div>
       </div>
       <div className="w-full mt-[15px] mb-[18px] px-[13px]">
         <div className={styles.button} onClick={() => onApplyCard(data)}>

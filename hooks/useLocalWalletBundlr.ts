@@ -22,7 +22,7 @@ export const useLocalWalletBundlr = () => {
     let metaplex = Metaplex.make(connection);
     metaplex.storage().setDriver(
       new ConfirmingBundlrStorageDriver(metaplex, {
-        address: process.env.BUNDLR_ADDRESS || "",
+        network: process.env.WALLET_ADAPTER_NETWORK || "",
         providerUrl: process.env.PROVIDER_URL || "",
         timeout: 60000,
       })
@@ -53,7 +53,7 @@ export const useLocalWalletBundlr = () => {
     let difference = toBigNumber(amount).sub(toBigNumber(currentBalance));
 
     // ensure minimum balance for rent-exemption
-    const MINIMUM_BALANCE = 900_000;
+    const MINIMUM_BALANCE = 1_400_000;
     if (difference.neg().toNumber() < MINIMUM_BALANCE)
       difference.iadd(toBigNumber(MINIMUM_BALANCE));
 
@@ -62,7 +62,7 @@ export const useLocalWalletBundlr = () => {
 
   async function fundLocalWallet(
     amount: BigNumberValues,
-    commitment?: Commitment
+    commitment: Commitment | null = "confirmed"
   ): Promise<string> {
     let amountBn = toBigNumber(amount);
     if (amountBn.lte(toBigNumber(0))) return "";
@@ -72,7 +72,7 @@ export const useLocalWalletBundlr = () => {
         units: 500
       }),
       ComputeBudgetProgram.setComputeUnitPrice({
-        microLamports: 2_000_000
+        microLamports: 1_500_000
       }),
       SystemProgram.transfer({
         fromPubkey: publicKey,

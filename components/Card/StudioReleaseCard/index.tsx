@@ -117,7 +117,7 @@ const StudioReleaseCard = props => {
         >
           {apparelList !== null && apparelList !== '' ? (
             <>
-              <img
+              <ImageWithFoster
                 src={
                   imagePath.endsWith('man_sweat_white.png')
                     ? SweatshirtW.src
@@ -141,6 +141,7 @@ const StudioReleaseCard = props => {
                     ? ManLongsLeeveB.src
                     : ''
                 }
+                width={350}
                 className={styles.imageNft}
               />
               <div className={styles.nftImage}>
@@ -176,7 +177,7 @@ const StudioReleaseCard = props => {
           )}
         </div>
       </div>
-      <div className="w-full flex justify-center mt-[15px]">
+      <div className="w-full flex justify-center mt-[20px]">
         <div className={styles.apparelTitle}>
           <div className="w-full">
             <div className="flex justify-center mx-[20px]">
@@ -192,18 +193,11 @@ const StudioReleaseCard = props => {
                 {getDisplayUserName(nftName)}
               </div>
             </div>
-            {/* <div>
-              {apparelList?.name === "Women's Short Sleeve"
-                ? 'Womens T-Shirt'
-                : apparelList?.name === 'Youth Short Sleeve'
-                ? 'Youth T-Shirt'
-                : apparelList?.name}
-            </div> */}
           </div>
         </div>
       </div>
-      {userName.length > 0 && <div className={styles.nftName}>{userName}</div>}
-      <div className="flex flex-row mt-[5px] items-center justify-center">
+      {userName.length > 0 && <div className={`${styles.nftName} mt-[5px]`}>{userName}</div>}
+      <div className="flex flex-row mt-[10px] items-center justify-center">
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className={styles.cost}>
             <span className={styles.dollar}>$&nbsp;</span>
@@ -222,7 +216,7 @@ const StudioReleaseCard = props => {
         </div>
       </div>
       <div className="w-full mt-[10px] flex justify-center">
-        <div className="flex gap-[25px] items-center">
+        <div className={`gap-[25px] items-center ${type === 'nft' ? 'hidden lg:flex' : 'flex'}`}>
           <StudioSelectionColor
             label={''}
             data={ColorType}
@@ -230,7 +224,7 @@ const StudioReleaseCard = props => {
             onSelect={itemData => setColor(itemData)}
             newStudio={true}
           />
-          {size && <div className={styles.size}>{size}</div>}
+          {type !== 'nft' && size && <div className={styles.size}>{size}</div>}
         </div>
       </div>
     </div>

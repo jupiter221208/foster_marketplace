@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
@@ -12,20 +12,18 @@ import 'swiper/css/navigation'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
-import type { Sft, Nft } from '@metaplex-foundation/js'
+import type { Nft } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 // custom functions
-import { NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
 
 // third party components
-import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -35,7 +33,6 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 import nftsAPI from 'apis/nfts'
-import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
@@ -59,17 +56,10 @@ export interface BrowseNFTProps {
 
 const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const [openApparelDetail, setOpenApparelDetail] = useState(true)
-  const [finishEditing, setFinishEditing] = useState(false)
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const [data, setData] = useState(null)
-  const dispatch = useDispatch()
-  // const [showLoading, setShowLoading] = useState(true)
-  const [apparel, setApparel] = useState(null)
-  const [nftInfo, setNftInfo] = useState(null)
-  const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [isFetching, setIsFetching] = useState(false)
@@ -134,36 +124,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     }, 1000)
   }, [])
 
-  useEffect(() => {
-    if (!nftDetail) return
-    if (connected) {
-      nftsAPI.getDetail(nftDetail.address).then(
-        (response: any) => {
-          if (!isString(response)) {
-            setNftInfo(response)
-            if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username, profile_image: '' })
-            }
-          }
-        },
-        error => {}
-      )
-    } else {
-      nftsAPI.get(nftDetail.address).then(
-        (response: any) => {
-          if (!isString(response)) {
-            setNftInfo(response)
-            if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username, profile_image: '' })
-            }
-          }
-        },
-        error => {}
-      )
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nftDetail, profileInfo])
-
   let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
   if (editionDetail) {
     let { number, supply, maxSupply } = editionDetail
@@ -180,14 +140,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreen, setFullScreen] = useState(false)
-  const setFullScreenView = url => {
-    window.scrollTo({
-      top: 0,
-    })
-    document.body.style.overflow = 'hidden'
-    setFullScreen(true)
-    setNftCoverUrl(url)
-  }
 
   return (
     <div className="w-full h-full">
@@ -264,8 +216,8 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 <ShoppingCartMerchApparelSection
                   apparelData={data}
                   open={openApparelDetail}
-                  setFinishEditing={editing => setFinishEditing(editing)}
-                  setApparel={apparel => setApparel(apparel)}
+                  setFinishEditing={editing => {}}
+                  setApparel={apparel => {}}
                 />
               )}
             </div>
@@ -286,8 +238,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         </div>
       )}
-
-      {/* <FullScreenLoadingModal open={showLoading} /> */}
     </div>
   )
 }

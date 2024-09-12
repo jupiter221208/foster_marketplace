@@ -1,0 +1,51 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 163px;
+  height: 176px;
+  @media (min-width: 768px) {
+    width: 300px;
+    height: 324px;
+  }
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.unlocked {
+  font-family: 'Labirt';
+  font-size: 24px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--background-main-color);
+  letter-spacing: 2px;
+  text-shadow: 
+    1px 1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color);
+}
+
+.description {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.perks {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--main-icon-color);
+  cursor: pointer;
+}

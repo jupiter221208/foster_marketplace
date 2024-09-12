@@ -1,0 +1,49 @@
+@import 'assets/scss/variable.module.scss';
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  margin-left: 12px;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  top: -45px;
+  left: auto;
+  right: -10px;
+  background: var(--bg-1E1E1E-F3F2F0);
+  border-radius: 4px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  height: 40px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-bg-color);
+}
+
+.iconContainer {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeLabel {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+}

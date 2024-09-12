@@ -17,7 +17,8 @@ import styles from './index.module.scss'
 // apis
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingComponent from 'pages/profile/LoadingComponent'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 SwiperCore.use([Navigation])
 
 const CollectionsSection = props => {
@@ -108,8 +109,8 @@ const CollectionsSection = props => {
   return (
     <div className={styles.container}>
       {loading && (
-        <div className="mt-10">
-          <LoadingModal open={loading} />
+        <div className="mt-[100px]">
+          <LoadingElement text="Loading collections" />
         </div>
       )}
 
@@ -127,7 +128,7 @@ const CollectionsSection = props => {
 
       {!loading && searchLoading && !isVisibleFetching && (
         <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingModal open={searchLoading} />
+          <LoadingElement text="Loading collections" />
         </div>
       )}
 
@@ -141,7 +142,7 @@ const CollectionsSection = props => {
 
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading collections" />
         </div>
       )}
     </div>

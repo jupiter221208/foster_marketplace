@@ -17,7 +17,7 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const MerchActivityTable = props => {
-  const { data, type } = props
+  const { data, type, isStudioNFT } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const { connection } = useConnection()
@@ -32,7 +32,7 @@ const MerchActivityTable = props => {
               <div className="w-[15%] text-start">Order Number</div>
               <div className="w-[20%]">Amount</div>
               <div className="w-[25%]">Transaction ID</div>
-              <div className="w-[25%]">{type === 'purchases' ? 'Creator' : 'Buyer'}</div>
+              <div className="w-[25%]">{type === 'purchases' ? 'Creator' : isStudioNFT ? 'Buyer' : 'Seller'}</div>
               <div className="w-[15%]">Order Details</div>
             </div>
           </th>
@@ -41,8 +41,8 @@ const MerchActivityTable = props => {
       <tbody>
         {data.map(item => {
           return (
-            <tr key={item.id}>
-              <td className="w-full pt-[10px] pb-[10px]">
+            <div key={item.id}>
+              <div className="w-full">
                 <div className={styles.tableRow}>
                   <div className="w-[15%]">{item.id}</div>
                   <div className="w-[20%] flex justify-center items-center gap-[5px]">
@@ -66,8 +66,8 @@ const MerchActivityTable = props => {
                     View Order
                   </div>
                 </div>
-              </td>
-            </tr>
+              </div>
+            </div>
           )
         })}
       </tbody>

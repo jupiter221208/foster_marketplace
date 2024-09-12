@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import CountrySelect from 'components/Select/CountrySelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -22,11 +21,15 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
+import merchAPI from 'apis/store'
+import storeAPI from 'apis/store'
+
 import LoadingButton from 'components/Button/LoadingButton'
+import { useViewport } from 'utils'
 
 const MerchOrderShipping = props => {
-  const { onBack, onNext } = props
+  const { productId, type, data, onBack, onNext, onNextOrder, merchList, rawList } = props
+  const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -120,14 +123,90 @@ const MerchOrderShipping = props => {
     }
 
     setIsLoading(true)
-    merchAPI.prepareCart(params).then(
+    if (type === 'physical') {
+      onCheckout('', 'user') // user fulfilled physical
+    } else if (country.isoCode === 'US') {
+      merchAPI.prepareCart(params).then(
+        response => {
+          onNext({ data, local: true, method: response })
+          setIsLoading(false)
+        },
+        error => {
+          setIsLoading(false)
+          setShowAlert(true)
+        }
+      )
+    } else {
+      if (type === 'foster') onNext({ data, local: false, method: null })
+    }
+  }
+
+  const onCheckout = (serviceCode, type) => {
+    let address = {
+      name: name,
+      // company: 'USPS',
+      street1: street,
+      street2: apartment,
+      street3: '',
+      city: city,
+      state: state.isoCode,
+      postalCode: zipCode,
+      country: country.isoCode,
+      phone: '',
+      residential: true,
+    }
+
+    const { id, description, color, quantity, size } = data
+    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
+
+    let item
+
+    // foster merch
+    let mockupUrls = [],
+      rawUrls = []
+    merchList.map(item => mockupUrls.push(item.url))
+    rawList.map(item => rawUrls.push(item.url))
+    item = {
+      id: productId.toString(),
+      quantity,
+      previewUrl: mockupUrls[0],
+      options: {
+        type: type,
+        nftName: data.name,
+        fosterUrl: window.location.href,
+        mockupUrl: mockupUrls.join(','),
+        assetUrl: rawUrls.join(','),
+        nftAddress: '',
+        apparel: description,
+        size: size,
+        color: color,
+        technique: data.technique,
+      },
+      notes: `This is studio merch V2 item`,
+    }
+
+    let params = {
+      customerEmail: email,
+      shippingServiceCode: serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: [item],
+      gift: true,
+      giftMessage:
+        'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
+      notes: 'Checkout Note',
+    }
+
+    storeAPI.checkout(params).then(
       response => {
-        onNext({ data, method: response })
-        setIsLoading(false)
+        if (response.orderNumber === undefined) {
+          setIsLoading(false)
+          return
+        }
+        onNextOrder(response.orderNumber)
       },
       error => {
         setIsLoading(false)
-        setShowAlert(true)
       }
     )
   }
@@ -148,7 +227,7 @@ const MerchOrderShipping = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] pt-[25px] pb-[15px]">
+      <div className="w-full">
         <div className={styles.selecteCategory}>Shipping Details</div>
 
         <div className="w-full mt-[20px]">
@@ -231,14 +310,16 @@ const MerchOrderShipping = props => {
           </div>
         </div>
       </div>
-      <div className={styles.borderLine} />
-      <div className="w-full lg:px-[30px] mt-[20px]">
+      {/* <div className={styles.borderLine} /> */}
+      <div className="w-full mt-[25px]">
         <div className="w-full mt-[22px]">
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
             <PrimaryButton
-              label="Select Shipping"
+              label={
+                type === 'physical' ? 'Checkout' : viewport === 'xs' ? 'Select Shipping' : 'Select Shipping Method'
+              }
               type="shipping"
               disabled={!enabled}
               fullWidth

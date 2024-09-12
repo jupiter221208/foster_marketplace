@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 // next component
+import { isString } from 'utils/helpers'
 
 //components
 import Radio from 'components/Radio/SwipRadio'
@@ -15,18 +16,29 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
+import StoreAPI from 'apis/store'
+import Alert from 'components/Alert'
 
 const MerchClaimShippingMethod = props => {
-  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext, onBack } = props
+  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, rawList, mintAddress, onNext, onBack } =
+    props
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
   const [tax, setTax] = useState(null)
   const [total, setTotal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
-    let name = ''
+    setAlertData([
+      {
+        id: 0,
+        title: 'Duplicate claimes',
+        description: 'This print nft is already claimed.',
+        type: 'error',
+      },
+    ])
 
     let methods = []
     if (isUniteState()) {
@@ -138,23 +150,30 @@ const MerchClaimShippingMethod = props => {
       phone: '',
       residential: true,
     }
-    const { id, name, description, color, quantity, size } = data
-    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
+    const { id, name, description, color, quantity, size, technique } = data
 
     let item
+    let mockupUrls = [],
+      rawUrls = []
+    merchList.map(item => mockupUrls.push(item.url))
+    rawList.map(item => rawUrls.push(item.url))
+
     item = {
       id: id.toString(),
       quantity,
-      previewUrl: merchList[0].src,
+      previewUrl: mockupUrls[0],
       options: {
-        type: 'merch',
+        type: 'foster',
         nftName: name,
-        fosterUrl: merchList[0].src,
-        assetUrl: merchList[0].src,
+        fosterUrl: window.location.href,
+        mockupUrl: mockupUrls.join(','),
+        assetUrl: rawUrls.join(','),
         nftAddress: mintAddress,
         apparel: description,
         size: size,
         color: color,
+        technique: technique,
+        printEditionAddress: mintAddress,
       },
       notes: `This is apparel merch item`,
     }
@@ -166,13 +185,23 @@ const MerchClaimShippingMethod = props => {
       shipTo: address,
       items: [item],
       gift: true,
-      giftMessage: 'Fantastic Gift',
+      giftMessage:
+        'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
       notes: 'Checkout Note',
     }
 
-    merchAPI.checkout(params).then(
+    StoreAPI.checkout(params).then(
       response => {
-        onNext(response.orderNumber)
+        if (isString(response)) {
+          if (response.includes('Duplicate claims')) {
+            setShowAlert(true)
+            setTimeout(() => {
+              setShowAlert(false)
+            }, 3000)
+          }
+        } else {
+          onNext(response.orderNumber)
+        }
         setIsLoading(false)
       },
       error => {
@@ -215,7 +244,7 @@ const MerchClaimShippingMethod = props => {
                 <div className={`${styles.divider} mt-[15px]`} />
                 <div className="w-full flex justify-between mt-[20px]">
                   <div className={styles.orderTotal}>Total</div>
-                  <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
+                  <div className={styles.subPrice}>${total ? total.toFixed(2) : '---'}</div>
                 </div>
               </div>
             </div>
@@ -235,6 +264,13 @@ const MerchClaimShippingMethod = props => {
           <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

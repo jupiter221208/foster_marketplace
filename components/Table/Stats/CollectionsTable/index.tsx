@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
@@ -61,25 +61,25 @@ const CollectionsTable = props => {
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon alt="" />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {item.total_sales.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon alt="" />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {item.floor_price?.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon alt="" />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {item.average_sale?.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon alt="" />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {item.highest_sale?.toFixed(2)}
                 </div>
               </td>

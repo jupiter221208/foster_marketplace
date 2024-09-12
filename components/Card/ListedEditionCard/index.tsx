@@ -18,7 +18,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 // api
 import { revokeDelegateEdition } from 'utils/editions'
-import { cancelListingEdition } from 'apis/editions'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
@@ -55,12 +54,6 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
         console.error(`could not revoke delegate for ${mint} to ${delegate}`)
         throw new Error(`could not revoke delegate for ${mint} to ${delegate}`)
       }
-
-      cancelListingEdition(item?.address).then(res => {
-        if (res) {
-          onCancelSuccess()
-        }
-      })
     } catch (e) {
       setCancelListLoading(false)
     }

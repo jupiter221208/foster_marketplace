@@ -1,48 +1,47 @@
 import React, { Fragment } from 'react'
-import { useRouter } from 'next/router'
-
-// next components
-import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
-import { useViewport } from 'utils'
 
 // images and icons
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
 import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
-import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
+import MerchToggleDisabledIcon from 'assets/icons/create-merch-icon.svg?component'
 import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import SolanaFMIcon from 'assets/icons/solana-fm-icon.svg?component'
+
 // styles
 import styles from './index.module.scss'
 
 interface MenuSocialShareProps {
   studio: boolean
   metadata: boolean
+  explorerURL: any
   merchToggle: boolean
   isCreatedNft: boolean
   setShowNftMeta: any
   setCreateMerchModal: any
   setRemoveMerchModal: any
+  setOpenShareModal: any
 }
 
 const MenuEditNft = ({
   studio,
   metadata,
   merchToggle,
+  explorerURL,
   isCreatedNft,
   setShowNftMeta,
   setCreateMerchModal,
   setRemoveMerchModal,
+  setOpenShareModal,
 }: MenuSocialShareProps) => {
-  const router = useRouter()
-  const viewport = useViewport()
-
   return (
     <div className="relative flex items-center">
       <Menu>
         <Menu.Button>
-          <div className={`${styles.iconContainer} w-[41px]`}>
+          <div className={`${styles.iconContainer} w-[32px]`}>
             <ThreeDotIcon alt="" />
           </div>
         </Menu.Button>
@@ -57,16 +56,55 @@ const MenuEditNft = ({
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className={styles.menuArea}>
+            {isCreatedNft && (
+              <Menu.Item>
+                {({ active }) => (
+                  <div
+                    className={`${styles.menuItem} mb-[15px]`}
+                    onClick={() => {
+                      setShowNftMeta(true)
+                    }}
+                  >
+                    <EditMetaIcon alt="" />
+                    Edit Metadata
+                  </div>
+                )}
+              </Menu.Item>
+            )}
+            {isCreatedNft && metadata && (
+              <Menu.Item>
+                {({ active }) => (
+                  <div
+                    className={`${styles.menuItem} ${studio ? '' : 'opacity-[80%]'} mb-[15px]`}
+                    onClick={() => {
+                      if (!studio) return
+                      if (merchToggle) {
+                        if (isCreatedNft) setRemoveMerchModal(true)
+                      } else if (isCreatedNft) setCreateMerchModal(true)
+                    }}
+                  >
+                    {merchToggle ? (
+                      <MerchToggleEnabledIcon alt="" />
+                    ) : isCreatedNft ? (
+                      <MerchToggleDisabledIcon alt="" />
+                    ) : (
+                      <MerchToggleDisabledIcon alt="" />
+                    )}
+                    {merchToggle ? 'Disable Studio' : 'Enable Studio'}
+                  </div>
+                )}
+              </Menu.Item>
+            )}
             <Menu.Item>
               {({ active }) => (
                 <div
-                  className={`${styles.menuItem} ${metadata ? '' : 'opacity-[80%]'}`}
+                  className={`${styles.menuItem} ${studio ? '' : 'opacity-[80%]'} mb-[15px]`}
                   onClick={() => {
-                    if (metadata) setShowNftMeta(true)
+                    setOpenShareModal(true)
                   }}
                 >
-                  <EditMetaIcon alt="" />
-                  Edit Metadata
+                  <ShareSmallIcon alt="" />
+                  Share Artwork
                 </div>
               )}
             </Menu.Item>
@@ -74,22 +112,13 @@ const MenuEditNft = ({
             <Menu.Item>
               {({ active }) => (
                 <div
-                  className={`${styles.menuItem} ${studio ? '' : 'opacity-[80%]'} mt-[8px]`}
+                  className={`${styles.menuItem} ${studio ? '' : 'opacity-[80%]'}`}
                   onClick={() => {
-                    if (!studio) return
-                    if (merchToggle) {
-                      if (isCreatedNft) setRemoveMerchModal(true)
-                    } else if (isCreatedNft) setCreateMerchModal(true)
+                    window.open(explorerURL)
                   }}
                 >
-                  {merchToggle ? (
-                    <MerchToggleEnabledIcon alt="" />
-                  ) : isCreatedNft ? (
-                    <MerchToggleDisabledIcon alt="" />
-                  ) : (
-                    <MerchToggleDisabledIcon alt="" />
-                  )}
-                  {merchToggle ? 'Disable Studio' : 'Enable Studio'}
+                  <SolanaFMIcon alt="" />
+                  View on SolanaFM
                 </div>
               )}
             </Menu.Item>

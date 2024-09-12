@@ -29,13 +29,13 @@ import ListEditionModal from 'components/Modal/ListEditionModal'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const MyNFTSection = props => {
-  const { changeActiveTab } = props
+  const { changeActiveTab, filter = 0 } = props
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
   const [allNftList, setAllNftList] = useState<NftData[]>([])
-  const [listedEdition, setListedEdition] = useState([])
+  const [listedEdition, setListedEdition] = useState(null)
   const [allList, setAllList] = useState<NftData[]>([])
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
@@ -76,6 +76,13 @@ const MyNFTSection = props => {
   }
 
   useEffect(() => {
+    if (parseInt(filter) === 1) {
+      setSelectedItem({ id: 1, label: 'Editions', disabled: false })
+      setActive(1)
+    }
+  }, [filter])
+
+  useEffect(() => {
     if (mx && connection && publicKey) {
       if (!isGetMyNFTs) loadMyNFTs()
       getListedNft()
@@ -96,7 +103,7 @@ const MyNFTSection = props => {
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(filter)
   const [filterList, setFilterList] = useState([
     { id: 0, label: '1 of 1', disabled: false },
     { id: 1, label: 'Editions', disabled: false },
@@ -183,7 +190,6 @@ const MyNFTSection = props => {
         if (created) list.push(item)
       }
     })
-
     setFilteredList(list)
     setAllNftList(list)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -214,14 +220,16 @@ const MyNFTSection = props => {
     if (active === 0) {
       setFilteredNfts(filteredList.filter(n => n?.supply?.max === 0))
     } else if (active === 1) {
-      setFilteredNfts(
-        filteredList.filter(
-          n => (n?.supply?.max > 0 || n?.supply?.max === null) && !listedEdition.includes(n.mintAddress)
+      if (listedEdition) {
+        setFilteredNfts(
+          filteredList.filter(
+            n => (n?.supply?.max > 0 || n?.supply?.max === null) && !listedEdition.includes(n.mintAddress)
+          )
         )
-      )
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredList, listedEdition])
+  }, [filteredList, listedEdition, active])
 
   const searchNFT = key => {
     if (key === '') {
@@ -271,7 +279,7 @@ const MyNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      {filteredNfts.length === 0 && !loading && (
+      {filteredNfts.length === 0 && !loading && listedEdition && (
         <div className="mt-[30px] lg:mt-[20px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"

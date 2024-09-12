@@ -290,22 +290,6 @@ export interface NFTArtistInfo {
   profile_image: string
 }
 
-// export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
-//   let artist = getNFTArtistPublicKey(nft)
-//   if (!artist) return null
-
-//   let response = await userAPI.get(artist.toString())
-//   let { username, profile_image } = response
-//   // let { username, profile_image } = await userAPI.get(artist.toString())
-//   let name = username ?? getShortAddress(artist)
-
-//   return {
-//     address: artist,
-//     name,
-//     profile_image
-//   }
-// }
-
 export interface NFTSocialInfo {
   likes: number
   shares: number

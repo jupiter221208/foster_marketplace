@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-
 // next components
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -14,55 +13,52 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
+import HomeNftCard from 'components/Card/HomeNFTCard'
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const fetchFreshMintData = async category => {
+  const response = await dashboardAPI.getFreshMints(category)
+  return response
+}
 
 const FreshMintSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [allFreshMintsList, setAllFreshMintsList] = useState<DashboardAPIData[]>([])
   const [freshMintsList, setFreshMintsList] = useState<DashboardAPIData[]>([])
-  const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
-    dashboardAPI.getFreshMints(category).then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setAllFreshMintsList(response)
-          setFreshMintsList(response)
-          if (response.length > 4) setCardLoop(true)
-          else setCardLoop(false)
-        }
-      },
-      error => {
-        console.log(error)
-      }
-    )
+    fetchFreshMintData(category).then(setFreshMintsList)
   }, [category])
 
-  useEffect(() => {
-    if (allFreshMintsList.length === 0) return
-    setFreshMintsList(allFreshMintsList)
-  }, [viewport, allFreshMintsList])
+  // useEffect(() => {
+  //   fetchUserData(category).then(response => {
+  //     if (response !== null && response !== undefined) {
+  //       setFreshMintsList(response)
+  //     }
+  //   })
+  // }, [category])
 
   return (
     freshMintsList.length > 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="relative w-full flex justify-between items-center z-10">
+          <div className={styles.line} />
+
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-between items-center z-10">
@@ -101,28 +97,27 @@ const FreshMintSection = props => {
               viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
-            loop={cardLoop}
+            className={freshMintsList?.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+            loop={freshMintsList?.length > 4}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
           >
-            {freshMintsList.map((item, index) => (
+            {freshMintsList?.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                  <NFTCard
-                    token_id={item.token_id}
+                  <HomeNftCard
                     image={item.asset_url}
+                    token_id={item.token_id}
                     nftName={item.nft_name}
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
+                    artistImage={item.artist_profile_picture}
                     collectionName={item.collection_name}
                     price={item.list_price}
-                    onClick={() => {
-                      router.push(`/nft/${item.token_id}`)
-                    }}
+                    onClick={() => {}}
                   />
                 </div>
               </SwiperSlide>

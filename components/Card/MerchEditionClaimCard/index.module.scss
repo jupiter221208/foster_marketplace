@@ -3,6 +3,7 @@
 .container {
   width: 100%;
   height: 100%;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: var(--background-main-color);
   border-radius: 10px;
   overflow: hidden;
@@ -11,37 +12,38 @@
 
 .topSection {
   width: 100%;
-  height: 80px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background: var(--background-main-color);
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .bottomSection {
   width: 100%;
-  height: 50px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background: var(--background-main-color);
+  height: 75px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  overflow: hidden;
+  padding: 0px 13px;
 }
 
 .productName {
   font-style: "Muli-SemiBold";
   font-size: 16px;
   line-height: 20px;
-  font-weight: 1px;
+  font-weight: 100;
   color: var(--text-gray-200-color);
+}
+
+.nftName {
+  font-style: "Muli-Light";
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--main-icon-color);
+  margin-top: 8px;
 }
 
 .editionName {
@@ -51,15 +53,6 @@
   font-weight: 1px;
   color: var(--main-icon-color);
   margin-top: 8px;
-}
-
-
-.avatarArea {
-  width: 44px;
-  height: 44px;
-  border-radius: 100%;
-  border: 1px solid var(--main-bg-color);
-  overflow: hidden;
 }
 
 .bottomBtn {
@@ -114,27 +107,17 @@
   background: rgba(var(--main-bg-color-rgb), 0.05);
 }
 
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
 .imageArea {
   position: relative;
   width: 100%;
   padding-top: 100%; /* 345:304 Aspect Ratio */
-}
-
-.bottomSection {
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.nftName {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0;
-  color: var(--text-gray-200-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .price {
@@ -158,36 +141,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-
-
-.skeletonLoaderOuterBox {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.skeletonLoader:empty {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  background-color: var(--main-bg-color) !important;
-  border-color: var(--main-bg-color) !important;
-  animation-name: skeletonAnimation;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-@keyframes skeletonAnimation {
-  0% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.05;
-  }
-  100% {
-    opacity: 0.2;
-  }
 }

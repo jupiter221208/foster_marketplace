@@ -11,7 +11,6 @@ import LoadingIcon from 'assets/lottery/loader-black.json'
 import Button from 'components/Button'
 import IconButton from 'components/Button/IconButton'
 import Range from 'components/Range'
-import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
 import getCroppedImg from 'utils/cropImage'

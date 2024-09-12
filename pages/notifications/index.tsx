@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useViewport } from 'utils'
 
 import * as moment from 'moment'
 
@@ -8,7 +7,6 @@ import Head from 'next/head'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-import NotificationsSearchBox from 'components/Input/NotificationsSearchBox'
 import NotificationsCard from 'components/Card/NotificationsCard'
 import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 
@@ -16,7 +14,6 @@ import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 import NotificationsFilterList from 'assets/json/notifications/filter-list.json'
 
 // images and icons
-import TabList from 'assets/json/notifications/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -26,7 +23,6 @@ import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
 import { useDispatch } from 'react-redux'
 import { compareDate, getDateLabel } from 'utils/helpers'
-import NotificationTab from 'components/Tab/NotificationTab'
 import LoadingModal from 'components/Modal/LoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 
@@ -34,14 +30,10 @@ const Notifications = () => {
   const dispatch = useDispatch()
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<any[]>([])
-  const [tabList, setTabList] = useState(TabList)
-  const [selectedTab, setSelectedTab] = useState(0)
   const [allNotification, setAllNotification] = useState<any[]>([])
-  const [filterNotification, setFilterNotification] = useState<any[]>([])
   const [searchedNotification, setSearchedNotification] = useState<any[]>([])
   const [searchWord, setSearchWord] = useState('')
   const [loading, setLoading] = useState(true)
-  const viewport = useViewport()
   const { profileInfo } = useAuthentication()
   const [noDataAlert, setNoDataAlert] = useState(false)
 
@@ -49,7 +41,6 @@ const Notifications = () => {
     let today = new Date().getTime()
     let today0 = new Date().setHours(0, 0, 0, 0)
     let yestarday = today0 - 3600 * 24 * 1000
-    let weekEnd = today0 - 3600 * 48 * 1000
     let weekStart = today0 - 3600 * 168 * 1000
     let monthStart = today0 - 3600 * 24 * 30 * 1000
 
@@ -124,7 +115,6 @@ const Notifications = () => {
     let dateSorted = notifications.sort(compareDate)
     setAllNotification(dateSorted)
     const sorted = getSortedNotification(dateSorted)
-    setFilterNotification(sorted)
     setSearchedNotification(sorted)
   }
 
@@ -193,7 +183,6 @@ const Notifications = () => {
       })
       newFiltered = getSortedNotification(filtered)
     }
-    setFilterNotification(newFiltered)
 
     if (searchWord.length > 0) {
       searchNotification(newFiltered, searchWord)
@@ -256,45 +245,6 @@ const Notifications = () => {
     )
   }
 
-  useEffect(() => {
-    let array: any[] = []
-    TabList.map(item => {
-      let object: any = item
-      if (item.id === selectedTab) {
-        object.selected = true
-      } else {
-        object.selected = false
-      }
-      array.push(object)
-    })
-    setTabList(array)
-  }, [selectedTab])
-
-  const handleSelectedTab = item => {
-    setSelectedTab(item.id)
-    let type = item.value
-    let newFiltered = []
-    if (type === 'all') {
-      newFiltered = getSortedNotification(allNotification)
-    } else {
-      let filtered = []
-      allNotification.forEach(item => {
-        if (type === item.notification_type) {
-          filtered.push(item)
-        }
-        if (type === 'purchase' && item.notification_type === 'won') filtered.push(item)
-      })
-      newFiltered = getSortedNotification(filtered)
-    }
-    setFilterNotification(newFiltered)
-
-    if (searchWord.length > 0) {
-      searchNotification(newFiltered, searchWord)
-    } else {
-      setSearchedNotification(newFiltered)
-    }
-  }
-
   return (
     <div className="g-container">
       <Head>
@@ -320,36 +270,6 @@ const Notifications = () => {
             <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
           )}
         </div>
-
-        {/* <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-10">
-          <div className="w-[55%] flex flex-wrap max-w-[705px] gap-[16px] lg:gap-[35px] z-10">
-            <div className="w-full justify-start">
-              <div className={styles.tabContainer}>
-                <NotificationTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-              </div>
-
-              {loading ? (
-                <div className="mt-[140px] h-[540px] max-h-[540px]">
-                  <LoadingModal open={loading} />
-                </div>
-              ) : (
-                <div className="mt-[20px] h-[540px] max-h-[540px]">
-                  <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="w-[45%] mt-[-20px]">
-            <NotificationsSearchBox
-              placeholder="Search"
-              onChange={value => searchNotification(filterNotification, value)}
-            />
-            <div className={styles.followArtist}>Activity by artists you follow</div>
-            <div className={styles.followArea}>
-              <div className={styles.comingSoon}>Coming Soon...</div>
-            </div>
-          </div>
-        </div> */}
       </div>
       {showFilterModal && (
         <NotificationsFilterModal

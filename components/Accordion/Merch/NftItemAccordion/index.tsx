@@ -1,100 +1,49 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 
 // third party components
-import { Disclosure } from '@headlessui/react'
 
 // images and icons
-import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import OutlineButton from 'components/Button/OutlineButton'
 import MerchNftItem from 'components/Card/MerchNftItem'
+import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
+import StudioNftModal from 'components/Menu/StudioNftModal'
 
 const NftItemAccordion = props => {
   const { data, type, action, actionAll } = props
-  const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any | null>(null)
-
-  const clickRecent = index => {
-    const clickedButton = buttonRefs.current[index]
-    if (clickedButton === openedRef.current) {
-      openedRef.current = null
-      return
-    }
-    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
-      openedRef.current?.click()
-    }
-    openedRef.current = clickedButton
-  }
+  const [item, setItem] = useState(null)
+  const [openModal, setOpenModal] = useState(false)
 
   return (
-    <div className="w-full flex flex-wrap gap-[10px]">
-      <div className="w-full flex justify-center mb-[15px]">
-        <OutlineButton
-          fullWidth
-          borderColor={'var(--back-btn-border-mobile)'}
-          label={type === 'enabled' ? 'Disable All' : 'Enable All'}
-          onClick={() => {
-            actionAll()
-          }}
-        />
-      </div>
+    <div className="w-full flex flex-wrap mt-[20px]">
       {data.map((item, index) => (
-        <div key={index} className="w-full flex flex-wrap">
-          <Disclosure>
-            {({ open }) => (
-              <>
-                <Disclosure.Button
-                  className={open ? styles.activeButton : styles.button}
-                  data-value={open}
-                  ref={ref => {
-                    buttonRefs.current[index] = ref
-                  }}
-                  onClick={() => clickRecent(index)}
-                >
-                  <div className="flex items-center gap-x-4">
-                    <div className="w-[54px] h-[54px] rounded-[4px] overflow-hidden">
-                      <MerchNftItem width={54} height={54} url={item.asset_url} />
-                    </div>
-                    <div className="ml-[11px]">
-                      <div className={styles.title}>{item.nft_name}</div>
-                      {open === false && (
-                        <div className={styles.creator}>
-                          {type === 'enabled' ? 'Creator Studio Enabled' : 'Creator Studio Disabled'}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-                </Disclosure.Button>
-                <Disclosure.Panel className={styles.panel}>
-                  <div className={styles.firstRow}>
-                    <div className="py-[10px]">
-                      <div className={styles.subTitle}>{'Studio is currently ' + type + ' for this artwork.'}</div>
-                      <div className={styles.subTitle}>
-                        {'Would you like to ' + (type === 'enabled' ? 'disable' : 'enable') + ' this feature?'}
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <OutlineButton
-                      fullWidth
-                      borderColor={'var(--back-btn-border-mobile)'}
-                      label={type === 'enabled' ? 'Disable' : 'Enable'}
-                      onClick={() => {
-                        const clickedButton = buttonRefs.current[index]
-                        clickedButton.click()
-                        action(item.token_id)
-                      }}
-                    />
-                  </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
+        <div key={index} className="w-full flex flex-wrap mt-[-4px]">
+          <div
+            className={styles.button}
+            onClick={() => {
+              setItem(item)
+              setOpenModal(true)
+            }}
+          >
+            <div className="flex items-center gap-x-4">
+              <div className="w-[47px] h-[47px] rounded-[4px] overflow-hidden mt-[-4px]">
+                <MerchNftItem width={54} height={54} url={item.asset_url} />
+              </div>
+              <div className="ml-[11px]">
+                <div className={styles.title}>{item.nft_name}</div>
+              </div>
+            </div>
+            <div>
+              <ThreeDotIcon />
+            </div>
+          </div>
         </div>
       ))}
+
+      {openModal && item && (
+        <StudioNftModal open={openModal} close={() => setOpenModal(false)} item={item} type={type} action={action} />
+      )}
     </div>
   )
 }

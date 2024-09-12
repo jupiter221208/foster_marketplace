@@ -6,9 +6,6 @@ import { Dialog, Transition } from '@headlessui/react'
 // third party components
 import { useDispatch } from 'react-redux'
 
-// next components
-import Image from 'next/image'
-
 // custom components
 import PriceInput from 'components/Input/PriceInput'
 
@@ -85,9 +82,8 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
 
     if (!result || !listingResponse) {
       // TODO: show error to user
+      setShowLoading(false)
     }
-
-    setShowLoading(false)
   }
 
   const [nftImage, setNftImage] = useState(data?.image)

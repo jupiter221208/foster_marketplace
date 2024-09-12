@@ -12,6 +12,7 @@ import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import MerchEditionCard from 'components/Card/MerchEditionCard'
+import StoreAPI from 'apis/store'
 
 const MerchShopSelectModal = props => {
   const { open, close, selectCard } = props
@@ -21,39 +22,18 @@ const MerchShopSelectModal = props => {
   const [merchList, setMerchList] = useState([])
 
   useEffect(() => {
-    setMerchList([
-      {
-        title: 'Merch Craftsman',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Solana Visionary',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-    ])
-  }, [])
+    if (open) {
+      StoreAPI.getStoreItemByEdition(profileInfo?.id).then(
+        res => {
+          if (res) {
+            setMerchList(res.filter(item => item.master_edition_address === '' && item.deleted_at === null))
+          }
+        },
+        error => {}
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
 
   const closeModal = () => {
     close('cancel')
@@ -76,7 +56,7 @@ const MerchShopSelectModal = props => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center text-center">
+            <div className={styles.modalFrame}>
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"

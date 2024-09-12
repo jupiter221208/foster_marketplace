@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -8,13 +8,12 @@ import { useDispatch } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import { Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -30,7 +29,7 @@ import styles from './index.module.scss'
 // call apis
 
 const LimitedEditionSection = props => {
-  const { category, editionList } = props
+  const { category, isEditionLoaded, editionList } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -42,7 +41,7 @@ const LimitedEditionSection = props => {
       ;(async () => {
         for (let index = 0; index < editionList.length; index++) {
           let data = editionList[index]
-          fetch(`/nft/${data.tokenId}`).then(e => e.text())
+          if (data.token_id !== undefined) fetch(`/nft/${data.tokenId}`).then(e => e.text())
           if (index % 4 == 3) {
             await sleep(1000)
           }
@@ -51,76 +50,115 @@ const LimitedEditionSection = props => {
     }
   }, [editionList])
 
-  return (
-    editionList &&
-    editionList.length > 0 && (
-      <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10 ml-[5px]">
-          <div className={styles.title}>Limited&nbsp;Editions</div>
-          <div className="z-10 sm:block hidden">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 2 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-            />
+  return editionList?.length > 0 ? (
+    <section className={styles.container}>
+      <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
+        <div className={styles.title}>Limited&nbsp;Editions</div>
+        <div className="z-10 sm:block hidden">
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', availabilityFilter: 2 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+          />
+        </div>
+      </div>
+      <div className="w-full mt-[25px] lg:mt-[30px] z-10 px-[10]">
+        <Swiper
+          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          slidesPerView={
+            viewport === 'xs'
+              ? 1.13
+              : viewport === 'sm' || viewport === 'md'
+              ? 2
+              : viewport === '2xl'
+              ? 5
+              : viewport === 'xl'
+              ? 4
+              : 4
+          }
+          spaceBetween={
+            viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 26 : 26
+          }
+          modules={[Navigation]}
+          className={
+            editionList.length > 4
+              ? 'auctionNavigationSwiper'
+              : (viewport === 'lg' || viewport === 'xl') && editionList.length > 3
+              ? 'auctionNavigationSwiper'
+              : 'noScrollNavigationSwiper'
+          }
+        >
+          {editionList.map((item, index) => (
+            <SwiperSlide key={index}>
+              <HomeEditionCard data={item} onClick={() => {}} key={index} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
+        <div className="w-full max-w-[300px] z-10">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', availabilityFilter: 2 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+            fontSize="16px"
+            height="41px"
+            borderRadius="8px"
+          />
+        </div>
+      </div>
+    </section>
+  ) : !isEditionLoaded ? (
+    <div>
+      <div className="w-full h-[645px] lg:h-[610px]">
+        <div className="w-[163px] h-[36px] mt-[60px] rounded-[18px] overflow-hidden">
+          <div className="skeletonLoader" />
+        </div>
+        <div className="min-w-full h-[415px] lg:flex hidden justify-center gap-[29px] mt-[26px]">
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
           </div>
         </div>
-        <div className="w-full mt-[25px] lg:mt-[30px] z-10 px-[10]">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.13
-                : viewport === 'sm' || viewport === 'md'
-                ? 2
-                : viewport === '2xl'
-                ? 5
-                : viewport === 'xl'
-                ? 4
-                : 4
-            }
-            spaceBetween={
-              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 26 : 26
-            }
-            modules={[Navigation]}
-            className={
-              editionList.length > 4
-                ? 'auctionNavigationSwiper'
-                : (viewport === 'lg' || viewport === 'xl') && editionList.length > 3
-                ? 'auctionNavigationSwiper'
-                : 'noScrollNavigationSwiper'
-            }
-          >
-            {editionList.map((item, index) => (
-              <SwiperSlide key={index}>
-                <HomeEditionCard data={item} onClick={() => {}} key={index} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className="w-full lg:hidden flex gap-[15px] justify-center mt-[20px]">
+          <div className="min-w-[300px] w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+
+          <div className="w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
         </div>
 
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
-          <div className="w-full max-w-[300px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 2 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              fontSize="16px"
-              height="41px"
-              borderRadius="8px"
-            />
+        <div className="w-full lg:hidden flex justify-center mt-[30px]">
+          <div className="w-[300px] h-[45px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
           </div>
         </div>
-      </section>
-    )
+      </div>
+    </div>
+  ) : (
+    <></>
   )
 }
 

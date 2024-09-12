@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -20,17 +19,81 @@ import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
+// API
+import searchAPI from 'apis/search'
+
 const SearchBox = props => {
-  const { value, placeholder, onChange, searchList, onClick, onClose } = props
+  const { onCloseSearch = null } = props
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const [timer, setTimer] = useState(null)
+  const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
+  const [placeholder, setPlaceHolder] = useState('')
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
+  const [focus, setFocus] = useState(false)
+  const [isSearched, setIsSearched] = useState(false)
+
+  useEffect(() => {
+    setIsSearched(false)
+    if (searchKeyword !== '' && searchKeyword.length >= 2) {
+      if (timer) {
+        clearTimeout(timer)
+        setTimer(null)
+      }
+      setTimer(
+        setTimeout(() => {
+          setSearchList({ nfts: [], artists: [], collections: [] })
+          setIsSearched(false)
+          searchAPI.search(searchKeyword).then(
+            response => {
+              let object: any = {}
+              object.nfts = response.nfts
+              object.artists = response.artists
+              object.collections = response.collections
+              setSearchList(object)
+              setIsSearched(true)
+            },
+            error => {
+              console.log(error)
+              setIsSearched(true)
+            }
+          )
+        }, 500)
+      )
+    } else {
+      setSearchList({ nfts: [], artists: [], collections: [] })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchKeyword])
+
+  const handleClear = () => {
+    setSearchKeyword('')
+    setSearchList({ nfts: [], artists: [], collections: [] })
+  }
+
+  const handleClose = () => {
+    setSearchKeyword('')
+    setPlaceHolder('')
+    setSearchList({ nfts: [], artists: [], collections: [] })
+    if (onCloseSearch) onCloseSearch()
+  }
+
+  const getShortName = name => {
+    let limit_length = 20
+    if (viewport === 'xs') limit_length = 40
+    if (name?.length >= limit_length) {
+      return name.slice(0, limit_length) + '...'
+    } else {
+      return name
+    }
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${focus ? styles.borderLine : 'w-[50%]'}`}>
       <div className={styles.searchArea}>
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className={styles.iconArea} onClick={() => onClick()}>
-            {value !== '' ? (
+          <div className={styles.iconArea} onClick={() => handleClear()}>
+            {searchKeyword !== '' ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '12' : '16'}
@@ -62,8 +125,8 @@ const SearchBox = props => {
             )}
           </div>
         ) : (
-          <div className={styles.iconArea} onClick={() => onClick()}>
-            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 22.017 22" opacity={0.7}>
+          <div className={styles.iconArea} onClick={() => handleClear()}>
+            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 22.017 22" opacity={1}>
               <path
                 id="search-32"
                 d="M23.687,22.124,19.6,18.076A9.9,9.9,0,1,0,18.076,19.6l4.049,4.049a1.093,1.093,0,1,0,1.562-1.529ZM11.9,19.6a7.7,7.7,0,1,1,7.7-7.7,7.7,7.7,0,0,1-7.7,7.7Z"
@@ -76,9 +139,12 @@ const SearchBox = props => {
 
         <input
           className={styles.inputArea}
-          value={value}
-          placeholder={placeholder}
-          onChange={event => onChange(event.target.value)}
+          value={searchKeyword}
+          placeholder={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Search' : placeholder}
+          onFocus={() => setFocus(true)}
+          onChange={event => setSearchKeyword(event.target.value)}
+          onMouseEnter={() => setPlaceHolder('Search')}
+          onMouseLeave={() => (focus ? setPlaceHolder('Search') : setPlaceHolder(''))}
         />
       </div>
 
@@ -86,17 +152,23 @@ const SearchBox = props => {
         <div>
           <OutlineButton
             label="Cancel"
-            onClick={() => onClose()}
+            onClick={() => {
+              setFocus(false)
+              handleClose()
+            }}
             backgroundColor="transparent"
             borderColor="transparent"
             color={'var(--text-gray-200-color)'}
           />
         </div>
-      ) : value !== '' ? (
+      ) : focus ? (
         <div>
           <OutlineButton
             label="Cancel"
-            onClick={() => onClose()}
+            onClick={() => {
+              setFocus(false)
+              handleClose()
+            }}
             fontSize={16}
             width={60}
             fontFamily="Muli-Regular"
@@ -110,97 +182,306 @@ const SearchBox = props => {
       )}
       <div className="absolute top-[80px] w-full h-[1px] left-0 bg-[#707070]/50 z-10 flex lg:hidden" />
 
-      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
-        <div className={styles.contentArea}>
-          {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Artwork</div>}
-          <div className="w-full flex flex-wrap">
-            {searchList.nfts.map((item, index) => (
-              <div
-                key={index}
-                className={styles.selection}
-                onClick={() => {
-                  router.push(`/nft/${item.id}`)
-                  onClose()
-                }}
-              >
-                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
-                  {item.image_url !== null && item.image_url !== '' ? (
-                    <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
-                  ) : (
-                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
-                  )}
+      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? (
+        searchKeyword?.length > 1 ? (
+          isSearched ? (
+            <div className={styles.contentArea}>
+              <div className={styles.noResult}>No results found</div>
+            </div>
+          ) : (
+            <div className={styles.contentArea}>
+              <div className="flex flex-wrap gap-[25px] px-[16px] py-[10px]">
+                <div>
+                  <div className={styles.searchTopic}>ARTWORKS</div>
+                  <div className="w-[230px] flex gap-[10px] mt-[20px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[230px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[230px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[230px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          {searchList.nfts.length !== 0 && searchList.artists.length !== 0 && <div className="w-full h-10" />}
-          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Profile</div>}
-          <div className="w-full flex flex-wrap gap-[9px]">
-            {searchList.artists.map((item, index) => (
-              <div
-                key={index}
-                className={styles.selection}
-                onClick={() => {
-                  router.push(`/${item.name}`)
-                  onClose()
-                }}
-              >
-                <div className="w-[36px] h-[36px] mr-5">
-                  {item.image_url.length > 0 ? (
-                    <ImageWithFoster
-                      width={50}
-                      src={item.image_url}
-                      className="object-cover rounded-full w-full h-full"
-                    />
-                  ) : (
-                    <Image
-                      src={DefaultAvatar}
-                      alt=""
-                      width={35}
-                      height={35}
-                      layout="responsive"
-                      objectFit="cover"
-                      className="rounded-full"
-                    />
-                  )}
-                </div>
-                <div className={styles.text}>{getDisplayUserName(item.name)}</div>
-              </div>
-            ))}
-          </div>
-          {(searchList.nfts.length !== 0 || searchList.artists.length !== 0) && searchList.collections.length !== 0 && (
-            <div className="w-full h-10" />
-          )}
-          {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Collection</div>}
-          <div className="w-full flex flex-wrap gap-[9px]">
-            {searchList.collections.map((item, index) => (
-              <div
-                key={index}
-                className={styles.selection}
-                onClick={() => {
-                  router.push(`/collection/${item.id}`)
-                  onClose()
-                }}
-              >
-                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
-                  <ImageWithFoster
-                    src={item.image_url}
-                    width={50}
-                    className="object-cover rounded-[10px] w-full h-full"
-                  />
+                  <div className={styles.searchTopic}>USERS</div>
+                  <div className="w-[220px] flex gap-[10px] mt-[20px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
+                  <div className={styles.searchTopic}>COLLECTIONS</div>
+                  <div className="w-[220px] flex gap-[10px] mt-[20px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
                 </div>
+                <div>
+                  <div className={styles.searchTopic}>STORES</div>
+                  <div className="w-[220px] flex gap-[10px] mt-[20px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-[220px] flex gap-[10px] mt-[15px]">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                </div>
+                <div className="lg:hidden block w-full h-[50px]" />
               </div>
-            ))}
+            </div>
+          )
+        ) : null
+      ) : (
+        searchKeyword?.length > 1 && (
+          <div className={styles.contentArea}>
+            <div className="w-full flex flex-wrap gap-[20px] mx-[15px] my-[10px]">
+              {searchList.nfts.length !== 0 && (
+                <div className="w-full sm:w-[230px]">
+                  {searchList.nfts.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>ARTWORKS</div>}
+                  <div className="w-full flex flex-wrap">
+                    {searchList.nfts.map((item, index) => (
+                      <div
+                        key={index}
+                        className={styles.selection}
+                        onClick={() => {
+                          router.push(`/nft/${item.id}`)
+                          setFocus(false)
+                          handleClose()
+                        }}
+                      >
+                        <div className="min-w-[36px] w-[36px] lg:min-w-[44px] lg:w-[44px] h-[36px] lg:h-[44px] mr-[15px] overflow-hidden rounded-[10px]">
+                          {item.image_url !== null && item.image_url !== '' ? (
+                            <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
+                          ) : (
+                            <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
+                          )}
+                        </div>
+                        <div>
+                          <div className={styles.text}>{getShortName(item.name)}</div>
+                          <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {searchList.artists.length !== 0 && (
+                <div className="w-full sm:w-[220px]">
+                  {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>USERS</div>}
+                  <div className="w-full flex flex-wrap gap-[9px]">
+                    {searchList.artists.map((item, index) => (
+                      <div
+                        key={index}
+                        className={styles.selection}
+                        onClick={() => {
+                          router.push(`/${item.name}`)
+                          setFocus(false)
+                          handleClose()
+                        }}
+                      >
+                        <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] mr-5">
+                          {item.image_url.length > 0 ? (
+                            <ImageWithFoster
+                              width={50}
+                              src={item.image_url}
+                              className="object-cover rounded-full w-full h-full"
+                            />
+                          ) : (
+                            <Image
+                              src={DefaultAvatar}
+                              alt=""
+                              width={35}
+                              height={35}
+                              layout="responsive"
+                              objectFit="cover"
+                              className="rounded-full"
+                            />
+                          )}
+                        </div>
+                        <div className={styles.text}>{getDisplayUserName(item.name)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {searchList.collections.length !== 0 && (
+                <div className="w-full sm:w-[220px]">
+                  <div className={`${styles.searchTopic} mb-[18px]`}>COLLECTIONS</div>
+                  <div className="w-full flex flex-wrap gap-[9px]">
+                    {searchList.collections.map((item, index) => (
+                      <div
+                        key={index}
+                        className={styles.selection}
+                        onClick={() => {
+                          router.push(`/collection/${item.id}`)
+                          setFocus(false)
+                          handleClose()
+                        }}
+                      >
+                        <div className="min-w-[36px] w-[36px] lg:w-[46px] lg:min-w-[46px] h-[36px] lg:h-[46px] mr-5">
+                          <ImageWithFoster
+                            src={item.image_url}
+                            width={50}
+                            className="object-cover rounded-[10px] w-full h-full"
+                          />
+                        </div>
+                        <div>
+                          <div className={styles.text}>{getShortName(item.name)}</div>
+                          <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {searchList.artists.length !== 0 && (
+                <div className="w-full sm:w-[220px]">
+                  {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>STORES</div>}
+                  <div className="w-full flex flex-wrap gap-[9px]">
+                    {searchList.artists.map((item, index) => (
+                      <div
+                        key={index}
+                        className={styles.selection}
+                        onClick={() => {
+                          router.push(`/${item.name}/merch`)
+                          setFocus(false)
+                          handleClose()
+                        }}
+                      >
+                        <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] mr-5">
+                          {item.image_url.length > 0 ? (
+                            <ImageWithFoster
+                              width={50}
+                              src={item.image_url}
+                              className="object-cover rounded-full w-full h-full"
+                            />
+                          ) : (
+                            <Image
+                              src={DefaultAvatar}
+                              alt=""
+                              width={35}
+                              height={35}
+                              layout="responsive"
+                              objectFit="cover"
+                              className="rounded-full"
+                            />
+                          )}
+                        </div>
+                        <div className={styles.text}>{getDisplayUserName(item.name)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div className="lg:hidden block w-full h-[100px]" />
+            </div>
           </div>
-        </div>
+        )
       )}
     </div>
   )

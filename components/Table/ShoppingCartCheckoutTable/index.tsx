@@ -13,7 +13,7 @@ const ShoppingCartCheckoutTable = props => {
             <tr key={index} className="flex py-0 lg:py-2 mb-[10px]">
               <td>
                 <div className="w-full h-full min-w-[80px] min-h-[80px] ml-[-10px]">
-                  <img src={item.url} className="w-full h-full object-cover" />
+                  <img src={item.url} className="w-full h-full object-cover" alt="" />
                 </div>
               </td>
               <div className="w-full flex justify-between ml-[20px]">

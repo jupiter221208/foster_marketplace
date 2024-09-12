@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
-import { useViewport } from 'utils'
 
 const AuctionCard = props => {
-  const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
+  const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted, liveAuction, isEditionListing } =
+    props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
-  const viewport = useViewport()
   useEffect(() => {
-    if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
+    if (
+      liveAuction &&
+      !isEditionListing &&
+      startTime !== undefined &&
+      startTime !== null &&
+      endTime !== undefined &&
+      endTime !== null
+    ) {
       setTimeLeft(calculateTimeLeft(getStartTime()))
       const timer = setInterval(() => {
         let time_left = calculateTimeLeft(getStartTime())
@@ -54,55 +57,62 @@ const AuctionCard = props => {
     }
   }
 
+  const isExpired = time => {
+    if (time['days'] === '00' && time['hours'] === '00' && time['minutes'] === '00' && time['seconds'] === '00')
+      return true
+    return false
+  }
+
   return (
     <div className={styles.container}>
-      <div className="block justify-center items-start">
-        <div className="flex justify-around items-center gap-[6px] mt-1 lg:mt-[8px] ml-[2px]">
-          {auctionStarted === true ? (
-            <div className="flex gap-[6px] items-center">
-              <div className={styles.whiteText}>Ends&nbsp;in</div>
+      <div className="w-full flex justify-between ">
+        <div className="">
+          <div className={styles.highestBid}>{currentPrice > 0 ? 'Highest Bid' : 'Reserve Price'}</div>
+          <div className="flex gap-[6px] mt-[9px]">
+            <div className="flex items-center mt-[4px]">
+              <SolanaLogoMobileIcon alt="" />
             </div>
-          ) : (
-            <div className={styles.whiteText}>Starts&nbsp;in</div>
-          )}
-          <div className="flex items-center gap-[4px]">
-            {timeLeft && timeLeft['days'] !== '00' && (
-              <div className="flex block justify-center">
-                <div className={styles.grayText}>{timeLeft['days']}</div>
-                <div className={styles.grayText}>d</div>
-              </div>
-            )}
-            {timeLeft && timeLeft['hours'] !== '00' && (
-              <div className="flex block justify-center">
-                <div className={styles.grayText}>{timeLeft['hours']}</div>
-                <div className={styles.grayText}>h</div>
-              </div>
-            )}
+            <div className={styles.whiteText}>
+              {Math.round((currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
+            </div>
+          </div>
+        </div>
+        {timeLeft && !isExpired(timeLeft) && liveAuction && !isEditionListing && (
+          <div>
+            <div className="flex justify-end">
+              <div className={styles.highestBid}>{auctionStarted === true ? 'Time Remaining' : 'Starts In'}</div>
+            </div>
 
-            {timeLeft && timeLeft['minutes'] !== '00' && (
-              <div className="flex block justify-center ">
-                <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}</div>
-                <div className={styles.grayText}>m</div>
+            <div className={`${styles.bidCountContainer} pl-[12px] mt-[9px]`}>
+              {timeLeft && timeLeft['days'] !== '00' && (
+                <div>
+                  <div className={styles.endTime}>
+                    {timeLeft && timeLeft['days']}
+                    {timeLeft && <div className={styles.bidDesc}>d</div>}
+                  </div>
+                </div>
+              )}
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  {timeLeft && timeLeft['hours']}
+                  {timeLeft && <div className={styles.bidDesc}>h</div>}
+                </div>
               </div>
-            )}
-            {timeLeft && timeLeft['seconds'] !== '00' && (
-              <div className="flex block justify-center ">
-                <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
-                <div className={styles.grayText}>s</div>
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  {timeLeft && timeLeft['minutes']}
+                  {timeLeft && <div className={styles.bidDesc}>m</div>}
+                </div>
               </div>
-            )}
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  {timeLeft && timeLeft['seconds']}
+                  {timeLeft && <div className={styles.bidDesc}>s</div>}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="block justify-center items-start">
-        <div className="flex justify-start lg:justify-center gap-[3px] mt-[2px] lg:mt-[8px] items-center">
-          <div className="flex items-center mt-[4px]">
-            <SolanaLogoMobileIcon alt="" />
-          </div>
-          <div className={styles.whiteText}>
-            {Math.round((currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )

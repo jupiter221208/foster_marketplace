@@ -41,9 +41,6 @@ const LiveAuctionSection = props => {
   const dispatch = useDispatch()
 
   const [liveAuctionList, setLiveAuctionList] = useState<DashboardAPIData[]>([])
-  const [active, setActive] = useState<any>(1)
-  const [cardLoop, setCardLoop] = useState(true)
-  const [type, setType] = useState('recent_started')
   const [isLoaded, setIsLoaded] = useState(false)
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -62,7 +59,7 @@ const LiveAuctionSection = props => {
       ;(async () => {
         for (let index = 0; index < liveAuctionList.length; index++) {
           let data = liveAuctionList[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (data.token_id !== undefined) fetch(`/nft/${data.token_id}`).then(e => e.text())
           if (index % 3 == 2) {
             await sleep(1000)
           }
@@ -108,8 +105,6 @@ const LiveAuctionSection = props => {
           }
         })
         setLiveAuctionList(lists)
-        if (lists.length > 3) setCardLoop(true)
-        else setCardLoop(false)
 
         if (isLoaded === false) {
           setShowSection(true)
@@ -128,29 +123,21 @@ const LiveAuctionSection = props => {
       }
   }
   const handleChangeActive = value => {
-    setActive(value)
-
     switch (value) {
       case 0:
         getLiveAuctionsFromServer(category, artist, 'upcoming')
-        setType('upcoming')
         break
       case 1:
         getLiveAuctionsFromServer(category, artist, 'recent_started')
-        setType('recent_started')
         break
       case 2:
         getLiveAuctionsFromServer(category, artist, 'end_soon')
-        setType('end_soon')
         break
       default:
         getLiveAuctionsFromServer(category, artist, 'recent_started')
-        setType('recent_started')
         break
     }
   }
-
-  useEffect(() => {}, [liveAuctionList])
 
   const removeExipredAuction = item => {
     let list = liveAuctionList.filter(auction => auction.token_id !== item.token_id)
@@ -159,7 +146,7 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10 ml-[5px]">
+      <div className="relative w-full flex justify-between items-center z-10 ml-[5px]">
         <div className="sm:block hidden">
           <HomeFilterMenu
             label="Live Auctions"
@@ -171,6 +158,7 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
+
         <div className="sm:hidden w-full flex justify-between items-center">
           <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
           <HomeFilterMenu
@@ -267,7 +255,7 @@ const LiveAuctionSection = props => {
       )}
     </section>
   ) : isLoaded === false ? (
-    <div className="w-full h-[300px] lg:h-[300px]" />
+    <div className="w-full h-[0px] lg:h-[0px]" />
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />
   ) : (

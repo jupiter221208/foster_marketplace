@@ -148,16 +148,17 @@
 
 .cost {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-  }
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 16px;
   color: var(--text-gray-200-color);
 }
 
 .dollar {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 16px;
   color: var(--main-bg-color);
 }
 

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Standalone",
+    "value": "standalone"
+  },
+  {
+    "id": 1,
+    "name": "Merch Edition",
+    "value": "merch-edition"
+  },
+  {
+    "id": 2,
+    "name": "User Physical",
+    "value": "user"
+  }
+]

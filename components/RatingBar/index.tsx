@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import StarFullAsset from 'assets/icons/star-full.svg?component'
+import StarGreenAsset from 'assets/icons/star-full-green.svg?component'
+import StarEmptyAsset from 'assets/icons/star-empty.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
-const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true }) => {
+const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true, greenMode = false }) => {
   const [rating, setRating] = useState(value)
+
+  useEffect(() => {
+    setRating(value)
+  }, [value])
 
   return (
     <div className="flex">
@@ -12,19 +20,18 @@ const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true }) =>
         const ratingValue = index + 1
 
         return (
-          <img
+          <div
             key={index}
-            src={ratingValue <= rating ? '/images/star-full.png' : '/images/star-empty.png'}
-            alt="star"
-            className="star"
+            className="ml-[4px]"
             onClick={() => {
               if (clickable) {
                 setRating(ratingValue)
                 onRating(ratingValue)
               }
             }}
-            style={{ width: '20px', cursor: 'pointer' }}
-          />
+          >
+            {ratingValue <= rating ? greenMode ? <StarGreenAsset /> : <StarFullAsset /> : <StarEmptyAsset />}
+          </div>
         )
       })}
     </div>

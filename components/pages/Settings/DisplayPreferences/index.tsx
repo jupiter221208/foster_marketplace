@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 const DisplayPreferences = prop => {
-  const { success } = prop
   const dispatch = useDispatch()
 
   const [apperance, setApperance] = useState(false)
@@ -20,7 +19,11 @@ const DisplayPreferences = prop => {
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode)) // =
 
   const handleThemeMode = () => {
-    const doc = document.documentElement
+    if (lightMode) {
+      localStorage.setItem('lightDarkMode', 'false')
+    } else {
+      localStorage.setItem('lightDarkMode', 'true')
+    }
     setColorTheme(!lightMode)
     dispatch({ type: 'set', lightMode: !lightMode })
     setLightMode(!lightMode)

@@ -11,6 +11,7 @@ import UnsaveIcon from 'assets/icons/unsave-icon.svg?component'
 import UnhideIcon from 'assets/icons/unhide-button-icon.svg?component'
 import UpdateRelistIcon from 'assets/icons/update-relist-icon.svg?component'
 import NextArrowIcon from 'assets/icons/next-arrow-icon.svg?component'
+import OrderDetailIcon from 'assets/icons/order-details-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -28,7 +29,7 @@ const SecondaryDashboardButton = props => {
       }}
     >
       <div className="flex gap-[9px] items-center">
-        <div>
+        <div className="mt-[2px]">
           {type === 'make-offer' ? (
             <MakeOfferIcon />
           ) : type === 'finalize-sale' ? (
@@ -49,6 +50,8 @@ const SecondaryDashboardButton = props => {
             <UpdateRelistIcon />
           ) : type === 'next' ? (
             <NextArrowIcon />
+          ) : type === 'order-details' ? (
+            <OrderDetailIcon />
           ) : (
             <></>
           )}

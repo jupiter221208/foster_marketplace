@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -22,8 +22,16 @@ const SocialShareModal = props => {
   const { open, close, vote, voteCount, setVote, setVoteCount, message, url } = props
   const router = useRouter()
   const { id } = router.query
-
   const fullUrl = globalThis.window?.origin + url.replaceAll(' ', '%20')
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        setShow(true)
+      }, 100)
+    }
+  }, [open])
 
   function shareNFTSocial(type) {
     nftsAPI.shareNft(type, id).then(
@@ -54,18 +62,10 @@ const SocialShareModal = props => {
           <div className={styles.bgView} />
         </Transition.Child>
 
-        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center">
-          <div className={styles.modalView}>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Dialog.Panel className="w-full h-full">
+        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center" onClick={() => close()}>
+          <div className={`${styles.modalView} ${show ? styles.show : styles.hide}`}>
+            <div>
+              <div className="w-full h-full">
                 <div className="flex justify-center mt-[23px] mb-[30px]">
                   <div className={styles.share}>Share</div>
                 </div>
@@ -132,14 +132,8 @@ const SocialShareModal = props => {
                     Copy link
                   </div>
                 </div>
-
-                {/* <div className="w-full flex justify-center">
-                  <div className={styles.cancel} onClick={close}>
-                    Cancel
-                  </div>
-                </div> */}
-              </Dialog.Panel>
-            </Transition.Child>
+              </div>
+            </div>
           </div>
         </div>
       </Dialog>

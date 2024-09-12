@@ -85,7 +85,7 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10 ">
+      <div className="relative w-full flex justify-between items-center z-10 ">
         <div className="sm:block hidden">
           <HomeFilterMenu
             label="Top Creators"
@@ -97,7 +97,8 @@ const TopRatedArtistsSection = () => {
             }}
           />
         </div>
-        <div className="sm:hidden w-full flex justify-between items-center g-container">
+
+        <div className="sm:hidden w-full flex justify-between items-center">
           <div className={styles.title}>Top&nbsp;Creators</div>
           <HomeFilterMenu
             label=""

@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { getAbsoluteOgUrl, getTwitterUsername } from 'utils/seo'
+import { getDisplayUserName } from 'utils/strings'
 
 // next component
+import Head from 'next/head'
 
 //components
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
+import ProfileMerchReview from 'components/pages/ArtistProfile/ProfileMerchReview'
 
 // images
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import LeftArrowMobile from 'assets/icons/arrow-left-24x24.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
-import LeftArrowIcon from 'assets/icons/arrow-left-35x35.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import BannerImage from 'assets/images/banner-image.png'
+import PreviewImage from 'assets/images/studio-preview-image-user.png'
+
 // json
 
 // styles
 import styles from './index.module.scss'
-import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadges'
-import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchReviews'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -29,86 +32,103 @@ interface CreatorMerchProps {
 }
 
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
-  const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
-  const router = useRouter()
-  const { connected, publicKey } = useWallet()
+  const [artistInfo, setArtistInfo] = useState<any>(null)
+  useEffect(() => {
+    setArtistInfo(publicArtistData)
+  }, [publicArtistData])
 
-  const [activeTab, setActiveTab] = useState<any>(0)
+  const router = useRouter()
+  const { publicKey } = useWallet()
+
   const [openShareModal, setOpenShareModal] = useState(false)
+
+  let username = publicArtistData?.username ?? '<not found>'
+  let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
+  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
+  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+  let userTwitterHandle = getTwitterUsername(publicArtistData?.twitter_url)
 
   return (
     <div className="w-full pb-[60px]">
-      <div className={`g-container ${styles.topSection}`}>
-        <div
-          onClick={() => {
-            let path = window.location.href
-            router.push(path.substring(0, path.lastIndexOf('/')))
-          }}
-        >
-          <div className="sm:block hidden">
-            <LeftArrowIcon />
-          </div>
-          <div className="sm:hidden block">
-            <LeftArrowMobile />
-          </div>
-        </div>
-        <div className="flex h-full items-center">
-          <div>
-            <div className={styles.userName}>{artistInfo?.username}</div>
-            <div className={styles.merchStore}>Official Merch Store</div>
-          </div>
-        </div>
-        <div className={`flex w-[20px] sm:w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
-          <div className="sm:block hidden">
-            <ShareDesktopIcon alt="" />
-          </div>
-          <div className="sm:hidden block">
-            <ShareSmallIcon alt="" />
-          </div>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta property="description" content={pageDescription} />
 
-          <div className={`${styles.shareText} mt-[-2px] sm:block hidden`}>Share</div>
-        </div>
-      </div>
-      <div className="w-full h-[150px] sm:h-[350px] relative">
-        <img src={artistInfo?.banner_picture} alt="" className="w-full h-full object-cover" />
+        <meta name="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta name="og:image" content={pageImageUrl} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <meta property="twitter:image" content={pageImageUrl} />
+        <meta name="twitter:site" content="@silkrunway" />
+        {userTwitterHandle ? <meta name="twitter:creator" content={userTwitterHandle} /> : null}
+
+        <link rel="icon" href="/logo.png" />
+      </Head>
+
+      <div className="w-full h-[235px] sm:h-[350px] relative">
+        <img
+          src={artistInfo?.banner_picture?.length > 0 ? artistInfo?.banner_picture : BannerImage.src}
+          alt=""
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0">
-          <div className={styles.overlayBG}></div>
-        </div>
-        <div className="absolute inset-0">
-          <div className={styles.tabBorder} />
+          <div className={styles.overlayBG}>
+            <div>
+              <div className="flex justify-center mb-[15px]">
+                <div className="w-[60px] sm:w-[100px] rounded-full overflow-hidden">
+                  <img
+                    src={artistInfo?.profile_picture?.length > 0 ? artistInfo?.profile_picture : DefaultAvatar.src}
+                    alt=""
+                    className="w-[60px] sm:w-[100px] h-[60px] sm:h-[100px] object-cover"
+                  />
+                </div>
+              </div>
+              <div className={styles.merchBy}>Merch by</div>
+              <div className={styles.userName}>{getDisplayUserName(artistInfo?.username)}</div>
+              <div className="flex justify-center mt-[16px]">
+                <ProfileMerchReview userId={artistInfo?.id} username={artistInfo?.username} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-between">
-            <div className="flex gap-[8px] sm:gap-[15px]">
-              <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
-                <div className="mt-[-2px]">Shop</div>
-              </div>
-              <div className={activeTab === 1 ? styles.selected : styles.unselected} onClick={() => setActiveTab(1)}>
-                <div className="mt-[-2px]">Reviews</div>
-              </div>
-              <div className={activeTab === 2 ? styles.selected : styles.unselected} onClick={() => setActiveTab(2)}>
-                <div className="mt-[-2px]">Badges</div>
+          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-end">
+            <div className="flex gap-[15px] sm:gap-[25px]">
+              {publicKey?.toBase58() === artistInfo?.wallet_id && (
+                <div
+                  className={styles.add}
+                  onClick={() => {
+                    let path = window.location.href
+                    router.push(`${path}/new`)
+                  }}
+                >
+                  <div className="">
+                    <PlusIcon />
+                  </div>
+                  <div className="">Add</div>
+                </div>
+              )}
+              <div className={`flex w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
+                <div className="">
+                  <ShareDesktopIcon alt="" />
+                </div>
+                <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
               </div>
             </div>
-
-            {publicKey?.toBase58() === artistInfo?.wallet_id && (
-              <div
-                className={styles.plus}
-                onClick={() => {
-                  let path = window.location.href
-                  router.push(`${path}/new`)
-                }}
-              >
-                <PlusIcon />
-              </div>
-            )}
           </div>
-          <div className="w-full mt-[20px] sm:mt-[30px] ">
-            {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} />}
-            {activeTab === 1 && <CreatorMerchReviews />}
-            {activeTab === 2 && <CreatorMerchBadges />}
+          <div className="w-full mt-[20px] sm:mt-[30px] pb-[150px]">
+            {artistInfo && (
+              <CreatorMerchShop
+                username={artistInfo?.username}
+                userId={artistInfo?.id}
+                isCreator={publicKey?.toBase58() === artistInfo?.wallet_id}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -133,12 +153,11 @@ CreatorMerch.getLayout = function getLayout(page) {
 
 CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorMerchProps> {
   let artistUsername = encodeURIComponent(query.id)
-
   try {
-    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
-    let artistPublicKey = publicArtistData.artist.wallet_id
+    let artistPublicKey = publicArtistData.wallet_id
     return {
       artistPublicKey,
       publicArtistData,

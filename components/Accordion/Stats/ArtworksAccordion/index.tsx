@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react'
 
 // next components
-import Image from 'next/image'
-import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 // third party components
@@ -22,11 +20,9 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 const ArtworksAccordion = props => {
   const { data } = props
-  const dispatch = useDispatch()
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
-  const [loaded, setLoaded] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]

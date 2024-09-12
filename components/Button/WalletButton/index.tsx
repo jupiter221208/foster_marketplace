@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
@@ -38,14 +38,12 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
-import LoadingButton from '../LoadingButton'
 import PrimaryButton from '../PrimaryButton'
 import LoadingPrimaryButton from '../LoadingPrimaryButton'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
   const router = useRouter()
-  const dispatch = useDispatch()
 
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
@@ -340,40 +338,8 @@ const WalletButton = props => {
                   </div>
                   <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
                 </div>
-                {/* <div
-                  className="flex justify-end pt-[6px] py-2 cursor-pointer"
-                  onClick={() => setShowMainWallet(!showMainWallet)}
-                >
-                  <Image src={EllipseGroupWhiteIcon} />
-                </div> */}
               </div>
             </div>
-            {/* {showMainWallet && (
-              <div className="w-full flex flex-wrap">
-                <Menu.Item>
-                  {({ active }) => (
-                    <div className="w-full flex items-center cursor-pointer hover:opacity-80">
-                      <Image src={ChangeWalletIcon} alt="" />
-                      <div className={styles.whiteText}>Change wallet</div>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className="w-full flex items-center cursor-pointer hover:opacity-80"
-                      onClick={() => {
-                        setButtonClicked(true)
-                        handleDisconnect()
-                      }}
-                    >
-                      <Image src={DisconnectWalletIcon} alt="" />
-                      <div className={styles.whiteText}>Disconnect wallet</div>
-                    </div>
-                  )}
-                </Menu.Item>
-              </div>
-            )} */}
             {/* offer wallet part */}
             <div className="w-full my-3">
               <div className="w-full flex justify-between">
@@ -434,15 +400,6 @@ const WalletButton = props => {
                     Withdraw
                   </div>
                 </div>
-                {/* <div
-                  className="w-full flex justify-end cursor-pointer py-2"
-                  onClick={() => {
-                    setShowOfferWallet(!showOfferWallet)
-                    setShowBiddingWallet(false)
-                  }}
-                >
-                  <EllipseGroupWhiteIcon alt="" />
-                </div> */}
               </div>
             </div>
             <div className={styles.depositWithdraw}>
@@ -451,41 +408,10 @@ const WalletButton = props => {
                   <div className={styles.cardTypeText}>
                     {offerStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
                   </div>
-                  {/* <div
-                    className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => {
-                      if (offerStatus === 'deposit') setOfferStatus('')
-                      else setOfferStatus('deposit')
-
-                      setWalletAmount('')
-                      setOfferPrice(0)
-                      setOfferErrorMessage('')
-                    }}
-                  >
-                    {offerStatus === 'deposit' ? <DepositIcon alt="" /> : <DepositDisabledIcon alt="" />}
-                    <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Deposit to Offer Wallet
-                    </div>
-                  </div>
-                  <div
-                    className="w-full flex justify-start items-center gap-2 cursor-pointer mt-[8px]"
-                    onClick={() => {
-                      if (offerStatus === 'withdraw') setOfferStatus('')
-                      else setOfferStatus('withdraw')
-                      setWalletAmount('')
-                      setOfferPrice(0)
-                      setOfferErrorMessage('')
-                    }}
-                  >
-                    {offerStatus === 'withdraw' ? <WithdrawIcon alt="" /> : <WithdrawDisabledIcon alt="" />}
-                    <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Withdraw to Main Wallet
-                    </div>
-                  </div> */}
                 </div>
               )}
               {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1 px-4">
+                <div className="w-full flex flex-wrap mt-[14px] gap-1">
                   <div className="w-full flex justify-between itmes-center">
                     <div className="">
                       <div className={styles.subText}>
@@ -570,7 +496,7 @@ const WalletButton = props => {
             </div>
 
             {/* bidding wallet part */}
-            <div className="w-full my-3">
+            <div className="w-full mb-3">
               <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Bidding wallet</div>
                 <div className="flex items-center gap-1">
@@ -647,40 +573,10 @@ const WalletButton = props => {
                   <div className={styles.cardTypeText}>
                     {biddingStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
                   </div>
-                  {/* <div
-                    className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => {
-                      if (biddingStatus === 'deposit') setBiddingStatus('')
-                      else setBiddingStatus('deposit')
-                      setWalletAmount('')
-                      setBiddingPrice(0)
-                      setBiddingErrorMessage('')
-                    }}
-                  >
-                    {biddingStatus === 'deposit' ? <DepositIcon alt="" /> : <DepositDisabledIcon alt="" />}
-                    <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Deposit to Bidding Wallet
-                    </div>
-                  </div>
-                  <div
-                    className="w-full flex justify-start items-center gap-2 cursor-pointer mt-[16px]"
-                    onClick={() => {
-                      if (biddingStatus === 'withdraw') setBiddingStatus('')
-                      else setBiddingStatus('withdraw')
-                      setWalletAmount('')
-                      setBiddingPrice(0)
-                      setBiddingErrorMessage('')
-                    }}
-                  >
-                    {biddingStatus === 'withdraw' ? <WithdrawIcon alt="" /> : <WithdrawDisabledIcon alt="" />}
-                    <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Withdraw to Main Wallet
-                    </div>
-                  </div> */}
                 </div>
               )}
               {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1 px-4">
+                <div className="w-full flex flex-wrap mt-[14px] gap-1">
                   <div className="w-full flex justify-between items-center">
                     <div className="">
                       <div className={styles.subText}>

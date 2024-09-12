@@ -68,6 +68,7 @@ const TabSection = () => {
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
           <MyNFTSection
+            filter={filter}
             changeActiveTab={(selectedTab: number, selectedFilter: number) => {
               setSelectedFilter(selectedFilter)
               setActiveTab(selectedTab)

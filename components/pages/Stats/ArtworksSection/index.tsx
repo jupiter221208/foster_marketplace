@@ -18,7 +18,8 @@ import styles from './index.module.scss'
 // apis
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingComponent from 'pages/profile/LoadingComponent'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const ArtworksSection = props => {
   const { artworks } = props
@@ -109,8 +110,8 @@ const ArtworksSection = props => {
   return (
     <div className={styles.container}>
       {loading && (
-        <div className="mt-10">
-          <LoadingModal open={loading} />
+        <div className="mt-[100px]">
+          <LoadingElement text="Loading artworks" />
         </div>
       )}
 
@@ -128,7 +129,7 @@ const ArtworksSection = props => {
 
       {!loading && searchLoading && !isVisibleFetching && (
         <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingModal open={searchLoading} />
+          <LoadingElement text="Loading artworks" />
         </div>
       )}
 
@@ -142,7 +143,7 @@ const ArtworksSection = props => {
 
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading artworks" />
         </div>
       )}
     </div>

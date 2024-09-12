@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Price: low to high",
+    "value": "price-ascending"
+  },
+  {
+    "id": 1,
+    "name": "Price: high to low",
+    "value": "price-descending"
+  },
+  {
+    "id": 2,
+    "name": "Newly Listed",
+    "value": "latest"
+  }  
+]

@@ -15,12 +15,12 @@
 
 .audioMobileArea {
   width: 100%;
-  background: rgba(var(--background-main-color-rgb), 0.6);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  // background: rgba(var(--background-main-color-rgb), 0.6);
+  // backdrop-filter: blur(30px);
+  // -webkit-backdrop-filter: blur(30px);
   position: absolute;
   left: 0px;
-  bottom: 0px;
+  bottom: 10px;
   right: 0px;
   z-index: 10;
   padding-left: 20px;
@@ -75,15 +75,30 @@
 
 .audioContainer {
   display: flex;
-  width: 100%;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  height: 375px;
+  @media (min-width: 640px) {
+    height: 632px;  
+  }
   @media (min-width: 1024px) {
-    height: calc(100vh - 270px);
+    width: 100%;
+    margin-left: 0px;
+    height: 632px;
   }
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
+}
+
+.audioBlurView {
+  position: absolute;
+  inset: 0;
+  background: rgba(#1a1a1a, 0.8); 
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .borderView {
@@ -127,17 +142,17 @@
 }
 
 .audioBackground {
-  width: auto;
+  width: 100%;
   height: auto;
   z-index: 10;
-  margin-right: 75px;
+  padding: 0px 44px;
 }
 
 .audioArea {
-  width: 394px;
+  width: 100%;
   margin-left: 0px;
   height: 75px;
-  margin-top: 20px;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;

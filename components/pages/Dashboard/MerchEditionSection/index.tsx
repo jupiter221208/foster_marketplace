@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // next components
 
 // image
-import merchImageFront from 'assets/images/merch-order-front.png'
-import merchImageBack from 'assets/images/merch-order-back.png'
-import merchImageLeft from 'assets/images/merch-order-left.png'
 
 // components
-import ListedNFTCard from 'components/Card/ListedNFTCard'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import MerchEditionClaimCard from 'components/Card/MerchEditionClaimCard'
 
 // styles
 import styles from './index.module.scss'
@@ -16,22 +15,12 @@ import styles from './index.module.scss'
 // solana
 
 // call apis
+import StoreAPI from 'apis/store'
+import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
-import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
-import DashboardSearchBox from 'components/Input/DashboardSearchBox'
-import MerchEditionClaimCard from 'components/Card/MerchEditionClaimCard'
+const MerchEditionSection = () => {
+  const { profileInfo } = useAuthentication()
 
-type SelectedDataType = {
-  category: string
-  name: string
-  animation_url: string
-  image: string
-  address: string
-  tradeStateAddress: string
-}
-
-const MerchEditionSection = props => {
-  const { filter } = props
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
     { id: 0, label: 'Unclaimed' },
@@ -40,45 +29,46 @@ const MerchEditionSection = props => {
   const [merchList, setMerchList] = useState<any>([])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Unclaimed' })
   const [filteredList, setFilteredList] = useState<any>([])
+  const [isFetching, setIsFetching] = useState(false)
+  const [claimedList, setClaimedList] = useState([])
+  const [unclaimedList, setUnclaimedList] = useState([])
 
   useEffect(() => {
-    let list = [
-      {
-        id: 0,
-        product_name: 'Product Name1',
-        edition_name: 'edition Name #1',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
+    if (profileInfo) {
+      getMerchList()
+    }
+  }, [profileInfo])
+
+  useEffect(() => {
+    if (active === 0) {
+      setMerchList(unclaimedList)
+      setFilteredList(unclaimedList)
+    } else {
+      setMerchList(claimedList)
+      setFilteredList(claimedList)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active])
+
+  const getMerchList = () => {
+    setIsFetching(false)
+    StoreAPI.getStoreMerchEditions().then(
+      response => {
+        if (response) {
+          let claimed = response.filter(item => item.order_id !== null)
+          let unclaimed = response.filter(item => item.order_id === null)
+          setClaimedList(claimed)
+          setUnclaimedList(unclaimed)
+          setMerchList(unclaimed)
+          setFilteredList(unclaimed)
+          setIsFetching(true)
+        }
       },
-      {
-        id: 1,
-        product_name: 'Product Name2',
-        edition_name: 'edition Name #2',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        id: 2,
-        product_name: 'Product Name3',
-        edition_name: 'edition Name #3',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        id: 3,
-        product_name: 'Product Name4',
-        edition_name: 'edition Name #4',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-    ]
-    setMerchList(list)
-    setFilteredList(list)
-  }, [])
+      error => {
+        setIsFetching(true)
+      }
+    )
+  }
 
   const searchNFT = key => {
     if (key === '') {
@@ -95,9 +85,10 @@ const MerchEditionSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between z-10">
-        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-
+      <div className="w-full flex justify-between z-10 items-center">
+        <div className={`${styles.description} lg:block hidden`}>
+          {'Displayed are merch items included with an edition you purchased.'}
+        </div>
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -109,13 +100,21 @@ const MerchEditionSection = props => {
         />
       </div>
 
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
+      {isFetching && merchList.length === 0 && <div className={styles.comingSoon}>No results found.</div>}
+
+      <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">
         {filteredList.map(item => (
-          <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.address}>
+          <div key={item.id}>
             <MerchEditionClaimCard data={item} />
           </div>
         ))}
       </div>
+
+      {!isFetching && (
+        <div className="w-full flex justify-center mt-[80px]">
+          <LoadingElement text="Loading merch editions" />
+        </div>
+      )}
     </section>
   )
 }

@@ -13,7 +13,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -45,7 +44,7 @@ const MarketplaceReleaseSection = props => {
       ;(async () => {
         for (let index = 0; index < marketplaceReleaseList.length; index++) {
           let data = marketplaceReleaseList[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (data.token_id !== undefined) fetch(`/nft/${data.token_id}`).then(e => e.text())
           if (index % 4 == 3) {
             await sleep(1000)
           }
@@ -56,9 +55,9 @@ const MarketplaceReleaseSection = props => {
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
+    dashboardAPI.getMarketplaceReleases(category, '', page, 10).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setAllMarketplaceReleaseList(response.filter(nft => nft.asset_type !== 'uknown').slice(5, response.length))
+        setAllMarketplaceReleaseList(response.filter(nft => nft.asset_type !== 'uknown'))
         setVisibleBoundary(true)
       }
     }),
@@ -76,7 +75,7 @@ const MarketplaceReleaseSection = props => {
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="relative w-full flex justify-between items-center z-10">
           <div className={`${styles.title}`}>New Releases</div>
           <div className="lg:block hidden">
             <SeeMoreButton
@@ -89,7 +88,7 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[26px] mt-[25px] lg:mt-[30px] z-10 sm:px-[7px] lg:px-[0px]">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[26px] mt-[17px] lg:mt-[30px] z-10 sm:px-[7px] lg:px-[0px]">
           {marketplaceReleaseList.map((item, index) => (
             <div
               key={index}
@@ -105,9 +104,7 @@ const MarketplaceReleaseSection = props => {
                 artistImage={item.artist_profile_picture}
                 collectionName={item.collection_name}
                 price={item.list_price}
-                onClick={() => {
-                  router.push(`/nft/${item.token_id}`)
-                }}
+                onClick={() => {}}
               />
             </div>
           ))}

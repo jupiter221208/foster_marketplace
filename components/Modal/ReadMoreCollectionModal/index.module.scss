@@ -8,6 +8,9 @@
 .bgView {
   position: fixed;
   inset: 0;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background-color: rgba(#1a1a1a, 0.6);
 }
 
 .modalView {

@@ -4,15 +4,16 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 const { withSentryConfig } = require('@sentry/nextjs')
 
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
+const { generateActionsJson } = require('./utils/blinks')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   env: {
     WALLET_ADAPTER_NETWORK: process.env.WALLET_ADAPTER_NETWORK,
-    BUNDLR_ADDRESS: process.env.BUNDLR_ADDRESS,
     PROVIDER_URL: process.env.PROVIDER_URL,
     BACKEND_URL: process.env.BACKEND_URL,
     AUCTION_HOUSE_ADDRESS: process.env.AUCTION_HOUSE_ADDRESS,
@@ -37,6 +38,7 @@ const nextConfig = {
       'static.wixstatic.com',
       'shdw-drive.genesysgo.net',
       'cdn.helius-rpc.com',
+      'gateway.irys.xyz',
     ],
   },
   sassOptions: {
@@ -82,6 +84,37 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   staticPageGenerationTimeout: 1000,
+
+  async headers() {
+    return [
+      {
+        source: '/actions.json',
+        headers: [
+          {
+            key: 'access-control-allow-origin',
+            value: '*',
+          },
+        ],
+      },
+    ]
+  },
+
+  async rewrites() {
+    if (process.env.NODE_ENV == 'development')
+      return [
+        {
+          source: '/actions.json',
+          destination: '/api/actions.json',
+        },
+      ]
+    else return []
+  },
+}
+
+if (process.env.NODE_ENV != 'development') {
+  let actionsJsonFile = 'public/actions.json'
+  console.log(`generating actions.json file to ${actionsJsonFile}`)
+  fs.writeFileSync(actionsJsonFile, JSON.stringify(generateActionsJson(process.env.BACKEND_URL)))
 }
 
 module.exports = nextConfig

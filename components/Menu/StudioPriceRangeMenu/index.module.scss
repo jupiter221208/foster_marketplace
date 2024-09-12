@@ -1,0 +1,95 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  min-width: 120px;
+  gap: 14px;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 100%;
+    font-size: 14px;
+    padding: 13px 15px;
+  }
+  height: 45px;
+  padding: 13px 10px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.priceRange {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  display: flex;
+  gap: 10px;
+}
+
+.priceValue {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  min-width: 420px;
+  height: 120px;
+
+  @media (min-width: 1024px) {
+    width: 100%;
+    top: 50px;
+    padding: 20px;
+  }
+  
+  top: 50px;
+  padding: 10px;
+  background: var(--bg-1E1E1E-F7F6F4);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border-radius: 10px;
+  overflow: auto;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.removeBlueHighlight {
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+}
+
+.price {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: rgba(var(--main-bg-color-rgb), 0.8)
+}

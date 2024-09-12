@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react'
 
 //components
 import Radio from 'components/Radio/SwipRadio'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingButton from 'components/Button/LoadingButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
 // images
@@ -15,10 +15,23 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
+import storeAPI from 'apis/store'
 
 const MerchOrderShippingMethod = props => {
-  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext, onBack } = props
+  const {
+    productId,
+    type,
+    shippingLocal,
+    shippingData,
+    allShippingMethod,
+    data,
+    setTotalCost,
+    merchList,
+    rawList = [],
+    mintAddress,
+    onNext,
+    onBack,
+  } = props
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
   const [tax, setTax] = useState(null)
@@ -26,10 +39,8 @@ const MerchOrderShippingMethod = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    let name = ''
-
     let methods = []
-    if (isUniteState()) {
+    if (shippingLocal) {
       let ship_methods = allShippingMethod.shippingMethods.filter(
         item => item.serviceCode === 'usps_priority_mail' || item.serviceCode === 'usps_priority_mail_express'
       )
@@ -76,28 +87,32 @@ const MerchOrderShippingMethod = props => {
       methods.push(minCostMethodOne)
       methods.push(minCostMethodTwo)
     } else {
-      let index = 0
-      let minCost = Number.MAX_VALUE
-      let minCostMethod
-      allShippingMethod.shippingMethods
-        .filter(item => item.serviceCode === 'usps_priority_mail_international')
-        .forEach(method => {
-          let newMethod = {
-            ...method,
-            id: index,
-            label: 'USPS Priority Mail International',
-            value: method.serviceCode,
-            disabled: false,
-            price: method.shipmentCost,
-          }
-          if (newMethod.price < minCost) {
-            minCost = newMethod.price
-            minCostMethod = newMethod
-          }
-          index++
-        })
-      minCostMethod.price = minCost.toFixed(2)
-      methods.push(minCostMethod)
+      // allShippingMethod.shippingMethods
+      //   .filter(item => item.serviceCode === 'usps_priority_mail_international')
+      //   .forEach(method => {
+      //     let newMethod = {
+      //       ...method,
+      //       id: index,
+      //       label: 'USPS Priority Mail International',
+      //       value: method.serviceCode,
+      //       disabled: false,
+      //       price: method.shipmentCost,
+      //     }
+      //     if (newMethod.price < minCost) {
+      //       minCost = newMethod.price
+      //       minCostMethod = newMethod
+      //     }
+      //     index++
+      //   })
+      let newMethod = {
+        id: 0,
+        label: 'International Shipping',
+        value: '',
+        disabled: false,
+        price: 15,
+        shipmentCost: 15,
+      }
+      methods.push(newMethod)
     }
     if (methods?.length > 0) {
       setShippingMethods(methods)
@@ -108,7 +123,10 @@ const MerchOrderShippingMethod = props => {
 
   useEffect(() => {
     if (shipping) {
-      let tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
+      let tax
+      if (shippingLocal)
+        tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
+      else tax = 0
       let total = parseFloat(data.cost) + shipping.shipmentCost + tax
 
       setTax(tax)
@@ -138,39 +156,66 @@ const MerchOrderShippingMethod = props => {
       phone: '',
       residential: true,
     }
+
     const { id, name, description, color, quantity, size } = data
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item
-    item = {
-      id: id.toString(),
-      quantity,
-      previewUrl: merchList[0].url,
-      options: {
-        type: type,
-        nftName: name,
-        fosterUrl: merchList[0].url,
-        assetUrl: merchList[0].url,
-        nftAddress: mintAddress,
-        apparel: description,
-        size: size,
-        color: color,
-      },
-      notes: `This is apparel merch item`,
+    if (type === 'appparel' || type === 'wallart') {
+      item = {
+        id: productId.toString(),
+        quantity,
+        previewUrl: merchList[0].url,
+        options: {
+          type: 'foster',
+          nftName: name,
+          fosterUrl: merchList[0].url,
+          assetUrl: merchList[0].url,
+          nftAddress: mintAddress,
+          apparel: description,
+          size: size,
+          color: color,
+        },
+        notes: `This is apparel merch V1 item`,
+      }
+    } else {
+      // foster merch
+      let mockupUrls = [],
+        rawUrls = []
+      merchList.map(item => mockupUrls.push(item.url))
+      rawList.map(item => rawUrls.push(item.url))
+      item = {
+        id: productId.toString(),
+        quantity,
+        previewUrl: mockupUrls[0],
+        options: {
+          type: 'foster',
+          nftName: data.name,
+          fosterUrl: window.location.href,
+          mockupUrl: mockupUrls.join(','),
+          assetUrl: rawUrls.join(','),
+          nftAddress: '',
+          apparel: description,
+          size: size,
+          color: color,
+          technique: data.technique,
+        },
+        notes: `This is studio merch V2 item`,
+      }
     }
-
     let params = {
       customerEmail: shippingData.email,
-      shippingServiceCode: shipping.serviceCode,
+      shippingServiceCode: shippingLocal ? shipping.serviceCode : 'international',
       billTo: address,
       shipTo: address,
       items: [item],
       gift: true,
-      giftMessage: 'Fantastic Gift',
+      giftMessage:
+        'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
       notes: 'Checkout Note',
     }
 
-    merchAPI.checkout(params).then(
+    storeAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
         // setIsLoading(false)
@@ -183,8 +228,8 @@ const MerchOrderShippingMethod = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] lg:h-[540px] pt-[25px] pb-[15px]">
-        <div className={styles.selecteCategory}>Shipping Details</div>
+      <div className="w-full lg:h-[540px]">
+        <div className={styles.selecteCategory}>Shipping Method</div>
         <div className="w-full">
           <div className="w-full min-w-[375px] mt-[12px]">
             {shipping && (
@@ -213,7 +258,7 @@ const MerchOrderShippingMethod = props => {
                   </div>
                   <div className={styles.subPrice}>
                     <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
-                    <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                    <div className="mt-[20px]">Tax: ${tax !== null ? tax.toFixed(2) : '---'}</div>
                   </div>
                 </div>
                 <div className={`${styles.divider} mt-[15px]`} />
@@ -226,11 +271,11 @@ const MerchOrderShippingMethod = props => {
           </div>
         </div>
       </div>
-      <div className={styles.borderLine} />
-      <div className="w-full lg:px-[30px] mt-[20px]">
+      {/* <div className={styles.borderLine} /> */}
+      <div className="w-full mt-[20px]">
         <div className="w-full mt-[20px]">
           {isLoading ? (
-            <LoadingPrimaryButton fullWidth />
+            <LoadingButton fullWidth />
           ) : (
             <PrimaryButton disabled={!total} label="Checkout" type="buy-now" fullWidth onClick={() => onCheckout()} />
           )}

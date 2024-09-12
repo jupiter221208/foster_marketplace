@@ -9,7 +9,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 500px;
   background: var(--background-main-color);
   border-radius: 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
@@ -20,6 +19,7 @@
     @media (min-width: 1024px) {
       margin-top: 0px;
       margin-bottom: 2px;
+      height: calc(100% - 2px);
     }
   }
 }
@@ -69,7 +69,7 @@
 
 .profileContainer {
   width: 100%;
-  height: 75px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,15 +84,9 @@
   border-bottom-right-radius: 10px;
   padding: 13px 20px;
   @media (min-width: 1024px) {
-    padding: 13px 14px;
+    padding: 16px 10px;
   }
-  @media (min-width: 1280px) {
-    padding: 13px 18px;
-  }
-  @media (min-width: 1440px) {
-    padding: 13px 18px;
-  }
-  @media (min-width: 1680px) {
+  @media (min-width: 1200px) {
     padding: 16px 21px;
   }
 }
@@ -171,30 +165,46 @@
 .bidCountContainer {
   display: flex;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .endTimeContainer {
   margin-left: 4px;
   @media (min-width: 1024px) {
-    margin-left: 2px;
-  }
-  @media (min-width: 1680px) {
     margin-left: 4px;
   }
 }
 
 .bidName {
   font-family: 'Muli-Light';
+  @media (min-width: 1024px) {
+    font-size: 13px;
+    line-height: 18px;  
+  }
+  @media (min-width: 1200px) {
+    font-size: 14px;
+    line-height: 18px;  
+  }
   font-size: 14px;
+  line-height: 18px;
   font-weight: 100;
   text-align: start;
   color: rgba(var(--text-gray-200-color-rgb), 0.85);
 }
 
 .bidTime {
+  @media (min-width: 1024px) {
+    font-size: 13px;
+    line-height: 18px;  
+  }
+  @media (min-width: 1200px) {
+    font-size: 14px;
+    line-height: 18px;  
+  }
   font-family: 'Muli-Light';
   font-size: 14px;
+  line-height: 18px;
+
   text-align: right;
   color: rgba(var(--text-gray-200-color-rgb), 0.85);
 }
@@ -202,37 +212,39 @@
 .bidCount {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-  line-height: 23px;
-  margin-left: 5px;
+  font-weight: 100;
+  line-height: 20px;
   color: var(--text-gray-200-color);
 }
 
 .bidDesc {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-Light';
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
   font-size: 16px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  @media (min-width: 1680px) {
+  line-height: 18px;
+    @media (min-width: 1024px) {
     font-size: 16px;
+    line-height: 18px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: var(--text-gray-200-color);
 }
 
 .endTime {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
+  line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 18px;
   }
-  @media (min-width: 1680px) {
+  @media (min-width: 1200px) {
     font-size: 16px;
+    line-height: 18px;
   }
-  gap: 2px;
   color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;

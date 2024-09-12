@@ -368,6 +368,10 @@ const EditMetaModal = props => {
                                 'image/jpeg': [],
                                 'image/png': [],
                                 'image/gif': [],
+                                'video/mp4': [],
+                                'audio/mpeg': [],
+                                'audio/wav': [],
+                                'model/gltf-binary': ['.glb'],
                               }}
                               maxSize={31457280}
                             >
@@ -465,6 +469,9 @@ const EditMetaModal = props => {
                           )}
                         </div>
                       </div>
+                      <div>
+                        <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
+                      </div>
                     </div>
                   ) : (
                     <div className="block lg:hidden g-container">
@@ -518,6 +525,10 @@ const EditMetaModal = props => {
                               'image/jpeg': [],
                               'image/png': [],
                               'image/gif': [],
+                              'video/mp4': [],
+                              'audio/mpeg': [],
+                              'audio/wav': [],
+                              'model/gltf-binary': ['.glb'],
                             }}
                             maxSize={31457280}
                           >

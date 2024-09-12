@@ -4,22 +4,21 @@
  width: 100%;
  height: 100%;
  border-radius: 10px;
- padding: 0px 16px 0px 16px;
   @media (min-width:1024px) {
     padding: 0px 20px 20px 0px;
     width: calc(100% + 30px);
     height: 100%;
-    max-height: 85vh;
     overflow: auto;
   }
 }
 
 .nftBG {
-  padding: 0px !important;
+  padding-top: 0px !important;
   @media (min-width:1024px) {
-    padding: 20px 20px 20px 30px !important;
-    background: var(--background-main-color);
-    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    padding-top: 30px !important;
+    // background: var(--background-main-color);
+    // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    height: 100%;
   }
 }
 
@@ -32,8 +31,8 @@
   }
 }
 
-.durationSelected {
-  width: 160px;
+.noneSelected {
+  width: 95px;
   height: 50px;
   border-radius: 25px;
   font-family: 'Muli-Regular';
@@ -45,7 +44,49 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  @media (min-width: 1024px) {
+  @media (min-width: 640px) {
+    border-radius: 30px;
+    width: 120px;
+    height: 50px;
+  }
+  -webkit-tap-highlight-color: transparent;
+}
+
+.noneDeselected {
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  width: 95px;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @media (min-width:640px) {
+    border-radius: 28px;
+    width: 120px;
+    height: 50px;
+  }
+  -webkit-tap-highlight-color: transparent;
+}
+
+.durationSelected {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  font-size: 16px;
+  color: var(--twitter-text-color);
+  background: var(--main-icon-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @media (min-width: 640px) {
     border-radius: 30px;
     width: 120px;
     height: 50px;
@@ -56,17 +97,59 @@
 .durationDeselected {
   font-family: 'Muli-Regular';
   font-weight: 100;
-  width: 160px;
+  width: 50px;
   height: 50px;
   border-radius: 25px;
   font-size: 16px;
   color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  @media (min-width:1024px) {
+  @media (min-width:640px) {
+    border-radius: 28px;
+    width: 120px;
+    height: 50px;
+  }
+  -webkit-tap-highlight-color: transparent;
+}
+
+.customSelected {
+  width: 114px;
+  height: 50px;
+  border-radius: 25px;
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  font-size: 16px;
+  color: var(--twitter-text-color);
+  background: var(--main-icon-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @media (min-width: 640px) {
+    border-radius: 30px;
+    width: 120px;
+    height: 50px;
+  }
+  -webkit-tap-highlight-color: transparent;
+}
+
+.customDeselected {
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  width: 114px;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  @media (min-width:640px) {
     border-radius: 28px;
     width: 120px;
     height: 50px;
@@ -112,23 +195,24 @@
 
 .datePicker {
   width: 100%;
-  max-width: 125px;
-  height: 45px;
-  background: var(--second-home-bg);
+  height: 50px;
+  background: transparent;
   border-radius: 9px;
-  color: var(--text-gray-200-color);
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   font-family: 'Muli-Regular';
   font-size: 14px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 10px;
   outline: none;
   cursor: pointer;
+  text-align: center;
   @media (min-width: 1024px) {
-    max-width: 428px;
+    min-width: 165px;
+  }
+  @media (min-width: 1280px) {
+    text-align: start;
   }
 }
 
@@ -161,13 +245,10 @@
 }
 
 .auctionStart {
-  font-family: 'Muli-Regular';
-  @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
-  }
+  font-family: 'Muli-SemiBold';
   font-weight: 100 !important;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 22px;
   color: var(--text-gray-200-color);
   text-align: left;
 }
@@ -178,10 +259,10 @@
 
 .description {
   font-family: 'Muli-Light';
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 100;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   margin-top: 9px;
 }
 
@@ -222,11 +303,67 @@
 }
 
 .radioText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.7 );
   cursor: pointer;
+}
+
+.selectedTimeBtn {
+  width: 100%;
+  height: 50px;
+  // @media (min-width: 1024px) {
+  //   width: 100px; 
+  // }
+  // @media (min-width: 1440px) {
+  //   width: 220px; 
+  //   min-width: 220px;
+  // }
+  // @media (min-width: 1680px) {
+  //   width: 220px; 
+  //   min-width: 260px;
+  // }
+  border-radius: 10px;
+  background: var(--main-icon-color) !important;
+  color: var(--background-main-color);
+  svg {
+    fill: var(--background-main-color);
+  }
+}
+
+.deselectedTimeBtn {
+  width: 100%;
+  height: 50px;
+  // @media (min-width: 1024px) {
+  //   width: 200px; 
+  //   min-width: 220px;
+  // }
+  // @media (min-width: 1440px) {
+  //   width: 260px; 
+  //   min-width: 260px;
+  // }
+  border-radius: 10px;
+  background: transparent !important;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--main-bg-color);
+  svg {
+    fill: var(--main-bg-color);
+  }
+}
+
+.selectedTimeIcon {
+  svg {
+    fill: var(--background-main-color) !important;
+  }
+}
+
+.deselectedTimeIcon {
+  svg {
+    fill: var(--main-bg-color) !important;
+  }
 }
 
 
@@ -276,24 +413,32 @@
   background: white;
 }
 
-.merchText {
+.merchEdition {
   font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}
+
+.merchText {
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .merchArea {
   position: relative;
   width: 100%;
   height: 87px;
-  background: rgba(var(--main-bg-color-rgb), 0.02);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .assetArea {
@@ -301,8 +446,8 @@
   min-width: 65px;
   height: 65px;
   border-radius: 10px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // background: rgba(var(--main-bg-color-rgb), 0.05);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   overflow: hidden;
 }
 
@@ -333,6 +478,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  max-width: 192px;
   @media (min-width: 640px) {
     overflow: visible;
     margin-top: 7px;
@@ -340,26 +486,21 @@
 }
 
 .contentArea {
-  width: calc(100% - 140px);
-  margin-top: 8px;
+  width: calc(100% - 115px);
+  margin-top: 9px;
 }
 
 .merchButton {
-  width: 82px;
-  height: 32px;
-  color: var(--text-gray-200-color);
-  border-radius: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Muli-SemiBold";
-  font-weight: 100;
-  font-size: 14px;
-  line-height: 18px;
-  margin-top: 13px;
-  margin-right: 16px;
+  margin-top: 15px;
+  margin-right: 11px;
   cursor: pointer;
 }
 
@@ -381,7 +522,7 @@
   width: 100%;
   height: auto;
   padding: 0px 22px;
-  margin-top: 23px;
+  margin-top: 30px;
   background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 10px;

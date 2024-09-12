@@ -18,7 +18,8 @@ import PriceInput from 'components/Input/PriceInput'
 
 // resource
 import BackIcon from 'assets/icons/back-arrow.svg?component'
-import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
+import CalendarIcon from 'assets/icons/calendar-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -70,6 +71,13 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
   const [endPhaseDurationType, setEndPhaseDurationType] = useState('none')
   const [buttonDisabled, setButtonDisabled] = useState(true)
   const [day, setDay] = useState('')
+  const [dateDisabled, setDateDisabled] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDateDisabled(false)
+    }, 1000)
+  }, [])
 
   const endDate = useMemo(() => {
     var plusDays = Number(days)
@@ -167,7 +175,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
     <div className="w-full">
       <div
         className={`${styles.container} ${fromNFT ? styles.nftBG : ''} ${
-          fromNFT ? 'mt-[0px]' : 'mt-[24px] lg:mt-[55px]'
+          fromNFT ? 'mt-[0px]' : 'mt-[24px] lg:mt-[40px]'
         }`}
       >
         <div className={`w-full flex justify-between mt-[0px] lg:mt-[30px]`}>
@@ -178,33 +186,17 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[24px]">
-            <div className={styles.auctionStart}>
-              Auction Start <span className={styles.auctionAsterisk}>*</span>
-            </div>
+          <div className="w-full mt-[30px]">
+            <div className={styles.auctionStart}>Auction Start</div>
           </div>
           <div
-            className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-[70px]'
-            }`}
+            className={`w-full flex sm:flex-row flex-col mt-[15px] ${viewport === 'xs' ? 'gap-[15px]' : 'gap-[22px]'}`}
           >
-            <div
-              className={`flex items-center ${
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-              }`}
-            >
-              <input
-                className={styles.radio}
-                type="radio"
-                id="reserve"
-                checked={startType === 'soon'}
-                onChange={() => {
-                  setStartDate(new Date())
-                  setStartType('soon')
-                }}
-              />
+            <div className={`w-full flex items-center`}>
               <div
-                className={styles.radioText}
+                className={`${styles.radioText} ${
+                  startType === 'soon' ? styles.selectedTimeBtn : styles.deselectedTimeBtn
+                }`}
                 onClick={() => {
                   setStartDate(new Date())
                   setStartType('soon')
@@ -213,40 +205,33 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
                 Immediately
               </div>
             </div>
-            <div
-              className={`flex items-center ${
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-              }`}
-            >
-              <input
-                className={styles.radio}
-                type="radio"
-                id="reserve"
-                checked={startType === 'later'}
-                onChange={() => setStartType('later')}
-              />
-              <div>
-                <div className="w-full startAuctionDatePicker">
-                  <div className="relative">
-                    <DatePicker
-                      selected={startDate}
-                      onChange={date => setStartDate(date)}
-                      dateFormat={
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                          ? 'MM/dd/yyyy'
-                          : 'MM/dd/yyyy h:mm aa'
-                      }
-                      formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                      minDate={moment().toDate()}
-                      showTimeInput
-                      timeInputLabel=""
-                      className={styles.datePicker}
-                      disabled={startType === 'soon'}
-                      customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                    />
-                    <div className="absolute top-[20px] right-4">
-                      <ArrowDownIcon alt="" />
-                    </div>
+
+            <div className="w-full" onClick={() => setStartType('later')}>
+              <div className="w-full startAuctionDatePicker">
+                <div
+                  className={`flex justify-between items-center px-[20px] overflow-hidden ${
+                    startType === 'soon' ? styles.deselectedTimeBtn : styles.selectedTimeBtn
+                  }`}
+                >
+                  <div className={`${startType === 'soon' ? styles.deselectedTimeIcon : styles.selectedTimeIcon}`}>
+                    <CalendarIcon alt="" />
+                  </div>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={date => setStartDate(date)}
+                    dateFormat={'MM/dd/yyyy h:mm aa'}
+                    formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                    minDate={moment().toDate()}
+                    showTimeInput
+                    timeInputLabel=""
+                    className={`${styles.datePicker} ${
+                      startType === 'soon' ? styles.deselectedPickerText : styles.selectedPickerText
+                    }`}
+                    disabled={dateDisabled}
+                    customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                  />
+                  <div className={`${startType === 'soon' ? styles.deselectedTimeIcon : styles.selectedTimeIcon}`}>
+                    <ArrowDownIcon alt="" />
                   </div>
                 </div>
               </div>
@@ -254,16 +239,15 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           </div>
         </div>
 
-        <div className="w-full mt-[20px] lg:mt-[30px]">
-          <div className={styles.auctionStart}>
-            Reserve Bid <span className={styles.auctionAsterisk}>*</span>
-          </div>
+        <div className="w-full mt-[30px] lg:mt-[30px]">
+          <div className={styles.auctionStart}>Reserve Bid</div>
         </div>
         <div className="mt-[15px] w-full">
           <PriceInput
             value={reservePrice}
             placeholder="Set the reserve starting bid"
             fullWidth
+            backgroundColor="var(--bg-151515-EEEDEB)"
             type="number"
             min={0}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
@@ -278,9 +262,11 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         </div>
 
         {/* Auction Duration */}
-        <div className="w-full mt-[20px] lg:mt-[30px]">
+        <div className="w-full mt-[30px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Auction Duration <span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 'Auction Duration (hours)'
+              : 'Auction Duration'}{' '}
           </div>
         </div>
         <div
@@ -289,36 +275,36 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           }`}
         >
           <div
-            className={durationType === '24' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '24' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('24')
               setDurationType('24')
             }}
           >
-            24 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24' : '24 hours'}
           </div>
 
           <div
-            className={durationType === '48' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '48' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('48')
               setDurationType('48')
             }}
           >
-            48 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '48' : '48 hours'}
           </div>
 
           <div
-            className={durationType === '72' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '72' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('72')
               setDurationType('72')
             }}
           >
-            72 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '72' : '72 hours'}
           </div>
 
           <div
@@ -335,20 +321,18 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
 
         {durationType === 'custom' && (
           <div>
-            <div className="w-full mt-[20px] lg:mt-[30px]">
-              <div className={styles.auctionStart}>
-                Custom Duration <span className={styles.auctionAsterisk}>*</span>
-              </div>
+            <div className="w-full mt-[30px] lg:mt-[30px]">
+              <div className={styles.auctionStart}>Custom Duration</div>
             </div>
             <div className="mt-[15px] w-full flex gap-5">
               <div className="w-[170px] flex justify-start items-end gap-[10px]">
                 <Input
                   value={days}
-                  placeholder="0"
-                  backgroundColor={'var(--second-home-bg)'}
-                  borderColor="transparent"
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                  placeholder="Days"
+                  backgroundColor="var(--bg-151515-EEEDEB)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '45px'}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '160px' : '160px'}
                   fullWidth
                   borderRadius="9px"
                   min={0}
@@ -361,16 +345,15 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
                     }
                   }}
                 />
-                <div className={styles.dateFont}>Days</div>
               </div>
               <div className="w-[170px] flex justify-start items-end gap-[10px]">
                 <Input
                   value={hours}
-                  placeholder="0"
-                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                  borderColor="transparent"
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                  placeholder="Hours"
+                  backgroundColor="var(--bg-151515-EEEDEB)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '45px'}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '160px' : '160px'}
                   fullWidth
                   borderRadius="9px"
                   min={0}
@@ -383,7 +366,6 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
                     }
                   }}
                 />
-                <div className={styles.dateFont}>Hours</div>
               </div>
             </div>
             <div className="mt-2 w-full text-start">
@@ -400,19 +382,18 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           </div>
         )}
 
-        <div className="w-full mt-[20px] lg:mt-[30px]">
-          <div className={styles.auctionStart}>
-            Minimum Bid Increment <span className={styles.auctionAsterisk}>*</span>
-          </div>
+        <div className="w-full mt-[30px] lg:mt-[30px]">
+          <div className={styles.auctionStart}>Minimum Bid Increment</div>
         </div>
         <div className="mt-[15px] w-full">
           <PriceInput
             value={minBidIncrement}
             placeholder="Set the minimum bid increment"
+            backgroundColor="var(--bg-151515-EEEDEB)"
             fullWidth
             type="number"
             min={0}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '45px'}
             onChange={value => {
               if (value < 0) {
                 setMinBidIncrement('')
@@ -424,21 +405,17 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         </div>
 
         {/* End Phase */}
-        <div className="w-full mt-[20px] lg:mt-[30px]">
-          <div className={styles.auctionStart}>
-            End Phase <span className={styles.auctionAsterisk}>*</span>
-          </div>
+        <div className="w-full mt-[30px] lg:mt-[30px]">
+          <div className={styles.auctionStart}>End Phase</div>
           <div className={styles.description}>
-            Setting the end phase to <span className={styles.descriptionSpan}>clock reset</span> will apply a 5-minute
-            clock reset if a bid is placed in the last five minutes of the auction. If you select{' '}
-            <span className={styles.descriptionSpan}>knife fight</span>, the auction duration will not be extended by
-            final bids.
+            Setting the end phase to clock reset will add 5 minutes to the auction if a bid is placed in the final 5
+            minutes.
           </div>
         </div>
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-8'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-6' : 'gap-8'
           }`}
         >
           <div
@@ -461,13 +438,14 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         </div>
 
         {/* End Phase Duration */}
-        <div className="w-full mt-[20px] lg:mt-[30px]">
+        <div className="w-full mt-[30px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            End Phase Duration&nbsp;<span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 'End Phase Duration (mins)'
+              : 'End Phase Duration'}
           </div>
           <div className={styles.description}>
-            Applying an end phase duration allows you to set a higher bid increment during the remaining given time
-            frame.
+            Applying an end phase duration lets you set a higher bid increment for the remaining time set.
           </div>
         </div>
 
@@ -485,50 +463,49 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
             None
           </div>
           <div
-            className={endPhaseDurationType === '15' ? styles.durationSelected : styles.durationDeselected}
+            className={endPhaseDurationType === '15' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setEndPhaseDurationType('15')
             }}
           >
-            15 mins
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '15' : '15 mins'}
           </div>
           <div
-            className={endPhaseDurationType === '30' ? styles.durationSelected : styles.durationDeselected}
+            className={endPhaseDurationType === '30' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setEndPhaseDurationType('30')
             }}
           >
-            30 mins
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30' : '30 mins'}
           </div>
           <div
-            className={endPhaseDurationType === '60' ? styles.durationSelected : styles.durationDeselected}
+            className={endPhaseDurationType === '60' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setEndPhaseDurationType('60')
             }}
           >
-            60 mins
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '60' : '60 mins'}
           </div>
         </div>
 
         {/* End Phase Bid Increasement */}
         {endPhaseDurationType !== 'none' && (
           <div className="w-full">
-            <div className="w-full mt-[20px] lg:mt-[30px]">
-              <div className={styles.auctionStart}>
-                End Phase Bid Increasement&nbsp;<span className={styles.auctionAsterisk}>*</span>
-              </div>
+            <div className="w-full mt-[30px] lg:mt-[30px]">
+              <div className={styles.auctionStart}>End Phase Bid Increasement</div>
               <div className={styles.description}>
-                The end phase bid increment is the increment between bids during the end phase duration of the auction.
+                {"The end phase bid increment is the amount by which bids increase during the auction's end phase."}
               </div>
             </div>
             <div className="mt-[15px] w-full">
               <PriceInput
                 value={endBidIncrement}
                 placeholder="Set the end phase bid increment"
+                backgroundColor="var(--bg-151515-EEEDEB)"
                 fullWidth
                 type="number"
                 min={0}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '45px'}
                 onChange={value => {
                   if (value < 0) {
                     setEndBidIncrement('')
@@ -540,7 +517,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
             </div>
           </div>
         )}
-        <div className="mt-[45px] mb-[45px] lg:mb-[80px] w-full">
+        <div className="mt-[30px] mb-[45px] lg:mb-[80px] w-full">
           {isLoading ? (
             <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
           ) : (

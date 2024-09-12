@@ -2,25 +2,19 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-// third party components
-import { useDispatch } from 'react-redux'
-
 // custom functions
 import { useDetectRouterPath } from 'utils'
 
 // images and icons
-import LogoIcon from 'assets/icons/logo-gray-big.svg?component'
-import LogoText from 'assets/icons/logo-text-01-dark.svg?component'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
+import FosterLogo from 'assets/logo-new.svg?component'
+import PageNotFound from 'assets/lottery/page-not-found.json'
 
 // styles
 import styles from './404.module.scss'
+import Lottie from 'lottie-react'
 
 const Custom404Page = () => {
   const router = useRouter()
-  // const isLoading = useSelector<any>(state => state.isLoading)
-  const dispatch = useDispatch()
   useDetectRouterPath(useRouter())
 
   return (
@@ -31,34 +25,26 @@ const Custom404Page = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="g-container">
-        <div className="lg:pt-[70px] pt-4">
-          <LogoText />
+        <div className="lg:pt-[25px] mt-[30px] justify-center lg:justify-start flex gap-[6px] items-center">
+          <FosterLogo className={styles.logoIcon} />
+          <div className={styles.logoFont}>foster</div>
         </div>
 
-        <div className="mt-[50px] lg:mt-[96px] min-h-full min-w-full relative">
-          <article className="absolute z-20 w-full flex flex-col items-center lg:block">
-            <h1 className={styles.title}>404 - Page Not Found</h1>
-            <p className={styles.text}>It looks like you have wandered away from the circus.</p>
-            <button className={styles.button} onClick={() => router.push('/')}>
-              Back to Home
-            </button>
-          </article>
+        <div className="w-full flex flex-col justify-center items-center mt-[-10px] lg:mt-[-40px]">
+          <div className="w-[270px] lg:w-[400px]">
+            <Lottie animationData={PageNotFound} loop={true} />
+          </div>
 
-          <div className={styles.iconBox}>
-            <div className="relative">
-              <div className={styles.iconLogoBox}>
-                <LogoIcon />
-              </div>
-              <div className={styles.ellipseBox}>
-                <EllipseBlue />
-                <EllipseGreen />
-              </div>
-            </div>
+          <div className={styles.oops}>OOPS! LOST IN THE VOID</div>
+          <div className={styles.content}>
+            Well, this is awkward. It seems the page you were looking for has gone off the grid.
+          </div>
+          <div className={styles.return} onClick={() => router.push('/')}>
+            {'RETURN TO HOMEPAGE'}
           </div>
         </div>
       </div>
-
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
+      <div className={styles.bottomSection}>{`© 2024 Foster Marketplace. All Rights Reserved`}</div>
     </div>
   )
 }

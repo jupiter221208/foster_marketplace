@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
-  lightMode: false,
+  lightMode: null,
   profileInfo: null,
   isLoading: false,
   isCollectionMinting: false,
@@ -11,6 +11,7 @@ const initialState = {
   openMobileSearchBox: false,
   openConnectWallet: false,
   createTab: null,
+  profileTab: '',
   exploreTab: 0,
   availabilityFilter: 3,
   artworkSort: '',
@@ -48,7 +49,6 @@ const initialState = {
   collectionCoverUrl: '',
   collectionKind: 'foster',
   merchBy: '',
-  merchOrderType: 'foster'
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

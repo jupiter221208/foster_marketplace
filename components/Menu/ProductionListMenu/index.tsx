@@ -12,13 +12,19 @@ import styles from './index.module.scss'
 
 // solana
 import ProductMenuItem from './ProductMenuItem'
+import { useViewport } from 'utils'
 
 const ProductionListMenu = props => {
-  const { label, data, selectedItem, setSelectedItem } = props
+  const { label, data, selectedItem, setSelectedItem, width = 600 } = props
+  const viewport = useViewport()
+
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
       <Menu>
-        <Menu.Button className="lg:w-auto w-full">
+        <Menu.Button
+          className="lg:w-auto w-full"
+          style={{ width: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : width }}
+        >
           <div className={styles.btnArea}>
             {label}
             <div>
@@ -36,7 +42,7 @@ const ProductionListMenu = props => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className={styles.menuArea}>
+          <Menu.Items className={styles.menuArea} style={{ width }}>
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem}>

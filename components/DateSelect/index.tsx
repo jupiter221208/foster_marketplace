@@ -19,7 +19,7 @@ const DateSelect = props => {
               <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
-          {/* <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"> */}
+
           <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
             <div className={styles.menuBlur}>
               <Listbox.Options className={styles.menuArea}>

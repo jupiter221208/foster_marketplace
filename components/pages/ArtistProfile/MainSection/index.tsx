@@ -6,9 +6,6 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import Image from 'next/image'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
@@ -20,7 +17,7 @@ import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
-import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
+import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg?component'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
@@ -28,14 +25,13 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-
-import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 
-import { copyToClipboard, isLoggedIn } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
@@ -50,9 +46,8 @@ import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import nftsAPI from 'apis/nfts'
-import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
-import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
+import ProfileInformationCard from 'components/Card/ProfileInformationCard'
 
 const MainSection = prop => {
   const {
@@ -107,7 +102,6 @@ const MainSection = prop => {
   const [showBannerBoard, setShowBannerBoard] = useState(false)
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
-  const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
   const [descCount, setDescCount] = useState(235)
   const [tempNftDescription, setTempNftDescription] = useState('')
   const [isTruncated, setIsTruncated] = useState(true)
@@ -153,7 +147,7 @@ const MainSection = prop => {
       setArtistFollowing(artistInfo.following)
       setArtistFollowers(artistInfo.followers)
 
-      let list = [{ id: 0, label: getShortAddress(artistInfo?.wallet_id), type: 'address' }]
+      let list = []
       if (artistInfo?.twitter_url?.length > 0) list.push({ id: list.length, label: 'Twitter', type: 'twitter' })
       if (artistInfo?.ig_url?.length > 0) list.push({ id: list.length, label: 'Instagram', type: 'instagram' })
       if (artistInfo?.site_url?.length > 0) list.push({ id: list.length, label: 'Website', type: 'website' })
@@ -347,7 +341,7 @@ const MainSection = prop => {
     )
   }
 
-  return viewport === 'md' || viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
       {hasLoading ? (
@@ -355,9 +349,9 @@ const MainSection = prop => {
       ) : (
         <div className={styles.bannerImage}>
           <img
-            // showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover"
+            alt=""
           />
           {isOwn && (
             <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
@@ -392,7 +386,7 @@ const MainSection = prop => {
           {showBannerBoard && (
             <div className={styles.bannerBoard}>
               <div className={styles.boardTitle}>Upload your profile banner</div>
-              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+              <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
               <div className="flex justify-end mt-[15px]">
                 <div className="flex gap-[9px]">
                   <OutlineButton
@@ -420,7 +414,7 @@ const MainSection = prop => {
                     fontSize={14}
                     onClick={() => {
                       setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
                       inputBannerFile.current.click()
                     }}
                   />
@@ -455,8 +449,10 @@ const MainSection = prop => {
                     fontSize={14}
                     onClick={() => {
                       setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                      router.push('/settings')
+                      setTimeout(() => {
+                        localStorage.setItem('isVisibleSocialBoard', 'false')
+                        router.push('/settings')
+                      }, 500)
                     }}
                   />
                 </div>
@@ -468,7 +464,7 @@ const MainSection = prop => {
 
       <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-45px] lg:mt-[-70px] z-10">
-          <div className="col-span-9">
+          <div className="col-span-4 xl:col-span-6">
             <div className="w-content relative">
               <ProfileArtistCard
                 isOwn={isOwn}
@@ -486,19 +482,66 @@ const MainSection = prop => {
             </div>
           </div>
 
-          <div className="col-span-3 h-full flex justify-end items-center pt-[30px] lg:pt-[10px]">
+          <div className="col-span-8 xl:col-span-6 h-full flex justify-end items-center pt-[30px] lg:pt-[10px] gap-[15px]">
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
+            ) : (
+              <div
+                className={`${styles.iconContainer} relative w-[142px] px-[8px] gap-[8px]`}
+                onClick={() => {
+                  copyToClipboard(artistInfo?.wallet_id || '')
+                  copyClipboardAlert('user-wallet')
+                }}
+              >
+                <FileCopyIcon alt="" />
+                <div className={styles.refereshText}>{getShortAddress(artistInfo?.wallet_id)}</div>
+                <CopyClipboardChip message="Wallet address copied" identifier="user-wallet" height={45} fontSize={13} />
+              </div>
+            )}
+
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[142px] h-[45px] rounded-[23px]`}></div>
+            ) : (
+              <div
+                className={`${styles.iconContainer} w-[142px] px-[8px] gap-[8px]`}
+                onClick={() => {
+                  router.push(`/${artistInfo?.username}/merch`)
+                }}
+              >
+                <CreatorMerchIcon alt="" />
+                <div className={styles.refereshText}>Merch&nbsp;Store</div>
+              </div>
+            )}
+
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[114px] h-[45px] rounded-[23px]`}></div>
+            ) : (
+              <div className={`${styles.iconContainer} w-[114px] px-[15px] gap-[8px]`} onClick={() => refreshNFT()}>
+                <div className="min-w-[20px] w-[20px] h-[26px] flex items-center">
+                  {refreshing ? (
+                    <Lottie width={20} height={20} animationData={RefreshMobileLottery} loop={true} className="mt-1" />
+                  ) : (
+                    <div>
+                      <RefreshMobileIcon />
+                    </div>
+                  )}
+                </div>
+                <div className={styles.refereshText}>Refresh</div>
+              </div>
+            )}
+
             {!isOwn && (
-              <div className="w-[120px] h-[45px] lg:ml-[10px] overflow-hidden">
+              <div className="w-[120px] h-[45px] overflow-hidden">
                 {!followLoaded && (
-                  <div className="w-[120px] h-[45px] overflow-hidden rounded-[12px]">
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
+                  <div className="w-[120px] h-[45px] overflow-hidden rounded-[23px] overflow-hidden">
+                    <div className="skeletonLoader" />
                   </div>
                 )}
                 {follow ? (
                   hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[120px] h-[45px] rounded-md`}></div>
+                    <div className={`w-[110px] h-[45px] rounded-[23px] overflow-hidden`}>
+                      <div className="skeletonLoader" />
+                    </div>
                   ) : (
                     <OutlineButton
                       width={120}
@@ -510,14 +553,15 @@ const MainSection = prop => {
                     />
                   )
                 ) : hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[120px] h-[45px] rounded-md`}></div>
+                  <div className={`w-[110px] h-[45px] rounded-[23px] overflow-hidden`}>
+                    <div className="skeletonLoader" />
+                  </div>
                 ) : (
                   <GradientButton
-                    width={120}
+                    width={110}
                     height={45}
                     color="var(--background-main-color)"
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
+                    backgroundColor="var(--main-bg-color)"
                     fontSize={18}
                     label="Follow"
                     borderRadius={22}
@@ -529,188 +573,26 @@ const MainSection = prop => {
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <div className="w-full flex flex-wrap z-10">
-            <div className="w-full h-[24px] mt-[19px] flex items-center">
-              <div className="flex gap-[15px] z-10 items-center">
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div
-                    className="cursor-pointer flex hover:opacity-60"
-                    onClick={() => {
-                      if (!isLoggedIn()) {
-                        setVisible(true)
-                        return
-                      }
-                      setType(0)
-                      setShowFollowModal(true)
-                    }}
-                  >
-                    <div className={styles.whiteText}>{artistFollowers}</div>
-                    &nbsp;
-                    <div className={styles.grayText}>Followers</div>
-                  </div>
-                )}
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div
-                    className="cursor-pointer flex hover:opacity-60"
-                    onClick={() => {
-                      if (!isLoggedIn()) {
-                        setVisible(true)
-                        return
-                      }
-                      setType(1)
-                      setShowFollowModal(true)
-                    }}
-                  >
-                    <div className={styles.whiteText}>{artistFollowing}</div>
-                    &nbsp;
-                    <div className={styles.grayText}>Following</div>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="w-full h-[24px] mt-[19px]">
-              <div className="flex gap-[11px] z-10 items-center">
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
-                    <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
-                      {refreshing ? (
-                        <Lottie
-                          width={26}
-                          height={26}
-                          animationData={RefreshMobileLottery}
-                          loop={true}
-                          className="mb-1"
-                        />
-                      ) : (
-                        <div>
-                          <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                        </div>
-                      )}
-                    </div>
-                    <div className={styles.refereshText}>Refresh</div>
-                  </div>
-                )}
-
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <WalletFilterMenu
-                    label={'Links'}
-                    data={walletList}
-                    selectedItem={selectedWallet}
-                    setSelectedItem={item => {
-                      if (item.type === 'address') {
-                        copyToClipboard(artistInfo?.wallet_id || '')
-                      } else if (item.type === 'twitter') {
-                        window.open(artistInfo?.twitter_url)
-                      } else if (item.type === 'instagram') {
-                        window.open(artistInfo?.ig_url)
-                      } else if (item.type === 'website') {
-                        window.open(artistInfo?.site_url)
-                      } else if (item.type === 'land') {
-                        window.open(artistInfo?.three_land_url)
-                      } else if (item.type === 'solar') {
-                        window.open(artistInfo?.solarplex_url)
-                      }
-                    }}
-                  />
-                )}
-
-                {/* {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div
-                    className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-                    onClick={() => {
-                      router.push(`/${artistInfo?.username}/merch`)
-                    }}
-                  >
-                    <CreatorMerchIcon alt="" />
-                    <div className={styles.refereshText}>Merch</div>
-                  </div>
-                )} */}
-
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div
-                    className={`${styles.iconContainer} w-[87px] gap-[9px]`}
-                    onClick={() => {
-                      setOpenShareModal(true)
-                    }}
-                  >
-                    <div>
-                      <ShareDesktopIcon alt="" />
-                    </div>
-                    <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {artistInfo?.bio && (
-              <div className={`w-full mt-[30px] ${styles.bioText}`}>
-                {processedNftDescription}
-                {shouldShowReadMore && (
-                  <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                    {isTruncated ? '... Expand' : ' Collapse'}
-                  </span>
-                )}
-              </div>
-            )}
-
-            <div className="w-full mt-[30px] mb-[30px] flex gap-[15px] items-center">
-              {!isColletorLoaded ? (
-                <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
-              ) : (
-                <div className="flex gap-[6px] items-center">
-                  <div className={styles.statisticValue}>{artistStatsInfo?.nfts_created}</div>
-                  <div className={styles.statisticLabel}>Created</div>
-                </div>
-              )}
-
-              <div className={styles.statisticBorder} />
-
-              {!isColletorLoaded ? (
-                <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
-              ) : (
-                <div className="flex gap-[6px] items-center">
-                  <div className={styles.statisticValue}>{collectorStatsInfo?.nfts_collected}</div>
-                  <div className={styles.statisticLabel}>Collected</div>
-                </div>
-              )}
-
-              <div className={styles.statisticBorder} />
-
-              {!isColletorLoaded ? (
-                <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
-              ) : (
-                <div className="flex gap-[6px] items-center">
-                  <SolanaLogoIcon alt="" className="mt-[2px]" />
-                  <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
-                  <div className={styles.statisticLabel}>Sold</div>
-                </div>
-              )}
-
-              <div className={styles.statisticBorder} />
-
-              {!isColletorLoaded ? (
-                <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
-              ) : (
-                <div className="flex gap-[6px] items-center">
-                  <SolanaLogoIcon alt="" className="mt-[2px]" />
-                  <div className={styles.statisticValue}>{collectorStatsInfo?.purchase_volume}</div>
-                  <div className={styles.statisticLabel}>Purchased</div>
-                </div>
-              )}
-            </div>
-          </div>
+          <ProfileInformationCard
+            hasLoading={hasLoading}
+            setVisible={setVisible}
+            setType={setType}
+            setShowFollowModal={setShowFollowModal}
+            artistFollowers={artistFollowers}
+            artistFollowing={artistFollowing}
+            walletList={walletList}
+            artistInfo={artistInfo}
+            setOpenShareModal={setOpenShareModal}
+            processedNftDescription={processedNftDescription}
+            shouldShowReadMore={shouldShowReadMore}
+            toggleIsTruncated={toggleIsTruncated}
+            isTruncated={isTruncated}
+            isColletorLoaded={isColletorLoaded}
+            artistStatsInfo={artistStatsInfo}
+            collectorStatsInfo={collectorStatsInfo}
+            refreshing={refreshing}
+            refreshNFT={refreshNFT}
+          />
         </div>
       </div>
 
@@ -777,15 +659,7 @@ const MainSection = prop => {
   ) : (
     // mobile view
     <div className={styles.container}>
-      {/* {hasLoading ? (
-        <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
-      ) : ( */}
       <div className={styles.headerImage}>
-        {/* <ImageWithFoster
-            showPlaceHolder={false}
-            src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
-            className="w-full h-full object-cover rounded-none"
-          /> */}
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
@@ -824,7 +698,7 @@ const MainSection = prop => {
         {showBannerBoard && (
           <div className={styles.bannerBoard}>
             <div className={styles.boardTitle}>Upload your profile banner</div>
-            <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+            <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
             <div className="flex justify-end mt-[25px]">
               <div className="flex gap-[9px]">
                 <OutlineButton
@@ -893,10 +767,8 @@ const MainSection = prop => {
           </div>
         )}
       </div>
-      {/* )} */}
 
       <div className="g-container">
-        <div className="z-0"></div>
         <div className="w-full relative items-center mt-[-50px] z-10">
           <ProfileArtistCard
             isOwn={isOwn}
@@ -917,17 +789,17 @@ const MainSection = prop => {
             }
           />
 
-          <div className="absolute flex right-0 top-[60px]">
+          <div className="absolute flex gap-[15p]x right-0 top-[60px]">
             {!isOwn && (
-              <div className="w-[100px] h-[40px] ml-[11px] flex overflow-hidden">
+              <div className="w-[100px] h-[45px] ml-[11px] flex overflow-hidden">
                 {followLoaded ? (
                   follow ? (
                     hasLoading ? (
-                      <div className={`${styles.skeletonLoader} w-[100px] h-[40px] rounded-md`}></div>
+                      <div className={`${styles.skeletonLoader} w-[110px] h-[40px] rounded-md`}></div>
                     ) : (
-                      <OutlineButton
-                        width={100}
-                        height={40}
+                      <GradientButton
+                        width={110}
+                        height={45}
                         fontSize={16}
                         borderRadius={20}
                         label="Following"
@@ -935,25 +807,22 @@ const MainSection = prop => {
                       />
                     )
                   ) : hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[100px] h-[40px] rounded-md`}></div>
+                    <div className={`${styles.skeletonLoader} w-[110px] h-[40px] rounded-md`}></div>
                   ) : (
                     <GradientButton
-                      width={100}
-                      height={40}
-                      backgroundColor01="var(--main-icon-color)"
-                      backgroundColor02="var(--main-icon-color)"
+                      width={110}
+                      height={45}
                       color="var(--background-main-color)"
+                      backgroundColor="var(--main-bg-color)"
                       fontSize={16}
                       label="Follow"
-                      borderRadius={20}
+                      borderRadius={23}
                       onClick={() => followArtist(artistInfo?.wallet_id)}
                     />
                   )
                 ) : (
-                  <div className="w-[80px] h-[29px] rounded-[8px] overflow-hidden">
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
+                  <div className="w-[110px] h-[40px] rounded-[20px] overflow-hidden">
+                    <div className="skeletonLoader" />
                   </div>
                 )}
               </div>
@@ -961,176 +830,26 @@ const MainSection = prop => {
           </div>
         </div>
 
-        <div className="flex gap-[15px] mt-2">
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-full`}></div>
-          ) : (
-            <div
-              className="cursor-pointer flex hover:opacity-60 z-10"
-              onClick={() => {
-                if (!isLoggedIn()) {
-                  setVisible(true)
-                  return
-                }
-                setType(0)
-                setShowFollowModal(true)
-              }}
-            >
-              <div className={styles.whiteText}>{artistInfo?.followers}</div>
-              &nbsp;
-              <div className={styles.grayText}>Followers</div>
-            </div>
-          )}
-
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-full`}></div>
-          ) : (
-            <div
-              className="cursor-pointer flex hover:opacity-60 z-10"
-              onClick={() => {
-                if (!isLoggedIn()) {
-                  setVisible(true)
-                  return
-                }
-                setType(1)
-                setShowFollowModal(true)
-              }}
-            >
-              <div className={styles.whiteText}>{artistInfo?.following}</div>
-              &nbsp;
-              <div className={styles.grayText}>Following</div>
-            </div>
-          )}
-        </div>
-        <div className="w-full flex gap-[11px] mt-[15px]">
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
-              <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
-                {refreshing ? (
-                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
-                ) : (
-                  <div>
-                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                  </div>
-                )}
-              </div>
-              <div className={styles.refereshText}>Refresh</div>
-            </div>
-          )}
-
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-          ) : (
-            <WalletFilterMenu
-              label={'Links'}
-              data={walletList}
-              selectedItem={selectedWallet}
-              setSelectedItem={item => {
-                if (item.type === 'address') {
-                  copyToClipboard(artistInfo?.wallet_id || '')
-                } else if (item.type === 'twitter') {
-                  window.open(artistInfo?.twitter_url)
-                } else if (item.type === 'instagram') {
-                  window.open(artistInfo?.ig_url)
-                } else if (item.type === 'website') {
-                  window.open(artistInfo?.site_url)
-                } else if (item.type === 'land') {
-                  window.open(artistInfo?.three_land_url)
-                } else if (item.type === 'solar') {
-                  window.open(artistInfo?.solarplex_url)
-                }
-              }}
-            />
-          )}
-
-          {/* {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div
-              className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-              onClick={() => {
-                router.push(`/${artistInfo?.username}/merch`)
-              }}
-            >
-              <CreatorMerchIcon alt="" />
-              <div className={styles.refereshText}>Merch</div>
-            </div>
-          )} */}
-
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setOpenShareModal(true)}>
-              <div>
-                <ShareSmallIcon alt="" />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {artistInfo?.bio && (
-          <div className={`w-full mt-[15px] ${styles.bioText}`}>
-            {processedNftDescription}
-            {shouldShowReadMore && (
-              <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                {isTruncated ? '... Expand' : ' Collapse'}
-              </span>
-            )}
-          </div>
-        )}
-
-        <div className="w-full mt-[15px] flex gap-[5px]">
-          <div className={styles.statsConatiner}>
-            {!isColletorLoaded ? (
-              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
-            ) : (
-              <div>
-                <div className={styles.statisticValue}>{artistStatsInfo?.nfts_created}</div>
-                <div className={styles.statisticLabel}>Created</div>
-              </div>
-            )}
-          </div>
-          <div className={styles.statsConatiner}>
-            {!isColletorLoaded ? (
-              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
-            ) : (
-              <div>
-                <div className={styles.statisticValue}>{collectorStatsInfo?.nfts_collected}</div>
-                <div className={styles.statisticLabel}>Collected</div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="w-full mt-[5px] flex gap-[5px]">
-          <div className={styles.statsConatiner}>
-            {!isColletorLoaded ? (
-              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
-            ) : (
-              <div>
-                <div className="flex gap-[6px] items-center">
-                  <SolanaLogoIcon alt="" className="mt-[4px]" />
-                  <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
-                </div>
-                <div className={styles.statisticLabel}>Sold</div>
-              </div>
-            )}
-          </div>
-          <div className={styles.statsConatiner}>
-            {!isColletorLoaded ? (
-              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
-            ) : (
-              <div>
-                <div className="flex gap-[6px] items-center">
-                  <SolanaLogoIcon alt="" className="mt-[4px]" />
-                  <div className={styles.statisticValue}>{collectorStatsInfo?.purchase_volume}</div>
-                </div>
-                <div className={styles.statisticLabel}>Purchased</div>
-              </div>
-            )}
-          </div>
-        </div>
+        <ProfileInformationCard
+          hasLoading={hasLoading}
+          setVisible={setVisible}
+          setType={setType}
+          setShowFollowModal={setShowFollowModal}
+          artistFollowers={artistFollowers}
+          artistFollowing={artistFollowing}
+          walletList={walletList}
+          artistInfo={artistInfo}
+          setOpenShareModal={setOpenShareModal}
+          processedNftDescription={processedNftDescription}
+          shouldShowReadMore={shouldShowReadMore}
+          toggleIsTruncated={toggleIsTruncated}
+          isTruncated={isTruncated}
+          isColletorLoaded={isColletorLoaded}
+          artistStatsInfo={artistStatsInfo}
+          collectorStatsInfo={collectorStatsInfo}
+          refreshing={refreshing}
+          refreshNFT={refreshNFT}
+        />
       </div>
 
       {showFollowModal && (

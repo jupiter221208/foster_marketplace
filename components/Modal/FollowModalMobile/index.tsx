@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 
 // custom components
 import Image from 'next/image'
-import IconButton from 'components/Button/IconButton'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'

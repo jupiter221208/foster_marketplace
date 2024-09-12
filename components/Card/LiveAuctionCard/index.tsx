@@ -26,7 +26,7 @@ const LiveAuctionCard = props => {
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [hover, setHover] = useState(false)
-
+  const nftWidth = 600
   useEffect(() => {
     if (
       data.asset_type.includes('video') &&
@@ -47,7 +47,6 @@ const LiveAuctionCard = props => {
       data.end_time !== null
     ) {
       setTimeLeft(calculateAuctionTimeLeft(getStartTime(data)))
-
       const timer = setInterval(() => {
         let timeLeft = calculateAuctionTimeLeft(getStartTime(data))
         if (
@@ -76,6 +75,18 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
+
+  const isExpired = () => {
+    if (
+      timeLeft &&
+      timeLeft['days'] === '00' &&
+      timeLeft['hours'] === '00' &&
+      timeLeft['minutes'] === '00' &&
+      timeLeft['seconds'] === '00'
+    )
+      return true
+    return false
+  }
   return (
     <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className={styles.container}>
@@ -102,6 +113,7 @@ const LiveAuctionCard = props => {
                 <img
                   src={data?.artist_profile_picture}
                   onClick={() => {}}
+                  alt=""
                   width={44}
                   height={44}
                   className="w-[44px] rounded-full"
@@ -129,9 +141,9 @@ const LiveAuctionCard = props => {
                       ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
                         <ImageWithFoster
                           src={data.cover_image_url}
-                          width={500}
+                          width={nftWidth}
                           onClick={onClick}
-                          className="max-w-full max-h-full object-cover"
+                          className="-w-full h-full object-cover"
                         />
                       ) : (
                         <div
@@ -176,8 +188,8 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.cover_image_url}
-                    width={500}
-                    className="max-w-full max-h-full object-cover"
+                    width={nftWidth}
+                    className="w-full h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
@@ -187,9 +199,9 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.cover_image_url}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -198,9 +210,9 @@ const LiveAuctionCard = props => {
                 <a className="w-full h-full">
                   <ImageWithFoster
                     src={data.asset_url}
-                    width={500}
+                    width={nftWidth}
                     onClick={onClick}
-                    className="max-w-full max-h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </a>
               </Link>
@@ -210,53 +222,71 @@ const LiveAuctionCard = props => {
 
         <div className={`${styles.bidContainer} ${hover ? styles.bottomHover : ''}`}>
           <div className={styles.bidContentView}>
-            <div className="w-full flex justify-between">
-              <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
-              <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
-            </div>
-            <div>
-              <div className={styles.bidCountContainer}>
-                <div className={`h-full ${styles.sol_icon_color}`}>
-                  <SolanaLogoMobileIcon alt="" />
-                </div>
-                <div className={styles.bidCount}>
-                  {data.current_bid !== null && data.current_bid > 0
-                    ? formattedAmount(data.current_bid)
-                    : formattedAmount(data.reserve_price)}
-                </div>
+            {isExpired() ? (
+              <div className="w-full flex justify-between">
+                <div className={styles.bidName}>{'Status'}</div>
               </div>
+            ) : (
+              <div className="w-full flex justify-between">
+                <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
+                <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+              </div>
+            )}
+            <div>
+              {isExpired() ? (
+                <div className={styles.bidCountContainer}>
+                  <div className={styles.bidCount}>{'Auction Ended'}</div>
+                </div>
+              ) : (
+                <div className={styles.bidCountContainer}>
+                  <div className={`h-full mt-[3px] mr-[5px] ${styles.sol_icon_color}`}>
+                    <SolanaLogoMobileIcon alt="" />
+                  </div>
+                  <div className={styles.bidCount}>
+                    {data.current_bid !== null && data.current_bid > 0
+                      ? formattedAmount(data.current_bid)
+                      : data.reserve_price !== null
+                      ? formattedAmount(data.reserve_price)
+                      : ''}
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div>
-              <div className={styles.bidCountContainer}>
-                {timeLeft && timeLeft['days'] !== '00' && (
-                  <div>
+            {isExpired() ? (
+              <></>
+            ) : (
+              <div>
+                <div className={styles.bidCountContainer}>
+                  {timeLeft && timeLeft['days'] !== '00' && (
+                    <div>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['days']}
+                        <div className={styles.bidDesc}>d</div>
+                      </div>
+                    </div>
+                  )}
+                  <div className={styles.endTimeContainer}>
                     <div className={styles.endTime}>
-                      {timeLeft && timeLeft['days']}
-                      <div className={styles.bidDesc}>D</div>
+                      {timeLeft && timeLeft['hours']}
+                      <div className={styles.bidDesc}>h</div>
                     </div>
                   </div>
-                )}
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['hours']}
-                    <div className={styles.bidDesc}>H</div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['minutes']}
+                      <div className={styles.bidDesc}>m</div>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['minutes']}
-                    <div className={styles.bidDesc}>M</div>
-                  </div>
-                </div>
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['seconds']}
-                    <div className={styles.bidDesc}>S</div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['seconds']}
+                      <div className={styles.bidDesc}>s</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

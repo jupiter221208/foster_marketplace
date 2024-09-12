@@ -61,7 +61,6 @@ const ShoppingCartMenu = () => {
             <ShoppingCartSection onClose={() => toggleMenu()} />
           </div>
         )}
-        {/* </Transition> */}
       </HMenu>
     </div>
   )

@@ -51,23 +51,6 @@ const MobileNFTFilter = props => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        {/* <Disclosure defaultOpen={true}>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between">
-                <div className={`${styles.subTitle} mb-[12px]`}>Artist Verification</div>
-                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-              </Disclosure.Button>
-              <Disclosure.Panel>
-                <Radio
-                  data={ArtistVerificationList}
-                  selected={selectedVerifyType}
-                  onChange={item => setSelectedVerifyType(item)}
-                />
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure> */}
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
@@ -85,25 +68,6 @@ const MobileNFTFilter = props => {
             </>
           )}
         </Disclosure>
-
-        {/* <Disclosure>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>DIMENSIONS</div>
-                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-              </Disclosure.Button>
-              <Disclosure.Panel>
-                <Radio
-                  data={DimensionList}
-                  selected={selectedDimension}
-                  onChange={item => setSelectedDimension(item)}
-                  direction="rtl"
-                />
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure> */}
 
         <Disclosure defaultOpen={true}>
           {({ open }) => (
@@ -131,19 +95,7 @@ const MobileNFTFilter = props => {
             </>
           )}
         </Disclosure>
-        {/* <Disclosure>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>PRICE</div>
-                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-              </Disclosure.Button>
-              <Disclosure.Panel>
-                <PriceRange />
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure> */}
+
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>

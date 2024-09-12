@@ -6,7 +6,7 @@ import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
@@ -18,7 +18,6 @@ import Link from 'next/link'
 
 const ArtworksTable = props => {
   const { data } = props
-  const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
 
   return (
@@ -67,7 +66,7 @@ const ArtworksTable = props => {
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px]`}>
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[3px]" />
                   {item.amount}
                 </div>
               </td>

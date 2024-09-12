@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react'
 // components
 import Input from 'components/Input'
 
-// solana
-import { useMetaplex } from 'hooks/useMetaplex'
-import { getMyCollectionNFTs } from 'utils/nfts.utils'
-
 // custom functions
 import { useViewport } from 'utils'
 import { validDigits } from 'utils/helpers'
@@ -17,12 +13,9 @@ import { isValidPublicKey } from 'utils/wallet.util'
 import styles from './index.module.scss'
 
 // resources
-import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 import EditionList from 'assets/json/single-nft/edition-type.json'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import ProductionListMenu from 'components/ProductionListMenu'
 import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
@@ -47,27 +40,14 @@ const Step03SingleNFTSection = props => {
     handleSelectCategory,
     showCategoryList,
     setShowCategoryList,
-    onClickCancelCategory,
     onNextStep,
     onBack,
   } = props
   const viewport = useViewport()
-  const { metaplex: mx } = useMetaplex()
   const [edition, setEdition] = useState(EditionList[0])
   const [showAlert, setShowAlert] = useState(false)
-  const [enableMintBtn, setEnableMintBtn] = useState(false)
   const [maxNum, setMaxNum] = useState(MaxNumberList[0])
   const [supply, setSupply] = useState(0)
-
-  let alertData = [
-    {
-      id: 0,
-      title: 'Percentage Error',
-      description: `The sum of percentage should be 100%.`,
-      type: 'warning',
-    },
-  ]
-  const [collectionList, setCollectionList] = useState([])
 
   useEffect(() => {
     setDisabledNextButton(false)
@@ -76,34 +56,26 @@ const Step03SingleNFTSection = props => {
   }, [])
 
   useEffect(() => {
-    getMyCollectionNFTs(mx).then(setCollectionList)
-  }, [mx])
-
-  useEffect(() => {
     if (creatorList.length === 0) return
 
     if (creatorList.length === 1 && creatorList[0].address === '' && disabledNextButton) {
       setDisabledNextButton(false)
       setShowAlert(false)
-      setEnableMintBtn(true)
     }
 
     let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
     if (totalShares === 100) {
       if (disabledNextButton) setDisabledNextButton(false)
       setShowAlert(false)
-      setEnableMintBtn(true)
     } else {
       setDisabledNextButton(true)
       setShowAlert(true)
-      setEnableMintBtn(false)
     }
 
     let enabled = true
     for (let i = 0; i < creatorList.length; i++) {
       let creator = creatorList[i]
       if (creator.address.length === 0 || !isValidPublicKey(creator.address)) {
-        setEnableMintBtn(false)
         enabled = false
         break
       }
@@ -243,7 +215,7 @@ const Step03SingleNFTSection = props => {
                   )}
                 </div>
                 {creatorList.length > 0 && (
-                  <div className="flex gap-[4px] items-center">
+                  <div className="flex gap-[4px] items-center mt-[-5px]">
                     <input
                       className={styles.inputPros}
                       value={share}
@@ -269,7 +241,6 @@ const Step03SingleNFTSection = props => {
       {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
 
       <div className={styles.button} onClick={() => addAnotherCreator()}>
-        {/* <CrossPlusIcon /> */}
         Add Creator
       </div>
 
@@ -296,21 +267,13 @@ const Step03SingleNFTSection = props => {
   ) : (
     <div className="w-full">
       {type !== 0 && (
-        <div className="mt-[38px]">
+        <div className="mt-[20px]">
           <div className={styles.subTitle}>
             Edition type <span>*</span>
           </div>
-          <div className={styles.editionDescription}>Editions are created on-demand</div>
-          {/* <SwipRadio
-            data={EditionList}
-            selected={edition}
-            onChange={item => {
-              setEdition(item)
-              setEditionType(item)
-            }}
-          /> */}
           <div className="w-full mt-[15px]">
             <ProductionListMenu
+              width={343}
               label={edition['label']}
               data={EditionList}
               selectedItem={edition}
@@ -330,20 +293,22 @@ const Step03SingleNFTSection = props => {
                 {MaxNumberList.map((item, index) => (
                   <div
                     key={index}
-                    className={`${maxNum.id === item.id ? styles.selectSupply : styles.noneSupply}`}
+                    className={`${maxNum.id === item.id ? styles.mobileSelectSupply : styles.mobileNoneSupply} ${
+                      item.id === 3 ? 'w-[120px]' : 'w-[50px]'
+                    }`}
                     onClick={() => {
                       setMaxNum(item)
                       setMaxSupply(item.value)
                       setSupply(0)
                     }}
                   >
-                    {item.label}
+                    {item.id === 3 ? item.label : item.value}
                   </div>
                 ))}
               </div>
 
               {maxNum['id'] === 3 && (
-                <div className="max-w-[450px] mt-[40px]">
+                <div className="max-w-[450px] mt-[30px]">
                   <div className={styles.maxTitle}>
                     Custom Supply <span>*</span>
                   </div>
@@ -437,7 +402,6 @@ const Step03SingleNFTSection = props => {
       </div>
       {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
       <div className={styles.button} onClick={() => addAnotherCreator()}>
-        {/* <CrossPlusIcon /> */}
         Add Creator
       </div>
 

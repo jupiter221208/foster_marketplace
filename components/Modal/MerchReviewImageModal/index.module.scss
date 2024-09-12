@@ -1,0 +1,46 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background-color: rgba(#1a1a1a, 0.6);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  @media (min-width: 1024px) {
+    overflow: unset;
+    display: flex;  
+  }
+}
+
+.mainView {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;  
+  @media (min-width: 1024px) {
+    border-radius: 30px;  
+    width: 1000px;
+    min-width: 1000px;
+  }
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}

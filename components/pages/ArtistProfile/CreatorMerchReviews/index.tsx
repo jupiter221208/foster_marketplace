@@ -1,37 +1,51 @@
 import React, { useState, useEffect } from 'react'
-import MerchBadgeCard from 'components/Card/MerchBadgeCard'
+import { compareDate } from 'utils/helpers'
 
-// json
+import MerchReviewCard from 'components/Card/MerchReviewCard'
+import { getReview } from 'apis/merch'
 
 // styles
 import styles from './index.module.scss'
-import MerchReviewCard from 'components/Card/MerchReviewCard'
 
-const CreatorMerchReviews = () => {
+const CreatorMerchReviews = props => {
+  const { userId } = props
   const [merchList, setMerchList] = useState([])
+  const [loaded, setLoaded] = useState(false)
+
+  async function getReviewFromAPI() {
+    getReview(userId).then(
+      response => {
+        let dateSorted = response.sort(compareDate)
+        setMerchList(dateSorted)
+        setLoaded(true)
+      },
+      error => {
+        setLoaded(true)
+      }
+    )
+  }
 
   useEffect(() => {
-    setMerchList([
-      {
-        title: 'Merch Craftsman',
-      },
-      {
-        title: 'Solana Visionary',
-      },
-      {
-        title: 'Studio God',
-      },
-    ])
+    getReviewFromAPI()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className="w-full">
       <div>
-        {merchList.map((item, index) => (
-          <div className="w-full mb-[20px]" key={index}>
-            <MerchReviewCard data={item} />
+        {merchList?.length > 0 ? (
+          merchList?.map((item, index) => (
+            <div className="w-full mb-[20px]" key={index}>
+              <MerchReviewCard data={item} />
+            </div>
+          ))
+        ) : loaded ? (
+          <div className="w-full flex justify-center pt-[100px]">
+            <div className={styles.noReview}>No reviews yet.</div>
           </div>
-        ))}
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   )

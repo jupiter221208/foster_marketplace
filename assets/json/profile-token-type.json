@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "1 of 1",
+    "value": "single"
+  },
+  {
+    "id": 1,
+    "name": "Master Edition",
+    "value": "master-edition"
+  },
+  {
+    "id": 2,
+    "name": "Printed Edition",
+    "value": "print"
+  }
+]

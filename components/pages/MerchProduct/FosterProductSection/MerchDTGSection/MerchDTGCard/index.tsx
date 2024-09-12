@@ -16,7 +16,7 @@ const MerchDTGCard = props => {
   const getLabel = () => {
     let label = ''
     if (side === 'front') {
-      if (technique === 'dtg') label = 'Full Front'
+      if (technique === 'dtg') label = 'Front'
       else {
         if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') label = 'Left/Center Chest'
         else label = 'Left or Center Chest'
@@ -40,7 +40,10 @@ const MerchDTGCard = props => {
         <img src={image} alt="" />
       </div>
       <div className="flex flex-col gap-[2px] lg:mt-[11px] sm:mt-[11px] mt-[6px] justify-center items-center">
-        <div className={styles.side}>{getLabel()}</div>
+        <div className={styles.side}>
+          <p>{getLabel()}</p>
+          {side === 'back' && technique !== 'dtg' && <div>(DTG)</div>}
+        </div>
         {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
         {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}
       </div>

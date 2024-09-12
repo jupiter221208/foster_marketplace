@@ -105,66 +105,59 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
   }
 
   return (
-    <table id="ArtworksTable" className="w-full table-auto">
-      <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
-            <td>
-              <div className="flex justify-between">
-                <div className="h-[90px] flex items-center ml-[0px]">
-                  <Link href={`/nft/${item.mint_address}`} passHref>
+    <div className="w-full mt-[60px]">
+      {data.map((item, index) => (
+        <div key={index} className={styles.row}>
+          <div className="w-full flex justify-between">
+            <div className="h-[70px] flex items-center gap-[15px]">
+              <Link href={`/nft/${item.mint_address}`} passHref>
+                <a>
+                  <div className="w-[70px] h-[70px]">
+                    <ActivityTableItem url={item.asset_url} />
+                  </div>
+                </a>
+              </Link>
+              <div className="">
+                <div className="flex">
+                  <Link href={`/${getUserName(item)}`} passHref>
                     <a>
-                      <div className="w-[50px] h-[50px]">
-                        <ActivityTableItem url={item.asset_url} />
-                      </div>
+                      <div className={styles.userName}>{getDisplayUserName(getUserName(item))}</div>
                     </a>
                   </Link>
-                  <div className="ml-[15px]">
-                    <div className="flex">
-                      <Link href={`/${getUserName(item)}`} passHref>
-                        <a>
-                          <div className={styles.userName}>{getDisplayUserName(getUserName(item))}</div>
-                        </a>
-                      </Link>
-                      <div className={styles.text}>&nbsp;{getActionType(item)}&nbsp;</div>
-                      <div className="block">
-                        <Link href={`/nft/${item.mint_address}`} passHref>
-                          <a>
-                            <div className={styles.nftName}>
-                              {item.action_type === 'MasterEditionPrintCreated'
-                                ? getPrintAssetName(item)
-                                : item.asset_name}
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
-                      {isAmountExisting(item.action_type) && (
-                        <>
-                          <div className={styles.text}>&nbsp;for&nbsp;</div>
-                          <div className="flex justify-center items-center">
-                            {/* <SolanaLogoIcon /> */}
-                            {countDecimals(parseFloat(item.amount)) > 2
-                              ? parseFloat(item.amount).toFixed(2)
-                              : item.amount}
-                            &nbsp;SOL
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className={styles.date}>{getLocalDate(item.created_at)}</div>
+                  <div className={styles.text}>&nbsp;{getActionType(item)}&nbsp;</div>
+                  <div className="block">
+                    <Link href={`/nft/${item.mint_address}`} passHref>
+                      <a>
+                        <div className={styles.nftName}>
+                          {item.action_type === 'MasterEditionPrintCreated' ? getPrintAssetName(item) : item.asset_name}
+                        </div>
+                      </a>
+                    </Link>
                   </div>
+                  {isAmountExisting(item.action_type) && (
+                    <>
+                      <div className={styles.text}>&nbsp;for&nbsp;</div>
+                      <div className="flex justify-center items-center">
+                        {/* <SolanaLogoIcon /> */}
+                        {countDecimals(parseFloat(item.amount)) > 2 ? parseFloat(item.amount).toFixed(2) : item.amount}
+                        &nbsp;SOL
+                      </div>
+                    </>
+                  )}
                 </div>
-                <div className={styles.view}>
-                  <Link href={`/nft/${item.mint_address}`} passHref>
-                    <a>View</a>
-                  </Link>
-                </div>
+                <div className={styles.date}>{getLocalDate(item.created_at)}</div>
               </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+            </div>
+            <div className={styles.view}>
+              <div className={styles.border} />
+              <Link href={`/nft/${item.mint_address}`} passHref>
+                <a>View</a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }
 
