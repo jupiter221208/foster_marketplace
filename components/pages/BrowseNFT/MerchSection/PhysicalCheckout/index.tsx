@@ -494,12 +494,13 @@ const PhysicalCheckout = ({
             />
           )}
 
-          {orderType === 'v2' && helioEnabled && (
+          {/* {orderType === 'v2' && helioEnabled && (
             <div className={styles.helioContainer}>
               <HelioCheckout config={helioConfig} />
             </div>
-          )}
-          {!helioEnabled && <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />}
+          )} */}
+          {/* {!helioEnabled && <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />} */}
+          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
       <Alert
