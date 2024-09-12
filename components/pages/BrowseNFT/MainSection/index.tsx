@@ -485,7 +485,7 @@ const MainSection = ({
         },
       ])
       setShowAlert(true)
-      currentSupply(currentSupply + 1)
+      setCurrentSupply(currentSupply + 1)
       // setTimeout(() => {
       //   router.reload()
       // }, 1000)
@@ -501,6 +501,8 @@ const MainSection = ({
       setShowAlert(true)
     }
   }
+
+  console.log(currentSupply, '===========currentSupply=========')
 
   const makeOffer = async price => {
     setOpenProgressingModal(true)
