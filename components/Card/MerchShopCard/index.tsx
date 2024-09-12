@@ -112,10 +112,7 @@ const MerchShopCard = props => {
         }
       })
     }
-    setMerchItemList([
-      ...imageList.slice(imageList.length - 1, imageList.length),
-      ...imageList.slice(0, imageList.length - 1),
-    ])
+    setMerchItemList([...imageList.slice(1, imageList.length), ...imageList.slice(0, 1)])
     setIndicatorList(list)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep])
