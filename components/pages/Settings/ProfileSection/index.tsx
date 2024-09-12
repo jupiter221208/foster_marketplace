@@ -302,7 +302,7 @@ const ProfileSection = prop => {
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
                   onChange={value => {
-                    if (value.includes('twitter.com/')) {
+                    if (value.includes('twitter.com/') || value.includes('x.com/')) {
                       setErrorTwitterUrl('')
                     } else {
                       setErrorTwitterUrl('Please enter a valid website url.')
