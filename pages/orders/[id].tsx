@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getOrder } from 'apis/merch'
-import { findElement } from 'utils/helpers'
+import { findElement, isString } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
@@ -54,22 +54,19 @@ const OrderSection = props => {
       setOrderType('v2')
       StoreAPI.getOrder(id).then(
         response => {
-          setOrderData(response)
+          if (!isString(response)) setOrderData(response)
         },
         error => {}
       )
     } else {
       setOrderType('v1')
-      getOrder(id).then(setOrderData)
+      getOrder(id).then(
+        response => {
+          if (!isString(response)) setOrderData(response)
+        },
+        error => {}
+      )
     }
-
-    StoreAPI.getPaymentId(id).then(
-      response => {
-        console.log(response)
-        if (response) setPaymentId(response.paylink_id)
-      },
-      error => {}
-    )
   }, [id])
 
   useEffect(() => {
@@ -89,6 +86,15 @@ const OrderSection = props => {
       }
 
       setUsername(merchData?.username)
+
+      if (orderType === 'v2') {
+        StoreAPI.getPaymentId(id).then(
+          response => {
+            if (!isString(response)) setPaymentId(response.paylink_id)
+          },
+          error => {}
+        )
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderData])
