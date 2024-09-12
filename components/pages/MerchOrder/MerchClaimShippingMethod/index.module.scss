@@ -2,12 +2,13 @@
 
 .container {
   width: 100%;
-  min-height: 700px;
-  height: 100%;
+  // min-height: 700px;
+  height: 100vh;
   background: var(--background-main-color);
   @media (min-width: 1024px) {
     border: 1px solid var(--bg-303030-DDDCDC);
-    height: auto;
+    height: 73vh;
+    overflow: auto;
   }
   border-radius: 10px;
 }
