@@ -40,12 +40,20 @@
   }
 }
 
+.shareText::selection {
+  background-color: transparent;
+}
+
 .productName {
   font-family: 'Muli-Bold';
   font-size: 26px;
   line-height: 32px;
   color: var(--text-gray-200-color);
+  user-select: none;
+
 }
+
+
 
 .divider {
   width: 100%;
