@@ -374,6 +374,7 @@ const MerchClaimShipping = props => {
           )}
         </div>
       </div>
+
       <SizeChartModal
         open={tableModal}
         title={getApparelName()}
