@@ -502,8 +502,6 @@ const MainSection = ({
     }
   }
 
-  console.log(currentSupply, '===========currentSupply=========')
-
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 

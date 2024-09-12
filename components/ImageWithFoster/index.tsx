@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react'
 // styles
 import styles from './index.module.scss'
 import Image from 'next/image'
+import { isString } from 'utils/helpers'
 
 function shouldUseHeliusCdn(url: URL): boolean {
   let hostname = url.hostname
@@ -13,7 +14,7 @@ function shouldUseHeliusCdn(url: URL): boolean {
 
 function useHeliusCdn(urlString: string | null, options: Record<string, string | number> = {}): string | null {
   try {
-    if (!urlString || !urlString.match(/^https?:\/\//i)) return null
+    if (!urlString || !isString(urlString) || !urlString.match(/^https?:\/\//i)) return null
 
     // unwrap cdn urls
     let url = new URL(urlString)
