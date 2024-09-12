@@ -176,7 +176,7 @@ const MainSection = ({
   const [listEditionType, setListEditionType] = useState('list')
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
-
+  const [currentSupply, setCurrentSupply] = useState(editionDetail ? editionDetail.supply : 0)
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [buyLoading, setBuyLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
@@ -485,9 +485,10 @@ const MainSection = ({
         },
       ])
       setShowAlert(true)
-      setTimeout(() => {
-        router.reload()
-      }, 1000)
+      currentSupply(currentSupply + 1)
+      // setTimeout(() => {
+      //   router.reload()
+      // }, 1000)
     } else {
       setAlertData([
         {
@@ -1491,7 +1492,7 @@ const MainSection = ({
                               <MintEditionCard
                                 editionType={editionType}
                                 maxSupply={editionDetail.maxSupply}
-                                currentSupply={editionDetail.supply}
+                                currentSupply={currentSupply}
                                 buyLimit={nftInfo?.master_edition?.buyLimit}
                                 isEnded={isEnded}
                                 isStarted={isStarted}
