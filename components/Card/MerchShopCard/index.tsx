@@ -38,6 +38,7 @@ const MerchShopCard = props => {
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [openModal, setOpenModal] = useState(false)
   const [showActivateModal, setShowActivateModal] = useState(false)
+  const [merchItemList, setMerchItemList] = useState([])
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -88,8 +89,10 @@ const MerchShopCard = props => {
 
   useEffect(() => {
     let list = []
+    let imageList = []
     if (data.fulfillment_type === 'foster') {
       data.options.addons.map((item, index) => {
+        imageList.push(item)
         let step = currentStep % data.options.addons.length
         if (index === step) {
           list.push(true)
@@ -99,6 +102,8 @@ const MerchShopCard = props => {
       })
     } else {
       data.options.product_images.map((item, index) => {
+        imageList.push(item)
+
         let step = currentStep % data.options.product_images.length
         if (index === step) {
           list.push(true)
@@ -107,7 +112,10 @@ const MerchShopCard = props => {
         }
       })
     }
-
+    setMerchItemList([
+      ...imageList.slice(imageList.length - 1, imageList.length),
+      ...imageList.slice(0, imageList.length - 1),
+    ])
     setIndicatorList(list)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep])
@@ -140,7 +148,7 @@ const MerchShopCard = props => {
           loop={indicatorList.length > 1}
         >
           {data.fulfillment_type === 'foster'
-            ? data.options.addons.map((item, index) => (
+            ? merchItemList.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
                     <div className={styles.imageContent}>
@@ -153,7 +161,7 @@ const MerchShopCard = props => {
                   </div>
                 </SwiperSlide>
               ))
-            : data.options.product_images.map((item, index) => (
+            : merchItemList.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
                     <div className={styles.imageContentPhysical}>
