@@ -67,13 +67,6 @@ const OrderSection = props => {
         error => {}
       )
     }
-
-    StoreAPI.getPaymentId(id).then(
-      response => {
-        if (!isString(response)) setPaymentId(response.paylink_id)
-      },
-      error => {}
-    )
   }, [id])
 
   useEffect(() => {
@@ -93,6 +86,15 @@ const OrderSection = props => {
       }
 
       setUsername(merchData?.username)
+
+      if (orderType === 'v2') {
+        StoreAPI.getPaymentId(id).then(
+          response => {
+            if (!isString(response)) setPaymentId(response.paylink_id)
+          },
+          error => {}
+        )
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderData])
