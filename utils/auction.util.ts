@@ -16,11 +16,13 @@ import {
   toAuctioneerAccount,
   toAuctionHouseAccount,
   toBidReceiptAccount,
+  toBigNumber,
   toLazyBid,
   toMetadata,
   toMetadataAccount,
   toToken,
   toTokenAccount,
+  WRAPPED_SOL_MINT,
   type AuctionHouse,
   type Listing,
   type LazyListing,
@@ -110,6 +112,28 @@ export async function loadAuctionHouse(
   }
 
   return auctionHousePromise
+}
+
+export interface FindListingReceiptArgs{
+	metaplex: Metaplex
+	mint: PublicKey
+	seller: PublicKey
+	price: number
+}
+export function findListingReceipt({ metaplex, mint, seller, price }: FindListingReceiptArgs): PublicKey{
+	let tradeState = metaplex
+    .auctionHouse()
+    .pdas()
+    .tradeState({
+      auctionHouse: AUCTION_HOUSE_PUBLIC_KEY,
+      wallet: seller,
+      treasuryMint: WRAPPED_SOL_MINT,
+      tokenMint: mint,
+      price: toBigNumber(price),
+      tokenSize: toBigNumber(1),
+      tokenAccount: metaplex.tokens().pdas().associatedTokenAccount({ mint, owner: seller }),
+    });
+	return metaplex.auctionHouse().pdas().listingReceipt({ tradeState })
 }
 
 export async function listNFT(
