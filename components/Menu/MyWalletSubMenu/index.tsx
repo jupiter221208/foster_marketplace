@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
 import { PublicKey } from '@solana/web3.js'
@@ -30,18 +30,14 @@ import { depositFunds as depositBiddingFunds, withdrawFunds as withdrawBiddingFu
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
-import RightIcon from 'assets/icons/right-icon.svg?component'
-import DownIcon from 'assets/icons/down-icon.svg?component'
-import WalletIcon from 'assets/icons/wallet-icon.svg?component'
 import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 const MyWalletSubMenu = props => {
-  const { label, type = '' } = props
+  const { label, type = '', username } = props
   const router = useRouter()
-  const dispatch = useDispatch()
 
   const { connected, publicKey, disconnect } = useWallet()
 
@@ -450,7 +446,7 @@ const MyWalletSubMenu = props => {
                     <div
                       className={styles.viewActiveOffer}
                       onClick={() => {
-                        router.push(`/dashboard?tab=6`)
+                        router.push(`/${username}?tab=6&filter=9`)
                       }}
                     >
                       View active offers
@@ -603,7 +599,7 @@ const MyWalletSubMenu = props => {
                     <div
                       className={styles.viewActiveOffer}
                       onClick={() => {
-                        router.push(`/dashboard?tab=3`)
+                        router.push(`/${username}?tab=3`)
                       }}
                     >
                       View active bids

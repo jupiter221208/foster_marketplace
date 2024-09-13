@@ -22,9 +22,12 @@ import { ActivityAPIData } from 'types/nft'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
+import { useRouter } from 'next/router'
 
 const ActivitySection = props => {
   const { activityNfts, setActivityNfts } = props
+  const router = useRouter()
+  const { filter } = router.query
   const viewport = useViewport()
   const [loading, setLoading] = useState(false)
   const rowCount = 10
@@ -50,6 +53,17 @@ const ActivitySection = props => {
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'All Filter', search: '' })
 
   const { publicKey } = useWallet()
+
+  useEffect(() => {
+    if (loading) {
+      if (filter !== undefined) {
+        let index = Number(filter)
+        const item = filterList[index]
+        setSelectedItem(item)
+        setFilterKey(item.search)
+      }
+    }
+  }, [loading])
 
   useEffect(() => {
     if (activityNfts.length > 0) {

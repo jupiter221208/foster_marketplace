@@ -46,9 +46,9 @@ const StudioSignature = () => {
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [total, setTotal] = useState(0)
-
+  const [isGettingFeed, setIsGettingFeed] = useState(false)
   useEffect(() => {
-    if (isFetching === true) {
+    if (isFetching === true && !isGettingFeed) {
       let nextPage = pages + 1
       getStoreItem(nextPage, categoryList, subCateList, printList, apparelList, priceValue, sortList)
     }
@@ -132,9 +132,10 @@ const StudioSignature = () => {
     if (typeIds.length > 0) {
       params['typeIds'] = typeIds
     }
-
+    setIsGettingFeed(true)
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
+        setIsGettingFeed(false)
         setIsFetching(false)
         let filtered = getFilterData(response.products)
         setTotal(response.total)
@@ -153,6 +154,7 @@ const StudioSignature = () => {
         }
       },
       error => {
+        setIsGettingFeed(false)
         setIsFetching(false)
       }
     )
