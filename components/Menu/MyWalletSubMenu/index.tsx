@@ -446,7 +446,7 @@ const MyWalletSubMenu = props => {
                     <div
                       className={styles.viewActiveOffer}
                       onClick={() => {
-                        router.push(`/${username}?tab=6&filter=9`)
+                        router.push(`/${username}?tab=3&filter=9`)
                       }}
                     >
                       View active offers
@@ -599,7 +599,7 @@ const MyWalletSubMenu = props => {
                     <div
                       className={styles.viewActiveOffer}
                       onClick={() => {
-                        router.push(`/${username}?tab=3`)
+                        router.push(`/${username}?tab=2`)
                       }}
                     >
                       View active bids
