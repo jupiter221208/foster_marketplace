@@ -146,18 +146,18 @@ const PhysicalShipping = props => {
     }
 
     setIsLoading(true)
-    onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
 
-    // merchAPI.prepareCart(params).then(
-    //   response => {
-    //     onNext({ data, method: response })
-    //     setIsLoading(false)
-    //   },
-    //   error => {
-    //     setIsLoading(false)
-    //     setShowAlert(true)
-    //   }
-    // )
+    merchAPI.prepareCart(params).then(
+      response => {
+        if (response?.shippingMethods?.length > 0) {
+          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
+        } else setIsLoading(false)
+      },
+      error => {
+        setIsLoading(false)
+        setShowAlert(true)
+      }
+    )
   }
 
   const onCheckout = serviceCode => {

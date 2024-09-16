@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 
 // api
 import storeAPI from 'apis/store'
+import merchAPI from 'apis/merch'
 
 const MerchOrderShipping = props => {
   const { productId, type, data, onBack, onNext, merchList, rawList } = props
@@ -121,17 +122,18 @@ const MerchOrderShipping = props => {
       onCheckout('', 'user') // user fulfilled physical
     } else {
       // type === foster
-      onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
 
-      // merchAPI.prepareCart(params).then(
-      //   response => {
-
-      //   },
-      //   error => {
-      //     setIsLoading(false)
-      //     setShowAlert(true)
-      //   }
-      // )
+      merchAPI.prepareCart(params).then(
+        response => {
+          if (response?.shippingMethods?.length > 0)
+            onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+          else setIsLoading(false)
+        },
+        error => {
+          setIsLoading(false)
+          setShowAlert(true)
+        }
+      )
     }
   }
 

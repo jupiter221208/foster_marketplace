@@ -222,18 +222,20 @@ const MerchClaimShipping = props => {
     }
 
     setIsLoading(true)
-    onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
 
-    // merchAPI.prepareCart(params).then(
-    //   response => {
-    //     // onNext({ data, method: response })
-    //     // setIsLoading(false)
-    //   },
-    //   error => {
-    //     setIsLoading(false)
-    //     setShowAlert(true)
-    //   }
-    // )
+    merchAPI.prepareCart(params).then(
+      response => {
+        if (response?.shippingMethods?.length > 0)
+          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+        else setIsLoading(false)
+        // onNext({ data, method: response })
+        // setIsLoading(false)
+      },
+      error => {
+        setIsLoading(false)
+        setShowAlert(true)
+      }
+    )
   }
 
   const onCheckout = (serviceCode, type) => {

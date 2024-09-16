@@ -77,7 +77,6 @@ const PhysicalCheckout = ({
   //     },
   //   } as HelioEmbedTheme,
   // }
-  console.log(merchType, '==========merchTYpe===========')
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const shippingRes = merchType === 'user' ? orderData?.items[0].options.shipping_responsibility : ''
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
