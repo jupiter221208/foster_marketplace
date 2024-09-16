@@ -191,18 +191,18 @@ const PhysicalCheckout = ({
             : '') +
           ')'
         let colorText = getFirstUpperString(color)
-        let qty = 'Qty:' + itemQuantity
+        let qty = itemQuantity
         itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
         var technique = findElement(options, 'name', 'technique')['value']
         let type = 'Print Technique: ' + (technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery')
         let colorText = 'Color: ' + getFirstUpperString(color)
-        let qty = 'Qty: ' + itemQuantity
+        let qty = itemQuantity
         itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'user') {
         let type = 'User Fulfilled Physical Print'
-        let qty = 'Qty: ' + itemQuantity
+        let qty = itemQuantity
         itemList.push({ name: nftName, type, color: '', size, qty })
       }
     })

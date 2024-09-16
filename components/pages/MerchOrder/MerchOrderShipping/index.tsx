@@ -308,9 +308,7 @@ const MerchOrderShipping = props => {
             <LoadingButton height={50} fullWidth />
           ) : (
             <GradientButton
-              label={
-                type === 'physical' ? 'Checkout' : viewport === 'xs' ? 'Select Shipping' : 'Select Shipping Method'
-              }
+              label={'Checkout'}
               height={50}
               disabled={!enabled}
               fullWidth

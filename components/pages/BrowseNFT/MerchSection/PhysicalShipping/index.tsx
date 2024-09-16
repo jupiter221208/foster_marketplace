@@ -377,12 +377,7 @@ const PhysicalShipping = props => {
             {isLoading ? (
               <LoadingButton fullWidth />
             ) : (
-              <GradientButton
-                label="Select Shipping"
-                disabled={!enabled}
-                fullWidth
-                onClick={() => proceedToCheckout()}
-              />
+              <GradientButton label="Checkout" disabled={!enabled} fullWidth onClick={() => proceedToCheckout()} />
             )}
           </div>
           <div className="mt-[15px] mb-[15px] lg:mb-[30px]">

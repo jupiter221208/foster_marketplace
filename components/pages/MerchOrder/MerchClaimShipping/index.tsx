@@ -435,7 +435,7 @@ const MerchClaimShipping = props => {
             <LoadingButton height={50} fullWidth />
           ) : (
             <PrimaryButton
-              label="Select Shipping"
+              label="Checkout"
               type="shipping"
               disabled={!enabled}
               fullWidth
