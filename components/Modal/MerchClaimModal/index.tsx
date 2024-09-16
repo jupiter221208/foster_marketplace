@@ -104,17 +104,18 @@ const MerchClaimModal = ({ open, onClose, data }) => {
                     onClose={() => {
                       onClose()
                     }}
-                    onNext={info => {
-                      setShippingData(info.data)
-                      setShippingMethod(info.method)
+                    onNext={orderId => {
+                      setOrderId(orderId)
                       setCurrentStep(2)
                     }}
+                    data={printData}
+                    merchList={merchList}
+                    rawList={rawUrlList}
                     productId={productDetail?.product_type_id}
                     setMerchSize={setMerchSize}
-                    data={shippingData}
                   />
                 )}
-                {currentStep === 2 && (
+                {/* {currentStep === 2 && (
                   <MerchClaimShippingMethod
                     data={printData}
                     shippingData={shippingData}
@@ -131,12 +132,12 @@ const MerchClaimModal = ({ open, onClose, data }) => {
                       setCurrentStep(1)
                     }}
                   />
-                )}
-                {currentStep === 3 && (
+                )} */}
+                {currentStep === 2 && (
                   <MerchClaimCheckout
                     orderId={orderId}
                     onBack={() => {
-                      setCurrentStep(2)
+                      setCurrentStep(1)
                     }}
                   />
                 )}

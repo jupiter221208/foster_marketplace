@@ -2,15 +2,13 @@
 
 .container {
   width: 100%;
-  height: auto;
+  height: 100vh;
   padding: 15px 16px;
   margin-bottom: 50px;
   @media (min-width: 1024px) {
     min-width: 604px;
     max-width: 604px;
-      height: 80vh;
-      overflow: auto;
-    
+    height: 80vh;
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-radius: 20px;
     padding: 0px 30px 10px 30px;

@@ -8,6 +8,8 @@ import PrimaryButton from 'components/Button/PrimaryButton'
 import CountrySelect from 'components/Select/CountrySelect'
 import Alert from 'components/Alert'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
+import LoadingButton from 'components/Button/LoadingButton'
+import SizeChartModal from 'components/Modal/SizeChartModal'
 
 // custom functions
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -24,11 +26,10 @@ import styles from './index.module.scss'
 
 // api
 import merchAPI from 'apis/merch'
-import LoadingButton from 'components/Button/LoadingButton'
-import SizeChartModal from 'components/Modal/SizeChartModal'
+import storeAPI from 'apis/store'
 
 const MerchClaimShipping = props => {
-  const { onClose, onNext, productId, setMerchSize } = props
+  const { data, onClose, onNext, productId, setMerchSize, merchList, rawList } = props
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -221,14 +222,83 @@ const MerchClaimShipping = props => {
     }
 
     setIsLoading(true)
-    merchAPI.prepareCart(params).then(
+    onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+
+    // merchAPI.prepareCart(params).then(
+    //   response => {
+    //     // onNext({ data, method: response })
+    //     // setIsLoading(false)
+    //   },
+    //   error => {
+    //     setIsLoading(false)
+    //     setShowAlert(true)
+    //   }
+    // )
+  }
+
+  const onCheckout = (serviceCode, type) => {
+    let address = {
+      name: name,
+      street1: street,
+      street2: apartment,
+      street3: '',
+      city: city,
+      state: state.isoCode,
+      postalCode: zipCode,
+      country: country.isoCode,
+      phone: '',
+      residential: true,
+    }
+
+    const { description, color, quantity, size } = data
+    let item
+
+    // foster merch
+    let mockupUrls = [],
+      rawUrls = []
+    merchList.map(item => mockupUrls.push(item.url))
+    rawList.map(item => rawUrls.push(item.url))
+    item = {
+      id: productId.toString(),
+      quantity,
+      previewUrl: mockupUrls[0],
+      options: {
+        type: type,
+        nftName: data.name,
+        fosterUrl: window.location.href,
+        mockupUrl: mockupUrls.join(','),
+        assetUrl: rawUrls.join(','),
+        nftAddress: '',
+        apparel: description,
+        size: size,
+        color: color,
+        technique: data.technique,
+      },
+      notes: `This is studio merch V2 item`,
+    }
+
+    let params = {
+      customerEmail: email,
+      shippingServiceCode: serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: [item],
+      gift: true,
+      giftMessage:
+        'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
+      notes: 'Checkout Note',
+    }
+
+    storeAPI.checkout(params).then(
       response => {
-        onNext({ data, method: response })
-        setIsLoading(false)
+        if (response.orderNumber === undefined) {
+          setIsLoading(false)
+          return
+        }
+        onNext(response.orderNumber)
       },
       error => {
         setIsLoading(false)
-        setShowAlert(true)
       }
     )
   }
