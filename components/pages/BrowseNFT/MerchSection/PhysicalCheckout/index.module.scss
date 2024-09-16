@@ -251,6 +251,7 @@
   justify-content: center;
   align-items: center;
   color: var(--text-gray-200-color);
+  cursor: pointer;
 }
 
 .paySolBtn {
@@ -268,6 +269,7 @@
   svg {
     fill: var(--background-main-color) !important
   }
+  cursor: pointer;
 }
 
 .helioContainer {

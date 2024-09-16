@@ -10,6 +10,7 @@ import Alert from 'components/Alert'
 import { useViewport } from 'utils'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useSelector } from 'react-redux'
 
 // images
 
@@ -19,14 +20,17 @@ import CountrySelect from 'components/Select/CountrySelect'
 
 // api
 import merchAPI from 'apis/merch'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const PhysicalShipping = props => {
-  const { onBack, onNext, category, data, printData, wallArt, nftName } = props
+  const { onBack, onNext, category, data, printData, wallArt, mintAddress, nftName, nftCoverUrl } = props
   const viewport = useViewport()
+  const printImageUrl = useSelector(state => (state as any).printImageUrl)
+
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -142,14 +146,96 @@ const PhysicalShipping = props => {
     }
 
     setIsLoading(true)
-    merchAPI.prepareCart(params).then(
+    onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
+
+    // merchAPI.prepareCart(params).then(
+    //   response => {
+    //     onNext({ data, method: response })
+    //     setIsLoading(false)
+    //   },
+    //   error => {
+    //     setIsLoading(false)
+    //     setShowAlert(true)
+    //   }
+    // )
+  }
+
+  const onCheckout = serviceCode => {
+    setIsLoading(true)
+    let address = {
+      name: name,
+      // company: 'USPS',
+      street1: street,
+      street2: apartment,
+      street3: '',
+      city: city,
+      state: state.isoCode,
+      postalCode: zipCode,
+      country: country.isoCode,
+      phone: '',
+      residential: true,
+    }
+    const { apparel, gender, quality, color, print, quantity, size } = printData
+    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
+
+    let item
+    if (category === 'apparel') {
+      let item_id = apparel[gender.type][quality.type][color.type].item_id
+      item = {
+        id: item_id.toString(),
+        // sku: `SKU_${item_id.toString()}`,
+        quantity,
+        previewUrl: printImageUrl,
+        options: {
+          type: 'apparel',
+          nftName: nftName,
+          fosterUrl: `${origin}/nft/${mintAddress}`,
+          assetUrl: nftCoverUrl,
+          nftAddress: mintAddress,
+          apparel: apparel.description,
+          size: size.name,
+          color: color.type,
+          print: print.name,
+        },
+        notes: `This is apparel ${apparel.description} item`,
+      }
+    } else {
+      let item_id = printData.size.id
+      item = {
+        id: item_id.toString(),
+        quantity,
+        previewUrl: printImageUrl,
+        options: {
+          type: 'wallart',
+          nftName: nftName,
+          fosterUrl: `${origin}/nft/${mintAddress}`,
+          assetUrl: nftCoverUrl,
+          nftAddress: mintAddress,
+          size: `${size.width}x${size.height}`,
+        },
+        notes: `This is wallart ${printData.print.name} item`,
+      }
+    }
+
+    let params = {
+      customerEmail: email,
+      shippingServiceCode: serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: [item],
+      gift: true,
+      giftMessage:
+        'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
+      notes: 'Checkout Note',
+    }
+
+    merchAPI.checkout(params).then(
       response => {
-        onNext({ data, method: response })
-        setIsLoading(false)
+        onNext(response.orderNumber)
+        // setIsLoading(false)
       },
       error => {
         setIsLoading(false)
-        setShowAlert(true)
       }
     )
   }
@@ -291,9 +377,8 @@ const PhysicalShipping = props => {
             {isLoading ? (
               <LoadingButton fullWidth />
             ) : (
-              <PrimaryButton
+              <GradientButton
                 label="Select Shipping"
-                type="shipping"
                 disabled={!enabled}
                 fullWidth
                 onClick={() => proceedToCheckout()}
@@ -301,7 +386,7 @@ const PhysicalShipping = props => {
             )}
           </div>
           <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
-            <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
+            <OutlineButton label="Back" onClick={() => backToPage()} fullWidth />
           </div>
         </div>
       </div>

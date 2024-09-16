@@ -340,19 +340,19 @@ const PhysicalCheckout = ({
                 <SolanaIcon className="mt-[3px]" />
                 <div className={styles.solPrice}>{solTotalAmount.toFixed(2)}</div>
               </div>
-              <div className={styles.total}>${subTotalUsd}</div>
+              <div className={styles.total}>${subTotalUsd.toFixed(2)}</div>
             </div>
           </div>
           {merchType !== 'user' && (
             <div className="w-full flex justify-between items-center mt-[16px]">
               <div className={styles.total}>Shipping & Handling</div>
-              <div className={styles.total}>${shippingAmount}</div>
+              <div className={styles.total}>${shippingAmount.toFixed(2)}</div>
             </div>
           )}
           {merchType !== 'user' && (
             <div className="w-full flex justify-between items-center mt-[16px]">
               <div className={styles.total}>Taxes</div>
-              <div className={styles.total}>${taxAmount}</div>
+              <div className={styles.total}>${taxAmount.toFixed(2)}</div>
             </div>
           )}
           {merchType === 'user' && (
@@ -373,7 +373,7 @@ const PhysicalCheckout = ({
                 <SolanaIcon className="mt-[3px]" />
                 <div className={styles.solPrice}>{solAmount.toFixed(2)}</div>
               </div>
-              <div className={styles.total}>${total}</div>
+              <div className={styles.total}>${total.toFixed(2)}</div>
             </div>
           </div>
         </div>
