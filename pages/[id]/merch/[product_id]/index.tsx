@@ -402,13 +402,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   setShippingData(info)
                   setCurrentStep(1)
                 }}
-                onNext={info => {
-                  setShippingData(info.data)
-                  setShippingLocal(info.local)
-                  setShippingMethod(info.method)
-                  setCurrentStep(3)
-                }}
-                onNextOrder={orderId => {
+                onNext={orderId => {
                   let data = {
                     type: 'store',
                     printData,
@@ -427,7 +421,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
               />
             </div>
           )}
-          {currentStep === 3 && (
+          {/* {currentStep === 3 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShippingMethod
                 productId={router.query.product_id}
@@ -458,7 +452,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 }}
               />
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

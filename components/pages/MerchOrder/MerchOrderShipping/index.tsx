@@ -26,9 +26,11 @@ import storeAPI from 'apis/store'
 
 import LoadingButton from 'components/Button/LoadingButton'
 import { useViewport } from 'utils'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchOrderShipping = props => {
-  const { productId, type, data, onBack, onNext, onNextOrder, merchList, rawList } = props
+  const { productId, type, data, onBack, onNext, merchList, rawList } = props
   const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -125,26 +127,25 @@ const MerchOrderShipping = props => {
     setIsLoading(true)
     if (type === 'physical') {
       onCheckout('', 'user') // user fulfilled physical
-    } else if (country.isoCode === 'US') {
-      merchAPI.prepareCart(params).then(
-        response => {
-          onNext({ data, local: true, method: response })
-          setIsLoading(false)
-        },
-        error => {
-          setIsLoading(false)
-          setShowAlert(true)
-        }
-      )
     } else {
-      if (type === 'foster') onNext({ data, local: false, method: null })
+      // type === foster
+      onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+
+      // merchAPI.prepareCart(params).then(
+      //   response => {
+
+      //   },
+      //   error => {
+      //     setIsLoading(false)
+      //     setShowAlert(true)
+      //   }
+      // )
     }
   }
 
   const onCheckout = (serviceCode, type) => {
     let address = {
       name: name,
-      // company: 'USPS',
       street1: street,
       street2: apartment,
       street3: '',
@@ -156,9 +157,7 @@ const MerchOrderShipping = props => {
       residential: true,
     }
 
-    const { id, description, color, quantity, size } = data
-    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
-
+    const { description, color, quantity, size } = data
     let item
 
     // foster merch
@@ -203,7 +202,7 @@ const MerchOrderShipping = props => {
           setIsLoading(false)
           return
         }
-        onNextOrder(response.orderNumber)
+        onNext(response.orderNumber)
       },
       error => {
         setIsLoading(false)
@@ -316,11 +315,11 @@ const MerchOrderShipping = props => {
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
-            <PrimaryButton
+            <GradientButton
               label={
                 type === 'physical' ? 'Checkout' : viewport === 'xs' ? 'Select Shipping' : 'Select Shipping Method'
               }
-              type="shipping"
+              height={50}
               disabled={!enabled}
               fullWidth
               onClick={() => proceedToCheckout()}
@@ -328,7 +327,7 @@ const MerchOrderShipping = props => {
           )}
         </div>
         <div className="w-full mt-[15px] mb-[22px]">
-          <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
+          <OutlineButton label="Back" onClick={() => backToPage()} fullWidth />
         </div>
       </div>
       <Alert
