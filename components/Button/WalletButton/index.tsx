@@ -486,7 +486,7 @@ const WalletButton = props => {
                   <div
                     className={styles.viewActiveOffer}
                     onClick={() => {
-                      router.push(`/dashboard?tab=6`)
+                      router.push(`/${profileName}?tab=2`)
                     }}
                   >
                     View active offers
@@ -650,7 +650,7 @@ const WalletButton = props => {
                   <div
                     className={styles.viewActiveOffer}
                     onClick={() => {
-                      router.push(`/dashboard?tab=3`)
+                      router.push(`/${profileName}?tab=3&filter=9`)
                     }}
                   >
                     View active bids

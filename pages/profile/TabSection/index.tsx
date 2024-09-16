@@ -41,6 +41,7 @@ import OfferSection from 'components/pages/Dashboard/OfferSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
 import HiddenSection from 'components/pages/Dashboard/HiddenSection'
+import { useRouter } from 'next/router'
 
 const TabSection = props => {
   const {
@@ -52,6 +53,8 @@ const TabSection = props => {
     isFetchingCreated,
     setIsFetchingCreated,
   } = props
+  const router = useRouter()
+  const { tab } = router.query
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
   const profileTab = useSelector<any>(state => state.profileTab)
   const dispatch = useDispatch()
@@ -78,6 +81,12 @@ const TabSection = props => {
   const [activityNfts, setActivityNfts] = useState([])
   const [offerNftsMade, setOfferNftsMade] = useState([])
   const [offerNftsReceived, setOfferNftsReceived] = useState([])
+
+  useEffect(() => {
+    if (tab !== undefined) {
+      setActiveTab(Number(tab))
+    }
+  }, [tab])
 
   useEffect(() => {
     if (isOwn) {

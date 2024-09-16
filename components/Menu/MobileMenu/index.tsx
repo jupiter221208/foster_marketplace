@@ -138,7 +138,7 @@ const MobileMenu = () => {
               logout={logout}
               handleThemeMode={handleThemeMode}
             />
-            <MyWalletSubMenu label="Wallet" type="" />
+            <MyWalletSubMenu label="Wallet" type="" username={profileInfo?.username} />
 
             <AccordionMenu label="Create" type="create" data={CreateMenuList} username={profileInfo?.username} />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
