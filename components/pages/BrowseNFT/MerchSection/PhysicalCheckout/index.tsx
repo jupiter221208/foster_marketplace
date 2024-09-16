@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 // custom functions
-import { ensureMaxDecimals } from 'utils'
 import { createPaymentTransaction, createV2PaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
@@ -14,12 +13,10 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // json
 
 // images
-import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
-import CARDIcon from 'assets/icons/card-icon.svg'
-import HelioIcon from 'assets/icons/helio-icon.svg'
-import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-
+import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-13x11.svg?component'
+import SolanaIconForBtn from 'assets/icons/solana-logo-dark.svg?component'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // styles
@@ -30,10 +27,7 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 // api
 import StoreAPI from 'apis/store'
 import { payOrder } from 'apis/merch'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import GradientButton from 'components/Button/GradientButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: any
@@ -68,6 +62,8 @@ const PhysicalCheckout = ({
   const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
   const [helioOpacity, setHelioOpacity] = useState(0)
+  const [isPaySol, setIsPaySol] = useState(false)
+  const [isPayUsd, setIsPayUsd] = useState(false)
 
   //   {paylinkId: '6571e7cd4a2bee8095ee84da',
   //   network: 'test',
@@ -81,9 +77,14 @@ const PhysicalCheckout = ({
   //     },
   //   } as HelioEmbedTheme,
   // }
-
+  console.log(merchType, '==========merchTYpe===========')
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
+  const shippingRes = merchType === 'user' ? orderData?.items[0].options.shipping_responsibility : ''
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
+  const shippingAmount = orderType === 'v1' ? orderData?.order.shipping_amount : orderData?.externalOrder.shippingAmount
+  const taxAmount = orderType === 'v1' ? orderData?.order.tax_amount : orderData?.externalOrder.taxAmount
+  const subTotalUsd = total - shippingAmount - taxAmount
+  const solTotalAmount = subTotalUsd && solToUsdRate ? subTotalUsd / solToUsdWithSlippage() : 0
 
   const WALLET_ADAPTER_NETWORK = process.env.WALLET_ADAPTER_NETWORK
 
@@ -103,8 +104,8 @@ const PhysicalCheckout = ({
     },
     theme: {
       colors: {
-        primaryButtonBackground: 'var(--bg-242424-E8E7E6)',
-        primaryButtonBackgroundHover: 'var(--bg-242424-E8E7E6)',
+        primaryButtonBackground: 'var(--hero-card-bg)',
+        primaryButtonBackgroundHover: 'var(--hero-card-bg)',
         primaryButtonText: 'var(--main-bg-color)',
       },
     } as HelioEmbedTheme,
@@ -191,25 +192,25 @@ const PhysicalCheckout = ({
           ')'
         let colorText = getFirstUpperString(color)
         let qty = 'Qty:' + itemQuantity
-        itemList.push({ name: nftName, type, color: colorText, qty })
+        itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
         var technique = findElement(options, 'name', 'technique')['value']
         let type = 'Print Technique: ' + (technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery')
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = 'Qty: ' + itemQuantity
-        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
+        itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'user') {
         let type = 'User Fulfilled Physical Print'
         let qty = 'Qty: ' + itemQuantity
-        itemList.push({ name: 'Product: ' + nftName, type, color: '', qty })
+        itemList.push({ name: nftName, type, color: '', size, qty })
       }
     })
     setList(itemList)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onCheckout = async () => {
+  const onCheckout = async currency => {
     if (!connected) {
       setVisible(true)
       return
@@ -307,20 +308,20 @@ const PhysicalCheckout = ({
   return (
     <section className={styles.container}>
       <div className="w-full px-[0px] mt-[20px] lg:mt-[30px]">
-        <div className={styles.summary}>Order Summary</div>
+        <div className="flex items-center gap-[12px]">
+          <ArrowLeftIcon onClick={onBack} />
+
+          <div className={styles.summary}>Order Summary</div>
+        </div>
         <div className="w-full mt-[20px] lg:mt-[30px] h-[auto] overflow-auto">
-          <div className={styles.productDetails}>Production Details</div>
+          <div className={styles.productDetails}>Product Details</div>
           <div className="mt-[7px] mb-[7px]">
             {list.map((item, index) => (
               <div key={index} className="pb-[5px]">
-                <div className={styles.itemDetails}>{item.name}</div>
-                <div className={styles.itemDetails}>{item.type}</div>
-                {item.type != 'User Fulfilled Physical Print' && <div className={styles.itemDetails}>{item.color}</div>}
-                <div className={styles.itemDetails}>{item.qty}</div>
+                <div className={styles.itemDetails}>{item.name + ' (' + item.size + ') x ' + item.qty}</div>
               </div>
             ))}
           </div>
-          {/* <TableSection data={list} /> */}
         </div>
         <div className="w-full mt-[15px]">
           <div className={styles.productDetails}>Shipping Address</div>
@@ -331,7 +332,53 @@ const PhysicalCheckout = ({
           </div>
         </div>
 
-        <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[15px] lg:mt-[24px]">
+        <div className={styles.shippingArea}>
+          <div className="w-full flex justify-between items-center">
+            <div className={styles.subtotal}>Subtotal</div>
+            <div className="flex gap-[11px] items-center">
+              <div className="flex gap-[6px] items-center">
+                <SolanaIcon className="mt-[3px]" />
+                <div className={styles.solPrice}>{solTotalAmount.toFixed(2)}</div>
+              </div>
+              <div className={styles.total}>${subTotalUsd}</div>
+            </div>
+          </div>
+          {merchType !== 'user' && (
+            <div className="w-full flex justify-between items-center mt-[16px]">
+              <div className={styles.total}>Shipping & Handling</div>
+              <div className={styles.total}>${shippingAmount}</div>
+            </div>
+          )}
+          {merchType !== 'user' && (
+            <div className="w-full flex justify-between items-center mt-[16px]">
+              <div className={styles.total}>Taxes</div>
+              <div className={styles.total}>${taxAmount}</div>
+            </div>
+          )}
+          {merchType === 'user' && (
+            <div className="w-full flex justify-between items-center mt-[16px]">
+              <div className={styles.total}>
+                {shippingRes === 'di_seller' || shippingRes === 'di_buyer'
+                  ? `Shipping Fees Included`
+                  : `Shipping Fees Not Included`}
+              </div>
+            </div>
+          )}
+          <div className={styles.border} />
+
+          <div className="w-full flex justify-between items-center">
+            <div className={styles.payNow}>Pay Now</div>
+            <div className="flex gap-[11px] items-center">
+              <div className="flex gap-[6px] items-center">
+                <SolanaIcon className="mt-[3px]" />
+                <div className={styles.solPrice}>{solAmount.toFixed(2)}</div>
+              </div>
+              <div className={styles.total}>${total}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[15px] lg:mt-[24px]">
           <div className="w-full h-[160px] relative hidden lg:block">
             <div className={styles.paymentMethod}>
               Choose Payment Method <span>*</span>
@@ -359,41 +406,13 @@ const PhysicalCheckout = ({
                 </div>
                 <div className={styles.currencyName}>USDC</div>
               </div>
-              {/* <div
-                className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
-                onClick={() => setCurrency('card')}
-              >
-                <div className="w-full h-full flex justify-center items-center">
-                  <div className="flex flex-col justify-center gap-[15px]">
-                    <Image src={HelioIcon} width={37} height={37} alt="" />
-                    <div className={styles.currencyName}>Helio</div>
-                  </div>
-                </div>
-                {helioOpacity === 1 ? (
-                  <div className="absolute inset-0 flex justify-center">
-                    <div
-                      className={styles.helioContainer}
-                      style={{
-                        opacity: helioOpacity,
-                      }}
-                    >
-                      <HelioCheckout config={helioConfig} />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="absolute inset-0 flex flex-col justify-center items-center">
-                    <div className={styles.payWithHelio}>PAY</div>
-                    <div className={styles.payWithHelio}>WITH</div>
-                    <div className={styles.payWithHelio}>HELIO</div>
-                  </div>
-                )}
-              </div> */}
+              
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* SOL / USDC */}
-        <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">
+        {/* <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">
           <div className={styles.paymentMethod}>
             Choose Payment Method <span>*</span>
           </div>
@@ -409,6 +428,7 @@ const PhysicalCheckout = ({
               </div>
               <div className={styles.currencyName}>SOL</div>
             </div>
+
             <div
               className={`${styles.paymentBG} ${
                 currency === 'usdc' ? styles.selectedCurrency : styles.deselectedCurrency
@@ -420,7 +440,7 @@ const PhysicalCheckout = ({
               </div>
               <div className={styles.currencyName}>USDC</div>
             </div>
-            {/* <div
+            <div
               className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('card')}
             >
@@ -448,59 +468,66 @@ const PhysicalCheckout = ({
                   <div className={styles.payWithHelio}>HELIO</div>
                 </div>
               )}
-            </div> */}
+            </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between mb-[20px] px-[5px]">
+        {/* <div className="w-full flex justify-between mb-[20px] px-[5px]">
           <div>
             <div className={styles.orderTotal}>Total</div>
             {merchType !== 'user' && <div className={styles.orderDesc}>Including taxes and shipping</div>}
           </div>
           <div className="">
-            {/* <div className={styles.costDivider} /> */}
             <div className="flex gap-1 items-center justify-end">
               <SolanaIcon alt="" className="mt-[2px]" />
               <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
             </div>
             {merchType !== 'user' && <div className={styles.totalUSD}>${total ? total.toFixed(2) : '---'}</div>}
           </div>
-        </div>
-        <div className="w-full flex flex-col gap-[15px] mb-[30px]">
-          {isLoad ? (
+        </div> */}
+        <div className="w-full flex flex-col gap-[10px] mb-[30px]">
+          {isPayUsd ? (
             <LoadingPrimaryButton fullWidth />
           ) : (
-            // <PrimaryButton
-            //   disabled={currency.length === 0}
-            //   label="Make Payment"
-            //   type="payment"
-            //   fullWidth
-            //   onClick={() => onCheckout()}
-            // />
-            <GradientButton
-              disabled={currency.length === 0}
-              label={
-                currency === 'sol'
-                  ? 'Pay with SOL'
-                  : currency === 'usdc'
-                  ? 'Pay with USDC'
-                  : 'Use Selected Payment Method'
-              }
-              fullWidth
-              height={50}
-              onClick={() => onCheckout()}
-            />
+            <div
+              className={styles.payUsdBtn}
+              onClick={() => {
+                setIsPayUsd(true)
+                onCheckout('usdc')
+              }}
+            >
+              <div className="flex gap-[9px] items-center">
+                <Image src={USDCIcon} width={20} height={20} alt="" className="pt-[5px]" />
+                {'Pay with USDC'}
+              </div>
+            </div>
+          )}
+          {isPaySol ? (
+            <LoadingPrimaryButton fullWidth />
+          ) : (
+            <div
+              className={styles.paySolBtn}
+              onClick={() => {
+                setIsPaySol(true)
+                onCheckout('sol')
+              }}
+            >
+              <div className="flex gap-[9px] items-center">
+                <SolanaIconForBtn className="mt-[3px]" />
+                {'Pay with SOL'}
+              </div>
+            </div>
           )}
 
-          {/* {orderType === 'v2' && helioEnabled && (
+          {orderType === 'v2' && helioEnabled && (
             <div className={styles.helioContainer}>
               <HelioCheckout config={helioConfig} />
             </div>
-          )} */}
+          )}
           {/* {!helioEnabled && <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />} */}
-          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
+          {/* <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth /> */}
         </div>
       </div>
       <Alert

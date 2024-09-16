@@ -19,7 +19,6 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
 import { useDispatch } from 'react-redux'
-import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
 interface MerchOrderPageProps {
   publicArtistData?: any
