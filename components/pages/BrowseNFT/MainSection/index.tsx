@@ -693,7 +693,6 @@ const MainSection = ({
           let listPrice = Math.round(parseFloat(nftInfo.listing.list_price) * LAMPORTS_PER_SOL)
           setNftPrice(listPrice / LAMPORTS_PER_SOL)
           if (editionType !== 'normal') setPrice((listPrice / LAMPORTS_PER_SOL).toFixed(2))
-          setNftLoading(false)
 
           let listingReceipt = await mx
             .rpc()
@@ -717,7 +716,7 @@ const MainSection = ({
             },
           } = listing
           setTradeStateAddress(tradeStateAddress.toBase58())
-          // setNftLoading(false)
+          setNftLoading(false)
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
 
           let listingAsset = listingAssets[0]

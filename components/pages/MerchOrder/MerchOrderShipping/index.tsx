@@ -4,30 +4,22 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import CountrySelect from 'components/Select/CountrySelect'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import Alert from 'components/Alert'
+import LoadingButton from 'components/Button/LoadingButton'
+import { useViewport } from 'utils'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 // custom functions
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
-// images
-
-// json
-
 // styles
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/store'
 import storeAPI from 'apis/store'
-
-import LoadingButton from 'components/Button/LoadingButton'
-import { useViewport } from 'utils'
-import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchOrderShipping = props => {
   const { productId, type, data, onBack, onNext, merchList, rawList } = props
