@@ -29,7 +29,7 @@ import merchAPI from 'apis/merch'
 import storeAPI from 'apis/store'
 
 const MerchClaimShipping = props => {
-  const { data, onClose, onNext, productId, setMerchSize, merchList, rawList } = props
+  const { data, mintAddress, onClose, onNext, productId, setMerchSize, merchList, rawList } = props
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -190,16 +190,6 @@ const MerchClaimShipping = props => {
       setVisible(true)
       return
     }
-    let data = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
     let params
 
     let item_id = 1
@@ -226,10 +216,8 @@ const MerchClaimShipping = props => {
     merchAPI.prepareCart(params).then(
       response => {
         if (response?.shippingMethods?.length > 0)
-          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
         else setIsLoading(false)
-        // onNext({ data, method: response })
-        // setIsLoading(false)
       },
       error => {
         setIsLoading(false)
@@ -238,7 +226,7 @@ const MerchClaimShipping = props => {
     )
   }
 
-  const onCheckout = (serviceCode, type) => {
+  const onCheckout = serviceCode => {
     let address = {
       name: name,
       street1: street,
@@ -252,7 +240,7 @@ const MerchClaimShipping = props => {
       residential: true,
     }
 
-    const { description, color, quantity, size } = data
+    const { id, description, color, quantity, size, technique } = data
     let item
 
     // foster merch
@@ -261,20 +249,21 @@ const MerchClaimShipping = props => {
     merchList.map(item => mockupUrls.push(item.url))
     rawList.map(item => rawUrls.push(item.url))
     item = {
-      id: productId.toString(),
+      id: id.toString(),
       quantity,
       previewUrl: mockupUrls[0],
       options: {
-        type: type,
-        nftName: data.name,
+        type: 'foster',
+        nftName: name,
         fosterUrl: window.location.href,
         mockupUrl: mockupUrls.join(','),
         assetUrl: rawUrls.join(','),
-        nftAddress: '',
+        nftAddress: mintAddress,
         apparel: description,
         size: size,
         color: color,
-        technique: data.technique,
+        technique: technique,
+        printEditionAddress: mintAddress,
       },
       notes: `This is studio merch V2 item`,
     }

@@ -134,7 +134,7 @@ const PhysicalCheckout = ({
         id: 0,
         title: 'Order Placed!',
         description: 'You will receive an email once the order has been shipped. ',
-        description2: `Your order number is #${orderData.id}.`,
+        description2: `Your order number is #${orderType === 'v1' ? orderData.order.id : orderData.id}.`,
         type: 'success',
       },
     ])
@@ -261,7 +261,7 @@ const PhysicalCheckout = ({
         if (orderData.id > 1000) {
           response = await StoreAPI.payStoreOrder(orderData.id, params)
         } else {
-          response = await payOrder(orderData.id, params)
+          response = await payOrder(order.id, params)
         }
         if (response?.status === 'success') result = true
       } else {
@@ -534,7 +534,7 @@ const PhysicalCheckout = ({
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            router.push(`/merch-logs/${orderData.id}`)
+            router.push(`/merch-logs/${orderType === 'v1' ? orderData.order.id : orderData.id}`)
           }, 1000)
         }}
         data={alertData}

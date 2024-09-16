@@ -109,6 +109,7 @@ const MerchClaimModal = ({ open, onClose, data }) => {
                       setCurrentStep(2)
                     }}
                     data={printData}
+                    mintAddress={data.nft.token_id}
                     merchList={merchList}
                     rawList={rawUrlList}
                     productId={productDetail?.product_type_id}
