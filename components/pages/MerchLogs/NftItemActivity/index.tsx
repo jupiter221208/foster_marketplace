@@ -21,9 +21,13 @@ const NftItemActivity = props => {
       )}
       {!isLoading && activities.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[50px]">
-          <div className={styles.noArtwork}>No Eligible Artworks Detected</div>
+          <div className={styles.noArtwork}>
+            {type ? 'No active Studio NFTs detected' : 'No Eligible Artworks Detected'}
+          </div>
           <div className={styles.text}>
-            To be eligible for the studio, you must be both the creator and the owner of the NFT.
+            {type
+              ? 'Click the eligible tab and select the artworks you wish to enable for Studio 1.0.'
+              : 'To be eligible for the studio, you must be both the creator and the owner of the NFT.'}
           </div>
         </div>
       )}

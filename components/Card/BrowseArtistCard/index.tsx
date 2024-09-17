@@ -12,6 +12,7 @@ import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import styles from './index.module.scss'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const BrowseArtistCard = props => {
   const { image, collectionName, artistName, artistAddress, hasloading, showEditIcon, onClickEdit } = props
@@ -23,7 +24,7 @@ const BrowseArtistCard = props => {
         <div className="relative">
           <div className={styles.avatar}>
             {image && (
-              <Image
+              <ImageWithFoster
                 src={image}
                 alt=""
                 width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
