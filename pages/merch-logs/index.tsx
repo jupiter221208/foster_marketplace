@@ -775,7 +775,7 @@ const MerchActivity = () => {
                 <NftItemActivity
                   activities={enabledItems}
                   type={true}
-                  isLoading={true}
+                  isLoading={isVisibleEnabledFetching}
                   action={token_id => {
                     setTokenId(token_id)
                     setDisableMerchModal(true)
