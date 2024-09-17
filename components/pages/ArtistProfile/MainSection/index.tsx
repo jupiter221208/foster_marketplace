@@ -343,20 +343,25 @@ const MainSection = prop => {
     )
   }
 
+  const [bannerLoaded, setBannerLoaded] = useState(false)
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
       <div className={styles.bannerImage}>
         {croppedBanner !== '' || banner !== undefined ? (
-          <img
+          <ImageWithFoster
             src={
               croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : hasLoading ? '' : BannerImage.src
             }
+            showPlaceHolder={false}
+            width={1920}
             className="w-full h-full object-cover"
+            onLoad={() => setBannerLoaded(true)}
             alt=""
           />
         ) : (
-          !hasLoading && <img src={BannerImage.src} className="w-full h-full object-cover" alt="" />
+          !hasLoading && !bannerLoaded && <img src={BannerImage.src} className="w-full h-full object-cover" alt="" />
         )}
         {isOwn && (
           <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
@@ -464,7 +469,7 @@ const MainSection = prop => {
             </div>
           </div>
         )}
-        {hasLoading && (
+        {(hasLoading || !bannerLoaded) && (
           <div className={styles.bannerBG}>
             <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
           </div>
