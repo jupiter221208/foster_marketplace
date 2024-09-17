@@ -180,6 +180,11 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
+        if (response === undefined || response === null) {
+          setIsVisibleBuyerFetching(false)
+          return
+        }
+
         let purchaseOrders = []
         let noTxOrders = []
         let allOrders = []
@@ -221,6 +226,11 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
+
+        if (response === undefined || response === null) {
+          setIsVisibleSellerFetching(false)
+          return
+        }
 
         let salesOrders = []
         let noTxOrders = []
@@ -264,9 +274,15 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
+        if (response === undefined || response === null) {
+          setIsVisibleMerchBuyerFetching(false)
+          return
+        }
+
         let purchaseOrders = []
         let noTxOrders = []
         let allOrders = []
+
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
@@ -316,6 +332,11 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
+
+        if (response === undefined || response === null) {
+          setIsVisibleSellerFetching(false)
+          return
+        }
 
         let salesOrders = []
         let noTxOrders = []

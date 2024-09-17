@@ -63,6 +63,7 @@ const ActivitySection = props => {
         setFilterKey(item.search)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
 
   useEffect(() => {

@@ -3,11 +3,9 @@ import React, { useRef } from 'react'
 // custom functions
 import { useViewport } from 'utils'
 
-// next components
-import Image from 'next/image'
-
 // styles
 import styles from './index.module.scss'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 import EditorGreenIcon from 'assets/icons/editor-white.svg?component'
 import 'react-placeholder/lib/reactPlaceholder.css'
@@ -24,18 +22,23 @@ const ProfileArtistCard = props => {
     <div className={styles.container}>
       <div className={styles.avatarArea}>
         <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full`}></div>
-          ) : (
-            <Image
-              src={image}
-              alt=""
-              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-              className="rounded-full"
-              onClick={setFullScreenView}
-            />
-          )}
+          <div className="relative w-full h-full">
+            {image !== '' ? (
+              <img src={image} alt="" className="w-full h-full rounded-full" onClick={setFullScreenView} />
+            ) : !hasLoading ? (
+              <img src={DefaultAvatar.src} alt="" className="w-full h-full rounded-full" onClick={setFullScreenView} />
+            ) : (
+              <></>
+            )}
+
+            {hasLoading && (
+              <div className={styles.profileBG}>
+                <div
+                  className={`${styles.skeletonLoader} w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full`}
+                ></div>
+              </div>
+            )}
+          </div>
 
           {!hasLoading && isOwn && (
             <div className="absolute bottom-0 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
