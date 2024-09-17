@@ -278,6 +278,13 @@ const MerchDetail = () => {
   const retryPayment = () => {
     router.push(`/orders/${id}`)
   }
+
+  const getShippingMethod = method => {
+    if (method === 'gp_plus') {
+      return 'GlobalPost Plus Intl'
+    } else return method
+  }
+
   return (
     <div className="g-container">
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
@@ -344,7 +351,9 @@ const MerchDetail = () => {
               <div className={styles.infoValue}>{fulfillment ? fulfillment.carrierCode : ''}</div>
             ) : (
               <div className={styles.infoValue}>
-                {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+                {orderDetails?.orderNumber === '' && !isOwn
+                  ? 'Hidden for Buyer Safety'
+                  : getShippingMethod(orderDetails?.service)}
               </div>
             )}
           </div>
@@ -953,7 +962,9 @@ const MerchDetail = () => {
                 <div className={styles.infoValue}>{fulfillment ? fulfillment.carrierCode : ''}</div>
               ) : (
                 <div className={styles.infoValue}>
-                  {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+                  {orderDetails?.orderNumber === '' && !isOwn
+                    ? 'Hidden for Buyer Safety'
+                    : getShippingMethod(orderDetails?.service)}
                 </div>
               )}
             </div>

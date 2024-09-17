@@ -48,6 +48,8 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import nftsAPI from 'apis/nfts'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ProfileInformationCard from 'components/Card/ProfileInformationCard'
+import ImageWithFoster from 'components/ImageWithFoster'
+import Image from 'next/image'
 
 const MainSection = prop => {
   const {
@@ -341,126 +343,138 @@ const MainSection = prop => {
     )
   }
 
+  const [bannerLoaded, setBannerLoaded] = useState(false)
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
-      {hasLoading ? (
-        <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
-      ) : (
-        <div className={styles.bannerImage}>
-          <img
-            src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
+      <div className={styles.bannerImage}>
+        {croppedBanner !== '' || banner !== undefined ? (
+          <ImageWithFoster
+            src={
+              croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : hasLoading ? '' : BannerImage.src
+            }
+            showPlaceHolder={false}
+            width={1920}
             className="w-full h-full object-cover"
+            onLoad={() => setBannerLoaded(true)}
             alt=""
           />
-          {isOwn && (
-            <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
-              <div className={styles.iconBlurView}>
-                <div className="w-full h-full flex justify-center items-center">
-                  <IconButtonWithSVG
-                    icon={<EditorGreenIcon />}
-                    onClick={() => {
-                      if (showBannerBoard || showSocialBoard) return
-                      inputBannerFile.current.click()
-                    }}
-                    backgroundColor="transparent"
-                    borderRadius="100%"
-                    width={40}
-                    height={40}
-                    iconWidth={40}
-                    iconHeight={40}
-                    disabled={bannerUploadingToS3}
-                  />
-                </div>
+        ) : (
+          !hasLoading && !bannerLoaded && <img src={BannerImage.src} className="w-full h-full object-cover" alt="" />
+        )}
+        {isOwn && (
+          <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
+            <div className={styles.iconBlurView}>
+              <div className="w-full h-full flex justify-center items-center">
+                <IconButtonWithSVG
+                  icon={<EditorGreenIcon />}
+                  onClick={() => {
+                    if (showBannerBoard || showSocialBoard) return
+                    inputBannerFile.current.click()
+                  }}
+                  backgroundColor="transparent"
+                  borderRadius="100%"
+                  width={40}
+                  height={40}
+                  iconWidth={40}
+                  iconHeight={40}
+                  disabled={bannerUploadingToS3}
+                />
               </div>
-              <input
-                type="file"
-                id="banner-file"
-                accept="image/png, image/jpeg, image/gif"
-                ref={inputBannerFile}
-                style={{ display: 'none' }}
-                onChange={event => handleChangeBannerImage(event)}
-              />
             </div>
-          )}
-          {showBannerBoard && (
-            <div className={styles.bannerBoard}>
-              <div className={styles.boardTitle}>Upload your profile banner</div>
-              <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
-              <div className="flex justify-end mt-[15px]">
-                <div className="flex gap-[9px]">
-                  <OutlineButton
-                    width={78}
-                    height={37}
-                    borderRadius={12}
-                    label="Skip"
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
+            <input
+              type="file"
+              id="banner-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputBannerFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeBannerImage(event)}
+            />
+          </div>
+        )}
+        {showBannerBoard && (
+          <div className={styles.bannerBoard}>
+            <div className={styles.boardTitle}>Upload your profile banner</div>
+            <div className={styles.boardText}>Recommended dimensions are 1920 x 350</div>
+            <div className="flex justify-end mt-[15px]">
+              <div className="flex gap-[9px]">
+                <OutlineButton
+                  width={78}
+                  height={37}
+                  borderRadius={12}
+                  label="Skip"
+                  fontFamily="Muli-SemiBold"
+                  fontSize={14}
+                  onClick={() => {
+                    setShowBannerBoard(false)
+                    localStorage.setItem('isVisibleBannerBoard', 'false')
 
-                      setTimeout(() => {
-                        setShowSocialBoard(true)
-                      }, 1000)
-                    }}
-                  />
-                  <GradientButton
-                    label="Upload"
-                    width={78}
-                    height={37}
-                    border={12}
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
-                      inputBannerFile.current.click()
-                    }}
-                  />
-                </div>
+                    setTimeout(() => {
+                      setShowSocialBoard(true)
+                    }, 1000)
+                  }}
+                />
+                <GradientButton
+                  label="Upload"
+                  width={78}
+                  height={37}
+                  border={12}
+                  fontFamily="Muli-SemiBold"
+                  fontSize={14}
+                  onClick={() => {
+                    setShowBannerBoard(false)
+                    localStorage.setItem('isVisibleBannerBoard', 'false')
+                    inputBannerFile.current.click()
+                  }}
+                />
               </div>
             </div>
-          )}
-          {showSocialBoard && (
-            <div className={styles.bannerBoard}>
-              <div className={styles.boardTitle}>Setup your socials and bio</div>
-              <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
-              <div className="flex justify-end mt-[15px]">
-                <div className="flex gap-[9px]">
-                  <OutlineButton
-                    width={78}
-                    height={37}
-                    borderRadius={12}
-                    label="Skip"
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowSocialBoard(false)
+          </div>
+        )}
+        {showSocialBoard && (
+          <div className={styles.bannerBoard}>
+            <div className={styles.boardTitle}>Setup your socials and bio</div>
+            <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
+            <div className="flex justify-end mt-[15px]">
+              <div className="flex gap-[9px]">
+                <OutlineButton
+                  width={78}
+                  height={37}
+                  borderRadius={12}
+                  label="Skip"
+                  fontFamily="Muli-SemiBold"
+                  fontSize={14}
+                  onClick={() => {
+                    setShowSocialBoard(false)
+                    localStorage.setItem('isVisibleSocialBoard', 'false')
+                  }}
+                />
+                <GradientButton
+                  label="Settings"
+                  width={78}
+                  height={37}
+                  border={12}
+                  fontFamily="Muli-SemiBold"
+                  fontSize={14}
+                  onClick={() => {
+                    setShowSocialBoard(false)
+                    setTimeout(() => {
                       localStorage.setItem('isVisibleSocialBoard', 'false')
-                    }}
-                  />
-                  <GradientButton
-                    label="Settings"
-                    width={78}
-                    height={37}
-                    border={12}
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowSocialBoard(false)
-                      setTimeout(() => {
-                        localStorage.setItem('isVisibleSocialBoard', 'false')
-                        router.push('/settings')
-                      }, 500)
-                    }}
-                  />
-                </div>
+                      router.push('/settings')
+                    }, 500)
+                  }}
+                />
               </div>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+        {(hasLoading || !bannerLoaded) && (
+          <div className={styles.bannerBG}>
+            <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
+          </div>
+        )}
+      </div>
 
       <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-45px] lg:mt-[-70px] z-10">
@@ -468,7 +482,7 @@ const MainSection = prop => {
             <div className="w-content relative">
               <ProfileArtistCard
                 isOwn={isOwn}
-                image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
+                image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : ''}
                 name={artistInfo?.username}
                 avatarUploadingToS3={avatarUploadingToS3}
                 handleChangeAvatar={handleChangeAvatar}

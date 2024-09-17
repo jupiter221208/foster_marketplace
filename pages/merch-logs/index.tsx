@@ -130,7 +130,7 @@ const MerchActivity = () => {
 
   useEffect(() => {
     if (isFetching && publicKey) {
-      if (activeTab === 1 && isActiveNFT) getEnabledItem(enabledPages, rowCount)
+      if (activeTab === 4 && isActiveNFT) getEnabledItem(enabledPages, rowCount)
       else if (activeTab === 2) {
         if (isStudioNFT) getBuyerOrder(buyerPages, rowCount)
         else getMerchBuyerOrder(merchBuyerPages, rowCount)
@@ -180,6 +180,11 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
+        if (response === undefined || response === null) {
+          setIsVisibleBuyerFetching(false)
+          return
+        }
+
         let purchaseOrders = []
         let noTxOrders = []
         let allOrders = []
@@ -221,6 +226,11 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
+
+        if (response === undefined || response === null) {
+          setIsVisibleSellerFetching(false)
+          return
+        }
 
         let salesOrders = []
         let noTxOrders = []
@@ -264,9 +274,15 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
+        if (response === undefined || response === null) {
+          setIsVisibleMerchBuyerFetching(false)
+          return
+        }
+
         let purchaseOrders = []
         let noTxOrders = []
         let allOrders = []
+
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
@@ -316,6 +332,11 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
+
+        if (response === undefined || response === null) {
+          setIsVisibleSellerFetching(false)
+          return
+        }
 
         let salesOrders = []
         let noTxOrders = []
@@ -721,6 +742,33 @@ const MerchActivity = () => {
               />
             </div>
           )}
+
+          {activeTab === 1 && (
+            <div className="w-full z-10 mt-[15px]">
+              <MerchEditionSection />
+            </div>
+          )}
+
+          {activeTab === 2 && (
+            <div className="w-full z-10">
+              <ApparelActivity
+                activities={isStudioNFT ? purchases : merchPurchases}
+                type="purchases"
+                isLoading={isStudioNFT ? isVisibleBuyerFetching : isVisibleMerchBuyerFetching}
+              />
+            </div>
+          )}
+          {activeTab === 3 && (
+            <div className="w-full z-10">
+              <ApparelActivity
+                activities={isStudioSalesNFT ? sales : merchSales}
+                type="sales"
+                isStudioNFT={isStudioSalesNFT}
+                isLoading={isStudioSalesNFT ? isVisibleSellerFetching : isVisibleMerchSellerFetching}
+              />
+            </div>
+          )}
+
           {activeTab === 4 &&
             (isActiveNFT ? (
               <div className="w-full z-10">
@@ -753,30 +801,6 @@ const MerchActivity = () => {
                 />
               </div>
             ))}
-          {activeTab === 2 && (
-            <div className="w-full z-10">
-              <ApparelActivity
-                activities={isStudioNFT ? purchases : merchPurchases}
-                type="purchases"
-                isLoading={isStudioNFT ? isVisibleBuyerFetching : isVisibleMerchBuyerFetching}
-              />
-            </div>
-          )}
-          {activeTab === 3 && (
-            <div className="w-full z-10">
-              <ApparelActivity
-                activities={isStudioSalesNFT ? sales : merchSales}
-                type="sales"
-                isStudioNFT={isStudioSalesNFT}
-                isLoading={isStudioSalesNFT ? isVisibleSellerFetching : isVisibleMerchSellerFetching}
-              />
-            </div>
-          )}
-          {activeTab === 1 && (
-            <div className="w-full z-10 mt-[15px]">
-              <MerchEditionSection />
-            </div>
-          )}
 
           {activeTab === 5 && (
             <div className="w-full z-10 mt-[15px]">
@@ -785,7 +809,8 @@ const MerchActivity = () => {
           )}
 
           {((activeTab === 0 && isMerchStoreFetching) ||
-            (activeTab === 4 && (isVisibleEnabledFetching || isVisibleDisabledFetching)) ||
+            (activeTab === 4 &&
+              ((isActiveNFT && isVisibleEnabledFetching) || (!isActiveNFT && isVisibleDisabledFetching))) ||
             (activeTab === 2 &&
               ((isStudioNFT && isVisibleBuyerFetching) || (!isStudioNFT && isVisibleMerchBuyerFetching))) ||
             (activeTab === 3 &&

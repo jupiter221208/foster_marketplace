@@ -26,6 +26,15 @@
   z-index: 1;
 }
 
+.profileBG {
+  position: absolute;
+  inset: -1px -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  border-radius: 100%;
+  background-color: var(--bg-new-color)
+}
+
 .name {
   display: flex;
   width: 100%;
