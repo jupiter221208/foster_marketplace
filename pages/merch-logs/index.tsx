@@ -598,14 +598,14 @@ const MerchActivity = () => {
             <div className={styles.selectedTabBorder} />
           </div>
 
-          {activeTab != 4 && (
+          {activeTab != 1 && (
             <div className="w-full flex justify-between items-center">
               <div className={`${styles.description} lg:block hidden`}>
                 {activeTab === 0
                   ? merchStoreList.length > 0
                     ? 'Displayed below are the merch items you created and added to your store.'
                     : ''
-                  : activeTab === 1
+                  : activeTab === 4
                   ? (isActiveNFT && enabledItems.length > 0) || (!isActiveNFT && disabledItems.length > 0)
                     ? 'Displayed below are legacy studio items.'
                     : ''
@@ -638,7 +638,7 @@ const MerchActivity = () => {
                   )}
                 </div>
               )}
-              {activeTab === 1 && (
+              {activeTab === 4 && (
                 <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
                   <TimeSlotButton
                     label="Active"
@@ -721,7 +721,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 1 &&
+          {activeTab === 4 &&
             (isActiveNFT ? (
               <div className="w-full z-10">
                 <NftItemActivity
@@ -772,7 +772,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 4 && (
+          {activeTab === 1 && (
             <div className="w-full z-10 mt-[15px]">
               <MerchEditionSection />
             </div>
@@ -785,7 +785,7 @@ const MerchActivity = () => {
           )}
 
           {((activeTab === 0 && isMerchStoreFetching) ||
-            (activeTab === 1 && (isVisibleEnabledFetching || isVisibleDisabledFetching)) ||
+            (activeTab === 4 && (isVisibleEnabledFetching || isVisibleDisabledFetching)) ||
             (activeTab === 2 &&
               ((isStudioNFT && isVisibleBuyerFetching) || (!isStudioNFT && isVisibleMerchBuyerFetching))) ||
             (activeTab === 3 &&

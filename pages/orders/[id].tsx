@@ -70,6 +70,7 @@ const OrderSection = props => {
   }, [id])
 
   useEffect(() => {
+    console.log(orderData, '========orderData=======')
     if (orderData) {
       let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
       let itemData = ssorder.items[0]

@@ -76,6 +76,9 @@ const MerchApparelSection = props => {
         />
       ) : openShippingDetail ? (
         <PhysicalShipping
+          mintAddress={mintAddress}
+          nftCoverUrl={nftCoverUrl}
+          nftName={nftName}
           onBack={info => {
             setShippingData(info)
             setOpenPrintDetail(true)
@@ -83,12 +86,16 @@ const MerchApparelSection = props => {
             setFinishEditing(false)
             setCurrentStep(1)
           }}
-          onNext={info => {
-            setShippingData(info.data)
-            setShippingMethod(info.method)
-            setOpenShippingDetail(false)
-            setOpenShippingMethod(true)
-            setCurrentStep(2)
+          onNext={orderId => {
+            let data = {
+              printData,
+              shippingData,
+              nftName,
+              nftCoverUrl,
+              totalCost,
+            }
+            dispatch({ type: 'set', merchData: data })
+            router.push(`/orders/${orderId}`)
           }}
           category={'apparel'}
           printData={printData}

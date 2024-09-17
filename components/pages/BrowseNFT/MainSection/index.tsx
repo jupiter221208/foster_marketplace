@@ -32,7 +32,7 @@ import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTArtistPublicKey, getNftFromDAS } from 'utils/nfts.utils'
-import { loadAuctionHouse } from 'utils/auction.util'
+import { loadAuctionHouse, findListingReceipt } from 'utils/auction.util'
 import Lottie from 'lottie-react'
 import {
   cancelListing,
@@ -682,27 +682,29 @@ const MainSection = ({
   }
 
   useEffect(() => {
-    if (!tokenAccountInfo) return
+    if (!nftInfo || !tokenAccountInfo) return
 
     let auctionListenerHandle: number | null = null
     ;(async () => {
-      if (!nftDetail) return
+      setNftLoading(true)
 
       if (tokenAccountInfo.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
-        const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
-        let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
-          .where(0, Buffer.from(listingConfigDiscriminator))
-          .where(8 + 32 * 4, new PublicKey(nftDetail.metadataAddress))
-          .where(168, Buffer.from([0])) // purchaseReceipt == null
-          .where(195, Buffer.from([0])) // canceledAt == null
-          .getAndMap(account => toListingReceiptAccount(account))
-        if (openListings.length != 1) {
-          console.warn(`irregular number of listing recipts for ${nftDetail.mintAddress}`)
-          console.warn(JSON.parse(JSON.stringify(openListings)))
-        }
+        if (nftInfo.listing) {
+          let listPrice = Math.round(parseFloat(nftInfo.listing.list_price) * LAMPORTS_PER_SOL)
+          setNftPrice(listPrice / LAMPORTS_PER_SOL)
+          if (editionType !== 'normal') setPrice((listPrice / LAMPORTS_PER_SOL).toFixed(2))
 
-        let listingReceipt = openListings[0]
-        if (listingReceipt) {
+          let listingReceipt = await mx
+            .rpc()
+            .getAccount(
+              findListingReceipt({
+                metaplex: mx,
+                mint: tokenAccountInfo.mint,
+                seller: tokenAccountInfo.owner,
+                price: listPrice,
+              })
+            )
+            .then(toListingReceiptAccount)
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
 
           let listing = toLazyListing(listingReceipt, auctionHouse)
@@ -713,7 +715,6 @@ const MainSection = ({
               currency: { decimals },
             },
           } = listing
-          setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
           setNftLoading(false)
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
@@ -769,7 +770,7 @@ const MainSection = ({
       }
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenAccountInfo])
+  }, [nftInfo, tokenAccountInfo])
 
   const processFinalizeSale = async () => {
     let data = {

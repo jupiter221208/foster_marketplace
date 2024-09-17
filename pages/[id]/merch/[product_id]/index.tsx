@@ -19,7 +19,6 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
 import { useDispatch } from 'react-redux'
-import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
 interface MerchOrderPageProps {
   publicArtistData?: any
@@ -402,13 +401,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   setShippingData(info)
                   setCurrentStep(1)
                 }}
-                onNext={info => {
-                  setShippingData(info.data)
-                  setShippingLocal(info.local)
-                  setShippingMethod(info.method)
-                  setCurrentStep(3)
-                }}
-                onNextOrder={orderId => {
+                onNext={orderId => {
                   let data = {
                     type: 'store',
                     printData,
@@ -427,7 +420,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
               />
             </div>
           )}
-          {currentStep === 3 && (
+          {/* {currentStep === 3 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShippingMethod
                 productId={router.query.product_id}
@@ -458,7 +451,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 }}
               />
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
