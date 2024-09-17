@@ -47,7 +47,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [nfts, setNfts] = useState<NftData[]>([])
   const address = publicCollectionData?.collection_id
 
-  const [hasloading, setHasLoading] = useState(false)
+  const [hasloading, setHasLoading] = useState(true)
   const [showEAPreview, setShowEAPreview] = useState(false)
   const [importMintList, setImportMintList] = useState<string[]>([])
   useEffect(() => {

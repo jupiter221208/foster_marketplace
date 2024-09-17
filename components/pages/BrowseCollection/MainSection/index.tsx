@@ -39,6 +39,7 @@ import MenuCreateCollection from 'components/Menu/MenuCreateCollection'
 import AddTokenModal from 'components/Modal/AddTokenModal'
 import ImportEAModal from 'components/Modal/ImportEAModal'
 import { useRouter } from 'next/router'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const MainSection = props => {
   const { nfts, data, publicKey, hasloading, collectionId, coverUrl, collectionName, handleCollectionImport } = props
@@ -215,12 +216,42 @@ const MainSection = props => {
     router.push('/create/collection')
   }
 
+  const [bannerLoaded, setBannerLoaded] = useState(false)
+
   return (
     <div>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={styles.container}>
           <div className="relative w-full">
-            {hasloading ? (
+            <div className={styles.headerImage}>
+              {croppedBanner !== '' || data?.banner_image?.length > 0 || data?.cover_image?.length > 0 ? (
+                <ImageWithFoster
+                  src={
+                    croppedBanner !== ''
+                      ? croppedBanner
+                      : data?.banner_image?.length > 0
+                      ? data?.banner_image
+                      : data?.cover_image?.length > 0
+                      ? data?.cover_image
+                      : null
+                  }
+                  showPlaceHolder={false}
+                  width={1920}
+                  className="w-full h-full object-cover"
+                  onLoad={() => setBannerLoaded(true)}
+                  alt=""
+                />
+              ) : (
+                !hasloading && <img src={bannerImage.src} className="w-full h-full object-cover" alt="" />
+              )}
+
+              {(hasloading || !bannerLoaded) && (
+                <div className={styles.headerBG}>
+                  <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
+                </div>
+              )}
+            </div>
+            {/* {hasloading ? (
               <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[350px]`}></div>
             ) : (
               <>
@@ -240,7 +271,7 @@ const MainSection = props => {
                   <img src={bannerImage.src} className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] " alt="" />
                 )}
               </>
-            )}
+            )} */}
 
             {publicKey?.toBase58() === data?.minter_id && (
               <div className="absolute right-7 bottom-7 cursor-pointer">
