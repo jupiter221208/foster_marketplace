@@ -251,27 +251,6 @@ const MainSection = props => {
                 </div>
               )}
             </div>
-            {/* {hasloading ? (
-              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[350px]`}></div>
-            ) : (
-              <>
-                {croppedBanner !== '' ? (
-                  <div className={styles.headerImage}>
-                    <img src={croppedBanner} className="w-full h-[350px] object-cover" alt="" />
-                  </div>
-                ) : data?.banner_image ? (
-                  <div className={styles.headerImage}>
-                    <img src={data.banner_image} className="w-full h-[350px] object-cover" alt="" />
-                  </div>
-                ) : data?.cover_image ? (
-                  <div className={styles.headerImage}>
-                    <img src={data?.cover_image} className="w-full h-[350px] object-cover" alt="" />
-                  </div>
-                ) : (
-                  <img src={bannerImage.src} className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] " alt="" />
-                )}
-              </>
-            )} */}
 
             {publicKey?.toBase58() === data?.minter_id && (
               <div className="absolute right-7 bottom-7 cursor-pointer">
