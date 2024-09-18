@@ -117,7 +117,7 @@ const MerchDetail = () => {
         let itemDetails = {
           userId: item?.userId,
           merchId: item?.id,
-          print: nftName ? nftName['value'] : '',
+          print: nftName ? nftName['value'] : itemData.name,
           description: item?.description,
           quantity: itemData.quantity,
           product: itemData.name,
@@ -125,6 +125,8 @@ const MerchDetail = () => {
           color: color ? getFirstUpperString(color['value']) : '',
           apparel: apparel,
         }
+        console.log(itemDetails, '==========item=========')
+
         setItemDetails(itemDetails)
       }
 
@@ -162,7 +164,7 @@ const MerchDetail = () => {
         if (options) {
           let itemDetails = {
             quantity: quantity,
-            print: nftName ? nftName['value'] : '',
+            print: nftName ? nftName['value'] : itemData.name,
             size: size ? size['value'] : '',
             color: color ? getFirstUpperString(color['value']) : '',
             fosterUrl: previewUrl,
@@ -232,8 +234,11 @@ const MerchDetail = () => {
       total: orderVersion === 'v1' ? order.amount.toFixed(2) : ssorder?.amountPaid.toFixed(2),
       shipTo: billTo
         ? {
-            street: billTo.street1 + ' ' + billTo.street2,
-            city: [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
+            street: billTo.street1 + ' ' + (billTo.street2 ?? ''),
+            city:
+              billTo.city.toLowerCase() === 'blink city'
+                ? ''
+                : [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
           }
         : { street: '---', city: '---' },
       service: getShippingServiceName(ssorder.requestedShippingService),
@@ -282,6 +287,9 @@ const MerchDetail = () => {
   const getShippingMethod = method => {
     if (method === 'gp_plus') {
       return 'GlobalPost Plus Intl'
+    } else if (method === 'blinks') {
+      if (SSOrder?.orderStatus === 'shipped') return 'BLINKS'
+      else return 'Pending Order Creation'
     } else return method
   }
 
@@ -500,7 +508,7 @@ const MerchDetail = () => {
             </div>
           </div>
         ) : SSOrder?.items.length === 1 ? (
-          <div className="w-full flex justify-between mt-[70px]">
+          <div className="w-full flex justify-between mt-[70px] gap-[30px]">
             <div className="w-[183px] h-[183px] object-cover">
               {!orderData ? (
                 <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
@@ -508,24 +516,29 @@ const MerchDetail = () => {
                 <img src={previewUrl} alt="" />
               )}
             </div>
-            <div className="max-w-[300px]">
+            <div className="max-w-[450px]">
               <div className={styles.detailTitle}>Item Details</div>
               <div className={`mt-[15px] ${styles.detailValue}`}>Name:&nbsp;{itemDetails?.print}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>
-                Description:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;
-                {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                  ? 'Small'
-                  : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                  ? 'Medium'
-                  : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                  ? 'Large'
-                  : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                  ? 'X-Large'
-                  : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                  ? '2X-Large'
-                  : ''}
-                &nbsp;/&nbsp;{itemDetails?.color}
+                Description:&nbsp;
+                {orderDetails?.service === 'blinks'
+                  ? itemDetails?.description
+                  : itemDetails?.apparel +
+                    ' / ' +
+                    (itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                      ? 'Small'
+                      : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                      ? 'Medium'
+                      : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                      ? 'Large'
+                      : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                      ? 'X-Large'
+                      : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                      ? '2X-Large'
+                      : '') +
+                    ' / ' +
+                    itemDetails?.color}
               </div>
             </div>
 
