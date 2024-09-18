@@ -240,7 +240,8 @@ const MerchClaimShipping = props => {
       residential: true,
     }
 
-    const { id, description, color, quantity, size, technique } = data
+    const { id, name: productName, description, color, quantity, size, technique } = data
+
     let item
 
     // foster merch
@@ -254,7 +255,7 @@ const MerchClaimShipping = props => {
       previewUrl: mockupUrls[0],
       options: {
         type: 'foster',
-        nftName: name,
+        nftName: productName,
         fosterUrl: window.location.href,
         mockupUrl: mockupUrls.join(','),
         assetUrl: rawUrls.join(','),
