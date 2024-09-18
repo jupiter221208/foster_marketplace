@@ -125,7 +125,6 @@ const MerchDetail = () => {
           color: color ? getFirstUpperString(color['value']) : '',
           apparel: apparel,
         }
-        console.log(itemDetails, '==========item=========')
 
         setItemDetails(itemDetails)
       }
