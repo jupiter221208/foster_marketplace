@@ -20,17 +20,10 @@ import { useViewport } from 'utils'
 
 // images and icons
 import InstagramWhiteIcon from 'assets/icons/instagram-green.svg?component'
-import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg?component'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
-import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
-import WebSiteSmallIcon from 'assets/icons/website-icon-mobile.svg?component'
-import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
-import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
-import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
-import CirclePlugGreenIcon from 'assets/icons/circle-plus-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -227,12 +220,14 @@ const ProfileSection = prop => {
               <div className={styles.subTitle}>Profile Information</div>
             </div>
 
-            <div className="mt-[10px] lg:mt-8">
+            <div className="mt-[10px] lg:mt-[30px]">
               <Input
                 error={errorMessage}
                 value={userName}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 color="var(--text-gray-200-color)"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius="10px"
                 placeholder="Username"
                 onChange={value => {
                   if (errorMessage.length > 0) setErrorMessage('')
@@ -242,43 +237,49 @@ const ProfileSection = prop => {
                 }}
               />
             </div>
-            <div className="mt-[10px] lg:mt-[30px] h-fit">
+            <div className="mt-[10px] lg:mt-[15px] h-fit">
               <Textarea
                 value={bio}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 color="var(--text-gray-200-color)"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius="10px"
                 placeholder="Bio"
                 width="100%"
-                height="160px"
+                height="100px"
                 label01="Max Characters 1000"
                 label02={1000 - bio?.length === 1000 ? '' : `${1000 - bio?.length} Characters left`}
                 onChange={value => setBio(value)}
               />
             </div>
-            <div className="mt-[15px] lg:mt-[30px]">
+            <div className="mt-[10px] lg:mt-[15px]">
               <Input
                 value={userEmail}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 color="var(--text-gray-200-color)"
                 placeholder="Email Address"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius="10px"
                 onChange={value => setUserEmail(value)}
               />
             </div>
-            <div className="mt-[45px] lg:mt-[60px]">
-              <div className={styles.subTitle}>Social Links</div>
+            <div className="mt-[40px] lg:mt-[45px]">
+              <div className={styles.subTitle}>Socials</div>
             </div>
-            <div className="mt-4 lg:mt-8 flex">
+            <div className="mt-[16px] lg:mt-[30px] flex">
               <div className={styles.socialIcon}>
                 <InstagramWhiteIcon />
               </div>
 
-              <div className="w-full ml-[10px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[25px]">
                 <Input
                   value={igUrl}
                   label01={errorIGUrl}
                   placeholder="Enter your Instagram link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  borderRadius="10px"
                   onChange={value => {
                     if (value.includes('instagram.com/')) {
                       setErrorIGUrl('')
@@ -290,17 +291,19 @@ const ProfileSection = prop => {
                 />
               </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex ">
+            <div className="mt-[10px] lg:mt-[15px] flex ">
               <div className={styles.socialIcon}>
                 <TwitterWhiteIcon />
               </div>
-              <div className="w-full ml-[10px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[25px]">
                 <Input
                   value={twitterUrl}
                   label01={errorTwitterUrl}
                   placeholder="Enter your Twitter link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  borderRadius="10px"
                   onChange={value => {
                     if (value.includes('twitter.com/') || value.includes('x.com/')) {
                       setErrorTwitterUrl('')
@@ -313,17 +316,19 @@ const ProfileSection = prop => {
               </div>
             </div>
             {/* Personal Web Site */}
-            <div className="mt-[10px] lg:mt-[30px] flex ">
+            <div className="mt-[10px] lg:mt-[15px] flex ">
               <div className={styles.socialIcon}>
                 <LandIcon />
               </div>
-              <div className="w-full ml-[10px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[25px]">
                 <Input
                   value={landUrl}
                   label01={errorLandUrl}
                   placeholder="Enter your 3.Land link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  borderRadius="10px"
                   onChange={value => {
                     if (value.includes('http')) {
                       setErrprLandUrl('')
@@ -335,17 +340,19 @@ const ProfileSection = prop => {
                 />
               </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex ">
+            <div className="mt-[10px] lg:mt-[15px] flex ">
               <div className={styles.socialIcon}>
                 <SolrPlexIcon />
               </div>
-              <div className="w-full ml-[10px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[25px]">
                 <Input
                   value={solrPlexUrl}
                   label01={errorSolrPlexUrl}
                   placeholder="Enter your Solarplex link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  borderRadius="10px"
                   onChange={value => {
                     if (value.includes('http')) {
                       setErrorSolrPlexUrl('')
@@ -357,17 +364,19 @@ const ProfileSection = prop => {
                 />
               </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex ">
+            <div className="mt-[10px] lg:mt-[15px] flex ">
               <div className={styles.socialIcon}>
                 <WebSiteIcon />
               </div>
-              <div className="w-full ml-[10px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[25px]">
                 <Input
                   value={websiteUrl}
                   label01={errorWebsiteUrl}
                   placeholder="Enter your personal website link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                  borderRadius="10px"
                   onChange={value => {
                     if (value.includes('http')) {
                       setErrorWebsiteUrl('')
@@ -607,7 +616,7 @@ const ProfileSection = prop => {
               </div>
             )}
 
-            <div className="mt-[60px] lg:mt-[61px] mb-[140px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
+            <div className="mt-[40px] lg:mt-[45px] mb-[140px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               <GradientButton
                 fullWidth
                 label="Save"

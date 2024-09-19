@@ -1489,9 +1489,9 @@ h6 {
 }
 
 [data-name='solrplex-icon-white'] {
-  --fill-color: var(--solar-icon-color);
+  --fill-color: var(--main-icon-color);
   [data-fill='a'] {
-    fill: var(--auction-input-bg);
+    fill: var(--social-icon-bg);
   }
 }
 
