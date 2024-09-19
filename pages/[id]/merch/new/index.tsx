@@ -95,9 +95,7 @@ const NewCreatorMerch = () => {
 
   const getShippingData = () => {
     if (productDetail.shipping.id === 0) return 'di_seller'
-    if (productDetail.shipping.id === 1) return 'di_buyer'
-    if (productDetail.shipping.id === 2) return 'd_buyer'
-    if (productDetail.shipping.id === 3) return 'd_seller'
+    if (productDetail.shipping.id === 1) return 'd_seller'
   }
 
   const createProduct = async () => {
