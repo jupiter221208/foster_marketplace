@@ -374,6 +374,7 @@ const MyProductSection = props => {
                   placeholder={'Set your selling price'}
                   onChange={event => {
                     setShippingFee(validDigits(event.target.value))
+                    setProductDetail({ ...productDetail, shippingFee: validDigits(event.target.value) })
                   }}
                 />
               </div>
@@ -392,13 +393,14 @@ const MyProductSection = props => {
                   placeholder={'Set your selling price'}
                   onChange={event => {
                     setInterShippingFee(validDigits(event.target.value))
+                    setProductDetail({ ...productDetail, interShippingFee: validDigits(event.target.value) })
                   }}
                 />
               </div>
             </div>
           )}
 
-          <div className="w-full h-[200px]" />
+          <div className="w-full h-[250px] lg:h-[200px]" />
         </div>
       </div>
       <Alert

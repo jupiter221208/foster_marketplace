@@ -59,14 +59,24 @@ const NewCreatorMerch = () => {
         snapshotUrl.left.length > 0 ||
         snapshotUrl.right.length > 0
       ) {
-        let { product, description, name, type, shipping } = productDetail
+        let { product, description, name, type, shipping, shippingFee, interShippingFee } = productDetail
+
         if (product) {
           if (product.id === 0) {
             setNextEnabled(true)
           } else {
-            if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined)
-              setNextEnabled(true)
-            else setNextEnabled(false)
+            if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined) {
+              if (shipping.id === 0) {
+                if (
+                  shippingFee !== undefined &&
+                  interShippingFee !== undefined &&
+                  parseInt(shippingFee) > 0 &&
+                  parseInt(interShippingFee) > 0
+                )
+                  setNextEnabled(true)
+                else setNextEnabled(false)
+              } else setNextEnabled(true)
+            } else setNextEnabled(false)
           }
         }
       } else setNextEnabled(false)
