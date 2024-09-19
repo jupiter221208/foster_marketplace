@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 // next components
 
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import GradientButton from 'components/Button/GradientButton'
+import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -17,12 +18,14 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import Dropzone from 'react-dropzone'
 
 // call apis
 
 const StudioSection = prop => {
   const { success } = prop
   const viewport = useViewport()
+  const dropzoneNftEl = useRef(null)
 
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
@@ -39,41 +42,85 @@ const StudioSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-start">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            <div className="mt-[0px] lg:mt-5">
+            <div>
+              <div className={styles.subTitle}>Social Preview</div>
+              <div className={styles.subDesc}>
+                Make your merch store yours. Name it, describe it, and show it off with a preview image that speaks your
+                brand’s language.
+              </div>
+            </div>
+
+            <div className="mt-[30px] lg:mt-[30px]">
               <Input
                 error={errorMessage}
                 value={title}
-                backgroundColor={'var(--studio-title-bg)'}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 color="var(--text-gray-200-color)"
-                placeholder="Add a note to your collectors when they place an order for any of your enabled studio items."
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius="10px"
+                placeholder="Store Name"
                 onChange={value => {
                   if (errorMessage.length > 0) setErrorMessage('')
                   setTitle(value)
                 }}
               />
             </div>
-            <div className="mt-[10px] lg:mt-[30px] h-fit">
+            <div className="mt-[10px] lg:mt-[15px] h-fit">
               <Textarea
                 value={note}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 color="var(--text-gray-200-color)"
-                placeholder="Insert note to collector"
+                borderRadius="10px"
+                placeholder="Store Description"
                 width="100%"
-                height="200px"
+                height="100px"
                 label01="Max Characters 1000"
                 label02={1000 - note?.length === 1000 ? '' : `${1000 - note?.length} Characters left`}
                 onChange={value => setNote(value)}
               />
             </div>
 
-            <div className="mt-[60px] lg:mt-[20px] mb-[10px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
+            <div className="mt-[10px] lg:mt-[15px]">
+              <Dropzone
+                onDropAccepted={acceptedFiles => {}}
+                onDropRejected={rejectedFiles => {}}
+                accept={{
+                  'image/jpeg': [],
+                  'image/png': [],
+                  'image/gif': [],
+                  'video/mp4': [],
+                  'audio/mpeg': [],
+                  'audio/wav': [],
+                  'model/gltf-binary': ['.glb'],
+                }}
+                maxFiles={1}
+                maxSize={2097152}
+              >
+                {({ getRootProps, getInputProps, open }) => (
+                  <section className={styles.dropzone}>
+                    <button onClick={open} ref={dropzoneNftEl} style={{ display: 'none' }}>
+                      open
+                    </button>
+                    <div {...getRootProps()} className={styles.selectArea}>
+                      <input {...getInputProps()} />
+                      <UploadGreenIcon alt="" />
+                      <p className={styles.uploadTitle}>Upload Here</p>
+                      <p className={styles.text}>Recommended Dimensions: 1920 x 960</p>
+                      <p className={styles.greenText}>Max File Size 2mb</p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+            </div>
+
+            <div className="mt-[30px] lg:mt-[30px] mb-[10px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"
+                  fullWidth
                   onClick={() => {
                     handleSaveUserInfo()
                   }}
@@ -86,6 +133,7 @@ const StudioSection = prop => {
               ) : (
                 <GradientButton
                   label="Save"
+                  fullWidth
                   disabled={true}
                   onClick={() => {}}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}

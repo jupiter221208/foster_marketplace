@@ -86,15 +86,15 @@ const NotificationSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-start">
+      <div className="w-full flex justify-center">
         <div className={styles.content}>
-          <div className="w-full mt-[10px] mb-12">
+          <div className="w-full mt-[10px] mb-[30px]">
             <GreenLineCard
               className={styles.description}
               content="Select which notifications you would like to receive via email and provide the email address in your profile settings."
             />
           </div>
-          <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[94px]">
+          <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[45px]">
             <Switch
               title="Incoming Offers"
               description="When someone makes an offer on your artwork"
@@ -125,12 +125,12 @@ const NotificationSection = prop => {
               enabled={auctionOutbid}
               onChange={() => setAuctionOutbid(!auctionOutbid)}
             />
-            <Switch
+            {/* <Switch
               title="Foster Newsletter"
               description="Occasional updates from the Foster team"
               enabled={fosterNewsletter}
               onChange={() => setFosterNewsletter(!fosterNewsletter)}
-            />
+            /> */}
           </div>
           <div className="w-full flex justify-end mb-[140px] lg:mb-20">
             <GradientButton
@@ -141,7 +141,7 @@ const NotificationSection = prop => {
                 }
               }}
               disabled={!enableSave}
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
+              fullWidth
               height="50px"
               paddingLeft="41px"
               paddingRight="41px"
