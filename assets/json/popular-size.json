@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "name": "Extra Small",
+    "size": "XS"
+  },
+  {
+    "id": 1,
+    "name": "Small",
+    "size": "S"
+  },
+  {
+    "id": 2,
+    "name": "Medium",
+    "size": "M"
+  },
+  {
+    "id": 3,
+    "name": "Large",
+    "size": "L"
+  },
+  {
+    "id": 4,
+    "name": "X-Large",
+    "size": "XL"
+  },
+  {
+    "id": 5,
+    "name": "2X-Large",
+    "size": "2XL"
+  },
+  {
+    "id": 6,
+    "name": "3X-Large",
+    "size": "3XL"
+  },
+  {
+    "id": 7,
+    "name": "4X-Large",
+    "size": "4XL"
+  }
+]

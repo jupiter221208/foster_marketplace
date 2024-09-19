@@ -352,7 +352,11 @@ const Step01CollectionSection = props => {
 
                   <div className={`${styles.subTitle} mt-[24px] mb-[15px]`}>Category (optional)</div>
 
-                  <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
+                  <CategorySelectionMenu
+                    categoryList={categoryList}
+                    handleSelectCategory={handleSelectCategory}
+                    placeholder="Select up to three categories"
+                  />
 
                   <div className={`${styles.subTitle} mt-[24px] flex justify-start items-center gap-2`}>
                     Royalties <span>*</span>

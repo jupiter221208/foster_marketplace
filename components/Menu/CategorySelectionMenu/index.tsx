@@ -10,14 +10,14 @@ import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 // solana
 
 const CategorySelectionMenu = props => {
-  const { categoryList, handleSelectCategory } = props
+  const { categoryList, handleSelectCategory, placeholder } = props
   const [label, setLabel] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
 
   useEffect(() => {
     let names = []
     categoryList.map((item, index) => item.checked && names.push(item.name))
-    if (names.length === 0) setLabel('Select up to three categories')
+    if (names.length === 0) setLabel(placeholder)
     else {
       setLabel(names.join().replaceAll(',', ', '))
     }
