@@ -104,7 +104,7 @@ const NftImageEditorModal = props => {
                     height="30px"
                     borderRadius="15px"
                     iconWidth={12}
-                    iconHeight={!2}
+                    iconHeight={12}
                   />
                 </div>
                 <div className="w-full h-[44px] flex justify-between lg:justify-center items-center">
@@ -117,7 +117,7 @@ const NftImageEditorModal = props => {
                       height="22px"
                       borderRadius="11px"
                       iconWidth={12}
-                      iconHeight={!2}
+                      iconHeight={12}
                     />
                   </div>
                   <div className={styles.title}>Crop Photo</div>
