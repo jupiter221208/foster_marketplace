@@ -70,8 +70,8 @@ const NewCreatorMerch = () => {
                 if (
                   shippingFee !== undefined &&
                   interShippingFee !== undefined &&
-                  parseInt(shippingFee) > 0 &&
-                  parseInt(interShippingFee) > 0
+                  parseInt(shippingFee) >= 0 &&
+                  parseInt(interShippingFee) >= 0
                 )
                   setNextEnabled(true)
                 else setNextEnabled(false)

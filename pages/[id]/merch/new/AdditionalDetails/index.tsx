@@ -442,14 +442,18 @@ const AdditionalDetails = props => {
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
               <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div>
-              <div className={`mt-[20px] ${styles.title}`}>Domestic Shipping Fee</div>
-              {productDetail.shipping.id === 0 && (
-                <div className={`${styles.desc} mt-[10px]`}>{productDetail.shippingFee}</div>
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Domestic Shipping Fee</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.shippingFee}</div>
+                </div>
               )}
-              {productDetail.shipping.id === 0 && (
-                <div className={`mt-[20px] ${styles.title}`}>International Shipping Fee</div>
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>International Shipping Fee</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.interShippingFee}</div>
+                </div>
               )}
-              <div className={`${styles.desc} mt-[10px]`}>{productDetail.interShippingFee}</div>
             </div>
             <div className="w-full mt-[20px]">
               <div className={styles.title}>Commision Details</div>

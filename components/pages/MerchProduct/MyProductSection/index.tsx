@@ -126,7 +126,7 @@ const MyProductSection = props => {
       }
     })
 
-    if (checkedCount >= 3 && array[index].checked === false) return
+    // if (checkedCount >= 3 && array[index].checked === false) return
 
     array[index].checked = !array[index].checked
     setSizeList(array)
@@ -326,18 +326,20 @@ const MyProductSection = props => {
             />
           </div>
 
-          <div className="mt-[20px] mb-[15px]">
-            <div className="mb-[15px]">
-              <div className={styles.fullfill}>
-                Available Sizes <span>*</span>
+          {productType.id === 13 && (
+            <div className="mt-[20px] mb-[15px]">
+              <div className="mb-[15px]">
+                <div className={styles.fullfill}>
+                  Available Sizes <span>*</span>
+                </div>
               </div>
+              <CategorySelectionMenu
+                categoryList={sizeList}
+                handleSelectCategory={handleSelectSize}
+                placeholder="Select the sizes available for purchase"
+              />
             </div>
-            <CategorySelectionMenu
-              categoryList={sizeList}
-              handleSelectCategory={handleSelectSize}
-              placeholder="Select up to three categories"
-            />
-          </div>
+          )}
 
           <div className="sm:mt-[30px] mt-[20px]">
             <div className="w-full flex gap-[5px] mb-[15px]">
@@ -349,8 +351,8 @@ const MyProductSection = props => {
               label={
                 shipping.id === -1
                   ? viewport === 'xs'
-                    ? 'Select responsible party for shipping fees'
-                    : 'Select a category that best describes this product'
+                    ? 'Select whether shipping fees are included'
+                    : 'Select whether shipping fees are included or not'
                   : shipping.label
               }
               data={ShippingList}
@@ -361,7 +363,7 @@ const MyProductSection = props => {
               }}
             />
           </div>
-          {shipping.id === 0 && (
+          {shipping.id === 1 && (
             <div className="mt-[30px]">
               <div className={styles.fullfill}>
                 Domestic Shipping Fee <span>*</span>
@@ -380,7 +382,7 @@ const MyProductSection = props => {
               </div>
             </div>
           )}
-          {shipping.id === 0 && (
+          {shipping.id === 1 && (
             <div className="mt-[30px]">
               <div className={styles.fullfill}>
                 International Shipping Fee <span>*</span>
