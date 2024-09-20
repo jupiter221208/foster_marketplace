@@ -48,16 +48,29 @@
   max-width: 500px;
 }
 
+.artArea {
+  width: 100%;
+  height: 180px;
+  @media (min-width: 1024px) {
+    width: 500px;
+    height: 260px;
+  }
+  border: 1px dashed rgba(var(--text-gray-200-color-rgb), 0.25);
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
 .dropzone {
   width: 100%;
-  height: auto;
-  padding: 34px 16px;
+  height: 180px;
+  padding: 30px 16px;
   text-align: center;
   @media (min-width: 1024px) {
-    padding: 70px 26px;
+    padding: 65px 26px;
+    height: 260px;
   }
   background-color: rgba(var(--main-bg-color-rgb), 0.05);
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px dashed rgba(var(--text-gray-200-color-rgb), 0.25);
 }
 

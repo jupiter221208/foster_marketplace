@@ -2,14 +2,12 @@ import React, { useEffect, useState, useRef } from 'react'
 
 // next components
 
-// third party components
-import { useDispatch } from 'react-redux'
-
 // custom components
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import GradientButton from 'components/Button/GradientButton'
 import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
+import TrashBin from 'assets/icons/trash-bin.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -31,6 +29,7 @@ const StudioSection = prop => {
   const [note, setNote] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [enableSave, setEnableSave] = useState(true)
+  const [nftArt, setNftArt] = useState(null)
 
   const checkEnableSave = () => {}
 
@@ -40,6 +39,7 @@ const StudioSection = prop => {
     checkEnableSave()
   }, [note])
 
+  console.log(nftArt, '===========nftArt============')
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-start">
@@ -84,39 +84,50 @@ const StudioSection = prop => {
             </div>
 
             <div className="mt-[10px] lg:mt-[15px]">
-              <Dropzone
-                onDropAccepted={acceptedFiles => {}}
-                onDropRejected={rejectedFiles => {}}
-                accept={{
-                  'image/jpeg': [],
-                  'image/png': [],
-                  'image/gif': [],
-                  'video/mp4': [],
-                  'audio/mpeg': [],
-                  'audio/wav': [],
-                  'model/gltf-binary': ['.glb'],
-                }}
-                maxFiles={1}
-                maxSize={2097152}
-              >
-                {({ getRootProps, getInputProps, open }) => (
-                  <section className={styles.dropzone}>
-                    <button onClick={open} ref={dropzoneNftEl} style={{ display: 'none' }}>
-                      open
-                    </button>
-                    <div {...getRootProps()} className={styles.selectArea}>
-                      <input {...getInputProps()} />
-                      <UploadGreenIcon alt="" />
-                      <p className={styles.uploadTitle}>Upload Here</p>
-                      <p className={styles.text}>Recommended Dimensions: 1920 x 960</p>
-                      <p className={styles.greenText}>Max File Size 2mb</p>
-                    </div>
-                  </section>
-                )}
-              </Dropzone>
+              {nftArt === null ? (
+                <Dropzone
+                  onDropAccepted={acceptedFiles => {
+                    acceptedFiles.length !== 0 && setNftArt(acceptedFiles[0])
+                  }}
+                  onDropRejected={rejectedFiles => {}}
+                  accept={{
+                    'image/jpeg': [],
+                    'image/png': [],
+                    'image/gif': [],
+                    'video/mp4': [],
+                    'audio/mpeg': [],
+                    'audio/wav': [],
+                    'model/gltf-binary': ['.glb'],
+                  }}
+                  maxFiles={1}
+                  maxSize={2097152}
+                >
+                  {({ getRootProps, getInputProps, open }) => (
+                    <section className={styles.dropzone}>
+                      <button onClick={open} ref={dropzoneNftEl} style={{ display: 'none' }}>
+                        open
+                      </button>
+                      <div {...getRootProps()} className={styles.selectArea}>
+                        <input {...getInputProps()} />
+                        <UploadGreenIcon alt="" />
+                        <p className={styles.uploadTitle}>Upload Here</p>
+                        <p className={styles.text}>Recommended Dimensions: 1920 x 960</p>
+                        <p className={styles.greenText}>Max File Size 2mb</p>
+                      </div>
+                    </section>
+                  )}
+                </Dropzone>
+              ) : (
+                <div className={styles.artArea}>
+                  <img src={URL.createObjectURL(nftArt)} className="w-full h-full object-cover" />
+                  <div className="absolute right-[20px] bottom-[20px] z-100" onClick={() => setNftArt(null)}>
+                    <TrashBin />
+                  </div>
+                </div>
+              )}
             </div>
 
-            <div className="mt-[30px] lg:mt-[30px] mb-[10px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
+            <div className="mt-[30px] lg:mt-[30px] mb-[100px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"
