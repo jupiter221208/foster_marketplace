@@ -210,8 +210,7 @@ const MerchOrderShippingMethod = props => {
       shipTo: address,
       items: [item],
       gift: true,
-      giftMessage:
-        'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
+      giftMessage: 'Thank you for supporting indie creators in the Solana Art Ecosystem. Enjoy your new piece!',
       notes: 'Checkout Note',
     }
 

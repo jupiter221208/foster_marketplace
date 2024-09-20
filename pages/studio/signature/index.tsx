@@ -420,7 +420,7 @@ const StudioSignature = () => {
       <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px] lg:mb-[100px]">
         <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
           {merchList.map((item, index) => (
-            <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+            <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={item.id}>
               <MerchShopCard username={item.username} data={item} />
             </div>
           ))}
