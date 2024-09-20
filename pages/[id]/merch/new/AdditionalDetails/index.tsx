@@ -444,13 +444,13 @@ const AdditionalDetails = props => {
               {productDetail.shipping.id === 1 && (
                 <div>
                   <div className={`mt-[20px] ${styles.title}`}>Domestic Shipping Fee</div>
-                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.shippingFee}</div>
+                  <div className={`${styles.desc} mt-[10px]`}>${productDetail.shippingFee}</div>
                 </div>
               )}
               {productDetail.shipping.id === 1 && (
                 <div>
                   <div className={`mt-[20px] ${styles.title}`}>International Shipping Fee</div>
-                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.interShippingFee}</div>
+                  <div className={`${styles.desc} mt-[10px]`}>${productDetail.interShippingFee}</div>
                 </div>
               )}
             </div>
