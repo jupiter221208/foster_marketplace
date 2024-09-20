@@ -26,7 +26,7 @@ import { limit } from 'utils/strings'
 import Textarea from 'components/Input/Textarea'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
 import Alert from 'components/Alert'
-import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
+import SizeSelectionMenu from 'components/Menu/SizeSelectionMenu'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
@@ -99,6 +99,7 @@ const MyProductSection = props => {
     SizeList.map(item => {
       let object: any = item
       object.checked = false
+      object.disabled = false
       array.push(object)
     })
     setSizeList(array)
@@ -125,10 +126,17 @@ const MyProductSection = props => {
         checkedCount++
       }
     })
-
-    // if (checkedCount >= 3 && array[index].checked === false) return
-
     array[index].checked = !array[index].checked
+    setSizeList(array)
+  }
+
+  const handleSelectAll = selected => {
+    let array = [...sizeList]
+
+    array.map(item => {
+      if (selected) item.checked = true
+      else item.checked = false
+    })
     setSizeList(array)
   }
 
@@ -333,10 +341,10 @@ const MyProductSection = props => {
                   Available Sizes <span>*</span>
                 </div>
               </div>
-              <CategorySelectionMenu
+              <SizeSelectionMenu
                 categoryList={sizeList}
                 handleSelectCategory={handleSelectSize}
-                placeholder="Select the sizes available for purchase"
+                handleSelectAll={handleSelectAll}
               />
             </div>
           )}

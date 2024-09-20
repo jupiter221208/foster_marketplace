@@ -187,11 +187,7 @@ const Step03SingleNFTSection = props => {
       )}
 
       <div className={`${styles.subTitle} mb-[15px]`}>Category (optional)</div>
-      <CategorySelectionMenu
-        categoryList={categoryList}
-        handleSelectCategory={handleSelectCategory}
-        placeholder="Select up to three categories"
-      />
+      <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
 
       <div className={styles.collaborationTitle}>Creators</div>
       <div className={styles.collaborationText}>
