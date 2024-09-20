@@ -39,7 +39,6 @@ const StudioSection = prop => {
     checkEnableSave()
   }, [note])
 
-  console.log(nftArt, '===========nftArt============')
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-start">

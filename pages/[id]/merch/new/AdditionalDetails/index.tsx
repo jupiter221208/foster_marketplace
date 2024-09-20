@@ -303,7 +303,6 @@ const AdditionalDetails = props => {
     setApparelUrl(item.url)
   }
 
-  console.log(productDetail, '============productDetail==========')
   return (
     <div className="w-full lg:flex flex-col lg:flex-row gap-[50px] mt-[45px]">
       <div className="w-full lg:w-[46%]">
