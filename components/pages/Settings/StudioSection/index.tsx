@@ -17,6 +17,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 import Dropzone from 'react-dropzone'
+import Alert from 'components/Alert'
 
 // call apis
 
@@ -30,6 +31,8 @@ const StudioSection = prop => {
   const [errorMessage, setErrorMessage] = useState('')
   const [enableSave, setEnableSave] = useState(true)
   const [nftArt, setNftArt] = useState(null)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
 
   const checkEnableSave = () => {}
 
@@ -38,6 +41,40 @@ const StudioSection = prop => {
   useEffect(() => {
     checkEnableSave()
   }, [note])
+
+  const handleShowAlert = error => {
+    if (error === 'file-invalid-type') {
+      let description = ''
+      description = `Supported file formats .png, .jpeg`
+      setAlertData([
+        {
+          id: 0,
+          title: 'File Format Not Supported',
+          description,
+          type: 'error',
+        },
+      ])
+    } else if (error === 'file-too-large') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Max File Size Exceeded',
+          description: `Oops! It looks like your file exceeded the max file size of 2mb`,
+          type: 'error',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Unknown Error',
+          description: `Unknown Error`,
+          type: 'error',
+        },
+      ])
+    }
+    setShowAlert(true)
+  }
 
   return (
     <div className={styles.container}>
@@ -86,17 +123,14 @@ const StudioSection = prop => {
               {nftArt === null ? (
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
-                    acceptedFiles.length !== 0 && setNftArt(acceptedFiles[0])
+                    acceptedFiles.length !== 0 ? setNftArt(acceptedFiles[0]) : handleShowAlert('unknown')
                   }}
-                  onDropRejected={rejectedFiles => {}}
+                  onDropRejected={rejectedFiles => {
+                    handleShowAlert(rejectedFiles[0]?.errors[0]?.code)
+                  }}
                   accept={{
                     'image/jpeg': [],
                     'image/png': [],
-                    'image/gif': [],
-                    'video/mp4': [],
-                    'audio/mpeg': [],
-                    'audio/wav': [],
-                    'model/gltf-binary': ['.glb'],
                   }}
                   maxFiles={1}
                   maxSize={2097152}
@@ -157,6 +191,13 @@ const StudioSection = prop => {
           </div>
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }
