@@ -116,7 +116,7 @@ const MakeAnOfferModal = props => {
                     height="30px"
                     borderRadius="15px"
                     iconWidth={12}
-                    iconHeight={!2}
+                    iconHeight={12}
                   />
                 </div>
                 <div className={styles.title}>Make Offer</div>

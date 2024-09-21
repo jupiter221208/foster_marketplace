@@ -32,15 +32,17 @@ export function useAuthentication(): UseAuthenticationReturn {
       if (signature?.match(/^[0-9a-f]{128}$/)) return signature
 
       if (!connected) return null
-      else if (!signLoginMessagePromise)
-        signLoginMessagePromise = signMessage(Buffer.from(getSignMessageVerbiage(address))).then(signatureRaw => {
+      else if (!signLoginMessagePromise) {
+        const buffer = Buffer.from(getSignMessageVerbiage(address)) 
+        const uint8Array = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+        signLoginMessagePromise = signMessage(uint8Array).then(signatureRaw => {
           let signature = Buffer.from(signatureRaw).toString('hex')
           localStorage.setItem('signature', signature)
           signLoginMessagePromise = null
           dispatch({ type: 'set', loginSignedFlag: true })
           return signature
         })
-
+      }
       return signLoginMessagePromise
     },
     [connected, signLoginMessagePromise, signMessage]
