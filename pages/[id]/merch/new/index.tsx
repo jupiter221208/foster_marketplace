@@ -248,7 +248,7 @@ const NewCreatorMerch = () => {
         else return 10
       }
     } else {
-      return 11 + productDetail.type.id
+      return productDetail.type.id
     }
   }
 
