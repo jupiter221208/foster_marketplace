@@ -81,7 +81,6 @@ const StudioSignature = () => {
     })
 
     let typeIds = []
-    let subCategorySelected = false
     if (category !== null && category !== undefined) {
       if (category.id === 0 || category.id === 1 || category.id === 3) {
         let print
@@ -111,10 +110,12 @@ const StudioSignature = () => {
       if (category.id === 2 || category.id === 3) {
         subCateList.map(item => {
           if (item.checked === true) {
-            if (item.id !== 22) {
+            if (item.id === 13) {
+              if (category.id === 2) typeIds.push(13)
+              else typeIds.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13)
+            } else if (item.id !== 22) {
               // All
               typeIds.push(item.id)
-              if (!subCategorySelected) subCategorySelected = true
             }
           }
         })
@@ -132,8 +133,6 @@ const StudioSignature = () => {
     if (category !== null) {
       if (category.value !== '') {
         params['category'] = category.value
-      } else {
-        if (subCategorySelected) params['category'] = 'user'
       }
     }
     if (typeIds.length > 0) {
@@ -146,7 +145,7 @@ const StudioSignature = () => {
         setIsGettingFeed(false)
         setIsFetching(false)
         let result = response.products
-        let filtered = getFilterData(result, subCategorySelected)
+        let filtered = getFilterData(result)
         setTotal(response.total)
         if (reset) setMerchList(filtered)
         else setMerchList([...merchList, ...filtered])
@@ -167,21 +166,19 @@ const StudioSignature = () => {
     )
   }
 
-  const getFilterData = (response, subCategorySelected) => {
+  const getFilterData = response => {
     let list = response.filter(
       item =>
         item.master_edition_address !== '' &&
         (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
         (item.supply === null || item.supply - item.current_supply > 0)
     )
-    if (!subCategorySelected) {
-      let selectedColor
-      colorList.map(item => {
-        if (item.checked) selectedColor = item.name.toLowerCase()
-      })
-      if (selectedColor === 'white' || selectedColor === 'black') {
-        list = list.filter(item => item.options.color === selectedColor)
-      }
+    let selectedColor
+    colorList.map(item => {
+      if (item.checked) selectedColor = item.name.toLowerCase()
+    })
+    if (selectedColor === 'white' || selectedColor === 'black') {
+      list = list.filter(item => item.options.color === selectedColor)
     }
     return list
   }
