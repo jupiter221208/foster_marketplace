@@ -81,6 +81,7 @@ const StudioSignature = () => {
     })
 
     let typeIds = []
+    let subCategorySelected = false
     if (category !== null && category !== undefined) {
       if (category.id === 0 || category.id === 1 || category.id === 3) {
         let print
@@ -110,9 +111,11 @@ const StudioSignature = () => {
       if (category.id === 2 || category.id === 3) {
         subCateList.map(item => {
           if (item.checked === true) {
-            if (item.id !== 22)
+            if (item.id !== 22) {
               // All
               typeIds.push(item.id)
+              if (!subCategorySelected) subCategorySelected = true
+            }
           }
         })
       }
@@ -126,26 +129,32 @@ const StudioSignature = () => {
       minPrice: minPrice * 100,
       maxPrice: maxPrice * 100,
     }
-    if (category !== null && category.value !== '') {
-      params['category'] = category.value
+    if (category !== null) {
+      if (category.value !== '') {
+        params['category'] = category.value
+      } else {
+        if (subCategorySelected) params['category'] = 'user'
+      }
     }
     if (typeIds.length > 0) {
       params['typeIds'] = typeIds
     }
+
     setIsGettingFeed(true)
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
         setIsGettingFeed(false)
         setIsFetching(false)
-        let filtered = getFilterData(response.products)
-        setTotal(response.total)
+        let result = response.products
+        let filtered = getFilterData(result, subCategorySelected)
+        setTotal(result.total)
         if (reset) setMerchList(filtered)
         else setMerchList([...merchList, ...filtered])
-        if (response.products.length < rowCount) {
+        if (result.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
           setTimeout(() => {
-            if (filtered.length != response.products.length) {
+            if (filtered.length != result.length) {
               setIsFetching(true)
             }
           }, 2000)
@@ -160,13 +169,22 @@ const StudioSignature = () => {
     )
   }
 
-  const getFilterData = response => {
+  const getFilterData = (response, subCategorySelected) => {
     let list = response.filter(
       item =>
         item.master_edition_address !== '' &&
         (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
         (item.supply === null || item.supply - item.current_supply > 0)
     )
+    if (!subCategorySelected) {
+      let selectedColor
+      colorList.map(item => {
+        if (item.checked) selectedColor = item.name.toLowerCase()
+      })
+      if (selectedColor === 'white' || selectedColor === 'black') {
+        list = list.filter(item => item.options.color === selectedColor)
+      }
+    }
     return list
   }
 
@@ -206,6 +224,11 @@ const StudioSignature = () => {
       let object: any = item
       object.checked = false
       array2.push(object)
+    })
+    array2.push({
+      id: 2,
+      name: 'All',
+      checked: true,
     })
     setColorList(array2)
 
@@ -282,6 +305,7 @@ const StudioSignature = () => {
     })
     array[index].checked = true
     setColorList(array)
+    getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, sortList, true)
   }
 
   const handleSelectApparel = index => {
