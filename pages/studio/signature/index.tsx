@@ -15,6 +15,7 @@ import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import SortIcon from 'assets/icons/sort-icon-normal.svg?component'
 import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
 import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
+import CloseIcon from 'assets/icons/close-white-9x9.svg?component'
 
 import styles from './index.module.scss'
 import StudioCategoryMenu from 'components/Menu/StudioCategoryMenu'
@@ -47,6 +48,8 @@ const StudioSignature = () => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [total, setTotal] = useState(0)
   const [isGettingFeed, setIsGettingFeed] = useState(false)
+  const [selectedFilterList, setSelectedFilterList] = useState([])
+
   useEffect(() => {
     if (isFetching === true && !isGettingFeed) {
       let nextPage = pages + 1
@@ -54,6 +57,26 @@ const StudioSignature = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
+
+  useEffect(() => {
+    let list = []
+    categoryList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    subCateList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    colorList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    apparelList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    printList.map(item => {
+      if (item.checked === true && item.name !== 'All') list.push(item.name)
+    })
+    setSelectedFilterList(list)
+  }, [categoryList, subCateList, colorList, apparelList, printList])
 
   const getStoreItem = (
     page,
@@ -110,9 +133,13 @@ const StudioSignature = () => {
       if (category.id === 2 || category.id === 3) {
         subCateList.map(item => {
           if (item.checked === true) {
-            if (item.id !== 22)
+            if (item.id === 13) {
+              if (category.id === 2) typeIds.push(13)
+              else typeIds.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13)
+            } else if (item.id !== 22) {
               // All
               typeIds.push(item.id)
+            }
           }
         })
       }
@@ -126,31 +153,33 @@ const StudioSignature = () => {
       minPrice: minPrice * 100,
       maxPrice: maxPrice * 100,
     }
-    if (category !== null && category.value !== '') {
-      params['category'] = category.value
+    if (category !== null) {
+      if (category.value !== '') {
+        params['category'] = category.value
+      }
     }
     if (typeIds.length > 0) {
       params['typeIds'] = typeIds
     }
+    if (reset) setMerchList([])
     setIsGettingFeed(true)
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
         setIsGettingFeed(false)
         setIsFetching(false)
-        let filtered = getFilterData(response.products)
+        let result = response.products
+        let filtered = getFilterData(result)
         setTotal(response.total)
         if (reset) setMerchList(filtered)
         else setMerchList([...merchList, ...filtered])
-        if (response.products.length < rowCount) {
+        if (result.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
-          setTimeout(() => {
-            if (filtered.length != response.products.length) {
-              setIsFetching(true)
-            }
-          }, 2000)
           setPages(page)
-          setIsVisibleFetching(true)
+          setIsVisibleFetching(false)
+          setTimeout(() => {
+            setIsVisibleFetching(true)
+          }, 500)
         }
       },
       error => {
@@ -167,6 +196,13 @@ const StudioSignature = () => {
         (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
         (item.supply === null || item.supply - item.current_supply > 0)
     )
+    let selectedColor
+    colorList.map(item => {
+      if (item.checked) selectedColor = item.name.toLowerCase()
+    })
+    if (selectedColor === 'white' || selectedColor === 'black') {
+      list = list.filter(item => item.options.color === selectedColor)
+    }
     return list
   }
 
@@ -207,6 +243,11 @@ const StudioSignature = () => {
       object.checked = false
       array2.push(object)
     })
+    array2.push({
+      id: 2,
+      name: 'All',
+      checked: true,
+    })
     setColorList(array2)
 
     let array3: any[] = []
@@ -245,6 +286,44 @@ const StudioSignature = () => {
     setPrintList(array5)
   }, [])
 
+  const resetFilter = () => {
+    let array = [...categoryList]
+    array.map(item => {
+      item.checked = false
+    })
+    array[categoryList.length - 1].checked = true
+    setCategoryList(array)
+    setSelectedCategory(array[categoryList.length - 1])
+
+    let array1 = [...subCateList]
+    array1.map(item => {
+      item.checked = false
+    })
+    array1[subCateList.length - 1].checked = true
+    setSubCateList(array1)
+
+    let array2 = [...colorList]
+    array2.map(item => {
+      item.checked = false
+    })
+    array2[colorList.length - 1].checked = true
+    setColorList(array2)
+
+    let array3 = [...apparelList]
+    array3.map(item => {
+      item.checked = false
+    })
+    array3[apparelList.length - 1].checked = true
+    setApparelList(array3)
+
+    let arrayTT = [...printList]
+    arrayTT.map(item => {
+      item.checked = false
+    })
+    arrayTT[printList.length - 1].checked = true
+    setPrintList(arrayTT)
+  }
+
   const handleSelectCategory = index => {
     let array = [...categoryList]
     array.map(item => {
@@ -282,6 +361,7 @@ const StudioSignature = () => {
     })
     array[index].checked = true
     setColorList(array)
+    getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, sortList, true)
   }
 
   const handleSelectApparel = index => {
@@ -312,6 +392,56 @@ const StudioSignature = () => {
     array[index].checked = true
     setSortList(array)
     getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, array, true)
+  }
+
+  const removeFilter = filter => {
+    let subCateNames = []
+    let apparelNames = []
+    subCateList.map(item => subCateNames.push(item.label))
+    apparelList.map(item => apparelNames.push(item.name))
+    if (filter === 'Standalone' || filter === 'Merch Edition' || filter === 'User Physical') {
+      let array = [...categoryList]
+      array.map(item => {
+        item.checked = false
+      })
+      array[categoryList.length - 1].checked = true
+      setCategoryList(array)
+      setSelectedCategory(array[categoryList.length - 1])
+    } else if (subCateNames.indexOf(filter) >= 0) {
+      let array1 = [...subCateList]
+      let count = 0
+      array1.map(item => {
+        if (item.label === filter) item.checked = false
+        if (item.checked) count++
+      })
+      if (count === 0) array1[subCateList.length - 1].checked = true
+      setSubCateList(array1)
+    } else if (filter === 'White' || filter === 'Black') {
+      let array1 = [...colorList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[colorList.length - 1].checked = true
+      setColorList(array1)
+    } else if (apparelNames.indexOf(filter) >= 0) {
+      let array1 = [...apparelList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[apparelList.length - 1].checked = true
+      setApparelList(array1)
+    } else if (filter === 'Embroidery' || filter === 'Direct to Garment') {
+      let array1 = [...printList]
+      array1.map(item => {
+        item.checked = false
+      })
+      array1[printList.length - 1].checked = true
+      setPrintList(array1)
+    }
+
+    setTimeout(() => {
+      getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, sortList, true)
+    }, 100)
   }
 
   return (
@@ -379,6 +509,35 @@ const StudioSignature = () => {
         />
       </div>
 
+      {selectedFilterList.length > 0 ? (
+        <div className="w-full hidden lg:flex mt-[15px] items-center gap-[15px]">
+          <div className="flex gap-[15px]">
+            {selectedFilterList.map((item, index) => {
+              return (
+                <div key={index} className={styles.selectedFilter} onClick={() => removeFilter(item)}>
+                  {item}
+                  <CloseIcon />
+                </div>
+              )
+            })}
+          </div>
+          <div
+            className={styles.clearAll}
+            onClick={() => {
+              setSelectedFilterList([])
+              resetFilter()
+              setTimeout(() => {
+                getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, sortList, true)
+              }, 100)
+            }}
+          >
+            Clear&nbsp;all
+          </div>
+        </div>
+      ) : (
+        <div className="w-full h-[15px]" />
+      )}
+
       <div className="w-full flex lg:hidden gap-[11px] justify-between">
         <BlackButton
           label="Filter"
@@ -417,10 +576,10 @@ const StudioSignature = () => {
         />
       </div>
 
-      <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px] lg:mb-[100px]">
-        <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+      <div className="w-full mt-[15px] lg:mt-[15px] mb-[45px] lg:mb-[100px]">
+        <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[15px]">
           {merchList.map((item, index) => (
-            <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+            <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={item.id}>
               <MerchShopCard username={item.username} data={item} />
             </div>
           ))}

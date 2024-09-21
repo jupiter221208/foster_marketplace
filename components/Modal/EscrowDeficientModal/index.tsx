@@ -59,7 +59,7 @@ const EscrowDeficientModal = props => {
                     height="30px"
                     borderRadius="15px"
                     iconWidth={12}
-                    iconHeight={!2}
+                    iconHeight={12}
                   />
                 </div>
                 <div className="w-full mt-4 lg:mt-1">

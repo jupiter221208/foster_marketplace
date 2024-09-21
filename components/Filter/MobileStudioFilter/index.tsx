@@ -109,28 +109,29 @@ const MobileStudioFilter = props => {
           </div>
         ))}
 
-        <div className={styles.title}>Sub-category</div>
-        {subCateList.map((item, index) => (
-          <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
-            <label
-              className={`${styles.checkmark}`}
-              onClick={() => {
-                handleSelectSubCategory(index)
-              }}
-            >
-              {item.name}
-            </label>
-            <input
-              className={`${styles.checkbox}`}
-              type="checkbox"
-              id={item.id}
-              checked={item.checked}
-              onChange={() => {
-                handleSelectSubCategory(index)
-              }}
-            />
-          </div>
-        ))}
+        {(selectedCategory?.id === 2 || selectedCategory?.id === 3) && <div className={styles.title}>Sub-category</div>}
+        {(selectedCategory?.id === 2 || selectedCategory?.id === 3) &&
+          subCateList.map((item, index) => (
+            <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
+              <label
+                className={`${styles.checkmark}`}
+                onClick={() => {
+                  handleSelectSubCategory(index)
+                }}
+              >
+                {item.name}
+              </label>
+              <input
+                className={`${styles.checkbox}`}
+                type="checkbox"
+                id={item.id}
+                checked={item.checked}
+                onChange={() => {
+                  handleSelectSubCategory(index)
+                }}
+              />
+            </div>
+          ))}
 
         {(selectedCategory?.id === 0 || selectedCategory?.id === 1 || selectedCategory?.id === 3) && (
           <div>

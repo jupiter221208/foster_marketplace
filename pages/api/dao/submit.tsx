@@ -24,7 +24,9 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
       secretKey,
     } = req.body
 
-    const proposalKeypair = Keypair.fromSecretKey(Buffer.from(secretKey, 'hex'))
+    const buffer = Buffer.from(secretKey, 'hex')
+    const uint8Array = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength)
+    const proposalKeypair = Keypair.fromSecretKey(uint8Array)
 
     const query =
       'INSERT INTO dao_proposals(title, author, wallet_id, category, overview, metrics, treasury, eta_timeline, vote_start, vote_duration, proposal_key, signature, proposal_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)'
