@@ -139,7 +139,7 @@ const StudioSignature = () => {
     if (typeIds.length > 0) {
       params['typeIds'] = typeIds
     }
-
+    if (reset) setMerchList([])
     setIsGettingFeed(true)
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
@@ -147,19 +147,17 @@ const StudioSignature = () => {
         setIsFetching(false)
         let result = response.products
         let filtered = getFilterData(result, subCategorySelected)
-        setTotal(result.total)
+        setTotal(response.total)
         if (reset) setMerchList(filtered)
         else setMerchList([...merchList, ...filtered])
         if (result.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
-          setTimeout(() => {
-            if (filtered.length != result.length) {
-              setIsFetching(true)
-            }
-          }, 2000)
           setPages(page)
-          setIsVisibleFetching(true)
+          setIsVisibleFetching(false)
+          setTimeout(() => {
+            setIsVisibleFetching(true)
+          }, 500)
         }
       },
       error => {
