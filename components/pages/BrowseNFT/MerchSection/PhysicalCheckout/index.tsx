@@ -97,7 +97,7 @@ const PhysicalCheckout = ({
     network: (WALLET_ADAPTER_NETWORK === 'devnet' ? 'test' : 'main') as NetworkType,
     display: 'button' as DisplayType,
     primaryPaymentMethod: 'fiat' as PrimaryPaymentMethod,
-    amount: total.toFixed(2),
+    // amount: total.toFixed(2),
     customTexts: {
       mainButtonTitle: 'Pay With Card',
     },
