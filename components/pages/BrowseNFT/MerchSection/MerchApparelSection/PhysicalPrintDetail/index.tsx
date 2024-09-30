@@ -289,6 +289,7 @@ const PhysicalPrintDetail = props => {
       }
 
       let data = {
+        version: "v1",
         previewApparel,
         apparel,
         gender,

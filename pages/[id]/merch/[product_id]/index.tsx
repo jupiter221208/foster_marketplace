@@ -305,6 +305,9 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   setMerchSize={size => {
                     setPrintData({ ...printData, size: size })
                   }}
+                  data={printData}
+                  merchList={merchList}
+                  rawList={rawUrlList}
                 />
               </div>
             ) : (

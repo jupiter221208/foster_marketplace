@@ -35,7 +35,19 @@ import { getDisplayUserName } from 'utils/strings'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchOrderMain = props => {
-  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
+  const {
+    type,
+    username,
+    productDetail,
+    userDetail,
+    onClickBuyNow,
+    setQuantity,
+    setMerchSize,
+    productId,
+    data,
+    merchList,
+    rawList,
+  } = props
   const router = useRouter()
   const { publicKey } = useWallet()
   const { solToUsdRate } = useSolToUsdRate()
@@ -291,17 +303,23 @@ const MerchOrderMain = props => {
   }
 
   const onClickAddCart = () => {
-    // let data = { apparel, gender, color, print, quality, size, quantity, cost }
-    // setAlertData([
-    //   {
-    //     id: 0,
-    //     title: 'Item added to cart',
-    //     description: `You've successfully added ${nftName} ${apparel?.name} to your shopping cart.`,
-    //     type: 'success',
-    //   },
-    // ])
-    // setShowAlert(true)
-    // dispatch({ type: 'set', isAddToCart: true })
+    let existingData = JSON.parse(localStorage.getItem('data')) || []
+    if (!Array.isArray(existingData)) {
+      existingData = []
+    }
+
+    let cart_data = {
+      version: 'v2',
+      type,
+      cost: ((productDetail.selling_price / 100) * mintQty).toFixed(2),
+      productId,
+      data,
+      fosterUrl: window.location.href,
+      merchList,
+      rawList,
+    }
+    existingData.push(cart_data)
+    localStorage.setItem('data', JSON.stringify(existingData))
   }
 
   return (
@@ -348,7 +366,7 @@ const MerchOrderMain = props => {
             </div>
 
             {type === 'foster' && (
-              <div className="mt-[15px]">
+              <div className="mt-[15px] lg:mt-[30px]">
                 <div className="w-full flex justify-between items-center">
                   <div className={styles.selectSize}>Select Size</div>
                 </div>
@@ -372,7 +390,7 @@ const MerchOrderMain = props => {
             )}
           </div>
 
-          <div className="w-full lg:mt-[35px] mt-[30px]">
+          <div className="w-full lg:mt-[35px] mt-[35px]">
             <div className={styles.cartContainer}>
               <div className="w-full flex justify-between">
                 <div>
@@ -422,7 +440,7 @@ const MerchOrderMain = props => {
                     )}
                 </div>
               </div>
-              <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[30px]">
+              <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[15px]">
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                   <div className={styles.mintQty}>
                     <div
@@ -456,7 +474,7 @@ const MerchOrderMain = props => {
                   </div>
                 )}
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-                  <div className="">
+                  <div className="w-full">
                     <OutlineButton
                       fullWidth
                       height={45}
