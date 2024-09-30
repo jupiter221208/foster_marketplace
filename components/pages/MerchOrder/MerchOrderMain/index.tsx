@@ -30,6 +30,7 @@ import SizeList from 'assets/json/print/size-chat-modal.json'
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
@@ -285,6 +286,8 @@ const MerchOrderMain = props => {
     }
   }
 
+  const onClickAddCart = () => {}
+
   return (
     <div className={styles.container}>
       <div className="w-full h-auto">
@@ -296,7 +299,6 @@ const MerchOrderMain = props => {
               <div className="">
                 <ShareDesktopIcon alt="" />
               </div>
-              <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
             </div>
           </div>
 
@@ -338,46 +340,7 @@ const MerchOrderMain = props => {
                 </div>
               </div>
             </div>
-            {timeLeft && (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-              <div>
-                <div className={styles.creator}>{getStartStatus()}</div>
-                <div>
-                  <div className={styles.supplyRound}>
-                    <div className={styles.bidCountContainer}>
-                      {timeLeft && timeLeft['days'] !== '00' && (
-                        <div>
-                          <div className={styles.endTime}>
-                            {timeLeft && timeLeft['days']}
-                            {timeLeft && <div className={styles.bidDesc}>d</div>}
-                          </div>
-                        </div>
-                      )}
-                      <div className={styles.endTimeContainer}>
-                        <div className={styles.endTime}>
-                          {timeLeft && timeLeft['hours']}
-                          {timeLeft && <div className={styles.bidDesc}>h</div>}
-                        </div>
-                      </div>
-                      <div className={styles.endTimeContainer}>
-                        <div className={styles.endTime}>
-                          {timeLeft && timeLeft['minutes']}
-                          {timeLeft && <div className={styles.bidDesc}>m</div>}
-                        </div>
-                      </div>
-                      <div className={styles.endTimeContainer}>
-                        <div className={styles.endTime}>
-                          {timeLeft && timeLeft['seconds']}
-                          {timeLeft && <div className={styles.bidDesc}>s</div>}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
-
-          {/* {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />} */}
 
           {type === 'foster' && (
             <div className="lg:mt-[35px] mt-[30px]">
@@ -402,45 +365,58 @@ const MerchOrderMain = props => {
               </div>
             </div>
           )}
-
-          {/* {type === 'foster' && <div className={`mt-[20px] ${styles.divider}`} />} */}
         </div>
 
-        <div className="w-full">
-          <div className="lg:mt-[35px] mt-[30px]">
-            {/* <div className="w-full flex justify-between">
-              <div className="flex flex-col gap-[8px]">
-                <div className={styles.selectSize}>{getStartStatus()}</div>
-                <div className={styles.bidCountContainer}>
-                  {timeLeft && timeLeft['days'] !== '00' && (
+        <div className="w-full lg:mt-[35px] mt-[30px]">
+          <div className={styles.cartContainer}>
+            <div className="w-full flex justify-between">
+              <div>
+                <div className={styles.supplyName}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                <div className={styles.supplyValue}>
+                  {productDetail.supply
+                    ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                    : `${productDetail.current_supply} sold`}
+                </div>
+              </div>
+              <div>
+                {timeLeft &&
+                  (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
                     <div>
-                      <div className={styles.endTime}>
-                        {timeLeft && timeLeft['days']}
-                        {timeLeft && <div className={styles.bidDesc}>d</div>}
+                      <div className={`${styles.supplyName} text-right`}>{getStartStatus()}</div>
+                      <div className="mt-[11px]">
+                        <div className={styles.bidCountContainer}>
+                          {timeLeft && timeLeft['days'] !== '00' && (
+                            <div>
+                              <div className={styles.endTime}>
+                                {timeLeft && timeLeft['days']}
+                                {timeLeft && <div className={styles.bidDesc}>d</div>}
+                              </div>
+                            </div>
+                          )}
+                          <div className={styles.endTimeContainer}>
+                            <div className={styles.endTime}>
+                              {timeLeft && timeLeft['hours']}
+                              {timeLeft && <div className={styles.bidDesc}>h</div>}
+                            </div>
+                          </div>
+                          <div className={styles.endTimeContainer}>
+                            <div className={styles.endTime}>
+                              {timeLeft && timeLeft['minutes']}
+                              {timeLeft && <div className={styles.bidDesc}>m</div>}
+                            </div>
+                          </div>
+                          <div className={styles.endTimeContainer}>
+                            <div className={styles.endTime}>
+                              {timeLeft && timeLeft['seconds']}
+                              {timeLeft && <div className={styles.bidDesc}>s</div>}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['hours']}
-                      {timeLeft && <div className={styles.bidDesc}>h</div>}
-                    </div>
-                  </div>
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['minutes']}
-                      {timeLeft && <div className={styles.bidDesc}>m</div>}
-                    </div>
-                  </div>
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['seconds']}
-                      {timeLeft && <div className={styles.bidDesc}>s</div>}
-                    </div>
-                  </div>
-                </div>
               </div>
-            </div> */}
+            </div>
             <div className="w-full lg:flex hidden mt-[15px] gap-[30px]">
               {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                 <div className={styles.mintQty}>
@@ -476,21 +452,36 @@ const MerchOrderMain = props => {
               )}
               {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
                 <div className="flex-1">
-                  {buyNowLoading ? (
-                    <LoadingPrimaryButton fullWidth />
-                  ) : (
-                    <GradientButton
-                      fullWidth
-                      height={45}
-                      borderRadius={23}
-                      label="Buy Now"
-                      disabled={getStartStatus() === 'Starts in' || isExpired}
-                      onClick={() => onClickBuyNow()}
-                    />
-                  )}
+                  <OutlineButton
+                    fullWidth
+                    height={45}
+                    borderRadius={23}
+                    label="Add to Cart"
+                    fontFamily="Muli-Regular"
+                    fontSize={16}
+                    onClick={() => onClickAddCart()}
+                  />
                 </div>
               )}
             </div>
+
+            {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+              <div className="w-full mt-[15px]">
+                {buyNowLoading ? (
+                  <LoadingPrimaryButton fullWidth />
+                ) : (
+                  <GradientButton
+                    fullWidth
+                    height={45}
+                    borderRadius={23}
+                    label="Buy Now"
+                    disabled={getStartStatus() === 'Starts in' || isExpired}
+                    onClick={() => onClickBuyNow()}
+                  />
+                )}
+              </div>
+            )}
+
             <div className="w-full block lg:hidden mt-[15px] gap-[30px]">
               {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                 <div className={styles.mintQty}>
@@ -542,115 +533,8 @@ const MerchOrderMain = props => {
               )}
             </div>
           </div>
-          {/* {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-            <div className={`mt-[20px] ${styles.divider}`} />
-          )} */}
-          {/* {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-            <div className="w-full flex justify-between mt-[20px] relative">
-              <div>
-                <div className="flex gap-[7px] items-center relative">
-                  <div className={styles.infoText}>
-                    {type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                  </div>
-                  <div
-                    onMouseEnter={() => {
-                      document.getElementById(alertEmb).style.display = 'block'
-                    }}
-                    onMouseLeave={() => {
-                      document.getElementById(alertEmb).style.display = 'none'
-                    }}
-                    onClick={() => {
-                      document.getElementById(alertEmbMobile).style.display = 'block'
-                      setTimeout(() => {
-                        document.getElementById(alertEmbMobile).style.display = 'none'
-                      }, 3000)
-                    }}
-                  >
-                    <InfoIcon />
-                  </div>
-                  <div className="lg:block hidden">
-                    <MerchShopClipboardChip
-                      width={type === 'foster' ? null : '500px'}
-                      title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                      text={
-                        type === 'foster'
-                          ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                          : 'Domestic & international shipping will be paid by the buyer.'
-                      }
-                      identifier={alertEmb}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-[7px] items-center mt-[10px] relative">
-                  <div className={styles.infoText}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
-                  <div
-                    onMouseEnter={() => {
-                      document.getElementById(alertNote).style.display = 'block'
-                    }}
-                    onMouseLeave={() => {
-                      document.getElementById(alertNote).style.display = 'none'
-                    }}
-                    onClick={() => {
-                      document.getElementById(alertNoteMobile).style.display = 'block'
-                      setTimeout(() => {
-                        document.getElementById(alertNoteMobile).style.display = 'none'
-                      }, 3000)
-                    }}
-                  >
-                    <InfoIcon />
-                  </div>
-                  <div className="lg:block hidden">
-                    <MerchShopClipboardChip
-                      title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
-                      text={
-                        type === 'foster'
-                          ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
-                          : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
-                      }
-                      identifier={alertNote}
-                    />
-                  </div>
-                </div>
-
-                <div className="lg:hidden block w-full">
-                  <MerchShopClipboardChip
-                    type="Embroidery"
-                    title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                    text={
-                      type === 'foster'
-                        ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                        : 'Domestic & international shipping will be paid by the buyer.'
-                    }
-                    identifier={alertEmbMobile}
-                  />
-                </div>
-                <div className="lg:hidden block w-full">
-                  <MerchShopClipboardChip
-                    type="custom"
-                    title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
-                    text={
-                      type === 'foster'
-                        ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
-                        : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
-                    }
-                    identifier={alertNoteMobile}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex gap-[6px] items-center mb-[2px]">
-                  <SolanaLogoIcon className="mt-[4px]" />
-                  <div className={styles.price}>
-                    {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
-                  </div>
-                </div>
-                <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
-              </div>
-            </div>
-          )} */}
-
+        </div>
+        <div>
           <div
             className="w-full flex justify-between items-center lg:mt-[35px] mt-[30px]"
             onClick={() => setShowDescription(!showDescription)}
@@ -663,26 +547,6 @@ const MerchOrderMain = props => {
               {productDetail.fulfillment_type === 'foster' && (
                 <div className="mt-[15px]">
                   <div className={styles.descValue}>{tempNftDescription}</div>
-                  {/* <div className="w-full flex justify-between mt-[7px]">
-                    <div className={styles.content}>Apparel Type</div>
-                    <div className={styles.contentValue}>{ProductTypeList[productDetail.product_type_id - 1].name}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[6px]">
-                    <div className={styles.content}>Print Technique</div>
-                    <div className={styles.contentValue}>
-                      {productDetail.options.print_technique === 'direct_to_garment'
-                        ? 'Direct To Garment'
-                        : 'Embroidery'}
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[6px]">
-                    <div className={styles.content}>Print Areas</div>
-                    <div className={styles.contentValue}>{printArea}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[6px]">
-                    <div className={styles.content}>Color</div>
-                    <div className={styles.contentValue}>{getFirstUpperString(productDetail.options.color)}</div>
-                  </div> */}
                 </div>
               )}
               {productDetail.fulfillment_type === 'user' && (
