@@ -547,7 +547,7 @@ const MerchDetail = () => {
               <div className={styles.detailTitle}>Payment Details</div>
               <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo.name}</div>
               <div className={`mt-[15px] ${styles.detailValue}`}>
-                Buyer Email:&nbsp;
+                Buyer&nbsp;Email:&nbsp;
                 <span
                   className={styles.buyerEmail}
                   onClick={() => {
