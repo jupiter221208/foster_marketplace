@@ -290,7 +290,19 @@ const MerchOrderMain = props => {
     }
   }
 
-  const onClickAddCart = () => {}
+  const onClickAddCart = () => {
+    // let data = { apparel, gender, color, print, quality, size, quantity, cost }
+    // setAlertData([
+    //   {
+    //     id: 0,
+    //     title: 'Item added to cart',
+    //     description: `You've successfully added ${nftName} ${apparel?.name} to your shopping cart.`,
+    //     type: 'success',
+    //   },
+    // ])
+    // setShowAlert(true)
+    // dispatch({ type: 'set', isAddToCart: true })
+  }
 
   return (
     <div className={styles.container}>
@@ -300,10 +312,8 @@ const MerchOrderMain = props => {
             <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
               <div className={styles.productName}>{productDetail?.name}</div>
 
-              <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
-                <div className="">
-                  <ShareDesktopIcon alt="" />
-                </div>
+              <div onClick={() => setOpenShareModal(true)}>
+                <ShareDesktopIcon alt="" />
               </div>
             </div>
 
@@ -338,7 +348,7 @@ const MerchOrderMain = props => {
             </div>
 
             {type === 'foster' && (
-              <div className="lg:mt-[35px] mt-[30px]">
+              <div className="mt-[15px]">
                 <div className="w-full flex justify-between items-center">
                   <div className={styles.selectSize}>Select Size</div>
                 </div>
@@ -412,7 +422,7 @@ const MerchOrderMain = props => {
                     )}
                 </div>
               </div>
-              <div className="w-full lg:flex hidden mt-[15px] gap-[30px]">
+              <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[30px]">
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                   <div className={styles.mintQty}>
                     <div
@@ -446,7 +456,7 @@ const MerchOrderMain = props => {
                   </div>
                 )}
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-                  <div className="flex-1">
+                  <div className="">
                     <OutlineButton
                       fullWidth
                       height={45}
@@ -477,7 +487,7 @@ const MerchOrderMain = props => {
                 </div>
               )}
 
-              <div className="w-full block lg:hidden mt-[15px] gap-[30px]">
+              {/* <div className="w-full block lg:hidden mt-[15px] gap-[30px]">
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                   <div className={styles.mintQty}>
                     <div
@@ -526,7 +536,7 @@ const MerchOrderMain = props => {
                     )}
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

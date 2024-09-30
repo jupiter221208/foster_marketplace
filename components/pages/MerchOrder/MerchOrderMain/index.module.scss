@@ -5,9 +5,6 @@
   overflow: auto;
   @media (min-width: 1024px) {
     min-height: 700px;
-    // background: var(--background-main-color);
-    // border: 1px solid var(--bg-303030-DDDCDC);
-    border-radius: 10px;
   }
 }
 
@@ -40,7 +37,6 @@
   display: flex;
   gap: 9px;
   height: 20px;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
