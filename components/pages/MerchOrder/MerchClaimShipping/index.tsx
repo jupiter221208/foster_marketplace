@@ -216,7 +216,7 @@ const MerchClaimShipping = props => {
     merchAPI.prepareCart(params).then(
       response => {
         if (response?.shippingMethods?.length > 0)
-          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
+          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
         else setIsLoading(false)
       },
       error => {

@@ -126,7 +126,7 @@ const MerchOrderShipping = props => {
       merchAPI.prepareCart(params).then(
         response => {
           if (response?.shippingMethods?.length > 0)
-            onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+            onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'international', 'foster')
           else setIsLoading(false)
         },
         error => {

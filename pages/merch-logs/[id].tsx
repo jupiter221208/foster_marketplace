@@ -371,7 +371,7 @@ const MerchDetail = () => {
             ) : SSOrder?.orderStatus === 'shipped' ? (
               <div className={styles.infoValue}>{fulfillment ? fulfillment.trackingNumber : ''}</div>
             ) : (
-              <div className={`${styles.infoValue} text-right`}>
+              <div className={`${styles.infoValue} text-left`}>
                 {orderDetails?.orderNumber === '' && !isOwn
                   ? 'Hidden for Buyer Safety'
                   : trackingDetails === null && connected
@@ -395,6 +395,8 @@ const MerchDetail = () => {
 
             <div>
               <div className={styles.detailTitle}>Payment Details</div>
+              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
               <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
               <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
               <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
@@ -543,6 +545,18 @@ const MerchDetail = () => {
 
             <div>
               <div className={styles.detailTitle}>Payment Details</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo.name}</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Buyer Email:&nbsp;
+                <span
+                  className={styles.buyerEmail}
+                  onClick={() => {
+                    window.location.href = 'mailto:' + SSOrder?.customerEmail
+                  }}
+                >
+                  {SSOrder?.customerEmail}
+                </span>
+              </div>
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
               </div>
