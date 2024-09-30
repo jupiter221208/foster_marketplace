@@ -11,6 +11,31 @@
   }
 }
 
+.rightSection {
+  width: 100%;
+  @media (min-width: 1024px) { 
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 0px;
+    @media (min-height: 840px) { 
+      min-height: calc(100vh - 150px);
+    }
+  }
+}
+
+.moreDetails {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+  display: flex;
+}
+
 .shareIcon {
   display: flex;
   gap: 9px;
@@ -57,6 +82,7 @@
   width: 100%;
   height: auto;
   padding: 15px 20px;
+  background: var(--bg-1A1A1A-F5F5F3);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
 }
