@@ -178,7 +178,7 @@ const ShoppingCartActivity = props => {
                           <div className="min-w-[120px] max-w-[120px] h-[183px] ml-[30px]">
                             <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
                           </div>
-                          <div className="ml-[74px] sm:mt-[10px]">
+                          <div className="ml-[30px] sm:mt-[10px]">
                             <div className={styles.detail}>Item Details</div>
                             <div className={styles.content}>
                               <div>{item.nftName}</div>
