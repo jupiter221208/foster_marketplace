@@ -13,7 +13,6 @@ import 'swiper/css/navigation'
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
 import type { Nft } from '@metaplex-foundation/js'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -21,7 +20,8 @@ import PrimaryLayout from 'components/Layout/PrimaryLayout'
 // custom functions
 
 // images and icons
-import CloseIcon from 'assets/icons/close-screen.svg'
+import LeftBtnIcon from 'assets/icons/arrow-left-17x13.svg?component'
+import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
 
 // third party components
 
@@ -128,6 +128,20 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         setData(data)
       })
     }, 1000)
+
+    let list = []
+    orders.map((item, index) => {
+      list.push({
+        id: index,
+        url: cartVersion === 'v1' ? item?.printImageUrl : item?.merchList[0].url,
+        selected: index === 0,
+      })
+    })
+
+    if (list.length > 0) {
+      setMerchList(list)
+      setSelectedMerch(list[0])
+    }
   }, [])
 
   let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
@@ -144,8 +158,23 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     'Home to creators, collectors, and curators around the world.\n' +
     'Pushing the boundaries of digital art on Solana.'
 
-  const [nftCoverUrl, setNftCoverUrl] = useState('')
-  const [fullScreen, setFullScreen] = useState(false)
+  const [merchList, setMerchList] = useState([])
+  const [selectedMerch, setSelectedMerch] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(1)
+
+  const onClickMerch = key => {
+    let list = []
+    merchList.map((merch, index) => {
+      if (key === index) {
+        list.push({ id: index, url: merch.url, selected: true })
+        setSelectedMerch({ id: index, url: merch.url, selected: true })
+        setSelectedIndex(index + 1)
+      } else {
+        list.push({ id: index, url: merch.url, selected: false })
+      }
+    })
+    setMerchList(list)
+  }
 
   return (
     <div className="w-full h-full">
@@ -168,8 +197,35 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       <div className="g-container">
         <div className={styles.container}>
           <div className="w-full lg:flex lg:flex-row flex-col">
-            <div className="lg:w-[calc(100%-604px)] justify-center lg:px-[50px] p-[10px]">
-              {!loading ? (
+            <div className="lg:w-[calc(100%-604px)] lg:pr-[50px] p-[10px] flex">
+              {merchList.length > 1 && (
+                <div className="hidden lg:block mt-[30px] min-w-[75px]">
+                  <div className={styles.backStore}>
+                    Item&nbsp;{selectedIndex}/{merchList.length}
+                  </div>
+                  <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
+                    {merchList.map((merch, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => onClickMerch(index)}
+                          className={merch.selected ? styles.image : styles.imageHover}
+                        >
+                          <div className={merch.selected ? styles.selected : styles.unselected}>
+                            <ImageWithFoster
+                              width={350}
+                              height={350}
+                              src={merch.url}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+              {/* {!loading ? (
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={10}
@@ -196,10 +252,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     data.map((item, index) => (
                       <SwiperSlide key={index}>
                         <div className={styles.blurBackground}>
-                          {/* <div className="absolute inset-0">
-                            <ImageWithFoster src={item?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
-                          </div> */}
-                          {/* <div className={styles.blurImage} /> */}
                           <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
                             <ImageWithFoster
                               width={700}
@@ -215,7 +267,48 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 <div className="w-full mt-[90px] lg:mt-[200px] h-[230px]">
                   <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
                 </div>
-              )}
+              )} */}
+              <div className="w-full flex justify-center">
+                <div
+                  className={`lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+                >
+                  <div className={styles.imageArea}>
+                    <div className={styles.imageContent}>
+                      <ImageWithFoster
+                        width={700}
+                        src={selectedMerch ? selectedMerch.url : ''}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                  {merchList.length > 1 && selectedMerch && (
+                    <div className="w-full mt-[30px] flex justify-center">
+                      <div className="flex gap-[50px]">
+                        <div
+                          className={styles.arrowButton}
+                          onClick={() =>
+                            selectedMerch.id > 0
+                              ? onClickMerch(selectedMerch.id - 1)
+                              : onClickMerch(merchList.length - 1)
+                          }
+                        >
+                          <LeftBtnIcon />
+                        </div>
+                        <div
+                          className={styles.arrowButton}
+                          onClick={() =>
+                            selectedMerch.id < merchList.length - 1
+                              ? onClickMerch(selectedMerch.id + 1)
+                              : onClickMerch(0)
+                          }
+                        >
+                          <RightBtnIcon />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10 mb-[30px]">
               {openApparelDetail && (

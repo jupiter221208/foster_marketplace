@@ -43,7 +43,7 @@ const ShoppingCartActivity = props => {
       cost = 0
     arrayData.map((item, idx) => {
       if (item.checked) {
-        select++
+        select += cartVersion === 'v1' ? item.quantity : item.data.quantity
         cost += parseFloat(arrayData[idx].cost)
       }
     })
@@ -100,7 +100,8 @@ const ShoppingCartActivity = props => {
     const allSelected = selectAllCart
     let sumitemArray = 0
     cartList.forEach(item => {
-      sumitemArray += item.quantity
+      if (cartVersion === 'v1') sumitemArray += item.quantity
+      else sumitemArray += item.data.quantity
     })
     setSelectAll(allSelected)
     setCurrentSelect(allSelected ? sumitemArray : 0)
