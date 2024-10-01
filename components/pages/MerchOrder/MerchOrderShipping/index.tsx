@@ -24,7 +24,6 @@ import merchAPI from 'apis/merch'
 
 const MerchOrderShipping = props => {
   const { productId, type, data, onBack, onNext, merchList, rawList } = props
-  const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 

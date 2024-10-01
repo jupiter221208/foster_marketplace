@@ -77,9 +77,10 @@ const ShoppingCartSection = props => {
             <div className={styles.title}>Studio Shopping Cart</div>
           </div>
           <div className="w-full sm:flex hidden justify-between mt-[15px]">
-            <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
+            <div></div>
+            {/* <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
               {selectAllCart ? 'Deselect All' : 'Select all'}
-            </div>
+            </div> */}
             <div className="flex gap-[13px]">
               <div className={styles.subtotal}>Subtotal</div>
               <div className="flex gap-[6px] items-center">
@@ -91,7 +92,8 @@ const ShoppingCartSection = props => {
           <div className="w-full mt-[18px] sm:block hidden">
             <GradientButton
               disabled={totalCost === 0}
-              label={currentSelect === 0 ? 'Checkout' : 'Checkout (' + currentSelect + ' items)'}
+              label="Checkout"
+              // label={currentSelect === 0 ? 'Checkout' : 'Checkout (' + currentSelect + ' items)'}
               fullWidth
               onClick={() => onCheckout()}
             />

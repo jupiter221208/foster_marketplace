@@ -34,19 +34,27 @@ const ShoppingCartActivity = props => {
 
   const handleSelectData = index => {
     let arrayData = [...data]
-    if (arrayData[index]) {
-      arrayData[index].checked = !arrayData[index].checked
-    }
+    arrayData.map((item, idx) => {
+      if (idx === index) arrayData[idx].checked = !arrayData[idx].checked
+      else item.checked = false
+    })
+    setTotalCost(0)
+
+    // if (arrayData[index]) {
+    //   arrayData[index].checked = !arrayData[index].checked
+    // }
     if (arrayData[index].checked) {
       setCurrentSelect(
         currentSelect + (arrayData[index].version === 'v2' ? arrayData[index].data.quantity : arrayData[index].quantity)
       )
-      setTotalCost(totalCost + parseFloat(arrayData[index].cost))
+      // setTotalCost(totalCost + parseFloat(arrayData[index].cost))
+      setTotalCost(parseFloat(arrayData[index].cost))
     } else {
       setCurrentSelect(
         currentSelect - (arrayData[index].version === 'v2' ? arrayData[index].data.quantity : arrayData[index].quantity)
       )
-      setTotalCost(totalCost - parseFloat(arrayData[index].cost))
+      // setTotalCost(totalCost - parseFloat(arrayData[index].cost))
+      setTotalCost(0)
     }
     setCart(arrayData)
   }
@@ -125,7 +133,7 @@ const ShoppingCartActivity = props => {
                       <div className="flex items-center">
                         <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
-                      <div className="max-w-[120px] h-[183px] ml-[30px]">
+                      <div className="min-w-[120px] max-w-[120px] h-[183px] ml-[30px]">
                         <ImageWithFoster src={item.merchList[0].url} className="" />
                       </div>
                       <div className="ml-[30px] sm:mt-[10px]">
@@ -161,7 +169,7 @@ const ShoppingCartActivity = props => {
                           <div className="flex items-center">
                             <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                           </div>
-                          <div className="max-w-[120px] h-[183px] ml-[30px]">
+                          <div className="min-w-[120px] max-w-[120px] h-[183px] ml-[30px]">
                             <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
                           </div>
                           <div className="ml-[74px] sm:mt-[10px]">
@@ -205,7 +213,6 @@ const ShoppingCartActivity = props => {
               </div>
             ))}
         </div>
-        {/* <div className={`${styles.divider} mb-[50px]`}></div> */}
       </div>
 
       {/* Mobile Table */}

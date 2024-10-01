@@ -33,6 +33,7 @@ import MoreDetalsIcon from 'assets/lottery/more-details.json'
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 import OutlineButton from 'components/Button/OutlineButton'
+import Alert from 'components/Alert'
 
 const MerchOrderMain = props => {
   const {
@@ -77,6 +78,8 @@ const MerchOrderMain = props => {
   const [showDescription, setShowDescription] = useState(true)
   const [showEmbroidery, setShowEmbroidery] = useState(false)
   const [showNotice, setShowNotice] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
     function handleResize() {
@@ -320,6 +323,16 @@ const MerchOrderMain = props => {
     }
     existingData.push(cart_data)
     localStorage.setItem('data', JSON.stringify(existingData))
+
+    setAlertData([
+      {
+        id: 0,
+        title: 'Item Added to Your Cart!',
+        description: `${data.name} is ready and waiting in your cart. Feel free to browse for more goodies or head to checkout whenever you're ready.`,
+        type: 'success',
+      },
+    ])
+    setShowAlert(true)
   }
 
   return (
@@ -665,6 +678,14 @@ const MerchOrderMain = props => {
         title={getApparelName()}
         label={getApparelLabel()}
         onClose={() => setTableModal(false)}
+      />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )

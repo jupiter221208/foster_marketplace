@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import { useRouter } from 'next/router'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
@@ -20,13 +22,13 @@ import CountrySelect from 'components/Select/CountrySelect'
 
 // api
 import merchAPI from 'apis/merch'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
-import { useRouter } from 'next/router'
+import storeAPI from 'apis/store'
+import { useDispatch } from 'react-redux'
 
 const ShoppingCartPhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
   const router = useRouter()
+  const dispatch = useDispatch()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -96,18 +98,31 @@ const ShoppingCartPhysicalShipping = props => {
       const cartItems = []
 
       printData.forEach(item => {
-        const { apparel, gender, quality, color, print, quantity, size } = item
-        let item_id = apparel[gender.type][quality.type][color.type].item_id
-        cartItems.push({
-          id: item_id.toString(),
-          quantity,
-          options: {
-            size: size.name,
-            color: color.type,
-            sideOfPrint: print.name,
-          },
-          notes: `This is apparel ${apparel.description} item`,
-        })
+        if (item.version === 'v2') {
+          cartItems.push({
+            id: '1',
+            quantity: 1,
+            options: {
+              size: 'L',
+              color: 'white',
+              sideOfPrint: 'Front Side',
+            },
+            notes: `This is apparel item`,
+          })
+        } else {
+          const { apparel, gender, quality, color, print, quantity, size } = item
+          let item_id = apparel[gender.type][quality.type][color.type].item_id
+          cartItems.push({
+            id: item_id.toString(),
+            quantity,
+            options: {
+              size: size.name,
+              color: color.type,
+              sideOfPrint: print.name,
+            },
+            notes: `This is apparel ${apparel.description} item`,
+          })
+        }
       })
 
       params = {
@@ -137,14 +152,100 @@ const ShoppingCartPhysicalShipping = props => {
     }
 
     setIsLoading(true)
+
     merchAPI.prepareCart(params).then(
       response => {
-        onNext({ data, method: response })
-        setIsLoading(false)
+        if (response?.shippingMethods?.length > 0) {
+          if (printData[0].version === 'v2')
+            onCheckoutV2(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
+          else {
+            onNext({ data, method: response })
+            setIsLoading(false)
+          }
+        } else setIsLoading(false)
       },
       error => {
         setIsLoading(false)
         setShowAlert(true)
+      }
+    )
+  }
+
+  const onCheckoutV2 = serviceCode => {
+    console.log(name, street, apartment, city, state, zipCode, country)
+    let address = {
+      name: name,
+      street1: street,
+      street2: apartment,
+      street3: '',
+      city: city,
+      state: state.isoCode,
+      postalCode: zipCode,
+      country: country.isoCode,
+      phone: '',
+      residential: true,
+    }
+
+    let item
+
+    // foster merch
+    let storeItem = printData[0]
+    let mockupUrls = [],
+      rawUrls = []
+    storeItem.merchList.map(item => mockupUrls.push(item.url))
+    storeItem.rawList.map(item => rawUrls.push(item.url))
+    item = {
+      id: storeItem.productId.toString(),
+      quantity: storeItem.data.quantity,
+      previewUrl: mockupUrls[0],
+      options: {
+        type: storeItem.type,
+        nftName: storeItem.data.name,
+        fosterUrl: storeItem.fosterUrl,
+        mockupUrl: mockupUrls.join(','),
+        assetUrl: rawUrls.join(','),
+        nftAddress: '',
+        apparel: storeItem.data.description,
+        size: storeItem.data.size,
+        color: storeItem.data.color,
+        technique: storeItem.data.technique,
+      },
+      notes: `This is studio merch V2 item`,
+    }
+
+    let params = {
+      customerEmail: email,
+      shippingServiceCode: serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: [item],
+      gift: true,
+      giftMessage: 'Thank you for supporting indie creators in the Solana Art Ecosystem. Enjoy your new piece!',
+      notes: 'Checkout Note',
+    }
+
+    storeAPI.checkout(params).then(
+      response => {
+        if (response.orderNumber === undefined) {
+          setIsLoading(false)
+          return
+        }
+        let storeData = { ...storeItem.data }
+        storeData.cost = storeItem.cost * storeData.quantity
+
+        let data = {
+          type: 'store',
+          printData: storeData,
+          shipping,
+          username: router.query.id,
+          nftName: printData.name,
+          nftCoverUrl: storeItem.merchList[0].url,
+        }
+        dispatch({ type: 'set', merchData: data })
+        router.push(`/orders/${response.orderNumber}`)
+      },
+      error => {
+        setIsLoading(false)
       }
     )
   }

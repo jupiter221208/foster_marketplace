@@ -57,7 +57,6 @@ export interface BrowseNFTProps {
 const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const [openApparelDetail, setOpenApparelDetail] = useState(true)
-  const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const [data, setData] = useState(null)
   const [swiper, setSwiper] = useState(null)
@@ -99,22 +98,27 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     const orders = JSON.parse(localStorage.getItem('checked'))
     setTimeout(() => {
       const promises = orders.map(array => {
-        return nftsAPI.getDetail(array.id).then(response => {
-          const nftName = response.name
-          const nftCoverUrl = response.cover_image_url
-          const mintAddress = response.address.toString()
-          const item = ShopApparelList.find(apparel => apparel.name === array.apparel.description)
-          const params = {
-            nftName,
-            nftCoverUrl,
-            mintAddress,
-            category: item.category,
-            subCategory: item.sub_type,
-            base: item.base,
-            printImageUrl: array.printImageUrl,
-          }
-          return params
-        })
+        if (array.version === 'v1') {
+          return nftsAPI.getDetail(array.id).then(response => {
+            const nftName = response.name
+            const nftCoverUrl = response.cover_image_url
+            const mintAddress = response.address.toString()
+            const item = ShopApparelList.find(apparel => apparel.name === array.apparel.description)
+            const params = {
+              version: 'v1',
+              nftName,
+              nftCoverUrl,
+              mintAddress,
+              category: item.category,
+              subCategory: item.sub_type,
+              base: item.base,
+              printImageUrl: array.printImageUrl,
+            }
+            return params
+          })
+        } else {
+          return array
+        }
       })
       Promise.all(promises).then(data => {
         setLoading(false)
@@ -197,8 +201,8 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                           <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
                             <ImageWithFoster
                               width={700}
-                              src={item?.printImageUrl}
-                              className="w-full h-full object-cover"
+                              src={item?.version === 'v1' ? item?.printImageUrl : item?.merchList[0].url}
+                              className="max-w-full max-h-full object-cover"
                             />
                           </div>
                         </div>
@@ -224,20 +228,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         </div>
       </div>
-      {fullScreen && (
-        <div className={styles.fullScreen}>
-          <ImageWithFoster src={nftCoverUrl} className="w-full h-full max-w-full max-h-full object-contain" />
-          <div
-            className={styles.closeScreen}
-            onClick={() => {
-              setFullScreen(false)
-              document.body.style.overflow = 'unset'
-            }}
-          >
-            <Image src={CloseIcon} alt="" width={18} height={18} />
-          </div>
-        </div>
-      )}
     </div>
   )
 }
