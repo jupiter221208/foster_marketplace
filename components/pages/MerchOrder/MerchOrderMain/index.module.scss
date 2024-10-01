@@ -262,6 +262,28 @@
 .endTime {
   display: flex;
   justify-content: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 23px;
+  gap: 2px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bidDesc {
+  display: flex;
+  justify-content: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 23px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.endTimeCart {
+  display: flex;
+  justify-content: center;
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 23px;
@@ -272,7 +294,7 @@
   text-overflow: ellipsis;
 }
 
-.bidDesc {
+.bidDescCart {
   display: flex;
   justify-content: center;
   font-family: 'Muli-SemiBold';

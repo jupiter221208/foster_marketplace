@@ -343,7 +343,7 @@ const MerchOrderMain = props => {
             <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
               <div className={styles.productName}>{productDetail?.name}</div>
 
-              <div onClick={() => setOpenShareModal(true)}>
+              <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
                 <ShareDesktopIcon alt="" />
               </div>
             </div>
@@ -375,51 +375,26 @@ const MerchOrderMain = props => {
                     </a>
                   </Link>
                 </div>
-              </div>
-            </div>
-
-            {type === 'foster' && (
-              <div className="mt-[15px] lg:mt-[30px]">
-                <div className="w-full flex justify-between items-center">
-                  <div className={styles.selectSize}>Select Size</div>
-                </div>
-                <div className="mt-[15px]">
-                  <div className="w-full flex flex-wrap gap-[10px]">
-                    {sizeList.map((item, index) => (
-                      <div
-                        key={index}
-                        className={item.selected ? styles.selectedSize : styles.unselectedSize}
-                        onClick={() => onClickSize(index)}
-                      >
-                        {item.name}
+                {type !== 'foster' && (
+                  <div>
+                    <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                    <div>
+                      <div className={styles.supplyRound}>
+                        {productDetail.supply
+                          ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                          : `${productDetail.current_supply} sold`}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </div>
-                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-                  Size Chart »
-                </div>
-              </div>
-            )}
-          </div>
+                )}
 
-          <div className="w-full lg:mt-[35px] mt-[35px]">
-            <div className={styles.cartContainer}>
-              <div className="w-full flex justify-between">
-                <div>
-                  <div className={styles.supplyName}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                  <div className={styles.supplyValue}>
-                    {productDetail.supply
-                      ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
-                      : `${productDetail.current_supply} sold`}
-                  </div>
-                </div>
-                <div>
-                  {timeLeft &&
-                    (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                {type !== 'foster' &&
+                  timeLeft &&
+                  (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                    <div>
+                      <div className={styles.creator}>{getStartStatus()}</div>
                       <div>
-                        <div className={`${styles.supplyName} text-right`}>{getStartStatus()}</div>
-                        <div className="mt-[11px]">
+                        <div className={styles.supplyRound}>
                           <div className={styles.bidCountContainer}>
                             {timeLeft && timeLeft['days'] !== '00' && (
                               <div>
@@ -450,10 +425,154 @@ const MerchOrderMain = props => {
                           </div>
                         </div>
                       </div>
-                    )}
+                    </div>
+                  )}
+              </div>
+            </div>
+
+            {type === 'foster' && (
+              <div className="mt-[15px] lg:mt-[30px]">
+                <div className="w-full flex justify-between items-center">
+                  <div className={styles.selectSize}>Select Size</div>
+                </div>
+                <div className="mt-[15px]">
+                  <div className="w-full flex flex-wrap gap-[10px]">
+                    {sizeList.map((item, index) => (
+                      <div
+                        key={index}
+                        className={item.selected ? styles.selectedSize : styles.unselectedSize}
+                        onClick={() => onClickSize(index)}
+                      >
+                        {item.name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                  Size Chart »
                 </div>
               </div>
-              <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[15px]">
+            )}
+          </div>
+
+          <div className="w-full lg:mt-[35px] mt-[35px]">
+            {type === 'foster' ? (
+              <div className={styles.cartContainer}>
+                <div className="w-full flex justify-between">
+                  <div>
+                    <div className={styles.supplyName}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                    <div className={styles.supplyValue}>
+                      {productDetail.supply
+                        ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                        : `${productDetail.current_supply} sold`}
+                    </div>
+                  </div>
+                  <div>
+                    {timeLeft &&
+                      (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                        <div>
+                          <div className={`${styles.supplyName} text-right`}>{getStartStatus()}</div>
+                          <div className="mt-[11px]">
+                            <div className={styles.bidCountContainer}>
+                              {timeLeft && timeLeft['days'] !== '00' && (
+                                <div>
+                                  <div className={styles.endTimeCart}>
+                                    {timeLeft && timeLeft['days']}
+                                    {timeLeft && <div className={styles.bidDescCart}>d</div>}
+                                  </div>
+                                </div>
+                              )}
+                              <div className={styles.endTimeContainer}>
+                                <div className={styles.endTimeCart}>
+                                  {timeLeft && timeLeft['hours']}
+                                  {timeLeft && <div className={styles.bidDescCart}>h</div>}
+                                </div>
+                              </div>
+                              <div className={styles.endTimeContainer}>
+                                <div className={styles.endTimeCart}>
+                                  {timeLeft && timeLeft['minutes']}
+                                  {timeLeft && <div className={styles.bidDescCart}>m</div>}
+                                </div>
+                              </div>
+                              <div className={styles.endTimeContainer}>
+                                <div className={styles.endTimeCart}>
+                                  {timeLeft && timeLeft['seconds']}
+                                  {timeLeft && <div className={styles.bidDescCart}>s</div>}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                </div>
+                <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[15px]">
+                  {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
+                    <div className={styles.mintQty}>
+                      <div
+                        onClick={() => {
+                          if (mintQty > 1) {
+                            setMintQty(mintQty - 1)
+                            setQuantity(mintQty - 1)
+                          }
+                        }}
+                      >
+                        <div className={styles.minus}>-</div>
+                      </div>
+                      <div className={styles.mintLabel}>
+                        Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+                      </div>
+                      <div
+                        onClick={() => {
+                          if (productDetail.supply) {
+                            if (mintQty < productDetail.supply - productDetail.current_supply) {
+                              setMintQty(mintQty + 1)
+                              setQuantity(mintQty + 1)
+                            }
+                          } else {
+                            setMintQty(mintQty + 1)
+                            setQuantity(mintQty + 1)
+                          }
+                        }}
+                      >
+                        <div className={styles.minus}>+</div>
+                      </div>
+                    </div>
+                  )}
+                  {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                    <div className="w-full">
+                      <OutlineButton
+                        fullWidth
+                        height={45}
+                        borderRadius={23}
+                        label="Add to Cart"
+                        fontFamily="Muli-Regular"
+                        fontSize={16}
+                        onClick={() => onClickAddCart()}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                  <div className="w-full mt-[15px]">
+                    {buyNowLoading ? (
+                      <LoadingPrimaryButton fullWidth />
+                    ) : (
+                      <GradientButton
+                        fullWidth
+                        height={45}
+                        borderRadius={23}
+                        label="Buy Now"
+                        disabled={getStartStatus() === 'Starts in' || isExpired}
+                        onClick={() => onClickBuyNow()}
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[30px]">
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                   <div className={styles.mintQty}>
                     <div
@@ -488,71 +607,6 @@ const MerchOrderMain = props => {
                 )}
                 {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
                   <div className="w-full">
-                    <OutlineButton
-                      fullWidth
-                      height={45}
-                      borderRadius={23}
-                      label="Add to Cart"
-                      fontFamily="Muli-Regular"
-                      fontSize={16}
-                      onClick={() => onClickAddCart()}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-                <div className="w-full mt-[15px]">
-                  {buyNowLoading ? (
-                    <LoadingPrimaryButton fullWidth />
-                  ) : (
-                    <GradientButton
-                      fullWidth
-                      height={45}
-                      borderRadius={23}
-                      label="Buy Now"
-                      disabled={getStartStatus() === 'Starts in' || isExpired}
-                      onClick={() => onClickBuyNow()}
-                    />
-                  )}
-                </div>
-              )}
-
-              {/* <div className="w-full block lg:hidden mt-[15px] gap-[30px]">
-                {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
-                  <div className={styles.mintQty}>
-                    <div
-                      onClick={() => {
-                        if (mintQty > 1) {
-                          setMintQty(mintQty - 1)
-                          setQuantity(mintQty - 1)
-                        }
-                      }}
-                    >
-                      <div className={styles.minus}>-</div>
-                    </div>
-                    <div className={styles.mintLabel}>
-                      Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
-                    </div>
-                    <div
-                      onClick={() => {
-                        if (productDetail.supply) {
-                          if (mintQty < productDetail.supply - productDetail.current_supply) {
-                            setMintQty(mintQty + 1)
-                            setQuantity(mintQty + 1)
-                          }
-                        } else {
-                          setMintQty(mintQty + 1)
-                          setQuantity(mintQty + 1)
-                        }
-                      }}
-                    >
-                      <div className={styles.minus}>+</div>
-                    </div>
-                  </div>
-                )}
-                {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-                  <div className="mt-[15px]">
                     {buyNowLoading ? (
                       <LoadingPrimaryButton fullWidth />
                     ) : (
@@ -567,8 +621,8 @@ const MerchOrderMain = props => {
                     )}
                   </div>
                 )}
-              </div> */}
-            </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -657,7 +711,7 @@ const MerchOrderMain = props => {
             </div>
           </div>
         )}
-        <div className="lg:hidden block mb-[100px]" />
+        <div className="block mb-[100px]" />
       </div>
 
       {openShareModal && (
