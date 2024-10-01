@@ -70,31 +70,37 @@ const ShoppingCartActivity = props => {
 
   const handleEdit = index => {
     let arrayData = JSON.parse(localStorage.getItem('data'))
-    let token_id = arrayData[index].id
-    let color = arrayData[index].color.type
-    let colorValue
+    let data = arrayData[index]
 
-    switch (color) {
-      case 'white':
-        colorValue = 0
-        break
-      case 'black':
-        colorValue = 1
-        break
-      case 'gray':
-        colorValue = 2
-        break
-      case 'navy':
-        colorValue = 3
-        break
-      default:
-        colorValue = null
+    if (data.version === 'v2') {
+      router.push(data.fosterUrl)
+    } else {
+      let token_id = arrayData[index].id
+      let color = arrayData[index].color.type
+      let colorValue
+
+      switch (color) {
+        case 'white':
+          colorValue = 0
+          break
+        case 'black':
+          colorValue = 1
+          break
+        case 'gray':
+          colorValue = 2
+          break
+        case 'navy':
+          colorValue = 3
+          break
+        default:
+          colorValue = null
+      }
+      let apparelType = arrayData[index].apparel.description
+      dispatch({ type: 'set', detailShow: true })
+      dispatch({ type: 'set', apparelType })
+      dispatch({ type: 'set', apparelColor: colorValue })
+      router.push(`/nft/${token_id}`)
     }
-    let apparelType = arrayData[index].apparel.description
-    dispatch({ type: 'set', detailShow: true })
-    dispatch({ type: 'set', apparelType })
-    dispatch({ type: 'set', apparelColor: colorValue })
-    router.push(`/nft/${token_id}`)
 
     arrayData.splice(index, 1)
     localStorage.setItem('data', JSON.stringify(arrayData))

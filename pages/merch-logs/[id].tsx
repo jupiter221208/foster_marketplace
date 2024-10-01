@@ -133,7 +133,7 @@ const MerchDetail = () => {
         setPreviewUrl(fosterUrlValue)
         localData?.forEach(item => {
           if (item.version === 'v2') {
-            if (item.merchList[0].url === fosterUrlValue && item.merchList[0].quantity === itemData.quantity) {
+            if (item.merchList[0].url === fosterUrlValue && item.data.quantity === itemData.quantity) {
               const index = localData.indexOf(item)
               localData.splice(index, 1)
               return
