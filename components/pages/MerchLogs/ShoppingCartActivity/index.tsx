@@ -20,8 +20,17 @@ import SimpleCheckbox from 'components/Checkbox/SimpleCheckbox'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const ShoppingCartActivity = props => {
-  const { data, setCart, selectAllCart, getcartList, cart, setCurrentSelect, currentSelect, setTotalCost, totalCost } =
-    props
+  const {
+    data,
+    setCart,
+    selectAllCart,
+    getcartList,
+    cartVersion,
+    setCurrentSelect,
+    currentSelect,
+    setTotalCost,
+    totalCost,
+  } = props
 
   const [cartList, setCartList] = useState<any[]>([])
   const router = useRouter()
@@ -34,79 +43,68 @@ const ShoppingCartActivity = props => {
 
   const handleSelectData = index => {
     let arrayData = [...data]
-    arrayData.map((item, idx) => {
-      if (idx === index) arrayData[idx].checked = !arrayData[idx].checked
-      else item.checked = false
-    })
-    setTotalCost(0)
 
-    // if (arrayData[index]) {
-    //   arrayData[index].checked = !arrayData[index].checked
-    // }
-    if (arrayData[index].checked) {
-      setCurrentSelect(
-        currentSelect + (arrayData[index].version === 'v2' ? arrayData[index].data.quantity : arrayData[index].quantity)
-      )
-      // setTotalCost(totalCost + parseFloat(arrayData[index].cost))
-      setTotalCost(parseFloat(arrayData[index].cost))
-    } else {
-      setCurrentSelect(
-        currentSelect - (arrayData[index].version === 'v2' ? arrayData[index].data.quantity : arrayData[index].quantity)
-      )
-      // setTotalCost(totalCost - parseFloat(arrayData[index].cost))
-      setTotalCost(0)
+    if (arrayData[index]) {
+      arrayData[index].checked = !arrayData[index].checked
     }
-    setCart(arrayData)
+
+    let select = 0,
+      cost = 0
+    arrayData.map((item, idx) => {
+      if (item.checked) {
+        select++
+        cost += parseFloat(arrayData[idx].cost)
+      }
+    })
+
+    setCurrentSelect(select)
+    setTotalCost(cost)
   }
 
   const handleRemove = index => {
-    let arrayData = JSON.parse(localStorage.getItem('data'))
+    let arrayData = JSON.parse(localStorage.getItem(cartVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
     arrayData.splice(index, 1)
-    localStorage.setItem('data', JSON.stringify(arrayData))
+    localStorage.setItem(cartVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(arrayData))
 
     getcartList()
   }
 
   const handleEdit = index => {
     let arrayData = JSON.parse(localStorage.getItem('data'))
-    let data = arrayData[index]
 
-    if (data.version === 'v2') {
-      router.push(data.fosterUrl)
-    } else {
-      let token_id = arrayData[index].id
-      let color = arrayData[index].color.type
-      let colorValue
+    let token_id = arrayData[index].id
+    let color = arrayData[index].color.type
+    let colorValue
 
-      switch (color) {
-        case 'white':
-          colorValue = 0
-          break
-        case 'black':
-          colorValue = 1
-          break
-        case 'gray':
-          colorValue = 2
-          break
-        case 'navy':
-          colorValue = 3
-          break
-        default:
-          colorValue = null
-      }
-      let apparelType = arrayData[index].apparel.description
-      dispatch({ type: 'set', detailShow: true })
-      dispatch({ type: 'set', apparelType })
-      dispatch({ type: 'set', apparelColor: colorValue })
-      router.push(`/nft/${token_id}`)
+    switch (color) {
+      case 'white':
+        colorValue = 0
+        break
+      case 'black':
+        colorValue = 1
+        break
+      case 'gray':
+        colorValue = 2
+        break
+      case 'navy':
+        colorValue = 3
+        break
+      default:
+        colorValue = null
     }
+    let apparelType = arrayData[index].apparel.description
+    dispatch({ type: 'set', detailShow: true })
+    dispatch({ type: 'set', apparelType })
+    dispatch({ type: 'set', apparelColor: colorValue })
+    router.push(`/nft/${token_id}`)
 
     arrayData.splice(index, 1)
-    localStorage.setItem('data', JSON.stringify(arrayData))
+    localStorage.setItem('cart_v1', JSON.stringify(arrayData))
 
     getcartList()
   }
+
   useEffect(() => {
     const allSelected = selectAllCart
     let sumitemArray = 0
@@ -132,7 +130,7 @@ const ShoppingCartActivity = props => {
           {cartList &&
             cartList.map((item, index) => (
               <div key={index}>
-                {item?.version === 'v2' ? (
+                {cartVersion === 'v2' ? (
                   <>
                     <div className={styles.divider} />
                     <div className="w-full h-full flex flex-row my-[30px]">
@@ -146,10 +144,7 @@ const ShoppingCartActivity = props => {
                         <div className={styles.detail}>Item Details</div>
                         <div className={styles.content}>
                           <div>{item.data.name}</div>
-                          <div>
-                            {item.data.description}&nbsp;(
-                            {item.data.size})
-                          </div>
+                          <div>{item.data.size}</div>
                           <div>{getFirstUpperString(item.data.color)}</div>
                           <div>Qty: {item.data.quantity}</div>
                           <div>Price: ${item.cost}</div>
@@ -157,10 +152,6 @@ const ShoppingCartActivity = props => {
                         <div className="flex mt-[20px] items-center gap-[15px]">
                           <div className={styles.remove} onClick={() => handleRemove(index)}>
                             Remove Item
-                          </div>
-                          <div className={styles.costDivider} />
-                          <div className={styles.remove} onClick={() => handleEdit(index)}>
-                            Edit
                           </div>
                         </div>
                       </div>

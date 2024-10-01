@@ -407,13 +407,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 }}
                 onNext={orderId => {
                   let data = {
-                    type: 'store',
-                    printData,
-                    shippingData,
                     username: router.query.id,
-                    nftName: printData.name,
-                    nftCoverUrl: merchList[0].url,
-                    totalCost,
                   }
                   dispatch({ type: 'set', merchData: data })
                   router.push(`/orders/${orderId}`)

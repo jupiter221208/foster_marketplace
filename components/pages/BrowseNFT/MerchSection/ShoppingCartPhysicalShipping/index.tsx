@@ -26,7 +26,7 @@ import storeAPI from 'apis/store'
 import { useDispatch } from 'react-redux'
 
 const ShoppingCartPhysicalShipping = props => {
-  const { onBack, onNext, category, data, printData, wallArt, nftName } = props
+  const { cartVersion, onBack, onNext, category, data, printData, wallArt, nftName } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const { connected } = useWallet()
@@ -98,7 +98,7 @@ const ShoppingCartPhysicalShipping = props => {
       const cartItems = []
 
       printData.forEach(item => {
-        if (item.version === 'v2') {
+        if (cartVersion === 'v2') {
           cartItems.push({
             id: '1',
             quantity: 1,
@@ -186,39 +186,43 @@ const ShoppingCartPhysicalShipping = props => {
       residential: true,
     }
 
-    let item
-
+    let items = [],
+      totalCost = 0
     // foster merch
-    let storeItem = printData[0]
-    let mockupUrls = [],
-      rawUrls = []
-    storeItem.merchList.map(item => mockupUrls.push(item.url))
-    storeItem.rawList.map(item => rawUrls.push(item.url))
-    item = {
-      id: storeItem.productId.toString(),
-      quantity: storeItem.data.quantity,
-      previewUrl: mockupUrls[0],
-      options: {
-        type: storeItem.type,
-        nftName: storeItem.data.name,
-        fosterUrl: storeItem.fosterUrl,
-        mockupUrl: mockupUrls.join(','),
-        assetUrl: rawUrls.join(','),
-        nftAddress: '',
-        apparel: storeItem.data.description,
-        size: storeItem.data.size,
-        color: storeItem.data.color,
-        technique: storeItem.data.technique,
-      },
-      notes: `This is studio merch V2 item`,
-    }
+    printData.map(merch => {
+      let storeItem = merch
+      let mockupUrls = [],
+        rawUrls = []
+      storeItem.merchList.map(item => mockupUrls.push(item.url))
+      storeItem.rawList.map(item => rawUrls.push(item.url))
+      let item = {
+        id: storeItem.productId.toString(),
+        quantity: storeItem.data.quantity,
+        previewUrl: mockupUrls[0],
+        options: {
+          type: storeItem.type,
+          nftName: storeItem.data.name,
+          fosterUrl: storeItem.fosterUrl,
+          mockupUrl: mockupUrls.join(','),
+          assetUrl: rawUrls.join(','),
+          nftAddress: '',
+          apparel: storeItem.data.description,
+          size: storeItem.data.size,
+          color: storeItem.data.color,
+          technique: storeItem.data.technique,
+        },
+        notes: `This is studio merch V2 item`,
+      }
+      totalCost += storeItem.cost * storeItem.data.quantity
+      items.push(item)
+    })
 
     let params = {
       customerEmail: email,
       shippingServiceCode: serviceCode,
       billTo: address,
       shipTo: address,
-      items: [item],
+      items: items,
       gift: true,
       giftMessage: 'Thank you for supporting indie creators in the Solana Art Ecosystem. Enjoy your new piece!',
       notes: 'Checkout Note',
@@ -230,16 +234,9 @@ const ShoppingCartPhysicalShipping = props => {
           setIsLoading(false)
           return
         }
-        let storeData = { ...storeItem.data }
-        storeData.cost = storeItem.cost * storeData.quantity
 
         let data = {
-          type: 'store',
-          printData: storeData,
-          shipping,
           username: router.query.id,
-          nftName: printData.name,
-          nftCoverUrl: storeItem.merchList[0].url,
         }
         dispatch({ type: 'set', merchData: data })
         router.push(`/orders/${response.orderNumber}`)

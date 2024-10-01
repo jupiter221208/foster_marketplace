@@ -306,7 +306,7 @@ const MerchOrderMain = props => {
   }
 
   const onClickAddCart = () => {
-    let existingData = JSON.parse(localStorage.getItem('data')) || []
+    let existingData = JSON.parse(localStorage.getItem('cart_v2')) || []
     if (!Array.isArray(existingData)) {
       existingData = []
     }
@@ -322,7 +322,7 @@ const MerchOrderMain = props => {
       rawList,
     }
     existingData.push(cart_data)
-    localStorage.setItem('data', JSON.stringify(existingData))
+    localStorage.setItem('cart_v2', JSON.stringify(existingData))
 
     setAlertData([
       {

@@ -55,6 +55,8 @@ export interface BrowseNFTProps {
 }
 
 const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+  const cartVersion = localStorage.getItem('cart_version')
+
   const nftType = nftDetail?.json?.properties?.category as string
   const [openApparelDetail, setOpenApparelDetail] = useState(true)
   const { profileInfo } = useAuthentication()
@@ -98,7 +100,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     const orders = JSON.parse(localStorage.getItem('checked'))
     setTimeout(() => {
       const promises = orders.map(array => {
-        if (array.version === 'v1') {
+        if (cartVersion === 'v1') {
           return nftsAPI.getDetail(array.id).then(response => {
             const nftName = response.name
             const nftCoverUrl = response.cover_image_url
@@ -201,7 +203,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                           <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
                             <ImageWithFoster
                               width={700}
-                              src={item?.version === 'v1' ? item?.printImageUrl : item?.merchList[0].url}
+                              src={cartVersion === 'v1' ? item?.printImageUrl : item?.merchList[0].url}
                               className="max-w-full max-h-full object-cover"
                             />
                           </div>
@@ -218,6 +220,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10 mb-[30px]">
               {openApparelDetail && (
                 <ShoppingCartMerchApparelSection
+                  cartVersion={cartVersion}
                   apparelData={data}
                   open={openApparelDetail}
                   setFinishEditing={editing => {}}
