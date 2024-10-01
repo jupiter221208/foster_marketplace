@@ -84,8 +84,6 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
-    // dispatch({ type: 'set', isLoading: false })
-
     if (!orderData) return
     let { order, shipment } = orderData
     let ssorder = orderVersion === 'v1' ? orderData?.ssorder : orderData?.externalOrder
@@ -137,13 +135,11 @@ const MerchDetail = () => {
             if (item.merchList[0].url === fosterUrlValue && item.data.quantity === itemData.quantity) {
               const index = localData.indexOf(item)
               localData.splice(index, 1)
-              return
             }
           } else {
             if (item.printImageUrl === fosterUrlValue) {
               const index = localData.indexOf(item)
               localData.splice(index, 1)
-              return
             }
           }
         })
@@ -182,22 +178,17 @@ const MerchDetail = () => {
       })
       setList(itemList)
 
-      console.log(localData, '===========localData=========')
-      console.log(itemList, '===========itemList=========')
-
       localData?.forEach(item => {
         itemList?.forEach(otherItem => {
           if (item.version === 'v2') {
             if (item.merchList[0].url === otherItem.fosterUrl && item.data.quantity === otherItem.quantity) {
               const index = localData.indexOf(item)
               localData.splice(index, 1)
-              return
             }
           } else {
             if (item.printImageUrl === otherItem.fosterUrl) {
               const index = localData.indexOf(item)
               localData.splice(index, 1)
-              return
             }
           }
         })

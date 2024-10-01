@@ -22,7 +22,6 @@ const ShoppingCartSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [cartList, setCartList] = useState([])
-  const [cart, setCart] = useState([])
   const [currentSelect, setCurrentSelect] = useState(0)
   const [totalCost, setTotalCost] = useState(0)
   const { solToUsdRate } = useSolToUsdRate()
@@ -54,7 +53,7 @@ const ShoppingCartSection = props => {
 
   const onCheckout = () => {
     const checkedData = []
-    cart.forEach(item => {
+    cartList.forEach(item => {
       if (item.checked === true) checkedData.push(item)
     })
     if (checkedData.length > 0) {
@@ -136,12 +135,9 @@ const ShoppingCartSection = props => {
               cartVersion={cartVersion}
               data={cartList}
               getcartList={getcartList}
-              setCart={setCart}
               selectAllCart={selectAllCart}
               setCurrentSelect={setCurrentSelect}
-              currentSelect={currentSelect}
               setTotalCost={setTotalCost}
-              totalCost={totalCost}
             />
           </div>
           <div className={styles.bottomSection}>

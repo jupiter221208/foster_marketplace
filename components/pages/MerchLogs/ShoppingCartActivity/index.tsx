@@ -20,23 +20,14 @@ import SimpleCheckbox from 'components/Checkbox/SimpleCheckbox'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const ShoppingCartActivity = props => {
-  const {
-    data,
-    setCart,
-    selectAllCart,
-    getcartList,
-    cartVersion,
-    setCurrentSelect,
-    currentSelect,
-    setTotalCost,
-    totalCost,
-  } = props
+  const { data, selectAllCart, getcartList, cartVersion, setCurrentSelect, setTotalCost } = props
 
   const [cartList, setCartList] = useState<any[]>([])
   const router = useRouter()
   const dispatch = useDispatch()
   const [selectAll, setSelectAll] = useState(false)
   const [checked, setChecked] = useState(false)
+
   useEffect(() => {
     setCartList(props.data)
   }, [props.data])
@@ -119,7 +110,6 @@ const ShoppingCartActivity = props => {
       item.checked = allSelected
       return item
     })
-    setCart(updatedCart)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectAllCart])
 
@@ -130,14 +120,14 @@ const ShoppingCartActivity = props => {
           {cartList &&
             cartList.map((item, index) => (
               <div key={index}>
-                {cartVersion === 'v2' ? (
+                {item.version === 'v2' ? (
                   <>
                     <div className={styles.divider} />
                     <div className="w-full h-full flex flex-row my-[30px]">
                       <div className="flex items-center">
                         <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
-                      <div className="min-w-[120px] max-w-[120px] h-[183px] ml-[30px]">
+                      <div className="min-w-[180px] max-w-[180px] h-[183px] ml-[30px]">
                         <ImageWithFoster src={item.merchList[0].url} className="" />
                       </div>
                       <div className="ml-[30px] sm:mt-[10px]">
@@ -166,7 +156,7 @@ const ShoppingCartActivity = props => {
                           <div className="flex items-center">
                             <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                           </div>
-                          <div className="min-w-[120px] max-w-[120px] h-[183px] ml-[30px]">
+                          <div className="min-w-[180px] max-w-[180px] h-[183px] ml-[30px]">
                             <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
                           </div>
                           <div className="ml-[30px] sm:mt-[10px]">
