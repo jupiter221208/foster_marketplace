@@ -93,9 +93,10 @@ const MerchDetail = () => {
     if (orderData?.fulfillments?.length > 0) setFulfillment(orderData?.fulfillments[0])
 
     if (shipment) setTrackingDetails(shipment)
-    if (ssorder?.items.length === 1) {
-      let localData = JSON.parse(localStorage.getItem('data'))
 
+    let localData = JSON.parse(localStorage.getItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
+
+    if (ssorder?.items.length === 1) {
       let itemData = ssorder?.items[0]
       let options = itemData.options
       let nftName = findElement(options, 'name', 'nftName')
@@ -146,13 +147,11 @@ const MerchDetail = () => {
             }
           }
         })
-        localStorage.setItem('data', JSON.stringify(localData))
+        localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
       } else {
         setPreviewUrl(itemData.imageUrl)
       }
     } else {
-      let localData = JSON.parse(localStorage.getItem('data'))
-
       let itemList = []
       ssorder?.items.forEach(itemData => {
         let options = itemData.options
@@ -183,16 +182,28 @@ const MerchDetail = () => {
       })
       setList(itemList)
 
+      console.log(localData, '===========localData=========')
+      console.log(itemList, '===========itemList=========')
+
       localData?.forEach(item => {
         itemList?.forEach(otherItem => {
-          if (item.printImageUrl === otherItem.fosterUrl) {
-            const index = localData.indexOf(item)
-            localData.splice(index, 1)
+          if (item.version === 'v2') {
+            if (item.merchList[0].url === otherItem.fosterUrl && item.data.quantity === otherItem.quantity) {
+              const index = localData.indexOf(item)
+              localData.splice(index, 1)
+              return
+            }
+          } else {
+            if (item.printImageUrl === otherItem.fosterUrl) {
+              const index = localData.indexOf(item)
+              localData.splice(index, 1)
+              return
+            }
           }
         })
       })
 
-      localStorage.setItem('data', JSON.stringify(localData))
+      localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
     }
 
     if (type === 'sales') {
@@ -724,6 +735,18 @@ const MerchDetail = () => {
             <div className="flex w-1/2 justify-between">
               <div>
                 <div className={styles.detailTitle}>Payment Details</div>
+                <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo.name}</div>
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Buyer&nbsp;Email:&nbsp;
+                  <span
+                    className={styles.buyerEmail}
+                    onClick={() => {
+                      window.location.href = 'mailto:' + SSOrder?.customerEmail
+                    }}
+                  >
+                    {SSOrder?.customerEmail}
+                  </span>
+                </div>
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
                 </div>
@@ -748,7 +771,7 @@ const MerchDetail = () => {
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
                 </div>
-                <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
+                <div className={`mt-[15px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
               </div>
 
               <div>

@@ -30,20 +30,26 @@ const ShoppingCartSection = props => {
   const [cartVersion, setCartVersion] = useState('v2')
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('cart_v2'))
-    setCartList(storedData)
+    let storedData = JSON.parse(localStorage.getItem('cart_v2'))
+    if (storedData === null || storedData === undefined || storedData.length === 0) {
+      storedData = JSON.parse(localStorage.getItem('cart_v1'))
+      if (storedData === null || storedData === undefined || storedData.length === 0) {
+        setCartList([])
+      } else {
+        setCartVersion('v1')
+        setCartList(storedData)
+      }
+    } else {
+      setCartList(storedData)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem(cartVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
-    setCartList(storedData)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartVersion])
-
   const getcartList = () => {
     const storedData = JSON.parse(localStorage.getItem(cartVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
-    setCartList(storedData)
+    if (storedData === null || storedData === undefined || storedData.length === 0) {
+      setCartList([])
+    } else setCartList(storedData)
   }
 
   const onCheckout = () => {
@@ -85,8 +91,16 @@ const ShoppingCartSection = props => {
             <div
               className={styles.titleV1}
               onClick={() => {
-                if (cartVersion === 'v1') setCartVersion('v2')
-                else setCartVersion('v1')
+                let newVersion = ''
+                if (cartVersion === 'v1') newVersion = 'v2'
+                else newVersion = 'v1'
+
+                const storedData = JSON.parse(localStorage.getItem(newVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
+                if (storedData === null || storedData === undefined || storedData.length === 0) {
+                  setCartList([])
+                } else setCartList(storedData)
+
+                setCartVersion(newVersion)
               }}
             >
               {cartVersion === 'v2' ? 'Studio 1.0 Cart »' : 'Studio 2.0 Cart »'}

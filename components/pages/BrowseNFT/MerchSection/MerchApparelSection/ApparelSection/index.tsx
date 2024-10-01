@@ -19,8 +19,6 @@ const ApparelSection = props => {
 
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const isAddToCart = useSelector(state => (state as any).isAddToCart)
-  const router = useRouter()
 
   useEffect(() => {
     if (apparel && apparel.length > 0) {
