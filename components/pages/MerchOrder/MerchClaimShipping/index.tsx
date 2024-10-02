@@ -331,6 +331,9 @@ const MerchClaimShipping = props => {
       },
     ])
     setShowAlert(true)
+    setTimeout(() => {
+      onClose()
+    }, 2000)
   }
 
   return (
