@@ -37,7 +37,7 @@ const initialState = {
   markAsRead: false,
   expiryDate: 0,
   loginSignedFlag: false,
-  printImageUrl: '',
+  printImageUrl: null,
   merchData: null,
   firstLoaded: true,
   activeTab: 0,

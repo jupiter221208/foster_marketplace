@@ -178,7 +178,8 @@ const MerchDetail = () => {
       })
       setList(itemList)
 
-      localData?.forEach(item => {
+      for (let index = localData.length - 1; index >= 0; index--) {
+        let item = localData[index]
         itemList?.forEach(otherItem => {
           if (item.version === 'v2') {
             if (item.merchList[0].url === otherItem.fosterUrl && item.data.quantity === otherItem.quantity) {
@@ -192,7 +193,7 @@ const MerchDetail = () => {
             }
           }
         })
-      })
+      }
 
       localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
     }

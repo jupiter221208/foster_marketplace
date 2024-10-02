@@ -199,7 +199,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
     merchAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
-        // setIsLoading(false)
+        setIsLoading(false)
       },
       error => {
         setIsLoading(false)
