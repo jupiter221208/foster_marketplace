@@ -34,7 +34,7 @@ const ShoppingCartMerchApparelSection = props => {
           cartVersion={cartVersion}
           onBack={() => {
             dispatch({ type: 'set', activeTab: 4 })
-            router.push(`/merch-logs`)
+            router.push(`/`)
           }}
           onNext={info => {
             setShippingData(info.data)

@@ -290,7 +290,9 @@ const ShoppingCartPhysicalShipping = props => {
     <section className={styles.container}>
       <div className="lg:pt-[70px]">
         <div className="flex gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center gap-[11px]">
-          <ArrowLeftIcon />
+          <div onClick={() => router.push('/')}>
+            <ArrowLeftIcon />
+          </div>
 
           <div className={styles.selecteCategory}>Shipping Address</div>
         </div>
@@ -379,11 +381,21 @@ const ShoppingCartPhysicalShipping = props => {
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
-            <GradientButton label="Checkout" disabled={!enabled} fullWidth onClick={() => proceedToCheckout()} />
+            <GradientButton
+              label={cartVersion === 'v1' ? 'Checkout' : 'Select Shipping'}
+              disabled={!enabled}
+              fullWidth
+              onClick={() => proceedToCheckout()}
+            />
           )}
         </div>
         <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
-          <OutlineButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
+          <OutlineButton
+            label="Back"
+            backgroundColor="var(--bg-212121-F3F2F0)"
+            onClick={() => backToPage()}
+            fullWidth
+          />
         </div>
       </div>
 
