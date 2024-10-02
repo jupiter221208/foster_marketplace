@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import { useRouter } from 'next/router'
 
 // custom functions
@@ -15,6 +13,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // images
 import LoadingButton from 'components/Button/LoadingButton'
 import Alert from 'components/Alert'
+import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -24,6 +23,8 @@ import CountrySelect from 'components/Select/CountrySelect'
 import merchAPI from 'apis/merch'
 import storeAPI from 'apis/store'
 import { useDispatch } from 'react-redux'
+import OutlineButton from 'components/Button/OutlineButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const ShoppingCartPhysicalShipping = props => {
   const { cartVersion, onBack, onNext, category, data, printData, wallArt, nftName } = props
@@ -172,7 +173,6 @@ const ShoppingCartPhysicalShipping = props => {
   }
 
   const onCheckoutV2 = serviceCode => {
-    console.log(name, street, apartment, city, state, zipCode, country)
     let address = {
       name: name,
       street1: street,
@@ -288,9 +288,11 @@ const ShoppingCartPhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="lg:p-[30px]">
-        <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center justify-between">
-          <div className={styles.selecteCategory}>Add Shipping Details</div>
+      <div className="lg:pt-[70px]">
+        <div className="flex gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center gap-[11px]">
+          <ArrowLeftIcon />
+
+          <div className={styles.selecteCategory}>Shipping Address</div>
         </div>
         <div className="w-full mt-[20px]">
           <div className={styles.label}>
@@ -377,17 +379,11 @@ const ShoppingCartPhysicalShipping = props => {
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
-            <PrimaryButton
-              label="Select Shipping"
-              type="shipping"
-              disabled={!enabled}
-              fullWidth
-              onClick={() => proceedToCheckout()}
-            />
+            <GradientButton label="Checkout" disabled={!enabled} fullWidth onClick={() => proceedToCheckout()} />
           )}
         </div>
         <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
-          <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
+          <OutlineButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
         </div>
       </div>
 

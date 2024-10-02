@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useViewport } from 'utils'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
-
-import { Swiper, SwiperSlide } from 'swiper/react'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
@@ -36,8 +31,6 @@ import nftsAPI from 'apis/nfts'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
-import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
-import LoadingComponent from 'pages/explore/LoadingComponent'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface EditionDetail {
@@ -56,29 +49,13 @@ export interface BrowseNFTProps {
 
 const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const cartVersion = localStorage.getItem('cart_version')
-
+  const viewport = useViewport()
   const nftType = nftDetail?.json?.properties?.category as string
   const [openApparelDetail, setOpenApparelDetail] = useState(true)
   const { profileInfo } = useAuthentication()
   const [data, setData] = useState(null)
-  const [swiper, setSwiper] = useState(null)
-  const [currentStep, setCurrentStep] = useState(0)
   const [isFetching, setIsFetching] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const goNext = () => {
-    if (swiper !== null) swiper.slideNext()
-    setCurrentStep(swiper.activeIndex)
-  }
-
-  const goPrev = () => {
-    if (swiper !== null) swiper.slidePrev()
-    setCurrentStep(swiper.activeIndex)
-  }
-
-  const handleOnChange = swiper => {
-    setCurrentStep(swiper.activeIndex)
-  }
 
   useEffect(() => {
     setTimeout(
@@ -177,7 +154,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full block lg:flex">
       <Head>
         <title>{nftTitle}</title>
         <meta property="description" content={nftDescription} />
@@ -194,84 +171,43 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="g-container">
-        <div className={styles.container}>
-          <div className="w-full lg:flex lg:flex-row flex-col">
-            <div className="lg:w-[calc(100%-604px)] lg:pr-[50px] p-[10px] flex">
-              {merchList.length > 1 && (
-                <div className="hidden lg:block mt-[30px] min-w-[75px]">
-                  <div className={styles.backStore}>
-                    Item&nbsp;{selectedIndex}/{merchList.length}
-                  </div>
-                  <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
-                    {merchList.map((merch, index) => {
-                      return (
-                        <div
-                          key={index}
-                          onClick={() => onClickMerch(index)}
-                          className={merch.selected ? styles.image : styles.imageHover}
-                        >
-                          <div className={merch.selected ? styles.selected : styles.unselected}>
-                            <ImageWithFoster
-                              width={350}
-                              height={350}
-                              src={merch.url}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              )}
-              {/* {!loading ? (
-                <Swiper
-                  slidesPerView={1}
-                  spaceBetween={10}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  onSlideChange={handleOnChange}
-                  onSwiper={setSwiper}
-                >
-                  {data && data.length > 1 && (
-                    <>
-                      <div className={styles.orderTitle}>
-                        {currentStep + 1}/{data?.length} cart items included in order
+      <div
+        className={`w-full lg:max-w-[58%] lg:min-w-[58%] ${
+          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
+        }`}
+      >
+        <div className="w-full flex">
+          {merchList.length > 1 && (
+            <div className="hidden lg:block mt-[75px] min-w-[75px]">
+              <div className={styles.backStore}>
+                Item&nbsp;{selectedIndex}/{merchList.length}
+              </div>
+              <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
+                {merchList.map((merch, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => onClickMerch(index)}
+                      className={merch.selected ? styles.image : styles.imageHover}
+                    >
+                      <div className={merch.selected ? styles.selected : styles.unselected}>
+                        <ImageWithFoster
+                          width={350}
+                          height={350}
+                          src={merch.url}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div className={styles.prevButton} onClick={goPrev}>
-                        <PreviewButton />
-                      </div>
-                      <div className={styles.nextButton} onClick={goNext}>
-                        <NextButton />
-                      </div>
-                    </>
-                  )}
-                  {data &&
-                    data.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <div className={styles.blurBackground}>
-                          <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
-                            <ImageWithFoster
-                              width={700}
-                              src={cartVersion === 'v1' ? item?.printImageUrl : item?.merchList[0].url}
-                              className="max-w-full max-h-full object-cover"
-                            />
-                          </div>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-              ) : (
-                <div className="w-full mt-[90px] lg:mt-[200px] h-[230px]">
-                  <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
-                </div>
-              )} */}
-              <div className="w-full flex justify-center">
-                <div
-                  className={`lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
-                >
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+          <div className="flex-1 flex justify-center">
+            <div className="w-full flex justify-center max-w-[400px] lg:max-w-[625px]">
+              <div className={`lg:hidden block h-auto w-full mt-[20px] mb-[20px]`}>
+                <div className={styles.mobileImageArea}>
                   <div className={styles.imageArea}>
                     <div className={styles.imageContent}>
                       <ImageWithFoster
@@ -281,48 +217,83 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       />
                     </div>
                   </div>
-                  {merchList.length > 1 && selectedMerch && (
-                    <div className="w-full mt-[30px] flex justify-center">
-                      <div className="flex gap-[50px]">
-                        <div
-                          className={styles.arrowButton}
-                          onClick={() =>
-                            selectedMerch.id > 0
-                              ? onClickMerch(selectedMerch.id - 1)
-                              : onClickMerch(merchList.length - 1)
-                          }
-                        >
-                          <LeftBtnIcon />
-                        </div>
-                        <div
-                          className={styles.arrowButton}
-                          onClick={() =>
-                            selectedMerch.id < merchList.length - 1
-                              ? onClickMerch(selectedMerch.id + 1)
-                              : onClickMerch(0)
-                          }
-                        >
-                          <RightBtnIcon />
-                        </div>
-                      </div>
+                  {merchList.length > 1 && (
+                    <div className="flex lg:hidden w-full mt-[20px] h-[75px] gap-[11px] pl-[16px]">
+                      {merchList.map((merch, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => onClickMerch(index)}
+                            className={merch.selected ? styles.image : styles.imageHover}
+                          >
+                            <div className={merch.selected ? styles.selected : styles.unselected}>
+                              <ImageWithFoster
+                                width={350}
+                                height={350}
+                                src={merch.url}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          </div>
+                        )
+                      })}
                     </div>
                   )}
                 </div>
               </div>
-            </div>
-            <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10 mb-[30px]">
-              {openApparelDetail && (
-                <ShoppingCartMerchApparelSection
-                  cartVersion={cartVersion}
-                  apparelData={data}
-                  open={openApparelDetail}
-                  setFinishEditing={editing => {}}
-                  setApparel={apparel => {}}
-                />
-              )}
+              <div
+                className={`lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+              >
+                <div className={styles.imageArea}>
+                  <div className={styles.imageContent}>
+                    <ImageWithFoster
+                      width={700}
+                      src={selectedMerch ? selectedMerch.url : ''}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                {merchList.length > 1 && selectedMerch && (
+                  <div className="w-full mt-[30px] flex justify-center">
+                    <div className="flex gap-[50px]">
+                      <div
+                        className={styles.arrowButton}
+                        onClick={() =>
+                          selectedMerch.id > 0 ? onClickMerch(selectedMerch.id - 1) : onClickMerch(merchList.length - 1)
+                        }
+                      >
+                        <LeftBtnIcon />
+                      </div>
+                      <div
+                        className={styles.arrowButton}
+                        onClick={() =>
+                          selectedMerch.id < merchList.length - 1 ? onClickMerch(selectedMerch.id + 1) : onClickMerch(0)
+                        }
+                      >
+                        <RightBtnIcon />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className={`w-full lg:max-w-[42%] lg:max-w-[42%] ${
+          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
+        } lg:flex lg:justify-end ${styles.rightBG}`}
+      >
+        {openApparelDetail && (
+          <ShoppingCartMerchApparelSection
+            cartVersion={cartVersion}
+            apparelData={data}
+            open={openApparelDetail}
+            setFinishEditing={editing => {}}
+            setApparel={apparel => {}}
+          />
+        )}
       </div>
     </div>
   )

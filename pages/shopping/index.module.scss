@@ -101,24 +101,24 @@
   align-items: center;
 }
 
-// .imageArea {
-//   position: relative;
-//   margin: 11px;
-//   border-radius: 12px;
-//   padding: 8px;
-//   background: linear-gradient(
-//     to bottom,
-//     rgba(var(--background-dark-color), 0.4),
-//     rgba(var(--background-light-color), 0.4)
-//   );
-//   overflow: hidden;
-//   max-width: calc(100% - 32px);
-//   max-height: calc(100% - 32px);
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 11;
-// }
+.rightBG {
+  @media (min-width: 1024px) {
+    background: var(--background-main-color);
+    box-shadow: 0px 3px 6px rgba(0,0,0, 0.16);
+    height: calc(100vh - 100px);
+    overflow: auto;
+  }
+}
+
+.mobileImageArea {
+  width: calc(100% + 32px);
+  left: -16px;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+  object-fit: cover;
+}
+
 .prevButton {
   position: absolute;
   top: 40%;
