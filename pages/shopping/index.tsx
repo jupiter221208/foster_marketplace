@@ -32,6 +32,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import ImageWithFoster from 'components/ImageWithFoster'
+import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 export interface EditionDetail {
   number: number
@@ -302,7 +303,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 export default Shopping
 
 Shopping.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <SecondaryLayout>{page}</SecondaryLayout>
 }
 
 Shopping.getInitialProps = async function ({ res, query }): Promise<any> {

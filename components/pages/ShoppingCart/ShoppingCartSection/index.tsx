@@ -68,23 +68,6 @@ const ShoppingCartSection = props => {
     <div className={styles.container}>
       {cartList?.length > 0 ? (
         <div className="relative">
-          {/* <div className="w-full flex justify-between sm:hidden">
-            <div className="flex gap-[13px] items-center">
-              <div
-                onClick={() => {
-                  dispatch({ type: 'set', openShoppingCart: false })
-                }}
-              >
-                <LeftArrowIcon />
-              </div>
-              <div className={styles.title}>Shopping 2.0 Cart</div>
-            </div>
-            <div className="flex items-end">
-              <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
-                {selectAllCart ? 'Deselect All' : 'Select all'}
-              </div>
-            </div>
-          </div> */}
           <div className="flex justify-between items-center">
             <div className={styles.title}>{cartVersion === 'v2' ? 'Studio 2.0 Cart' : 'Studio 1.0 Cart'}</div>
             <div
@@ -159,13 +142,31 @@ const ShoppingCartSection = props => {
           </div>
         </div>
       ) : (
-        <div className="w-full flex flex-col items-center">
+        <div className="relative w-full flex flex-col items-center">
+          <div className="absolute right-[0px] top-[3px]">
+            <div
+              className={styles.titleV1}
+              onClick={() => {
+                let newVersion = ''
+                if (cartVersion === 'v1') newVersion = 'v2'
+                else newVersion = 'v1'
+
+                const storedData = JSON.parse(localStorage.getItem(newVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
+                if (storedData === null || storedData === undefined || storedData.length === 0) {
+                  setCartList([])
+                } else setCartList(storedData)
+
+                setCartVersion(newVersion)
+              }}
+            >
+              {cartVersion === 'v2' ? 'Studio 1.0 Cart »' : 'Studio 2.0 Cart »'}
+            </div>
+          </div>
           <div className="w-[400px] h-[313px]">
             <Lottie animationData={animationData}></Lottie>
           </div>
           <div className="mt-[65px]">
             <div className={styles.lootieTitle}>Your cart is empty</div>
-            <div className={styles.lootieSubTitle}>Explore studio and foster your flavor</div>
             <div className="w-full flex justify-center mt-[30px]">
               <GradientButton
                 width={165}

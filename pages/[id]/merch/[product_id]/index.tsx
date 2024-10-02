@@ -47,10 +47,6 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
     if (productDetail?.master_edition_address === null) type = 'physical'
   }
 
-  const [shipppingMethod, setShippingMethod] = useState(null)
-  const [shippingData, setShippingData] = useState(null)
-  const [shippingLocal, setShippingLocal] = useState(true)
-  const [totalCost, setTotalCost] = useState(null)
   const [merchList, setMerchList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
@@ -402,7 +398,6 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 productId={router.query.product_id}
                 type={type}
                 onBack={info => {
-                  setShippingData(info)
                   setCurrentStep(1)
                 }}
                 onNext={orderId => {
@@ -418,38 +413,6 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
               />
             </div>
           )}
-          {/* {currentStep === 3 && (
-            <div className="w-full mt-[0px] lg:mt-[57px]">
-              <MerchOrderShippingMethod
-                productId={router.query.product_id}
-                type={type}
-                data={printData}
-                shippingLocal={shippingLocal}
-                shippingData={shippingData}
-                allShippingMethod={shipppingMethod}
-                setTotalCost={setTotalCost}
-                merchList={merchList}
-                rawList={rawUrlList}
-                mintAddress=""
-                onNext={orderId => {
-                  let data = {
-                    type: 'store',
-                    printData,
-                    shippingData,
-                    username: router.query.id,
-                    nftName: printData.name,
-                    nftCoverUrl: merchList[0].url,
-                    totalCost,
-                  }
-                  dispatch({ type: 'set', merchData: data })
-                  router.push(`/orders/${orderId}`)
-                }}
-                onBack={() => {
-                  setCurrentStep(2)
-                }}
-              />
-            </div>
-          )} */}
         </div>
       </div>
     </div>
