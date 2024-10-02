@@ -205,11 +205,12 @@ const ShoppingCartPhysicalShipping = props => {
           fosterUrl: storeItem.fosterUrl,
           mockupUrl: mockupUrls.join(','),
           assetUrl: rawUrls.join(','),
-          nftAddress: '',
+          nftAddress: storeItem.nftAddress ?? '',
           apparel: storeItem.data.description,
           size: storeItem.data.size,
           color: storeItem.data.color,
           technique: storeItem.data.technique,
+          printEditionAddress: storeItem.nftAddress ?? '',
         },
         notes: `This is studio merch V2 item`,
       }
@@ -382,7 +383,7 @@ const ShoppingCartPhysicalShipping = props => {
             <LoadingButton height={50} fullWidth />
           ) : (
             <GradientButton
-              label={cartVersion === 'v1' ? 'Checkout' : 'Select Shipping'}
+              label={cartVersion === 'v2' ? 'Checkout' : 'Select Shipping'}
               disabled={!enabled}
               fullWidth
               onClick={() => proceedToCheckout()}

@@ -273,6 +273,7 @@ const MerchOrderMain = props => {
     let cart_data = {
       version: 'v2',
       type,
+      merchEdition: false,
       cost: ((productDetail.selling_price / 100) * mintQty).toFixed(2),
       productId,
       data,

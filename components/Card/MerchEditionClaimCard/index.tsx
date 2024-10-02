@@ -82,7 +82,13 @@ const MerchEditionClaimCard = props => {
             </div>
           ) : (
             <div className="w-full">
-              <OutlineButton fontSize={16} height={45} label="Claim Merch" onClick={() => onClaimCard()} fullWidth />
+              <OutlineButton
+                fontSize={16}
+                height={45}
+                label={data.carted ? 'Added to Cart' : 'Claim Merch'}
+                onClick={() => onClaimCard()}
+                fullWidth
+              />
             </div>
           )}
         </div>

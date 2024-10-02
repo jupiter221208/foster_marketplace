@@ -58,6 +58,8 @@ const ShoppingCartActivity = props => {
     arrayData.splice(index, 1)
     localStorage.setItem(cartVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(arrayData))
 
+    dispatch({ type: 'set', cartUpdated: true })
+
     getcartList()
   }
 
