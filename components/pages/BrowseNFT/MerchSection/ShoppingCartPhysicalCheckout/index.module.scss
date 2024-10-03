@@ -118,6 +118,7 @@
   line-height: 23px;
   color: var(--text-gray-200-color);
 }
+
 .summary {
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -125,7 +126,9 @@
     font-size: 24px;
   }
   color: var(--text-gray-200-color);
+  user-select: none;
 }
+
 .paymentBG {
   width: 125px;
   height: 125px;

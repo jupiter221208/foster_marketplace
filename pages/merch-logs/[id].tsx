@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
@@ -31,6 +31,7 @@ import StoreAPI from 'apis/store'
 
 const MerchDetail = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const { id } = router.query
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
@@ -144,6 +145,7 @@ const MerchDetail = () => {
           }
         })
         localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
+        dispatch({ type: 'set', cartUpdated: true })
       } else {
         setPreviewUrl(itemData.imageUrl)
       }
@@ -196,6 +198,7 @@ const MerchDetail = () => {
       }
 
       localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
+      dispatch({ type: 'set', cartUpdated: true })
     }
 
     if (type === 'sales') {
