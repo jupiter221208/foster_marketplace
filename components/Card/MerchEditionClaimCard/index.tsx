@@ -29,7 +29,6 @@ const MerchEditionClaimCard = props => {
 
   const onClaimCard = () => {
     if (data.carted) {
-      console.log('=========carted=========')
       dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
     } else setShowClaimCard(true)
   }

@@ -195,24 +195,46 @@ const ShoppingCartPhysicalShipping = props => {
         rawUrls = []
       storeItem.merchList.map(item => mockupUrls.push(item.url))
       storeItem.rawList.map(item => rawUrls.push(item.url))
-      let item = {
-        id: storeItem.productId.toString(),
-        quantity: storeItem.data.quantity,
-        previewUrl: mockupUrls[0],
-        options: {
-          type: storeItem.type,
-          nftName: storeItem.data.name,
-          fosterUrl: storeItem.fosterUrl,
-          mockupUrl: mockupUrls.join(','),
-          assetUrl: rawUrls.join(','),
-          nftAddress: storeItem.nftAddress ?? '',
-          apparel: storeItem.data.description,
-          size: storeItem.data.size,
-          color: storeItem.data.color,
-          technique: storeItem.data.technique,
-          printEditionAddress: storeItem.nftAddress ?? '',
-        },
-        notes: `This is studio merch V2 item`,
+      let item
+      if (storeItem.printEditionAddress && storeItem.printEditionAddress.length > 0) {
+        item = {
+          id: storeItem.productId.toString(),
+          quantity: storeItem.data.quantity,
+          previewUrl: mockupUrls[0],
+          options: {
+            type: storeItem.type,
+            nftName: storeItem.data.name,
+            fosterUrl: storeItem.fosterUrl,
+            mockupUrl: mockupUrls.join(','),
+            assetUrl: rawUrls.join(','),
+            nftAddress: storeItem.nftAddress ?? '',
+            apparel: storeItem.data.description,
+            size: storeItem.data.size,
+            color: storeItem.data.color,
+            technique: storeItem.data.technique,
+            printEditionAddress: storeItem.printEditionAddress,
+          },
+          notes: `This is studio merch V2 item`,
+        }
+      } else {
+        item = {
+          id: storeItem.productId.toString(),
+          quantity: storeItem.data.quantity,
+          previewUrl: mockupUrls[0],
+          options: {
+            type: storeItem.type,
+            nftName: storeItem.data.name,
+            fosterUrl: storeItem.fosterUrl,
+            mockupUrl: mockupUrls.join(','),
+            assetUrl: rawUrls.join(','),
+            nftAddress: storeItem.nftAddress ?? '',
+            apparel: storeItem.data.description,
+            size: storeItem.data.size,
+            color: storeItem.data.color,
+            technique: storeItem.data.technique,
+          },
+          notes: `This is studio merch V2 item`,
+        }
       }
       totalCost += storeItem.cost * storeItem.data.quantity
       items.push(item)
@@ -229,6 +251,7 @@ const ShoppingCartPhysicalShipping = props => {
       notes: 'Checkout Note',
     }
 
+    setIsLoading(false)
     storeAPI.checkout(params).then(
       response => {
         if (response.orderNumber === undefined) {

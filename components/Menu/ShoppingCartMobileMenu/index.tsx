@@ -15,7 +15,6 @@ const ShoppingCartMobileMenu = () => {
         <ShoppingCartSection
           onClose={() => {
             dispatch({ type: 'set', openShoppingCart: false })
-            console.log('==============7================')
           }}
         />
       </div>
