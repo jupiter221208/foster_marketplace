@@ -175,6 +175,7 @@ const PrimaryHeader = () => {
     if (connected) {
       dispatch({ type: 'set', openMobileMenu: false })
       dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
+      console.log('==============1================')
     } else {
       setVisible(true)
     }
@@ -182,16 +183,22 @@ const PrimaryHeader = () => {
 
   const handleOpenMobileSearchBox = () => {
     dispatch({ type: 'set', openShoppingCart: false })
+    console.log('==============2===============')
+
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
   }
 
   const handleOpenMobileMenu = () => {
     dispatch({ type: 'set', openShoppingCart: false })
+    console.log('==============3================')
+
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
   }
 
   const handleGotoHomepage = () => {
     dispatch({ type: 'set', openShoppingCart: false })
+    console.log('==============4================')
+
     dispatch({ type: 'set', openMobileSearchBox: false })
     dispatch({ type: 'set', openMobileMenu: false })
     router.push('/')

@@ -43,7 +43,6 @@ const ShoppingCartMenu = () => {
       !itemRef.current.contains(event.target)
     ) {
       setIsMenuOpen(false)
-      dispatch({ type: 'set', openShoppingCart: false })
     }
   }
 
