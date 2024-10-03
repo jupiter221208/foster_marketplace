@@ -117,8 +117,8 @@ const ShoppingCartPhysicalShippingMethod = props => {
       printData.forEach(item => {
         totalCost += parseFloat(item.cost)
       })
-      let tax = Math.floor((totalCost + shipping.shipmentCost * printData.length) * allShippingMethod.taxPercent) / 100
-      let total = totalCost + shipping.shipmentCost * printData.length + tax
+      let tax = Math.floor((totalCost + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
+      let total = totalCost + shipping.shipmentCost + tax
       setTax(tax)
       setTotal(total)
       setTotalCost(total)
@@ -243,7 +243,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
                 <div className="w-full flex justify-between mt-[15px]">
                   <div className={styles.orderTotal}>Shipping and Handling</div>
                   <div className={styles.subPrice}>
-                    <div>Shipping: ${shipping ? (shipping.shipmentCost * printData.length).toFixed(2) : '---'}</div>
+                    <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
                     <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
                   </div>
                 </div>
