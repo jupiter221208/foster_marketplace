@@ -43,9 +43,11 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
   const [openShareModal, setOpenShareModal] = useState(false)
 
   let username = publicArtistData?.username ?? '<not found>'
-  let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
-  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
-  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+  let pageTitle = storeInfoData ? storeInfoData.name : `The Official Merch Store of ${username} | Foster Studio`
+  let pageImageUrl = storeInfoData ? storeInfoData.assetUrl : getAbsoluteOgUrl(PreviewImage.src)
+  let pageDescription = storeInfoData
+    ? storeInfoData.description
+    : `Shop limited-edition apparel and collectibles designed by ${username}.`
   let userTwitterHandle = getTwitterUsername(publicArtistData?.twitter_url)
 
   return (
@@ -54,14 +56,14 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
         <title>{pageTitle}</title>
         <meta property="description" content={pageDescription} />
 
-        <meta name="og:title" content={storeInfoData ? storeInfoData.title : pageTitle} />
-        <meta property="og:description" content={storeInfoData ? storeInfoData.descripton : pageDescription} />
-        <meta name="og:image" content={storeInfoData ? storeInfoData.assetUrl : pageImageUrl} />
+        <meta name="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta name="og:image" content={pageImageUrl} />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={storeInfoData ? storeInfoData.title : pageTitle} />
-        <meta property="twitter:description" content={storeInfoData ? storeInfoData.descripton : pageDescription} />
-        <meta property="twitter:image" content={storeInfoData ? storeInfoData.assetUrl : pageImageUrl} />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <meta property="twitter:image" content={pageImageUrl} />
         <meta name="twitter:site" content="@silkrunway" />
         {userTwitterHandle ? <meta name="twitter:creator" content={userTwitterHandle} /> : null}
 
@@ -157,10 +159,11 @@ CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorM
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
-    let storeInfoData = await fetch(`${process.env.BACKEND_URL}v1/merch_stores//${publicArtistData.id}`).then(r =>
+    let storeInfoData = await fetch(`${process.env.BACKEND_URL}v1/merch_stores/${publicArtistData.id}`).then(r =>
       r.json()
     )
-    console.log(storeInfoData, '========storeInfoData=======')
+    if (storeInfoData.hasOwnProperty('message')) storeInfoData = null
+
     return {
       storeInfoData,
       publicArtistData,
