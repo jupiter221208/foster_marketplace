@@ -308,6 +308,7 @@ const PhysicalPrintDetail = props => {
       localStorage.setItem('cart_v1', JSON.stringify(existingData))
       dispatch({ type: 'set', isAddToCart: false })
       dispatch({ type: 'set', printImageUrl: null })
+      dispatch({ type: 'set', cartUpdated: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [printImageUrl, isAddToCart])

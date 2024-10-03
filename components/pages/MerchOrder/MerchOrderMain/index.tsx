@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import { useWallet } from '@solana/wallet-adapter-react'
 import Lottie from 'lottie-react'
 // next component
 
@@ -48,6 +47,8 @@ const MerchOrderMain = props => {
     rawList,
   } = props
   const router = useRouter()
+  const dispatch = useDispatch()
+
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
@@ -293,6 +294,8 @@ const MerchOrderMain = props => {
       },
     ])
     setShowAlert(true)
+
+    dispatch({ type: 'set', cartUpdated: true })
   }
 
   return (

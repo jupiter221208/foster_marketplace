@@ -47,11 +47,14 @@ const PrimaryHeader = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
+  const cartUpdated = useSelector(state => (state as any).cartUpdated)
+
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const [isNewNotification, setIsNewNotification] = useState(false)
   const [isScrollTop, setIsScrollTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
+  const [cartCount, setCartCount] = useState(0)
 
   const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
@@ -81,22 +84,46 @@ const PrimaryHeader = () => {
   }, [])
 
   useEffect(() => {
-    if (connected && router.asPath !== '/notifications') {
-      userAPI.getNotifications().then(
-        response => {
-          if (response !== null) {
-            if (response.notifications.length > 0) {
-              checkNotifications([...response.notifications])
+    if (connected) {
+      if (router.asPath !== '/notifications') {
+        userAPI.getNotifications().then(
+          response => {
+            if (response !== null) {
+              if (response.notifications.length > 0) {
+                checkNotifications([...response.notifications])
+              }
             }
+          },
+          error => {
+            console.log(error)
           }
-        },
-        error => {
-          console.log(error)
-        }
-      )
+        )
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (connected) {
+      setTimeout(() => {
+        let count = 0
+        let cartV1 = JSON.parse(localStorage.getItem('cart_v1'))
+        if (cartV1) {
+          count += cartV1.length
+        }
+
+        let cartV2 = JSON.parse(localStorage.getItem('cart_v2'))
+        if (cartV2) {
+          count += cartV2.length
+        }
+        setCartCount(count)
+
+        if (cartUpdated) {
+          dispatch({ type: 'set', cartUpdated: false })
+        }
+      }, 1000)
+    }
+  }, [connected, cartUpdated])
 
   // update profile menu list
   const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
@@ -217,6 +244,14 @@ const PrimaryHeader = () => {
                       </div>
                     </div>
                   </>
+                )}
+
+                {connected && cartCount > 0 && (
+                  <div className="absolute ml-[105px] mt-[-8px]">
+                    <div className={styles.cartCount}>
+                      <div className="mt-[-2px]">{cartCount}</div>
+                    </div>
+                  </div>
                 )}
 
                 {connected && isNewNotification && (
