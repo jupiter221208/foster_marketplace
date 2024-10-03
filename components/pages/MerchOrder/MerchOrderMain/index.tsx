@@ -321,7 +321,7 @@ const MerchOrderMain = props => {
               <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
             </div>
             <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[15px] lg:gap-[30px]">
-              <div className="flex gap-[30px]">
+              <div className="flex flex-wrap sm:gap-[30px] gap-[10px]">
                 <div>
                   <div className={styles.creator}>Seller</div>
                   <Link href={`/${userDetail.username}`} passHref>
