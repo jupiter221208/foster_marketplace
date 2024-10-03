@@ -130,10 +130,10 @@ const ShoppingCartActivity = props => {
                       <div className="flex items-center">
                         <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
-                      <div className="min-w-[180px] max-w-[180px] h-[183px] ml-[30px]">
+                      <div className={styles.nftArea}>
                         <ImageWithFoster src={item.merchList[0].url} className="" />
                       </div>
-                      <div className="ml-[30px] sm:mt-[10px]">
+                      <div className="sm:mt-[10px]">
                         <div className={styles.detail}>Item Details</div>
                         <div className={styles.content}>
                           <div>{item.data.name}</div>
@@ -159,10 +159,10 @@ const ShoppingCartActivity = props => {
                           <div className="flex items-center">
                             <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                           </div>
-                          <div className="min-w-[180px] max-w-[180px] h-[183px] ml-[30px]">
+                          <div className={styles.nftArea}>
                             <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
                           </div>
-                          <div className="ml-[30px] sm:mt-[10px]">
+                          <div className="sm:mt-[10px]">
                             <div className={styles.detail}>Item Details</div>
                             <div className={styles.content}>
                               <div>{item.nftName}</div>
@@ -206,7 +206,7 @@ const ShoppingCartActivity = props => {
       </div>
 
       {/* Mobile Table */}
-      <div className={styles.mobileContainer}>
+      {/* <div className={styles.mobileContainer}>
         {cartList &&
           cartList.map((item, index) => (
             <div key={index}>
@@ -245,7 +245,7 @@ const ShoppingCartActivity = props => {
               )}
             </div>
           ))}
-      </div>
+      </div> */}
     </>
   )
 }

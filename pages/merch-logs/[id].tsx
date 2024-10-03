@@ -575,11 +575,11 @@ const MerchDetail = () => {
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
               </div>
-              {merchType !== 'foster' && merchType !== 'user' && (
+              {/* {merchType !== 'foster' && merchType !== 'user' && (
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
                 </div>
-              )}
+              )} */}
               {paymentDetails?.paidBy && (
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
@@ -745,7 +745,7 @@ const MerchDetail = () => {
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
                 </div>
-                {type && type === 'sales' ? (
+                {/* {type && type === 'sales' ? (
                   <div className={`mt-[15px] ${styles.detailValue}`}>
                     Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
                   </div>
@@ -753,7 +753,7 @@ const MerchDetail = () => {
                   <div className={`mt-[15px] ${styles.detailValue}`}>
                     Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
                   </div>
-                )}
+                )} */}
 
                 {paymentDetails?.paidBy && (
                   <div className={`mt-[15px] ${styles.detailValue}`}>
@@ -1051,7 +1051,7 @@ const MerchDetail = () => {
             )}
           </div>
 
-          {merchType !== 'foster' && merchType !== 'user' && (
+          {/* {merchType !== 'foster' && merchType !== 'user' && (
             <div className="w-full mt-[20px]">
               <div className={styles.infoTitle}>Creator&nbsp;Commission</div>
               {type && type === 'sales' ? (
@@ -1066,7 +1066,7 @@ const MerchDetail = () => {
                 <div className={`mt-[15px] ${styles.infoValue}`}>${paymentDetails?.commission}</div>
               )}
             </div>
-          )}
+          )} */}
 
           {paymentDetails?.paidBy && (
             <div className="w-full mt-[20px]">

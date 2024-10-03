@@ -113,7 +113,7 @@ const ShoppingCartSection = props => {
               onClick={() => onCheckout()}
             />
           </div>
-          <div className="mt-[20px] sm:mt-[30px] sm:h-[400px] overflow-auto">
+          <div className="mt-[20px] w-[calc(100%+16px)] sm:w-full h-[calc(100vh-280px)] sm:mt-[30px] sm:h-[400px] overflow-auto">
             <ShoppingCartActivity
               cartVersion={cartVersion}
               data={cartList}
