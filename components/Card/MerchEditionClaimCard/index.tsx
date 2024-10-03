@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 
@@ -6,8 +7,6 @@ import React, { useState, useEffect } from 'react'
 
 // images and icons
 
-import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
-import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 import MerchEditionViewModal from 'components/Modal/MerchEditionViewModal'
 import MerchClaimModal from 'components/Modal/MerchClaimModal'
 
@@ -22,12 +21,17 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchEditionClaimCard = props => {
   const { data } = props
+  const dispatch = useDispatch()
   const router = useRouter()
   const [showViewCard, setShowViewCard] = useState(false)
   const [showClaimCard, setShowClaimCard] = useState(false)
+  const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
 
   const onClaimCard = () => {
-    setShowClaimCard(true)
+    if (data.carted) {
+      console.log('=========carted=========')
+      dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
+    } else setShowClaimCard(true)
   }
 
   const onViewCard = () => {
