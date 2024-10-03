@@ -431,8 +431,8 @@ const MerchOrderMain = props => {
                     </div>
                   </div>
                   <div>
-                    {timeLeft &&
-                      (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                    {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) &&
+                      (timeLeft ? (
                         <div>
                           <div className={`${styles.supplyName} text-right`}>{getStartStatus()}</div>
                           <div className="mt-[11px]">
@@ -466,7 +466,18 @@ const MerchOrderMain = props => {
                             </div>
                           </div>
                         </div>
-                      )}
+                      ) : (
+                        <div>
+                          <div className={styles.creator}>{getStartStatus()}</div>
+                          <div>
+                            <div className={styles.supplyRound}>
+                              <div className={styles.bidCountContainer}>
+                                <div className={styles.endTime}>{'No Expiration'}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
                 <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[15px]">
