@@ -136,6 +136,24 @@ export function checkout(data) {
   })
 }
 
+export function createStoreInfo(user_id, data) {
+  return client.put(API_URL + 'v1/merch_stores/' + user_id, data).then(response => {
+    return response.data
+  })
+}
+
+export function getStoreInfo(user_id) {
+  return client.get(API_URL + 'v1/merch_stores/' + user_id).then(response => {
+    return response.data
+  })
+}
+
+export function updateStoreInfo(user_id, data) {
+  return client.patch(API_URL + 'v1/merch_stores/' + user_id, data).then(response => {
+    return response.data
+  })
+}
+
 export async function getBuyerOrder(page, per_page) {
   return client.get(`${API_URL}v1/merch/orders?page=${page}&per_page=${per_page}`).then(response => {
     return response?.data
@@ -219,6 +237,9 @@ export default {
   checkout,
   getOrder,
   payOrder,
+  createStoreInfo,
+  getStoreInfo,
+  updateStoreInfo,
   writeReview,
   getAllOrder,
   getBuyerOrder,

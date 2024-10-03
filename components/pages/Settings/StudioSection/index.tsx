@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 
+import { useAuthentication } from 'hooks/useAuthentication'
+
 // next components
 
 // custom components
@@ -8,6 +10,7 @@ import Textarea from 'components/Input/Textarea'
 import GradientButton from 'components/Button/GradientButton'
 import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
+import uploadFileToS3 from 'apis/aws'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -20,27 +23,135 @@ import Dropzone from 'react-dropzone'
 import Alert from 'components/Alert'
 
 // call apis
+import merchAPI from 'apis/merch'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const StudioSection = prop => {
   const { success } = prop
+  const { profileInfo } = useAuthentication()
+
   const viewport = useViewport()
   const dropzoneNftEl = useRef(null)
 
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
+  const [assetUrl, setAssetUrl] = useState('')
+  const [assetType, setAssetType] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [enableSave, setEnableSave] = useState(true)
   const [nftArt, setNftArt] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
-
-  const checkEnableSave = () => {}
-
-  const handleSaveUserInfo = async () => {}
+  const [isSaving, setIsSaving] = useState(false)
+  const [isStored, setIsStored] = useState(false)
 
   useEffect(() => {
-    checkEnableSave()
-  }, [note])
+    if (profileInfo && !isStored) {
+      let userId = profileInfo.id
+      getStoreInfo(userId)
+    }
+  }, [profileInfo])
+
+  const getStoreInfo = async userId => {
+    merchAPI.getStoreInfo(userId).then(
+      response => {
+        if (response.message === undefined || response.message === null) {
+          setIsStored(true)
+          setTitle(response.name)
+          setNote(response.description)
+          setAssetUrl(response.assetUrl)
+          setAssetType(response.assetType)
+        }
+      },
+      error => {}
+    )
+  }
+
+  const handleSaveUserInfo = async () => {
+    if (!profileInfo) return
+
+    setIsSaving(true)
+    let userId = profileInfo.id
+
+    let url = '',
+      type = ''
+    if (assetUrl.length > 0) {
+      url = assetUrl
+      type = assetType
+    } else {
+      url = await uploadRawUrl(
+        'store_' + userId + '_' + title,
+        URL.createObjectURL(nftArt),
+        nftArt.type,
+        getFileTypeExt(nftArt)
+      )
+      type = nftArt.type
+    }
+    let params = {
+      userId,
+      name: title,
+      description: note,
+      assetUrl: url,
+      assetType: type,
+    }
+
+    if (isStored) {
+      merchAPI.updateStoreInfo(userId, params).then(
+        response => {
+          setIsSaving(false)
+          setAssetUrl(url)
+          setAssetType(params.assetType)
+          setAlertData([
+            {
+              id: 0,
+              title: 'Updated successfully',
+              description: 'Store Information is updated',
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+        },
+        error => {}
+      )
+    } else {
+      merchAPI.createStoreInfo(userId, params).then(
+        response => {
+          setIsSaving(false)
+          setAssetUrl(url)
+          setAssetType(params.assetType)
+          setAlertData([
+            {
+              id: 0,
+              title: 'Saved successfully',
+              description: 'Store Information is saved',
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+        },
+        error => {}
+      )
+    }
+  }
+
+  const getFileTypeCategory = file => {
+    return file.type.split('/')[0]
+  }
+
+  const getFileTypeExt = file => {
+    return file.type.split('/')[1]
+  }
+
+  const uploadRawUrl = async (name: string, imageFile: string, fileType: string, fileExt: string) => {
+    let response = await fetch(imageFile)
+    let blob = await response.blob()
+    const file = new File([blob], 'store.' + fileExt, {
+      type: fileType,
+    })
+    let timestamp = new Date().getTime()
+    let filename = name.replaceAll(' ', '') + timestamp
+    const { url } = await uploadFileToS3(file, filename)
+    return url
+  }
 
   const handleShowAlert = error => {
     if (error === 'file-invalid-type') {
@@ -120,7 +231,21 @@ const StudioSection = prop => {
             </div>
 
             <div className="mt-[10px] lg:mt-[15px]">
-              {nftArt === null ? (
+              {assetUrl.length > 0 ? (
+                <div className={styles.artArea}>
+                  {assetType.includes('video') ? (
+                    <video controls className="w-full h-full z-10" id="video">
+                      <source src={assetUrl} type={assetType} />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img src={assetUrl} className="w-full h-full object-cover" />
+                  )}
+                  <div className="absolute right-[20px] bottom-[20px] z-100" onClick={() => setAssetUrl('')}>
+                    <TrashBin />
+                  </div>
+                </div>
+              ) : nftArt === null ? (
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
                     acceptedFiles.length !== 0 ? setNftArt(acceptedFiles[0]) : handleShowAlert('unknown')
@@ -131,6 +256,9 @@ const StudioSection = prop => {
                   accept={{
                     'image/jpeg': [],
                     'image/png': [],
+                    'image/gif': [],
+                    'video/mp4': [],
+                    'audio/mpeg': [],
                   }}
                   maxFiles={1}
                   maxSize={2097152}
@@ -152,7 +280,14 @@ const StudioSection = prop => {
                 </Dropzone>
               ) : (
                 <div className={styles.artArea}>
-                  <img src={URL.createObjectURL(nftArt)} className="w-full h-full object-cover" />
+                  {getFileTypeCategory(nftArt) === 'video' ? (
+                    <video controls className="w-full h-full z-10" id="video">
+                      <source src={URL.createObjectURL(nftArt)} type={nftArt.type} />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img src={URL.createObjectURL(nftArt)} className="w-full h-full object-cover" />
+                  )}
                   <div className="absolute right-[20px] bottom-[20px] z-100" onClick={() => setNftArt(null)}>
                     <TrashBin />
                   </div>
@@ -161,9 +296,18 @@ const StudioSection = prop => {
             </div>
 
             <div className="mt-[30px] lg:mt-[30px] mb-[100px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
-              {enableSave ? (
+              {isSaving ? (
+                <LoadingButton
+                  fullWidth
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                  paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                  paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                />
+              ) : title.length > 0 && note.length > 0 && (assetUrl.length > 0 || nftArt !== null) ? (
                 <GradientButton
-                  label="Save"
+                  label={isStored ? 'Update' : 'Save'}
                   fullWidth
                   onClick={() => {
                     handleSaveUserInfo()
@@ -176,7 +320,7 @@ const StudioSection = prop => {
                 />
               ) : (
                 <GradientButton
-                  label="Save"
+                  label={isStored ? 'Update' : 'Save'}
                   fullWidth
                   disabled={true}
                   onClick={() => {}}
