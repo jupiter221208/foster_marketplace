@@ -468,14 +468,8 @@ const MerchOrderMain = props => {
                         </div>
                       ) : (
                         <div>
-                          <div className={styles.creator}>{getStartStatus()}</div>
-                          <div>
-                            <div className={styles.supplyRound}>
-                              <div className={styles.bidCountContainer}>
-                                <div className={styles.endTime}>{'No Expiration'}</div>
-                              </div>
-                            </div>
-                          </div>
+                          <div className={`${styles.supplyName} text-end`}>{'Time Remaining'}</div>
+                          <div className={styles.supplyValue}>{'No Expiration'}</div>
                         </div>
                       ))}
                   </div>
