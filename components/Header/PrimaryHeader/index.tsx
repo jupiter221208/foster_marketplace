@@ -303,10 +303,17 @@ const PrimaryHeader = () => {
               </div>
             </div>
 
-            <div className="flex items-center z-[1000]">
+            <div className="flex items-center z-[1000] relative">
               <div className="w-[39px] h-[39px] flex justify-center items-center">
                 <ShoppingCartIcon onClick={() => handleOpenShoppingCart()} />
               </div>
+              {cartCount > 0 && (
+                <div className="absolute left-[20px] top-[0px]">
+                  <div className={styles.cartCount}>
+                    <div className="mt-[-2px]">{cartCount}</div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex z-[1000]">
