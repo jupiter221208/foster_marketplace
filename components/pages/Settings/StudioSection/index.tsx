@@ -257,8 +257,6 @@ const StudioSection = prop => {
                     'image/jpeg': [],
                     'image/png': [],
                     'image/gif': [],
-                    'video/mp4': [],
-                    'audio/mpeg': [],
                   }}
                   maxFiles={1}
                   maxSize={2097152}
