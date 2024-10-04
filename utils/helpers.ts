@@ -986,7 +986,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--card-border-color', '#333333')
     doc.style.setProperty('--social-bg-color', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--wallet-detail-bg', '#242424')
-    doc.style.setProperty('--shipping-board-bg', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--shipping-board-bg', '#1E1E1E')
     doc.style.setProperty('--nft-border-color', '#292929')
     doc.style.setProperty('--address-btn-bg-color', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--stats-bg-color', '#1a1a1a')
