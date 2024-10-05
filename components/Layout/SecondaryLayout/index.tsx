@@ -47,24 +47,26 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   }, [])
 
   return (
-    <div className={styles.container}>
-      <>
-        {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
-        <PrimaryHeader />
-        <ConnectWalletModal />
-        {/* <MobileMenu /> */}
+    lightDarkMode !== null && (
+      <div className={styles.container}>
+        <>
+          {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
+          <PrimaryHeader />
+          <ConnectWalletModal />
+          {/* <MobileMenu /> */}
 
-        {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
-        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
-        {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-          <ShoppingCartMobileMenu />
-        )}
-        <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
-          {children}
-        </main>
-        {connected && profileSetup && <ProfileSetupModal />}
-      </>
-    </div>
+          {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
+          {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
+          {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+            <ShoppingCartMobileMenu />
+          )}
+          <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
+            {children}
+          </main>
+          {connected && profileSetup && <ProfileSetupModal />}
+        </>
+      </div>
+    )
   )
 }
 

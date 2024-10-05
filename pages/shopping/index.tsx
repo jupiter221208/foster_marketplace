@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useViewport } from 'utils'
 
 // next components
-import Head from 'next/head'
 
 // solana
 import { PublicKey } from '@solana/web3.js'
@@ -24,7 +23,6 @@ import styles from './index.module.scss'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 import nftsAPI from 'apis/nfts'
-import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import ImageWithFoster from 'components/ImageWithFoster'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -44,12 +42,9 @@ export interface BrowseNFTProps {
 }
 
 const Shopping = ({ nftDetail }: BrowseNFTProps) => {
-  const cartVersion = localStorage.getItem('cart_version')
+  const [cartVersion, setCartVersion] = useState('v2')
   const viewport = useViewport()
-  const [openApparelDetail, setOpenApparelDetail] = useState(true)
   const [data, setData] = useState(null)
-  const [isFetching, setIsFetching] = useState(false)
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -60,11 +55,7 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
         }),
       500
     )
-  }, [])
-
-  useEffect(() => {
-    setLoading(true)
-    setIsFetching(true)
+    setCartVersion(localStorage.getItem('cart_version'))
   }, [])
 
   useEffect(() => {
@@ -94,8 +85,6 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
         }
       })
       Promise.all(promises).then(data => {
-        setLoading(false)
-        setIsFetching(false)
         setData(data)
       })
     }, 1000)
@@ -249,15 +238,13 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
           viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
         } lg:flex lg:justify-end ${styles.rightBG}`}
       >
-        {openApparelDetail && (
-          <ShoppingCartMerchApparelSection
-            cartVersion={cartVersion}
-            apparelData={data}
-            open={openApparelDetail}
-            setFinishEditing={editing => {}}
-            setApparel={apparel => {}}
-          />
-        )}
+        <ShoppingCartMerchApparelSection
+          cartVersion={cartVersion}
+          apparelData={data}
+          open={true}
+          setFinishEditing={editing => {}}
+          setApparel={apparel => {}}
+        />
       </div>
     </div>
   )
