@@ -94,16 +94,6 @@ const PhysicalShipping = props => {
       setVisible(true)
       return
     }
-    let data = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
     let params
     if (category === 'apparel') {
       const { apparel, gender, quality, color, print, quantity, size } = printData

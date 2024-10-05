@@ -97,20 +97,19 @@ const ShoppingCartPhysicalShipping = props => {
     let params
     if (category === 'apparel') {
       const cartItems = []
-
-      printData.forEach(item => {
-        if (cartVersion === 'v2') {
-          cartItems.push({
-            id: '1',
-            quantity: 1,
-            options: {
-              size: 'L',
-              color: 'white',
-              sideOfPrint: 'Front Side',
-            },
-            notes: `This is apparel item`,
-          })
-        } else {
+      if (cartVersion === 'v2') {
+        cartItems.push({
+          id: '1',
+          quantity: 1,
+          options: {
+            size: 'L',
+            color: 'white',
+            sideOfPrint: 'Front Side',
+          },
+          notes: `This is apparel item`,
+        })
+      } else {
+        printData.forEach(item => {
           const { apparel, gender, quality, color, print, quantity, size } = item
           let item_id = apparel[gender.type][quality.type][color.type].item_id
           cartItems.push({
@@ -123,8 +122,8 @@ const ShoppingCartPhysicalShipping = props => {
             },
             notes: `This is apparel ${apparel.description} item`,
           })
-        }
-      })
+        })
+      }
 
       params = {
         toPostalCode: zipCode,

@@ -85,16 +85,6 @@ const MerchOrderShipping = props => {
       setVisible(true)
       return
     }
-    let data = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
     let params
 
     let item_id = 1
