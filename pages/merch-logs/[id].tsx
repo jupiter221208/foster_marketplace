@@ -255,7 +255,7 @@ const MerchDetail = () => {
                 ? ''
                 : [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
           }
-        : { street: 'Hidden for buyer safety', city: 'Hidden for buyer safety' },
+        : { street: '---', city: '---' },
       service: getShippingServiceName(ssorder.requestedShippingService),
       delivery: getLocalDateWithoutTime(ssorder.paymentDate),
     })
@@ -355,6 +355,8 @@ const MerchDetail = () => {
             ) : (
               <div className={styles.infoValue}>
                 {orderDetails?.orderNumber === '' && !isOwn ? (
+                  'Hidden for Buyer Safety'
+                ) : orderDetails?.shipTo.street === '---' ? (
                   'Hidden for Buyer Safety'
                 ) : (
                   <div>
@@ -1004,6 +1006,8 @@ const MerchDetail = () => {
               ) : (
                 <div>
                   {orderDetails?.orderNumber === '' && !isOwn ? (
+                    <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                  ) : orderDetails?.shipTo.street === '---' ? (
                     <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
                   ) : (
                     <div>
