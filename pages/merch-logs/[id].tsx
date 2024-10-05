@@ -255,7 +255,7 @@ const MerchDetail = () => {
                 ? ''
                 : [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
           }
-        : { street: '---', city: '---' },
+        : { street: 'Hidden for buyer safety', city: 'Hidden for buyer safety' },
       service: getShippingServiceName(ssorder.requestedShippingService),
       delivery: getLocalDateWithoutTime(ssorder.paymentDate),
     })
@@ -564,18 +564,22 @@ const MerchDetail = () => {
 
             <div>
               <div className={styles.detailTitle}>Payment Details</div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo.name}</div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Buyer&nbsp;Email:&nbsp;
-                <span
-                  className={styles.buyerEmail}
-                  onClick={() => {
-                    window.location.href = 'mailto:' + SSOrder?.customerEmail
-                  }}
-                >
-                  {SSOrder?.customerEmail}
-                </span>
-              </div>
+              {SSOrder?.billTo && (
+                <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo?.name}</div>
+              )}
+              {SSOrder?.billTo && (
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Buyer&nbsp;Email:&nbsp;
+                  <span
+                    className={styles.buyerEmail}
+                    onClick={() => {
+                      window.location.href = 'mailto:' + SSOrder?.customerEmail
+                    }}
+                  >
+                    {SSOrder?.customerEmail}
+                  </span>
+                </div>
+              )}
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
               </div>
@@ -741,33 +745,28 @@ const MerchDetail = () => {
             <div className="flex w-1/2 justify-between">
               <div>
                 <div className={styles.detailTitle}>Payment Details</div>
-                <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo.name}</div>
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Buyer&nbsp;Email:&nbsp;
-                  <span
-                    className={styles.buyerEmail}
-                    onClick={() => {
-                      window.location.href = 'mailto:' + SSOrder?.customerEmail
-                    }}
-                  >
-                    {SSOrder?.customerEmail}
-                  </span>
-                </div>
+                {SSOrder?.billTo && (
+                  <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo?.name}</div>
+                )}
+                {SSOrder?.billTo && (
+                  <div className={`mt-[15px] ${styles.detailValue}`}>
+                    Buyer&nbsp;Email:&nbsp;
+                    <span
+                      className={styles.buyerEmail}
+                      onClick={() => {
+                        window.location.href = 'mailto:' + SSOrder?.customerEmail
+                      }}
+                    >
+                      {SSOrder?.customerEmail}
+                    </span>
+                  </div>
+                )}
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
                 </div>
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
                 </div>
-                {/* {type && type === 'sales' ? (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>
-                    Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
-                  </div>
-                ) : (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>
-                    Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
-                  </div>
-                )} */}
 
                 {paymentDetails?.paidBy && (
                   <div className={`mt-[15px] ${styles.detailValue}`}>

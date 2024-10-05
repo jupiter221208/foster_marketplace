@@ -30,43 +30,33 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const openShoppingCart = useSelector<any>(state => state.openShoppingCart)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
+
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
-    let lightDarkMode = localStorage.getItem('lightDarkMode')
-    if (lightDarkMode === null || lightDarkMode === undefined) {
-      localStorage.setItem('lightDarkMode', 'false')
-      setColorTheme(false)
-    } else if (lightDarkMode === 'true') {
-      setColorTheme(true)
-    } else {
-      setColorTheme(false)
-    }
-
+    setColorTheme(lightDarkMode)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    lightDarkMode !== null && (
-      <div className={styles.container}>
-        <>
-          {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
-          <PrimaryHeader />
-          <ConnectWalletModal />
-          {/* <MobileMenu /> */}
+    <div className={styles.container}>
+      <>
+        {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
+        <PrimaryHeader />
+        <ConnectWalletModal />
+        {/* <MobileMenu /> */}
 
-          {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
-          {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
-          {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-            <ShoppingCartMobileMenu />
-          )}
-          <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
-            {children}
-          </main>
-          {connected && profileSetup && <ProfileSetupModal />}
-        </>
-      </div>
-    )
+        {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
+        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
+        {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+          <ShoppingCartMobileMenu />
+        )}
+        <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
+          {children}
+        </main>
+        {connected && profileSetup && <ProfileSetupModal />}
+      </>
+    </div>
   )
 }
 
