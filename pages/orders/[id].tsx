@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getOrder } from 'apis/merch'
 import { findElement, isString } from 'utils/helpers'
