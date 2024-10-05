@@ -33,7 +33,16 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
-    setColorTheme(lightDarkMode)
+    let lightDarkMode = localStorage.getItem('lightDarkMode')
+    if (lightDarkMode === null || lightDarkMode === undefined) {
+      localStorage.setItem('lightDarkMode', 'false')
+      setColorTheme(false)
+    } else if (lightDarkMode === 'true') {
+      setColorTheme(true)
+    } else {
+      setColorTheme(false)
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

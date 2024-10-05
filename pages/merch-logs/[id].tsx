@@ -116,10 +116,10 @@ const MerchDetail = () => {
         let itemDetails = {
           userId: item?.userId,
           merchId: item?.id,
-          print: nftName ? nftName['value'] : itemData.name,
+          print: nftName ? nftName['value'] : itemData?.name,
           description: item?.description,
           quantity: itemData.quantity,
-          product: itemData.name,
+          product: itemData?.name,
           size: size ? size['value'] : '',
           color: color ? getFirstUpperString(color['value']) : '',
           apparel: apparel,
@@ -169,7 +169,7 @@ const MerchDetail = () => {
         if (options) {
           let itemDetails = {
             quantity: quantity,
-            print: nftName ? nftName['value'] : itemData.name,
+            print: nftName ? nftName['value'] : itemData?.name,
             size: size ? size['value'] : '',
             color: color ? getFirstUpperString(color['value']) : '',
             fosterUrl: previewUrl,
