@@ -38,15 +38,14 @@ const CountrySelect = props => {
             <div className={styles.menuBlur}>
               <Combobox.Options className={styles.menuArea}>
                 {filteredCountry.map((item, index) => (
-                  <>
+                  <div key={index}>
                     <Combobox.Option
-                      key={index}
                       value={item.name}
                       className={({ active }) => `${styles.menuItem} ${active ? styles.activeMenuItem : ''}`}
                     >
                       {({ selected }) => <span className={selected ? styles.activeMenuItem : ''}>{item.name}</span>}
                     </Combobox.Option>
-                  </>
+                  </div>
                 ))}
               </Combobox.Options>
             </div>

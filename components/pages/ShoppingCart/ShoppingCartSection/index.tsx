@@ -8,7 +8,6 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 
 // resources
 import SolIcon from 'assets/icons/solana-logo-14x12.svg?component'
-import LeftArrowIcon from 'assets/icons/arrow-left-24x24.svg?component'
 import animationData from 'assets/lottery/shopping-lottie.json'
 
 // solana
@@ -23,29 +22,42 @@ const ShoppingCartSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [cartList, setCartList] = useState([])
-  const [cart, setCart] = useState([])
   const [currentSelect, setCurrentSelect] = useState(0)
   const [totalCost, setTotalCost] = useState(0)
   const { solToUsdRate } = useSolToUsdRate()
   const [selectAllCart, setSelectAllCart] = useState(false)
+  const [cartVersion, setCartVersion] = useState('v2')
 
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('data'))
-    setCartList(storedData)
+    let storedData = JSON.parse(localStorage.getItem('cart_v2'))
+    if (storedData === null || storedData === undefined || storedData.length === 0) {
+      storedData = JSON.parse(localStorage.getItem('cart_v1'))
+      if (storedData === null || storedData === undefined || storedData.length === 0) {
+        setCartList([])
+      } else {
+        setCartVersion('v1')
+        setCartList(storedData)
+      }
+    } else {
+      setCartList(storedData)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getcartList = () => {
-    const storedData = JSON.parse(localStorage.getItem('data'))
-    setCartList(storedData)
+    const storedData = JSON.parse(localStorage.getItem(cartVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
+    if (storedData === null || storedData === undefined || storedData.length === 0) {
+      setCartList([])
+    } else setCartList(storedData)
   }
 
   const onCheckout = () => {
     const checkedData = []
-    cart.forEach(item => {
+    cartList.forEach(item => {
       if (item.checked === true) checkedData.push(item)
     })
     if (checkedData.length > 0) {
+      localStorage.setItem('cart_version', cartVersion)
       localStorage.setItem('checked', JSON.stringify(checkedData))
       router.push(`/shopping/`)
       onClose()
@@ -56,25 +68,25 @@ const ShoppingCartSection = props => {
     <div className={styles.container}>
       {cartList?.length > 0 ? (
         <div className="relative">
-          <div className="w-full flex justify-between sm:hidden">
-            <div className="flex gap-[13px] items-center">
-              <div
-                onClick={() => {
-                  dispatch({ type: 'set', openShoppingCart: false })
-                }}
-              >
-                <LeftArrowIcon />
-              </div>
-              <div className={styles.title}>Shopping Cart</div>
+          <div className="flex justify-between items-center">
+            <div className={styles.title}>{cartVersion === 'v2' ? 'Studio 2.0 Cart' : 'Studio 1.0 Cart'}</div>
+            <div
+              className={styles.titleV1}
+              onClick={() => {
+                let newVersion = ''
+                if (cartVersion === 'v1') newVersion = 'v2'
+                else newVersion = 'v1'
+
+                const storedData = JSON.parse(localStorage.getItem(newVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
+                if (storedData === null || storedData === undefined || storedData.length === 0) {
+                  setCartList([])
+                } else setCartList(storedData)
+
+                setCartVersion(newVersion)
+              }}
+            >
+              {cartVersion === 'v2' ? 'Studio 1.0 Cart »' : 'Studio 2.0 Cart »'}
             </div>
-            <div className="flex items-end">
-              <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
-                {selectAllCart ? 'Deselect All' : 'Select all'}
-              </div>
-            </div>
-          </div>
-          <div className="sm:block hidden">
-            <div className={styles.title}>Studio Shopping Cart</div>
           </div>
           <div className="w-full sm:flex hidden justify-between mt-[15px]">
             <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
@@ -85,28 +97,30 @@ const ShoppingCartSection = props => {
               <div className="flex gap-[6px] items-center">
                 <SolIcon className="mt-[2px]" />
                 <div className={styles.price}>{totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}</div>
+                {totalCost > 0 && (
+                  <div className="flex items-center">
+                    <div className={styles.usd}>{'$' + totalCost.toFixed(2)}</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
           <div className="w-full mt-[18px] sm:block hidden">
             <GradientButton
-              disabled={totalCost === 0}
+              disabled={currentSelect === 0}
               label={currentSelect === 0 ? 'Checkout' : 'Checkout (' + currentSelect + ' items)'}
               fullWidth
               onClick={() => onCheckout()}
             />
           </div>
-          <div className="mt-[20px] sm:mt-[30px] sm:h-[400px] overflow-auto">
+          <div className="mt-[20px] w-[calc(100%+16px)] sm:w-full h-[calc(100vh-280px)] sm:mt-[30px] sm:h-[400px] overflow-auto">
             <ShoppingCartActivity
+              cartVersion={cartVersion}
               data={cartList}
               getcartList={getcartList}
-              cart={cart}
-              setCart={setCart}
               selectAllCart={selectAllCart}
               setCurrentSelect={setCurrentSelect}
-              currentSelect={currentSelect}
               setTotalCost={setTotalCost}
-              totalCost={totalCost}
             />
           </div>
           <div className={styles.bottomSection}>
@@ -128,13 +142,31 @@ const ShoppingCartSection = props => {
           </div>
         </div>
       ) : (
-        <div className="w-full flex flex-col items-center">
+        <div className="relative w-full flex flex-col items-center">
+          <div className="absolute right-[0px] top-[3px]">
+            <div
+              className={styles.titleV1}
+              onClick={() => {
+                let newVersion = ''
+                if (cartVersion === 'v1') newVersion = 'v2'
+                else newVersion = 'v1'
+
+                const storedData = JSON.parse(localStorage.getItem(newVersion === 'v2' ? 'cart_v2' : 'cart_v1'))
+                if (storedData === null || storedData === undefined || storedData.length === 0) {
+                  setCartList([])
+                } else setCartList(storedData)
+
+                setCartVersion(newVersion)
+              }}
+            >
+              {cartVersion === 'v2' ? 'Studio 1.0 Cart »' : 'Studio 2.0 Cart »'}
+            </div>
+          </div>
           <div className="w-[400px] h-[313px]">
             <Lottie animationData={animationData}></Lottie>
           </div>
           <div className="mt-[65px]">
             <div className={styles.lootieTitle}>Your cart is empty</div>
-            <div className={styles.lootieSubTitle}>Explore studio and foster your flavor</div>
             <div className="w-full flex justify-center mt-[30px]">
               <GradientButton
                 width={165}

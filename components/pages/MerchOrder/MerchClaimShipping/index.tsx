@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-
+import { useDispatch } from 'react-redux'
 // next component
 
 // components
 import { Country, State } from 'country-state-city'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import CountrySelect from 'components/Select/CountrySelect'
 import Alert from 'components/Alert'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
@@ -27,8 +26,11 @@ import styles from './index.module.scss'
 // api
 import merchAPI from 'apis/merch'
 import storeAPI from 'apis/store'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchClaimShipping = props => {
+  const dispatch = useDispatch()
   const { data, mintAddress, onClose, onNext, productId, setMerchSize, merchList, rawList } = props
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -47,14 +49,14 @@ const MerchClaimShipping = props => {
   const [sizeList, setSizeList] = useState([])
   const [tableModal, setTableModal] = useState(false)
 
-  const alertData = [
+  const [alertData, setAlertData] = useState([
     {
       id: 0,
       title: 'Shipping Method Failure',
       description: `You didn't find shipping method!`,
       type: 'failure',
     },
-  ]
+  ])
 
   const getApparelName = () => {
     let type = 'Unisex'
@@ -216,7 +218,7 @@ const MerchClaimShipping = props => {
     merchAPI.prepareCart(params).then(
       response => {
         if (response?.shippingMethods?.length > 0)
-          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
+          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
         else setIsLoading(false)
       },
       error => {
@@ -292,6 +294,46 @@ const MerchClaimShipping = props => {
         setIsLoading(false)
       }
     )
+  }
+
+  const onAddCart = () => {
+    let existingData = JSON.parse(localStorage.getItem('cart_v2')) || []
+    if (!Array.isArray(existingData)) {
+      existingData = []
+    }
+    const { id } = data
+
+    let cart_data = {
+      version: 'v2',
+      type: 'foster',
+      merchEdition: true,
+      cost: 0,
+      productId: id,
+      data,
+      fosterUrl: window.location.href,
+      merchList,
+      rawList,
+      nftAddress: mintAddress,
+      printEditionAddress: mintAddress,
+    }
+
+    existingData.push(cart_data)
+    localStorage.setItem('cart_v2', JSON.stringify(existingData))
+
+    dispatch({ type: 'set', cartUpdated: true })
+
+    setAlertData([
+      {
+        id: 0,
+        title: 'Item Added to Your Cart!',
+        description: `${data.name} is ready and waiting in your cart. Feel free to browse for more goodies or head to checkout whenever you're ready.`,
+        type: 'success',
+      },
+    ])
+    setShowAlert(true)
+    setTimeout(() => {
+      onClose()
+    }, 2000)
   }
 
   return (
@@ -405,27 +447,27 @@ const MerchClaimShipping = props => {
               </div>
             </div>
           </div>
-          {/* <div>
-            <DropdownSizeMenu
-              data={sizeList}
-              selectedItem={size}
-              setSelectedItem={item => {
-                setSize(item)
-              }}
-            />
-            <div className="flex items-center mt-[10px]">
-              <div className={styles.sizeChart}>Select Size</div>
-            </div>
-          </div> */}
         </div>
       </div>
       <div className={styles.borderLine} />
-      <div className="w-full px-[16px] lg:px-[30px] mt-[20px]">
-        <div className="w-full mt-[22px] mb-[25px]">
+      <div className="w-full px-[16px] lg:px-[30px] mt-[20px] flex justify-between gap-[15px]">
+        <div>
+          <OutlineButton
+            width={264}
+            height={45}
+            borderRadius={23}
+            label="Add to Cart"
+            backgroundColor="var(--bg-new-color)"
+            onClick={() => onAddCart()}
+          />
+        </div>
+        <div className="w-full mb-[25px]">
           {isLoading ? (
-            <LoadingButton height={50} fullWidth />
+            <LoadingButton borderRadius={23} height={45} fullWidth />
           ) : (
-            <PrimaryButton
+            <GradientButton
+              borderRadius={23}
+              height={45}
               label="Checkout"
               type="shipping"
               disabled={!enabled}

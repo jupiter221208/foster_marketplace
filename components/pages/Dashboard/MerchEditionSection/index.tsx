@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAuthentication } from 'hooks/useAuthentication'
-
+import { useSelector, useDispatch } from 'react-redux'
 // next components
 
 // image
@@ -20,7 +20,7 @@ import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
 const MerchEditionSection = () => {
   const { profileInfo } = useAuthentication()
-
+  const dispatch = useDispatch()
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
     { id: 0, label: 'Unclaimed' },
@@ -32,6 +32,7 @@ const MerchEditionSection = () => {
   const [isFetching, setIsFetching] = useState(false)
   const [claimedList, setClaimedList] = useState([])
   const [unclaimedList, setUnclaimedList] = useState([])
+  const cartUpdated = useSelector(state => (state as any).cartUpdated)
 
   useEffect(() => {
     if (profileInfo) {
@@ -50,6 +51,33 @@ const MerchEditionSection = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
 
+  useEffect(() => {
+    if (cartUpdated) {
+      let list = checkCartList(unclaimedList)
+      setMerchList(list)
+      setFilteredList(list)
+      dispatch({ type: 'set', cartUpdated: false })
+    }
+  }, [cartUpdated])
+
+  const checkCartList = unclaimedList => {
+    let cartData = JSON.parse(localStorage.getItem('cart_v2'))
+    let newList = []
+
+    unclaimedList.map(item => {
+      let carted = false
+      cartData.map(cart => {
+        if (item.options.addons[0].mockup_url === cart.merchList[0].url) {
+          carted = true
+          return
+        }
+      })
+
+      newList.push({ ...item, carted })
+    })
+    return newList
+  }
+
   const getMerchList = () => {
     setIsFetching(false)
     StoreAPI.getStoreMerchEditions().then(
@@ -59,8 +87,9 @@ const MerchEditionSection = () => {
           let unclaimed = response.filter(item => item.order_id === null)
           setClaimedList(claimed)
           setUnclaimedList(unclaimed)
-          setMerchList(unclaimed)
-          setFilteredList(unclaimed)
+          let list = checkCartList(unclaimed)
+          setMerchList(list)
+          setFilteredList(list)
           setIsFetching(true)
         }
       },
@@ -68,19 +97,6 @@ const MerchEditionSection = () => {
         setIsFetching(true)
       }
     )
-  }
-
-  const searchNFT = key => {
-    if (key === '') {
-      setFilteredList(merchList)
-    } else {
-      let filtered = []
-      setFilteredList([])
-      merchList.forEach(element => {
-        if (element.name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
-      })
-      setFilteredList(filtered)
-    }
   }
 
   return (

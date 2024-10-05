@@ -266,9 +266,13 @@ const PhysicalCheckout = ({
         if (response?.status === 'success') result = true
       } else {
         setIsLoad(false)
+        setIsPaySol(false)
+        setIsPayUsd(false)
       }
     } catch {
       setIsLoad(false)
+      setIsPaySol(false)
+      setIsPayUsd(false)
     } finally {
       // setIsLoad(false)
       if (result) {

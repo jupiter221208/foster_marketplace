@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
-import { useViewport, ensureMaxDecimals } from 'utils'
+import { ensureMaxDecimals } from 'utils'
 import { createPaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
@@ -22,7 +21,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 
 // styles
 import styles from './index.module.scss'
-import GradientButton from 'components/Button/GradientButton'
 import TableSection from './TableSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
@@ -30,10 +28,9 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
 import { OrderData, payOrder } from 'apis/merch'
-import OutlineButton from 'components/Button/OutlineButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -44,21 +41,17 @@ export interface PhysicalCheckoutProps {
 }
 
 const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
-  const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
-  const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
+  const { solToUsdRate, solToUsdWithSlippage } = useSolToUsdRate()
 
   const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
   const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
-  const [mobileList, setMobileList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   total ??= orderData?.order.amount
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
@@ -141,7 +134,6 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       })
     })
     setList(itemList)
-    setMobileList(mobilelistData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -187,7 +179,6 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       let response = await payOrder(id, params)
       if (response?.status === 'success') result = true
     } finally {
-      setIsLoad(false)
       if (result) {
         setTimeout(() => {
           setShowAlert(true)
@@ -198,7 +189,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
 
   return (
     <section className={styles.container}>
-      <div className="w-full px-[0px] lg:px-[30px] mt-[0px] lg:mt-[20px]">
+      <div className="w-full mt-[8px] lg:mt-[60px]">
         <div className={styles.summary}>Order Summary</div>
         <div className="hidden lg:block mt-[-10px]">
           <TableSection data={list} />
@@ -295,37 +286,15 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
           {isLoad ? (
             <LoadingPrimaryButton fullWidth />
           ) : (
-            <PrimaryButton
+            <GradientButton
               disabled={currency.length === 0}
               label="Make Payment"
-              type="payment"
               fullWidth
               onClick={() => onCheckout()}
             />
           )}
-          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
+          <OutlineButton label="Back" backgroundColor="var(--bg-212121-F3F2F0)" onClick={onBack} fullWidth />
         </div>
-
-        {/* <div className="w-full flex gap-[30px]">
-          <OutlineButton
-            label="Back"
-            onClick={onBack}
-            fullWidth
-            fontFamily="Muli-SemiBold"
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-            color={'var(--text-gray-200-color)'}
-          />
-          <GradientButton
-            disabled={currency.length === 0}
-            label="Place Order"
-            fullWidth
-            fontFamily="Muli-SemiBold"
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-            onClick={() => onCheckout()}
-          />
-        </div> */}
       </div>
       <ProgressingModal open={isLoad} />
       <Alert

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 
 // components
 import CreatorSearchSection from '../CreatorSearchSection'
+import { getFirstUpperString } from 'utils/helpers'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -19,44 +20,52 @@ import SimpleCheckbox from 'components/Checkbox/SimpleCheckbox'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const ShoppingCartActivity = props => {
-  const { data, setCart, selectAllCart, getcartList, cart, setCurrentSelect, currentSelect, setTotalCost, totalCost } =
-    props
+  const { data, selectAllCart, getcartList, cartVersion, setCurrentSelect, setTotalCost } = props
 
   const [cartList, setCartList] = useState<any[]>([])
   const router = useRouter()
   const dispatch = useDispatch()
   const [selectAll, setSelectAll] = useState(false)
   const [checked, setChecked] = useState(false)
+
   useEffect(() => {
     setCartList(props.data)
   }, [props.data])
 
   const handleSelectData = index => {
     let arrayData = [...data]
+
     if (arrayData[index]) {
       arrayData[index].checked = !arrayData[index].checked
     }
-    if (arrayData[index].checked) {
-      setCurrentSelect(currentSelect + arrayData[index].quantity)
-      setTotalCost(totalCost + parseFloat(arrayData[index].cost))
-    } else {
-      setCurrentSelect(currentSelect - arrayData[index].quantity)
-      setTotalCost(totalCost - parseFloat(arrayData[index].cost))
-    }
-    setCart(arrayData)
+
+    let select = 0,
+      cost = 0
+    arrayData.map((item, idx) => {
+      if (item.checked) {
+        select += cartVersion === 'v1' ? item.quantity : item.data.quantity
+        cost += parseFloat(arrayData[idx].cost)
+      }
+    })
+
+    setCurrentSelect(select)
+    setTotalCost(cost)
   }
 
   const handleRemove = index => {
-    let arrayData = JSON.parse(localStorage.getItem('data'))
+    let arrayData = JSON.parse(localStorage.getItem(cartVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
     arrayData.splice(index, 1)
-    localStorage.setItem('data', JSON.stringify(arrayData))
+    localStorage.setItem(cartVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(arrayData))
+
+    dispatch({ type: 'set', cartUpdated: true })
 
     getcartList()
   }
 
   const handleEdit = index => {
     let arrayData = JSON.parse(localStorage.getItem('data'))
+
     let token_id = arrayData[index].id
     let color = arrayData[index].color.type
     let colorValue
@@ -84,15 +93,17 @@ const ShoppingCartActivity = props => {
     router.push(`/nft/${token_id}`)
 
     arrayData.splice(index, 1)
-    localStorage.setItem('data', JSON.stringify(arrayData))
+    localStorage.setItem('cart_v1', JSON.stringify(arrayData))
 
     getcartList()
   }
+
   useEffect(() => {
     const allSelected = selectAllCart
     let sumitemArray = 0
     cartList.forEach(item => {
-      sumitemArray += item.quantity
+      if (cartVersion === 'v1') sumitemArray += item.quantity
+      else sumitemArray += item.data.quantity
     })
     setSelectAll(allSelected)
     setCurrentSelect(allSelected ? sumitemArray : 0)
@@ -102,7 +113,6 @@ const ShoppingCartActivity = props => {
       item.checked = allSelected
       return item
     })
-    setCart(updatedCart)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectAllCart])
 
@@ -113,60 +123,90 @@ const ShoppingCartActivity = props => {
           {cartList &&
             cartList.map((item, index) => (
               <div key={index}>
-                {item?.printImageUrl && (
+                {item.version === 'v2' ? (
                   <>
                     <div className={styles.divider} />
                     <div className="w-full h-full flex flex-row my-[30px]">
                       <div className="flex items-center">
                         <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
-                      <div className="w-[183px] h-[183px] ml-[30px]">
-                        <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
+                      <div className={styles.nftArea}>
+                        <ImageWithFoster src={item.merchList[0].url} className="" />
                       </div>
-                      <div className="ml-[74px] sm:mt-[10px]">
+                      <div className="sm:mt-[10px]">
                         <div className={styles.detail}>Item Details</div>
                         <div className={styles.content}>
-                          <div>{item.nftName}</div>
-                          <div>
-                            {item?.apparel.description}&nbsp;(
-                            {item.size.name === 'S' || item.size.name === 'YXS'
-                              ? 'Small'
-                              : item.size.name === 'M' || item.size.name === 'YS'
-                              ? 'Medium'
-                              : item.size.name === 'L' || item.size.name === 'YM'
-                              ? 'Large'
-                              : item.size.name === 'XL' || item.size.name === 'YL'
-                              ? 'X-Large'
-                              : item.size.name === '2XL' || item.size.name === 'YXL'
-                              ? '2X-Large'
-                              : ''}
-                            )
-                          </div>
-                          <div>{item.color.type}</div>
-                          <div>Qty: {item.quantity}</div>
+                          <div>{item.data.name}</div>
+                          <div>{item.data.size}</div>
+                          <div>{getFirstUpperString(item.data.color)}</div>
+                          <div>Qty: {item.data.quantity}</div>
                           <div>Price: ${item.cost}</div>
                         </div>
-                        <div className="flex mt-[20px] items-center">
+                        <div className="flex mt-[20px] items-center gap-[15px]">
                           <div className={styles.remove} onClick={() => handleRemove(index)}>
                             Remove Item
-                          </div>
-                          <div className={styles.costDivider} />
-                          <div className={styles.remove} onClick={() => handleEdit(index)}>
-                            Edit
                           </div>
                         </div>
                       </div>
                     </div>
                   </>
+                ) : (
+                  <>
+                    {item?.printImageUrl && (
+                      <>
+                        <div className={styles.divider} />
+                        <div className="w-full h-full flex flex-row my-[30px]">
+                          <div className="flex items-center">
+                            <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
+                          </div>
+                          <div className={styles.nftArea}>
+                            <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
+                          </div>
+                          <div className="sm:mt-[10px]">
+                            <div className={styles.detail}>Item Details</div>
+                            <div className={styles.content}>
+                              <div>{item.nftName}</div>
+                              <div>
+                                {item?.apparel?.description}&nbsp;(
+                                {item.size.name === 'S' || item.size.name === 'YXS'
+                                  ? 'Small'
+                                  : item.size.name === 'M' || item.size.name === 'YS'
+                                  ? 'Medium'
+                                  : item.size.name === 'L' || item.size.name === 'YM'
+                                  ? 'Large'
+                                  : item.size.name === 'XL' || item.size.name === 'YL'
+                                  ? 'X-Large'
+                                  : item.size.name === '2XL' || item.size.name === 'YXL'
+                                  ? '2X-Large'
+                                  : ''}
+                                )
+                              </div>
+                              <div>{item.color.type}</div>
+                              <div>Qty: {item.quantity}</div>
+                              <div>Price: ${item.cost}</div>
+                            </div>
+                            <div className="flex mt-[20px] items-center gap-[15px]">
+                              <div className={styles.remove} onClick={() => handleRemove(index)}>
+                                Remove Item
+                              </div>
+                              <div className={styles.costDivider} />
+                              <div className={styles.remove} onClick={() => handleEdit(index)}>
+                                Edit
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </>
                 )}
               </div>
             ))}
         </div>
-        {/* <div className={`${styles.divider} mb-[50px]`}></div> */}
       </div>
 
       {/* Mobile Table */}
-      <div className={styles.mobileContainer}>
+      {/* <div className={styles.mobileContainer}>
         {cartList &&
           cartList.map((item, index) => (
             <div key={index}>
@@ -205,7 +245,7 @@ const ShoppingCartActivity = props => {
               )}
             </div>
           ))}
-      </div>
+      </div> */}
     </>
   )
 }

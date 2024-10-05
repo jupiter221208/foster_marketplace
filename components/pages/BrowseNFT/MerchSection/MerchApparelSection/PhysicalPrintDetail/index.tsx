@@ -283,12 +283,13 @@ const PhysicalPrintDetail = props => {
 
   useEffect(() => {
     if (printImageUrl && isAddToCart) {
-      let existingData = JSON.parse(localStorage.getItem('data')) || []
+      let existingData = JSON.parse(localStorage.getItem('cart_v1')) || []
       if (!Array.isArray(existingData)) {
         existingData = []
       }
 
       let data = {
+        version: 'v1',
         previewApparel,
         apparel,
         gender,
@@ -304,9 +305,10 @@ const PhysicalPrintDetail = props => {
         printImageUrl,
       }
       existingData.push(data)
-      localStorage.setItem('data', JSON.stringify(existingData))
+      localStorage.setItem('cart_v1', JSON.stringify(existingData))
       dispatch({ type: 'set', isAddToCart: false })
       dispatch({ type: 'set', printImageUrl: null })
+      dispatch({ type: 'set', cartUpdated: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [printImageUrl, isAddToCart])

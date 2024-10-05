@@ -37,7 +37,7 @@ const initialState = {
   markAsRead: false,
   expiryDate: 0,
   loginSignedFlag: false,
-  printImageUrl: '',
+  printImageUrl: null,
   merchData: null,
   firstLoaded: true,
   activeTab: 0,
@@ -49,6 +49,7 @@ const initialState = {
   collectionCoverUrl: '',
   collectionKind: 'foster',
   merchBy: '',
+  cartUpdated: false
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

@@ -4,15 +4,16 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
+import { useRouter } from 'next/router'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images
 import LoadingButton from 'components/Button/LoadingButton'
 import Alert from 'components/Alert'
+import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -20,13 +21,15 @@ import CountrySelect from 'components/Select/CountrySelect'
 
 // api
 import merchAPI from 'apis/merch'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
-import { useRouter } from 'next/router'
+import storeAPI from 'apis/store'
+import { useDispatch } from 'react-redux'
+import OutlineButton from 'components/Button/OutlineButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const ShoppingCartPhysicalShipping = props => {
-  const { onBack, onNext, category, data, printData, wallArt, nftName } = props
+  const { cartVersion, onBack, onNext, category, data, printData, wallArt, nftName } = props
   const router = useRouter()
+  const dispatch = useDispatch()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -94,21 +97,33 @@ const ShoppingCartPhysicalShipping = props => {
     let params
     if (category === 'apparel') {
       const cartItems = []
-
-      printData.forEach(item => {
-        const { apparel, gender, quality, color, print, quantity, size } = item
-        let item_id = apparel[gender.type][quality.type][color.type].item_id
+      if (cartVersion === 'v2') {
         cartItems.push({
-          id: item_id.toString(),
-          quantity,
+          id: '1',
+          quantity: 1,
           options: {
-            size: size.name,
-            color: color.type,
-            sideOfPrint: print.name,
+            size: 'L',
+            color: 'white',
+            sideOfPrint: 'Front Side',
           },
-          notes: `This is apparel ${apparel.description} item`,
+          notes: `This is apparel item`,
         })
-      })
+      } else {
+        printData.forEach(item => {
+          const { apparel, gender, quality, color, print, quantity, size } = item
+          let item_id = apparel[gender.type][quality.type][color.type].item_id
+          cartItems.push({
+            id: item_id.toString(),
+            quantity,
+            options: {
+              size: size.name,
+              color: color.type,
+              sideOfPrint: print.name,
+            },
+            notes: `This is apparel ${apparel.description} item`,
+          })
+        })
+      }
 
       params = {
         toPostalCode: zipCode,
@@ -137,14 +152,120 @@ const ShoppingCartPhysicalShipping = props => {
     }
 
     setIsLoading(true)
+
     merchAPI.prepareCart(params).then(
       response => {
-        onNext({ data, method: response })
-        setIsLoading(false)
+        if (response?.shippingMethods?.length > 0) {
+          if (printData[0].version === 'v2')
+            onCheckoutV2(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
+          else {
+            onNext({ data, method: response })
+            setIsLoading(false)
+          }
+        } else setIsLoading(false)
       },
       error => {
         setIsLoading(false)
         setShowAlert(true)
+      }
+    )
+  }
+
+  const onCheckoutV2 = serviceCode => {
+    let address = {
+      name: name,
+      street1: street,
+      street2: apartment,
+      street3: '',
+      city: city,
+      state: state.isoCode,
+      postalCode: zipCode,
+      country: country.isoCode,
+      phone: '',
+      residential: true,
+    }
+
+    let items = [],
+      totalCost = 0
+    // foster merch
+    printData.map(merch => {
+      let storeItem = merch
+      let mockupUrls = [],
+        rawUrls = []
+      storeItem.merchList.map(item => mockupUrls.push(item.url))
+      storeItem.rawList.map(item => rawUrls.push(item.url))
+      let item
+      if (storeItem.printEditionAddress && storeItem.printEditionAddress.length > 0) {
+        item = {
+          id: storeItem.productId.toString(),
+          quantity: storeItem.data.quantity,
+          previewUrl: mockupUrls[0],
+          options: {
+            type: storeItem.type,
+            nftName: storeItem.data.name,
+            fosterUrl: storeItem.fosterUrl,
+            mockupUrl: mockupUrls.join(','),
+            assetUrl: rawUrls.join(','),
+            nftAddress: storeItem.nftAddress ?? '',
+            apparel: storeItem.data.description,
+            size: storeItem.data.size,
+            color: storeItem.data.color,
+            technique: storeItem.data.technique,
+            printEditionAddress: storeItem.printEditionAddress,
+          },
+          notes: `This is studio merch V2 item`,
+        }
+      } else {
+        item = {
+          id: storeItem.productId.toString(),
+          quantity: storeItem.data.quantity,
+          previewUrl: mockupUrls[0],
+          options: {
+            type: storeItem.type,
+            nftName: storeItem.data.name,
+            fosterUrl: storeItem.fosterUrl,
+            mockupUrl: mockupUrls.join(','),
+            assetUrl: rawUrls.join(','),
+            nftAddress: storeItem.nftAddress ?? '',
+            apparel: storeItem.data.description,
+            size: storeItem.data.size,
+            color: storeItem.data.color,
+            technique: storeItem.data.technique,
+          },
+          notes: `This is studio merch V2 item`,
+        }
+      }
+      totalCost += storeItem.cost * storeItem.data.quantity
+      items.push(item)
+    })
+
+    let params = {
+      customerEmail: email,
+      shippingServiceCode: serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: items,
+      gift: true,
+      giftMessage: 'Thank you for supporting indie creators in the Solana Art Ecosystem. Enjoy your new piece!',
+      notes: 'Checkout Note',
+    }
+
+    setIsLoading(false)
+    storeAPI.checkout(params).then(
+      response => {
+        if (response.orderNumber === undefined) {
+          setIsLoading(false)
+          return
+        }
+
+        let data = {
+          username: router.query.id,
+        }
+        dispatch({ type: 'set', merchData: data })
+        router.push(`/orders/${response.orderNumber}`)
+      },
+      error => {
+        setIsLoading(false)
       }
     )
   }
@@ -190,9 +311,13 @@ const ShoppingCartPhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="lg:p-[30px]">
-        <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center justify-between">
-          <div className={styles.selecteCategory}>Add Shipping Details</div>
+      <div className="lg:pt-[70px]">
+        <div className="flex gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center gap-[11px]">
+          <div onClick={() => router.push('/')}>
+            <ArrowLeftIcon />
+          </div>
+
+          <div className={styles.selecteCategory}>Shipping Address</div>
         </div>
         <div className="w-full mt-[20px]">
           <div className={styles.label}>
@@ -279,9 +404,8 @@ const ShoppingCartPhysicalShipping = props => {
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
-            <PrimaryButton
-              label="Select Shipping"
-              type="shipping"
+            <GradientButton
+              label={cartVersion === 'v2' ? 'Checkout' : 'Select Shipping'}
               disabled={!enabled}
               fullWidth
               onClick={() => proceedToCheckout()}
@@ -289,7 +413,12 @@ const ShoppingCartPhysicalShipping = props => {
           )}
         </div>
         <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
-          <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
+          <OutlineButton
+            label="Back"
+            backgroundColor="var(--bg-212121-F3F2F0)"
+            onClick={() => backToPage()}
+            fullWidth
+          />
         </div>
       </div>
 

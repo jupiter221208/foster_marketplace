@@ -24,7 +24,6 @@ import merchAPI from 'apis/merch'
 
 const MerchOrderShipping = props => {
   const { productId, type, data, onBack, onNext, merchList, rawList } = props
-  const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -86,16 +85,6 @@ const MerchOrderShipping = props => {
       setVisible(true)
       return
     }
-    let data = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
     let params
 
     let item_id = 1
@@ -126,7 +115,7 @@ const MerchOrderShipping = props => {
       merchAPI.prepareCart(params).then(
         response => {
           if (response?.shippingMethods?.length > 0)
-            onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus', 'foster')
+            onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'international', 'foster')
           else setIsLoading(false)
         },
         error => {

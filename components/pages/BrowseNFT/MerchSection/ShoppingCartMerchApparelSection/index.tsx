@@ -4,14 +4,13 @@ import { useRouter } from 'next/router'
 
 //component
 import ShoppingCartPhysicalShipping from '../ShoppingCartPhysicalShipping'
-import MerchStepper from 'components/MerchStepper'
 
 import styles from './index.module.scss'
 import ShoppingCartPhysicalMethod from '../ShoppingCartPhysicalMethod'
 import { useViewport } from 'utils'
 
 const ShoppingCartMerchApparelSection = props => {
-  const { nftName, nftCoverUrl, open, setFinishEditing, setApparel, apparelData } = props
+  const { cartVersion, nftName, nftCoverUrl, open, setFinishEditing, setApparel, apparelData } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [openPrintDetail, setOpenPrintDetail] = useState(false)
@@ -32,9 +31,10 @@ const ShoppingCartMerchApparelSection = props => {
     <section className={styles.container}>
       {openShippingDetail ? (
         <ShoppingCartPhysicalShipping
+          cartVersion={cartVersion}
           onBack={() => {
             dispatch({ type: 'set', activeTab: 4 })
-            router.push(`/merch-logs`)
+            router.push(`/`)
           }}
           onNext={info => {
             setShippingData(info.data)
