@@ -78,6 +78,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
       })
     }, 500)
     dispatch({ type: 'set', isLoading: false })
+    dispatch({ type: 'set', printImageUrl: null })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

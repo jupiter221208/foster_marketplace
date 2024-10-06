@@ -11,12 +11,19 @@
 
 .title {
   font-family: 'Muli-Regular';
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 23px;
   color: var(--text-gray-200-color);
   @media (min-width: 640px) {
-    font-family: 'Muli-Bold';
+    font-family: 'Muli-SemiBold';
   }
+}
+
+.titleV1 {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
 }
 
 .selectAll {
@@ -60,6 +67,14 @@
 }
 
 .price {
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--main-bg-color);
+}
+
+.usd {
   font-family: 'Muli-Light';
   font-weight: 100;
   font-size: 18px;

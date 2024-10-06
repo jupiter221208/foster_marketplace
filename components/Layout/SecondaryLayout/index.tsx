@@ -30,6 +30,7 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const openShoppingCart = useSelector<any>(state => state.openShoppingCart)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
+
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {

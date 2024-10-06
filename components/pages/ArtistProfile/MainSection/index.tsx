@@ -811,11 +811,11 @@ const MainSection = prop => {
                     hasLoading ? (
                       <div className={`${styles.skeletonLoader} w-[110px] h-[40px] rounded-md`}></div>
                     ) : (
-                      <GradientButton
-                        width={110}
+                      <OutlineButton
+                        width={120}
                         height={45}
                         fontSize={16}
-                        borderRadius={20}
+                        borderRadius={23}
                         label="Following"
                         onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                       />

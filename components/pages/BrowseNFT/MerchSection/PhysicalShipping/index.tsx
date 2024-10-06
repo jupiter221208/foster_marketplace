@@ -94,16 +94,6 @@ const PhysicalShipping = props => {
       setVisible(true)
       return
     }
-    let data = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
     let params
     if (category === 'apparel') {
       const { apparel, gender, quality, color, print, quantity, size } = printData
@@ -150,7 +140,7 @@ const PhysicalShipping = props => {
     merchAPI.prepareCart(params).then(
       response => {
         if (response?.shippingMethods?.length > 0) {
-          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'gp_plus')
+          onCheckout(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
         } else setIsLoading(false)
       },
       error => {

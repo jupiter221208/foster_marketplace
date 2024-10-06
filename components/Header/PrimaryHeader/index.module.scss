@@ -82,6 +82,24 @@
   cursor: pointer;
 }
 
+.cartCount {
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  @media (min-width: 1024px) {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+  border-radius: 100%;
+  background: #95dbd5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-Bold';
+  color: #202427;
+}
+
 .alphaArea {
   width: 98px;
   height: 36px;

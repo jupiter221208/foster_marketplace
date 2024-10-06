@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { getOrder } from 'apis/merch'
 import { findElement, isString } from 'utils/helpers'
 
@@ -18,15 +19,13 @@ import { useViewport } from 'utils'
 
 // api
 import StoreAPI from 'apis/store'
-import { useSelector } from 'react-redux'
 
 const OrderSection = props => {
   const router = useRouter()
   const viewport = useViewport()
   const { id } = router.query
-  let merchData = useSelector(state => (state as any).merchData)
+  const { profileInfo } = useAuthentication()
 
-  const [userName, setUsername] = useState('')
   const [orderData, setOrderData] = useState<any | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [merchType, setMerchType] = useState('')
@@ -70,7 +69,6 @@ const OrderSection = props => {
   }, [id])
 
   useEffect(() => {
-    console.log(orderData, '========orderData=======')
     if (orderData) {
       let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
       let itemData = ssorder.items[0]
@@ -79,14 +77,22 @@ const OrderSection = props => {
       if (type === 'apparel' || type === 'wallart') {
         setPreviewUrl(itemData.imageUrl)
       } else {
-        let list = []
-        let mockupUrl = findElement(itemData.options, 'name', 'mockupUrl')['value']
-        mockupUrl.split(',').map((item, index) => list.push({ id: index, url: item, selected: index === 0 }))
-        setSelectedMerch(list[0])
-        setMerchList(list)
+        if (ssorder.items.length > 1) {
+          let list = []
+          ssorder.items.map((itemData, index) => {
+            let mockupUrl = findElement(itemData.options, 'name', 'mockupUrl')['value']
+            list.push({ id: index, url: mockupUrl.split(',')[0], selected: index === 0 })
+          })
+          setSelectedMerch(list[0])
+          setMerchList(list)
+        } else {
+          let list = []
+          let mockupUrl = findElement(itemData.options, 'name', 'mockupUrl')['value']
+          mockupUrl.split(',').map((item, index) => list.push({ id: index, url: item, selected: index === 0 }))
+          setSelectedMerch(list[0])
+          setMerchList(list)
+        }
       }
-
-      setUsername(merchData?.username)
 
       if (orderType === 'v2') {
         StoreAPI.getPaymentId(id).then(
@@ -124,7 +130,7 @@ const OrderSection = props => {
             <div className="w-full lg:flex lg:h-[705px]">
               <div className="hidden lg:block w-[140px]">
                 <div className="w-full lg:block hidden">
-                  <div className={styles.backStore} onClick={() => router.push(`/${userName}/merch`)}>
+                  <div className={styles.backStore} onClick={() => router.push(`/${profileInfo?.username}/merch`)}>
                     <ArrowLeftIcon />
                     Back&nbsp;to&nbsp;store
                   </div>

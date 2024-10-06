@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import { useWallet } from '@solana/wallet-adapter-react'
-
+import Lottie from 'lottie-react'
 // next component
 
 //components
@@ -11,34 +11,50 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import SizeChartModal from 'components/Modal/SizeChartModal'
-import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
+import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 
 // images
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
-import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
-import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
-import DownloadIcon from 'assets/icons/download-icon.svg?component'
 
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
-import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
 import SizeList from 'assets/json/print/size-chat-modal.json'
+import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
+import MoreDetalsIcon from 'assets/lottery/more-details.json'
 
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import OutlineButton from 'components/Button/OutlineButton'
+import Alert from 'components/Alert'
+import MerchOrderDetail from '../MerchOrderDetail'
 
 const MerchOrderMain = props => {
-  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
+  const {
+    type,
+    username,
+    productDetail,
+    userDetail,
+    onClickBuyNow,
+    setQuantity,
+    setMerchSize,
+    productId,
+    data,
+    merchList,
+    rawList,
+  } = props
   const router = useRouter()
-  const { publicKey } = useWallet()
+  const dispatch = useDispatch()
+
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
+  const lightDarkMode = useSelector(state => (state as any).lightMode)
+  const detailViewRef = useRef(null)
   // const alertEmb = 'alert-emb'
   // const alertEmbMobile = 'alert-emb-mobile'
   // const alertNote = 'alert-note'
@@ -47,37 +63,15 @@ const MerchOrderMain = props => {
   const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
   const [cardExpired, setCardExpired] = useState(false)
-  const [descCount, setDescCount] = useState(280)
   const description = productDetail.description
-  const [isTruncated, setIsTruncated] = useState(true)
-  const [tempNftDescription, setTempNftDescription] = useState('')
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > descCount
+
   const [printArea, setPrintArea] = useState('')
   const [mintQty, setMintQty] = useState(1)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
   const [isExpired, setIsExpired] = useState(false)
-  const [showDescription, setShowDescription] = useState(true)
-  const [showEmbroidery, setShowEmbroidery] = useState(false)
-  const [showNotice, setShowNotice] = useState(false)
 
-  useEffect(() => {
-    function handleResize() {
-      let screenWidth = window.innerWidth
-      let count = screenWidth >= 1536 ? 240 : screenWidth >= 1280 ? 220 : screenWidth >= 1024 ? 200 : 200
-      setDescCount(count)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    handleResize()
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  useEffect(() => {
-    setTempNftDescription(description)
-  }, [description])
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
@@ -162,16 +156,6 @@ const MerchOrderMain = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
-  const getShippingData = shipping => {
-    if (!shipping) {
-      return ''
-    }
-    if (shipping === 'di_seller') return 'Domestic & international shipping will be paid by the seller.'
-    else if (shipping === 'di_buyer') return 'Domestic & international shipping will be paid by the buyer.'
-    else if (shipping === 'd_buyer') return 'Domestic shipping will be paid by the buyer.'
-    else if (shipping === 'd_seller') return 'Domestic shipping will be paid by the buyer.'
-  }
-
   const getStartTime = () => {
     let difference = getTimeDifference(productDetail.sale_start_at)
 
@@ -180,10 +164,6 @@ const MerchOrderMain = props => {
     } else {
       return productDetail.sale_end_at
     }
-  }
-
-  function toggleIsTruncated() {
-    setIsTruncated(!isTruncated)
   }
 
   const onClickSize = index => {
@@ -285,468 +265,374 @@ const MerchOrderMain = props => {
     }
   }
 
+  const onClickAddCart = () => {
+    let existingData = JSON.parse(localStorage.getItem('cart_v2')) || []
+    if (!Array.isArray(existingData)) {
+      existingData = []
+    }
+
+    let cart_data = {
+      version: 'v2',
+      type,
+      merchEdition: false,
+      cost: ((productDetail.selling_price / 100) * mintQty).toFixed(2),
+      productId,
+      data,
+      fosterUrl: window.location.href,
+      merchList,
+      rawList,
+    }
+    existingData.push(cart_data)
+    localStorage.setItem('cart_v2', JSON.stringify(existingData))
+
+    setAlertData([
+      {
+        id: 0,
+        title: 'Item Added to Your Cart!',
+        description: `${data.name} is ready and waiting in your cart. Feel free to browse for more goodies or head to checkout whenever you're ready.`,
+        type: 'success',
+      },
+    ])
+    setShowAlert(true)
+
+    dispatch({ type: 'set', cartUpdated: true })
+  }
+
   return (
     <div className={styles.container}>
-      <div className="w-full h-auto">
-        <div className="w-full">
-          <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
-            <div className={styles.productName}>{productDetail?.name}</div>
+      <div className={styles.rightSection}>
+        <div>
+          <div className="w-full">
+            <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
+              <div className={styles.productName}>{productDetail?.name}</div>
 
-            <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
-              <div className="">
+              <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
                 <ShareDesktopIcon alt="" />
               </div>
-              <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
             </div>
-          </div>
 
-          <div className="flex gap-[8px] mt-[10px]">
-            <div className="flex gap-[6px] items-center mb-[2px]">
-              <SolanaLogoIcon className="mt-[4px]" />
-              <div className={styles.price}>
-                {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
-              </div>
-            </div>
-            <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
-          </div>
-          <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[15px] lg:gap-[30px]">
-            <div className="flex gap-[30px]">
-              <div>
-                <div className={styles.creator}>Seller</div>
-                <Link href={`/${userDetail.username}`} passHref>
-                  <a>
-                    <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
-                      <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
-                        <ImageWithFoster
-                          src={userDetail.profile_picture?.length > 0 ? userDetail.profile_picture : DefaultAvatar}
-                          alt=""
-                        />
-                      </div>
-                      {getDisplayUserName(userDetail.username)}
-                    </div>
-                  </a>
-                </Link>
-              </div>
-              <div>
-                <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                <div>
-                  <div className={styles.supplyRound}>
-                    {productDetail.supply
-                      ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
-                      : `${productDetail.current_supply} sold`}
-                  </div>
+            <div className="flex gap-[8px] mt-[10px]">
+              <div className="flex gap-[6px] items-center mb-[2px]">
+                <SolanaLogoIcon className="mt-[4px]" />
+                <div className={styles.price}>
+                  {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
                 </div>
               </div>
+              <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
             </div>
-            {timeLeft && (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-              <div>
-                <div className={styles.creator}>{getStartStatus()}</div>
+            <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[15px] lg:gap-[30px]">
+              <div className="flex flex-wrap sm:gap-[30px] gap-[10px]">
                 <div>
-                  <div className={styles.supplyRound}>
-                    <div className={styles.bidCountContainer}>
-                      {timeLeft && timeLeft['days'] !== '00' && (
-                        <div>
-                          <div className={styles.endTime}>
-                            {timeLeft && timeLeft['days']}
-                            {timeLeft && <div className={styles.bidDesc}>d</div>}
-                          </div>
+                  <div className={styles.creator}>Seller</div>
+                  <Link href={`/${userDetail.username}`} passHref>
+                    <a>
+                      <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
+                        <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                          <ImageWithFoster
+                            src={userDetail.profile_picture?.length > 0 ? userDetail.profile_picture : DefaultAvatar}
+                            alt=""
+                          />
                         </div>
-                      )}
-                      <div className={styles.endTimeContainer}>
-                        <div className={styles.endTime}>
-                          {timeLeft && timeLeft['hours']}
-                          {timeLeft && <div className={styles.bidDesc}>h</div>}
-                        </div>
+                        {getDisplayUserName(userDetail.username)}
                       </div>
-                      <div className={styles.endTimeContainer}>
-                        <div className={styles.endTime}>
-                          {timeLeft && timeLeft['minutes']}
-                          {timeLeft && <div className={styles.bidDesc}>m</div>}
-                        </div>
-                      </div>
-                      <div className={styles.endTimeContainer}>
-                        <div className={styles.endTime}>
-                          {timeLeft && timeLeft['seconds']}
-                          {timeLeft && <div className={styles.bidDesc}>s</div>}
-                        </div>
+                    </a>
+                  </Link>
+                </div>
+                {type !== 'foster' && (
+                  <div>
+                    <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                    <div>
+                      <div className={styles.supplyRound}>
+                        {productDetail.supply
+                          ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                          : `${productDetail.current_supply} sold`}
                       </div>
                     </div>
                   </div>
+                )}
+
+                {type !== 'foster' &&
+                  timeLeft &&
+                  (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                    <div>
+                      <div className={styles.creator}>{getStartStatus()}</div>
+                      <div>
+                        <div className={styles.supplyRound}>
+                          <div className={styles.bidCountContainer}>
+                            {timeLeft && timeLeft['days'] !== '00' && (
+                              <div>
+                                <div className={styles.endTime}>
+                                  {timeLeft && timeLeft['days']}
+                                  {timeLeft && <div className={styles.bidDesc}>d</div>}
+                                </div>
+                              </div>
+                            )}
+                            <div className={styles.endTimeContainer}>
+                              <div className={styles.endTime}>
+                                {timeLeft && timeLeft['hours']}
+                                {timeLeft && <div className={styles.bidDesc}>h</div>}
+                              </div>
+                            </div>
+                            <div className={styles.endTimeContainer}>
+                              <div className={styles.endTime}>
+                                {timeLeft && timeLeft['minutes']}
+                                {timeLeft && <div className={styles.bidDesc}>m</div>}
+                              </div>
+                            </div>
+                            <div className={styles.endTimeContainer}>
+                              <div className={styles.endTime}>
+                                {timeLeft && timeLeft['seconds']}
+                                {timeLeft && <div className={styles.bidDesc}>s</div>}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+              </div>
+            </div>
+
+            {type === 'foster' && (
+              <div className="mt-[15px] lg:mt-[30px]">
+                <div className="w-full flex justify-between items-center">
+                  <div className={styles.selectSize}>Select Size</div>
+                </div>
+                <div className="mt-[15px]">
+                  <div className="w-full flex flex-wrap gap-[10px]">
+                    {sizeList.map((item, index) => (
+                      <div
+                        key={index}
+                        className={item.selected ? styles.selectedSize : styles.unselectedSize}
+                        onClick={() => onClickSize(index)}
+                      >
+                        {item.name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                  Size Chart »
                 </div>
               </div>
             )}
           </div>
 
-          {/* {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />} */}
-
-          {type === 'foster' && (
-            <div className="lg:mt-[35px] mt-[30px]">
-              <div className="w-full flex justify-between items-center">
-                <div className={styles.selectSize}>Select Size</div>
-                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-                  Size Chart »
-                </div>
-              </div>
-              <div className="mt-[15px]">
-                <div className="w-full flex flex-wrap gap-[10px]">
-                  {sizeList.map((item, index) => (
-                    <div
-                      key={index}
-                      className={item.selected ? styles.selectedSize : styles.unselectedSize}
-                      onClick={() => onClickSize(index)}
-                    >
-                      {item.name}
+          <div className="w-full lg:mt-[35px] mt-[35px]">
+            {type === 'foster' ? (
+              <div className={styles.cartContainer}>
+                <div className="w-full flex justify-between">
+                  <div>
+                    <div className={styles.supplyName}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                    <div className={styles.supplyValue}>
+                      {productDetail.supply
+                        ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                        : `${productDetail.current_supply} sold`}
                     </div>
-                  ))}
+                  </div>
+                  <div>
+                    {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) &&
+                      (timeLeft ? (
+                        <div>
+                          <div className={`${styles.supplyName} text-right`}>{getStartStatus()}</div>
+                          <div className="mt-[11px]">
+                            <div className={styles.bidCountContainer}>
+                              {timeLeft && timeLeft['days'] !== '00' && (
+                                <div>
+                                  <div className={styles.endTimeCart}>
+                                    {timeLeft && timeLeft['days']}
+                                    {timeLeft && <div className={styles.bidDescCart}>d</div>}
+                                  </div>
+                                </div>
+                              )}
+                              <div className={styles.endTimeContainer}>
+                                <div className={styles.endTimeCart}>
+                                  {timeLeft && timeLeft['hours']}
+                                  {timeLeft && <div className={styles.bidDescCart}>h</div>}
+                                </div>
+                              </div>
+                              <div className={styles.endTimeContainer}>
+                                <div className={styles.endTimeCart}>
+                                  {timeLeft && timeLeft['minutes']}
+                                  {timeLeft && <div className={styles.bidDescCart}>m</div>}
+                                </div>
+                              </div>
+                              <div className={styles.endTimeContainer}>
+                                <div className={styles.endTimeCart}>
+                                  {timeLeft && timeLeft['seconds']}
+                                  {timeLeft && <div className={styles.bidDescCart}>s</div>}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className={`${styles.supplyName} text-end`}>{'Time Remaining'}</div>
+                          <div className={styles.supplyValue}>{'No Expiration'}</div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {/* {type === 'foster' && <div className={`mt-[20px] ${styles.divider}`} />} */}
-        </div>
-
-        <div className="w-full">
-          <div className="lg:mt-[35px] mt-[30px]">
-            {/* <div className="w-full flex justify-between">
-              <div className="flex flex-col gap-[8px]">
-                <div className={styles.selectSize}>{getStartStatus()}</div>
-                <div className={styles.bidCountContainer}>
-                  {timeLeft && timeLeft['days'] !== '00' && (
-                    <div>
-                      <div className={styles.endTime}>
-                        {timeLeft && timeLeft['days']}
-                        {timeLeft && <div className={styles.bidDesc}>d</div>}
+                <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[15px]">
+                  {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
+                    <div className={styles.mintQty}>
+                      <div
+                        onClick={() => {
+                          if (mintQty > 1) {
+                            setMintQty(mintQty - 1)
+                            setQuantity(mintQty - 1)
+                          }
+                        }}
+                      >
+                        <div className={styles.minus}>-</div>
+                      </div>
+                      <div className={styles.mintLabel}>
+                        Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+                      </div>
+                      <div
+                        onClick={() => {
+                          if (productDetail.supply) {
+                            if (mintQty < productDetail.supply - productDetail.current_supply) {
+                              setMintQty(mintQty + 1)
+                              setQuantity(mintQty + 1)
+                            }
+                          } else {
+                            setMintQty(mintQty + 1)
+                            setQuantity(mintQty + 1)
+                          }
+                        }}
+                      >
+                        <div className={styles.minus}>+</div>
                       </div>
                     </div>
                   )}
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['hours']}
-                      {timeLeft && <div className={styles.bidDesc}>h</div>}
+                  {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                    <div className="w-full">
+                      <OutlineButton
+                        fullWidth
+                        height={45}
+                        borderRadius={23}
+                        label="Add to Cart"
+                        fontFamily="Muli-Regular"
+                        fontSize={16}
+                        onClick={() => onClickAddCart()}
+                      />
                     </div>
-                  </div>
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['minutes']}
-                      {timeLeft && <div className={styles.bidDesc}>m</div>}
-                    </div>
-                  </div>
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['seconds']}
-                      {timeLeft && <div className={styles.bidDesc}>s</div>}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-            <div className="w-full lg:flex hidden mt-[15px] gap-[30px]">
-              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
-                <div className={styles.mintQty}>
-                  <div
-                    onClick={() => {
-                      if (mintQty > 1) {
-                        setMintQty(mintQty - 1)
-                        setQuantity(mintQty - 1)
-                      }
-                    }}
-                  >
-                    <div className={styles.minus}>-</div>
-                  </div>
-                  <div className={styles.mintLabel}>
-                    Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
-                  </div>
-                  <div
-                    onClick={() => {
-                      if (productDetail.supply) {
-                        if (mintQty < productDetail.supply - productDetail.current_supply) {
-                          setMintQty(mintQty + 1)
-                          setQuantity(mintQty + 1)
-                        }
-                      } else {
-                        setMintQty(mintQty + 1)
-                        setQuantity(mintQty + 1)
-                      }
-                    }}
-                  >
-                    <div className={styles.minus}>+</div>
-                  </div>
-                </div>
-              )}
-              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-                <div className="flex-1">
-                  {buyNowLoading ? (
-                    <LoadingPrimaryButton fullWidth />
-                  ) : (
-                    <GradientButton
-                      fullWidth
-                      height={45}
-                      borderRadius={23}
-                      label="Buy Now"
-                      disabled={getStartStatus() === 'Starts in' || isExpired}
-                      onClick={() => onClickBuyNow()}
-                    />
                   )}
                 </div>
-              )}
-            </div>
-            <div className="w-full block lg:hidden mt-[15px] gap-[30px]">
-              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
-                <div className={styles.mintQty}>
-                  <div
-                    onClick={() => {
-                      if (mintQty > 1) {
-                        setMintQty(mintQty - 1)
-                        setQuantity(mintQty - 1)
-                      }
-                    }}
-                  >
-                    <div className={styles.minus}>-</div>
-                  </div>
-                  <div className={styles.mintLabel}>
-                    Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
-                  </div>
-                  <div
-                    onClick={() => {
-                      if (productDetail.supply) {
-                        if (mintQty < productDetail.supply - productDetail.current_supply) {
-                          setMintQty(mintQty + 1)
-                          setQuantity(mintQty + 1)
-                        }
-                      } else {
-                        setMintQty(mintQty + 1)
-                        setQuantity(mintQty + 1)
-                      }
-                    }}
-                  >
-                    <div className={styles.minus}>+</div>
-                  </div>
-                </div>
-              )}
-              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-                <div className="mt-[15px]">
-                  {buyNowLoading ? (
-                    <LoadingPrimaryButton fullWidth />
-                  ) : (
-                    <GradientButton
-                      fullWidth
-                      height={45}
-                      borderRadius={23}
-                      label="Buy Now"
-                      disabled={getStartStatus() === 'Starts in' || isExpired}
-                      onClick={() => onClickBuyNow()}
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-          {/* {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-            <div className={`mt-[20px] ${styles.divider}`} />
-          )} */}
-          {/* {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-            <div className="w-full flex justify-between mt-[20px] relative">
-              <div>
-                <div className="flex gap-[7px] items-center relative">
-                  <div className={styles.infoText}>
-                    {type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                  </div>
-                  <div
-                    onMouseEnter={() => {
-                      document.getElementById(alertEmb).style.display = 'block'
-                    }}
-                    onMouseLeave={() => {
-                      document.getElementById(alertEmb).style.display = 'none'
-                    }}
-                    onClick={() => {
-                      document.getElementById(alertEmbMobile).style.display = 'block'
-                      setTimeout(() => {
-                        document.getElementById(alertEmbMobile).style.display = 'none'
-                      }, 3000)
-                    }}
-                  >
-                    <InfoIcon />
-                  </div>
-                  <div className="lg:block hidden">
-                    <MerchShopClipboardChip
-                      width={type === 'foster' ? null : '500px'}
-                      title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                      text={
-                        type === 'foster'
-                          ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                          : 'Domestic & international shipping will be paid by the buyer.'
-                      }
-                      identifier={alertEmb}
-                    />
-                  </div>
-                </div>
 
-                <div className="flex gap-[7px] items-center mt-[10px] relative">
-                  <div className={styles.infoText}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
-                  <div
-                    onMouseEnter={() => {
-                      document.getElementById(alertNote).style.display = 'block'
-                    }}
-                    onMouseLeave={() => {
-                      document.getElementById(alertNote).style.display = 'none'
-                    }}
-                    onClick={() => {
-                      document.getElementById(alertNoteMobile).style.display = 'block'
-                      setTimeout(() => {
-                        document.getElementById(alertNoteMobile).style.display = 'none'
-                      }, 3000)
-                    }}
-                  >
-                    <InfoIcon />
-                  </div>
-                  <div className="lg:block hidden">
-                    <MerchShopClipboardChip
-                      title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
-                      text={
-                        type === 'foster'
-                          ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
-                          : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
-                      }
-                      identifier={alertNote}
-                    />
-                  </div>
-                </div>
-
-                <div className="lg:hidden block w-full">
-                  <MerchShopClipboardChip
-                    type="Embroidery"
-                    title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                    text={
-                      type === 'foster'
-                        ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                        : 'Domestic & international shipping will be paid by the buyer.'
-                    }
-                    identifier={alertEmbMobile}
-                  />
-                </div>
-                <div className="lg:hidden block w-full">
-                  <MerchShopClipboardChip
-                    type="custom"
-                    title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
-                    text={
-                      type === 'foster'
-                        ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
-                        : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
-                    }
-                    identifier={alertNoteMobile}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex gap-[6px] items-center mb-[2px]">
-                  <SolanaLogoIcon className="mt-[4px]" />
-                  <div className={styles.price}>
-                    {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
-                  </div>
-                </div>
-                <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
-              </div>
-            </div>
-          )} */}
-
-          <div
-            className="w-full flex justify-between items-center lg:mt-[35px] mt-[30px]"
-            onClick={() => setShowDescription(!showDescription)}
-          >
-            <div className={styles.desc}>Description</div>
-            <div>{showDescription ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
-          </div>
-          {showDescription && (
-            <div>
-              {productDetail.fulfillment_type === 'foster' && (
-                <div className="mt-[15px]">
-                  <div className={styles.descValue}>{tempNftDescription}</div>
-                  {/* <div className="w-full flex justify-between mt-[7px]">
-                    <div className={styles.content}>Apparel Type</div>
-                    <div className={styles.contentValue}>{ProductTypeList[productDetail.product_type_id - 1].name}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[6px]">
-                    <div className={styles.content}>Print Technique</div>
-                    <div className={styles.contentValue}>
-                      {productDetail.options.print_technique === 'direct_to_garment'
-                        ? 'Direct To Garment'
-                        : 'Embroidery'}
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[6px]">
-                    <div className={styles.content}>Print Areas</div>
-                    <div className={styles.contentValue}>{printArea}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[6px]">
-                    <div className={styles.content}>Color</div>
-                    <div className={styles.contentValue}>{getFirstUpperString(productDetail.options.color)}</div>
-                  </div> */}
-                </div>
-              )}
-              {productDetail.fulfillment_type === 'user' && (
-                <div className="mt-[15px]">
-                  <div className={`mt-[10px] ${styles.itemDesc}`}>
-                    {processedNftDescription}
-                    {shouldShowReadMore && (
-                      <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                        {isTruncated ? '... Expand' : ' Collapse'}
-                      </span>
+                {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                  <div className="w-full mt-[15px]">
+                    {buyNowLoading ? (
+                      <LoadingPrimaryButton fullWidth />
+                    ) : (
+                      <GradientButton
+                        fullWidth
+                        height={45}
+                        borderRadius={23}
+                        label="Buy Now"
+                        disabled={getStartStatus() === 'Starts in' || isExpired}
+                        onClick={() => onClickBuyNow()}
+                      />
                     )}
                   </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <div className="w-full mt-[15px] flex flex-col lg:flex-row gap-[15px] lg:gap-[30px]">
+                  {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
+                    <div className={styles.mintQty}>
+                      <div
+                        onClick={() => {
+                          if (mintQty > 1) {
+                            setMintQty(mintQty - 1)
+                            setQuantity(mintQty - 1)
+                          }
+                        }}
+                      >
+                        <div className={styles.minus}>-</div>
+                      </div>
+                      <div className={styles.mintLabel}>
+                        Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+                      </div>
+                      <div
+                        onClick={() => {
+                          if (productDetail.supply) {
+                            if (mintQty < productDetail.supply - productDetail.current_supply) {
+                              setMintQty(mintQty + 1)
+                              setQuantity(mintQty + 1)
+                            }
+                          } else {
+                            setMintQty(mintQty + 1)
+                            setQuantity(mintQty + 1)
+                          }
+                        }}
+                      >
+                        <div className={styles.minus}>+</div>
+                      </div>
+                    </div>
+                  )}
+                  {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                    <div className="w-full">
+                      {buyNowLoading ? (
+                        <LoadingPrimaryButton fullWidth />
+                      ) : (
+                        <GradientButton
+                          fullWidth
+                          height={45}
+                          borderRadius={23}
+                          label="Buy Now"
+                          disabled={getStartStatus() === 'Starts in' || isExpired}
+                          onClick={() => onClickBuyNow()}
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          )}
-          <div className={`mt-[15px] ${styles.divider}`} />
-
-          {/* Embroidery Disclaimer */}
-          <div
-            className="w-full flex justify-between items-center mt-[15px]"
-            onClick={() => setShowEmbroidery(!showEmbroidery)}
-          >
-            <div className={styles.desc}>{type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}</div>
-            <div>{showEmbroidery ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
+                <div className="mt-[50px]">
+                  <MerchOrderDetail
+                    type={type}
+                    userDetail={userDetail}
+                    productDetail={productDetail}
+                    description={description}
+                    downloadFiles={downloadFiles}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-          {showEmbroidery && (
-            <div className={`${styles.endsTime} mt-[15px]`}>
-              {type === 'foster'
-                ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                : getShippingData(productDetail.options.shipping_responsibility)}
-            </div>
-          )}
-          <div className={`mt-[15px] ${styles.divider}`} />
+        </div>
 
-          {/* Customs Notice */}
+        {type === 'foster' && (
           <div
-            className="w-full flex justify-between items-center mt-[15px]"
-            onClick={() => setShowNotice(!showNotice)}
+            className="w-full lg:flex hidden justify-center mb-[70px]"
+            onClick={() => {
+              detailViewRef.current?.scrollIntoView({ behavior: 'smooth' })
+            }}
           >
-            <div className={styles.desc}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
-            <div>{showNotice ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
-          </div>
-          {showNotice && (
-            <div className={`${styles.endsTime} mt-[15px]`}>
-              {type === 'foster'
-                ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
-                : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'}
-            </div>
-          )}
-          <div className={`mt-[15px] ${styles.divider}`} />
-
-          {/* Download Mockups */}
-          {publicKey?.toBase58() === userDetail?.wallet_id && productDetail.fulfillment_type === 'foster' && (
-            <div className="w-full lg:flex hidden justify-end mt-[35px]">
-              <div className={styles.mockups} onClick={() => downloadFiles()}>
-                <DownloadIcon />
-                <div>Download Mockups</div>
+            <div className={styles.moreDetails}>
+              More details
+              <div className="w-[30px] h-[30px] mt-[-5px]">
+                <Lottie animationData={lightDarkMode ? MoreDetalsLightIcon : MoreDetalsIcon} />
               </div>
             </div>
-          )}
-          <div className="lg:hidden block mb-[100px]" />
-        </div>
+          </div>
+        )}
       </div>
+
+      {type === 'foster' && (
+        <div ref={detailViewRef}>
+          <MerchOrderDetail
+            type={type}
+            userDetail={userDetail}
+            productDetail={productDetail}
+            description={description}
+            downloadFiles={downloadFiles}
+          />
+        </div>
+      )}
 
       {openShareModal && (
         <SocialShareModal
@@ -766,6 +652,14 @@ const MerchOrderMain = props => {
         title={getApparelName()}
         label={getApparelLabel()}
         onClose={() => setTableModal(false)}
+      />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )

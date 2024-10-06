@@ -1,6 +1,5 @@
 import React, { MutableRefObject, useRef, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { useViewport } from 'utils'
+import { useSelector, useDispatch } from 'react-redux'
 
 // component
 import ShoppingCartSection from 'components/pages/ShoppingCart/ShoppingCartSection'
@@ -17,15 +16,23 @@ import styles from './index.module.scss'
 // apis
 
 const ShoppingCartMenu = () => {
+  const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
   const dispatch = useDispatch()
-  const viewport = useViewport()
+
   const menuRef = useRef<HTMLElement | null>(null)
   const itemRef = useRef<HTMLElement | null>(null)
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false) // Initially menu is hidden
 
+  useEffect(() => {
+    if (openShoppingCart) {
+      setIsMenuOpen(true)
+    }
+  }, [openShoppingCart])
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen) // Toggle the current boolean value
+    if (isMenuOpen) dispatch({ type: 'set', openShoppingCart: false })
   }
 
   const handleClickOutside = event => {

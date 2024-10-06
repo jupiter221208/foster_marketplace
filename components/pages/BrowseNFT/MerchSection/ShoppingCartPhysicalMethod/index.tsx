@@ -199,7 +199,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
     merchAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
-        // setIsLoading(false)
+        setIsLoading(false)
       },
       error => {
         setIsLoading(false)
@@ -214,7 +214,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
 
   return (
     <section className={styles.container}>
-      <div className="pt-[13px] lg:p-[30px]">
+      <div className="pt-[75px]">
         <div className="flex gap-[15px] mt-[0px] lg:mt-[0px] items-center">
           <div className={styles.selecteCategory}>Select Shipping Method</div>
         </div>
@@ -241,11 +241,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
                 </div>
                 <div className={`${styles.divider} mt-[15px]`} />
                 <div className="w-full flex justify-between mt-[15px]">
-                  <div className={styles.orderTotal}>
-                    Shipping and
-                    <br />
-                    Handling
-                  </div>
+                  <div className={styles.orderTotal}>Shipping and Handling</div>
                   <div className={styles.subPrice}>
                     <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
                     <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
@@ -266,17 +262,16 @@ const ShoppingCartPhysicalShippingMethod = props => {
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
-            <PrimaryButton
+            <GradientButton
               disabled={!total}
               label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Checkout' : 'Proceed to Checkout'}
-              type="buy-now"
               fullWidth
               onClick={() => onCheckout()}
             />
           )}
         </div>
         <div className="w-full mt-[15px] lg:mt-[20px] mb-[20px] lg:mb-[20px] flex">
-          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
+          <OutlineButton label="Back" backgroundColor="var(--bg-212121-F3F2F0)" onClick={onBack} fullWidth />
         </div>
       </div>
     </section>
