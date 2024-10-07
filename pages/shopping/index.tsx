@@ -55,14 +55,16 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
         }),
       500
     )
-    setCartVersion(localStorage.getItem('cart_version'))
   }, [])
 
   useEffect(() => {
     const orders = JSON.parse(localStorage.getItem('checked'))
+    let cart_version = localStorage.getItem('cart_version')
+    setCartVersion(cartVersion)
+
     setTimeout(() => {
       const promises = orders.map(array => {
-        if (cartVersion === 'v1') {
+        if (cart_version === 'v1') {
           return nftsAPI.getDetail(array.id).then(response => {
             const nftName = response.name
             const nftCoverUrl = response.cover_image_url
@@ -93,7 +95,7 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
     orders.map((item, index) => {
       list.push({
         id: index,
-        url: cartVersion === 'v1' ? item?.printImageUrl : item?.merchList[0].url,
+        url: cart_version === 'v1' ? item?.printImageUrl : item?.merchList[0].url,
         selected: index === 0,
       })
     })

@@ -289,12 +289,6 @@ const MerchDetail = () => {
     setReviewBody(reviewBody)
   }
 
-  const gotoTrackPage = () => {
-    if (trackingDetails !== null && trackingDetails.trackingNumber.length > 0) {
-      window.open(getTrackingUrl(trackingDetails))
-    }
-  }
-
   const retryPayment = () => {
     router.push(`/orders/${id}`)
   }
@@ -308,6 +302,8 @@ const MerchDetail = () => {
     } else return method
   }
 
+  console.log(fulfillment, '========fulfillment=======')
+  console.log(orderDetails, '========orderDetails=======')
   return (
     <div className="g-container">
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
@@ -373,7 +369,9 @@ const MerchDetail = () => {
             {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
             ) : SSOrder?.orderStatus === 'shipped' ? (
-              <div className={styles.infoValue}>{fulfillment ? fulfillment.carrierCode : ''}</div>
+              <div className={styles.infoValue}>
+                {fulfillment ? fulfillment.carrierCode : 'Hidden for Buyer Safety'}
+              </div>
             ) : (
               <div className={styles.infoValue}>
                 {orderDetails?.orderNumber === '' && !isOwn
@@ -387,7 +385,9 @@ const MerchDetail = () => {
             {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
             ) : SSOrder?.orderStatus === 'shipped' ? (
-              <div className={styles.infoValue}>{fulfillment ? fulfillment.trackingNumber : ''}</div>
+              <div className={styles.infoValue}>
+                {fulfillment ? fulfillment.trackingNumber : 'Hidden for Buyer Safety'}
+              </div>
             ) : (
               <div className={`${styles.infoValue} text-left`}>
                 {orderDetails?.orderNumber === '' && !isOwn
@@ -904,7 +904,33 @@ const MerchDetail = () => {
               </div>
             </div>
             <div className="w-full text-left ml-[22px]">
-              <div className={styles.detailValue}>{itemDetails?.print}</div>
+              <div className={`mt-[20px] ${styles.detailValue}`}>{itemDetails?.print}</div>
+              {orderDetails?.service === 'blinks' ? (
+                <div className={`mt-[9px] ${styles.detailValue}`}>{itemDetails?.description}</div>
+              ) : (
+                <div>
+                  <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
+                  <div className={`mt-[9px] ${styles.detailValue}`}>
+                    Size:&nbsp;
+                    {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                      ? 'Small'
+                      : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                      ? 'Medium'
+                      : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                      ? 'Large'
+                      : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                      ? 'X-Large'
+                      : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                      ? '2X-Large'
+                      : ''}
+                  </div>
+                </div>
+              )}
+
+              <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
+              <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${itemDetails?.price?.toFixed(2)}</div>
+
+              {/* <div className={styles.detailValue}>{itemDetails?.print}</div>
               <div className={styles.detailValue}>
                 {itemDetails?.apparel.slice(0, 40)}&nbsp;
                 {`(${
@@ -922,14 +948,14 @@ const MerchDetail = () => {
                 })`}
               </div>
               <div className={styles.detailValue}>{itemDetails?.color}</div>
-              <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div>
-              <div className="mt-[20px]">
+              <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div> */}
+              {/* <div className="mt-[20px]">
                 {!orderDetails ? (
                   <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
                 ) : (
                   <div className={styles.priceValue}>${orderDetails ? orderDetails.total : '---'}</div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         ) : (
@@ -944,7 +970,33 @@ const MerchDetail = () => {
                       </div>
                     </div>
                     <div className="w-full text-left ml-[22px]">
-                      <div className={styles.detailValue}>&nbsp;{item?.print}</div>
+                      <div className={`mt-[20px] ${styles.detailValue}`}>{item?.print}</div>
+                      {orderDetails?.service === 'blinks' ? (
+                        <div className={`mt-[9px] ${styles.detailValue}`}>{item?.description}</div>
+                      ) : (
+                        <div>
+                          <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
+                          <div className={`mt-[9px] ${styles.detailValue}`}>
+                            Size:&nbsp;
+                            {item?.size === 'S' || item?.size === 'YXS'
+                              ? 'Small'
+                              : item?.size === 'M' || item?.size === 'YS'
+                              ? 'Medium'
+                              : item?.size === 'L' || item?.size === 'YM'
+                              ? 'Large'
+                              : item?.size === 'XL' || item?.size === 'YL'
+                              ? 'X-Large'
+                              : item?.size === '2XL' || item?.size === 'YXL'
+                              ? '2X-Large'
+                              : ''}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{item?.quantity}</div>
+                      <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${item?.price?.toFixed(2)}</div>
+
+                      {/* <div className={styles.detailValue}>&nbsp;{item?.print}</div>
                       <div className={styles.detailValue}>
                         &nbsp;{item?.apparel.slice(30)}&nbsp;
                         {`(${
@@ -969,7 +1021,7 @@ const MerchDetail = () => {
                         ) : (
                           <div className={styles.priceValue}>${orderDetails ? orderDetails.total : '---'}</div>
                         )}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}
@@ -1026,7 +1078,9 @@ const MerchDetail = () => {
               {!orderDetails ? (
                 <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
               ) : SSOrder?.orderStatus === 'shipped' ? (
-                <div className={styles.infoValue}>{fulfillment ? fulfillment.carrierCode : ''}</div>
+                <div className={styles.infoValue}>
+                  {fulfillment ? fulfillment.carrierCode : 'Hidden for Buyer Safety'}
+                </div>
               ) : (
                 <div className={styles.infoValue}>
                   {orderDetails?.orderNumber === '' && !isOwn
