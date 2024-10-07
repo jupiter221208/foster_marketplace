@@ -9,7 +9,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // components
 import { getOrder, ShipStationShipment } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
-import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
+import { getShippingServiceName } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import { useAuthentication } from 'hooks/useAuthentication'
 import Alert from 'components/Alert'
@@ -35,8 +35,7 @@ const MerchDetail = () => {
   const { id } = router.query
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
-  const type = useSelector<any>(state => state.orderVersion)
-  const orderTabType = useSelector<any>(state => state.orderType)
+  const [orderTabType, setOrderTabType] = useState('buyer')
   const [orderData, setOrderData] = useState<any | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [SSOrder, setSSOrder] = useState(null)
@@ -53,7 +52,6 @@ const MerchDetail = () => {
   const [helpBody, setHelpBody] = useState('')
   const [reviewTitle, setReviewTitle] = useState('')
   const [reviewBody, setReviewBody] = useState('')
-  const [commission, setCommission] = useState(null)
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [showShippedModal, setShowShippedModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -62,8 +60,10 @@ const MerchDetail = () => {
   const [merchType, setMerchType] = useState('')
   useEffect(() => {
     if (publicKey) setEmailBody()
+    if (profileInfo?.id == orderData?.userId) setOrderTabType('buyer')
+    else setOrderTabType('seller')
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileInfo, publicKey])
+  }, [profileInfo, publicKey, orderData])
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
@@ -202,39 +202,28 @@ const MerchDetail = () => {
       dispatch({ type: 'set', cartUpdated: true })
     }
 
-    if (type === 'sales') {
-      let commissionData = Object.entries(orderVersion === 'v1' ? order.seller_shares : orderData.paymentSplits).map(
-        ([address, value]) => {
-          return { address, value }
-        }
-      )
+    //   let commissionData = Object.entries(orderVersion === 'v1' ? order.seller_shares : orderData.paymentSplits).map(
+    //     ([address, value]) => {
+    //       return { address, value }
+    //     }
+    //   )
 
-      commissionData?.forEach(item => {
-        if (item.address == publicKey?.toBase58()) {
-          const index = commissionData.indexOf(item)
-          setCommission(commissionData[index].value)
-        }
-      })
+    //   commissionData?.forEach(item => {
+    //     if (item.address == publicKey?.toBase58()) {
+    //       const index = commissionData.indexOf(item)
+    //       setCommission(commissionData[index].value)
+    //     }
+    //   })
 
-      setPaymentDetails({
-        method: orderVersion === 'v1' ? order.payment_method : orderData.paymentMethod,
-        status: 'Complete',
-        shipping: orderVersion === 'v1' ? order.shipping_amount.toFixed(2) : ssorder.shippingAmount.toFixed(2),
-        tax: orderVersion === 'v1' ? order.tax_amount.toFixed(2) : ssorder.taxAmount.toFixed(2),
-        txId: orderVersion === 'v1' ? order.transaction_id : orderData.transactionId,
-        paidBy: orderVersion === 'v1' ? order.buyer_address : '',
-      })
-    } else {
-      setPaymentDetails({
-        method: orderVersion === 'v1' ? order.payment_method : orderData.paymentMethod,
-        status: 'Complete',
-        shipping: orderVersion === 'v1' ? order.shipping_amount.toFixed(2) : ssorder.shippingAmount.toFixed(2),
-        tax: orderVersion === 'v1' ? order.tax_amount.toFixed(2) : ssorder.taxAmount.toFixed(2),
-        txId: orderVersion === 'v1' ? order.transaction_id : orderData.transactionId,
-        paidBy: orderVersion === 'v1' ? order.buyer_address : '',
-        commission: orderVersion === 'v1' ? order.artist_commission.toFixed(2) : '',
-      })
-    }
+    setPaymentDetails({
+      method: orderVersion === 'v1' ? order.payment_method : orderData.paymentMethod,
+      status: 'Complete',
+      shipping: orderVersion === 'v1' ? order.shipping_amount.toFixed(2) : ssorder.shippingAmount.toFixed(2),
+      tax: orderVersion === 'v1' ? order.tax_amount.toFixed(2) : ssorder.taxAmount.toFixed(2),
+      txId: orderVersion === 'v1' ? order.transaction_id : orderData.transactionId,
+      paidBy: orderVersion === 'v1' ? order.buyer_address : '',
+    })
+    // }
 
     if (orderVersion === 'v1') setIsOwn(order.buyer_address === publicKey?.toBase58())
     else setIsOwn(true)
@@ -294,7 +283,8 @@ const MerchDetail = () => {
   }
 
   const getShippingMethod = method => {
-    if (method === 'gp_plus') {
+    if (method === undefined) return 'Hidden for buyer safety'
+    else if (method === 'gp_plus') {
       return 'GlobalPost Plus Intl'
     } else if (method === 'blinks') {
       if (SSOrder?.orderStatus === 'shipped') return 'BLINKS'
@@ -302,8 +292,6 @@ const MerchDetail = () => {
     } else return method
   }
 
-  console.log(fulfillment, '========fulfillment=======')
-  console.log(orderDetails, '========orderDetails=======')
   return (
     <div className="g-container">
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
@@ -433,30 +421,13 @@ const MerchDetail = () => {
                 <div>
                   <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                 </div>
-              ) : trackingDetails === null ? (
-                <div>
-                  <Button
-                    height="48px"
-                    fontSize="18px"
-                    fontFamily="Muli-SemiBold"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Track package"
-                    disabled={true}
-                    backgroundColor="transparent"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    borderWidth={1}
-                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                    width={335}
-                    onClick={() => {}}
-                  />
-                </div>
               ) : (
                 <div>
                   <OutlineButton
                     borderColor="var(--follow-btn-border-mobile)"
                     width={335}
                     label="Track package"
+                    disabled={trackingDetails === null}
                     onClick={() => {
                       window.location.href = 'mailto:admin@Fostermarketplace.app'
                     }}
@@ -484,36 +455,19 @@ const MerchDetail = () => {
 
               {orderVersion === 'v2' && (
                 <div className="mt-[12px]">
-                  {orderTabType === 'sales' ? (
-                    <Button
-                      height="48px"
-                      fontSize="18px"
-                      fontFamily="Muli-SemiBold"
-                      paddingLeft="37px"
-                      paddingRight="37px"
-                      label="Write a product review"
-                      disabled={true}
-                      backgroundColor="transparent"
-                      borderColor="var(--follow-btn-border-mobile)"
-                      borderWidth={1}
-                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                      width={335}
-                      onClick={() => {}}
-                    />
-                  ) : (
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Write a product review"
-                      onClick={() => {
-                        setShowReviewModal(true)
-                      }}
-                    />
-                  )}
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a product review"
+                    disabled={orderTabType === 'seller'}
+                    onClick={() => {
+                      setShowReviewModal(true)
+                    }}
+                  />
                 </div>
               )}
 
-              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
+              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
                 <div className="mt-[12px]">
                   <GradientButton
                     width={335}
@@ -610,31 +564,13 @@ const MerchDetail = () => {
                 <div>
                   <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                 </div>
-              ) : trackingDetails === null ? (
-                <div>
-                  <Button
-                    height="48px"
-                    fontSize="18px"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Track package"
-                    disabled={true}
-                    backgroundColor="transparent"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    borderWidth={1}
-                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                    width={335}
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </div>
               ) : (
                 <div>
                   <OutlineButton
                     borderColor="var(--follow-btn-border-mobile)"
                     width={335}
                     label="Track package"
+                    disabled={trackingDetails === null}
                     onClick={() => {
                       window.location.href = 'mailto:admin@Fostermarketplace.app'
                     }}
@@ -660,36 +596,19 @@ const MerchDetail = () => {
               </div>
               {orderVersion === 'v2' && (
                 <div className="mt-[12px]">
-                  {orderTabType === 'sales' ? (
-                    <Button
-                      height="48px"
-                      fontSize="18px"
-                      fontFamily="Muli-SemiBold"
-                      paddingLeft="37px"
-                      paddingRight="37px"
-                      label="Write a product review"
-                      disabled={true}
-                      backgroundColor="transparent"
-                      borderColor="var(--follow-btn-border-mobile)"
-                      borderWidth={1}
-                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                      width={335}
-                      onClick={() => {}}
-                    />
-                  ) : (
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Write a product review"
-                      onClick={() => {
-                        setShowReviewModal(true)
-                      }}
-                    />
-                  )}
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a product review"
+                    disabled={orderTabType === 'seller'}
+                    onClick={() => {
+                      setShowReviewModal(true)
+                    }}
+                  />
                 </div>
               )}
 
-              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
+              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
                 <div className="mt-[12px]">
                   <GradientButton
                     width={335}
@@ -786,31 +705,13 @@ const MerchDetail = () => {
                   <div>
                     <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                   </div>
-                ) : trackingDetails === null ? (
-                  <div>
-                    <Button
-                      height="48px"
-                      fontSize="18px"
-                      paddingLeft="37px"
-                      paddingRight="37px"
-                      label="Track package"
-                      disabled={true}
-                      backgroundColor="transparent"
-                      borderColor="var(--follow-btn-border-mobile)"
-                      borderWidth={1}
-                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                      width={335}
-                      onClick={() => {
-                        window.location.href = 'mailto:admin@Fostermarketplace.app'
-                      }}
-                    />
-                  </div>
                 ) : (
                   <div>
                     <OutlineButton
                       borderColor="var(--follow-btn-border-mobile)"
                       width={335}
                       label="Track package"
+                      disabled={trackingDetails === null}
                       onClick={() => {
                         window.location.href = 'mailto:admin@Fostermarketplace.app'
                       }}
@@ -837,37 +738,19 @@ const MerchDetail = () => {
 
                 {orderVersion === 'v2' && (
                   <div className="mt-[12px]">
-                    {orderTabType === 'sales' ? (
-                      <Button
-                        height="48px"
-                        fontSize="18px"
-                        fontFamily="Muli-SemiBold"
-                        paddingLeft="37px"
-                        paddingRight="37px"
-                        label="Write a product review"
-                        disabled={true}
-                        backgroundColor="transparent"
-                        borderColor="var(--follow-btn-border-mobile)"
-                        borderWidth={1}
-                        color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                        width={335}
-                        onClick={() => {}}
-                      />
-                    ) : (
-                      <OutlineButton
-                        borderColor="var(--follow-btn-border-mobile)"
-                        width={335}
-                        label="Write a product review"
-                        disabled={orderTabType === 'sales'}
-                        onClick={() => {
-                          setShowReviewModal(true)
-                        }}
-                      />
-                    )}
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Write a product review"
+                      disabled={orderTabType === 'seller'}
+                      onClick={() => {
+                        setShowReviewModal(true)
+                      }}
+                    />
                   </div>
                 )}
 
-                {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
+                {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
                   <div className="mt-[12px]">
                     <GradientButton
                       width={335}
@@ -929,33 +812,6 @@ const MerchDetail = () => {
 
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${itemDetails?.price?.toFixed(2)}</div>
-
-              {/* <div className={styles.detailValue}>{itemDetails?.print}</div>
-              <div className={styles.detailValue}>
-                {itemDetails?.apparel.slice(0, 40)}&nbsp;
-                {`(${
-                  itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                    ? 'Small'
-                    : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                    ? 'Medium'
-                    : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                    ? 'Large'
-                    : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                    ? 'X-Large'
-                    : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                    ? '2X-Large'
-                    : ''
-                })`}
-              </div>
-              <div className={styles.detailValue}>{itemDetails?.color}</div>
-              <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div> */}
-              {/* <div className="mt-[20px]">
-                {!orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
-                ) : (
-                  <div className={styles.priceValue}>${orderDetails ? orderDetails.total : '---'}</div>
-                )}
-              </div> */}
             </div>
           </div>
         ) : (
@@ -995,33 +851,6 @@ const MerchDetail = () => {
 
                       <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{item?.quantity}</div>
                       <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${item?.price?.toFixed(2)}</div>
-
-                      {/* <div className={styles.detailValue}>&nbsp;{item?.print}</div>
-                      <div className={styles.detailValue}>
-                        &nbsp;{item?.apparel.slice(30)}&nbsp;
-                        {`(${
-                          item?.size === 'S' || item?.size === 'YXS'
-                            ? 'Small'
-                            : item?.size === 'M' || item?.size === 'YS'
-                            ? 'Medium'
-                            : item?.size === 'L' || item?.size === 'YM'
-                            ? 'Large'
-                            : item?.size === 'XL' || item?.size === 'YL'
-                            ? 'X-Large'
-                            : item?.size === '2XL' || item?.size === 'YXL'
-                            ? '2X-Large'
-                            : ''
-                        })`}
-                      </div>
-                      <div className={styles.detailValue}>&nbsp;{item?.color}</div>
-                      <div className={styles.detailValue}>&nbsp;Qty: {item?.quantity}</div>
-                      <div className="mt-[20px]">
-                        {!orderDetails ? (
-                          <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
-                        ) : (
-                          <div className={styles.priceValue}>${orderDetails ? orderDetails.total : '---'}</div>
-                        )}
-                      </div> */}
                     </div>
                   </div>
                 ))}
@@ -1122,23 +951,6 @@ const MerchDetail = () => {
             )}
           </div>
 
-          {/* {merchType !== 'foster' && merchType !== 'user' && (
-            <div className="w-full mt-[20px]">
-              <div className={styles.infoTitle}>Creator&nbsp;Commission</div>
-              {type && type === 'sales' ? (
-                !orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
-                ) : (
-                  <div className={`mt-[15px] ${styles.infoValue}`}>${commission?.toFixed(2)}</div>
-                )
-              ) : !orderDetails ? (
-                <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
-              ) : (
-                <div className={`mt-[15px] ${styles.infoValue}`}>${paymentDetails?.commission}</div>
-              )}
-            </div>
-          )} */}
-
           {paymentDetails?.paidBy && (
             <div className="w-full mt-[20px]">
               <div className={styles.infoTitle}>Paid&nbsp;By</div>
@@ -1184,30 +996,12 @@ const MerchDetail = () => {
               <div>
                 <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
               </div>
-            ) : trackingDetails === null ? (
-              <div>
-                <Button
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  label="Track package"
-                  disabled={true}
-                  backgroundColor="transparent"
-                  borderColor="var(--follow-btn-border-mobile)"
-                  borderWidth={1}
-                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                  width={335}
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </div>
             ) : (
               <div>
                 <OutlineButton
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
+                  disabled={trackingDetails === null}
                   label="Track package"
                   onClick={() => {
                     window.location.href = 'mailto:admin@Fostermarketplace.app'
@@ -1236,43 +1030,19 @@ const MerchDetail = () => {
 
             {orderVersion === 'v2' && (
               <div className="mt-[12px]">
-                {orderTabType === 'sales' ? (
-                  <Button
-                    height="48px"
-                    fontSize="16px"
-                    fontFamily="Muli-SemiBold"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Write a product review"
-                    disabled={true}
-                    backgroundColor="transparent"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    borderWidth={1}
-                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                    width={335}
-                    onClick={() => {}}
-                  />
-                ) : (
-                  <Button
-                    height="48px"
-                    fontSize="16px"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Write a product review"
-                    backgroundColor="transparent"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    borderWidth={1}
-                    color={'var(--text-gray-200-color)'}
-                    width={335}
-                    onClick={() => {
-                      setShowReviewModal(true)
-                    }}
-                  />
-                )}
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a product review"
+                  disabled={orderTabType === 'seller'}
+                  onClick={() => {
+                    setShowReviewModal(true)
+                  }}
+                />
               </div>
             )}
 
-            {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
+            {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
               <div className="mt-[12px]">
                 <GradientButton
                   width={335}

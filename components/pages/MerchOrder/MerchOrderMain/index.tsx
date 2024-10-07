@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import Lottie from 'lottie-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
 // next component
 
 //components
@@ -48,13 +50,15 @@ const MerchOrderMain = props => {
   } = props
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const detailViewRef = useRef(null)
+
   // const alertEmb = 'alert-emb'
   // const alertEmbMobile = 'alert-emb-mobile'
   // const alertNote = 'alert-note'
@@ -266,6 +270,11 @@ const MerchOrderMain = props => {
   }
 
   const onClickAddCart = () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
+
     let existingData = JSON.parse(localStorage.getItem('cart_v2')) || []
     if (!Array.isArray(existingData)) {
       existingData = []

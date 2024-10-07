@@ -104,6 +104,7 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
       setMerchList(list)
       setSelectedMerch(list[0])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [merchList, setMerchList] = useState([])
