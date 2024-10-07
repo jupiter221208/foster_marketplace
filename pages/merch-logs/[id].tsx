@@ -94,7 +94,7 @@ const MerchDetail = () => {
 
     let localData = JSON.parse(localStorage.getItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
-    if (ssorder?.items.length === 1) {
+    if (ssorder?.items?.length === 1) {
       let itemData = ssorder?.items[0]
       let options = itemData.options
       let nftName = findElement(options, 'name', 'nftName')
@@ -104,7 +104,7 @@ const MerchDetail = () => {
       let apparel = findElement(options, 'name', 'apparel')
       apparel = apparel ? apparel['value'] : ''
       setMerchType(optionType['value'])
-      if (optionType['value'] === 'foster' && apparel.length > 0) {
+      if (optionType['value'] === 'foster' && apparel?.length > 0) {
         apparel = apparel.split(' | ')[0]
       }
       let previewUrl = orderVersion === 'v1' ? itemData.imageUrl.split(',')[0] : itemData.imageUrl
@@ -131,21 +131,23 @@ const MerchDetail = () => {
 
       if (fosterUrlValue) {
         setPreviewUrl(fosterUrlValue)
-        localData?.forEach(item => {
-          if (item.version === 'v2') {
-            if (item.merchList[0].url === fosterUrlValue && item.data.quantity === itemData.quantity) {
-              const index = localData.indexOf(item)
-              localData.splice(index, 1)
+        if (localData?.length > 0) {
+          localData?.forEach(item => {
+            if (item.version === 'v2') {
+              if (item.merchList[0].url === fosterUrlValue && item.data.quantity === itemData.quantity) {
+                const index = localData.indexOf(item)
+                localData.splice(index, 1)
+              }
+            } else {
+              if (item.printImageUrl === fosterUrlValue) {
+                const index = localData.indexOf(item)
+                localData.splice(index, 1)
+              }
             }
-          } else {
-            if (item.printImageUrl === fosterUrlValue) {
-              const index = localData.indexOf(item)
-              localData.splice(index, 1)
-            }
-          }
-        })
-        localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
-        dispatch({ type: 'set', cartUpdated: true })
+          })
+          localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
+          dispatch({ type: 'set', cartUpdated: true })
+        }
       } else {
         setPreviewUrl(itemData.imageUrl)
       }
@@ -181,25 +183,27 @@ const MerchDetail = () => {
       })
       setList(itemList)
 
-      for (let index = localData.length - 1; index >= 0; index--) {
-        let item = localData[index]
-        itemList?.forEach(otherItem => {
-          if (item.version === 'v2') {
-            if (item.merchList[0].url === otherItem.fosterUrl && item.data.quantity === otherItem.quantity) {
-              const index = localData.indexOf(item)
-              localData.splice(index, 1)
+      if (localData?.length > 0) {
+        for (let index = localData?.length - 1; index >= 0; index--) {
+          let item = localData[index]
+          itemList?.forEach(otherItem => {
+            if (item.version === 'v2') {
+              if (item.merchList[0].url === otherItem.fosterUrl && item.data.quantity === otherItem.quantity) {
+                const index = localData.indexOf(item)
+                localData.splice(index, 1)
+              }
+            } else {
+              if (item.printImageUrl === otherItem.fosterUrl) {
+                const index = localData.indexOf(item)
+                localData.splice(index, 1)
+              }
             }
-          } else {
-            if (item.printImageUrl === otherItem.fosterUrl) {
-              const index = localData.indexOf(item)
-              localData.splice(index, 1)
-            }
-          }
-        })
-      }
+          })
+        }
 
-      localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
-      dispatch({ type: 'set', cartUpdated: true })
+        localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
+        dispatch({ type: 'set', cartUpdated: true })
+      }
     }
 
     //   let commissionData = Object.entries(orderVersion === 'v1' ? order.seller_shares : orderData.paymentSplits).map(
@@ -417,7 +421,7 @@ const MerchDetail = () => {
             </div>
 
             <div>
-              {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+              {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
                 <div>
                   <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                 </div>
@@ -480,7 +484,7 @@ const MerchDetail = () => {
               )}
             </div>
           </div>
-        ) : SSOrder?.items.length === 1 ? (
+        ) : SSOrder?.items?.length === 1 ? (
           <div className="w-full flex justify-between mt-[70px] gap-[30px]">
             <div className="w-[183px] h-[183px] object-cover">
               {!orderData ? (
@@ -560,7 +564,7 @@ const MerchDetail = () => {
             </div>
 
             <div>
-              {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+              {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
                 <div>
                   <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                 </div>
@@ -701,7 +705,7 @@ const MerchDetail = () => {
               </div>
 
               <div>
-                {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+                {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
                   <div>
                     <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                   </div>
@@ -779,7 +783,7 @@ const MerchDetail = () => {
       <div className="w-full lg:hidden block mt-[30px]">
         {!orderData ? (
           <div className="skeletonLoaderBasic w-full h-[120px] rounded-[12px]"></div>
-        ) : SSOrder?.items.length === 1 ? (
+        ) : SSOrder?.items?.length === 1 ? (
           <div className={styles.tableColor}>
             <div className="w-[auto]">
               <div className="w-[110px] h-auto object-cover">
@@ -992,7 +996,7 @@ const MerchDetail = () => {
         </div>
         <div className="w-full mt-[30px] mb-[100px] flex justify-center">
           <div>
-            {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+            {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
               <div>
                 <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
               </div>
