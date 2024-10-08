@@ -153,11 +153,9 @@ const PhysicalCheckout = ({
     let itemList = []
     ssorder.items.forEach(item => {
       let itemQuantity = item.quantity
-      let imageUrl = item.imageUrl
       let options = item.options
       var type = findElement(options, 'name', 'type')['value']
       var nftName = findElement(options, 'name', 'nftName')['value']
-      var name = item.name
       var apparel = findElement(options, 'name', 'apparel')
       apparel = apparel ? apparel['value'] : ''
       var size = findElement(options, 'name', 'size')
@@ -165,42 +163,19 @@ const PhysicalCheckout = ({
 
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
-        let type =
-          apparel +
-          ' ' +
-          '(' +
-          (size === 'XS'
-            ? 'X-Small'
-            : size === 'S' || size === 'YXS'
-            ? 'Small'
-            : size === 'M' || size === 'YS'
-            ? 'Medium'
-            : size === 'L' || size === 'YM'
-            ? 'Large'
-            : size === 'XL' || size === 'YL'
-            ? 'X-Large'
-            : size === '2XL' || size === 'YXL'
-            ? '2X-Large'
-            : size === '3XL'
-            ? '3X-Large'
-            : size === '4XL'
-            ? '4X-Large'
-            : size === '5XL'
-            ? '5X-Large'
-            : '') +
-          ')'
+        let type = apparel
         let colorText = getFirstUpperString(color)
         let qty = itemQuantity
         itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
         var technique = findElement(options, 'name', 'technique')['value']
-        let type = 'Print Technique: ' + (technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery')
+        let type = 'foster'
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = itemQuantity
         itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'user') {
-        let type = 'User Fulfilled Physical Print'
+        let type = 'user'
         let qty = itemQuantity
         itemList.push({ name: nftName, type, color: '', size, qty })
       }
@@ -274,7 +249,6 @@ const PhysicalCheckout = ({
       setIsPaySol(false)
       setIsPayUsd(false)
     } finally {
-      // setIsLoad(false)
       if (result) {
         setTimeout(() => {
           setShowAlert(true)
@@ -321,7 +295,11 @@ const PhysicalCheckout = ({
           <div className="mt-[7px] mb-[7px]">
             {list.map((item, index) => (
               <div key={index} className="pb-[5px]">
-                <div className={styles.itemDetails}>{item.name + ' (' + item.size + ') x ' + item.qty}</div>
+                <div className={styles.itemDetails}>
+                  {item.type === 'user'
+                    ? item.name + ' x ' + item.qty
+                    : item.name + ' (' + item.size + ') x ' + item.qty}
+                </div>
               </div>
             ))}
           </div>
@@ -380,116 +358,9 @@ const PhysicalCheckout = ({
             </div>
           </div>
         </div>
-
-        {/* <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[15px] lg:mt-[24px]">
-          <div className="w-full h-[160px] relative hidden lg:block">
-            <div className={styles.paymentMethod}>
-              Choose Payment Method <span>*</span>
-            </div>
-            <div className="w-full flex gap-[30px] mt-[16px]">
-              <div
-                className={`${styles.paymentBG} ${
-                  currency === 'sol' ? styles.selectedCurrency : styles.deselectedCurrency
-                }`}
-                onClick={() => setCurrency('sol')}
-              >
-                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-                  <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
-                </div>
-                <div className={styles.currencyName}>SOL</div>
-              </div>
-              <div
-                className={`${styles.paymentBG} ${
-                  currency === 'usdc' ? styles.selectedCurrency : styles.deselectedCurrency
-                }`}
-                onClick={() => setCurrency('usdc')}
-              >
-                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-                  <Image src={USDCIcon} width={37} height={37} alt="" />
-                </div>
-                <div className={styles.currencyName}>USDC</div>
-              </div>
-              
-            </div>
-          </div>
-        </div> */}
-
-        {/* SOL / USDC */}
-        {/* <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">
-          <div className={styles.paymentMethod}>
-            Choose Payment Method <span>*</span>
-          </div>
-          <div className="w-full flex gap-[8px] lg:gap-[30px] mt-[10px]">
-            <div
-              className={`${styles.paymentBG} ${
-                currency === 'sol' ? styles.selectedCurrency : styles.deselectedCurrency
-              }`}
-              onClick={() => setCurrency('sol')}
-            >
-              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
-                <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
-              </div>
-              <div className={styles.currencyName}>SOL</div>
-            </div>
-
-            <div
-              className={`${styles.paymentBG} ${
-                currency === 'usdc' ? styles.selectedCurrency : styles.deselectedCurrency
-              }`}
-              onClick={() => setCurrency('usdc')}
-            >
-              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
-                <Image src={USDCIcon} width={37} height={37} alt="" />
-              </div>
-              <div className={styles.currencyName}>USDC</div>
-            </div>
-            <div
-              className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
-              onClick={() => setCurrency('card')}
-            >
-              <div className="w-full h-full flex justify-center items-center">
-                <div className="flex flex-col justify-center gap-[15px]">
-                  <Image src={HelioIcon} width={37} height={37} alt="" />
-                  <div className={styles.currencyName}>Helio</div>
-                </div>
-              </div>
-              {helioOpacity === 1 ? (
-                <div className="absolute inset-0 flex justify-center">
-                  <div
-                    className={styles.helioContainer}
-                    style={{
-                      opacity: helioOpacity,
-                    }}
-                  >
-                    <HelioCheckout config={helioConfig} />
-                  </div>
-                </div>
-              ) : (
-                <div className="absolute inset-0 flex flex-col justify-center items-center">
-                  <div className={styles.payWithHelio}>PAY</div>
-                  <div className={styles.payWithHelio}>WITH</div>
-                  <div className={styles.payWithHelio}>HELIO</div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div> */}
       </div>
 
       <div className={styles.bottomSection}>
-        {/* <div className="w-full flex justify-between mb-[20px] px-[5px]">
-          <div>
-            <div className={styles.orderTotal}>Total</div>
-            {merchType !== 'user' && <div className={styles.orderDesc}>Including taxes and shipping</div>}
-          </div>
-          <div className="">
-            <div className="flex gap-1 items-center justify-end">
-              <SolanaIcon alt="" className="mt-[2px]" />
-              <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
-            </div>
-            {merchType !== 'user' && <div className={styles.totalUSD}>${total ? total.toFixed(2) : '---'}</div>}
-          </div>
-        </div> */}
         <div className="w-full flex flex-col gap-[10px] mb-[30px]">
           {isPayUsd ? (
             <LoadingPrimaryButton fullWidth />
