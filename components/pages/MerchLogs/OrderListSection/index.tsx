@@ -165,7 +165,14 @@ const OrderListSection = props => {
                         </div>
                         {orderVersion === 'v2' && orderTabType !== 'seller' ? (
                           <div className="flex gap-[14px] items-center">
-                            <div className={styles.writeText}>Write a review</div>
+                            <div
+                              className={styles.writeText}
+                              onClick={() => {
+                                setShowReviewModal(true)
+                              }}
+                            >
+                              Write a review
+                            </div>
                             <div className={styles.border}></div>
                             <div className={styles.writeText}>View Item</div>
                           </div>

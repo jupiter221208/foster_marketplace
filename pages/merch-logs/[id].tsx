@@ -382,41 +382,8 @@ const MerchDetail = () => {
                   }
                 />
               )}
-              {/* {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
-            ) : (
-              <div className={styles.infoValue}>
-                {orderDetails?.orderNumber === '' && !isOwn ? (
-                  'Hidden for Buyer Safety'
-                ) : orderDetails?.shipTo.street === '---' ? (
-                  'Hidden for Buyer Safety'
-                ) : (
-                  <div>
-                    {orderDetails?.shipTo.street}
-                    <br />
-                    {orderDetails?.shipTo.city}
-                  </div>
-                )}
-              </div>
-            )} */}
             </div>
           </div>
-          {/* <div>
-            <div className={styles.infoTitle}>SHIPPING METHOD</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
-            ) : SSOrder?.orderStatus === 'shipped' ? (
-              <div className={styles.infoValue}>
-                {fulfillment ? fulfillment.carrierCode : 'Hidden for Buyer Safety'}
-              </div>
-            ) : (
-              <div className={styles.infoValue}>
-                {orderDetails?.orderNumber === '' && !isOwn
-                  ? 'Hidden for Buyer Safety'
-                  : getShippingMethod(orderDetails?.service)}
-              </div>
-            )}
-          </div> */}
           <div>
             <div className={styles.orderNumber}>Order# {id}</div>
             <div className="flex gap-[14px] mt-[8px] items-center">
@@ -437,21 +404,6 @@ const MerchDetail = () => {
               <div className={styles.border} />
               <PaymentDetailDropDown SSOrder={SSOrder} paymentDetails={paymentDetails} />
             </div>
-            {/* {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
-            ) : SSOrder?.orderStatus === 'shipped' ? (
-              <div className={styles.infoValue}>
-                {fulfillment ? fulfillment.trackingNumber : 'Hidden for Buyer Safety'}
-              </div>
-            ) : (
-              <div className={`${styles.infoValue} text-left`}>
-                {orderDetails?.orderNumber === '' && !isOwn
-                  ? 'Hidden for Buyer Safety'
-                  : trackingDetails === null && connected
-                  ? 'Pending Order Creation'
-                  : trackingDetails?.trackingNumber}
-              </div>
-            )} */}
           </div>
         </div>
 
