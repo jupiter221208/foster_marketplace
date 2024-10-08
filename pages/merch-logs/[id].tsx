@@ -20,14 +20,18 @@ import GradientButton from 'components/Button/GradientButton'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
+import OutlineButton from 'components/Button/OutlineButton'
 import ArrowLeftIcon from 'assets/icons/back-arrow.svg?component'
 
 // Styles
 import styles from './id.module.scss'
-import OutlineButton from 'components/Button/OutlineButton'
 
 // api
 import StoreAPI from 'apis/store'
+import OrderListSection from 'components/pages/MerchLogs/OrderListSection'
+import ShipToDropDown from 'components/pages/MerchLogs/ShipToDropDown'
+import ShippingDetailDropDown from 'components/pages/MerchLogs/ShippingDetailDropDown'
+import PaymentDetailDropDown from 'components/pages/MerchLogs/PaymentDetailDropDown'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -94,6 +98,8 @@ const MerchDetail = () => {
 
     let localData = JSON.parse(localStorage.getItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
+    let itemList = []
+
     if (ssorder?.items?.length === 1) {
       let itemData = ssorder?.items[0]
       let options = itemData.options
@@ -111,9 +117,10 @@ const MerchDetail = () => {
       let fosterUrl = findElement(options, 'name', 'fosterUrl')
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
+      let item_details
       if (options) {
         let item = orderData.items && orderData.items[0]
-        let itemDetails = {
+        item_details = {
           userId: item?.userId,
           merchId: item?.id,
           type: optionType['value'],
@@ -126,11 +133,13 @@ const MerchDetail = () => {
           apparel: apparel,
           price: orderVersion === 'v1' ? itemData.unitPrice : item?.sellingPrice / 100,
         }
-        setItemDetails(itemDetails)
+        setItemDetails(item_details)
       }
 
+      let preview_url
       if (fosterUrlValue) {
-        setPreviewUrl(fosterUrlValue)
+        preview_url = fosterUrlValue
+
         if (localData?.length > 0) {
           localData?.forEach(item => {
             if (item.version === 'v2') {
@@ -149,10 +158,13 @@ const MerchDetail = () => {
           dispatch({ type: 'set', cartUpdated: true })
         }
       } else {
-        setPreviewUrl(itemData.imageUrl)
+        preview_url = itemData.imageUrl
       }
+      setPreviewUrl(preview_url)
+
+      itemList.push({ ...item_details, fosterUrl: preview_url })
+      setList(itemList)
     } else {
-      let itemList = []
       ssorder?.items.forEach(itemData => {
         let options = itemData.options
         let nftName = findElement(options, 'name', 'nftName')
@@ -316,30 +328,61 @@ const MerchDetail = () => {
       {/* Desktop */}
       <div className="w-full lg:block hidden mt-[30px]">
         <div className={styles.orderInfo}>
-          <div>
-            <div className={styles.infoTitle}>ORDER PLACED</div>
-            <div className={styles.infoValue}>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[100px] h-[40px] rounded-[8px]"></div>
-              ) : (
-                orderDetails?.orderPlaced
-              )}
+          <div className="w-full flex gap-[85px]">
+            <div>
+              <div className={styles.infoTitle}>Order Placed</div>
+              <div className={styles.infoValue}>
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[100px] h-[40px] rounded-[8px]"></div>
+                ) : (
+                  orderDetails?.orderPlaced
+                )}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className={styles.infoTitle}>TOTAL</div>
-            <div className={styles.infoValue}>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[50px] h-[40px] rounded-[8px]"></div>
-              ) : (
-                '$' + orderDetails?.total
-              )}
+            <div>
+              <div className={styles.infoTitle}>Total</div>
+              <div className={styles.infoValue}>
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[50px] h-[40px] rounded-[8px]"></div>
+                ) : (
+                  '$' + orderDetails?.total
+                )}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className={styles.infoTitle}>SHIP TO</div>
+            <div>
+              <div className={styles.infoTitle}>Shipping Status</div>
+              <div className={styles.infoValue}>
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[50px] h-[40px] rounded-[8px]"></div>
+                ) : SSOrder?.orderStatus === 'shipped' ? (
+                  'Shipped'
+                ) : (
+                  'Awaiting Shipment'
+                )}
+              </div>
+            </div>
+            <div>
+              <div className={styles.infoTitle}>Ship to</div>
 
-            {!orderDetails ? (
+              {SSOrder?.billTo && (
+                <ShipToDropDown
+                  name={SSOrder?.billTo?.name}
+                  address={
+                    orderDetails?.orderNumber === '' && !isOwn ? (
+                      'Hidden for Buyer Safety'
+                    ) : orderDetails?.shipTo.street === '---' ? (
+                      'Hidden for Buyer Safety'
+                    ) : (
+                      <div>
+                        {orderDetails?.shipTo.street}
+                        <br />
+                        {orderDetails?.shipTo.city}
+                      </div>
+                    )
+                  }
+                />
+              )}
+              {/* {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
             ) : (
               <div className={styles.infoValue}>
@@ -355,9 +398,10 @@ const MerchDetail = () => {
                   </div>
                 )}
               </div>
-            )}
+            )} */}
+            </div>
           </div>
-          <div>
+          {/* <div>
             <div className={styles.infoTitle}>SHIPPING METHOD</div>
             {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
@@ -372,10 +416,28 @@ const MerchDetail = () => {
                   : getShippingMethod(orderDetails?.service)}
               </div>
             )}
-          </div>
+          </div> */}
           <div>
-            <div className={styles.infoTitle}>TRACKING NUMBER</div>
-            {!orderDetails ? (
+            <div className={styles.orderNumber}>Order# {id}</div>
+            <div className="flex gap-[14px] mt-[8px] items-center">
+              <ShippingDetailDropDown
+                tracking={
+                  orderDetails?.orderNumber === '' && !isOwn
+                    ? 'Hidden for Buyer Safety'
+                    : trackingDetails === null && connected
+                    ? 'Pending Order Creation'
+                    : trackingDetails?.trackingNumber
+                }
+                shipping={
+                  orderDetails?.orderNumber === '' && !isOwn
+                    ? 'Hidden for Buyer Safety'
+                    : getShippingMethod(orderDetails?.service)
+                }
+              />
+              <div className={styles.border} />
+              <PaymentDetailDropDown SSOrder={SSOrder} paymentDetails={paymentDetails} />
+            </div>
+            {/* {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
             ) : SSOrder?.orderStatus === 'shipped' ? (
               <div className={styles.infoValue}>
@@ -389,401 +451,35 @@ const MerchDetail = () => {
                   ? 'Pending Order Creation'
                   : trackingDetails?.trackingNumber}
               </div>
-            )}
+            )} */}
           </div>
         </div>
-        {!orderData ? (
-          <div className="w-full flex justify-between mt-[70px]">
-            <div className="w-[183px] h-[183px] object-cover">
-              <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
-            </div>
-            <div className="max-w-[300px]">
-              <div className={styles.detailTitle}>Item Details</div>
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[9px]"></div>
-              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[9px]"></div>
-            </div>
 
-            <div>
-              <div className={styles.detailTitle}>Payment Details</div>
-              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
-              {orderVersion === 'v1' && (
-                <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
-              )}
-              {orderVersion === 'v1' && (
-                <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[15px]"></div>
-              )}
+        <OrderListSection
+          SSOrder={SSOrder}
+          setShowShippedModal={setShowShippedModal}
+          orderData={orderData}
+          orderDetails={orderDetails}
+          orderVersion={orderVersion}
+          merchType={merchType}
+          paymentDetails={paymentDetails}
+          trackingDetails={trackingDetails}
+          helpTitle={helpTitle}
+          helpBody={helpBody}
+          orderTabType={orderTabType}
+          setShowReviewModal={setShowReviewModal}
+          orderList={list}
+          retryPayment={retryPayment}
+        />
 
-              <div className="skeletonLoaderBasic w-[50px] h-[20px] rounded-full mt-[15px]"></div>
-            </div>
-
-            <div>
-              {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
-                <div>
-                  <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
-                </div>
-              ) : (
-                <div>
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Track package"
-                    disabled={trackingDetails === null}
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </div>
-              )}
-
-              <div className="mt-[12px]">
-                <a
-                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                    subject: helpTitle,
-                    body: helpBody,
-                  })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Get help"
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </a>
-              </div>
-
-              {orderVersion === 'v2' && (
-                <div className="mt-[12px]">
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    disabled={orderTabType === 'seller'}
-                    onClick={() => {
-                      setShowReviewModal(true)
-                    }}
-                  />
-                </div>
-              )}
-
-              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
-                <div className="mt-[12px]">
-                  <GradientButton
-                    width={335}
-                    label="Mark as Shipped"
-                    onClick={() => {
-                      setShowShippedModal(true)
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        ) : SSOrder?.items?.length === 1 ? (
-          <div className="w-full flex justify-between mt-[70px] gap-[30px]">
-            <div className="w-[183px] h-[183px] object-cover">
-              {!orderData ? (
-                <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
-              ) : (
-                <img src={previewUrl} alt="" />
-              )}
-            </div>
-            <div className="max-w-[450px]">
-              <div className={styles.detailTitle}>Item Details</div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>Name:&nbsp;{itemDetails?.print}</div>
-              {orderDetails?.service === 'blinks' ? (
-                <div className={`mt-[9px] ${styles.detailValue}`}>{itemDetails?.description}</div>
-              ) : (
-                itemDetails?.type !== 'user' && (
-                  <div>
-                    <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
-
-                    <div className={`mt-[9px] ${styles.detailValue}`}>
-                      Size:&nbsp;
-                      {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                        ? 'Small'
-                        : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                        ? 'Medium'
-                        : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                        ? 'Large'
-                        : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                        ? 'X-Large'
-                        : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                        ? '2X-Large'
-                        : ''}
-                    </div>
-                  </div>
-                )
-              )}
-
-              <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-              <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${itemDetails?.price?.toFixed(2)}</div>
-            </div>
-
-            <div>
-              <div className={styles.detailTitle}>Payment Details</div>
-              {SSOrder?.billTo && (
-                <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo?.name}</div>
-              )}
-              {SSOrder?.billTo && (
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Buyer&nbsp;Email:&nbsp;
-                  <span
-                    className={styles.buyerEmail}
-                    onClick={() => {
-                      window.location.href = 'mailto:' + SSOrder?.customerEmail
-                    }}
-                  >
-                    {SSOrder?.customerEmail}
-                  </span>
-                </div>
-              )}
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
-              </div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-              </div>
-              {/* {merchType !== 'foster' && merchType !== 'user' && (
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
-                </div>
-              )} */}
-              {paymentDetails?.paidBy && (
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-                </div>
-              )}
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
-              </div>
-
-              <div className={`mt-[15px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
-            </div>
-
-            <div>
-              {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
-                <div>
-                  <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
-                </div>
-              ) : (
-                <div>
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Track package"
-                    disabled={trackingDetails === null}
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </div>
-              )}
-              <div className="mt-[12px]">
-                <a
-                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                    subject: helpTitle,
-                    body: helpBody,
-                  })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Get help"
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </a>
-              </div>
-              {orderVersion === 'v2' && (
-                <div className="mt-[12px]">
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    disabled={orderTabType === 'seller'}
-                    onClick={() => {
-                      setShowReviewModal(true)
-                    }}
-                  />
-                </div>
-              )}
-
-              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
-                <div className="mt-[12px]">
-                  <GradientButton
-                    width={335}
-                    label="Mark as Shipped"
-                    onClick={() => {
-                      setShowShippedModal(true)
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="w-full flex mt-[70px] gap-20">
-            <div className={styles.orderContainer}>
-              <div className="flex flex-col gap-[37px] overflow-y-auto">
-                {list &&
-                  list.map((item, index) => (
-                    <div key={index} className="flex flex-row justify-between w-full">
-                      <div className="object-cover">
-                        <img src={item.fosterUrl} style={{ height: '183px' }} alt="" />
-                      </div>
-                      <div className="w-1/2 flex flex-col justify-start">
-                        <div className={styles.detailTitle}>Item Details</div>
-                        <div className={`mt-[20px] ${styles.detailValue}`}>{item?.print}</div>
-                        {orderDetails?.service === 'blinks' ? (
-                          <div className={`mt-[9px] ${styles.detailValue}`}>{item?.description}</div>
-                        ) : (
-                          item?.type !== 'user' && (
-                            <div>
-                              <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
-                              <div className={`mt-[9px] ${styles.detailValue}`}>
-                                Size:&nbsp;
-                                {item?.size === 'S' || item?.size === 'YXS'
-                                  ? 'Small'
-                                  : item?.size === 'M' || item?.size === 'YS'
-                                  ? 'Medium'
-                                  : item?.size === 'L' || item?.size === 'YM'
-                                  ? 'Large'
-                                  : item?.size === 'XL' || item?.size === 'YL'
-                                  ? 'X-Large'
-                                  : item?.size === '2XL' || item?.size === 'YXL'
-                                  ? '2X-Large'
-                                  : ''}
-                              </div>
-                            </div>
-                          )
-                        )}
-
-                        <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{item?.quantity}</div>
-                        <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${item?.price?.toFixed(2)}</div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <div className="flex w-1/2 justify-between">
-              <div>
-                <div className={styles.detailTitle}>Payment Details</div>
-                {SSOrder?.billTo && (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo?.name}</div>
-                )}
-                {SSOrder?.billTo && (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>
-                    Buyer&nbsp;Email:&nbsp;
-                    <span
-                      className={styles.buyerEmail}
-                      onClick={() => {
-                        window.location.href = 'mailto:' + SSOrder?.customerEmail
-                      }}
-                    >
-                      {SSOrder?.customerEmail}
-                    </span>
-                  </div>
-                )}
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
-                </div>
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-                </div>
-
-                {paymentDetails?.paidBy && (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>
-                    Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-                  </div>
-                )}
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
-                </div>
-                <div className={`mt-[15px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
-              </div>
-
-              <div>
-                {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
-                  <div>
-                    <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
-                  </div>
-                ) : (
-                  <div>
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Track package"
-                      disabled={trackingDetails === null}
-                      onClick={() => {
-                        window.location.href = 'mailto:admin@Fostermarketplace.app'
-                      }}
-                    />
-                  </div>
-                )}
-                <div className="mt-[12px]">
-                  <a
-                    href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                      subject: helpTitle,
-                      body: helpBody,
-                    })}`}
-                  >
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Get help"
-                      onClick={() => {
-                        window.location.href = 'mailto:admin@Fostermarketplace.app'
-                      }}
-                    />
-                  </a>
-                </div>
-
-                {orderVersion === 'v2' && (
-                  <div className="mt-[12px]">
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Write a product review"
-                      disabled={orderTabType === 'seller'}
-                      onClick={() => {
-                        setShowReviewModal(true)
-                      }}
-                    />
-                  </div>
-                )}
-
-                {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
-                  <div className="mt-[12px]">
-                    <GradientButton
-                      width={335}
-                      label="Mark as Shipped"
-                      onClick={() => {
-                        setShowShippedModal(true)
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="w-full flex justify-center mt-[75px]">
+        {/* <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.infoValue}>
             Shipping Status: {SSOrder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
           </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.separator}></div>
-        </div>
+        </div> */}
       </div>
       {/* Mobile */}
       <div className="w-full lg:hidden block mt-[30px]">
