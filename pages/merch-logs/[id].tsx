@@ -786,12 +786,12 @@ const MerchDetail = () => {
         ) : SSOrder?.items?.length === 1 ? (
           <div className={styles.tableColor}>
             <div className="w-[auto]">
-              <div className="w-[110px] h-auto object-cover">
+              <div className="w-[110px] h-auto object-cover flex items-center">
                 <img src={previewUrl} alt="" />
               </div>
             </div>
             <div className="w-full text-left ml-[22px]">
-              <div className={`mt-[20px] ${styles.detailValue}`}>{itemDetails?.print}</div>
+              <div className={`${styles.detailValue}`}>{itemDetails?.print}</div>
               {orderDetails?.service === 'blinks' ? (
                 <div className={`mt-[9px] ${styles.detailValue}`}>{itemDetails?.description}</div>
               ) : (
@@ -825,12 +825,12 @@ const MerchDetail = () => {
                 list.map((item, index) => (
                   <div key={index} className={styles.tableColor}>
                     <div className="w-full flex">
-                      <div className="w-[110px] h-auto object-cover">
+                      <div className="w-[110px] h-auto object-cover flex items-center">
                         <img src={item.fosterUrl} alt="" />
                       </div>
                     </div>
                     <div className="w-full text-left ml-[22px]">
-                      <div className={`mt-[20px] ${styles.detailValue}`}>{item?.print}</div>
+                      <div className={`${styles.detailValue}`}>{item?.print}</div>
                       {orderDetails?.service === 'blinks' ? (
                         <div className={`mt-[9px] ${styles.detailValue}`}>{item?.description}</div>
                       ) : (
