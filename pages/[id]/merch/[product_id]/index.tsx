@@ -141,7 +141,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
             <div className="lg:block hidden">
               <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
                 <ArrowLeftIcon />
-                Back to store
+                <div>Back&nbsp;to&nbsp;store</div>
               </div>
             </div>
 

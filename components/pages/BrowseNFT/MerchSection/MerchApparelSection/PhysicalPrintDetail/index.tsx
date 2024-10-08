@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import { useRouter } from 'next/router'
-
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
 // components
 
 // custom functions
@@ -22,14 +23,12 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { useViewport } from 'utils'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
 import SizeChartModal from 'components/Modal/SizeChartModal'
 import Image from 'next/image'
 import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
 import QuantityCard from 'components/Card/QuantityCard'
-import { useAuthentication } from 'hooks/useAuthentication'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import Alert from 'components/Alert'
@@ -38,7 +37,7 @@ import Alert from 'components/Alert'
 
 const PhysicalPrintDetail = props => {
   const { onBack, onPrint, onShipping, onAddCart, data, setData, nftName, nftCoverUrl, subCategory, base } = props
-  const viewport = useViewport()
+  const { setVisible } = useWalletModal()
   const { solToUsdRate } = useSolToUsdRate()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState(null)
@@ -61,7 +60,7 @@ const PhysicalPrintDetail = props => {
   const dispatch = useDispatch()
   const router = useRouter()
   const id = router.query.id
-  const { profileInfo } = useAuthentication()
+  const { connected } = useWallet()
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
@@ -268,6 +267,11 @@ const PhysicalPrintDetail = props => {
     return ''
   }
   const handleSaveData = () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
+
     let data = { apparel, gender, color, print, quality, size, quantity, cost }
     onAddCart(data)
     setAlertData([

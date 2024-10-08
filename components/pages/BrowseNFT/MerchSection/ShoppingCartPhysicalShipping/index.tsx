@@ -250,7 +250,6 @@ const ShoppingCartPhysicalShipping = props => {
       notes: 'Checkout Note',
     }
 
-    setIsLoading(false)
     storeAPI.checkout(params).then(
       response => {
         if (response.orderNumber === undefined) {

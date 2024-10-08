@@ -34,7 +34,7 @@ const OutlineButton = props => {
       type="button"
       onClick={() => onClick()}
       disabled={disabled}
-      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
+      className={`${styles.container} ${disabled ? 'opacity-70' : styles.hover} gap-2 xl:gap-4 whitespace-nowrap`}
       style={{
         backgroundColor: backgroundColor,
         color: color,

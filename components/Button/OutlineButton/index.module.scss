@@ -29,12 +29,16 @@
   letter-spacing: 0;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
 
+
+  transition: opacity 0.2s;
+  transition-timing-function: ease-in-out;
+  outline: none;
+}
+
+.hover {
   &:hover {
     @media (min-width: 1024px) {
       color: rgba(var(--text-gray-200-color-rgb), 1) !important;
     }
   }
-  transition: opacity 0.2s;
-  transition-timing-function: ease-in-out;
-  outline: none;
 }

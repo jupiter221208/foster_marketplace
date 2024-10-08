@@ -38,6 +38,7 @@ const MerchEditionSection = () => {
     if (profileInfo) {
       getMerchList()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   useEffect(() => {
@@ -58,6 +59,7 @@ const MerchEditionSection = () => {
       setFilteredList(list)
       dispatch({ type: 'set', cartUpdated: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartUpdated])
 
   const checkCartList = unclaimedList => {
