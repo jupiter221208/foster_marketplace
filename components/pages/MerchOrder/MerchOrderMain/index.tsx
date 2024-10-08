@@ -445,34 +445,38 @@ const MerchOrderMain = props => {
                         <div>
                           <div className={`${styles.supplyName} text-right`}>{getStartStatus()}</div>
                           <div className="mt-[11px]">
-                            <div className={styles.bidCountContainer}>
-                              {timeLeft && timeLeft['days'] !== '00' && (
-                                <div>
+                            {isExpired ? (
+                              <div className={`${styles.supplyValue} text-end`}>Expired</div>
+                            ) : (
+                              <div className={styles.bidCountContainer}>
+                                {timeLeft && timeLeft['days'] !== '00' && (
+                                  <div>
+                                    <div className={styles.endTimeCart}>
+                                      {timeLeft && timeLeft['days']}
+                                      {timeLeft && <div className={styles.bidDescCart}>d</div>}
+                                    </div>
+                                  </div>
+                                )}
+                                <div className={styles.endTimeContainer}>
                                   <div className={styles.endTimeCart}>
-                                    {timeLeft && timeLeft['days']}
-                                    {timeLeft && <div className={styles.bidDescCart}>d</div>}
+                                    {timeLeft && timeLeft['hours']}
+                                    {timeLeft && <div className={styles.bidDescCart}>h</div>}
                                   </div>
                                 </div>
-                              )}
-                              <div className={styles.endTimeContainer}>
-                                <div className={styles.endTimeCart}>
-                                  {timeLeft && timeLeft['hours']}
-                                  {timeLeft && <div className={styles.bidDescCart}>h</div>}
+                                <div className={styles.endTimeContainer}>
+                                  <div className={styles.endTimeCart}>
+                                    {timeLeft && timeLeft['minutes']}
+                                    {timeLeft && <div className={styles.bidDescCart}>m</div>}
+                                  </div>
+                                </div>
+                                <div className={styles.endTimeContainer}>
+                                  <div className={styles.endTimeCart}>
+                                    {timeLeft && timeLeft['seconds']}
+                                    {timeLeft && <div className={styles.bidDescCart}>s</div>}
+                                  </div>
                                 </div>
                               </div>
-                              <div className={styles.endTimeContainer}>
-                                <div className={styles.endTimeCart}>
-                                  {timeLeft && timeLeft['minutes']}
-                                  {timeLeft && <div className={styles.bidDescCart}>m</div>}
-                                </div>
-                              </div>
-                              <div className={styles.endTimeContainer}>
-                                <div className={styles.endTimeCart}>
-                                  {timeLeft && timeLeft['seconds']}
-                                  {timeLeft && <div className={styles.bidDescCart}>s</div>}
-                                </div>
-                              </div>
-                            </div>
+                            )}
                           </div>
                         </div>
                       ) : (
