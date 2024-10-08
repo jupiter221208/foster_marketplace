@@ -116,6 +116,7 @@ const MerchDetail = () => {
         let itemDetails = {
           userId: item?.userId,
           merchId: item?.id,
+          type: optionType['value'],
           print: nftName ? nftName['value'] : itemData?.name,
           description: item?.description,
           quantity: itemData.quantity,
@@ -125,7 +126,6 @@ const MerchDetail = () => {
           apparel: apparel,
           price: orderVersion === 'v1' ? itemData.unitPrice : item?.sellingPrice / 100,
         }
-
         setItemDetails(itemDetails)
       }
 
@@ -172,6 +172,7 @@ const MerchDetail = () => {
           let itemDetails = {
             quantity: quantity,
             print: nftName ? nftName['value'] : itemData?.name,
+            type: optionType['value'],
             size: size ? size['value'] : '',
             color: color ? getFirstUpperString(color['value']) : '',
             fosterUrl: previewUrl,
@@ -499,23 +500,26 @@ const MerchDetail = () => {
               {orderDetails?.service === 'blinks' ? (
                 <div className={`mt-[9px] ${styles.detailValue}`}>{itemDetails?.description}</div>
               ) : (
-                <div>
-                  <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
-                  <div className={`mt-[9px] ${styles.detailValue}`}>
-                    Size:&nbsp;
-                    {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                      ? 'Small'
-                      : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                      ? 'Medium'
-                      : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                      ? 'Large'
-                      : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                      ? 'X-Large'
-                      : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                      ? '2X-Large'
-                      : ''}
+                itemDetails?.type !== 'user' && (
+                  <div>
+                    <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
+
+                    <div className={`mt-[9px] ${styles.detailValue}`}>
+                      Size:&nbsp;
+                      {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                        ? 'Small'
+                        : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                        ? 'Medium'
+                        : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                        ? 'Large'
+                        : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                        ? 'X-Large'
+                        : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                        ? '2X-Large'
+                        : ''}
+                    </div>
                   </div>
-                </div>
+                )
               )}
 
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
@@ -641,23 +645,25 @@ const MerchDetail = () => {
                         {orderDetails?.service === 'blinks' ? (
                           <div className={`mt-[9px] ${styles.detailValue}`}>{item?.description}</div>
                         ) : (
-                          <div>
-                            <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
-                            <div className={`mt-[9px] ${styles.detailValue}`}>
-                              Size:&nbsp;
-                              {item?.size === 'S' || item?.size === 'YXS'
-                                ? 'Small'
-                                : item?.size === 'M' || item?.size === 'YS'
-                                ? 'Medium'
-                                : item?.size === 'L' || item?.size === 'YM'
-                                ? 'Large'
-                                : item?.size === 'XL' || item?.size === 'YL'
-                                ? 'X-Large'
-                                : item?.size === '2XL' || item?.size === 'YXL'
-                                ? '2X-Large'
-                                : ''}
+                          item?.type !== 'user' && (
+                            <div>
+                              <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
+                              <div className={`mt-[9px] ${styles.detailValue}`}>
+                                Size:&nbsp;
+                                {item?.size === 'S' || item?.size === 'YXS'
+                                  ? 'Small'
+                                  : item?.size === 'M' || item?.size === 'YS'
+                                  ? 'Medium'
+                                  : item?.size === 'L' || item?.size === 'YM'
+                                  ? 'Large'
+                                  : item?.size === 'XL' || item?.size === 'YL'
+                                  ? 'X-Large'
+                                  : item?.size === '2XL' || item?.size === 'YXL'
+                                  ? '2X-Large'
+                                  : ''}
+                              </div>
                             </div>
-                          </div>
+                          )
                         )}
 
                         <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{item?.quantity}</div>
@@ -795,23 +801,25 @@ const MerchDetail = () => {
               {orderDetails?.service === 'blinks' ? (
                 <div className={`mt-[9px] ${styles.detailValue}`}>{itemDetails?.description}</div>
               ) : (
-                <div>
-                  <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
-                  <div className={`mt-[9px] ${styles.detailValue}`}>
-                    Size:&nbsp;
-                    {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                      ? 'Small'
-                      : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                      ? 'Medium'
-                      : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                      ? 'Large'
-                      : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                      ? 'X-Large'
-                      : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                      ? '2X-Large'
-                      : ''}
+                itemDetails?.type !== 'user' && (
+                  <div>
+                    <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
+                    <div className={`mt-[9px] ${styles.detailValue}`}>
+                      Size:&nbsp;
+                      {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                        ? 'Small'
+                        : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                        ? 'Medium'
+                        : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                        ? 'Large'
+                        : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                        ? 'X-Large'
+                        : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                        ? '2X-Large'
+                        : ''}
+                    </div>
                   </div>
-                </div>
+                )
               )}
 
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
@@ -834,23 +842,25 @@ const MerchDetail = () => {
                       {orderDetails?.service === 'blinks' ? (
                         <div className={`mt-[9px] ${styles.detailValue}`}>{item?.description}</div>
                       ) : (
-                        <div>
-                          <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
-                          <div className={`mt-[9px] ${styles.detailValue}`}>
-                            Size:&nbsp;
-                            {item?.size === 'S' || item?.size === 'YXS'
-                              ? 'Small'
-                              : item?.size === 'M' || item?.size === 'YS'
-                              ? 'Medium'
-                              : item?.size === 'L' || item?.size === 'YM'
-                              ? 'Large'
-                              : item?.size === 'XL' || item?.size === 'YL'
-                              ? 'X-Large'
-                              : item?.size === '2XL' || item?.size === 'YXL'
-                              ? '2X-Large'
-                              : ''}
+                        item?.type !== 'user' && (
+                          <div>
+                            <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
+                            <div className={`mt-[9px] ${styles.detailValue}`}>
+                              Size:&nbsp;
+                              {item?.size === 'S' || item?.size === 'YXS'
+                                ? 'Small'
+                                : item?.size === 'M' || item?.size === 'YS'
+                                ? 'Medium'
+                                : item?.size === 'L' || item?.size === 'YM'
+                                ? 'Large'
+                                : item?.size === 'XL' || item?.size === 'YL'
+                                ? 'X-Large'
+                                : item?.size === '2XL' || item?.size === 'YXL'
+                                ? '2X-Large'
+                                : ''}
+                            </div>
                           </div>
-                        </div>
+                        )
                       )}
 
                       <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{item?.quantity}</div>

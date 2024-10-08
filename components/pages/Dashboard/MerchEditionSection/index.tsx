@@ -66,9 +66,9 @@ const MerchEditionSection = () => {
     let cartData = JSON.parse(localStorage.getItem('cart_v2'))
     let newList = []
 
-    unclaimedList.map(item => {
+    unclaimedList?.map(item => {
       let carted = false
-      cartData.map(cart => {
+      cartData?.map(cart => {
         if (item.options.addons[0].mockup_url === cart.merchList[0].url) {
           carted = true
           return
@@ -92,8 +92,8 @@ const MerchEditionSection = () => {
           let list = checkCartList(unclaimed)
           setMerchList(list)
           setFilteredList(list)
-          setIsFetching(true)
         }
+        setIsFetching(true)
       },
       error => {
         setIsFetching(true)
@@ -121,7 +121,7 @@ const MerchEditionSection = () => {
       {isFetching && merchList.length === 0 && <div className={styles.comingSoon}>No results found.</div>}
 
       <div className="w-full grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-[10px] lg:gap-[20px] xl:gap-[30px] z-10 mt-[16px] lg:mt-[30px]">
-        {filteredList.map(item => (
+        {filteredList?.map(item => (
           <div key={item.id}>
             <MerchEditionClaimCard data={item} />
           </div>
