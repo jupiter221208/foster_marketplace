@@ -125,7 +125,11 @@ const ShoppingCartSection = props => {
           </div>
           <div className={styles.bottomSection}>
             <div className="flex justify-between">
-              <div className={styles.subtotal}>Subtotal</div>
+              <div className={styles.subtotal}>
+                <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
+                  {selectAllCart ? 'Deselect All' : 'Select all'}
+                </div>
+              </div>
               <div className="flex gap-[6px] items-center">
                 <SolIcon className="mt-[2px]" />
                 <div className={styles.price}>{totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}</div>
@@ -162,7 +166,7 @@ const ShoppingCartSection = props => {
               {cartVersion === 'v2' ? 'Studio 1.0 Cart »' : 'Studio 2.0 Cart »'}
             </div>
           </div>
-          <div className="w-[400px] h-[313px]">
+          <div className="w-[400px] h-[313px] mt-[30px]">
             <Lottie animationData={animationData}></Lottie>
           </div>
           <div className="mt-[65px]">

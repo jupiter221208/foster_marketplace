@@ -123,6 +123,7 @@ const PrimaryHeader = () => {
         }
       }, 1000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected, cartUpdated])
 
   // update profile menu list
