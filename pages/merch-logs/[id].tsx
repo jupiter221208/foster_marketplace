@@ -337,7 +337,7 @@ const MerchDetail = () => {
               <div className={styles.infoTitle}>Order Placed</div>
               <div className={styles.infoValue}>
                 {!orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[100px] h-[40px] rounded-[8px]"></div>
+                  <div className="skeletonLoaderBasic w-[90px] h-[22px] rounded-[8px]"></div>
                 ) : (
                   orderDetails?.orderPlaced
                 )}
@@ -347,7 +347,7 @@ const MerchDetail = () => {
               <div className={styles.infoTitle}>Total</div>
               <div className={styles.infoValue}>
                 {!orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[50px] h-[40px] rounded-[8px]"></div>
+                  <div className="skeletonLoaderBasic w-[35px] h-[22px] rounded-[8px]"></div>
                 ) : (
                   '$' + orderDetails?.total
                 )}
@@ -357,7 +357,7 @@ const MerchDetail = () => {
               <div className={styles.infoTitle}>Shipping Status</div>
               <div className={styles.infoValue}>
                 {!orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[50px] h-[40px] rounded-[8px]"></div>
+                  <div className="skeletonLoaderBasic w-[150px] h-[22px] rounded-[8px]"></div>
                 ) : SSOrder?.orderStatus === 'shipped' ? (
                   'Shipped'
                 ) : (
@@ -367,23 +367,27 @@ const MerchDetail = () => {
             </div>
             <div>
               <div className={styles.infoTitle}>Ship to</div>
-              {SSOrder?.billTo && (
-                <ShipToDropDown
-                  name={SSOrder?.billTo?.name}
-                  address={
-                    orderDetails?.orderNumber === '' && !isOwn ? (
-                      'Hidden for Buyer Safety'
-                    ) : orderDetails?.shipTo.street === '---' ? (
-                      'Hidden for Buyer Safety'
-                    ) : (
-                      <div>
-                        {orderDetails?.shipTo.street}
-                        <br />
-                        {orderDetails?.shipTo.city}
-                      </div>
-                    )
-                  }
-                />
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[120px] h-[22px] rounded-[8px] mt-[8px]"></div>
+              ) : (
+                SSOrder?.billTo && (
+                  <ShipToDropDown
+                    name={SSOrder?.billTo?.name}
+                    address={
+                      orderDetails?.orderNumber === '' && !isOwn ? (
+                        'Hidden for Buyer Safety'
+                      ) : orderDetails?.shipTo.street === '---' ? (
+                        'Hidden for Buyer Safety'
+                      ) : (
+                        <div>
+                          {orderDetails?.shipTo.street}
+                          <br />
+                          {orderDetails?.shipTo.city}
+                        </div>
+                      )
+                    }
+                  />
+                )
               )}
             </div>
           </div>

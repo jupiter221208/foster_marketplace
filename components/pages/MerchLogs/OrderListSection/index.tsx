@@ -30,96 +30,28 @@ const OrderListSection = props => {
     <div>
       {!orderData ? (
         <div className="w-full flex justify-between mt-[30px]">
-          <div className="w-[183px] h-[183px] object-cover">
-            <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
-          </div>
-          <div className="max-w-[300px]">
-            <div className={styles.detailTitle}>Item Details</div>
-            <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
-            <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[8px]"></div>
-            <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[8px]"></div>
-            <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[8px]"></div>
-          </div>
-
-          <div>
-            <div className={styles.detailTitle}>Payment Details</div>
-            <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
-            <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
-            <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
-            <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
-            <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
-            {orderVersion === 'v1' && (
+          <div className="flex gap-[77px]">
+            <div className="w-[180px] h-[180px] object-cover">
+              <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
+            </div>
+            <div className="max-w-[300px]">
+              <div className={styles.detailTitle}>Item Details</div>
               <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
-            )}
-            {orderVersion === 'v1' && (
-              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[15px]"></div>
-            )}
-
-            <div className="skeletonLoaderBasic w-[50px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[8px]"></div>
+              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
+              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[8px]"></div>
+              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[20px]"></div>
+            </div>
           </div>
-
           <div>
-            {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
-              <div>
-                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
-              </div>
-            ) : (
-              <div>
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={300}
-                  label="Track package"
-                  disabled={trackingDetails === null}
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </div>
-            )}
+            <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
 
             <div className="mt-[12px]">
-              <a
-                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                  subject: helpTitle,
-                  body: helpBody,
-                })}`}
-              >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={300}
-                  label="Get help"
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </a>
+              <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
             </div>
-
-            {orderVersion === 'v2' && (
-              <div className="mt-[12px]">
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={300}
-                  label="Write a product review"
-                  disabled={orderTabType === 'seller'}
-                  onClick={() => {
-                    setShowReviewModal(true)
-                  }}
-                />
-              </div>
-            )}
-
-            {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
-              <div className="mt-[12px]">
-                <GradientButton
-                  width={335}
-                  label="Mark as Shipped"
-                  onClick={() => {
-                    setShowShippedModal(true)
-                  }}
-                />
-              </div>
-            )}
+            <div className="mt-[12px]">
+              <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
+            </div>
           </div>
         </div>
       ) : (
