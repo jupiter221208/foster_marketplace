@@ -593,7 +593,7 @@ const MerchOrderMain = props => {
                     )}
                   {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) &&
                     (timeLeft === null || !isExpired) && (
-                      <div className="w-full">
+                      <div className="w-full mt-[15px]">
                         {buyNowLoading ? (
                           <LoadingPrimaryButton fullWidth />
                         ) : (

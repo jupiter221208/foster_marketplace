@@ -713,7 +713,7 @@ const MerchDetail = () => {
             {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
               <div className="mt-[12px]">
                 <GradientButton
-                  width={335}
+                  width={300}
                   label="Mark as Shipped"
                   onClick={() => {
                     setShowShippedModal(true)
