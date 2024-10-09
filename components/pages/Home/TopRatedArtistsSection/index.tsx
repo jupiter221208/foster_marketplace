@@ -99,7 +99,7 @@ const TopRatedArtistsSection = () => {
         </div>
 
         <div className="sm:hidden w-full flex justify-between items-center">
-          <div className={styles.title}>Top&nbsp;Creators</div>
+          <div className={styles.title}>Trending&nbsp;Creators</div>
           <HomeFilterMenu
             label=""
             data={DayList}

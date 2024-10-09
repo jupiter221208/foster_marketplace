@@ -436,6 +436,8 @@ const MerchDetail = () => {
           orderList={list}
           retryPayment={retryPayment}
         />
+
+        <div className="w-full h-[100px]" />
       </div>
       {/* Mobile */}
       <div className="w-full lg:hidden block mt-[30px]">
@@ -658,71 +660,7 @@ const MerchDetail = () => {
           retryPayment={retryPayment}
         />
 
-        <div className="w-full mt-[30px] mb-[100px] flex justify-center">
-          <div>
-            {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
-              <div>
-                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
-              </div>
-            ) : (
-              <div>
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  disabled={trackingDetails === null}
-                  label="Track package"
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </div>
-            )}
-
-            <div className="mt-[12px]">
-              <Button
-                height="48px"
-                fontSize="16px"
-                paddingLeft="37px"
-                paddingRight="37px"
-                label="Get help"
-                backgroundColor="transparent"
-                borderColor="var(--follow-btn-border-mobile)"
-                borderWidth={1}
-                color={'var(--text-gray-200-color)'}
-                width={335}
-                onClick={() => {
-                  window.location.href = 'mailto:admin@Fostermarketplace.app'
-                }}
-              />
-            </div>
-
-            {orderVersion === 'v2' && (
-              <div className="mt-[12px]">
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Write a product review"
-                  disabled={orderTabType === 'seller'}
-                  onClick={() => {
-                    setShowReviewModal(true)
-                  }}
-                />
-              </div>
-            )}
-
-            {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
-              <div className="mt-[12px]">
-                <GradientButton
-                  width={300}
-                  label="Mark as Shipped"
-                  onClick={() => {
-                    setShowShippedModal(true)
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        </div>
+        <div className="w-full h-[100px]" />
       </div>
       <WriteReviewModal
         open={showReviewModal}

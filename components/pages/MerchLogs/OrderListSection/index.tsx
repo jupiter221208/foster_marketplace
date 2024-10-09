@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useViewport } from 'utils'
 
 // components
 import GradientButton from 'components/Button/GradientButton'
@@ -26,6 +27,7 @@ const OrderListSection = props => {
     orderList,
     retryPayment,
   } = props
+  const viewport = useViewport()
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [previewUrl, setPreviewUrl] = useState('')
   const [itemDetails, setItemDetails] = useState(null)
@@ -38,7 +40,7 @@ const OrderListSection = props => {
         <div className="w-full flex justify-between mt-[30px]">
           <div className="flex gap-[77px]">
             <div className="w-[180px] h-[180px] object-cover">
-              <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
+              <div className="skeletonLoaderBasic w-[180px] h-[180px] rounded-[10px]"></div>
             </div>
             <div className="max-w-[300px]">
               <div className={styles.detailTitle}>Item Details</div>
@@ -62,14 +64,14 @@ const OrderListSection = props => {
         </div>
       ) : (
         <div className="w-full flex mt-[30px] gap-20">
-          <div className="w-full flex flex-col gap-[37px] overflow-y-auto">
+          <div className="w-full flex flex-col gap-[15px] lg:gap-[37px] overflow-y-auto">
             {orderList &&
               orderList.map((item, index) => (
-                <div key={index}>
-                  <div className="w-full flex justify-between">
+                <div key={index} className={styles.orderArea}>
+                  <div className="w-full flex flex-col lg:flex-row justify-between gap-[25px]">
                     <div className="flex gap-[24px] lg:gap-[77px]">
-                      <div className="min-w-[110px] lg:min-w-[180px] h-[110px] lg:h-[180px] rounded-[10px] overflow-hidden">
-                        <ImageWithFoster width={360} src={item.fosterUrl} className="w-full h-full object-contain" />
+                      <div className="min-w-[110px] max-w-[110px] lg:min-w-[180px] lg:max-w-[180px] h-[110px] lg:h-[180px] rounded-[10px] overflow-hidden">
+                        <ImageWithFoster width={360} src={item.fosterUrl} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex flex-col gap-[14px] justify-between">
                         <div>
@@ -101,31 +103,15 @@ const OrderListSection = props => {
                           <div className={` ${styles.detailValue}`}>Qty:&nbsp;{item?.quantity}</div>
                           <div className={` ${styles.priceValue}`}>${item?.price?.toFixed(2)}</div>
                         </div>
-                        {orderVersion === 'v2' && orderTabType !== 'seller' ? (
-                          <div className="flex gap-[14px] items-center">
-                            <div
-                              className={styles.writeText}
-                              onClick={() => {
-                                setPreviewUrl(item.fosterUrl)
-                                setItemDetails(item)
-                                setShowReviewModal(true)
-                              }}
-                            >
-                              Write a review
-                            </div>
-                            <div className={styles.border}></div>
-                            <div className={styles.writeText}>View Item</div>
-                          </div>
-                        ) : (
-                          <div className={styles.writeText}>View Item</div>
-                        )}
+
+                        <div className={`hidden lg:block ${styles.writeText}`}>View Item</div>
                       </div>
                     </div>
-                    <div className="hidden lg:block">
+                    <div className="flex flex-col items-center">
                       {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
                         <div>
                           <GradientButton
-                            width={335}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
                             height={48}
                             label="Retry Payment"
                             onClick={() => retryPayment()}
@@ -134,7 +120,7 @@ const OrderListSection = props => {
                       ) : (
                         <div>
                           <OutlineButton
-                            width={300}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
                             label="Track package"
                             disabled={trackingDetails === null}
                             onClick={() => {
@@ -151,7 +137,7 @@ const OrderListSection = props => {
                           })}`}
                         >
                           <OutlineButton
-                            width={300}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
                             label="Get help"
                             onClick={() => {
                               window.location.href = 'mailto:admin@Fostermarketplace.app'
@@ -160,10 +146,24 @@ const OrderListSection = props => {
                         </a>
                       </div>
 
+                      {orderVersion === 'v2' && orderTabType !== 'seller' && (
+                        <div className="mt-[12px]">
+                          <OutlineButton
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
+                            label="Write a review"
+                            onClick={() => {
+                              setPreviewUrl(item.fosterUrl)
+                              setItemDetails(item)
+                              setShowReviewModal(true)
+                            }}
+                          />
+                        </div>
+                      )}
+
                       {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
                         <div className="mt-[12px]">
                           <GradientButton
-                            width={335}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
                             label="Mark as Shipped"
                             onClick={() => {
                               setShowShippedModal(true)
@@ -173,7 +173,7 @@ const OrderListSection = props => {
                       )}
                     </div>
                   </div>
-                  <div className={styles.bottomBorder} />
+                  <div className={`hidden lg:block ${styles.bottomBorder}`} />
                 </div>
               ))}
           </div>

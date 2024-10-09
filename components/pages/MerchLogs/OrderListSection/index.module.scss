@@ -53,3 +53,15 @@
   background: rgba(var(--main-bg-color-rgb), 0.15);
   margin-top: 30px;
 }
+
+.orderArea {
+  padding: 20px 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    background: transparent;
+    padding: 0px;
+    border-width: 0px;
+  }
+}
