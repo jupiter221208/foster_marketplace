@@ -132,7 +132,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
       </Head>
 
       <div
-        className={`w-full lg:max-w-[58%] lg:min-w-[58%] ${
+        className={`w-full lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[58%] xl:min-w-[58%] ${
           viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
         }`}
       >
@@ -203,7 +203,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
               </div>
 
               <div
-                className={`lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+                className={`lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[300px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
               >
                 <div className={styles.imageArea}>
                   <div
@@ -250,7 +250,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
       </div>
 
       <div
-        className={`w-full lg:max-w-[42%] lg:max-w-[42%] ${
+        className={`w-full lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[42%] xl:min-w-[42%] ${
           viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
         } lg:flex lg:justify-end ${styles.rightBG}`}
       >
