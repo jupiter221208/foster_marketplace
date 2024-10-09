@@ -10,6 +10,8 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 // styles
 import styles from './index.module.scss'
+// apis
+import UserAPI from 'apis/user'
 
 const OrderListSection = props => {
   const {
@@ -33,6 +35,8 @@ const OrderListSection = props => {
   const [itemDetails, setItemDetails] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
+
+  const onClickViewItem = item => {}
 
   return (
     <div>
@@ -82,9 +86,8 @@ const OrderListSection = props => {
                           ) : (
                             item?.type !== 'user' && (
                               <div>
-                                <div className={`${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
-                                <div className={` ${styles.detailValue}`}>
-                                  Size:&nbsp;
+                                <div className={`${styles.detailValue}`}>
+                                  {item?.color + ' ('}
                                   {item?.size === 'S' || item?.size === 'YXS'
                                     ? 'Small'
                                     : item?.size === 'M' || item?.size === 'YS'
@@ -95,7 +98,8 @@ const OrderListSection = props => {
                                     ? 'X-Large'
                                     : item?.size === '2XL' || item?.size === 'YXL'
                                     ? '2X-Large'
-                                    : ''}
+                                    : 'Large'}
+                                  {')'}
                                 </div>
                               </div>
                             )
@@ -106,7 +110,9 @@ const OrderListSection = props => {
                           </div>
                         </div>
 
-                        <div className={`hidden lg:block ${styles.writeText}`}>View Item</div>
+                        <div className={`hidden lg:block ${styles.writeText}`} onClick={() => onClickViewItem(item)}>
+                          View Item
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-col items-center">

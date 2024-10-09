@@ -6,8 +6,11 @@ import { Menu, Transition } from '@headlessui/react'
 
 // styles
 import styles from './index.module.scss'
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
 
 const PaymentDetailDropDown = props => {
+  const { connection } = useConnection()
   const { SSOrder, paymentDetails } = props
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
@@ -53,16 +56,18 @@ const PaymentDetailDropDown = props => {
                     Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
                   </div>
 
-                  {/* {paymentDetails?.paidBy && (
-                    <div className={`mt-[15px] ${styles.detailValue}`}>
-                      Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-                    </div>
-                  )} */}
                   <div className={`mt-[6px] ${styles.detailValue}`}>
                     Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
                   </div>
                   <div className={`mt-[6px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
-                  <div className={`mt-[25px] ${styles.viewTransaction}`}>View Transaction</div>
+                  <div
+                    className={`mt-[25px] ${styles.viewTransaction}`}
+                    onClick={() => {
+                      window.open(getExplorerUrl(connection.rpcEndpoint, paymentDetails?.txId, 'tx'))
+                    }}
+                  >
+                    View Transaction
+                  </div>
                 </div>
               </div>
             </Menu.Item>
