@@ -75,7 +75,7 @@ const OrderListSection = props => {
                       </div>
                       <div className="flex flex-col gap-[14px] justify-between">
                         <div>
-                          <div className={`hidden lg:block ${styles.detailTitle} mb-[15px]`}>Item Details</div>
+                          {/* <div className={`hidden lg:block ${styles.detailTitle} mb-[15px]`}>Item Details</div> */}
                           <div className={`${styles.productName}`}>{item?.print}</div>
                           {orderDetails?.service === 'blinks' ? (
                             <div className={` ${styles.detailValue}`}>{item?.description}</div>
@@ -101,7 +101,9 @@ const OrderListSection = props => {
                             )
                           )}
                           <div className={` ${styles.detailValue}`}>Qty:&nbsp;{item?.quantity}</div>
-                          <div className={` ${styles.priceValue}`}>${item?.price?.toFixed(2)}</div>
+                          <div className={`${item?.type === 'user' ? 'mt-[30px]' : ''} ${styles.priceValue}`}>
+                            ${item?.price?.toFixed(2)}
+                          </div>
                         </div>
 
                         <div className={`hidden lg:block ${styles.writeText}`}>View Item</div>

@@ -62,7 +62,7 @@ const PaymentDetailDropDown = props => {
                     Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
                   </div>
                   <div className={`mt-[6px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
-                  <div className={`mt-[20px] ${styles.viewTransaction}`}>View Transaction</div>
+                  <div className={`mt-[25px] ${styles.viewTransaction}`}>View Transaction</div>
                 </div>
               </div>
             </Menu.Item>

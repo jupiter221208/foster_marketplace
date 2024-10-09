@@ -14,12 +14,9 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import Alert from 'components/Alert'
 import WriteReviewModal from 'components/Modal/WriteReviewModal'
 import MakeShippedModal from 'components/Modal/MakeShippedModal'
-import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-import OutlineButton from 'components/Button/OutlineButton'
 import ArrowLeftIcon from 'assets/icons/back-arrow.svg?component'
 import ArrowRightIcon from 'assets/icons/arrow-right-white-9x15.svg?component'
 import ArrowDownIcon from 'assets/icons/down-arrow-icon-white.svg?component'
@@ -365,7 +362,9 @@ const MerchDetail = () => {
                 )}
               </div>
             </div>
-            {SSOrder?.billTo && (
+            {orderTabType === 'seller' && merchType === 'foster' ? (
+              <></>
+            ) : (
               <div>
                 <div className={styles.infoTitle}>Ship to</div>
                 {!orderDetails ? (
@@ -478,29 +477,31 @@ const MerchDetail = () => {
               </div>
             </div>
 
-            <div className="w-full mt-[20px]">
-              <div className="text-start">
-                <div className={styles.infoTitle}>Ship to</div>
-                {!orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
-                ) : (
-                  <div>
-                    <div className={styles.infoValue}>{SSOrder?.billTo?.name}</div>
+            {SSOrder?.billTo && (
+              <div className="w-full mt-[20px]">
+                <div className="text-start">
+                  <div className={styles.infoTitle}>Ship to</div>
+                  {!orderDetails ? (
+                    <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+                  ) : (
+                    <div>
+                      <div className={styles.infoValue}>{SSOrder?.billTo?.name}</div>
 
-                    {orderDetails?.orderNumber === '' && !isOwn ? (
-                      <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
-                    ) : orderDetails?.shipTo.street === '---' ? (
-                      <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
-                    ) : (
-                      <div>
-                        <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
-                        <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
-                      </div>
-                    )}
-                  </div>
-                )}
+                      {orderDetails?.orderNumber === '' && !isOwn ? (
+                        <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                      ) : orderDetails?.shipTo.street === '---' ? (
+                        <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                      ) : (
+                        <div>
+                          <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
+                          <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ) : (
           <div className={styles.orderInfoBG} onClick={() => setOpenOrderDetails(true)}>
@@ -599,7 +600,9 @@ const MerchDetail = () => {
           </div>
         )}
 
-        {openShippingDetails ? (
+        {orderTabType === 'seller' && merchType === 'foster' ? (
+          <></>
+        ) : openShippingDetails ? (
           <div className={styles.orderInfoBG} onClick={() => setOpenShippingDetails(false)}>
             <div className="w-full flex justify-between items-center">
               <div className={styles.orderSummary}>Shpping&nbsp;Details</div>
