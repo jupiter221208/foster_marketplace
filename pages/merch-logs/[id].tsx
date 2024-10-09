@@ -365,12 +365,12 @@ const MerchDetail = () => {
                 )}
               </div>
             </div>
-            <div>
-              <div className={styles.infoTitle}>Ship to</div>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[120px] h-[22px] rounded-[8px] mt-[8px]"></div>
-              ) : (
-                SSOrder?.billTo && (
+            {SSOrder?.billTo && (
+              <div>
+                <div className={styles.infoTitle}>Ship to</div>
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[120px] h-[22px] rounded-[8px] mt-[8px]"></div>
+                ) : (
                   <ShipToDropDown
                     name={SSOrder?.billTo?.name}
                     address={
@@ -387,28 +387,34 @@ const MerchDetail = () => {
                       )
                     }
                   />
-                )
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
           <div>
             <div className={styles.orderNumber}>Order# {id}</div>
             <div className="flex gap-[14px] mt-[8px] items-center">
-              <ShippingDetailDropDown
-                tracking={
-                  orderDetails?.orderNumber === '' && !isOwn
-                    ? 'Hidden for Buyer Safety'
-                    : trackingDetails === null && connected
-                    ? 'Pending Order Creation'
-                    : trackingDetails?.trackingNumber
-                }
-                shipping={
-                  orderDetails?.orderNumber === '' && !isOwn
-                    ? 'Hidden for Buyer Safety'
-                    : getShippingMethod(orderDetails?.service)
-                }
-              />
-              <div className={styles.border} />
+              {orderTabType === 'seller' && merchType === 'foster' ? (
+                <></>
+              ) : (
+                <div className="flex gap-[14px] items-center">
+                  <ShippingDetailDropDown
+                    tracking={
+                      orderDetails?.orderNumber === '' && !isOwn
+                        ? 'Hidden for Buyer Safety'
+                        : trackingDetails === null && connected
+                        ? 'Pending Order Creation'
+                        : trackingDetails?.trackingNumber
+                    }
+                    shipping={
+                      orderDetails?.orderNumber === '' && !isOwn
+                        ? 'Hidden for Buyer Safety'
+                        : getShippingMethod(orderDetails?.service)
+                    }
+                  />
+                  <div className={styles.border} />
+                </div>
+              )}
               <PaymentDetailDropDown SSOrder={SSOrder} paymentDetails={paymentDetails} />
             </div>
           </div>

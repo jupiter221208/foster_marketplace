@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
+
 // components
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
-
-// json
-
-import styles from './index.module.scss'
+import WriteReviewModal from 'components/Modal/WriteReviewModal'
+import Alert from 'components/Alert'
 import ImageWithFoster from 'components/ImageWithFoster'
+
+// styles
+import styles from './index.module.scss'
 
 const OrderListSection = props => {
   const {
@@ -21,10 +23,14 @@ const OrderListSection = props => {
     helpTitle,
     helpBody,
     orderTabType,
-    setShowReviewModal,
     orderList,
     retryPayment,
   } = props
+  const [showReviewModal, setShowReviewModal] = useState(false)
+  const [previewUrl, setPreviewUrl] = useState('')
+  const [itemDetails, setItemDetails] = useState(null)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
 
   return (
     <div>
@@ -100,6 +106,8 @@ const OrderListSection = props => {
                             <div
                               className={styles.writeText}
                               onClick={() => {
+                                setPreviewUrl(item.fosterUrl)
+                                setItemDetails(item)
                                 setShowReviewModal(true)
                               }}
                             >
@@ -169,46 +177,34 @@ const OrderListSection = props => {
                 </div>
               ))}
           </div>
-
-          {/* <div className="flex w-1/2 justify-between">
-            <div>
-                <div className={styles.detailTitle}>Payment Details</div>
-                {SSOrder?.billTo && (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>Buyer:&nbsp;{SSOrder?.billTo?.name}</div>
-                )}
-                {SSOrder?.billTo && (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>
-                    Buyer&nbsp;Email:&nbsp;
-                    <span
-                      className={styles.buyerEmail}
-                      onClick={() => {
-                        window.location.href = 'mailto:' + SSOrder?.customerEmail
-                      }}
-                    >
-                      {SSOrder?.customerEmail}
-                    </span>
-                  </div>
-                )}
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
-                </div>
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-                </div>
-
-                {paymentDetails?.paidBy && (
-                  <div className={`mt-[15px] ${styles.detailValue}`}>
-                    Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-                  </div>
-                )}
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
-                </div>
-                <div className={`mt-[15px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
-              </div>
-          </div> */}
         </div>
       )}
+
+      <WriteReviewModal
+        open={showReviewModal}
+        previewUrl={previewUrl}
+        itemDetails={itemDetails}
+        onClose={() => setShowReviewModal(false)}
+        onSuccess={() => {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Review Submitted!',
+              description: 'Your review has been successfully sent to the seller',
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+        }}
+      />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }
