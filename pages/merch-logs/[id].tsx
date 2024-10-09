@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // next component
 import Link from 'next/link'
@@ -10,7 +10,6 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { getOrder, ShipStationShipment } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import { getShippingServiceName } from 'utils/merch'
-import { getShortAddress } from 'utils/strings'
 import { useAuthentication } from 'hooks/useAuthentication'
 import Alert from 'components/Alert'
 import WriteReviewModal from 'components/Modal/WriteReviewModal'
@@ -22,6 +21,8 @@ import GradientButton from 'components/Button/GradientButton'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import OutlineButton from 'components/Button/OutlineButton'
 import ArrowLeftIcon from 'assets/icons/back-arrow.svg?component'
+import ArrowRightIcon from 'assets/icons/arrow-right-white-9x15.svg?component'
+import ArrowDownIcon from 'assets/icons/down-arrow-icon-white.svg?component'
 
 // Styles
 import styles from './id.module.scss'
@@ -60,6 +61,9 @@ const MerchDetail = () => {
   const [showShippedModal, setShowShippedModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [openOrderDetails, setOpenOrderDetails] = useState(false)
+  const [openPaymentDetails, setOpenPaymentDetails] = useState(false)
+  const [openShippingDetails, setOpenShippingDetails] = useState(false)
 
   const [merchType, setMerchType] = useState('')
   useEffect(() => {
@@ -363,7 +367,6 @@ const MerchDetail = () => {
             </div>
             <div>
               <div className={styles.infoTitle}>Ship to</div>
-
               {SSOrder?.billTo && (
                 <ShipToDropDown
                   name={SSOrder?.billTo?.name}
@@ -423,157 +426,195 @@ const MerchDetail = () => {
           orderList={list}
           retryPayment={retryPayment}
         />
-
-        {/* <div className="w-full flex justify-center mt-[75px]">
-          <div className={styles.infoValue}>
-            Shipping Status: {SSOrder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
-          </div>
-        </div>
-        <div className="w-full flex justify-center mt-[75px]">
-          <div className={styles.separator}></div>
-        </div> */}
       </div>
       {/* Mobile */}
       <div className="w-full lg:hidden block mt-[30px]">
-        {!orderData ? (
-          <div className="skeletonLoaderBasic w-full h-[120px] rounded-[12px]"></div>
-        ) : SSOrder?.items?.length === 1 ? (
-          <div className={styles.tableColor}>
-            <div className="w-[auto]">
-              <div className="w-[110px] h-auto object-cover flex items-center">
-                <img src={previewUrl} alt="" />
+        {openOrderDetails ? (
+          <div className={styles.orderInfoBG} onClick={() => setOpenOrderDetails(false)}>
+            <div className="w-full flex justify-between items-center">
+              <div className={styles.orderSummary}>Order&nbsp;Details</div>
+              <ArrowDownIcon />
+            </div>
+            <div className="mt-[19px]">
+              <div className={styles.infoTitle}>Order Placed</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
+              )}
+            </div>
+
+            <div className="mt-[20px]">
+              <div className={styles.infoTitle}>Total</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoValue}>${orderDetails ? orderDetails.total : '---'}</div>
+              )}
+            </div>
+
+            <div className="mt-[20px]">
+              <div className={styles.infoTitle}>Shipping Status</div>
+              <div className={styles.infoValue}>
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full"></div>
+                ) : SSOrder?.orderStatus === 'shipped' ? (
+                  'Shipped'
+                ) : (
+                  'Awaiting Shipment'
+                )}
               </div>
             </div>
-            <div className="w-full text-left ml-[22px]">
-              <div className={`${styles.detailValue}`}>{itemDetails?.print}</div>
-              {orderDetails?.service === 'blinks' ? (
-                <div className={`mt-[9px] ${styles.detailValue}`}>{itemDetails?.description}</div>
-              ) : (
-                itemDetails?.type !== 'user' && (
-                  <div>
-                    <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{itemDetails?.color}</div>
-                    <div className={`mt-[9px] ${styles.detailValue}`}>
-                      Size:&nbsp;
-                      {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
-                        ? 'Small'
-                        : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
-                        ? 'Medium'
-                        : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
-                        ? 'Large'
-                        : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
-                        ? 'X-Large'
-                        : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
-                        ? '2X-Large'
-                        : ''}
-                    </div>
-                  </div>
-                )
-              )}
 
-              <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-              <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${itemDetails?.price?.toFixed(2)}</div>
+            <div className="w-full mt-[20px]">
+              <div className="text-start">
+                <div className={styles.infoTitle}>Ship to</div>
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+                ) : (
+                  <div>
+                    <div className={styles.infoValue}>{SSOrder?.billTo?.name}</div>
+
+                    {orderDetails?.orderNumber === '' && !isOwn ? (
+                      <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                    ) : orderDetails?.shipTo.street === '---' ? (
+                      <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                    ) : (
+                      <div>
+                        <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
+                        <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ) : (
-          <div className={styles.mobileContainer}>
-            <div className="flex flex-col overflow-y-auto">
-              {list &&
-                list.map((item, index) => (
-                  <div key={index} className={styles.tableColor}>
-                    <div className="w-full flex">
-                      <div className="w-[110px] h-auto object-cover flex items-center">
-                        <img src={item.fosterUrl} alt="" />
-                      </div>
-                    </div>
-                    <div className="w-full text-left ml-[22px]">
-                      <div className={`${styles.detailValue}`}>{item?.print}</div>
-                      {orderDetails?.service === 'blinks' ? (
-                        <div className={`mt-[9px] ${styles.detailValue}`}>{item?.description}</div>
-                      ) : (
-                        item?.type !== 'user' && (
-                          <div>
-                            <div className={`mt-[9px] ${styles.detailValue}`}>Color:&nbsp;{item?.color}</div>
-                            <div className={`mt-[9px] ${styles.detailValue}`}>
-                              Size:&nbsp;
-                              {item?.size === 'S' || item?.size === 'YXS'
-                                ? 'Small'
-                                : item?.size === 'M' || item?.size === 'YS'
-                                ? 'Medium'
-                                : item?.size === 'L' || item?.size === 'YM'
-                                ? 'Large'
-                                : item?.size === 'XL' || item?.size === 'YL'
-                                ? 'X-Large'
-                                : item?.size === '2XL' || item?.size === 'YXL'
-                                ? '2X-Large'
-                                : ''}
-                            </div>
-                          </div>
-                        )
-                      )}
-
-                      <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{item?.quantity}</div>
-                      <div className={`mt-[9px] ${styles.detailValue}`}>Cost:&nbsp;${item?.price?.toFixed(2)}</div>
-                    </div>
-                  </div>
-                ))}
+          <div className={styles.orderInfoBG} onClick={() => setOpenOrderDetails(true)}>
+            <div className="w-full flex justify-between items-center">
+              <div className={styles.orderSummary}>Order&nbsp;Details</div>
+              <ArrowRightIcon />
             </div>
           </div>
         )}
 
-        <div className={styles.orderInfoBG}>
-          <div className={styles.orderSummary}>Order Summary</div>
+        {openPaymentDetails ? (
+          <div className={styles.orderInfoBG} onClick={() => setOpenPaymentDetails(false)}>
+            <div className="w-full flex justify-between items-center mb-[15px]">
+              <div className={styles.orderSummary}>Payment&nbsp;Details</div>
+              <ArrowDownIcon />
+            </div>
 
-          <div className="mt-[25px]">
-            <div className={styles.infoTitle}>Order Date</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[6px]"></div>
-            ) : (
-              <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
+            {SSOrder?.billTo && (
+              <div className="w-full flex  items-center">
+                <div className={styles.infoPayment}>Buyer:&nbsp;</div>
+
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
+                ) : (
+                  <div className={styles.infoPayment}>{SSOrder?.billTo?.name}</div>
+                )}
+              </div>
             )}
-          </div>
 
-          <div className="mt-[20px]">
-            <div className={styles.infoTitle}>Total</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
-            ) : (
-              <div className={styles.infoValue}>${orderDetails ? orderDetails.total : '---'}</div>
+            {SSOrder?.billTo && (
+              <div className="w-full flex items-center mt-[2px]">
+                <div className={styles.infoPayment}>Buyer&nbsp;Email:&nbsp;</div>
+
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
+                ) : (
+                  <div
+                    className={styles.infoPayment}
+                    onClick={() => {
+                      window.location.href = 'mailto:' + SSOrder?.customerEmail
+                    }}
+                  >
+                    {SSOrder?.customerEmail}
+                  </div>
+                )}
+              </div>
             )}
-          </div>
 
-          <div className="w-full mt-[20px]">
-            <div className="text-start">
-              <div className={styles.infoTitle}>Ship to</div>
+            <div className="w-full flex mt-[2px] items-center">
+              <div className={styles.infoPayment}>Payment Method:&nbsp;</div>
+
               {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
               ) : (
-                <div>
-                  {orderDetails?.orderNumber === '' && !isOwn ? (
-                    <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
-                  ) : orderDetails?.shipTo.street === '---' ? (
-                    <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
-                  ) : (
-                    <div>
-                      <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
-                      <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
-                    </div>
-                  )}
+                <div className={styles.infoPayment}>{paymentDetails?.method}</div>
+              )}
+            </div>
+
+            <div className="w-full flex items-center mt-[2px]">
+              <div className={styles.infoPayment}>Payment&nbsp;Status:&nbsp;</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoPayment}>
+                  {paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
                 </div>
               )}
             </div>
-          </div>
 
-          <div className="w-full mt-[20px]">
-            <div className="text-start">
-              <div className={styles.infoTitle}>Shipping Method</div>
+            <div className="w-full flex items-center mt-[2px]">
+              <div className={styles.infoPayment}>Shipping&nbsp;&&nbsp;Handling:&nbsp;</div>
               {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
-              ) : SSOrder?.orderStatus === 'shipped' ? (
-                <div className={styles.infoValue}>
-                  {fulfillment ? fulfillment.carrierCode : 'Hidden for Buyer Safety'}
-                </div>
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
               ) : (
-                <div className={styles.infoValue}>
+                <div className={styles.infoPayment}>${paymentDetails?.shipping}</div>
+              )}
+            </div>
+
+            <div className="w-full flex items-center mt-[2px]">
+              <div className={styles.infoPayment}>Tax:&nbsp;</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoPayment}>${paymentDetails?.tax}</div>
+              )}
+            </div>
+
+            <div className={styles.viewTransaction}>View Transaction</div>
+          </div>
+        ) : (
+          <div className={styles.orderInfoBG} onClick={() => setOpenPaymentDetails(true)}>
+            <div className="w-full flex justify-between items-center">
+              <div className={styles.orderSummary}>Payment&nbsp;Details</div>
+              <ArrowRightIcon />
+            </div>
+          </div>
+        )}
+
+        {openShippingDetails ? (
+          <div className={styles.orderInfoBG} onClick={() => setOpenShippingDetails(false)}>
+            <div className="w-full flex justify-between items-center">
+              <div className={styles.orderSummary}>Shpping&nbsp;Details</div>
+              <ArrowDownIcon />
+            </div>
+            <div className="w-full flex mt-[15px] items-center">
+              <div className={styles.infoPayment}>Tracking:&nbsp;#&nbsp;</div>
+
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoPayment}>
+                  {orderDetails?.orderNumber === '' && !isOwn
+                    ? 'Hidden for Buyer Safety'
+                    : trackingDetails === null && connected
+                    ? 'Pending Order Creation'
+                    : trackingDetails?.trackingNumber}
+                </div>
+              )}
+            </div>
+            <div className="w-full flex mt-[2px] items-center">
+              <div className={styles.infoPayment}>Shipping Carrier:&nbsp;</div>
+
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoPayment}>
                   {orderDetails?.orderNumber === '' && !isOwn
                     ? 'Hidden for Buyer Safety'
                     : getShippingMethod(orderDetails?.service)}
@@ -581,77 +622,32 @@ const MerchDetail = () => {
               )}
             </div>
           </div>
-
-          <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Tracking Number</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
-            ) : SSOrder?.orderStatus === 'shipped' ? (
-              <div className={styles.infoValue}>{fulfillment ? fulfillment.trackingNumber : ''}</div>
-            ) : (
-              <div className={`${styles.infoValue} text-left`}>
-                {orderDetails?.orderNumber === '' && !isOwn
-                  ? 'Hidden for Buyer Safety'
-                  : trackingDetails === null && connected
-                  ? 'Pending Order Creation'
-                  : trackingDetails?.trackingNumber}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.orderInfoBG}>
-          <div className={styles.orderSummary}>Payment&nbsp;Details</div>
-
-          <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Payment Method</div>
-
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[170px] h-[20px] rounded-full mt-[8px]"></div>
-            ) : (
-              <div className={styles.infoValue}>{paymentDetails?.method}</div>
-            )}
-          </div>
-
-          {paymentDetails?.paidBy && (
-            <div className="w-full mt-[20px]">
-              <div className={styles.infoTitle}>Paid&nbsp;By</div>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
-              ) : (
-                <div className={styles.infoValue}>{getShortAddress(paymentDetails?.paidBy)}</div>
-              )}
-            </div>
-          )}
-
-          <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Shipping&nbsp;&&nbsp;Handling</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
-            ) : (
-              <div className={styles.infoValue}>${paymentDetails?.shipping}</div>
-            )}
-          </div>
-
-          <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Tax</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[8px]"></div>
-            ) : (
-              <div className={styles.infoValue}>${paymentDetails?.tax}</div>
-            )}
-          </div>
-        </div>
-        <div className="w-full mt-[30px] flex justify-center">
-          <div className="flex">
-            <div className={styles.shipStatusTitle}>
-              Shipping Status:&nbsp;
-              <div className={styles.shipStatusValue}>
-                {SSOrder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
-              </div>
+        ) : (
+          <div className={styles.orderInfoBG} onClick={() => setOpenShippingDetails(true)}>
+            <div className="w-full flex justify-between items-center">
+              <div className={styles.orderSummary}>Shpping&nbsp;Details</div>
+              <ArrowRightIcon />
             </div>
           </div>
-        </div>
+        )}
+
+        <OrderListSection
+          SSOrder={SSOrder}
+          setShowShippedModal={setShowShippedModal}
+          orderData={orderData}
+          orderDetails={orderDetails}
+          orderVersion={orderVersion}
+          merchType={merchType}
+          paymentDetails={paymentDetails}
+          trackingDetails={trackingDetails}
+          helpTitle={helpTitle}
+          helpBody={helpBody}
+          orderTabType={orderTabType}
+          setShowReviewModal={setShowReviewModal}
+          orderList={list}
+          retryPayment={retryPayment}
+        />
+
         <div className="w-full mt-[30px] mb-[100px] flex justify-center">
           <div>
             {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (

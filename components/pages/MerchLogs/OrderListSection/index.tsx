@@ -67,7 +67,7 @@ const OrderListSection = props => {
               <div>
                 <OutlineButton
                   borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
+                  width={300}
                   label="Track package"
                   disabled={trackingDetails === null}
                   onClick={() => {
@@ -86,7 +86,7 @@ const OrderListSection = props => {
               >
                 <OutlineButton
                   borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
+                  width={300}
                   label="Get help"
                   onClick={() => {
                     window.location.href = 'mailto:admin@Fostermarketplace.app'
@@ -99,7 +99,7 @@ const OrderListSection = props => {
               <div className="mt-[12px]">
                 <OutlineButton
                   borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
+                  width={300}
                   label="Write a product review"
                   disabled={orderTabType === 'seller'}
                   onClick={() => {
@@ -129,14 +129,14 @@ const OrderListSection = props => {
               orderList.map((item, index) => (
                 <div key={index}>
                   <div className="w-full flex justify-between">
-                    <div className="flex gap-[77px]">
-                      <div className="min-w-[180px] h-[180px] rounded-[10px] overflow-hidden">
+                    <div className="flex gap-[24px] lg:gap-[77px]">
+                      <div className="min-w-[110px] lg:min-w-[180px] h-[110px] lg:h-[180px] rounded-[10px] overflow-hidden">
                         <ImageWithFoster width={360} src={item.fosterUrl} className="w-full h-full object-contain" />
                       </div>
                       <div className="flex flex-col gap-[14px] justify-between">
                         <div>
-                          <div className={styles.detailTitle}>Item Details</div>
-                          <div className={`mt-[15px] ${styles.productName}`}>{item?.print}</div>
+                          <div className={`hidden lg:block ${styles.detailTitle} mb-[15px]`}>Item Details</div>
+                          <div className={`${styles.productName}`}>{item?.print}</div>
                           {orderDetails?.service === 'blinks' ? (
                             <div className={` ${styles.detailValue}`}>{item?.description}</div>
                           ) : (
@@ -181,7 +181,7 @@ const OrderListSection = props => {
                         )}
                       </div>
                     </div>
-                    <div>
+                    <div className="hidden lg:block">
                       {paymentDetails?.txId === null || paymentDetails?.txId?.length === 0 ? (
                         <div>
                           <GradientButton
@@ -219,19 +219,6 @@ const OrderListSection = props => {
                           />
                         </a>
                       </div>
-
-                      {/* {orderVersion === 'v2' && (
-                      <div className="mt-[12px]">
-                        <OutlineButton
-                          width={335}
-                          label="Write a product review"
-                          disabled={orderTabType === 'seller'}
-                          onClick={() => {
-                            setShowReviewModal(true)
-                          }}
-                        />
-                      </div>
-                    )} */}
 
                       {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'seller' && (
                         <div className="mt-[12px]">
