@@ -12,6 +12,8 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import styles from './index.module.scss'
 // apis
 import UserAPI from 'apis/user'
+import { isString } from 'utils/helpers'
+import { useRouter } from 'next/router'
 
 const OrderListSection = props => {
   const {
@@ -30,13 +32,23 @@ const OrderListSection = props => {
     retryPayment,
   } = props
   const viewport = useViewport()
+  const router = useRouter()
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [previewUrl, setPreviewUrl] = useState('')
   const [itemDetails, setItemDetails] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
 
-  const onClickViewItem = item => {}
+  const onClickViewItem = item => {
+    UserAPI.getById(item.userId).then(
+      (response: any) => {
+        if (!isString(response)) {
+          router.push(`/${response.username}/merch/${item.merchId}`)
+        }
+      },
+      error => {}
+    )
+  }
 
   return (
     <div>

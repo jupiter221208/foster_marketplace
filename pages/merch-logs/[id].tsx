@@ -329,7 +329,7 @@ const MerchDetail = () => {
       {/* Desktop */}
       <div className="w-full lg:block hidden mt-[30px]">
         <div className={styles.orderInfo}>
-          <div className="w-full flex gap-[85px]">
+          <div className="w-full flex lg:gap-[50px] xl:gap-[85px]">
             <div>
               <div className={styles.infoTitle}>Order Placed</div>
               <div className={styles.infoValue}>

@@ -8,6 +8,11 @@ class User {
       return response.data
     })
   }
+  getById(userId) {
+    return client.get(API_URL + 'v1/users/id/' + userId).then(response => {
+      return response.data
+    })
+  }
   update(userInfo) {
     return client.put(API_URL + 'v1/users', userInfo).then(response => {
       return response.data
