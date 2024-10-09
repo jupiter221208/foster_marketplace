@@ -12,7 +12,10 @@
   height: 100%;
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
-  background-color: rgba(#1a1a1a, 0.6);
+  background-color: rgba(#1a1a1a, 1);
+  @media (min-width: 1024px) {
+    background-color: rgba(#1a1a1a, 0.6);
+  }
   position: fixed;
   inset: 0;
 }
@@ -36,11 +39,10 @@
   width: 604px;
   height: 100vh;
   overflow: auto;
-  padding-top: 20px;
   @media (min-width: 1024px) {
     margin-top: 100px;
     padding-top: 0px;
-    max-height: 85vh;
+    height: 100%;
     background: var(--background-main-color);
     border: 1px solid var(--bg-303030-DDDCDC);
     border-radius: 10px;

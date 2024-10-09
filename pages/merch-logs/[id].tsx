@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
-import { getOrder, ShipStationShipment } from 'apis/merch'
+import { getOrder } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import { getShippingServiceName } from 'utils/merch'
 import { useAuthentication } from 'hooks/useAuthentication'
@@ -30,11 +30,14 @@ import OrderListSection from 'components/pages/MerchLogs/OrderListSection'
 import ShipToDropDown from 'components/pages/MerchLogs/ShipToDropDown'
 import ShippingDetailDropDown from 'components/pages/MerchLogs/ShippingDetailDropDown'
 import PaymentDetailDropDown from 'components/pages/MerchLogs/PaymentDetailDropDown'
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
 
 const MerchDetail = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { id } = router.query
+  const { connection } = useConnection()
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
   const [orderTabType, setOrderTabType] = useState('buyer')
@@ -46,7 +49,7 @@ const MerchDetail = () => {
   const [itemDetails, setItemDetails] = useState(null)
   const [list, setList] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
-  const [trackingDetails, setTrackingDetails] = useState<ShipStationShipment>(null)
+  const [trackingDetails, setTrackingDetails] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
   const [isOwn, setIsOwn] = useState(false)
@@ -90,12 +93,14 @@ const MerchDetail = () => {
 
   useEffect(() => {
     if (!orderData) return
-    let { order, shipment } = orderData
+    let { order, shipments, fulfillments } = orderData
     let ssorder = orderVersion === 'v1' ? orderData?.ssorder : orderData?.externalOrder
     setSSOrder(ssorder)
     if (orderData?.fulfillments?.length > 0) setFulfillment(orderData?.fulfillments[0])
 
-    if (shipment) setTrackingDetails(shipment)
+    if (shipments) setTrackingDetails(shipments)
+
+    if (fulfillments) setTrackingDetails(fulfillments[0])
 
     let localData = JSON.parse(localStorage.getItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
@@ -259,10 +264,11 @@ const MerchDetail = () => {
       shipTo: billTo
         ? {
             street: billTo.street1 + ' ' + (billTo.street2 ?? ''),
+            country: billTo.city.toLowerCase() === 'blink city' ? '' : billTo.country,
             city:
               billTo.city.toLowerCase() === 'blink city'
                 ? ''
-                : [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
+                : [billTo.city, billTo.state + ' ' + billTo.postalCode].join(', '),
           }
         : { street: '---', city: '---' },
       service: getShippingServiceName(ssorder.requestedShippingService),
@@ -303,7 +309,8 @@ const MerchDetail = () => {
   }
 
   const getShippingMethod = method => {
-    if (method === undefined) return 'Hidden for buyer safety'
+    if (method === undefined) return 'Awaiting Shipment'
+    else if (method === 'Other') return 'Not Specified'
     else if (method === 'gp_plus') {
       return 'GlobalPost Plus Intl'
     } else if (method === 'blinks') {
@@ -384,6 +391,8 @@ const MerchDetail = () => {
                           {orderDetails?.shipTo.street}
                           <br />
                           {orderDetails?.shipTo.city}
+                          <br />
+                          {orderDetails?.shipTo.country}
                         </div>
                       )
                     }
@@ -408,7 +417,9 @@ const MerchDetail = () => {
                         : trackingDetails?.trackingNumber
                     }
                     shipping={
-                      orderDetails?.orderNumber === '' && !isOwn
+                      trackingDetails
+                        ? getShippingMethod(trackingDetails.carrierCode)
+                        : orderDetails?.orderNumber === '' && !isOwn
                         ? 'Hidden for Buyer Safety'
                         : getShippingMethod(orderDetails?.service)
                     }
@@ -497,6 +508,7 @@ const MerchDetail = () => {
                         <div>
                           <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
                           <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                          <div className={styles.infoValue}>{orderDetails?.shipTo.country}</div>
                         </div>
                       )}
                     </div>
@@ -515,8 +527,11 @@ const MerchDetail = () => {
         )}
 
         {openPaymentDetails ? (
-          <div className={styles.orderInfoBG} onClick={() => setOpenPaymentDetails(false)}>
-            <div className="w-full flex justify-between items-center mb-[15px]">
+          <div className={styles.orderInfoBG}>
+            <div
+              className="w-full flex justify-between items-center mb-[15px]"
+              onClick={() => setOpenPaymentDetails(false)}
+            >
               <div className={styles.orderSummary}>Payment&nbsp;Details</div>
               <ArrowDownIcon />
             </div>
@@ -591,7 +606,14 @@ const MerchDetail = () => {
               )}
             </div>
 
-            <div className={styles.viewTransaction}>View Transaction</div>
+            <div
+              className={styles.viewTransaction}
+              onClick={() => {
+                window.open(getExplorerUrl(connection.rpcEndpoint, paymentDetails?.txId, 'tx'))
+              }}
+            >
+              View Transaction
+            </div>
           </div>
         ) : (
           <div className={styles.orderInfoBG} onClick={() => setOpenPaymentDetails(true)}>
@@ -626,13 +648,15 @@ const MerchDetail = () => {
               )}
             </div>
             <div className="w-full flex mt-[2px] items-center">
-              <div className={styles.infoPayment}>Shipping Carrier:&nbsp;</div>
+              <div className={styles.infoPayment}>Shipping&nbsp;Carrier:&nbsp;</div>
 
               {!orderDetails ? (
                 <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[6px]"></div>
               ) : (
                 <div className={styles.infoPayment}>
-                  {orderDetails?.orderNumber === '' && !isOwn
+                  {trackingDetails
+                    ? getShippingMethod(trackingDetails.carrierCode)
+                    : orderDetails?.orderNumber === '' && !isOwn
                     ? 'Hidden for Buyer Safety'
                     : getShippingMethod(orderDetails?.service)}
                 </div>
