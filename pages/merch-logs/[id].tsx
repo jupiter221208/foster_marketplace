@@ -166,7 +166,7 @@ const MerchDetail = () => {
       itemList.push({ ...item_details, fosterUrl: preview_url })
       setList(itemList)
     } else {
-      ssorder?.items.forEach(itemData => {
+      ssorder?.items.forEach((itemData, index) => {
         let options = itemData.options
         let nftName = findElement(options, 'name', 'nftName')
         let size = findElement(options, 'name', 'size')
@@ -183,6 +183,8 @@ const MerchDetail = () => {
         let quantity = itemData.quantity
         if (options) {
           let itemDetails = {
+            userId: orderData.items[index].userId,
+            merchId: orderData.items[index].id,
             quantity: quantity,
             print: nftName ? nftName['value'] : itemData?.name,
             type: optionType['value'],
