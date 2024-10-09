@@ -404,7 +404,7 @@ const MerchDetail = () => {
           <div>
             <div className={styles.orderNumber}>Order# {id}</div>
             <div className="flex gap-[14px] mt-[8px] items-center">
-              {orderTabType === 'seller' && merchType === 'foster' ? (
+              {orderTabType === 'seller' ? (
                 <></>
               ) : (
                 <div className="flex gap-[14px] items-center">
@@ -624,7 +624,7 @@ const MerchDetail = () => {
           </div>
         )}
 
-        {orderTabType === 'seller' && merchType === 'foster' ? (
+        {orderTabType === 'seller' ? (
           <></>
         ) : openShippingDetails ? (
           <div className={styles.orderInfoBG} onClick={() => setOpenShippingDetails(false)}>
