@@ -107,8 +107,8 @@ const MerchDetail = () => {
     setSSOrder(ssorder)
     if (orderData?.fulfillments?.length > 0) setFulfillment(orderData?.fulfillments[0])
 
-    if (shipments) setTrackingDetails(shipments)
-    else if (fulfillments && fulfillments.length > 0) setTrackingDetails(fulfillments[0])
+    if (shipments && shipments.lenght > 0) setTrackingDetails(shipments)
+    else if (fulfillments && fulfillments.length > 0) setTrackingDetails(fulfillments)
 
     let localData = JSON.parse(localStorage.getItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
@@ -429,11 +429,13 @@ const MerchDetail = () => {
                         ? 'Hidden for Buyer Safety'
                         : trackingDetails === null && connected
                         ? 'Pending Order Creation'
-                        : trackingDetails?.trackingNumber
+                        : trackingDetails
+                        ? trackingDetails[0].trackingNumber
+                        : 'Pending Order Creation'
                     }
                     shipping={
                       trackingDetails
-                        ? getShippingMethod(trackingDetails.carrierCode)
+                        ? getShippingMethod(trackingDetails[0].carrierCode)
                         : orderDetails?.orderNumber === '' && !isOwn
                         ? 'Hidden for Buyer Safety'
                         : 'Awaiting Shipment'
