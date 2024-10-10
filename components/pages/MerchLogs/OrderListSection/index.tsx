@@ -55,28 +55,55 @@ const OrderListSection = props => {
   return (
     <div>
       {!orderData ? (
-        <div className="w-full flex justify-between mt-[30px]">
-          <div className="flex gap-[77px]">
-            <div className="w-[180px] h-[180px] object-cover">
-              <div className="skeletonLoaderBasic w-[180px] h-[180px] rounded-[10px]"></div>
+        <div className="w-full mt-[30px]">
+          <div className="hidden lg:flex justify-between">
+            <div className="flex gap-[77px]">
+              <div className="w-[180px] h-[180px] object-cover">
+                <div className="skeletonLoaderBasic w-[180px] h-[180px] rounded-[10px]"></div>
+              </div>
+              <div className="max-w-[300px]">
+                <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[8px]"></div>
+                <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
+                <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[8px]"></div>
+                <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[20px]"></div>
+              </div>
             </div>
-            <div className="max-w-[300px]">
-              <div className={styles.detailTitle}>Item Details</div>
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[8px]"></div>
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
-              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[8px]"></div>
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[20px]"></div>
+            <div>
+              <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px]"></div>
+
+              <div className="mt-[12px]">
+                <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
+              </div>
+              <div className="mt-[12px]">
+                <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
-
-            <div className="mt-[12px]">
-              <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
+          <div className={`block lg:hidden ${styles.orderArea}`}>
+            <div className="flex gap-[37px]">
+              <div className="w-[110px] h-[110px] object-cover">
+                <div className="skeletonLoaderBasic w-[110px] h-[110px] rounded-[10px]"></div>
+              </div>
+              <div className="max-w-[100px]">
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full"></div>
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[8px]"></div>
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
+                <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[8px]"></div>
+              </div>
             </div>
-            <div className="mt-[12px]">
-              <div className="skeletonLoaderBasic w-[300px] h-[50px] rounded-[10px] mt-[15px]"></div>
+
+            <div className="w-full flex justify-center">
+              <div>
+                <div className="skeletonLoaderBasic w-[312px] h-[50px] rounded-[10px] mt-[15px]"></div>
+
+                <div className="mt-[12px]">
+                  <div className="skeletonLoaderBasic w-[312px] h-[50px] rounded-[10px] mt-[15px]"></div>
+                </div>
+                <div className="mt-[12px]">
+                  <div className="skeletonLoaderBasic w-[312px] h-[50px] rounded-[10px] mt-[15px]"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -93,7 +120,6 @@ const OrderListSection = props => {
                       </div>
                       <div className="flex flex-col gap-[14px] justify-between">
                         <div>
-                          {/* <div className={`hidden lg:block ${styles.detailTitle} mb-[15px]`}>Item Details</div> */}
                           <div className={`${styles.productName}`}>{item?.print}</div>
                           {orderDetails?.service === 'blinks' ? (
                             <div className={` ${styles.detailValue}`}>{item?.description}</div>
