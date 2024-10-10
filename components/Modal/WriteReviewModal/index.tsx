@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -31,25 +30,11 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
-  const [descCount, setDescCount] = useState(110)
+
   const [rating, setRating] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    function handleResize() {
-      let screenWidth = window.innerWidth
-      let count = screenWidth >= 640 ? 110 : screenWidth >= 480 ? 110 : screenWidth >= 414 ? 58 : 40
-      setDescCount(count)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    handleResize()
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   useEffect(() => {
     if (open) {

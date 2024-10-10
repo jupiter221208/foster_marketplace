@@ -1,0 +1,94 @@
+@import 'assets/scss/variable.module.scss';
+
+.detailTitle {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+}
+
+.detailValue {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  margin-top: 1px;
+  @media (min-width: 1024px) {
+    margin-top: 3px;
+  }
+}
+
+.priceValue {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 22px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  margin-top: 2px;
+  @media (min-width: 1024px) {
+    margin-top: 4px;
+  }
+}
+
+.productName {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.writeText {
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--main-icon-color);
+  cursor: pointer;
+}
+
+.border {
+  width: 1px;
+  height: 14px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.bottomBorder {
+  width: 100%;
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.15);
+  margin-top: 30px;
+}
+
+.orderArea {
+  padding: 20px 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    background: transparent;
+    padding: 0px;
+    border-width: 0px;
+  }
+}
+
+.tooltip {
+  background: rgba(var(--background-light-color), 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  color: white;
+}
+
+.ttTitle {
+  font-family: 'Muli-SemiBold';
+}
+
+.ttDesc {
+  font-family: 'Muli-Light';
+  margin-top: 4px;
+}
