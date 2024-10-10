@@ -21,7 +21,7 @@
 }
 
 .orderTitle {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 24px;
   line-height: 30px;
   color: var(--text-gray-200-color);
@@ -52,6 +52,20 @@
   color: var(--text-gray-200-color);
 }
 
+.orderNumber {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  text-align: right;
+}
+
+.border {
+  width: 1px;
+  height: 14px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
+}
+
 .orderInfo {
   width: 100%;
   display: flex;
@@ -59,8 +73,9 @@
   gap: 20px;
   background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
   @media (min-width: 1024px) {
-    padding: 30px;
+    padding: 25px;
   }
 }
 
@@ -68,9 +83,8 @@
   height: auto;
   background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 15px;
-  padding: 23px;
-  margin-top: 15px;
+  padding: 20px 15px;
+  margin-top: -1px;
 }
 
 .infoTitle {
@@ -92,6 +106,13 @@
   color: var(--text-gray-200-color);
 }
 
+.infoPayment {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
 .infoValue {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
@@ -105,29 +126,12 @@
   color: var(--text-gray-200-color);
 }
 
-.detailTitle {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--text-gray-200-color);
-}
-
-.detailValue {
+.viewTransaction {
   font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
-}
-
-.buyerEmail {
-  font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 20px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
+  color: var(--main-icon-color);
+  margin-top: 30px;
 }
 
 .detailOrderValue {
