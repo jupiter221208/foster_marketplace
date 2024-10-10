@@ -67,7 +67,6 @@ const MerchDetail = () => {
 
   const [merchType, setMerchType] = useState('')
 
-  console.log(merchType, orderTabType, '=========merchType========')
   useEffect(() => {
     if (publicKey) setEmailBody()
 
@@ -419,7 +418,7 @@ const MerchDetail = () => {
           <div>
             <div className={styles.orderNumber}>Order# {id}</div>
             <div className="flex gap-[14px] mt-[8px] items-center">
-              {orderTabType === 'seller' && (merchType === 'foster' || merchType === 'apparel') ? (
+              {orderTabType === 'seller' && merchType === 'foster' ? (
                 <></>
               ) : (
                 <div className="flex gap-[14px] items-center">
@@ -641,7 +640,7 @@ const MerchDetail = () => {
           </div>
         )}
 
-        {orderTabType === 'seller' && (merchType === 'foster' || merchType === 'apparel') ? (
+        {orderTabType === 'seller' && merchType === 'foster' ? (
           <></>
         ) : openShippingDetails ? (
           <div className={styles.orderInfoBG} onClick={() => setOpenShippingDetails(false)}>
