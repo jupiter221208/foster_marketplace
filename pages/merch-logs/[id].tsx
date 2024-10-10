@@ -70,8 +70,15 @@ const MerchDetail = () => {
   console.log(merchType, orderTabType, '=========merchType========')
   useEffect(() => {
     if (publicKey) setEmailBody()
-    if (profileInfo?.id == orderData?.userId) setOrderTabType('seller')
-    else setOrderTabType('buyer')
+
+    if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
+
+    if (parseInt(id) > 1000) {
+      if (profileInfo?.id == orderData?.userId) setOrderTabType('buyer')
+      else setOrderTabType('seller')
+    } else {
+      setOrderTabType('buyer')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo, publicKey, orderData])
 
@@ -101,8 +108,7 @@ const MerchDetail = () => {
     if (orderData?.fulfillments?.length > 0) setFulfillment(orderData?.fulfillments[0])
 
     if (shipments) setTrackingDetails(shipments)
-
-    if (fulfillments) setTrackingDetails(fulfillments[0])
+    else if (fulfillments && fulfillments.length > 0) setTrackingDetails(fulfillments[0])
 
     let localData = JSON.parse(localStorage.getItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2'))
 
@@ -377,28 +383,35 @@ const MerchDetail = () => {
               <></>
             ) : (
               <div>
-                <div className={styles.infoTitle}>Ship to</div>
                 {!orderDetails ? (
-                  <div className="skeletonLoaderBasic w-[120px] h-[22px] rounded-[8px] mt-[8px]"></div>
+                  <div>
+                    <div className={styles.infoTitle}>Ship to</div>
+                    <div className="skeletonLoaderBasic w-[120px] h-[22px] rounded-[8px] mt-[8px]"></div>
+                  </div>
+                ) : SSOrder?.billTo ? (
+                  <div>
+                    <div className={styles.infoTitle}>Ship to</div>
+                    <ShipToDropDown
+                      name={SSOrder?.billTo?.name}
+                      address={
+                        orderDetails?.orderNumber === '' && !isOwn ? (
+                          'Hidden for Buyer Safety'
+                        ) : orderDetails?.shipTo.street === '---' ? (
+                          'Hidden for Buyer Safety'
+                        ) : (
+                          <div>
+                            {orderDetails?.shipTo.street}
+                            <br />
+                            {orderDetails?.shipTo.city}
+                            <br />
+                            {orderDetails?.shipTo.country}
+                          </div>
+                        )
+                      }
+                    />
+                  </div>
                 ) : (
-                  <ShipToDropDown
-                    name={SSOrder?.billTo?.name}
-                    address={
-                      orderDetails?.orderNumber === '' && !isOwn ? (
-                        'Hidden for Buyer Safety'
-                      ) : orderDetails?.shipTo.street === '---' ? (
-                        'Hidden for Buyer Safety'
-                      ) : (
-                        <div>
-                          {orderDetails?.shipTo.street}
-                          <br />
-                          {orderDetails?.shipTo.city}
-                          <br />
-                          {orderDetails?.shipTo.country}
-                        </div>
-                      )
-                    }
-                  />
+                  <></>
                 )}
               </div>
             )}

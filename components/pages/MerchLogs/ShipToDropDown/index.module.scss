@@ -54,7 +54,8 @@
   background: var(--bg-1E1E1E-F3F2F0);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);  
   border-radius: 10px;
-  width: 209px;
+  width: auto;
+  min-width: 220px;
   padding: 20px;
   overflow: hidden;
   cursor: pointer;

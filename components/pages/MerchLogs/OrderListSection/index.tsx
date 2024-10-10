@@ -177,12 +177,14 @@ const OrderListSection = props => {
                               }}
                             />
                           </div>
-                          <Tooltip className={styles.tooltip} noArrow={true} anchorSelect="#track-package">
-                            <div>
-                              <div className={styles.ttTitle}>{`Awaiting Shipment`}</div>
-                              <div className={styles.ttDesc}>{`Tracking is not available at this time.`}</div>
-                            </div>
-                          </Tooltip>
+                          {trackingDetails === null && (
+                            <Tooltip className={styles.tooltip} noArrow={true} anchorSelect="#track-package">
+                              <div>
+                                <div className={styles.ttTitle}>{`Awaiting Shipment`}</div>
+                                <div className={styles.ttDesc}>{`Tracking is not available at this time.`}</div>
+                              </div>
+                            </Tooltip>
+                          )}
                         </div>
                       )}
                       <div className="mt-[12px]">
