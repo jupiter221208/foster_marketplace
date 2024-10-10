@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useViewport } from 'utils'
+import { Tooltip } from 'react-tooltip'
 
 // components
 import GradientButton from 'components/Button/GradientButton'
@@ -10,6 +11,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 // styles
 import styles from './index.module.scss'
+
 // apis
 import UserAPI from 'apis/user'
 import { isString } from 'utils/helpers'
@@ -139,14 +141,22 @@ const OrderListSection = props => {
                         </div>
                       ) : (
                         <div>
-                          <OutlineButton
-                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
-                            label="Track package"
-                            disabled={trackingDetails === null}
-                            onClick={() => {
-                              window.location.href = 'mailto:admin@Fostermarketplace.app'
-                            }}
-                          />
+                          <div id="track-package">
+                            <OutlineButton
+                              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 312 : 300}
+                              label="Track package"
+                              disabled={trackingDetails === null}
+                              onClick={() => {
+                                window.location.href = 'mailto:admin@Fostermarketplace.app'
+                              }}
+                            />
+                          </div>
+                          <Tooltip className={styles.tooltip} noArrow={true} anchorSelect="#track-package">
+                            <div>
+                              <div className={styles.ttTitle}>{`Awaiting Shipment`}</div>
+                              <div className={styles.ttDesc}>{`Tracking is not available at this time.`}</div>
+                            </div>
+                          </Tooltip>
                         </div>
                       )}
                       <div className="mt-[12px]">

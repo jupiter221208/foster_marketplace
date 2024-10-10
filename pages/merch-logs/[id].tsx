@@ -66,10 +66,12 @@ const MerchDetail = () => {
   const [openShippingDetails, setOpenShippingDetails] = useState(false)
 
   const [merchType, setMerchType] = useState('')
+
+  console.log(merchType, orderTabType, '=========merchType========')
   useEffect(() => {
     if (publicKey) setEmailBody()
-    if (profileInfo?.id == orderData?.userId) setOrderTabType('buyer')
-    else setOrderTabType('seller')
+    if (profileInfo?.id == orderData?.userId) setOrderTabType('seller')
+    else setOrderTabType('buyer')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo, publicKey, orderData])
 
@@ -119,7 +121,7 @@ const MerchDetail = () => {
       if (optionType['value'] === 'foster' && apparel?.length > 0) {
         apparel = apparel.split(' | ')[0]
       }
-      let previewUrl = orderVersion === 'v1' ? itemData.imageUrl.split(',')[0] : itemData.imageUrl
+      let previewUrl = orderVersion === 'v1' ? itemData.imageUrl?.split(',')[0] : itemData.imageUrl
       let fosterUrl = findElement(options, 'name', 'fosterUrl')
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
@@ -404,7 +406,7 @@ const MerchDetail = () => {
           <div>
             <div className={styles.orderNumber}>Order# {id}</div>
             <div className="flex gap-[14px] mt-[8px] items-center">
-              {orderTabType === 'seller' ? (
+              {orderTabType === 'seller' && (merchType === 'foster' || merchType === 'apparel') ? (
                 <></>
               ) : (
                 <div className="flex gap-[14px] items-center">
@@ -421,7 +423,7 @@ const MerchDetail = () => {
                         ? getShippingMethod(trackingDetails.carrierCode)
                         : orderDetails?.orderNumber === '' && !isOwn
                         ? 'Hidden for Buyer Safety'
-                        : getShippingMethod(orderDetails?.service)
+                        : 'Awaiting Shipment'
                     }
                   />
                   <div className={styles.border} />
@@ -624,7 +626,7 @@ const MerchDetail = () => {
           </div>
         )}
 
-        {orderTabType === 'seller' ? (
+        {orderTabType === 'seller' && (merchType === 'foster' || merchType === 'apparel') ? (
           <></>
         ) : openShippingDetails ? (
           <div className={styles.orderInfoBG} onClick={() => setOpenShippingDetails(false)}>
@@ -658,7 +660,7 @@ const MerchDetail = () => {
                     ? getShippingMethod(trackingDetails.carrierCode)
                     : orderDetails?.orderNumber === '' && !isOwn
                     ? 'Hidden for Buyer Safety'
-                    : getShippingMethod(orderDetails?.service)}
+                    : 'Awaiting Shipment'}
                 </div>
               )}
             </div>
