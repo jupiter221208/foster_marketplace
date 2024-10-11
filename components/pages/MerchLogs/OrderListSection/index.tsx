@@ -55,12 +55,12 @@ const OrderListSection = props => {
   const onClickTrackPackage = () => {
     let trackNo = trackingDetails[0]?.trackingNumber
     let carrierCode = trackingDetails[0]?.carrierCode.toLowerCase()
-    if (carrierCode === 'ups') {
-      window.open(`https://www.ups.com/track?tracknum=${trackNo}`)
-    } else if (carrierCode === 'usps') {
-      window.open(`https://www.usps.com/${trackNo}`)
+    if (carrierCode === 'usps') {
+      window.open(`https://tools.usps.com/go/TrackConfirmAction.action?tLabels=${trackNo}`)
+    } else if (carrierCode === 'ups') {
+      window.open(`https://www.ups.com/track?track=yes&trackNums=${trackNo}`)
     } else if (carrierCode === 'gps_plus') {
-      window.open(`https://globalpost.com/track/${trackNo}`)
+      window.open(`https://www.goglobalpost.com/track/?t=${trackNo}`)
     } else if (carrierCode === 'other') {
       window.open(`https://t.17track.net/en#nums=${trackNo}`)
     }
