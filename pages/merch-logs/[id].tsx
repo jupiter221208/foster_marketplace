@@ -659,7 +659,9 @@ const MerchDetail = () => {
                     ? 'Hidden for Buyer Safety'
                     : trackingDetails === null && connected
                     ? 'Pending Order Creation'
-                    : trackingDetails?.trackingNumber}
+                    : trackingDetails
+                    ? trackingDetails[0].trackingNumber
+                    : 'Pending Order Creation'}
                 </div>
               )}
             </div>
@@ -671,7 +673,7 @@ const MerchDetail = () => {
               ) : (
                 <div className={styles.infoPayment}>
                   {trackingDetails
-                    ? getShippingMethod(trackingDetails.carrierCode)
+                    ? getShippingMethod(trackingDetails[0].carrierCode)
                     : orderDetails?.orderNumber === '' && !isOwn
                     ? 'Hidden for Buyer Safety'
                     : 'Awaiting Shipment'}
