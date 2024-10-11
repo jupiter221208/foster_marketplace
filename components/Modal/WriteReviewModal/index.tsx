@@ -192,7 +192,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, onSuccess })
                     </div>
                     <div>
                       <div className={styles.productTitle}>{itemDetails?.print}</div>
-                      <div className={styles.productType}>{itemDetails?.description}</div>
+                      {/* <div className={styles.productType}>{itemDetails?.description}</div> */}
                     </div>
                   </div>
                   <div className="mt-[20px]">
