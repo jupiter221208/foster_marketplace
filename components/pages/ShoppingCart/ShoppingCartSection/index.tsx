@@ -137,7 +137,7 @@ const ShoppingCartSection = props => {
             </div>
             <div className="w-full flex justify-center  mt-[19px]">
               <GradientButton
-                disabled={totalCost === 0}
+                disabled={currentSelect === 0}
                 label={currentSelect === 0 ? 'Checkout' : 'Checkout (' + currentSelect + ' items)'}
                 fullWidth
                 onClick={() => onCheckout()}
