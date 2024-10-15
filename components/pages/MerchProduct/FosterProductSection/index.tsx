@@ -33,7 +33,6 @@ const FosterProductSection = props => {
         setSelectedItem(null)
         setShowQuestionModal(false)
         setFosterCard(null)
-        console.log(productDetail, '===========1==========')
         setProductDetail({ ...productDetail, selectedCard: null })
       } else {
         let path = window.location.href
@@ -64,10 +63,10 @@ const FosterProductSection = props => {
     })
     setProductList(cardList)
 
-    window.scrollTo({
-      top: viewport === 'xs' || viewport === 'sm' ? 790 : viewport === 'md' ? 730 : 860,
-      behavior: 'smooth',
-    })
+    // window.scrollTo({
+    //   top: viewport === 'xs' || viewport === 'sm' ? 790 : viewport === 'md' ? 730 : 860,
+    //   behavior: 'smooth',
+    // })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCard])
 
@@ -88,24 +87,25 @@ const FosterProductSection = props => {
   return (
     <div className="w-full">
       {selectedCard === null && (
-        <Swiper
-          navigation={true}
-          slidesPerView={viewport === 'xs' ? 1.23 : viewport === 'sm' || viewport === 'md' ? 2.4 : 5}
-          spaceBetween={
-            viewport === 'xs'
-              ? 20
-              : viewport === 'sm' || viewport === 'md'
-              ? 20
-              : viewport === 'lg'
-              ? 20
-              : viewport === '2xl'
-              ? 60
-              : 60
-          }
-          pagination={true}
-          modules={[Autoplay, Lazy, Navigation, Pagination]}
-          className={'noScrollNavigationSwiper'}
-        >
+        // <Swiper
+        //   navigation={true}
+        //   slidesPerView={viewport === 'xs' ? 1.23 : viewport === 'sm' || viewport === 'md' ? 2.4 : 5}
+        //   spaceBetween={
+        //     viewport === 'xs'
+        //       ? 20
+        //       : viewport === 'sm' || viewport === 'md'
+        //       ? 20
+        //       : viewport === 'lg'
+        //       ? 20
+        //       : viewport === '2xl'
+        //       ? 52
+        //       : 52
+        //   }
+        //   pagination={true}
+        //   modules={[Autoplay, Lazy, Navigation, Pagination]}
+        //   className={'noScrollNavigationSwiper'}
+        // >
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] 2xl:gap-[52px] mt-[30px]">
           {productList.map((item, index) => (
             <SwiperSlide key={index}>
               <div key={index}>
@@ -124,7 +124,8 @@ const FosterProductSection = props => {
               </div>
             </SwiperSlide>
           ))}
-        </Swiper>
+        </div>
+        // </Swiper>
       )}
 
       <div className="w-full lg:mt-[60px] mt-[30px] mb-[60px]">

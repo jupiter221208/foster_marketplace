@@ -193,6 +193,22 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
+.purpleColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #3C3334;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.blueColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #8696A5;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
 .selectedColor {
   border: 2px solid var(--bg-95dbd5-707070);
 }

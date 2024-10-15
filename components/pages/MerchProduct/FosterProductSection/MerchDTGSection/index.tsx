@@ -32,8 +32,6 @@ const MerchDTGSection = props => {
   const { selectedCard, productDetail, setProductDetail } = props
   const viewport = useViewport()
   const [canvas, setCanvas] = useState('')
-  const [color, setColor] = useState('white')
-  const [technique, setTechnique] = useState('dtg')
   const [cardSide, setCardSide] = useState('front')
   const [embPlace, setEmbPlace] = useState('front')
   const [assetUrl, setAssetUrl] = useState<any>(null)
@@ -46,10 +44,17 @@ const MerchDTGSection = props => {
   const [curPercentage, setCurPercentage] = useState(0)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState([])
+  const isTechnique =
+    apparelList[selectedCard.id].location.hasOwnProperty('dtg') &&
+    apparelList[selectedCard.id].location.hasOwnProperty('emb')
+  const techniques = Object.keys(apparelList[selectedCard.id].location)
+  const [technique, setTechnique] = useState(techniques[0])
 
+  const colors = Object.keys(apparelList[selectedCard.id].apparel.front)
+  const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-
+  console.log(apparelList, '=========apparelList=====')
   useEffect(() => {
     const handleMove = event => {
       if (event.type === 'touchmove' && event.target.className.includes('bar__progress')) {
@@ -80,7 +85,7 @@ const MerchDTGSection = props => {
   }, [productDetail])
 
   useEffect(() => {
-    document.getElementById(alertId).style.display = 'none'
+    if (isTechnique) document.getElementById(alertId).style.display = 'none'
   }, [])
 
   useEffect(() => {
@@ -113,8 +118,9 @@ const MerchDTGSection = props => {
   }, [technique, cardSide])
 
   useEffect(() => {
-    if (technique === 'dtg') setEmbPlace('front')
-    else setEmbPlace('chest')
+    if (technique === 'dtg') {
+      setEmbPlace('front')
+    } else setEmbPlace('chest')
   }, [technique])
 
   const isSaved = () => {
@@ -255,6 +261,7 @@ const MerchDTGSection = props => {
       assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
     }
     let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
+    let left_chest = apparelList[selectedCard.id].location[technique][cardSide].left_chest
     let screenWidth = 700
 
     let assetLeft
@@ -263,7 +270,7 @@ const MerchDTGSection = props => {
       if (embPlace === 'center') {
         assetLeft = (screenWidth - assetWidth) / 2
       } else if (embPlace === 'chest') {
-        assetLeft = screenWidth * 0.56
+        assetLeft = screenWidth * left_chest
       } else {
         assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
       }
@@ -474,60 +481,84 @@ const MerchDTGSection = props => {
             Additional designs will include additional fees – please see{' '}
             <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
           </div>
-          <div className="w-full mt-[20px]">
-            <div className={styles.technique}>
-              Technique
-              <div
-                onMouseEnter={() => {
-                  document.getElementById(alertId).style.display = 'block'
-                }}
-                onMouseLeave={() => {
-                  document.getElementById(alertId).style.display = 'none'
-                }}
-              >
-                <InfoIcon className="mt-[2px]" />
-              </div>
-              <TechniqueClipboardChip
-                title="Which technique should I choose?"
-                text="DTG is ideal for complex designs/artwork (i.e., large print areas, multiple colors, and gradients within the
+          {isTechnique && (
+            <div className="w-full mt-[20px]">
+              <div className={styles.technique}>
+                Technique
+                <div
+                  onMouseEnter={() => {
+                    document.getElementById(alertId).style.display = 'block'
+                  }}
+                  onMouseLeave={() => {
+                    document.getElementById(alertId).style.display = 'none'
+                  }}
+                >
+                  <InfoIcon className="mt-[2px]" />
+                </div>
+                <TechniqueClipboardChip
+                  title="Which technique should I choose?"
+                  text="DTG is ideal for complex designs/artwork (i.e., large print areas, multiple colors, and gradients within the
         artwork). Embroidery is better suited to simpler, smaller designs, such as logos, and for those who might want
         to achieve a 3D effect with their branding."
-                identifier={alertId}
-              />
-            </div>
-            <div className="w-full mt-[15px] flex gap-[15px]">
-              <div
-                className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
-                onClick={() => {
-                  if (isSaved()) {
-                    setQuestionType('technique_dtg')
-                    setShowQuestionModal(true)
-                  } else {
-                    setTechnique('dtg')
-                  }
-                }}
-              >
-                Direct to Garment
+                  identifier={alertId}
+                />
               </div>
-              <div
-                className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
-                onClick={() => {
-                  if (isSaved()) {
-                    setQuestionType('technique_emb')
-                    setShowQuestionModal(true)
-                  } else {
-                    setTechnique('emb')
-                  }
-                }}
-              >
-                Embroidery
+              <div className="w-full mt-[15px] flex gap-[15px]">
+                <div
+                  className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('technique_dtg')
+                      setShowQuestionModal(true)
+                    } else {
+                      setTechnique('dtg')
+                    }
+                  }}
+                >
+                  Direct to Garment
+                </div>
+                <div
+                  className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('technique_emb')
+                      setShowQuestionModal(true)
+                    } else {
+                      setTechnique('emb')
+                    }
+                  }}
+                >
+                  Embroidery
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="w-full mt-[20px]">
             <div className={styles.technique}>Color</div>
             <div className="w-full mt-[15px] flex gap-[15px]">
-              <div
+              {colors.map((item, index) => (
+                <div
+                  key={index}
+                  className={`${
+                    item === 'white'
+                      ? styles.whiteColor
+                      : item === 'black'
+                      ? styles.blackColor
+                      : item === 'blue'
+                      ? styles.blueColor
+                      : styles.purpleColor
+                  } ${color === item && styles.selectedColor}`}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('color_' + item)
+                      setShowQuestionModal(true)
+                    } else {
+                      setColor(item)
+                    }
+                  }}
+                ></div>
+              ))}
+              {/* <div
                 className={`${styles.whiteColor} ${color === 'white' && styles.selectedColor}`}
                 onClick={() => {
                   if (isSaved()) {
@@ -548,41 +579,53 @@ const MerchDTGSection = props => {
                     setColor('black')
                   }
                 }}
-              ></div>
+              ></div> */}
             </div>
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
           <div className="flex gap-[8px] xl:gap-[12px] mt-[12px]">
-            <MerchDTGCard
-              selected={cardSide === 'front'}
-              image={
-                snapshotAsset['front'].length > 0
-                  ? snapshotAsset['front']
-                  : apparelList[selectedCard.id].card.front[color]
-              }
-              side="front"
-              type="DTG"
-              technique={technique}
-              onSelect={type => {
-                setCardSide(type)
-                setShowEmbPosModal(true)
-              }}
-            />
-            <MerchDTGCard
-              selected={cardSide === 'back'}
-              image={
-                snapshotAsset['back'].length > 0 ? snapshotAsset['back'] : apparelList[selectedCard.id].card.back[color]
-              }
-              side="back"
-              type="DTG"
-              label="+$5.95"
-              technique={technique}
-              onSelect={type => setCardSide(type)}
-            />
+            {apparelList[selectedCard.id].card.hasOwnProperty('front') ? (
+              <MerchDTGCard
+                selected={cardSide === 'front'}
+                image={
+                  snapshotAsset['front'].length > 0
+                    ? snapshotAsset['front']
+                    : apparelList[selectedCard.id].card.front[color]
+                }
+                side="front"
+                type="DTG"
+                technique={technique}
+                onSelect={type => {
+                  setCardSide(type)
+                  setShowEmbPosModal(true)
+                }}
+              />
+            ) : (
+              <></>
+            )}
+
+            {apparelList[selectedCard.id].card.hasOwnProperty('back') ? (
+              <MerchDTGCard
+                selected={cardSide === 'back'}
+                image={
+                  snapshotAsset['back'].length > 0
+                    ? snapshotAsset['back']
+                    : apparelList[selectedCard.id].card.back[color]
+                }
+                side="back"
+                type="DTG"
+                label="+$5.95"
+                technique={technique}
+                onSelect={type => setCardSide(type)}
+              />
+            ) : (
+              <></>
+            )}
+
             {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
               <></>
-            ) : (
+            ) : apparelList[selectedCard.id].card.hasOwnProperty('right') ? (
               <MerchDTGCard
                 type={selectedCard.id}
                 selected={cardSide === 'right'}
@@ -596,10 +639,12 @@ const MerchDTGSection = props => {
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
+            ) : (
+              <></>
             )}
             {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
               <></>
-            ) : (
+            ) : apparelList[selectedCard.id].card.hasOwnProperty('left') ? (
               <MerchDTGCard
                 type={selectedCard.id}
                 selected={cardSide === 'left'}
@@ -613,6 +658,8 @@ const MerchDTGSection = props => {
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
+            ) : (
+              <></>
             )}
           </div>
           {showEmbPosModal ? (
@@ -624,15 +671,17 @@ const MerchDTGSection = props => {
               </div>
               <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
               <div className="mt-[15px] flex gap-[16px] justify-end">
-                <div
-                  className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                  onClick={() => {
-                    setEmbPlace('center')
-                    setShowEmbPosModal(false)
-                  }}
-                >
-                  Center Chest
-                </div>
+                {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center') && (
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('center')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Center Chest
+                  </div>
+                )}
                 <div
                   className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
                   onClick={() => {
@@ -800,7 +849,7 @@ const MerchDTGSection = props => {
       </div>
       {/************* Mobile ************/}
 
-      <div className="w-full bloack lg:hidden">
+      <div className="w-full block lg:hidden">
         {assetUrl && snapshotAsset[cardSide].length === 0 && (
           <div className={styles.progressBarMobile}>
             <div className={styles.prosText}>{(curPercentage * 3).toFixed(0)}%</div>
@@ -855,7 +904,29 @@ const MerchDTGSection = props => {
           <div className="w-full mt-[20px]">
             <div className={styles.technique}>Color</div>
             <div className="w-full mt-[10px] flex gap-[12px]">
-              <div
+              {colors.map((item, index) => (
+                <div
+                  key={index}
+                  className={`${
+                    item === 'white'
+                      ? styles.whiteColor
+                      : item === 'black'
+                      ? styles.blackColor
+                      : item === 'blue'
+                      ? styles.blueColor
+                      : styles.blueColor
+                  } ${color === item && styles.selectedColor}`}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('color_' + item)
+                      setShowQuestionModal(true)
+                    } else {
+                      setColor(item)
+                    }
+                  }}
+                ></div>
+              ))}
+              {/* <div
                 className={`${styles.whiteColor} ${color === 'white' && styles.selectedColor}`}
                 onClick={() => {
                   if (isSaved()) {
@@ -876,41 +947,51 @@ const MerchDTGSection = props => {
                     setColor('black')
                   }
                 }}
-              ></div>
+              ></div> */}
             </div>
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
           <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px] mb-[200px] lg:mb-[0px]">
-            <MerchDTGCard
-              selected={cardSide === 'front'}
-              image={
-                snapshotAsset['front'].length > 0
-                  ? snapshotAsset['front']
-                  : apparelList[selectedCard.id].card.front[color]
-              }
-              side="front"
-              type="DTG"
-              technique={technique}
-              onSelect={type => {
-                setCardSide(type)
-                setShowEmbPosModal(true)
-              }}
-            />
-            <MerchDTGCard
-              selected={cardSide === 'back'}
-              image={
-                snapshotAsset['back'].length > 0 ? snapshotAsset['back'] : apparelList[selectedCard.id].card.back[color]
-              }
-              side="back"
-              type="DTG"
-              label="+$5.95"
-              technique={technique}
-              onSelect={type => setCardSide(type)}
-            />
+            {apparelList[selectedCard.id].card.hasOwnProperty('front') ? (
+              <MerchDTGCard
+                selected={cardSide === 'front'}
+                image={
+                  snapshotAsset['front'].length > 0
+                    ? snapshotAsset['front']
+                    : apparelList[selectedCard.id].card.front[color]
+                }
+                side="front"
+                type="DTG"
+                technique={technique}
+                onSelect={type => {
+                  setCardSide(type)
+                  setShowEmbPosModal(true)
+                }}
+              />
+            ) : (
+              <></>
+            )}
+            {apparelList[selectedCard.id].card.hasOwnProperty('back') ? (
+              <MerchDTGCard
+                selected={cardSide === 'back'}
+                image={
+                  snapshotAsset['back'].length > 0
+                    ? snapshotAsset['back']
+                    : apparelList[selectedCard.id].card.back[color]
+                }
+                side="back"
+                type="DTG"
+                label="+$5.95"
+                technique={technique}
+                onSelect={type => setCardSide(type)}
+              />
+            ) : (
+              <></>
+            )}
             {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
               <></>
-            ) : (
+            ) : apparelList[selectedCard.id].card.hasOwnProperty('right') ? (
               <MerchDTGCard
                 type={selectedCard.id}
                 selected={cardSide === 'right'}
@@ -924,10 +1005,12 @@ const MerchDTGSection = props => {
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
+            ) : (
+              <></>
             )}
             {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
               <></>
-            ) : (
+            ) : apparelList[selectedCard.id].card.hasOwnProperty('left') ? (
               <MerchDTGCard
                 type={selectedCard.id}
                 selected={cardSide === 'left'}
@@ -941,6 +1024,8 @@ const MerchDTGSection = props => {
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
+            ) : (
+              <></>
             )}
           </div>
           {/* **************Buttons desktop************** */}
