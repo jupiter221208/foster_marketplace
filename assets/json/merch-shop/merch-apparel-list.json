@@ -194,5 +194,50 @@
       "front": {"purple":"/images/apparel/jean_jacket_black.png", "blue": "/images/apparel/jean_jacket_blue.png"}, 
       "back": {"purple":"/images/apparel/jean_jacket_black_b.png", "blue": "/images/apparel/jean_jacket_blue_b.png"}
     }
+  },
+  {
+    "id": 30,
+    "name": "Faux Leather Bomber Jacket",
+    "location": { 
+      "emb": {
+        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 160, "left": 230, "left_chest": 0.62, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  }
+      }
+    },
+    "apparel": { 
+      "front": {"black":"/images/apparel/leather_jacket_black.png"}, 
+      "back": {"black":"/images/apparel/leather_jacket_black_b.png"}
+    },
+    "card": { 
+      "front": {"black":"/images/apparel/leather_jacket_black.png"}, 
+      "back": {"black":"/images/apparel/leather_jacket_black_b.png"}
+    }
+  },
+  {
+    "id": 25,
+    "name": "Unisex Premium Pique Polo Shirt",
+    "location": { 
+      "dtg": {
+        "front": {"width_chest": 90, "height_chest": 90, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
+        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+      },
+      "emb": {
+        "front": {"width_chest": 90, "height_chest": 90, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
+        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"}, 
+      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
+
+    },
+    "card": { 
+      "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"},  
+      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
+    }
   }
 ]

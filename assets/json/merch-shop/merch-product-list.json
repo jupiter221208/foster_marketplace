@@ -56,20 +56,20 @@
     "image": "/images/apparel/jean_jacket_blue.png"
   },
   {
-    "id": 30,
+    "id": 7,
     "name": "Faux Leather Bomber Jacket",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 75, "emb": 75 },
     "size": "XS - 3XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/leather_jacket_black.png"
   },
   {
-    "id": 25,
+    "id": 8,
     "name": "Unisex Premium Pique Polo Shirt",
     "description": "SOL'S",
     "price" : {"dtg" : 29, "emb": 31 },
     "size": "S - 5XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/polo_shirt_white.png"
   },
   {
     "id": 22,
