@@ -43,6 +43,7 @@ const NewCreatorMerch = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [backClicked, setBackClicked] = useState(false)
 
   useEffect(() => {
     if (!productDetail) {
@@ -278,8 +279,10 @@ const NewCreatorMerch = () => {
             fontSize={18}
             onClick={() => {
               if (currentStep === 1) {
-                let path = window.location.href
-                router.push(path.substring(0, path.lastIndexOf('/')))
+                setBackClicked(true)
+                setTimeout(() => {
+                  setBackClicked(false)
+                }, 500)
               } else {
                 setCurrentStep(currentStep - 1)
                 setNextEnabled(true)
@@ -325,13 +328,16 @@ const NewCreatorMerch = () => {
       </div>
 
       <div className="g-container mt-[110px] lg:mt-[165px]">
-        {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
+        {currentStep === 1 && (
+          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} backClicked={backClicked} />
+        )}
         {currentStep >= 2 && (
           <AdditionalDetails
             username={profileInfo.username}
             productDetail={productDetail}
             step={currentStep}
             additionDetail={additionDetail}
+            backClicked={backClicked}
             setAdditionDetail={setAdditionDetail}
             setEnableNext={setNextEnabled}
           />
