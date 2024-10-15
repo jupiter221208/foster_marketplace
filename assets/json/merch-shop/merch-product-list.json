@@ -72,12 +72,12 @@
     "image": "/images/apparel/polo_shirt_white.png"
   },
   {
-    "id": 22,
+    "id": 9,
     "name": "Faded Oversized Tee",
     "description": "AS Colour",
     "price" : {"dtg" : 34, "emb": 34 },
     "size": "S - 3XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/oversized_t_white.png"
   },
   {
     "id": 31,

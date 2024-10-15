@@ -232,12 +232,42 @@
     },
     "apparel": { 
       "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"}, 
-      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
+      "back": {"white":"/images/apparel/polo_shirt_black_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
 
     },
     "card": { 
       "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"},  
       "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
+    }
+  },
+  {
+    "id": 22,
+    "name": "Faded Oversized Tee",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 240, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 180, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
+        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+      },
+      "emb": {
+        "front": {"width": 240, "height": 240, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 180, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
+        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": {"white":"/images/apparel/oversized_t_white.png", "black":"/images/apparel/oversized_t_white_b.png"}, 
+      "back": {"white":"/images/apparel/oversized_t_back.png", "black":"/images/apparel/oversized_t_back_b.png"},
+      "right": {"white":"/images/apparel/oversized_t_right.png", "black":"/images/apparel/oversized_t_right_b.png"},
+      "left": {"white":"/images/apparel/oversized_t_left.png", "black":"/images/apparel/oversized_t_left_b.png"}
+    },
+    "card": { 
+      "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"},  
+      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"},
+      "right": {"white":"/images/apparel/oversized_t_right.png", "black":"/images/apparel/oversized_t_right_b.png"},
+      "left": {"white":"/images/apparel/oversized_t_left.png", "black":"/images/apparel/oversized_t_left_b.png"}
     }
   }
 ]
