@@ -421,5 +421,124 @@
       "right" :{ "pink":"/images/apparel/crop_hoodie_pink_r_card.webp", "black":"/images/apparel/crop_hoodie_black_r_card.webp" }, 
       "left" : { "pink":"/images/apparel/crop_hoodie_pink_l_card.webp", "black":"/images/apparel/crop_hoodie_black_l_card.webp" } 
     }
+  },
+  {
+    "id": 34,
+    "name": "Unisex Fleece Sweatpants",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
+        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": { "white":"/images/apparel/sweat_pant_white.png", "black":"/images/apparel/sweat_pant_black.png", "gray":"/images/apparel/sweat_pant_gray.png"  }, 
+      "back": { "white":"/images/apparel/sweat_pant_white_b.png", "black": "/images/apparel/sweat_pant_black_b.png", "gray":"/images/apparel/sweat_pant_gray_b.png"}
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/sweat_pant_white_card.webp", "black":"/images/apparel/sweat_pant_black_card.webp", "gray":"/images/apparel/sweat_pant_gray_card.webp" }, 
+      "back": { "white":"/images/apparel/sweat_pant_white_b_card.webp", "black": "/images/apparel/sweat_pant_black_b_card.webp", "gray":"/images/apparel/sweat_pant_gray_b_card.webp"}
+    }
+  },
+  {
+    "id": 40,
+    "name": "Embroidered Dad Hat",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
+        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": { "white":"/images/apparel/dad_hat_white.png", "black":"/images/apparel/dad_hat_black.png" }, 
+      "back": { "white": "/images/apparel/dad_hat_white_b.png", "black":"/images/apparel/dad_hat_black_b.png" }, 
+      "right" :{ "white":"/images/apparel/dad_hat_white_r.png", "black":"/images/apparel/dad_hat_black_r.png" }, 
+      "left" : { "white":"/images/apparel/dad_hat_white_l.png", "black":"/images/apparel/dad_hat_black_l.png" } 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/dad_hat_white_card.webp", "black":"/images/apparel/dad_hat_black_card.webp" }, 
+      "back": { "white": "/images/apparel/dad_hat_white_b_card.webp", "black":"/images/apparel/dad_hat_black_b_card.webp" }, 
+      "right" :{ "white":"/images/apparel/dad_hat_white_r_card.webp", "black":"/images/apparel/dad_hat_black_r_card.webp" }, 
+      "left" : { "white":"/images/apparel/dad_hat_white_l_card.webp", "black":"/images/apparel/dad_hat_black_l_card.webp" } 
+    }
+  },
+  {
+    "id": 41,
+    "name": "Cuffed & Embroidered Beanie",
+    "location": { 
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0}
+      }
+    },
+    "apparel": { 
+      "front": { "white":"/images/apparel/beanie_white.png", "black":"/images/apparel/beanie_black.png" }
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/beanie_white_card.webp", "black":"/images/apparel/beanie_black_card.webp" }
+    }
+  },
+  {
+    "id": 42,
+    "name": "All Over Print - Backpack",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 },
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 }
+      }
+    },
+    "apparel": { 
+      "front": { "white":"/images/apparel/backpack_front.png" }, 
+      "right": { "white": "/images/apparel/backpack_side.png" }, 
+      "left" :{ "white":"/images/apparel/backpack_bottom.png" }, 
+      "back" : { "white":"/images/apparel/backpack_back.png" } 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/backpack_front_card.webp" }, 
+      "right": { "white": "/images/apparel/backpack_side_card.webp" }, 
+      "left" :{ "white":"/images/apparel/backpack_bottom_card.webp" }, 
+      "back" : { "white":"/images/apparel/backpack_back_card.webp" } 
+    }
+  },
+  {
+    "id": 43,
+    "name": "All Over Print - Duffle Bag",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 },
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 }
+      }
+    },
+    "apparel": { 
+      "front": { "white":"/images/apparel/duffle_bag_front.png" }, 
+      "right": { "white": "/images/apparel/duffle_bag_top.png" }, 
+      "left" :{ "white":"/images/apparel/duffle_bag_left.png" }, 
+      "back" : { "white":"/images/apparel/duffle_bag_bottom.png" } 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/duffle_bag_front_card.webp" }, 
+      "right": { "white": "/images/apparel/duffle_bag_top_card.webp" }, 
+      "left" :{ "white":"/images/apparel/duffle_bag_left_card.webp" }, 
+      "back" : { "white":"/images/apparel/duffle_bag_bottom_card.webp" } 
+    }
   }
 ]

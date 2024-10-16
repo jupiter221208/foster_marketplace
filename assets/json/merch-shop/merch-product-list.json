@@ -120,43 +120,43 @@
     "image": "/images/apparel/crop_hoodie_middle.webp"
   },
   {
-    "id": 34,
+    "id": 15,
     "name": "Unisex Fleece Sweatpants",
     "description": "Cotton Heritage",
     "price" : {"dtg" : 34, "emb": 35 },
     "size": "XS - 2XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/sweat_pant_middle.webp"
   },
   {
-    "id": 40,
+    "id": 16,
     "name": "Embroidered Dad Hat",
     "description": "Yupoong",
     "price" : {"dtg" : 25, "emb": 25 },
     "size": "One Size",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/dad_hat_middle.webp"
   },
   {
-    "id": 41,
+    "id": 17,
     "name": "Cuffed & Embroidered Beanie",
     "description": "Yupoong",
     "price" : {"dtg" : 25, "emb": 25 },
     "size": "One Size",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/beanie_middle.webp"
   },
   {
-    "id": 42,
+    "id": 18,
     "name": "All Over Print - Backpack",
     "description": "All Over Print",
     "price" : {"dtg" : 40, "emb": 40 },
     "size": "One Size",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/backpack_middle.webp"
   },
   {
-    "id": 43,
+    "id": 19,
     "name": "All Over Print - Duffle Bag",
     "description": "All Over Print",
     "price" : {"dtg" : 65, "emb": 65 },
     "size": "One Size",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/duffle_bag_middle.webp"
   }
 ]
