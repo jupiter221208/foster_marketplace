@@ -51,6 +51,8 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
+  const SweatPantModel = 15
+  const unusedModalIds = [SweatPantModel]
 
   useEffect(() => {
     const handleMove = event => {
@@ -99,7 +101,9 @@ const MerchDTGSection = props => {
     setCurPercentage(0)
     setEmbPlace('front')
     setCardSide('front')
-    setShowEmbPosModal(true)
+
+    if (!unusedModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas) {
       newCanvas.clear()
@@ -109,7 +113,8 @@ const MerchDTGSection = props => {
   }, [selectedCard])
 
   useEffect(() => {
-    if (cardSide === 'front' && snapshotAsset[cardSide].length === 0) setShowEmbPosModal(true)
+    if (cardSide === 'front' && snapshotAsset[cardSide].length === 0 && !unusedModalIds.includes(selectedCard.id))
+      setShowEmbPosModal(true)
     else setShowEmbPosModal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
@@ -154,6 +159,16 @@ const MerchDTGSection = props => {
     }
 
     if (cardSide === 'front') setShowEmbPosModal(true)
+  }
+
+  const getCardLabel = (side, id) => {
+    if (id === SweatPantModel) {
+      if (side === 'front') return 'Front left leg'
+      else if (side === 'back') return 'Front right leg'
+      else if (side === 'right') return 'Back left leg'
+      else if (side === 'left') return 'Back right leg'
+    }
+    return ''
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -768,6 +783,7 @@ const MerchDTGSection = props => {
                   }
                   side="front"
                   type="DTG"
+                  title={getCardLabel('front', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
@@ -789,6 +805,7 @@ const MerchDTGSection = props => {
                   }
                   side="back"
                   type="DTG"
+                  title={getCardLabel('back', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
@@ -809,6 +826,7 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.right[color]
                   }
                   side="right"
+                  title={getCardLabel('right', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
@@ -828,6 +846,7 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.left[color]
                   }
                   side="left"
+                  title={getCardLabel('left', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
@@ -1046,6 +1065,7 @@ const MerchDTGSection = props => {
                 }
                 side="front"
                 type="DTG"
+                title={getCardLabel('front', selectedCard.id)}
                 technique={technique}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
@@ -1066,6 +1086,7 @@ const MerchDTGSection = props => {
                 }
                 side="back"
                 type="DTG"
+                title={getCardLabel('back', selectedCard.id)}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
@@ -1085,6 +1106,7 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.right[color]
                 }
                 side="right"
+                title={getCardLabel('right', selectedCard.id)}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
@@ -1104,6 +1126,7 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.left[color]
                 }
                 side="left"
+                title={getCardLabel('left', selectedCard.id)}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}

@@ -11,9 +11,11 @@ import 'swiper/css/navigation'
 import styles from './index.module.scss'
 
 const MerchDTGCard = props => {
-  const { image, selected = false, side = 'front', type = '', placement, technique, onSelect } = props
+  const { image, selected = false, side = 'front', type = '', title = '', placement, technique, onSelect } = props
   const viewport = useViewport()
   const getLabel = () => {
+    if (title.length > 0) return title
+
     let label = ''
     if (side === 'front') {
       if (technique === 'dtg') label = 'Front'
@@ -48,10 +50,8 @@ const MerchDTGCard = props => {
       <div className="flex flex-col gap-[2px] lg:mt-[11px] sm:mt-[11px] mt-[6px] justify-center items-center">
         <div className={styles.side}>
           <p>{getLabel()}</p>
-          {side === 'back' && technique !== 'dtg' && <div>(DTG)</div>}
+          {title === '' && side === 'back' && technique !== 'dtg' && <div>(DTG)</div>}
         </div>
-        {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
-        {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}
       </div>
     </div>
   )

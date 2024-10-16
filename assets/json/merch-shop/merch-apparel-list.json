@@ -358,16 +358,16 @@
     "name": "Women's Cropped Sweatshirt",
     "location": { 
       "dtg": {
-        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
-        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+        "front": {"width": 205, "height": 205, "width_chest": 70, "height_chest": 70, "width_center": 205, "height_center": 205, "top": 81, "top_chest": 81, "left": 248, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 205, "height": 205, "top": 191, "left": 248, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 560, "left": 325, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 350, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
-        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+        "front": {"width": 90, "height": 90, "width_chest": 70, "height_chest": 70, "width_center": 205, "height_center": 205, "top": 81, "top_chest": 81, "left": 248, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 205, "height": 205, "top": 191, "left": 248, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 560, "left": 325, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 350, "angle": 0 }
       }
     },
     "apparel": { 
@@ -388,16 +388,16 @@
     "name": "Women's Cropped Hoodie",
     "location": { 
       "dtg": {
-        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
-        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+        "front": {"width": 205, "height": 205, "width_chest": 70, "height_chest": 70, "width_center": 205, "height_center": 205, "top": 81, "top_chest": 81, "left": 248, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 205, "height": 205, "top": 325, "left": 261, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 580, "left": 330, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 580, "left": 345, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
-        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+        "front": {"width": 90, "height": 90, "width_chest": 70, "height_chest": 70, "width_center": 205, "height_center": 205, "top": 81, "top_chest": 81, "left": 248, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 205, "height": 205, "top": 325, "left": 261, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 580, "left": 330, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 580, "left": 345, "angle": 0 }
       }
     },
     "apparel": { 
@@ -418,25 +418,29 @@
     "name": "Unisex Fleece Sweatpants",
     "location": { 
       "dtg": {
-        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
-        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+        "front": {"width": 69, "height": 205, "top": 430, "left": 433, "angle": 0},
+        "back": {"width": 69, "height": 205, "top": 430, "left": 192, "angle": 0 },
+        "right": {"width": 69, "height": 205, "top": 430, "left": 433, "angle": 0 },
+        "left": {"width": 69, "height": 205, "top": 430, "left": 192, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
-        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+        "front": {"width": 69, "height": 205, "top": 430, "left": 433, "angle": 0},
+        "back": {"width": 69, "height": 205, "top": 430, "left": 192, "angle": 0 },
+        "right": {"width": 69, "height": 205, "top": 430, "left": 433, "angle": 0 },
+        "left": {"width": 69, "height": 205, "top": 430, "left": 192, "angle": 0 }
       }
     },
     "apparel": { 
-      "front": { "white":"/images/apparel/sweat_pant_white.png", "black":"/images/apparel/sweat_pant_black.png", "gray":"/images/apparel/sweat_pant_gray.png"  }, 
-      "back": { "white":"/images/apparel/sweat_pant_white_b.png", "black": "/images/apparel/sweat_pant_black_b.png", "gray":"/images/apparel/sweat_pant_gray_b.png"}
+      "front": { "white":"/images/apparel/sweat_pant_white.png", "black":"/images/apparel/sweat_pant_black.png", "gray":"/images/apparel/sweat_pant_gray.png"}, 
+      "back": { "white":"/images/apparel/sweat_pant_white.png", "black":"/images/apparel/sweat_pant_black.png", "gray":"/images/apparel/sweat_pant_gray.png"}, 
+      "right": { "white":"/images/apparel/sweat_pant_white_b.png", "black": "/images/apparel/sweat_pant_black_b.png", "gray":"/images/apparel/sweat_pant_gray_b.png"},
+      "left": { "white":"/images/apparel/sweat_pant_white_b.png", "black": "/images/apparel/sweat_pant_black_b.png", "gray":"/images/apparel/sweat_pant_gray_b.png"}
     },
     "card": { 
       "front": { "white":"/images/apparel/sweat_pant_white_card.webp", "black":"/images/apparel/sweat_pant_black_card.webp", "gray":"/images/apparel/sweat_pant_gray_card.webp" }, 
-      "back": { "white":"/images/apparel/sweat_pant_white_b_card.webp", "black": "/images/apparel/sweat_pant_black_b_card.webp", "gray":"/images/apparel/sweat_pant_gray_b_card.webp"}
+      "back": { "white":"/images/apparel/sweat_pant_white_card.webp", "black":"/images/apparel/sweat_pant_black_card.webp", "gray":"/images/apparel/sweat_pant_gray_card.webp" }, 
+      "right": { "white":"/images/apparel/sweat_pant_white_b_card.webp", "black": "/images/apparel/sweat_pant_black_b_card.webp", "gray":"/images/apparel/sweat_pant_gray_b_card.webp"},
+      "left": { "white":"/images/apparel/sweat_pant_white_b_card.webp", "black": "/images/apparel/sweat_pant_black_b_card.webp", "gray":"/images/apparel/sweat_pant_gray_b_card.webp"}
     }
   },
   {
