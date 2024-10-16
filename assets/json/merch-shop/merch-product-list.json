@@ -45,7 +45,7 @@
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 70, "emb": 70 },
     "size": "XS - 3XL",
-    "image": "/images/apparel/bomber_jacket_black.png"
+    "image": "/images/apparel/bomber_jacket_black.webp"
   },
   {
     "id": 6,
@@ -53,7 +53,7 @@
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 75, "emb": 75 },
     "size": "XS - 3XL",
-    "image": "/images/apparel/jean_jacket_blue.png"
+    "image": "/images/apparel/jean_jacket_blue.webp"
   },
   {
     "id": 7,
@@ -61,7 +61,7 @@
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 75, "emb": 75 },
     "size": "XS - 3XL",
-    "image": "/images/apparel/leather_jacket_black.png"
+    "image": "/images/apparel/leather_jacket_black.webp"
   },
   {
     "id": 8,
@@ -69,7 +69,7 @@
     "description": "SOL'S",
     "price" : {"dtg" : 29, "emb": 31 },
     "size": "S - 5XL",
-    "image": "/images/apparel/polo_shirt_white.png"
+    "image": "/images/apparel/polo_shirt_white.webp"
   },
   {
     "id": 9,
@@ -77,7 +77,7 @@
     "description": "AS Colour",
     "price" : {"dtg" : 34, "emb": 34 },
     "size": "S - 3XL",
-    "image": "/images/apparel/oversized_t_white.png"
+    "image": "/images/apparel/oversized_t_white.webp"
   },
   {
     "id": 31,

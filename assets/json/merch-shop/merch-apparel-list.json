@@ -173,8 +173,8 @@
       "back": {"black":"/images/apparel/bomber_jacket_black_b.png"}
     },
     "card": { 
-      "front": {"black":"/images/apparel/bomber_jacket_black_card.png"}, 
-      "back": {"black":"/images/apparel/bomber_jacket_black_b_card.png"}
+      "front": {"black":"/images/apparel/bomber_jacket_black_card.webp"}, 
+      "back": {"black":"/images/apparel/bomber_jacket_black_b_card.webp"}
     }
   },
   {
@@ -191,8 +191,8 @@
       "back": {"purple":"/images/apparel/jean_jacket_black_b.png", "blue": "/images/apparel/jean_jacket_blue_b.png"}
     },
     "card": { 
-      "front": {"purple":"/images/apparel/jean_jacket_black.png", "blue": "/images/apparel/jean_jacket_blue.png"}, 
-      "back": {"purple":"/images/apparel/jean_jacket_black_b.png", "blue": "/images/apparel/jean_jacket_blue_b.png"}
+      "front": {"purple":"/images/apparel/jean_jacket_black_card.webp", "blue": "/images/apparel/jean_jacket_blue_card.webp"}, 
+      "back": {"purple":"/images/apparel/jean_jacket_black_b_card.webp", "blue": "/images/apparel/jean_jacket_blue_b_card.webp"}
     }
   },
   {
@@ -209,8 +209,8 @@
       "back": {"black":"/images/apparel/leather_jacket_black_b.png"}
     },
     "card": { 
-      "front": {"black":"/images/apparel/leather_jacket_black.png"}, 
-      "back": {"black":"/images/apparel/leather_jacket_black_b.png"}
+      "front": {"black":"/images/apparel/leather_jacket_black_card.webp"}, 
+      "back": {"black":"/images/apparel/leather_jacket_black_b_card.webp"}
     }
   },
   {
@@ -232,12 +232,12 @@
     },
     "apparel": { 
       "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"}, 
-      "back": {"white":"/images/apparel/polo_shirt_black_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
+      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
 
     },
     "card": { 
-      "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"},  
-      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"}
+      "front": {"white":"/images/apparel/polo_shirt_white_card.webp", "black":"/images/apparel/polo_shirt_black_card.webp"},  
+      "back": {"white":"/images/apparel/polo_shirt_white_card_b.webp", "black":"/images/apparel/polo_shirt_black_card_b.webp"}
     }
   },
   {
@@ -258,16 +258,16 @@
       }
     },
     "apparel": { 
-      "front": {"white":"/images/apparel/oversized_t_white.png", "black":"/images/apparel/oversized_t_white_b.png"}, 
-      "back": {"white":"/images/apparel/oversized_t_back.png", "black":"/images/apparel/oversized_t_back_b.png"},
-      "right": {"white":"/images/apparel/oversized_t_right.png", "black":"/images/apparel/oversized_t_right_b.png"},
-      "left": {"white":"/images/apparel/oversized_t_left.png", "black":"/images/apparel/oversized_t_left_b.png"}
+      "front": {"white":"/images/apparel/oversized_t_white.png", "black":"/images/apparel/oversized_t_black.png"}, 
+      "back": {"white":"/images/apparel/oversized_t_white_b.png", "black":"/images/apparel/oversized_t_black_b.png"},
+      "right": {"white":"/images/apparel/oversized_t_right.png", "black":"/images/apparel/oversized_t_black_right.png"},
+      "left": {"white":"/images/apparel/oversized_t_white_left.png", "black":"/images/apparel/oversized_t_black_left.png"}
     },
     "card": { 
-      "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"},  
-      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"},
-      "right": {"white":"/images/apparel/oversized_t_right.png", "black":"/images/apparel/oversized_t_right_b.png"},
-      "left": {"white":"/images/apparel/oversized_t_left.png", "black":"/images/apparel/oversized_t_left_b.png"}
+      "front": {"white":"/images/apparel/oversized_t_white_card.webp", "black":"/images/apparel/oversized_t_black_card.webp"},  
+      "back": {"white":"/images/apparel/oversized_t_white_b_card.webp", "black":"/images/apparel/oversized_t_black_b_card.webp"},
+      "right": {"white":"/images/apparel/oversized_t_white_right_card.webp", "black":"/images/apparel/oversized_t_black_right_card.webp"},
+      "left": {"white":"/images/apparel/oversized_t_white_left_card.webp", "black":"/images/apparel/oversized_t_black_left_card.webp"}
     }
   }
 ]
