@@ -44,9 +44,6 @@ const MerchDTGSection = props => {
   const [curPercentage, setCurPercentage] = useState(0)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState([])
-  const isTechnique =
-    apparelList[selectedCard.id].location.hasOwnProperty('dtg') &&
-    apparelList[selectedCard.id].location.hasOwnProperty('emb')
   const techniques = Object.keys(apparelList[selectedCard.id].location)
   const [technique, setTechnique] = useState(techniques[0])
 
@@ -54,7 +51,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  console.log(apparelList, '=========apparelList=====')
+
   useEffect(() => {
     const handleMove = event => {
       if (event.type === 'touchmove' && event.target.className.includes('bar__progress')) {
@@ -85,7 +82,7 @@ const MerchDTGSection = props => {
   }, [productDetail])
 
   useEffect(() => {
-    if (isTechnique) document.getElementById(alertId).style.display = 'none'
+    document.getElementById(alertId).style.display = 'none'
   }, [])
 
   useEffect(() => {
@@ -364,6 +361,46 @@ const MerchDTGSection = props => {
                 },
                 { crossOrigin: 'Anonymous' }
               )
+            } else if (technique === 'dtf') {
+              new fabric.Image.fromURL(
+                assetUrl,
+                overlayImg => {
+                  const { width } = overlayImg.getOriginalSize()
+
+                  var rectClippingPath = new fabric.Rect({
+                    top: assetTop,
+                    left: assetLeft,
+                    width: assetWidth,
+                    height: assetHeight,
+                    stroke: 'rgba(26, 26, 26, 0.5)',
+                    angle: angle,
+                    absolutePositioned: true,
+                  })
+                  overlayImg.clipPath = rectClippingPath
+                  overlayImg.scaleToWidth(assetWidth, false)
+                  overlayImg.set({
+                    scaleX: assetWidth / width,
+                    scaleY: assetWidth / width,
+                    top: assetTop,
+                    left: assetLeft,
+                    angle: angle,
+                    globalCompositeOperation: color === 'white' ? 'multiply' : 'color-dodge',
+                  })
+
+                  newCanvas.add(overlayImg)
+                  overlayImg.setControlsVisibility({
+                    mt: false,
+                    mb: false,
+                    ml: false,
+                    mr: false,
+                  })
+                  overlayImg.borderColor = color === 'white' ? '#202427' : '#95dbd5'
+                  overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
+                  newCanvas.setActiveObject(overlayImg)
+                  newCanvas.renderAll()
+                },
+                { crossOrigin: 'Anonymous' }
+              )
             } else {
               resizeImage(assetUrl, 1000, 1000, function (dataUrl) {
                 new fabric.Image.fromURL(
@@ -391,7 +428,6 @@ const MerchDTGSection = props => {
                     })
 
                     // pattern image
-
                     new fabric.Image.fromURL('/images/merch-pattern.png', patternImage => {
                       overlayImg.filters.push(
                         new fabric.Image.filters.BlendImage({
@@ -481,29 +517,30 @@ const MerchDTGSection = props => {
             Additional designs will include additional fees – please see{' '}
             <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
           </div>
-          {isTechnique && (
-            <div className="w-full mt-[20px]">
-              <div className={styles.technique}>
-                Technique
-                <div
-                  onMouseEnter={() => {
-                    document.getElementById(alertId).style.display = 'block'
-                  }}
-                  onMouseLeave={() => {
-                    document.getElementById(alertId).style.display = 'none'
-                  }}
-                >
-                  <InfoIcon className="mt-[2px]" />
-                </div>
-                <TechniqueClipboardChip
-                  title="Which technique should I choose?"
-                  text="DTG is ideal for complex designs/artwork (i.e., large print areas, multiple colors, and gradients within the
-        artwork). Embroidery is better suited to simpler, smaller designs, such as logos, and for those who might want
-        to achieve a 3D effect with their branding."
-                  identifier={alertId}
-                />
+
+          <div className="w-full mt-[20px]">
+            <div className={styles.technique}>
+              Technique
+              <div
+                onMouseEnter={() => {
+                  document.getElementById(alertId).style.display = 'block'
+                }}
+                onMouseLeave={() => {
+                  document.getElementById(alertId).style.display = 'none'
+                }}
+              >
+                <InfoIcon className="mt-[2px]" />
               </div>
-              <div className="w-full mt-[15px] flex gap-[15px]">
+              <TechniqueClipboardChip
+                title="Which technique should I choose?"
+                text="DTG is ideal for complex designs/artwork (i.e., large print areas, multiple colors, and gradients within the
+      artwork). Embroidery is better suited to simpler, smaller designs, such as logos, and for those who might want
+      to achieve a 3D effect with their branding."
+                identifier={alertId}
+              />
+            </div>
+            <div className="w-full mt-[15px] flex gap-[15px]">
+              {apparelList[selectedCard.id].location.hasOwnProperty('dtg') && (
                 <div
                   className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
                   onClick={() => {
@@ -515,8 +552,25 @@ const MerchDTGSection = props => {
                     }
                   }}
                 >
-                  Direct to Garment
+                  Direct to Garment(DTG)
                 </div>
+              )}
+              {apparelList[selectedCard.id].location.hasOwnProperty('dtf') && (
+                <div
+                  className={technique === 'dtf' ? styles.selectedBtn : styles.unselectedBtn}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('technique_dtf')
+                      setShowQuestionModal(true)
+                    } else {
+                      setTechnique('dtf')
+                    }
+                  }}
+                >
+                  Direct to Film(DTF)
+                </div>
+              )}
+              {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
                 <div
                   className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
                   onClick={() => {
@@ -530,9 +584,10 @@ const MerchDTGSection = props => {
                 >
                   Embroidery
                 </div>
-              </div>
+              )}
             </div>
-          )}
+          </div>
+
           <div className="w-full mt-[20px]">
             <div className={styles.technique}>Color</div>
             <div className="w-full mt-[15px] flex gap-[15px]">
@@ -699,7 +754,7 @@ const MerchDTGSection = props => {
                 >
                   Left Chest
                 </div>
-                {technique === 'dtg' && (
+                {(technique === 'dtg' || technique === 'dtf') && (
                   <div
                     className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
                     onClick={() => {
@@ -714,7 +769,7 @@ const MerchDTGSection = props => {
             </div>
           ) : (
             <div className="w-full">
-              <div className={`w-full ${technique === 'dtg' ? 'mt-[44px]' : 'mt-[27px]'}`}>
+              <div className={`w-full ${technique === 'dtg' || technique === 'dtf' ? 'mt-[44px]' : 'mt-[27px]'}`}>
                 <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
               </div>
               <div className="w-full mt-[18px]">
@@ -881,32 +936,51 @@ const MerchDTGSection = props => {
           <div className="w-full mt-[15px]">
             <div className={styles.technique}>Technique</div>
             <div className="w-full mt-[10px] flex gap-[15px]">
-              <div
-                className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
-                onClick={() => {
-                  if (isSaved()) {
-                    setQuestionType('technique_dtg')
-                    setShowQuestionModal(true)
-                  } else {
-                    setTechnique('dtg')
-                  }
-                }}
-              >
-                Direct to Garment
-              </div>
-              <div
-                className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
-                onClick={() => {
-                  if (isSaved()) {
-                    setQuestionType('technique_emb')
-                    setShowQuestionModal(true)
-                  } else {
-                    setTechnique('emb')
-                  }
-                }}
-              >
-                Embroidery
-              </div>
+              {apparelList[selectedCard.id].location.hasOwnProperty('dtg') && (
+                <div
+                  className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('technique_dtg')
+                      setShowQuestionModal(true)
+                    } else {
+                      setTechnique('dtg')
+                    }
+                  }}
+                >
+                  Direct to Garment(DTG)
+                </div>
+              )}
+              {apparelList[selectedCard.id].location.hasOwnProperty('dtf') && (
+                <div
+                  className={technique === 'dtf' ? styles.selectedBtn : styles.unselectedBtn}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('technique_dtf')
+                      setShowQuestionModal(true)
+                    } else {
+                      setTechnique('dtf')
+                    }
+                  }}
+                >
+                  Direct to Film(DTF)
+                </div>
+              )}
+              {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
+                <div
+                  className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
+                  onClick={() => {
+                    if (isSaved()) {
+                      setQuestionType('technique_emb')
+                      setShowQuestionModal(true)
+                    } else {
+                      setTechnique('emb')
+                    }
+                  }}
+                >
+                  Embroidery
+                </div>
+              )}
             </div>
           </div>
           <div className="w-full mt-[20px]">
@@ -1082,7 +1156,7 @@ const MerchDTGSection = props => {
               <div className="w-full">
                 <div
                   className={`w-full ${
-                    technique === 'dtg'
+                    technique === 'dtg' || technique === 'dtf'
                       ? viewport === 'xs'
                         ? 'mt-[20px]'
                         : viewport === 'sm'
@@ -1150,7 +1224,7 @@ const MerchDTGSection = props => {
                   >
                     Left Chest
                   </div>
-                  {technique === 'dtg' && (
+                  {(technique === 'dtg' || technique === 'dtf') && (
                     <div
                       className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
                       onClick={() => {
@@ -1220,6 +1294,7 @@ const MerchDTGSection = props => {
             newColor = color
 
           if (type === 'technique_dtg') newTechnique = 'dtg'
+          else if (type === 'technique_dtf') newTechnique = 'dtf'
           else if (type === 'technique_emb') newTechnique = 'emb'
           else if (type === 'color_white') newColor = 'white'
           else if (type === 'color_black') newColor = 'black'

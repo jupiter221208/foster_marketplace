@@ -3,7 +3,8 @@
     "id": 0,
     "name": "Unisex Premium Hoodie",
     "description": "Cotton Heritage",
-    "price" : {"dtg" : 32.94, "emb": 35.44 },
+    "price": {"dtg" : 32.94, "emb": 35.44 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/man_hoodie_black_middle.png"
   },
@@ -12,6 +13,7 @@
     "name": "Unisex Long Sleeve Tee",
     "description": "AS Colour",
     "price" : {"dtg" : 25.24, "emb": 27.99 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/man_longsleeve_white_middle.png"
   },
@@ -20,6 +22,7 @@
     "name": "Unisex Organic Cotton T-Shirt",
     "description": "Stanley/Stella",
     "price" : {"dtg" : 20.74, "emb": 24.74 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/man_t_white_middle.png"
   },
@@ -28,6 +31,7 @@
     "name": "Unisex Eco Sweatshirt",
     "description": "Stanley/Stella",
     "price" : {"dtg" : 39.99, "emb": 40.44 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/man_sweat_black_middle.png"
   },
@@ -36,6 +40,7 @@
     "name": "Women's Fitted Eco Tee",
     "description": "AS Colour",
     "price" : {"dtg" : 22.99, "emb": 22.99 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/women_t_white_middle.png"
   },
@@ -44,6 +49,7 @@
     "name": "Premium Recycled Bomber Jacket",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 70, "emb": 70 },
+    "color": ["black"],
     "size": "XS - 3XL",
     "image": "/images/apparel/bomber_jacket_black.webp"
   },
@@ -52,6 +58,7 @@
     "name": "Unisex Sherpa Denim Jacket",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 75, "emb": 75 },
+    "color": ["purple", "blue"],
     "size": "XS - 3XL",
     "image": "/images/apparel/jean_jacket_blue.webp"
   },
@@ -60,6 +67,7 @@
     "name": "Faux Leather Bomber Jacket",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 75, "emb": 75 },
+    "color": ["black"],
     "size": "XS - 3XL",
     "image": "/images/apparel/leather_jacket_black.webp"
   },
@@ -68,6 +76,7 @@
     "name": "Unisex Premium Pique Polo Shirt",
     "description": "SOL'S",
     "price" : {"dtg" : 29, "emb": 31 },
+    "color": ["black", "white"],
     "size": "S - 5XL",
     "image": "/images/apparel/polo_shirt_white.webp"
   },
@@ -76,6 +85,7 @@
     "name": "Faded Oversized Tee",
     "description": "AS Colour",
     "price" : {"dtg" : 34, "emb": 34 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/oversized_t_white.webp"
   },
@@ -84,6 +94,7 @@
     "name": "Unisex Oversized Hoodie",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 46, "emb": 48 },
+    "color": ["black", "white"],
     "size": "S - 3XL",
     "image": "/images/apparel/oversized_hoodie_middle.webp"
   },
@@ -92,6 +103,7 @@
     "name": "Tie-Dye Hoodie",
     "description": "Champion",
     "price" : {"dtg" : 70, "emb": 70 },
+    "color": ["black", "blue", "red"],
     "size": "S - 3XL",
     "image": "/images/apparel/tile_hoodie_middle.webp"
   },
@@ -100,6 +112,7 @@
     "name": "Soft Shell Jacket",
     "description": "Columbia",
     "price" : {"dtg" : 100, "emb": 100 },
+    "color": ["black", "gray"],
     "size": "S - 4XL",
     "image": "/images/apparel/soft_jacket_middle.webp"
   },
@@ -108,6 +121,7 @@
     "name": "Women's Cropped Sweatshirt",
     "description": "Bella + Canvas",
     "price" : {"dtg" : 37, "emb": 39 },
+    "color": ["green", "black"],
     "size": "S - L",
     "image": "/images/apparel/crop_shirt_middle.webp"
   },
@@ -116,6 +130,7 @@
     "name": "Women's Cropped Hoodie",
     "description": "Bella + Canvas",
     "price" : {"dtg" : 38, "emb": 40 },
+    "color": ["black", "pink"],
     "size": "S - 2XL",
     "image": "/images/apparel/crop_hoodie_middle.webp"
   },
@@ -124,6 +139,7 @@
     "name": "Unisex Fleece Sweatpants",
     "description": "Cotton Heritage",
     "price" : {"dtg" : 34, "emb": 35 },
+    "color": ["black", "white"],
     "size": "XS - 2XL",
     "image": "/images/apparel/sweat_pant_middle.webp"
   },
@@ -132,6 +148,7 @@
     "name": "Embroidered Dad Hat",
     "description": "Yupoong",
     "price" : {"dtg" : 25, "emb": 25 },
+    "color": ["black", "white"],
     "size": "One Size",
     "image": "/images/apparel/dad_hat_middle.webp"
   },
@@ -140,6 +157,7 @@
     "name": "Cuffed & Embroidered Beanie",
     "description": "Yupoong",
     "price" : {"dtg" : 25, "emb": 25 },
+    "color": ["black", "white"],
     "size": "One Size",
     "image": "/images/apparel/beanie_middle.webp"
   },
@@ -148,6 +166,7 @@
     "name": "All Over Print - Backpack",
     "description": "All Over Print",
     "price" : {"dtg" : 40, "emb": 40 },
+    "color": ["white"],
     "size": "One Size",
     "image": "/images/apparel/backpack_middle.webp"
   },
@@ -156,6 +175,7 @@
     "name": "All Over Print - Duffle Bag",
     "description": "All Over Print",
     "price" : {"dtg" : 65, "emb": 65 },
+    "color": ["white"],
     "size": "One Size",
     "image": "/images/apparel/duffle_bag_middle.webp"
   }

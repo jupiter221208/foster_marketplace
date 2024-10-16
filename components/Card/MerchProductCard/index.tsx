@@ -19,22 +19,37 @@ const MerchProductCard = props => {
       <div className="w-full mt-[10px]">
         <div className={styles.description}>{data.description}</div>
       </div>
-      <div className="w-full h-[20px] mt-[9px] flex justify-between">
+      <div className="w-full h-[20px] mt-[20px] flex justify-between">
         <div className="flex gap-[9px]">
-          <div className={styles.blackColor} />
-          <div className={styles.whiteColor} />
+          {data.color.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  item === 'white'
+                    ? styles.whiteColor
+                    : item === 'black'
+                    ? styles.blackColor
+                    : item === 'blue'
+                    ? styles.blueColor
+                    : item === 'red'
+                    ? styles.redColor
+                    : item === 'gray'
+                    ? styles.grayColor
+                    : item === 'green'
+                    ? styles.greenColor
+                    : item === 'pink'
+                    ? styles.pinkColor
+                    : styles.purpleColor
+                }
+              />
+            )
+          })}
+          {/* <div className={styles.blackColor} />
+          <div className={styles.whiteColor} /> */}
         </div>
         <div className={styles.size}>{data.size}</div>
       </div>
-
-      {/* <div className="w-full mt-[30px] mb-[10px]">
-        <div
-          className={data.selected ? styles.startEnableBtn : styles.startDisableBtn}
-          onClick={() => onSelectedCard(data)}
-        >
-          Start&nbsp;Designing
-        </div>
-      </div> */}
     </div>
   )
 }
