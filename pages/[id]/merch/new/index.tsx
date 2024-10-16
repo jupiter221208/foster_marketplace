@@ -327,20 +327,22 @@ const NewCreatorMerch = () => {
         </div>
       </div>
 
-      <div className="g-container mt-[110px] lg:mt-[165px]">
+      <div className="">
         {currentStep === 1 && (
           <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} backClicked={backClicked} />
         )}
         {currentStep >= 2 && (
-          <AdditionalDetails
-            username={profileInfo.username}
-            productDetail={productDetail}
-            step={currentStep}
-            additionDetail={additionDetail}
-            backClicked={backClicked}
-            setAdditionDetail={setAdditionDetail}
-            setEnableNext={setNextEnabled}
-          />
+          <div className="g-container mt-[110px] lg:mt-[165px]">
+            <AdditionalDetails
+              username={profileInfo.username}
+              productDetail={productDetail}
+              step={currentStep}
+              additionDetail={additionDetail}
+              backClicked={backClicked}
+              setAdditionDetail={setAdditionDetail}
+              setEnableNext={setNextEnabled}
+            />
+          </div>
         )}
       </div>
 

@@ -87,25 +87,7 @@ const FosterProductSection = props => {
   return (
     <div className="w-full">
       {selectedCard === null && (
-        // <Swiper
-        //   navigation={true}
-        //   slidesPerView={viewport === 'xs' ? 1.23 : viewport === 'sm' || viewport === 'md' ? 2.4 : 5}
-        //   spaceBetween={
-        //     viewport === 'xs'
-        //       ? 20
-        //       : viewport === 'sm' || viewport === 'md'
-        //       ? 20
-        //       : viewport === 'lg'
-        //       ? 20
-        //       : viewport === '2xl'
-        //       ? 52
-        //       : 52
-        //   }
-        //   pagination={true}
-        //   modules={[Autoplay, Lazy, Navigation, Pagination]}
-        //   className={'noScrollNavigationSwiper'}
-        // >
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] 2xl:gap-[52px] mt-[30px]">
+        <div className="g-container grid grid-cols-2 sm:grid-cols-5 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] 2xl:gap-[52px] mt-[30px]">
           {productList.map((item, index) => (
             <SwiperSlide key={index}>
               <div key={index}>
@@ -125,10 +107,9 @@ const FosterProductSection = props => {
             </SwiperSlide>
           ))}
         </div>
-        // </Swiper>
       )}
 
-      <div className="w-full lg:mt-[60px] mt-[30px] mb-[60px]">
+      <div className="w-full lg:mt-[100px] mt-[30px]">
         {selectedCard !== null && (
           <MerchDTGSection
             selectedCard={selectedCard}

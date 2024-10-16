@@ -29,7 +29,7 @@ const ProductDetails = props => {
   return (
     <div className="w-full">
       {!productDetail?.selectedCard && fosterCard === null && (
-        <div className="w-full mt-[40px]">
+        <div className="g-container w-full mt-[110px] lg:mt-[150px]">
           <div className={styles.setupText}>
             Easily setup your own merch store. You can either choose to have Foster manage the production and
             fulfillment of your merch, or you can choose to handle it.
@@ -38,7 +38,7 @@ const ProductDetails = props => {
       )}
 
       {!productDetail?.selectedCard && fosterCard === null && (
-        <div className="lg:mt-[27px] mt-[8px] sm:mt-[20px] lg:mt-[10px]">
+        <div className="g-container lg:mt-[27px] mt-[8px] sm:mt-[20px] lg:mt-[10px]">
           <div className="w-full lg:flex hidden gap-[5px] mb-[15px]">
             <div className={styles.fullfill}>Production & Fulfillment</div>
           </div>
@@ -63,14 +63,16 @@ const ProductDetails = props => {
       )}
 
       {product.id === 0 && (
-        <div className="mt-[30px]">
+        <div className="">
           {!productDetail?.selectedCard && fosterCard === null && (
-            <div className="w-full flex gap-[5px] mb-[10px]">
+            <div className="g-container mt-[30px] w-full flex gap-[5px] mb-[10px]">
               <div className={styles.fullfill}>Select Apparel Item</div>
             </div>
           )}
           {!productDetail?.selectedCard && fosterCard === null && (
-            <div className={styles.chooseBase}>Choose a base to begin designing</div>
+            <div className="g-container">
+              <div className={styles.chooseBase}>Choose a base to begin designing</div>
+            </div>
           )}
           <div className="lg:mt-[30px] mt-[15px]">
             <FosterProductSection
@@ -84,7 +86,7 @@ const ProductDetails = props => {
       )}
 
       {product.id === 1 && (
-        <div className="mt-[27px]">
+        <div className="g-container mt-[135px] lg:mt-[190px]">
           <MyProductSection
             productDetail={productDetail}
             setProductDetail={detail => setProductDetail({ ...detail, product })}
