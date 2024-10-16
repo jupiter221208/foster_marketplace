@@ -269,5 +269,65 @@
       "right": {"white":"/images/apparel/oversized_t_white_right_card.webp", "black":"/images/apparel/oversized_t_black_right_card.webp"},
       "left": {"white":"/images/apparel/oversized_t_white_left_card.webp", "black":"/images/apparel/oversized_t_black_left_card.webp"}
     }
+  },
+  {
+    "id": 31,
+    "name": "Unisex Oversized Hoodie",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
+        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": { "white":"/images/apparel/oversized_hoodie_white.png", "black":"/images/apparel/oversized_hoodie_black.png"}, 
+      "back": { "white": "/images/apparel/oversized_hoodie_white_b.png", "black":"/images/apparel/oversized_hoodie_black_b.png"}, 
+      "right" :{ "white":"/images/apparel/oversized_hoodie_white_r.png", "black":"/images/apparel/oversized_hoodie_black_r.png"}, 
+      "left" : { "white":"/images/apparel/oversized_hoodie_white_l.png", "black":"/images/apparel/oversized_hoodie_black_l.png"} 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/oversized_hoodie_white_card.webp", "black":"/images/apparel/oversized_hoodie_black_card.webp"}, 
+      "back": { "white": "/images/apparel/oversized_hoodie_white_b_card.webp", "black":"/images/apparel/oversized_hoodie_black_b_card.webp"}, 
+      "right" :{ "white":"/images/apparel/oversized_hoodie_white_r_card.webp", "black":"/images/apparel/oversized_hoodie_black_r_card.webp"}, 
+      "left" : { "white":"/images/apparel/oversized_hoodie_white_l_card.webp", "black":"/images/apparel/oversized_hoodie_black_l_card.webp"} 
+    }
+  },
+  {
+    "id": 33,
+    "name": "Tie-Dye Hoodie",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
+        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": { "black":"/images/apparel/tile_hoodie_black.png", "blue":"/images/apparel/tile_hoodie_blue.png", "red":"/images/apparel/tile_hoodie_red.png"}, 
+      "back": { "black": "/images/apparel/tile_hoodie_black_b.png", "blue":"/images/apparel/tile_hoodie_blue_b.png", "red":"/images/apparel/tile_hoodie_red_b.png"}, 
+      "right" :{ "black":"/images/apparel/tile_hoodie_black_r.png", "blue":"/images/apparel/tile_hoodie_blue_r.png", "red":"/images/apparel/tile_hoodie_red_r.png"}, 
+      "left" : { "black":"/images/apparel/tile_hoodie_black_l.png", "blue":"/images/apparel/tile_hoodie_blue_l.png","red":"/images/apparel/tile_hoodie_red_l.png"} 
+    },
+    "card": { 
+      "front": { "black":"/images/apparel/tile_hoodie_black_card.webp", "blue":"/images/apparel/tile_hoodie_blue.png", "red":"/images/apparel/tile_hoodie_red_card.webp"}, 
+      "back": { "black": "/images/apparel/tile_hoodie_black_b_card.webp", "blue":"/images/apparel/tile_hoodie_blue_b.png", "red":"/images/apparel/tile_hoodie_red_b_card.webp"}, 
+      "right" :{ "black":"/images/apparel/tile_hoodie_black_r_card.webp", "blue":"/images/apparel/tile_hoodie_blue_r.png", "red":"/images/apparel/tile_hoodie_red_r_card.webp"}, 
+      "left" : { "black":"/images/apparel/tile_hoodie_black_l_card.webp", "blue":"/images/apparel/tile_hoodie_blue_l.png","red":"/images/apparel/tile_hoodie_red_l_card.webp"} 
+    }
   }
 ]

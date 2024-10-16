@@ -80,20 +80,20 @@
     "image": "/images/apparel/oversized_t_white.webp"
   },
   {
-    "id": 31,
+    "id": 10,
     "name": "Unisex Oversized Hoodie",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 46, "emb": 48 },
     "size": "S - 3XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/oversized_hoodie_middle.webp"
   },
   {
-    "id": 33,
+    "id": 11,
     "name": "Tie-Dye Hoodie",
     "description": "Champion",
     "price" : {"dtg" : 70, "emb": 70 },
     "size": "S - 3XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/tile_hoodie_middle.webp"
   },
   {
     "id": 27,

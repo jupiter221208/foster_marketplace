@@ -546,6 +546,8 @@ const MerchDTGSection = props => {
                       ? styles.blackColor
                       : item === 'blue'
                       ? styles.blueColor
+                      : item === 'red'
+                      ? styles.redColor
                       : styles.purpleColor
                   } ${color === item && styles.selectedColor}`}
                   onClick={() => {

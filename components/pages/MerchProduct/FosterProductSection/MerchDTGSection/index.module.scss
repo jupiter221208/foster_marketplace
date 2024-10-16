@@ -209,6 +209,14 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
+.redColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #B9535D;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
 .selectedColor {
   border: 2px solid var(--bg-95dbd5-707070);
 }
