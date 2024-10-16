@@ -329,5 +329,97 @@
       "right" :{ "black":"/images/apparel/tile_hoodie_black_r_card.webp", "blue":"/images/apparel/tile_hoodie_blue_r.png", "red":"/images/apparel/tile_hoodie_red_r_card.webp"}, 
       "left" : { "black":"/images/apparel/tile_hoodie_black_l_card.webp", "blue":"/images/apparel/tile_hoodie_blue_l.png","red":"/images/apparel/tile_hoodie_red_l_card.webp"} 
     }
+  },
+  {
+    "id": 27,
+    "name": "Soft Shell Jacket",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 240, "width_chest": 90, "height_chest": 90, "top": 180, "top_chest": 180, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 255, "left": 225, "angle": 0 },
+        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "top": 180, "top_chest": 180, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 255, "left": 225, "angle": 0 },
+        "right": {"width": 47, "height": 70, "top": 560, "left": 345, "angle": -11 },
+        "left": {"width": 47, "height": 70, "top": 555, "left": 310, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "width": 11.04,
+      "height": 11.04,
+      "front": { "black":"/images/apparel/soft_jacket_black.png", "gray":"/images/apparel/soft_jacket_gray.png" }, 
+      "back": { "black": "/images/apparel/soft_jacket_black_b.png", "gray":"/images/apparel/soft_jacket_gray_b.png" }, 
+      "right" :{ "black":"/images/apparel/soft_jacket_black_r.png", "gray":"/images/apparel/soft_jacket_gray_r.png" }, 
+      "left" : { "black":"/images/apparel/soft_jacket_black_l.png", "gray":"/images/apparel/soft_jacket_gray_l.png" } 
+    },
+    "card": { 
+      "front": { "black":"/images/apparel/soft_jacket_black_card.webp", "gray":"/images/apparel/soft_jacket_gray_card.webp" }, 
+      "back": { "black": "/images/apparel/soft_jacket_black_b_card.webp", "gray":"/images/apparel/soft_jacket_gray_b_card.webp" }, 
+      "right" :{ "black":"/images/apparel/soft_jacket_black_r_card.webp", "gray":"/images/apparel/soft_jacket_gray_r_card.webp" }, 
+      "left" : { "black":"/images/apparel/soft_jacket_black_l_card.webp", "gray":"/images/apparel/soft_jacket_gray_l_card.webp" }
+    }
+  },
+  {
+    "id": 38,
+    "name": "Women's Cropped Sweatshirt",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
+        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": { "green":"/images/apparel/crop_shirt_green.png", "black":"/images/apparel/crop_shirt_black.png" }, 
+      "back": { "green": "/images/apparel/crop_shirt_green_b.png", "black":"/images/apparel/crop_shirt_black_b.png" }, 
+      "right" :{ "green":"/images/apparel/crop_shirt_green_r.png", "black":"/images/apparel/crop_shirt_black_r.png" }, 
+      "left" : { "green":"/images/apparel/crop_shirt_green_l.png", "black":"/images/apparel/crop_shirt_black_l.png" } 
+    },
+    "card": { 
+      "front": { "green":"/images/apparel/crop_shirt_green_card.webp", "black":"/images/apparel/crop_shirt_black_card.webp" }, 
+      "back": { "green": "/images/apparel/crop_shirt_green_b_card.webp", "black":"/images/apparel/crop_shirt_black_b_card.webp" }, 
+      "right" :{ "green":"/images/apparel/crop_shirt_green_r_card.webp", "black":"/images/apparel/crop_shirt_black_r_card.webp" }, 
+      "left" : { "green":"/images/apparel/crop_shirt_green_l_card.webp", "black":"/images/apparel/crop_shirt_black_l_card.webp" } 
+    }
+  },
+  {
+    "id": 36,
+    "name": "Women's Cropped Hoodie",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
+        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
+        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "front": { "pink":"/images/apparel/crop_hoodie_pink.png", "black":"/images/apparel/crop_hoodie_black.png" }, 
+      "back": { "pink": "/images/apparel/crop_hoodie_pink_b.png", "black":"/images/apparel/crop_hoodie_black_b.png" }, 
+      "right" :{ "pink":"/images/apparel/crop_hoodie_pink_r.png", "black":"/images/apparel/crop_hoodie_black_r.png" }, 
+      "left" : { "pink":"/images/apparel/crop_hoodie_pink_l.png", "black":"/images/apparel/crop_hoodie_black_l.png" } 
+    },
+    "card": { 
+      "front": { "pink":"/images/apparel/crop_hoodie_pink_card.webp", "black":"/images/apparel/crop_hoodie_black_card.webp" }, 
+      "back": { "pink": "/images/apparel/crop_hoodie_pink_b_card.webp", "black":"/images/apparel/crop_hoodie_black_b_card.webp" }, 
+      "right" :{ "pink":"/images/apparel/crop_hoodie_pink_r_card.webp", "black":"/images/apparel/crop_hoodie_black_r_card.webp" }, 
+      "left" : { "pink":"/images/apparel/crop_hoodie_pink_l_card.webp", "black":"/images/apparel/crop_hoodie_black_l_card.webp" } 
+    }
   }
 ]

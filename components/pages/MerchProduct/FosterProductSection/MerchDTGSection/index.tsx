@@ -548,6 +548,12 @@ const MerchDTGSection = props => {
                       ? styles.blueColor
                       : item === 'red'
                       ? styles.redColor
+                      : item === 'gray'
+                      ? styles.grayColor
+                      : item === 'green'
+                      ? styles.greenColor
+                      : item === 'pink'
+                      ? styles.pinkColor
                       : styles.purpleColor
                   } ${color === item && styles.selectedColor}`}
                   onClick={() => {

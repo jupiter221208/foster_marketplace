@@ -217,6 +217,30 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
+.grayColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #7C7B77;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.greenColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #BFD4CC;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.pinkColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #EAB59E;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
 .selectedColor {
   border: 2px solid var(--bg-95dbd5-707070);
 }

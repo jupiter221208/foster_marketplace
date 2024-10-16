@@ -96,28 +96,28 @@
     "image": "/images/apparel/tile_hoodie_middle.webp"
   },
   {
-    "id": 27,
+    "id": 12,
     "name": "Soft Shell Jacket",
     "description": "Columbia",
     "price" : {"dtg" : 100, "emb": 100 },
     "size": "S - 4XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/soft_jacket_middle.webp"
   },
   {
-    "id": 38,
+    "id": 13,
     "name": "Women's Cropped Sweatshirt",
     "description": "Bella + Canvas",
     "price" : {"dtg" : 37, "emb": 39 },
     "size": "S - L",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/crop_shirt_middle.webp"
   },
   {
-    "id": 36,
+    "id": 14,
     "name": "Women's Cropped Hoodie",
     "description": "Bella + Canvas",
     "price" : {"dtg" : 38, "emb": 40 },
     "size": "S - 2XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/crop_hoodie_middle.webp"
   },
   {
     "id": 34,
