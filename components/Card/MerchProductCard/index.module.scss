@@ -7,6 +7,10 @@
   max-width: 500px;
   background: transparent;
   overflow: hidden;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+  }
+  margin-top: 11px;
 }
 
 .imageArea {

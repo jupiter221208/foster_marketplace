@@ -11,15 +11,16 @@ import 'swiper/css/navigation'
 import styles from './index.module.scss'
 
 const MerchDTGCard = props => {
-  const { image, selected = false, side = 'front', type = '', label = '', technique, onSelect } = props
+  const { image, selected = false, side = 'front', type = '', centerPlacement, technique, onSelect } = props
   const viewport = useViewport()
   const getLabel = () => {
     let label = ''
     if (side === 'front') {
       if (technique === 'dtg') label = 'Front'
       else {
-        if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') label = 'Left/Center Chest'
-        else label = 'Left or Center Chest'
+        if (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
+          label = centerPlacement ? 'Left/Center Chest' : 'Left Chest'
+        else label = centerPlacement ? 'Left or Center Chest' : 'Left Chest'
       }
     } else if (side === 'back') {
       label = 'Back'

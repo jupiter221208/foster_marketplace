@@ -19,7 +19,7 @@ const MerchProductCard = props => {
       <div className="w-full mt-[10px]">
         <div className={styles.description}>{data.description}</div>
       </div>
-      <div className="w-full h-[20px] mt-[20px] flex justify-between">
+      <div className="w-full h-[20px] mt-[15px] lg:mt-[20px] flex justify-between">
         <div className="flex gap-[9px]">
           {data.color.map((item, index) => {
             return (
@@ -45,8 +45,6 @@ const MerchProductCard = props => {
               />
             )
           })}
-          {/* <div className={styles.blackColor} />
-          <div className={styles.whiteColor} /> */}
         </div>
         <div className={styles.size}>{data.size}</div>
       </div>

@@ -86,7 +86,7 @@ const ProductDetails = props => {
       )}
 
       {product.id === 1 && (
-        <div className="g-container mt-[135px] lg:mt-[190px]">
+        <div className="g-container mt-[30px] lg:mt-[30px]">
           <MyProductSection
             productDetail={productDetail}
             setProductDetail={detail => setProductDetail({ ...detail, product })}

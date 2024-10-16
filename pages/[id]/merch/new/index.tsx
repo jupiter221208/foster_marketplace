@@ -334,7 +334,7 @@ const NewCreatorMerch = () => {
         {currentStep >= 2 && (
           <div className="g-container mt-[110px] lg:mt-[165px]">
             <AdditionalDetails
-              username={profileInfo.username}
+              username={profileInfo?.username}
               productDetail={productDetail}
               step={currentStep}
               additionDetail={additionDetail}

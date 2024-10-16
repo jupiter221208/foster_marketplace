@@ -164,8 +164,8 @@
     "name": "Premium Recycled Bomber Jacket",
     "location": { 
       "emb": {
-        "front": {"width_chest": 90, "height_chest": 90, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
-        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  }
+        "front": {"width_chest": 60, "height_chest": 60, "top_chest": 166, "left": 230, "left_chest": 0.6, "angle": 0  },
+        "back": {"width": 240, "height": 120, "top": 114, "left": 230, "angle": 0  }
       }
     },
     "apparel": { 
@@ -182,8 +182,8 @@
     "name": "Unisex Sherpa Denim Jacket",
     "location": { 
       "emb": {
-        "front": {"width_chest": 50, "height_chest": 50, "top_chest": 190, "left": 260, "left_chest": 0.66, "angle": 0  },
-        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  }
+        "front": {"width_chest": 55, "height_chest": 55 , "top_chest": 178, "left": 260, "left_chest": 0.69, "angle": 0  },
+        "back": {"width": 240, "height": 120, "top": 206, "left": 230, "angle": 0  }
       }
     },
     "apparel": { 
@@ -200,8 +200,8 @@
     "name": "Faux Leather Bomber Jacket",
     "location": { 
       "emb": {
-        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 160, "left": 230, "left_chest": 0.62, "angle": 0  },
-        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  }
+        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 181, "left": 230, "left_chest": 0.64, "angle": 0  },
+        "back": {"width": 240, "height": 120, "top": 115, "left": 230, "angle": 0  }
       }
     },
     "apparel": { 
@@ -218,23 +218,23 @@
     "name": "Unisex Premium Pique Polo Shirt",
     "location": { 
       "dtf": {
-        "front": {"width_chest": 90, "height_chest": 90, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
+        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
         "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
-        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+        "right": {"width": 45, "height": 45, "top": 200, "left": 310, "angle": 0 },
+        "left": {"width": 45, "height": 45, "top": 200, "left": 340, "angle": 0 }
       },
       "emb": {
-        "front": {"width_chest": 90, "height_chest": 90, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
+        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
         "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
-        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+        "right": {"width": 45, "height": 45, "top": 200, "left": 310, "angle": 0 },
+        "left": {"width": 45, "height": 45, "top": 200, "left": 340, "angle": 0 }
       }
     },
     "apparel": { 
-      "front": {"white":"/images/apparel/polo_shirt_white.png", "black":"/images/apparel/polo_shirt_black.png"}, 
-      "back": {"white":"/images/apparel/polo_shirt_white_b.png", "black":"/images/apparel/polo_shirt_black_b.png"},
-      "right": {"white":"/images/apparel/polo_shirt_white_r.png", "black":"/images/apparel/polo_shirt_black_r.png"}, 
-      "left": {"white":"/images/apparel/polo_shirt_white_l.png", "black":"/images/apparel/polo_shirt_black_l.png"}
+      "front": {"black":"/images/apparel/polo_shirt_black.png", "white":"/images/apparel/polo_shirt_white.png"}, 
+      "back": {"black":"/images/apparel/polo_shirt_black_b.png", "white":"/images/apparel/polo_shirt_white_b.png"},
+      "right": {"black":"/images/apparel/polo_shirt_black_r.png", "white":"/images/apparel/polo_shirt_white_r.png" }, 
+      "left": {"black":"/images/apparel/polo_shirt_black_l.png", "white":"/images/apparel/polo_shirt_white_l.png" }
     },
     "card": { 
       "front": {"white":"/images/apparel/polo_shirt_white_card.webp", "black":"/images/apparel/polo_shirt_black_card.webp"},  
@@ -248,23 +248,23 @@
     "name": "Faded Oversized Tee",
     "location": { 
       "dtf": {
-        "front": {"width": 240, "height": 240, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 180, "left": 230, "left_chest": 0.56, "angle": 0},
+        "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 130, "left": 230, "left_chest": 0.6, "angle": 0},
         "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
-        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+        "right": {"width": 50, "height": 50, "top": 370, "left": 300, "angle": 0 },
+        "left": {"width": 50, "height": 50, "top": 370, "left": 340, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 240, "height": 240, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 180, "left": 230, "left_chest": 0.56, "angle": 0},
+        "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 130, "left": 230, "left_chest": 0.6, "angle": 0},
         "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
-        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+        "right": {"width": 50, "height": 50, "top": 220, "left": 300, "angle": 0 },
+        "left": {"width": 50, "height": 50, "top": 200, "left": 340, "angle": 0 }
       }
     },
     "apparel": { 
-      "front": {"white":"/images/apparel/oversized_t_white.png", "black":"/images/apparel/oversized_t_black.png"}, 
-      "back": {"white":"/images/apparel/oversized_t_white_b.png", "black":"/images/apparel/oversized_t_black_b.png"},
-      "right": {"white":"/images/apparel/oversized_t_right.png", "black":"/images/apparel/oversized_t_black_right.png"},
-      "left": {"white":"/images/apparel/oversized_t_white_left.png", "black":"/images/apparel/oversized_t_black_left.png"}
+      "front": {"black":"/images/apparel/oversized_t_black.png", "white":"/images/apparel/oversized_t_white.png"}, 
+      "back": {"black":"/images/apparel/oversized_t_black_b.png", "white":"/images/apparel/oversized_t_white_b.png"},
+      "right": {"black":"/images/apparel/oversized_t_black_right.png", "white":"/images/apparel/oversized_t_right.png" },
+      "left": {"black":"/images/apparel/oversized_t_black_left.png", "white":"/images/apparel/oversized_t_white_left.png" }
     },
     "card": { 
       "front": {"white":"/images/apparel/oversized_t_white_card.webp", "black":"/images/apparel/oversized_t_black_card.webp"},  

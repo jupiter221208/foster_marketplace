@@ -50,6 +50,8 @@ const MerchDTGSection = props => {
   const colors = Object.keys(apparelList[selectedCard.id].apparel.front)
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
+  console.log(color, '==========color=========')
+
   const alertId = 'alert-tech'
 
   useEffect(() => {
@@ -74,6 +76,7 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
+      console.log(productDetail, '==========productDetail======')
       setColor(productDetail?.color)
       setTimeout(() => {
         setSnapshotAsset(productDetail?.snapshotAssetUrl)
@@ -760,6 +763,9 @@ const MerchDTGSection = props => {
                   }
                   side="front"
                   type="DTG"
+                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
+                    'width_center'
+                  )}
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
@@ -780,7 +786,9 @@ const MerchDTGSection = props => {
                   }
                   side="back"
                   type="DTG"
-                  label="+$5.95"
+                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
+                    'width_center'
+                  )}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
                 />
@@ -800,7 +808,9 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.right[color]
                   }
                   side="right"
-                  label="+$2.49"
+                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
+                    'width_center'
+                  )}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
                 />
@@ -819,7 +829,9 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.left[color]
                   }
                   side="left"
-                  label="+$2.49"
+                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
+                    'width_center'
+                  )}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
                 />
@@ -856,22 +868,23 @@ const MerchDTGSection = props => {
                   >
                     Left Chest
                   </div>
-                  {(technique === 'dtg' || technique === 'dtf') && (
-                    <div
-                      className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
-                      onClick={() => {
-                        setEmbPlace('front')
-                        setShowEmbPosModal(false)
-                      }}
-                    >
-                      Full Front
-                    </div>
-                  )}
+                  {(technique === 'dtg' || technique === 'dtf') &&
+                    apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width') && (
+                      <div
+                        className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
+                        onClick={() => {
+                          setEmbPlace('front')
+                          setShowEmbPosModal(false)
+                        }}
+                      >
+                        Full Front
+                      </div>
+                    )}
                 </div>
               </div>
             ) : (
               <div className="w-full">
-                <div className={`w-full ${technique === 'dtg' || technique === 'dtf' ? 'mt-[44px]' : 'mt-[27px]'}`}>
+                <div className={`w-full mt-[27px]`}>
                   <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
                 </div>
                 <div className="w-full mt-[18px]">
@@ -960,7 +973,7 @@ const MerchDTGSection = props => {
                 <div
                   className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
                   onClick={() => {
-                    if (isSaved()) {
+                    if (technique !== 'emb' && isSaved()) {
                       setQuestionType('technique_emb')
                       setShowQuestionModal(true)
                     } else {
@@ -986,7 +999,15 @@ const MerchDTGSection = props => {
                       ? styles.blackColor
                       : item === 'blue'
                       ? styles.blueColor
-                      : styles.blueColor
+                      : item === 'red'
+                      ? styles.redColor
+                      : item === 'gray'
+                      ? styles.grayColor
+                      : item === 'green'
+                      ? styles.greenColor
+                      : item === 'pink'
+                      ? styles.pinkColor
+                      : styles.purpleColor
                   } ${color === item && styles.selectedColor}`}
                   onClick={() => {
                     if (isSaved()) {
@@ -998,28 +1019,6 @@ const MerchDTGSection = props => {
                   }}
                 ></div>
               ))}
-              {/* <div
-                className={`${styles.whiteColor} ${color === 'white' && styles.selectedColor}`}
-                onClick={() => {
-                  if (isSaved()) {
-                    setQuestionType('color_white')
-                    setShowQuestionModal(true)
-                  } else {
-                    setColor('white')
-                  }
-                }}
-              ></div>
-              <div
-                className={`${styles.blackColor} ${color === 'black' && styles.selectedColor}`}
-                onClick={() => {
-                  if (isSaved()) {
-                    setQuestionType('color_black')
-                    setShowQuestionModal(true)
-                  } else {
-                    setColor('black')
-                  }
-                }}
-              ></div> */}
             </div>
           </div>
 
@@ -1036,6 +1035,7 @@ const MerchDTGSection = props => {
                 side="front"
                 type="DTG"
                 technique={technique}
+                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
                 onSelect={type => {
                   setCardSide(type)
                   setShowEmbPosModal(true)
@@ -1054,7 +1054,7 @@ const MerchDTGSection = props => {
                 }
                 side="back"
                 type="DTG"
-                label="+$5.95"
+                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
@@ -1073,7 +1073,7 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.right[color]
                 }
                 side="right"
-                label="+$2.49"
+                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
@@ -1092,7 +1092,7 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.left[color]
                 }
                 side="left"
-                label="+$2.49"
+                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
