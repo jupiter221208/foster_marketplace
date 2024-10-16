@@ -250,8 +250,8 @@
       "dtf": {
         "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 130, "left": 230, "left_chest": 0.6, "angle": 0},
         "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 50, "height": 50, "top": 370, "left": 300, "angle": 0 },
-        "left": {"width": 50, "height": 50, "top": 370, "left": 340, "angle": 0 }
+        "right": {"width": 50, "height": 50, "top": 220, "left": 300, "angle": 0 },
+        "left": {"width": 50, "height": 50, "top": 200, "left": 340, "angle": 0 }
       },
       "emb": {
         "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 130, "left": 230, "left_chest": 0.6, "angle": 0},
@@ -278,16 +278,16 @@
     "name": "Unisex Oversized Hoodie",
     "location": { 
       "dtf": {
-        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
-        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 }
+        "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "width_center": 240, "height_center": 140, "top": 240, "top_chest": 240, "left": 230, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 120, "top": 240, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 570, "left": 315, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 345, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
-        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+        "front": {"width": 90, "height": 90, "width_chest": 70, "height_chest": 70, "width_center": 90, "height_center": 90, "top": 240, "top_chest": 240, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 240, "top": 240, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 570, "left": 315, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 345, "angle": 0 }
       }
     },
     "apparel": { 
@@ -308,10 +308,10 @@
     "name": "Tie-Dye Hoodie",
     "location": { 
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
-        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+        "front": {"width": 70, "height": 70, "width_chest": 70, "height_chest": 70, "width_center": 70, "height_center": 70, "top": 200, "top_chest": 200, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 120, "top": 180, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 550, "left": 310, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 540, "left": 340, "angle": 0 }
       }
     },
     "apparel": { 
@@ -332,10 +332,10 @@
     "name": "Soft Shell Jacket",
     "location": { 
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "top": 180, "top_chest": 180, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 255, "left": 225, "angle": 0 },
-        "right": {"width": 47, "height": 70, "top": 560, "left": 345, "angle": -11 },
-        "left": {"width": 47, "height": 70, "top": 555, "left": 310, "angle": 11 }
+        "front": {"width_right_chest": 70, "height_right_chest": 70, "top_chest": 203, "left": 394, "left_chest": 0.33, "angle": 0},
+        "back": {"width": 240, "height": 120, "top": 192, "left": 225, "angle": 0 },
+        "right": {"width": 50, "height": 63, "top": 598, "left": 310, "angle": 0 },
+        "left": {"width": 50, "height": 63, "top": 598, "left": 347, "angle": 0 }
       }
     },
     "apparel": { 

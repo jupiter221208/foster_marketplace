@@ -50,8 +50,6 @@ const MerchDTGSection = props => {
   const colors = Object.keys(apparelList[selectedCard.id].apparel.front)
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
-  console.log(color, '==========color=========')
-
   const alertId = 'alert-tech'
 
   useEffect(() => {
@@ -76,7 +74,6 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
-      console.log(productDetail, '==========productDetail======')
       setColor(productDetail?.color)
       setTimeout(() => {
         setSnapshotAsset(productDetail?.snapshotAssetUrl)
@@ -120,7 +117,11 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (technique === 'dtg') {
       setEmbPlace('front')
-    } else setEmbPlace('chest')
+    } else {
+      if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest'))
+        setEmbPlace('right_chest')
+      else setEmbPlace('chest')
+    }
   }, [technique])
 
   const isSaved = () => {
@@ -250,6 +251,10 @@ const MerchDTGSection = props => {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_chest
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_chest
         assetTop = apparelList[selectedCard.id].location[technique][cardSide].top_chest
+      } else if (embPlace === 'right_chest') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_right_chest
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_right_chest
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top_chest
       } else {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
@@ -269,7 +274,7 @@ const MerchDTGSection = props => {
     if (cardSide === 'front') {
       if (embPlace === 'center') {
         assetLeft = (screenWidth - assetWidth) / 2
-      } else if (embPlace === 'chest') {
+      } else if (embPlace === 'chest' || embPlace === 'right_chest') {
         assetLeft = screenWidth * left_chest
       } else {
         assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
@@ -763,9 +768,7 @@ const MerchDTGSection = props => {
                   }
                   side="front"
                   type="DTG"
-                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
-                    'width_center'
-                  )}
+                  placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
@@ -786,9 +789,7 @@ const MerchDTGSection = props => {
                   }
                   side="back"
                   type="DTG"
-                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
-                    'width_center'
-                  )}
+                  placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
                 />
@@ -808,9 +809,7 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.right[color]
                   }
                   side="right"
-                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
-                    'width_center'
-                  )}
+                  placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
                 />
@@ -829,9 +828,7 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.left[color]
                   }
                   side="left"
-                  centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty(
-                    'width_center'
-                  )}
+                  placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
                 />
@@ -859,15 +856,30 @@ const MerchDTGSection = props => {
                       Center Chest
                     </div>
                   )}
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('chest')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Left Chest
-                  </div>
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_chest') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('chest')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Left Chest
+                    </div>
+                  )}
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${
+                        embPlace === 'right_chest' ? styles.enabled : styles.disabled
+                      }`}
+                      onClick={() => {
+                        setEmbPlace('right_chest')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Right Chest
+                    </div>
+                  )}
                   {(technique === 'dtg' || technique === 'dtf') &&
                     apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width') && (
                       <div
@@ -1035,7 +1047,7 @@ const MerchDTGSection = props => {
                 side="front"
                 type="DTG"
                 technique={technique}
-                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
+                placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
                   setCardSide(type)
                   setShowEmbPosModal(true)
@@ -1054,7 +1066,7 @@ const MerchDTGSection = props => {
                 }
                 side="back"
                 type="DTG"
-                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
+                placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
@@ -1073,7 +1085,7 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.right[color]
                 }
                 side="right"
-                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
+                placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
@@ -1092,7 +1104,7 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.left[color]
                 }
                 side="left"
-                centerPlacement={apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center')}
+                placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
               />
@@ -1111,24 +1123,41 @@ const MerchDTGSection = props => {
                 </div>
                 <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
                 <div className="mt-[15px] flex gap-[16px] justify-end">
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('center')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Center Chest
-                  </div>
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('chest')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Left Chest
-                  </div>
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('center')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Center Chest
+                    </div>
+                  )}
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_chest') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('chest')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Left Chest
+                    </div>
+                  )}
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${
+                        embPlace === 'right_chest' ? styles.enabled : styles.disabled
+                      }`}
+                      onClick={() => {
+                        setEmbPlace('right_chest')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Right Chest
+                    </div>
+                  )}
                   {technique === 'dtg' && (
                     <div
                       className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}

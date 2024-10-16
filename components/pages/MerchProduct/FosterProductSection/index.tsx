@@ -19,7 +19,6 @@ import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 
 const FosterProductSection = props => {
   const { productDetail, setProductDetail, backClicked, setFosterCard } = props
-  const viewport = useViewport()
   const router = useRouter()
   const [productList, setProductList] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
@@ -33,7 +32,8 @@ const FosterProductSection = props => {
         setSelectedItem(null)
         setShowQuestionModal(false)
         setFosterCard(null)
-        setProductDetail({ ...productDetail, selectedCard: null })
+        // setProductDetail({ ...productDetail, selectedCard: null })
+        setProductDetail(null)
       } else {
         let path = window.location.href
         router.push(path.substring(0, path.lastIndexOf('/')))
