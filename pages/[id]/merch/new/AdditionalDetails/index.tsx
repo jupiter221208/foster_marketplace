@@ -191,7 +191,7 @@ const AdditionalDetails = props => {
       if (snapshotAssetUrl.back !== '') {
         urls.push(snapshotAssetUrl.back)
       }
-      if (technique === 'dtg') {
+      if (technique === 'dtg' || technique === 'dtf') {
         if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') setPriceFB(8.5)
       } else {
         if (snapshotAssetUrl.back !== '') setPriceFB(8.5)

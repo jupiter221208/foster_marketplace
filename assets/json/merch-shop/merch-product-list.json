@@ -75,7 +75,7 @@
     "id": 8,
     "name": "Unisex Premium Pique Polo Shirt",
     "description": "SOL'S",
-    "price" : {"dtg" : 29, "emb": 31 },
+    "price" : {"dtf" : 29, "emb": 31 },
     "color": ["black", "white"],
     "size": "S - 5XL",
     "image": "/images/apparel/polo_shirt_white.webp"
@@ -84,7 +84,7 @@
     "id": 9,
     "name": "Faded Oversized Tee",
     "description": "AS Colour",
-    "price" : {"dtg" : 34, "emb": 34 },
+    "price" : {"dtf" : 34, "emb": 34 },
     "color": ["black", "yellow"],
     "size": "S - 3XL",
     "image": "/images/apparel/oversized_t_white.webp"
@@ -93,7 +93,7 @@
     "id": 10,
     "name": "Unisex Oversized Hoodie",
     "description": "Threadfast Apparel",
-    "price" : {"dtg" : 46, "emb": 48 },
+    "price" : {"dtf" : 46, "emb": 48 },
     "color": ["black", "gray"],
     "size": "S - 3XL",
     "image": "/images/apparel/oversized_hoodie_middle.webp"
