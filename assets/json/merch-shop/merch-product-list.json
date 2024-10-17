@@ -6,7 +6,7 @@
     "price": {"dtg" : 32.94, "emb": 35.44 },
     "color": ["black", "white"],
     "size": "S - 3XL",
-    "image": "/images/apparel/man_hoodie_black_middle.png"
+    "image": "/images/apparel/man_hoodie_black_middle.webp"
   },
   {
     "id": 1,
@@ -15,7 +15,7 @@
     "price" : {"dtg" : 25.24, "emb": 27.99 },
     "color": ["black", "white"],
     "size": "S - 3XL",
-    "image": "/images/apparel/man_longsleeve_white_middle.png"
+    "image": "/images/apparel/man_longsleeve_white_middle.webp"
   },
   {
     "id": 2,
@@ -24,7 +24,7 @@
     "price" : {"dtg" : 20.74, "emb": 24.74 },
     "color": ["black", "white"],
     "size": "S - 3XL",
-    "image": "/images/apparel/man_t_white_middle.png"
+    "image": "/images/apparel/man_t_white_middle.webp"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "price" : {"dtg" : 39.99, "emb": 40.44 },
     "color": ["black", "white"],
     "size": "S - 3XL",
-    "image": "/images/apparel/man_sweat_black_middle.png"
+    "image": "/images/apparel/man_sweat_black_middle.webp"
   },
   {
     "id": 4,
@@ -42,7 +42,7 @@
     "price" : {"dtg" : 22.99, "emb": 22.99 },
     "color": ["black", "white"],
     "size": "S - 3XL",
-    "image": "/images/apparel/women_t_white_middle.png"
+    "image": "/images/apparel/women_t_white_middle.webp"
   },
   {
     "id": 5,
@@ -139,7 +139,7 @@
     "name": "Unisex Fleece Sweatpants",
     "description": "Cotton Heritage",
     "price" : {"dtg" : 34, "emb": 35 },
-    "color": ["black", "white"],
+    "color": ["black", "white", "gray"],
     "size": "XS - 2XL",
     "image": "/images/apparel/sweat_pant_middle.webp"
   },

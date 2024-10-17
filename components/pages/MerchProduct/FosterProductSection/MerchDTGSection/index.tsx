@@ -51,8 +51,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const SweatPantModel = 15
-  const unusedModalIds = [SweatPantModel]
+  const unusedModalIds = [5, 6, 7, 8, 12, 15]
 
   useEffect(() => {
     const handleMove = event => {
@@ -159,16 +158,6 @@ const MerchDTGSection = props => {
     }
 
     if (cardSide === 'front') setShowEmbPosModal(true)
-  }
-
-  const getCardLabel = (side, id) => {
-    if (id === SweatPantModel) {
-      if (side === 'front') return 'Front left leg'
-      else if (side === 'back') return 'Front right leg'
-      else if (side === 'right') return 'Back left leg'
-      else if (side === 'left') return 'Back right leg'
-    }
-    return ''
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -344,7 +333,7 @@ const MerchDTGSection = props => {
 
         if (assetUrl) {
           setTimeout(() => {
-            if (technique === 'dtg' || cardSide === 'back') {
+            if (technique === 'dtg' || (selectedCard.id < 5 && cardSide === 'back')) {
               new fabric.Image.fromURL(
                 assetUrl,
                 overlayImg => {
@@ -534,7 +523,7 @@ const MerchDTGSection = props => {
           <div className="relative flex justify-center">
             <div className={styles.rightPanel}>
               <div className="w-full flex justify-center">
-                <div className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
+                <div className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
                   <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
                 </div>
               </div>
@@ -714,7 +703,7 @@ const MerchDTGSection = props => {
                       }
                     }}
                   >
-                    Direct to Film(DTF)
+                    Direct to Film (DTF)
                   </div>
                 )}
                 {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
@@ -775,6 +764,7 @@ const MerchDTGSection = props => {
             <div className="flex gap-[8px] xl:gap-[12px] mt-[12px]">
               {apparelList[selectedCard.id].card.hasOwnProperty('front') ? (
                 <MerchDTGCard
+                  cardId={selectedCard.id}
                   selected={cardSide === 'front'}
                   image={
                     snapshotAsset['front'].length > 0
@@ -782,8 +772,6 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.front[color]
                   }
                   side="front"
-                  type="DTG"
-                  title={getCardLabel('front', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
@@ -797,6 +785,7 @@ const MerchDTGSection = props => {
 
               {apparelList[selectedCard.id].card.hasOwnProperty('back') ? (
                 <MerchDTGCard
+                  cardId={selectedCard.id}
                   selected={cardSide === 'back'}
                   image={
                     snapshotAsset['back'].length > 0
@@ -804,8 +793,6 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.back[color]
                   }
                   side="back"
-                  type="DTG"
-                  title={getCardLabel('back', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
@@ -818,7 +805,7 @@ const MerchDTGSection = props => {
                 <></>
               ) : apparelList[selectedCard.id].card.hasOwnProperty('right') ? (
                 <MerchDTGCard
-                  type={selectedCard.id}
+                  cardId={selectedCard.id}
                   selected={cardSide === 'right'}
                   image={
                     snapshotAsset['right'].length > 0
@@ -826,7 +813,6 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.right[color]
                   }
                   side="right"
-                  title={getCardLabel('right', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
@@ -838,7 +824,7 @@ const MerchDTGSection = props => {
                 <></>
               ) : apparelList[selectedCard.id].card.hasOwnProperty('left') ? (
                 <MerchDTGCard
-                  type={selectedCard.id}
+                  cardId={selectedCard.id}
                   selected={cardSide === 'left'}
                   image={
                     snapshotAsset['left'].length > 0
@@ -846,7 +832,6 @@ const MerchDTGSection = props => {
                       : apparelList[selectedCard.id].card.left[color]
                   }
                   side="left"
-                  title={getCardLabel('left', selectedCard.id)}
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => setCardSide(type)}
@@ -997,7 +982,7 @@ const MerchDTGSection = props => {
                     }
                   }}
                 >
-                  Direct to Film(DTF)
+                  Direct to Film (DTF)
                 </div>
               )}
               {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
@@ -1057,6 +1042,7 @@ const MerchDTGSection = props => {
           <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px] mb-[200px] lg:mb-[0px]">
             {apparelList[selectedCard.id].card.hasOwnProperty('front') ? (
               <MerchDTGCard
+                cardId={selectedCard.id}
                 selected={cardSide === 'front'}
                 image={
                   snapshotAsset['front'].length > 0
@@ -1064,8 +1050,6 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.front[color]
                 }
                 side="front"
-                type="DTG"
-                title={getCardLabel('front', selectedCard.id)}
                 technique={technique}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
@@ -1078,6 +1062,7 @@ const MerchDTGSection = props => {
             )}
             {apparelList[selectedCard.id].card.hasOwnProperty('back') ? (
               <MerchDTGCard
+                cardId={selectedCard.id}
                 selected={cardSide === 'back'}
                 image={
                   snapshotAsset['back'].length > 0
@@ -1085,8 +1070,6 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.back[color]
                 }
                 side="back"
-                type="DTG"
-                title={getCardLabel('back', selectedCard.id)}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
@@ -1098,7 +1081,7 @@ const MerchDTGSection = props => {
               <></>
             ) : apparelList[selectedCard.id].card.hasOwnProperty('right') ? (
               <MerchDTGCard
-                type={selectedCard.id}
+                cardId={selectedCard.id}
                 selected={cardSide === 'right'}
                 image={
                   snapshotAsset['right'].length > 0
@@ -1106,7 +1089,6 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.right[color]
                 }
                 side="right"
-                title={getCardLabel('right', selectedCard.id)}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
@@ -1118,7 +1100,7 @@ const MerchDTGSection = props => {
               <></>
             ) : apparelList[selectedCard.id].card.hasOwnProperty('left') ? (
               <MerchDTGCard
-                type={selectedCard.id}
+                cardId={selectedCard.id}
                 selected={cardSide === 'left'}
                 image={
                   snapshotAsset['left'].length > 0
@@ -1126,7 +1108,6 @@ const MerchDTGSection = props => {
                     : apparelList[selectedCard.id].card.left[color]
                 }
                 side="left"
-                title={getCardLabel('left', selectedCard.id)}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => setCardSide(type)}
