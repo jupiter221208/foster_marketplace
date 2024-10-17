@@ -61,8 +61,8 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const dtgModalIds = [5, 6, 7, 8, 12, 13, 14, 15]
-  const embModalIds = [5, 6, 7, 8, 12, 15]
+  const dtgModalIds = [5, 6, 7, 8, 12, 13, 14]
+  const embModalIds = [5, 6, 7, 8, 12]
 
   useEffect(() => {
     const handleMove = event => {
@@ -139,8 +139,10 @@ const MerchDTGSection = props => {
 
   useEffect(() => {
     if (technique === 'dtg' || technique === 'dtf') {
-      setEmbPlace('front')
+      if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg')) setEmbPlace('left_leg')
+      else setEmbPlace('front')
     } else {
+      if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg')) setEmbPlace('left_leg')
       if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest'))
         setEmbPlace('right_chest')
       else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_chest'))
@@ -277,7 +279,15 @@ const MerchDTGSection = props => {
     let assetWidth, assetHeight, assetTop
 
     if (cardSide === 'front') {
-      if (embPlace === 'center') {
+      if (embPlace === 'left_leg') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].leg_width
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].leg_height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      } else if (embPlace === 'right_leg') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].leg_width
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].leg_height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      } else if (embPlace === 'center') {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_center
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_center
         assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
@@ -306,7 +316,11 @@ const MerchDTGSection = props => {
     let assetLeft
 
     if (cardSide === 'front') {
-      if (embPlace === 'center') {
+      if (embPlace === 'left_leg') {
+        assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left_leg
+      } else if (embPlace === 'right_leg') {
+        assetLeft = apparelList[selectedCard.id].location[technique][cardSide].right_leg
+      } else if (embPlace === 'center') {
         assetLeft = (screenWidth - assetWidth) / 2
       } else if (embPlace === 'chest' || embPlace === 'right_chest') {
         assetLeft = screenWidth * left_chest
@@ -897,6 +911,28 @@ const MerchDTGSection = props => {
                 </div>
                 <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
                 <div className="mt-[15px] flex gap-[16px] justify-end">
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'left_leg' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('left_leg')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Left Leg
+                    </div>
+                  )}
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('right_leg') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'right_leg' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('right_leg')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Right Leg
+                    </div>
+                  )}
                   {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center') && (
                     <div
                       className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
