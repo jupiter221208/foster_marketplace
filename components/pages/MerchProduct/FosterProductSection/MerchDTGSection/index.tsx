@@ -28,6 +28,7 @@ import MerchShopInfoModal from 'components/Modal/MerchShopInfoModal'
 import LoadingButton from 'components/Button/LoadingButton'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 import { useViewport } from 'utils'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchDTGSection = props => {
   const { selectedCard, productDetail, setProductDetail } = props
@@ -47,7 +48,7 @@ const MerchDTGSection = props => {
   const [alertData, setAlertData] = useState([])
   const techniques = Object.keys(apparelList[selectedCard.id].location)
   const [technique, setTechnique] = useState(techniques[0])
-
+  const [imageLoaded, setImageLoaded] = useState(false)
   const assetUrlCount = useMemo(() => {
     let count = 0
     if (snapshotAsset.front !== '') count++
@@ -564,7 +565,7 @@ const MerchDTGSection = props => {
   return (
     <div className="w-full">
       {/************* Desktop ************/}
-      <div className="w-full flex gap-[10px] xl:gap-[30px] h-[calc(100vh_-_100px)]">
+      <div className="w-full flex gap-[10px] xl:gap-[30px] lg:h-[calc(100vh_-_100px)]">
         <div
           className={`w-full lg:mt-[60px] mt-[80px] max-w-[100%] min-w-[100%] lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[58%] xl:min-w-[58%] ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
@@ -593,13 +594,17 @@ const MerchDTGSection = props => {
               {snapshotAsset[cardSide].length === 0 && !assetUrl && (
                 <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
-                    <img
+                    <ImageWithFoster
                       src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                      alt=""
+                      showPlaceHolder={true}
+                      width={700}
+                      onLoad={() => {
+                        setImageLoaded(true)
+                      }}
                       className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
-                  {selectedCard.id === ProductModel.SweatPant && assetUrlCount === 3 ? (
+                  {!imageLoaded || (selectedCard.id === ProductModel.SweatPant && assetUrlCount === 3) ? (
                     <></>
                   ) : (
                     <div className={`${styles.dropArea}`}>
