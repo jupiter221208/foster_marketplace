@@ -273,6 +273,7 @@ const MerchDTGSection = props => {
   }
 
   const drawApparel = () => {
+    setImageLoaded(false)
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
@@ -449,6 +450,7 @@ const MerchDTGSection = props => {
                   overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
+                  setImageLoaded(true)
                 },
                 { crossOrigin: 'Anonymous' }
               )
@@ -492,6 +494,7 @@ const MerchDTGSection = props => {
                   overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
+                  setImageLoaded(true)
                 },
                 { crossOrigin: 'Anonymous' }
               )
@@ -542,6 +545,7 @@ const MerchDTGSection = props => {
                       newCanvas.setActiveObject(overlayImg)
                       newCanvas.renderAll()
                     })
+                    setImageLoaded(true)
                   },
                   { crossOrigin: 'Anonymous' }
                 )
@@ -605,8 +609,13 @@ const MerchDTGSection = props => {
           <div className="relative flex justify-center">
             <div className={styles.rightPanel}>
               <div className="w-full flex justify-center">
-                <div className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
+                <div className="relative w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
                   <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
+                  {!imageLoaded && (
+                    <div className="absolute inset-0 w-full h-full flex justify-center items-center">
+                      <Lottie animationData={LoadingIcon} loop={true} />
+                    </div>
+                  )}
                 </div>
               </div>
               {snapshotAsset[cardSide].length > 0 ? (
