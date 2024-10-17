@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import Lottie from 'lottie-react'
+import LoadingIcon from 'assets/lottery/designer-loader.json'
 
 // component
 import MerchDTGCard from './MerchDTGCard'
@@ -596,7 +597,7 @@ const MerchDTGSection = props => {
                   <div className="absolute inset-0">
                     <ImageWithFoster
                       src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                      showPlaceHolder={true}
+                      showPlaceHolder={false}
                       width={700}
                       onLoad={() => {
                         setImageLoaded(true)
@@ -604,8 +605,12 @@ const MerchDTGSection = props => {
                       className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
-                  {!imageLoaded || (selectedCard.id === ProductModel.SweatPant && assetUrlCount === 3) ? (
+                  {selectedCard.id === ProductModel.SweatPant && assetUrlCount === 3 ? (
                     <></>
+                  ) : !imageLoaded ? (
+                    <div className="w-full h-full flex justify-center items-center">
+                      <Lottie animationData={LoadingIcon} loop={true} />
+                    </div>
                   ) : (
                     <div className={`${styles.dropArea}`}>
                       <Dropzone
