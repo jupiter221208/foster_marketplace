@@ -154,7 +154,7 @@ const MerchDTGSection = props => {
       else setEmbPlace('front')
     } else {
       if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg')) setEmbPlace('left_leg')
-      if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest'))
+      else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest'))
         setEmbPlace('right_chest')
       else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_chest'))
         setEmbPlace('chest')
@@ -176,7 +176,7 @@ const MerchDTGSection = props => {
   }
 
   const clearApparel = () => {
-    setAssetUrl(null)
+    setImageLoaded(false)
 
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
@@ -200,6 +200,8 @@ const MerchDTGSection = props => {
         if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
       }
     }
+
+    setAssetUrl(null)
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -453,7 +455,6 @@ const MerchDTGSection = props => {
                   overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
-                  setImageLoaded(true)
                 },
                 { crossOrigin: 'Anonymous' }
               )
@@ -497,7 +498,6 @@ const MerchDTGSection = props => {
                   overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
-                  setImageLoaded(true)
                 },
                 { crossOrigin: 'Anonymous' }
               )
@@ -548,7 +548,6 @@ const MerchDTGSection = props => {
                       newCanvas.setActiveObject(overlayImg)
                       newCanvas.renderAll()
                     })
-                    setImageLoaded(true)
                   },
                   { crossOrigin: 'Anonymous' }
                 )
@@ -556,6 +555,7 @@ const MerchDTGSection = props => {
             }
           }, 500)
         }
+        setImageLoaded(true)
       })
     }, 500)
 
@@ -616,7 +616,7 @@ const MerchDTGSection = props => {
                   <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
                   {!imageLoaded && assetUrl && (
                     <div className="absolute inset-0 w-full h-full flex justify-center items-center">
-                      <Lottie animationData={lightDarkMode ? LoadingDarkIcon : LoadingLightIcon} loop={true} />
+                      <Lottie animationData={lightDarkMode ? LoadingLightIcon : LoadingDarkIcon} loop={true} />
                     </div>
                   )}
                 </div>
@@ -649,7 +649,7 @@ const MerchDTGSection = props => {
                   </div>
                   {!imageLoaded ? (
                     <div className="w-full h-full flex justify-center items-center">
-                      <Lottie animationData={lightDarkMode ? LoadingDarkIcon : LoadingLightIcon} loop={true} />
+                      <Lottie animationData={lightDarkMode ? LoadingLightIcon : LoadingDarkIcon} loop={true} />
                     </div>
                   ) : (
                     <div className={`${styles.dropArea}`}>
@@ -856,6 +856,8 @@ const MerchDTGSection = props => {
                         : styles.purpleColor
                     } ${color === item && styles.selectedColor}`}
                     onClick={() => {
+                      if (color === item) return
+
                       if (isSaved()) {
                         setQuestionType('color_' + item)
                         setShowQuestionModal(true)
@@ -885,7 +887,6 @@ const MerchDTGSection = props => {
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
-                    setImageLoaded(false)
                     if (technique === 'dtg') {
                       if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
                     } else {
@@ -1205,7 +1206,6 @@ const MerchDTGSection = props => {
                 placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
                   setCardSide(type)
-                  setImageLoaded(false)
                   if (technique === 'dtg') {
                     if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
                   } else {
