@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { fabric } from 'fabric'
 import Dropzone from 'react-dropzone'
 
@@ -46,6 +46,15 @@ const MerchDTGSection = props => {
   const [alertData, setAlertData] = useState([])
   const techniques = Object.keys(apparelList[selectedCard.id].location)
   const [technique, setTechnique] = useState(techniques[0])
+
+  const assetUrlCount = useMemo(() => {
+    let count = 0
+    if (snapshotAsset.front !== '') count++
+    if (snapshotAsset.back !== '') count++
+    if (snapshotAsset.right !== '') count++
+    if (snapshotAsset.left !== '') count++
+    return count
+  }, [snapshotAsset])
 
   const colors = Object.keys(apparelList[selectedCard.id].apparel.front)
   const [color, setColor] = useState(colors[0])
@@ -519,7 +528,7 @@ const MerchDTGSection = props => {
   return (
     <div className="w-full">
       {/************* Desktop ************/}
-      <div className="w-full flex gap-[10px] xl:gap-[30px]">
+      <div className="w-full flex gap-[10px] xl:gap-[30px] h-[calc(100vh_-_100px)]">
         <div
           className={`w-full lg:mt-[60px] mt-[80px] max-w-[100%] min-w-[100%] lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[58%] xl:min-w-[58%] ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
@@ -554,59 +563,61 @@ const MerchDTGSection = props => {
                       className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
-                  <div className={`${styles.dropArea}`}>
-                    <Dropzone
-                      onDrop={acceptedFiles => {
-                        if (acceptedFiles.length !== 0) {
-                          setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                          setShowEmbPosModal(false)
-                        }
-                      }}
-                      onDropRejected={rejectedFiles => {
-                        setAlertData([
-                          {
-                            id: 0,
-                            title: 'Upload Failed!',
-                            description: `File size is too large, size is limited to 10Mb.`,
-                            type: 'failure',
-                          },
-                        ])
-                        setShowAlert(true)
-                      }}
-                      maxFiles={1}
-                      accept={{ 'image/jpeg': [], 'image/png': [] }}
-                      maxSize={10485760}
-                    >
-                      {({ getRootProps, getInputProps, open }) => (
-                        <section>
-                          <button onClick={open} style={{ display: 'none' }}>
-                            open
-                          </button>
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <div className="flex flex-col justify-center items-center">
-                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
-                                <Lottie animationData={animationData} loop={true} />
+                  {assetUrlCount < 3 && (
+                    <div className={`${styles.dropArea}`}>
+                      <Dropzone
+                        onDrop={acceptedFiles => {
+                          if (acceptedFiles.length !== 0) {
+                            setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
+                            setShowEmbPosModal(false)
+                          }
+                        }}
+                        onDropRejected={rejectedFiles => {
+                          setAlertData([
+                            {
+                              id: 0,
+                              title: 'Upload Failed!',
+                              description: `File size is too large, size is limited to 10Mb.`,
+                              type: 'failure',
+                            },
+                          ])
+                          setShowAlert(true)
+                        }}
+                        maxFiles={1}
+                        accept={{ 'image/jpeg': [], 'image/png': [] }}
+                        maxSize={10485760}
+                      >
+                        {({ getRootProps, getInputProps, open }) => (
+                          <section>
+                            <button onClick={open} style={{ display: 'none' }}>
+                              open
+                            </button>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <div className="flex flex-col justify-center items-center">
+                                <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
+                                  <Lottie animationData={animationData} loop={true} />
+                                </div>
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <div className={styles.uploadText}>
+                                    Upload your
+                                    <br />
+                                    design here
+                                  </div>
+                                ) : (
+                                  <div className={styles.uploadText}>
+                                    Upload or drop
+                                    <br />
+                                    your design here
+                                  </div>
+                                )}
                               </div>
-                              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                <div className={styles.uploadText}>
-                                  Upload your
-                                  <br />
-                                  design here
-                                </div>
-                              ) : (
-                                <div className={styles.uploadText}>
-                                  Upload or drop
-                                  <br />
-                                  your design here
-                                </div>
-                              )}
                             </div>
-                          </div>
-                        </section>
-                      )}
-                    </Dropzone>
-                  </div>
+                          </section>
+                        )}
+                      </Dropzone>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -927,7 +938,7 @@ const MerchDTGSection = props => {
                       fontSize={18}
                       label="Save"
                       onClick={() => saveApparel()}
-                      disabled={assetUrl === null}
+                      disabled={assetUrl === null || assetUrlCount === 3}
                     />
                   )}
                 </div>
