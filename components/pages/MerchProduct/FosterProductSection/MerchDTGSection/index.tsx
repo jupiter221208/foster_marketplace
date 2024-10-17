@@ -135,7 +135,13 @@ const MerchDTGSection = props => {
       } else {
         if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
       }
-    } else setShowEmbPosModal(false)
+    } else if (
+      cardSide === 'back' &&
+      selectedCard.id === ProductModel.SweatPant &&
+      snapshotAsset[cardSide].length === 0
+    )
+      setShowEmbPosModal(true)
+    else setShowEmbPosModal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
 
@@ -306,6 +312,20 @@ const MerchDTGSection = props => {
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
         assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
       }
+    } else if (cardSide === 'back') {
+      if (embPlace === 'left_leg') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].leg_width
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].leg_height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      } else if (embPlace === 'right_leg') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].leg_width
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].leg_height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      } else {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      }
     } else {
       assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
       assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
@@ -329,6 +349,12 @@ const MerchDTGSection = props => {
       } else {
         assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
       }
+    } else if (cardSide === 'back') {
+      if (embPlace === 'left_leg') {
+        assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left_leg
+      } else if (embPlace === 'right_leg') {
+        assetLeft = apparelList[selectedCard.id].location[technique][cardSide].right_leg
+      } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
     } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
 
     if (window.innerWidth < 640) {
@@ -605,9 +631,7 @@ const MerchDTGSection = props => {
                       className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
-                  {selectedCard.id === ProductModel.SweatPant && assetUrlCount === 3 ? (
-                    <></>
-                  ) : !imageLoaded ? (
+                  {!imageLoaded ? (
                     <div className="w-full h-full flex justify-center items-center">
                       <Lottie animationData={LoadingIcon} loop={true} />
                     </div>
@@ -821,6 +845,7 @@ const MerchDTGSection = props => {
                         setShowQuestionModal(true)
                       } else {
                         setColor(item)
+                        setImageLoaded(false)
                       }
                     }}
                   ></div>
@@ -844,6 +869,7 @@ const MerchDTGSection = props => {
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
+                    setImageLoaded(false)
                     if (technique === 'dtg') {
                       if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
                     } else {
@@ -867,7 +893,13 @@ const MerchDTGSection = props => {
                   side="back"
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
-                  onSelect={type => setCardSide(type)}
+                  onSelect={type => {
+                    setCardSide(type)
+                    setImageLoaded(false)
+                    if (selectedCard.id === ProductModel.SweatPant) {
+                      setShowEmbPosModal(true)
+                    }
+                  }}
                 />
               ) : (
                 <></>
@@ -887,7 +919,10 @@ const MerchDTGSection = props => {
                   side="right"
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
-                  onSelect={type => setCardSide(type)}
+                  onSelect={type => {
+                    setCardSide(type)
+                    setImageLoaded(false)
+                  }}
                 />
               ) : (
                 <></>
@@ -906,7 +941,10 @@ const MerchDTGSection = props => {
                   side="left"
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
-                  onSelect={type => setCardSide(type)}
+                  onSelect={type => {
+                    setCardSide(type)
+                    setImageLoaded(false)
+                  }}
                 />
               ) : (
                 <></>
@@ -1127,6 +1165,7 @@ const MerchDTGSection = props => {
                       setShowQuestionModal(true)
                     } else {
                       setColor(item)
+                      setImageLoaded(false)
                     }
                   }}
                 ></div>
@@ -1150,6 +1189,7 @@ const MerchDTGSection = props => {
                 placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
                   setCardSide(type)
+                  setImageLoaded(false)
                   if (technique === 'dtg') {
                     if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
                   } else {
@@ -1172,7 +1212,13 @@ const MerchDTGSection = props => {
                 side="back"
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
-                onSelect={type => setCardSide(type)}
+                onSelect={type => {
+                  setCardSide(type)
+                  setImageLoaded(false)
+                  if (selectedCard.id === ProductModel.SweatPant) {
+                    setShowEmbPosModal(true)
+                  }
+                }}
               />
             ) : (
               <></>
@@ -1191,7 +1237,10 @@ const MerchDTGSection = props => {
                 side="right"
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
-                onSelect={type => setCardSide(type)}
+                onSelect={type => {
+                  setCardSide(type)
+                  setImageLoaded(false)
+                }}
               />
             ) : (
               <></>
@@ -1210,7 +1259,10 @@ const MerchDTGSection = props => {
                 side="left"
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
-                onSelect={type => setCardSide(type)}
+                onSelect={type => {
+                  setCardSide(type)
+                  setImageLoaded(false)
+                }}
               />
             ) : (
               <></>
