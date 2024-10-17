@@ -2,6 +2,7 @@ import React from 'react'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchProductCard = props => {
   const { data, onSelectedCard } = props
@@ -10,7 +11,7 @@ const MerchProductCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea} onClick={() => onSelectedCard(data)}>
         <div className={styles.imageContent}>
-          <img src={data.image} alt="" />
+          <ImageWithFoster src={data.image} className="w-full h-full object-cover" />
         </div>
       </div>
       <div className="w-full mt-[10px]">
