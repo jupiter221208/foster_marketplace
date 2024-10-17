@@ -20,6 +20,7 @@ import animationData from 'assets/lottery/upload-file.json'
 
 //resources
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
+import { ProductModel } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
@@ -60,7 +61,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const unusedModalIds = [5, 6, 7, 8, 9, 12, 15]
+  const unusedModalIds = [5, 6, 7, 8, 9, 12, 13, 14, 15]
 
   useEffect(() => {
     const handleMove = event => {
@@ -170,7 +171,7 @@ const MerchDTGSection = props => {
       newCanvas.renderAll()
     }
 
-    if (cardSide === 'front') setShowEmbPosModal(true)
+    if (cardSide === 'front' && !unusedModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -370,7 +371,8 @@ const MerchDTGSection = props => {
                     top: assetTop,
                     left: assetLeft,
                     angle: angle,
-                    globalCompositeOperation: color === 'white' ? 'multiply' : 'color-dodge',
+                    globalCompositeOperation:
+                      color === 'white' || color === 'green' || color === 'pink' ? 'multiply' : 'color-dodge',
                   })
 
                   newCanvas.add(overlayImg)
@@ -410,7 +412,8 @@ const MerchDTGSection = props => {
                     top: assetTop,
                     left: assetLeft,
                     angle: angle,
-                    globalCompositeOperation: color === 'white' ? 'multiply' : 'color-dodge',
+                    globalCompositeOperation:
+                      color === 'white' || color === 'green' || color === 'pink' ? 'multiply' : 'color-dodge',
                   })
 
                   newCanvas.add(overlayImg)
@@ -563,7 +566,9 @@ const MerchDTGSection = props => {
                       className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
-                  {assetUrlCount < 3 && (
+                  {selectedCard.id === ProductModel.SweatPant && assetUrlCount === 3 ? (
+                    <></>
+                  ) : (
                     <div className={`${styles.dropArea}`}>
                       <Dropzone
                         onDrop={acceptedFiles => {
@@ -938,7 +943,7 @@ const MerchDTGSection = props => {
                       fontSize={18}
                       label="Save"
                       onClick={() => saveApparel()}
-                      disabled={assetUrl === null || assetUrlCount === 3}
+                      disabled={assetUrl === null}
                     />
                   )}
                 </div>

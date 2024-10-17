@@ -1,5 +1,14 @@
 import * as moment from 'moment'
 
+export enum ProductModel {
+  TShirt = 2,
+  WomonTee = 4,
+  OversizedTee = 9,
+  CropShirt = 13,
+  CropHoodie = 14,
+  SweatPant = 15,
+}
+
 export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }

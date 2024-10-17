@@ -6,6 +6,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // json
+import { ProductModel } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
@@ -13,13 +14,6 @@ import styles from './index.module.scss'
 const MerchDTGCard = props => {
   const { cardId, image, selected = false, side = 'front', placement, technique, onSelect } = props
   const viewport = useViewport()
-
-  enum ProductModel {
-    TShirt = 2,
-    WomonTee = 4,
-    OversizedTee = 9,
-    SweatPant = 15,
-  }
 
   const OldModelCount = 5
 
