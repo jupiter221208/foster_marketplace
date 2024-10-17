@@ -255,6 +255,42 @@ const NewCreatorMerch = () => {
       } else if (productDetail.selectedCard.id === 4) {
         if (productDetail.technique === 'dtg') return 9
         else return 10
+      } else if (productDetail.selectedCard.id === 5) {
+        return 28
+      } else if (productDetail.selectedCard.id === 6) {
+        return 29
+      } else if (productDetail.selectedCard.id === 7) {
+        return 30
+      } else if (productDetail.selectedCard.id === 8) {
+        if (productDetail.technique === 'dtf') return 25
+        else return 26
+      } else if (productDetail.selectedCard.id === 9) {
+        if (productDetail.technique === 'dtf') return 22
+        else return 23
+      } else if (productDetail.selectedCard.id === 10) {
+        if (productDetail.technique === 'dtf') return 31
+        else return 32
+      } else if (productDetail.selectedCard.id === 11) {
+        return 33
+      } else if (productDetail.selectedCard.id === 12) {
+        return 27
+      } else if (productDetail.selectedCard.id === 13) {
+        if (productDetail.technique === 'dtg') return 38
+        else return 39
+      } else if (productDetail.selectedCard.id === 14) {
+        if (productDetail.technique === 'dtg') return 36
+        else return 37
+      } else if (productDetail.selectedCard.id === 15) {
+        if (productDetail.technique === 'dtg') return 34
+        else return 35
+      } else if (productDetail.selectedCard.id === 16) {
+        return 40
+      } else if (productDetail.selectedCard.id === 17) {
+        return 41
+      } else if (productDetail.selectedCard.id === 18) {
+        return 42
+      } else if (productDetail.selectedCard.id === 19) {
+        return 43
       }
     } else {
       return productDetail.type.id
