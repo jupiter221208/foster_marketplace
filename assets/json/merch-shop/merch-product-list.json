@@ -85,7 +85,7 @@
     "name": "Faded Oversized Tee",
     "description": "AS Colour",
     "price" : {"dtg" : 34, "emb": 34 },
-    "color": ["black", "white"],
+    "color": ["black", "yellow"],
     "size": "S - 3XL",
     "image": "/images/apparel/oversized_t_white.webp"
   },

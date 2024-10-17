@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useViewport } from 'utils'
 
 // Import Swiper styles
@@ -17,6 +17,7 @@ const MerchDTGCard = props => {
   enum ProductModel {
     TShirt = 2,
     WomonTee = 4,
+    OversizedTee = 9,
     SweatPant = 15,
   }
 
@@ -26,6 +27,7 @@ const MerchDTGCard = props => {
     let label = ''
     if (side === 'front') {
       if (cardId === ProductModel.SweatPant) return 'Front left leg'
+      if (cardId === ProductModel.OversizedTee) return 'Front'
 
       if (technique === 'dtg') label = 'Front'
       else {
@@ -46,14 +48,16 @@ const MerchDTGCard = props => {
     } else if (side === 'right') {
       if (cardId === ProductModel.SweatPant) return 'Back left leg'
 
-      if (cardId === ProductModel.TShirt || cardId === ProductModel.WomonTee) label = 'Right sleeve'
-      else if (technique === 'dtg') label = 'Right sleeve'
+      if (cardId === ProductModel.TShirt || cardId === ProductModel.WomonTee || cardId === ProductModel.OversizedTee)
+        label = 'Right sleeve'
+      else if (technique === 'dtg') label = 'Right Sleeve'
       else label = 'Right Wrist'
     } else {
       if (cardId === ProductModel.SweatPant) return 'Back right leg'
 
-      if (cardId === ProductModel.TShirt || cardId === ProductModel.WomonTee) label = 'Left sleeve'
-      else if (technique === 'dtg') label = 'Left sleeve'
+      if (cardId === ProductModel.TShirt || cardId === ProductModel.WomonTee || cardId === ProductModel.OversizedTee)
+        label = 'Left Sleeve'
+      else if (technique === 'dtg') label = 'Left Sleeve'
       else label = 'Left Wrist'
     }
     return label

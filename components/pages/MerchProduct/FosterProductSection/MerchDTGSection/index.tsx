@@ -51,7 +51,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const unusedModalIds = [5, 6, 7, 8, 12, 15]
+  const unusedModalIds = [5, 6, 7, 8, 9, 12, 15]
 
   useEffect(() => {
     const handleMove = event => {
@@ -119,12 +119,16 @@ const MerchDTGSection = props => {
   }, [technique, cardSide])
 
   useEffect(() => {
-    if (technique === 'dtg') {
+    if (technique === 'dtg' || technique === 'dtf') {
       setEmbPlace('front')
     } else {
       if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_right_chest'))
         setEmbPlace('right_chest')
-      else setEmbPlace('chest')
+      else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_chest'))
+        setEmbPlace('chest')
+      else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center'))
+        setEmbPlace('center')
+      else setEmbPlace('front')
     }
   }, [technique])
 
@@ -246,6 +250,7 @@ const MerchDTGSection = props => {
     if (apparelList[selectedCard.id].id === 4 && technique === 'dtg' && (cardSide === 'left' || cardSide === 'right'))
       return
     let assetWidth, assetHeight, assetTop
+
     if (cardSide === 'front') {
       if (embPlace === 'center') {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_center
@@ -745,6 +750,8 @@ const MerchDTGSection = props => {
                         ? styles.greenColor
                         : item === 'pink'
                         ? styles.pinkColor
+                        : item === 'yellow'
+                        ? styles.yellowColor
                         : styles.purpleColor
                     } ${color === item && styles.selectedColor}`}
                     onClick={() => {
@@ -762,7 +769,7 @@ const MerchDTGSection = props => {
 
             <div className={`${styles.technique} mt-[28px]`}>Placement</div>
             <div className="flex gap-[8px] xl:gap-[12px] mt-[12px]">
-              {apparelList[selectedCard.id].card.hasOwnProperty('front') ? (
+              {apparelList[selectedCard.id].location[technique].hasOwnProperty('front') ? (
                 <MerchDTGCard
                   cardId={selectedCard.id}
                   selected={cardSide === 'front'}
@@ -783,7 +790,7 @@ const MerchDTGSection = props => {
                 <></>
               )}
 
-              {apparelList[selectedCard.id].card.hasOwnProperty('back') ? (
+              {apparelList[selectedCard.id].location[technique].hasOwnProperty('back') ? (
                 <MerchDTGCard
                   cardId={selectedCard.id}
                   selected={cardSide === 'back'}
@@ -803,7 +810,7 @@ const MerchDTGSection = props => {
 
               {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
                 <></>
-              ) : apparelList[selectedCard.id].card.hasOwnProperty('right') ? (
+              ) : apparelList[selectedCard.id].location[technique].hasOwnProperty('right') ? (
                 <MerchDTGCard
                   cardId={selectedCard.id}
                   selected={cardSide === 'right'}
@@ -822,7 +829,7 @@ const MerchDTGSection = props => {
               )}
               {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
                 <></>
-              ) : apparelList[selectedCard.id].card.hasOwnProperty('left') ? (
+              ) : apparelList[selectedCard.id].location[technique].hasOwnProperty('left') ? (
                 <MerchDTGCard
                   cardId={selectedCard.id}
                   selected={cardSide === 'left'}
