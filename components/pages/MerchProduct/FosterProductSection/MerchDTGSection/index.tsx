@@ -6,7 +6,8 @@ import Dropzone from 'react-dropzone'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import Lottie from 'lottie-react'
-import LoadingIcon from 'assets/lottery/designer-loader.json'
+import LoadingDarkIcon from 'assets/lottery/designer-loader-dark.json'
+import LoadingLightIcon from 'assets/lottery/designer-loader-light.json'
 
 // component
 import MerchDTGCard from './MerchDTGCard'
@@ -30,10 +31,12 @@ import LoadingButton from 'components/Button/LoadingButton'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 import { useViewport } from 'utils'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { useSelector } from 'react-redux'
 
 const MerchDTGSection = props => {
   const { selectedCard, productDetail, setProductDetail } = props
   const viewport = useViewport()
+  const lightDarkMode = useSelector(state => (state as any).lightMode)
   const [canvas, setCanvas] = useState('')
   const [cardSide, setCardSide] = useState('front')
   const [embPlace, setEmbPlace] = useState('front')
@@ -611,9 +614,9 @@ const MerchDTGSection = props => {
               <div className="w-full flex justify-center">
                 <div className="relative w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
                   <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
-                  {!imageLoaded && (
+                  {!imageLoaded && assetUrl && (
                     <div className="absolute inset-0 w-full h-full flex justify-center items-center">
-                      <Lottie animationData={LoadingIcon} loop={true} />
+                      <Lottie animationData={lightDarkMode ? LoadingDarkIcon : LoadingLightIcon} loop={true} />
                     </div>
                   )}
                 </div>
@@ -646,7 +649,7 @@ const MerchDTGSection = props => {
                   </div>
                   {!imageLoaded ? (
                     <div className="w-full h-full flex justify-center items-center">
-                      <Lottie animationData={LoadingIcon} loop={true} />
+                      <Lottie animationData={lightDarkMode ? LoadingDarkIcon : LoadingLightIcon} loop={true} />
                     </div>
                   ) : (
                     <div className={`${styles.dropArea}`}>
