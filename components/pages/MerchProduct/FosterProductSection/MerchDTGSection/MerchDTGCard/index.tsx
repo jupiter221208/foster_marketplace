@@ -42,14 +42,26 @@ const MerchDTGCard = props => {
     } else if (side === 'right') {
       if (cardId === ProductModel.SweatPant) return 'Back left leg'
 
-      if (cardId === ProductModel.TShirt || cardId === ProductModel.WomonTee || cardId === ProductModel.OversizedTee)
-        label = 'Right sleeve'
+      if (
+        cardId === ProductModel.TShirt ||
+        cardId === ProductModel.WomonTee ||
+        cardId === ProductModel.OversizedTee ||
+        cardId === ProductModel.OversizedHoodie ||
+        cardId === ProductModel.PoloShirt
+      )
+        label = 'Right Sleeve'
       else if (technique === 'dtg') label = 'Right Sleeve'
       else label = 'Right Wrist'
     } else {
       if (cardId === ProductModel.SweatPant) return 'Back right leg'
 
-      if (cardId === ProductModel.TShirt || cardId === ProductModel.WomonTee || cardId === ProductModel.OversizedTee)
+      if (
+        cardId === ProductModel.TShirt ||
+        cardId === ProductModel.WomonTee ||
+        cardId === ProductModel.OversizedTee ||
+        cardId === ProductModel.OversizedHoodie ||
+        cardId === ProductModel.PoloShirt
+      )
         label = 'Left Sleeve'
       else if (technique === 'dtg') label = 'Left Sleeve'
       else label = 'Left Wrist'

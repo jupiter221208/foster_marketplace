@@ -94,7 +94,7 @@
     "name": "Unisex Oversized Hoodie",
     "description": "Threadfast Apparel",
     "price" : {"dtg" : 46, "emb": 48 },
-    "color": ["black", "white"],
+    "color": ["black", "gray"],
     "size": "S - 3XL",
     "image": "/images/apparel/oversized_hoodie_middle.webp"
   },

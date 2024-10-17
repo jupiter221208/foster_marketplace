@@ -225,7 +225,6 @@
       },
       "emb": {
         "front": {"width_chest": 70, "height_chest": 70, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
-        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
         "right": {"width": 45, "height": 45, "top": 200, "left": 310, "angle": 0 },
         "left": {"width": 45, "height": 45, "top": 200, "left": 340, "angle": 0 }
       }
@@ -284,7 +283,6 @@
       },
       "emb": {
         "front": {"width": 90, "height": 90, "width_chest": 70, "height_chest": 70, "width_center": 90, "height_center": 90, "top": 240, "top_chest": 240, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 240, "top": 240, "left": 230, "angle": 0 },
         "right": {"width": 45, "height": 63, "top": 570, "left": 315, "angle": 0 },
         "left": {"width": 45, "height": 63, "top": 570, "left": 345, "angle": 0 }
       }

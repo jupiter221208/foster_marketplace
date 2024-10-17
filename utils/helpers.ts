@@ -3,7 +3,9 @@ import * as moment from 'moment'
 export enum ProductModel {
   TShirt = 2,
   WomonTee = 4,
+  PoloShirt = 8,
   OversizedTee = 9,
+  OversizedHoodie = 10,
   CropShirt = 13,
   CropHoodie = 14,
   SweatPant = 15,
