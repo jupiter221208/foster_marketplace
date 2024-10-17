@@ -429,7 +429,11 @@ const MerchDTGSection = props => {
                     left: assetLeft,
                     angle: angle,
                     globalCompositeOperation:
-                      color === 'white' || color === 'green' || color === 'pink' || color === 'yellow'
+                      color === 'white' ||
+                      color === 'green' ||
+                      color === 'pink' ||
+                      color === 'yellow' ||
+                      color === 'gray'
                         ? 'multiply'
                         : 'color-dodge',
                   })
