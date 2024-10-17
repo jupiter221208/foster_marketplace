@@ -61,7 +61,8 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const unusedModalIds = [5, 6, 7, 8, 12, 13, 14, 15]
+  const dtgModalIds = [5, 6, 7, 8, 12, 13, 14, 15]
+  const embModalIds = [5, 6, 7, 8, 12, 15]
 
   useEffect(() => {
     const handleMove = event => {
@@ -111,7 +112,11 @@ const MerchDTGSection = props => {
     setEmbPlace('front')
     setCardSide('front')
 
-    if (!unusedModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+    if (technique === 'dtg') {
+      if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+    } else {
+      if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+    }
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas) {
@@ -122,9 +127,13 @@ const MerchDTGSection = props => {
   }, [selectedCard])
 
   useEffect(() => {
-    if (cardSide === 'front' && snapshotAsset[cardSide].length === 0 && !unusedModalIds.includes(selectedCard.id))
-      setShowEmbPosModal(true)
-    else setShowEmbPosModal(false)
+    if (cardSide === 'front' && snapshotAsset[cardSide].length === 0) {
+      if (technique === 'dtg') {
+        if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+      } else {
+        if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+      }
+    } else setShowEmbPosModal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
 
@@ -171,7 +180,13 @@ const MerchDTGSection = props => {
       newCanvas.renderAll()
     }
 
-    if (cardSide === 'front' && !unusedModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+    if (cardSide === 'front') {
+      if (technique === 'dtg') {
+        if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+      } else {
+        if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+      }
+    }
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -713,7 +728,7 @@ const MerchDTGSection = props => {
                       }
                     }}
                   >
-                    Direct to Garment(DTG)
+                    Direct to Garment (DTG)
                   </div>
                 )}
                 {apparelList[selectedCard.id].location.hasOwnProperty('dtf') && (
@@ -805,7 +820,11 @@ const MerchDTGSection = props => {
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
-                    if (!unusedModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+                    if (technique === 'dtg') {
+                      if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+                    } else {
+                      if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+                    }
                   }}
                 />
               ) : (
@@ -996,7 +1015,7 @@ const MerchDTGSection = props => {
                     }
                   }}
                 >
-                  Direct to Garment(DTG)
+                  Direct to Garment (DTG)
                 </div>
               )}
               {apparelList[selectedCard.id].location.hasOwnProperty('dtf') && (
@@ -1085,7 +1104,11 @@ const MerchDTGSection = props => {
                 placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
                   setCardSide(type)
-                  setShowEmbPosModal(true)
+                  if (technique === 'dtg') {
+                    if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+                  } else {
+                    if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+                  }
                 }}
               />
             ) : (

@@ -21,7 +21,14 @@ const MerchDTGCard = props => {
     let label = ''
     if (side === 'front') {
       if (cardId === ProductModel.SweatPant) return 'Front left leg'
-      if (cardId === ProductModel.OversizedTee) return 'Front'
+      if (
+        cardId === ProductModel.OversizedTee ||
+        cardId === ProductModel.TieHoodie ||
+        cardId === ProductModel.CropShirt ||
+        cardId === ProductModel.CropHoodie ||
+        cardId === ProductModel.OversizedHoodie
+      )
+        return 'Front'
 
       if (technique === 'dtg') label = 'Front'
       else {

@@ -6,6 +6,7 @@ export enum ProductModel {
   PoloShirt = 8,
   OversizedTee = 9,
   OversizedHoodie = 10,
+  TieHoodie = 11,
   CropShirt = 13,
   CropHoodie = 14,
   SweatPant = 15,
