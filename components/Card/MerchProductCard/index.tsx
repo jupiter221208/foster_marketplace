@@ -36,6 +36,8 @@ const MerchProductCard = props => {
                     ? styles.redColor
                     : item === 'gray'
                     ? styles.grayColor
+                    : item === 'gray_dark'
+                    ? styles.grayDarkColor
                     : item === 'green'
                     ? styles.greenColor
                     : item === 'pink'

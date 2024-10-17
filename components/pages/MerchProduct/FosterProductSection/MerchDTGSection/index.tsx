@@ -61,7 +61,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const unusedModalIds = [5, 6, 7, 8, 9, 12, 13, 14, 15]
+  const unusedModalIds = [5, 6, 7, 8, 12, 13, 14, 15]
 
   useEffect(() => {
     const handleMove = event => {
@@ -372,7 +372,9 @@ const MerchDTGSection = props => {
                     left: assetLeft,
                     angle: angle,
                     globalCompositeOperation:
-                      color === 'white' || color === 'green' || color === 'pink' ? 'multiply' : 'color-dodge',
+                      color === 'white' || color === 'green' || color === 'pink' || color === 'yellow'
+                        ? 'multiply'
+                        : 'color-dodge',
                   })
 
                   newCanvas.add(overlayImg)
@@ -413,7 +415,9 @@ const MerchDTGSection = props => {
                     left: assetLeft,
                     angle: angle,
                     globalCompositeOperation:
-                      color === 'white' || color === 'green' || color === 'pink' ? 'multiply' : 'color-dodge',
+                      color === 'white' || color === 'green' || color === 'pink' || color === 'yellow'
+                        ? 'multiply'
+                        : 'color-dodge',
                   })
 
                   newCanvas.add(overlayImg)
@@ -762,6 +766,8 @@ const MerchDTGSection = props => {
                         ? styles.redColor
                         : item === 'gray'
                         ? styles.grayColor
+                        : item === 'gray_dark'
+                        ? styles.grayDarkColor
                         : item === 'green'
                         ? styles.greenColor
                         : item === 'pink'
@@ -799,7 +805,7 @@ const MerchDTGSection = props => {
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
-                    setShowEmbPosModal(true)
+                    if (!unusedModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
                   }}
                 />
               ) : (
@@ -1042,6 +1048,8 @@ const MerchDTGSection = props => {
                       ? styles.redColor
                       : item === 'gray'
                       ? styles.grayColor
+                      : item === 'gray_dark'
+                      ? styles.grayDarkColor
                       : item === 'green'
                       ? styles.greenColor
                       : item === 'pink'

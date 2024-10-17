@@ -247,28 +247,28 @@
     "name": "Faded Oversized Tee",
     "location": { 
       "dtf": {
-        "front": {"width": 240, "height": 240, "top": 130, "left": 230, "angle": 0},
+        "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "top_chest": 130, "width_center": 240, "height_center": 140, "top": 130, "left": 230, "left_chest": 0.58, "angle": 0},
         "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
         "right": {"width": 50, "height": 50, "top": 220, "left": 300, "angle": 0 },
         "left": {"width": 50, "height": 50, "top": 200, "left": 340, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 240, "height": 240, "top": 130, "left": 230, "angle": 0},
+        "front": {"width": 240, "height": 240, "width_chest": 70, "height_chest": 70, "top_chest": 130, "width_center": 70, "height_center": 70, "top": 130, "left": 230, "left_chest": 0.58, "angle": 0},
         "right": {"width": 50, "height": 50, "top": 220, "left": 300, "angle": 0 },
         "left": {"width": 50, "height": 50, "top": 200, "left": 340, "angle": 0 }
       }
     },
     "apparel": { 
-      "front": {"black":"/images/apparel/oversized_t_black.png", "yellow":"/images/apparel/oversized_t_white.png"}, 
-      "back": {"black":"/images/apparel/oversized_t_black_b.png", "yellow":"/images/apparel/oversized_t_white_b.png"},
-      "right": {"black":"/images/apparel/oversized_t_black_right.png", "yellow":"/images/apparel/oversized_t_right.png" },
-      "left": {"black":"/images/apparel/oversized_t_black_left.png", "yellow":"/images/apparel/oversized_t_white_left.png" }
+      "front": {"gray_dark":"/images/apparel/oversized_t_black.png", "yellow":"/images/apparel/oversized_t_white.png"}, 
+      "back": {"gray_dark":"/images/apparel/oversized_t_black_b.png", "yellow":"/images/apparel/oversized_t_white_b.png"},
+      "right": {"gray_dark":"/images/apparel/oversized_t_black_right.png", "yellow":"/images/apparel/oversized_t_right.png" },
+      "left": {"gray_dark":"/images/apparel/oversized_t_black_left.png", "yellow":"/images/apparel/oversized_t_white_left.png" }
     },
     "card": { 
-      "front": {"yellow":"/images/apparel/oversized_t_white_card.webp", "black":"/images/apparel/oversized_t_black_card.webp"},  
-      "back": {"yellow":"/images/apparel/oversized_t_white_b_card.webp", "black":"/images/apparel/oversized_t_black_b_card.webp"},
-      "right": {"yellow":"/images/apparel/oversized_t_white_right_card.webp", "black":"/images/apparel/oversized_t_black_right_card.webp"},
-      "left": {"yellow":"/images/apparel/oversized_t_white_left_card.webp", "black":"/images/apparel/oversized_t_black_left_card.webp"}
+      "front": {"yellow":"/images/apparel/oversized_t_white_card.webp", "gray_dark":"/images/apparel/oversized_t_black_card.webp"},  
+      "back": {"yellow":"/images/apparel/oversized_t_white_b_card.webp", "gray_dark":"/images/apparel/oversized_t_black_b_card.webp"},
+      "right": {"yellow":"/images/apparel/oversized_t_white_right_card.webp", "gray_dark":"/images/apparel/oversized_t_black_right_card.webp"},
+      "left": {"yellow":"/images/apparel/oversized_t_white_left_card.webp", "gray_dark":"/images/apparel/oversized_t_black_left_card.webp"}
     }
   },
   {

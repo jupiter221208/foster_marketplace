@@ -223,7 +223,15 @@
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background: #7C7B77;
+  background: #D2CEC6;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.grayDarkColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #424242;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
