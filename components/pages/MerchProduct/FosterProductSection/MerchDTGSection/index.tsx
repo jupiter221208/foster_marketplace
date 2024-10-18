@@ -135,6 +135,8 @@ const MerchDTGSection = props => {
       } else {
         if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
       }
+    } else if (snapshotAsset['back'].length === 0 && selectedCard.id === ProductModel.SweatPant) {
+      setShowEmbPosModal(true)
     } else setShowEmbPosModal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
@@ -887,11 +889,6 @@ const MerchDTGSection = props => {
                   technique={technique}
                   onSelect={type => {
                     setCardSide(type)
-                    if (technique === 'dtg') {
-                      if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
-                    } else {
-                      if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
-                    }
                   }}
                 />
               ) : (
@@ -913,9 +910,6 @@ const MerchDTGSection = props => {
                   onSelect={type => {
                     setCardSide(type)
                     setImageLoaded(false)
-                    if (selectedCard.id === ProductModel.SweatPant) {
-                      setShowEmbPosModal(true)
-                    }
                   }}
                 />
               ) : (
@@ -1210,11 +1204,6 @@ const MerchDTGSection = props => {
                   else setShowControl(false)
 
                   setCardSide(type)
-                  if (technique === 'dtg') {
-                    if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
-                  } else {
-                    if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
-                  }
                 }}
               />
             ) : (
@@ -1239,9 +1228,6 @@ const MerchDTGSection = props => {
 
                   setCardSide(type)
                   setImageLoaded(false)
-                  if (selectedCard.id === ProductModel.SweatPant) {
-                    setShowEmbPosModal(true)
-                  }
                 }}
               />
             ) : (
