@@ -129,14 +129,18 @@ const MerchDTGSection = props => {
   }, [selectedCard])
 
   useEffect(() => {
-    if (cardSide === 'front' && snapshotAsset[cardSide].length === 0) {
-      if (technique === 'dtg') {
-        if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
-      } else {
-        if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
-      }
-    } else if (snapshotAsset['back'].length === 0 && selectedCard.id === ProductModel.SweatPant) {
-      setShowEmbPosModal(true)
+    if (cardSide === 'front') {
+      if (snapshotAsset[cardSide].length === 0) {
+        if (technique === 'dtg') {
+          if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+        } else {
+          if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+        }
+      } else setShowEmbPosModal(false)
+    } else if (cardSide === 'back') {
+      if (snapshotAsset['back'].length === 0 && selectedCard.id === ProductModel.SweatPant) {
+        setShowEmbPosModal(true)
+      } else setShowEmbPosModal(false)
     } else setShowEmbPosModal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
