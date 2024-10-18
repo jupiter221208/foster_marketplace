@@ -53,6 +53,7 @@ const MerchDTGSection = props => {
   const techniques = Object.keys(apparelList[selectedCard.id].location)
   const [technique, setTechnique] = useState(techniques[0])
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [showControl, setShowControl] = useState(false)
 
   const colors = Object.keys(apparelList[selectedCard.id].apparel.front)
   const [color, setColor] = useState(colors[0])
@@ -120,6 +121,10 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
+
+    window.scrollTo({
+      top: 0,
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCard])
 
@@ -165,6 +170,8 @@ const MerchDTGSection = props => {
   }
 
   const clearApparel = () => {
+    if (showControl) setShowControl(false)
+
     if (assetUrl) setImageLoaded(false)
 
     let newAsset = { ...snapshotAsset }
@@ -230,6 +237,8 @@ const MerchDTGSection = props => {
   }, [curPercentage])
 
   const saveApparel = async () => {
+    if (showControl) setShowControl(false)
+
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas !== '') {
       setProcessingImage(true)
@@ -1196,6 +1205,10 @@ const MerchDTGSection = props => {
                 technique={technique}
                 placement={apparelList[selectedCard.id].location[technique].front}
                 onSelect={type => {
+                  if (snapshotAsset['front'].length > 0) setShowControl(true)
+                  else if (assetUrl) setShowControl(true)
+                  else setShowControl(false)
+
                   setCardSide(type)
                   if (technique === 'dtg') {
                     if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
@@ -1220,6 +1233,10 @@ const MerchDTGSection = props => {
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => {
+                  if (snapshotAsset['back'].length > 0) setShowControl(true)
+                  else if (assetUrl) setShowControl(true)
+                  else setShowControl(false)
+
                   setCardSide(type)
                   setImageLoaded(false)
                   if (selectedCard.id === ProductModel.SweatPant) {
@@ -1245,6 +1262,10 @@ const MerchDTGSection = props => {
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => {
+                  if (snapshotAsset['right'].length > 0) setShowControl(true)
+                  else if (assetUrl) setShowControl(true)
+                  else setShowControl(false)
+
                   setCardSide(type)
                   setImageLoaded(false)
                 }}
@@ -1267,6 +1288,10 @@ const MerchDTGSection = props => {
                 placement={apparelList[selectedCard.id].location[technique].front}
                 technique={technique}
                 onSelect={type => {
+                  if (snapshotAsset['left'].length > 0) setShowControl(true)
+                  else if (assetUrl) setShowControl(true)
+                  else setShowControl(false)
+
                   setCardSide(type)
                   setImageLoaded(false)
                 }}
@@ -1359,7 +1384,7 @@ const MerchDTGSection = props => {
                 </div>
               </div>
             </div>
-          ) : assetUrl ? (
+          ) : assetUrl || showControl ? (
             <div className={styles.buttonArea}>
               <div className="w-full">
                 <div className={`w-full mt-[20px] px-[15px]`}>
