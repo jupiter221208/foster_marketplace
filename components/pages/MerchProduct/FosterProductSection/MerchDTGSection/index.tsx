@@ -1380,9 +1380,8 @@ const MerchDTGSection = props => {
           </div>
 
           {/* ************mobile*********** */}
-          {/* {(assetUrl || snapshotAsset[cardSide].length > 0) && ( */}
-          <div className={styles.buttonArea}>
-            {showEmbPosModal ? (
+          {showEmbPosModal ? (
+            <div className={styles.buttonArea}>
               <div className={styles.embFrontContainer}>
                 <div className="w-full flex justify-between">
                   <div className={styles.embFrontTitle}>
@@ -1422,7 +1421,9 @@ const MerchDTGSection = props => {
                   )}
                 </div>
               </div>
-            ) : (
+            </div>
+          ) : assetUrl ? (
+            <div className={styles.buttonArea}>
               <div className="w-full">
                 <div className={`w-full mt-[20px] px-[15px]`}>
                   <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
@@ -1455,9 +1456,10 @@ const MerchDTGSection = props => {
                   )}
                 </div>
               </div>
-            )}
-          </div>
-          {/* )} */}
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <MerchShopInfoModal
