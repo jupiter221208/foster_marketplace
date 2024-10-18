@@ -1281,9 +1281,10 @@ const MerchDTGSection = props => {
               <></>
             )}
           </div>
-          {/* **************Buttons desktop************** */}
-          <div className="w-full lg:block hidden">
-            {showEmbPosModal ? (
+
+          {/* ************mobile*********** */}
+          {showEmbPosModal ? (
+            <div className={styles.buttonArea}>
               <div className={styles.embFrontContainer}>
                 <div className="w-full flex justify-between">
                   <div className={styles.embFrontTitle}>
@@ -1292,6 +1293,28 @@ const MerchDTGSection = props => {
                 </div>
                 <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
                 <div className="mt-[15px] flex gap-[16px] justify-end">
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'left_leg' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('left_leg')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Left Leg
+                    </div>
+                  )}
+                  {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('right_leg') && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'right_leg' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('right_leg')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Right Leg
+                    </div>
+                  )}
                   {apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_center') && (
                     <div
                       className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
@@ -1327,101 +1350,18 @@ const MerchDTGSection = props => {
                       Right Chest
                     </div>
                   )}
-                  {technique === 'dtg' && (
-                    <div
-                      className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
-                      onClick={() => {
-                        setEmbPlace('full')
-                        setShowEmbPosModal(false)
-                      }}
-                    >
-                      Full Front
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="w-full">
-                <div
-                  className={`w-full ${
-                    technique === 'dtg' || technique === 'dtf'
-                      ? viewport === 'xs'
-                        ? 'mt-[20px]'
-                        : viewport === 'sm'
-                        ? 'mt-[30px]'
-                        : viewport === 'lg'
-                        ? 'mt-[44px]'
-                        : 'mt-[30px]'
-                      : 'mt-[27px]'
-                  }`}
-                >
-                  <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
-                </div>
-                <div className="w-full mt-[18px]">
-                  {processingImage ? (
-                    <LoadingButton fullWidth height={50} />
-                  ) : snapshotAsset[cardSide].length > 0 ? (
-                    <div className="w-full flex flex-col gap-[8px] mt-[13px]">
-                      <div className={styles.savedTitle}>Your design has been saved!</div>
-                      <div className={styles.savedContent}>
-                        {"Click next if you're finished, otherwise add another design."}
+                  {(technique === 'dtg' || technique === 'dtf') &&
+                    apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width') && (
+                      <div
+                        className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
+                        onClick={() => {
+                          setEmbPlace('front')
+                          setShowEmbPosModal(false)
+                        }}
+                      >
+                        Full Front
                       </div>
-                    </div>
-                  ) : (
-                    <GradientButton
-                      fullWidth
-                      height={50}
-                      fontSize={18}
-                      label="Save"
-                      onClick={() => saveApparel()}
-                      disabled={assetUrl === null}
-                    />
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* ************mobile*********** */}
-          {showEmbPosModal ? (
-            <div className={styles.buttonArea}>
-              <div className={styles.embFrontContainer}>
-                <div className="w-full flex justify-between">
-                  <div className={styles.embFrontTitle}>
-                    {technique === 'emb' ? 'Embroidery Placement' : 'Print Placement'}
-                  </div>
-                </div>
-                <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
-                <div className="mt-[10px] flex gap-[10px] justify-end">
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('center')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Center Chest
-                  </div>
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('chest')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Left Chest
-                  </div>
-                  {(technique === 'dtg' || technique === 'dtf') && (
-                    <div
-                      className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
-                      onClick={() => {
-                        setEmbPlace('full')
-                        setShowEmbPosModal(false)
-                      }}
-                    >
-                      Full Front
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
             </div>
