@@ -87,7 +87,7 @@ const FosterProductSection = props => {
   return (
     <div className="w-full">
       {selectedCard === null && (
-        <div className="g-container grid grid-cols-2 sm:grid-cols-5 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] 2xl:gap-[52px] mt-[30px]">
+        <div className="g-container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-[9px] sm:gap-[20px] xl:gap-[30px] 2xl:gap-[52px] mt-[30px]">
           {productList.map((item, index) => (
             <SwiperSlide key={index}>
               <div key={index}>
