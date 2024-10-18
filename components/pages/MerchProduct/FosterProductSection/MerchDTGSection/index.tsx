@@ -143,6 +143,9 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (technique === 'dtg' || technique === 'dtf') {
       if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg')) setEmbPlace('left_leg')
+      else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width')) setEmbPlace('front')
+      else if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('width_chest'))
+        setEmbPlace('chest')
       else setEmbPlace('front')
     } else {
       if (apparelList[selectedCard.id].location[technique].front.hasOwnProperty('left_leg')) setEmbPlace('left_leg')
