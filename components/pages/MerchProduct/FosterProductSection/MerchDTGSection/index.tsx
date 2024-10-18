@@ -1116,7 +1116,7 @@ const MerchDTGSection = props => {
                     }
                   }}
                 >
-                  Direct to Garment (DTG)
+                  {viewport === 'xs' ? 'Direct to Garment' : 'Direct to Garment (DTG)'}
                 </div>
               )}
               {apparelList[selectedCard.id].location.hasOwnProperty('dtf') && (
@@ -1131,7 +1131,7 @@ const MerchDTGSection = props => {
                     }
                   }}
                 >
-                  Direct to Film (DTF)
+                  {viewport === 'xs' ? 'Direct to Film' : 'Direct to Film (DTF)'}
                 </div>
               )}
               {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
