@@ -11,6 +11,7 @@ export enum ProductModel {
   CropHoodie = 14,
   SweatPant = 15,
   DadHat = 16,
+  Beanie = 17,
 }
 
 export const validDigits = (n) => {

@@ -58,8 +58,8 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const dtgModalIds = [5, 6, 7, 8, 12, 13, 14, 16]
-  const embModalIds = [5, 6, 7, 8, 12, 16]
+  const dtgModalIds = [5, 6, 7, 8, 12, ProductModel.CropShirt, ProductModel.CropHoodie]
+  const embModalIds = [5, 6, 7, 8, 12, ProductModel.DadHat, ProductModel.Beanie]
 
   useEffect(() => {
     const handleMove = event => {

@@ -455,7 +455,7 @@
     "name": "Cuffed & Embroidered Beanie",
     "location": { 
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0}
+        "front": {"width": 360, "height": 139, "top": 460, "left": 170, "angle": 0}
       }
     },
     "apparel": { 
