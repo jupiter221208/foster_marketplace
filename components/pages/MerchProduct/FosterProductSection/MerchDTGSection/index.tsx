@@ -59,7 +59,7 @@ const MerchDTGSection = props => {
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
   const dtgModalIds = [5, 6, 7, 8, 12, ProductModel.CropShirt, ProductModel.CropHoodie]
-  const embModalIds = [5, 6, 7, 8, 12, ProductModel.DadHat, ProductModel.Beanie]
+  const embModalIds = [5, 6, 7, 8, 12, ProductModel.SweatPant, ProductModel.DadHat, ProductModel.Beanie]
 
   useEffect(() => {
     const handleMove = event => {
@@ -130,13 +130,7 @@ const MerchDTGSection = props => {
       } else {
         if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
       }
-    } else if (
-      cardSide === 'back' &&
-      selectedCard.id === ProductModel.SweatPant &&
-      snapshotAsset[cardSide].length === 0
-    )
-      setShowEmbPosModal(true)
-    else setShowEmbPosModal(false)
+    } else setShowEmbPosModal(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique, cardSide])
 

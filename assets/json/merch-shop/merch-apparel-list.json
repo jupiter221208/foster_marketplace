@@ -413,8 +413,7 @@
         "back": {"leg_width": 69, "leg_height": 205, "left_leg": 192, "right_leg": 433, "top": 430, "left": 192, "angle": 0 }
       },
       "emb": {
-        "front": {"leg_width": 69, "leg_height": 205, "left_leg": 433, "right_leg": 192, "top": 430, "left": 433, "angle": 0},
-        "back": {"leg_width": 69, "leg_height": 205, "left_leg": 192, "right_leg": 433, "top": 430, "left": 192, "angle": 0 }
+        "front": {"leg_width": 65, "leg_height": 80, "left_leg": 444, "top": 146, "angle": 0}
       }
     },
     "apparel": { 
