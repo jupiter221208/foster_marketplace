@@ -49,6 +49,7 @@ const StudioSection = prop => {
       let userId = profileInfo.id
       getStoreInfo(userId)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   const getStoreInfo = async userId => {

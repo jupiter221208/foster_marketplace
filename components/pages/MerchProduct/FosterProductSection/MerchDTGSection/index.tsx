@@ -165,6 +165,7 @@ const MerchDTGSection = props => {
         setEmbPlace('center')
       else setEmbPlace('front')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [technique])
 
   const isSaved = () => {
