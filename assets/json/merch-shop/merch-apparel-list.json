@@ -332,16 +332,16 @@
     "apparel": { 
       "width": 11.04,
       "height": 11.04,
-      "front": { "black":"/images/apparel/soft_jacket_black.png", "gray":"/images/apparel/soft_jacket_gray.png" }, 
-      "back": { "black": "/images/apparel/soft_jacket_black_b.png", "gray":"/images/apparel/soft_jacket_gray_b.png" }, 
-      "right" :{ "black":"/images/apparel/soft_jacket_black_r.png", "gray":"/images/apparel/soft_jacket_gray_r.png" }, 
-      "left" : { "black":"/images/apparel/soft_jacket_black_l.png", "gray":"/images/apparel/soft_jacket_gray_l.png" } 
+      "front": { "black":"/images/apparel/soft_jacket_black.png", "gray_middle":"/images/apparel/soft_jacket_gray.png" }, 
+      "back": { "black": "/images/apparel/soft_jacket_black_b.png", "gray_middle":"/images/apparel/soft_jacket_gray_b.png" }, 
+      "right" :{ "black":"/images/apparel/soft_jacket_black_r.png", "gray_middle":"/images/apparel/soft_jacket_gray_r.png" }, 
+      "left" : { "black":"/images/apparel/soft_jacket_black_l.png", "gray_middle":"/images/apparel/soft_jacket_gray_l.png" } 
     },
     "card": { 
-      "front": { "black":"/images/apparel/soft_jacket_black_card.webp", "gray":"/images/apparel/soft_jacket_gray_card.webp" }, 
-      "back": { "black": "/images/apparel/soft_jacket_black_b_card.webp", "gray":"/images/apparel/soft_jacket_gray_b_card.webp" }, 
-      "right" :{ "black":"/images/apparel/soft_jacket_black_r_card.webp", "gray":"/images/apparel/soft_jacket_gray_r_card.webp" }, 
-      "left" : { "black":"/images/apparel/soft_jacket_black_l_card.webp", "gray":"/images/apparel/soft_jacket_gray_l_card.webp" }
+      "front": { "black":"/images/apparel/soft_jacket_black_card.webp", "gray_middle":"/images/apparel/soft_jacket_gray_card.webp" }, 
+      "back": { "black": "/images/apparel/soft_jacket_black_b_card.webp", "gray_middle":"/images/apparel/soft_jacket_gray_b_card.webp" }, 
+      "right" :{ "black":"/images/apparel/soft_jacket_black_r_card.webp", "gray_middle":"/images/apparel/soft_jacket_gray_r_card.webp" }, 
+      "left" : { "black":"/images/apparel/soft_jacket_black_l_card.webp", "gray_middle":"/images/apparel/soft_jacket_gray_l_card.webp" }
     }
   },
   {

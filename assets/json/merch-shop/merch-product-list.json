@@ -112,7 +112,7 @@
     "name": "Soft Shell Jacket",
     "description": "Columbia",
     "price" : {"dtg" : 100, "emb": 100 },
-    "color": ["black", "gray"],
+    "color": ["black", "gray_middle"],
     "size": "S - 4XL",
     "image": "/images/apparel/soft_jacket_middle.webp"
   },

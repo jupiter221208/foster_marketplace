@@ -839,6 +839,8 @@ const MerchDTGSection = props => {
                         ? styles.grayColor
                         : item === 'gray_dark'
                         ? styles.grayDarkColor
+                        : item === 'gray_middle'
+                        ? styles.grayMiddleColor
                         : item === 'green'
                         ? styles.greenColor
                         : item === 'pink'
