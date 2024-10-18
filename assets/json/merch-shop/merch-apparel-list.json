@@ -160,7 +160,7 @@
     }
   },
   {
-    "id": 28,
+    "id": 5,
     "name": "Premium Recycled Bomber Jacket",
     "location": { 
       "emb": {
@@ -178,7 +178,7 @@
     }
   },
   {
-    "id": 29,
+    "id": 6,
     "name": "Unisex Sherpa Denim Jacket",
     "location": { 
       "emb": {
@@ -196,7 +196,7 @@
     }
   },
   {
-    "id": 30,
+    "id": 7,
     "name": "Faux Leather Bomber Jacket",
     "location": { 
       "emb": {
@@ -214,7 +214,7 @@
     }
   },
   {
-    "id": 25,
+    "id": 8,
     "name": "Unisex Premium Pique Polo Shirt",
     "location": { 
       "dtf": {
@@ -243,7 +243,7 @@
     }
   },
   {
-    "id": 22,
+    "id": 9,
     "name": "Faded Oversized Tee",
     "location": { 
       "dtf": {
@@ -272,7 +272,7 @@
     }
   },
   {
-    "id": 31,
+    "id": 10,
     "name": "Unisex Oversized Hoodie",
     "location": { 
       "dtf": {
@@ -301,7 +301,7 @@
     }
   },
   {
-    "id": 33,
+    "id": 11,
     "name": "Tie-Dye Hoodie",
     "location": { 
       "emb": {
@@ -319,7 +319,7 @@
     }
   },
   {
-    "id": 27,
+    "id": 12,
     "name": "Soft Shell Jacket",
     "location": { 
       "emb": {
@@ -345,7 +345,7 @@
     }
   },
   {
-    "id": 38,
+    "id": 13,
     "name": "Women's Cropped Sweatshirt",
     "location": { 
       "dtg": {
@@ -375,7 +375,7 @@
     }
   },
   {
-    "id": 36,
+    "id": 14,
     "name": "Women's Cropped Hoodie",
     "location": { 
       "dtg": {
@@ -405,7 +405,7 @@
     }
   },
   {
-    "id": 34,
+    "id": 15,
     "name": "Unisex Fleece Sweatpants",
     "location": { 
       "dtg": {
@@ -427,14 +427,14 @@
     }
   },
   {
-    "id": 40,
+    "id": 16,
     "name": "Embroidered Dad Hat",
     "location": { 
       "emb": {
-        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 150, "top_chest": 150, "left": 394, "left_chest": 0.56, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 },
-        "right": {"width": 45, "height": 68, "top": 580, "left": 380, "angle": -11 },
-        "left": {"width": 45, "height": 68, "top": 570, "left": 270, "angle": 11 }
+        "front": {"width": 425, "height": 181, "top": 153, "left": 148, "angle": 0},
+        "back": {"width": 189, "height": 97, "top": 293, "left": 263, "angle": 0 },
+        "right": {"width": 137, "height": 68, "top": 400, "left": 160, "angle": -18 },
+        "left": {"width": 137, "height": 68, "top": 370, "left": 385, "angle": 18 }
       }
     },
     "apparel": { 
@@ -451,7 +451,7 @@
     }
   },
   {
-    "id": 41,
+    "id": 17,
     "name": "Cuffed & Embroidered Beanie",
     "location": { 
       "emb": {
@@ -466,7 +466,7 @@
     }
   },
   {
-    "id": 42,
+    "id": 18,
     "name": "All Over Print - Backpack",
     "location": { 
       "dtg": {
@@ -490,7 +490,7 @@
     }
   },
   {
-    "id": 43,
+    "id": 19,
     "name": "All Over Print - Duffle Bag",
     "location": { 
       "dtg": {

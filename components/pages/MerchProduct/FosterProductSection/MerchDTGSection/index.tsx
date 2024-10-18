@@ -53,21 +53,13 @@ const MerchDTGSection = props => {
   const techniques = Object.keys(apparelList[selectedCard.id].location)
   const [technique, setTechnique] = useState(techniques[0])
   const [imageLoaded, setImageLoaded] = useState(false)
-  const assetUrlCount = useMemo(() => {
-    let count = 0
-    if (snapshotAsset.front !== '') count++
-    if (snapshotAsset.back !== '') count++
-    if (snapshotAsset.right !== '') count++
-    if (snapshotAsset.left !== '') count++
-    return count
-  }, [snapshotAsset])
 
   const colors = Object.keys(apparelList[selectedCard.id].apparel.front)
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const dtgModalIds = [5, 6, 7, 8, 12, 13, 14]
-  const embModalIds = [5, 6, 7, 8, 12]
+  const dtgModalIds = [5, 6, 7, 8, 12, 13, 14, 16]
+  const embModalIds = [5, 6, 7, 8, 12, 16]
 
   useEffect(() => {
     const handleMove = event => {
@@ -176,7 +168,7 @@ const MerchDTGSection = props => {
   }
 
   const clearApparel = () => {
-    setImageLoaded(false)
+    if (assetUrl) setImageLoaded(false)
 
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
