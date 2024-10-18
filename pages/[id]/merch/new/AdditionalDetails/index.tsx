@@ -180,9 +180,7 @@ const AdditionalDetails = props => {
     let { snapshotAssetUrl, selectedCard, technique, color, name, description } = productDetail
     if (productDetail.product?.id === 0) {
       setPriceBase(selectedCard.price[technique])
-
       let desc = generateDescription(selectedCard, technique, color)
-
       setDescription(desc)
 
       if (snapshotAssetUrl.front !== '') {
@@ -247,18 +245,65 @@ const AdditionalDetails = props => {
   const generateDescription = (selectedCard, tech, color) => {
     console.log
     let description = ''
-    let technique = tech === 'dtg' ? 'direct-to-garment' : 'embroidery'
+    let technique = tech === 'dtg' ? 'direct-to-garment' : tech === 'dtf' ? 'direct-to-film' : 'embroidery'
     let side = getCardSide()
-    if (selectedCard.id === 0) {
-      description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
-    } else if (selectedCard.id === 1) {
-      description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
-    } else if (selectedCard.id === 2) {
-      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
-    } else if (selectedCard.id === 3) {
-      description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
-    } else {
-      description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+    switch (selectedCard.id) {
+      case 0:
+        description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
+        break
+      case 1:
+        description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
+        break
+      case 2:
+        description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
+        break
+      case 3:
+        description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
+        break
+      case 4:
+        description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+        break
+      case 5:
+        description = `Designed by ${username}, this bomber jacket has a looser fit that provides extra comfort and free movement. Embroidered with precision on the ${side}.`
+        break
+      case 6:
+        description = `Designed by ${username}, this ${color} jean jacket blends comfort with movement. Precision embroidery on the ${side}.`
+        break
+      case 7:
+        description = `Designed by ${username}, this leather bomber is an essential for every closet. Embroidered with precision on the ${side}.`
+        break
+      case 8:
+        description = `Designed by ${username}, this ${color} delivers style in 100% combed ring-spun cotton. Printed using ${technique} on the ${side}.`
+        break
+      case 9:
+        description = `Designed by ${username} for anyone seeking vintage street fashion. This ${color} oversized tee is made from 100% carded cotton and printed with precision using ${technique} on the ${side}.`
+        break
+      case 10:
+        description = `Designed by ${username}, this ${color} oversized hoodie is your go-to for next-level comfort. Printed with care using ${technique}on the ${side}.`
+        break
+      case 11:
+        description = `Designed by ${username} using Champion’s tie-dye fabric, this hoodie blends old-school and bold. Embroidered with precision on the ${side}.`
+        break
+      case 12:
+        description = `Conquer the elements in this Columbia soft shell, designed by ${username}. Precision embroidery on the ${side} keeps your style sharp, no matter the weather.`
+        break
+      case 13:
+        description = `Designed by ${username} for the lassies, this ${color} cropped sweatshirt is crafted from organic cotton. Printed with care using ${technique} on the ${side}.`
+        break
+      case 14:
+        description = `Designed by ${username} for the lassies, this ${color} cropped hoodie is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+        break
+      case 15:
+        description = `Designed by ${username}, these ${color} fleece sweatpants deliver comfort with a purpose, featuring a crotch gusset and three spacious pockets. Printed with care using ${technique} on the ${side}.`
+        break
+      case 16:
+        description = `A timeless look. Designed by ${username}, this classic dad hat is embroidered with precision on the ${side}.`
+        break
+      case 17:
+        description = `Snug. Bold. Designed by ${username}, this ${color} cuffed beanie is embroidered with precision.`
+        break
+      default:
+        description = ''
     }
     return description
   }
@@ -342,7 +387,6 @@ const AdditionalDetails = props => {
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
               <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Production Details</div>
-              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>

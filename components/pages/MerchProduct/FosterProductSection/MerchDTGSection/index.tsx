@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { fabric } from 'fabric'
+import { useViewport } from 'utils'
+import { useSelector } from 'react-redux'
+import { useAuthentication } from 'hooks/useAuthentication'
+
 import Dropzone from 'react-dropzone'
 
 // Import Swiper styles
@@ -29,13 +33,12 @@ import styles from './index.module.scss'
 import MerchShopInfoModal from 'components/Modal/MerchShopInfoModal'
 import LoadingButton from 'components/Button/LoadingButton'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
-import { useViewport } from 'utils'
 import ImageWithFoster from 'components/ImageWithFoster'
-import { useSelector } from 'react-redux'
 
 const MerchDTGSection = props => {
   const { selectedCard, productDetail, setProductDetail } = props
   const viewport = useViewport()
+  const { profileInfo } = useAuthentication()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const [canvas, setCanvas] = useState('')
   const [cardSide, setCardSide] = useState('front')
@@ -749,15 +752,8 @@ const MerchDTGSection = props => {
         >
           <div className="lg:mt-[60px] ml-[40px] 2xl:mt-[60px] 2xl:ml-[100px]">
             <div className={styles.studioDesinger}>Studio Designer</div>
-            <div className={`${styles.garment} mt-[15px] lg:block hidden`}>
+            <div className={`${styles.garment} mt-[15px]`}>
               You can place up to 4 different designs, but only 1 design (front or back) is included in the base price.
-              Additional designs will include additional fees – please see{' '}
-              <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
-            </div>
-            <div className={`${styles.garment} mt-[10px] lg:hidden block`}>
-              You can place up to 4 different designs, but only 1 design (front or back) is included in the base price.
-              <br />
-              <br />
               Additional designs will include additional fees – please see{' '}
               <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
             </div>
