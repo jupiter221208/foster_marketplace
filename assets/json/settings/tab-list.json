@@ -1,1 +1,4 @@
-[{ "id": 0, "label": "Profile", "value": "Profile" }, { "id": 1, "label": "Notifications", "value": "Notifications" }]
+[
+    { "id": 0, "label": "Profile", "value": "Profile" }, 
+    { "id": 1, "label": "Notifications", "value": "Notifications" }, 
+    { "id": 2, "label": "Studio", "value": "Studio" }]

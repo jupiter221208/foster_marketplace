@@ -22,6 +22,7 @@ const Textarea = props => {
     fontSize = '16px',
     color = '',
     borderColor = '',
+    borderRadius = '',
     width = '',
     height = '',
     maxHeight = '',
@@ -48,6 +49,7 @@ const Textarea = props => {
           fontSize: fontSize,
           color: color,
           borderColor: borderColor,
+          borderRadius: borderRadius,
         }}
       />
       {(label01 !== '' || label02 !== '') && (

@@ -16,38 +16,45 @@ const TopCollectionCard = props => {
 
   return (
     <div className={styles.layout}>
-      <Link href={`/collection/${collectionID}`} passHref>
-        <a>
-          <div className="sm:block hidden">
-            <div className={styles.order}>{rank}</div>
-            <div className="w-full flex gap-[15px] mt-[-4px]">
-              <div className={styles.image}>
-                <ImageWithFoster width={100} height={100} src={image} className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <div className={styles.collection}>{collectionName}</div>
-                <Link href={`/${artistName}`} passHref>
-                  <a>
-                    <div className={styles.creator}>{artistName}</div>
-                  </a>
-                </Link>
-              </div>
+      <div>
+        <div className="sm:block hidden">
+          <div className={styles.order}>{rank}</div>
+          <div className="w-full flex gap-[15px] mt-[-4px]">
+            <Link href={`/collection/${collectionID}`} passHref>
+              <a>
+                <div className={styles.image}>
+                  <ImageWithFoster width={100} height={100} src={image} className="w-full h-full object-cover" />
+                </div>
+              </a>
+            </Link>
+            <div>
+              <Link href={`/collection/${collectionID}`} passHref>
+                <a>
+                  <div className={styles.collection}>{collectionName}</div>
+                </a>
+              </Link>
+              <Link href={`/${artistName}`} passHref>
+                <a>
+                  <div className={styles.creator}>{artistName}</div>
+                </a>
+              </Link>
             </div>
           </div>
-          <div className={`sm:hidden flex w-full justify-between items-center ${styles.container}`}>
-            <div className="flex gap-[15px]">
-              <div className={styles.image}>
-                <ImageWithFoster width={100} height={100} src={image} className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <div className={styles.collection}>{collectionName}</div>
-                <div className={styles.creator}>{artistName}</div>
-              </div>
+        </div>
+        <div className={`sm:hidden flex w-full justify-between items-center ${styles.container}`}>
+          <div className="flex gap-[15px]">
+            <div className={styles.image}>
+              <ImageWithFoster width={100} height={100} src={image} className="w-full h-full object-cover" />
             </div>
-            <div className={styles.order}>{rank}</div>
+            <div>
+              <div className={styles.collection}>{collectionName}</div>
+              <div className={styles.creator}>{artistName}</div>
+            </div>
           </div>
-        </a>
-      </Link>
+          <div className={styles.order}>{rank}</div>
+        </div>
+      </div>
+      {/* </Link> */}
     </div>
   )
 }

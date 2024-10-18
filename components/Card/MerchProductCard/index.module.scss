@@ -7,6 +7,10 @@
   max-width: 500px;
   background: transparent;
   overflow: hidden;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+  }
+  margin-top: 11px;
 }
 
 .imageArea {
@@ -25,11 +29,13 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+  padding: 10px;
 }
 
 .name {
   font-family: 'Muli-Bold';
   font-size: 16px;
+  line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
@@ -37,8 +43,8 @@
   font-family: 'Muli-Light';
   font-weight: 100;
   font-size: 14px;
+  line-height: 18px;
   color: var(--main-icon-color);
-  margin-top: 10px;
 }
 
 .size {
@@ -48,16 +54,70 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
+.whiteColor {
+  width: 20px;  
+  height: 20px;
+  background: white;
+}
+
 .blackColor {
   width: 20px;
   height: 20px;
   background: black;
 }
 
-.whiteColor {
+.purpleColor {
   width: 20px;
   height: 20px;
-  background: white;
+  background: #3C3334;
+}
+
+.blueColor {
+  width: 20px;
+  height: 20px;
+  background: #8696A5;
+}
+
+.redColor {
+  width: 20px;
+  height: 20px;
+  background: #B9535D;
+}
+
+.grayColor {
+  width: 20px;
+  height: 20px;
+  background: #D2CEC6;
+}
+
+.grayDarkColor {
+  width: 20px;
+  height: 20px;
+  background: #424242;
+}
+
+.grayMiddleColor {
+  width: 20px;
+  height: 20px;
+  background: #4F4F4F;
+}
+
+.greenColor {
+  width: 20px;
+  height: 20px;
+  background: #BFD4CC;
+}
+
+.pinkColor {
+  width: 20px;
+  height: 20px;
+  background: #EAB59E;
+}
+
+.yellowColor {
+  width: 20px;
+  height: 20px;
+  background: #E4DFD7;
 }
 
 .startEnableBtn {

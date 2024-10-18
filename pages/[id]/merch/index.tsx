@@ -26,12 +26,12 @@ import PreviewImage from 'assets/images/studio-preview-image-user.png'
 import styles from './index.module.scss'
 
 interface CreatorMerchProps {
-  artistPublicKey?: string
+  storeInfoData?: any
   publicArtistData?: any
   error?: string
 }
 
-const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
+const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(null)
   useEffect(() => {
     setArtistInfo(publicArtistData)
@@ -43,9 +43,11 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [openShareModal, setOpenShareModal] = useState(false)
 
   let username = publicArtistData?.username ?? '<not found>'
-  let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
-  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
-  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+  let pageTitle = storeInfoData ? storeInfoData.name : `The Official Merch Store of ${username} | Foster Studio`
+  let pageImageUrl = storeInfoData ? storeInfoData.assetUrl : getAbsoluteOgUrl(PreviewImage.src)
+  let pageDescription = storeInfoData
+    ? storeInfoData.description
+    : `Shop limited-edition apparel and collectibles designed by ${username}.`
   let userTwitterHandle = getTwitterUsername(publicArtistData?.twitter_url)
 
   return (
@@ -157,9 +159,13 @@ CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorM
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
-    let artistPublicKey = publicArtistData.wallet_id
+    let storeInfoData = await fetch(`${process.env.BACKEND_URL}v1/merch_stores/${publicArtistData.id}`).then(r =>
+      r.json()
+    )
+    if (storeInfoData.hasOwnProperty('message')) storeInfoData = null
+
     return {
-      artistPublicKey,
+      storeInfoData,
       publicArtistData,
     }
   } catch (e: any) {

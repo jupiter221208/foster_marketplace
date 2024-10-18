@@ -1,5 +1,19 @@
 import * as moment from 'moment'
 
+export enum ProductModel {
+  TShirt = 2,
+  WomonTee = 4,
+  PoloShirt = 8,
+  OversizedTee = 9,
+  OversizedHoodie = 10,
+  TieHoodie = 11,
+  CropShirt = 13,
+  CropHoodie = 14,
+  SweatPant = 15,
+  DadHat = 16,
+  Beanie = 17,
+}
+
 export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
@@ -527,6 +541,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', 'rgba(239, 240, 247, 0.8')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(241, 255, 255, 1)')
     doc.style.setProperty('--auction-input-bg', '#202427')
+    doc.style.setProperty('--social-icon-bg', '#EFF0F6')
     doc.style.setProperty('--see-more-border', '#D7D8DE')
     doc.style.setProperty('--follow-btn-border', 'D7D8DE')
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(32, 36, 39, 0.25)')
@@ -590,7 +605,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-activity-icon', '#202427')
     doc.style.setProperty('--card-border-color', '#C1C2C9')
     doc.style.setProperty('--search-menu-icon-color', '#202427')
-    doc.style.setProperty('--social-bg-color', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--social-bg-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--wallet-detail-bg', '#FFFFFF')
     doc.style.setProperty('--shipping-board-bg', 'rgba(32, 36, 39, 0.05)')
     doc.style.setProperty('--nft-border-color', '#D7D8DE')
@@ -924,6 +939,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', '#313233')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--auction-input-bg', '#202427')
+    doc.style.setProperty('--social-icon-bg', '#202427')
     doc.style.setProperty('--see-more-border', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--follow-btn-border', '#95dbd5')
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(239, 240, 247, 0.25)')
@@ -985,7 +1001,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--banner-image-bg', '#ffffff')
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
     doc.style.setProperty('--card-border-color', '#333333')
-    doc.style.setProperty('--social-bg-color', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--social-bg-color', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--wallet-detail-bg', '#242424')
     doc.style.setProperty('--shipping-board-bg', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--nft-border-color', '#292929')

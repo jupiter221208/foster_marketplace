@@ -339,9 +339,7 @@ const PhysicalCheckout = ({
           {merchType === 'user' && (
             <div className="w-full flex justify-between items-center mt-[16px]">
               <div className={styles.total}>
-                {shippingRes === 'di_seller' || shippingRes === 'di_buyer'
-                  ? `Shipping Fees Included`
-                  : `Shipping Fees Not Included`}
+                {shippingRes === 'di_seller' ? `Shipping Fees Included` : `Shipping Fees Not Included`}
               </div>
             </div>
           )}

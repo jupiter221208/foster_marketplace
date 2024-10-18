@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useViewport } from 'utils'
 
 // Import Swiper styles
@@ -6,30 +6,73 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // json
+import { ProductModel } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
 
 const MerchDTGCard = props => {
-  const { image, selected = false, side = 'front', type = '', label = '', technique, onSelect } = props
+  const { cardId, image, selected = false, side = 'front', placement, technique, onSelect } = props
   const viewport = useViewport()
+
+  const OldModelCount = 5
+
   const getLabel = () => {
     let label = ''
     if (side === 'front') {
+      if (cardId === ProductModel.SweatPant) return 'Front'
+      if (
+        cardId === ProductModel.OversizedTee ||
+        cardId === ProductModel.TieHoodie ||
+        cardId === ProductModel.CropShirt ||
+        cardId === ProductModel.CropHoodie ||
+        cardId === ProductModel.OversizedHoodie ||
+        cardId === ProductModel.DadHat ||
+        cardId === ProductModel.Beanie
+      )
+        return 'Front'
+
       if (technique === 'dtg') label = 'Front'
       else {
-        if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') label = 'Left/Center Chest'
-        else label = 'Left or Center Chest'
+        const chest = placement.hasOwnProperty('width_right_chest')
+          ? 'right'
+          : placement.hasOwnProperty('width_center')
+          ? 'center'
+          : 'left'
+        if (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
+          label = chest === 'right' ? 'Right Chest' : chest === 'center' ? 'Left/Center Chest' : 'Left Chest'
+        else label = chest === 'right' ? 'Right Chest' : chest === 'center' ? 'Left or Center Chest' : 'Left Chest'
       }
     } else if (side === 'back') {
-      label = 'Back'
+      if (cardId === ProductModel.SweatPant) return 'Back'
+
+      if (cardId < OldModelCount) label = 'Back (DTG)'
+      else label = 'Back'
     } else if (side === 'right') {
-      if (type === 2 || type === 4) label = 'Right sleeve'
-      else if (technique === 'dtg') label = 'Right sleeve'
+      if (cardId === ProductModel.SweatPant) return 'Back left leg'
+      if (cardId === ProductModel.DadHat) return 'Right'
+      if (
+        cardId === ProductModel.TShirt ||
+        cardId === ProductModel.WomonTee ||
+        cardId === ProductModel.OversizedTee ||
+        cardId === ProductModel.OversizedHoodie ||
+        cardId === ProductModel.PoloShirt
+      )
+        label = 'Right Sleeve'
+      else if (technique === 'dtg') label = 'Right Sleeve'
       else label = 'Right Wrist'
     } else {
-      if (type === 2 || type === 4) label = 'Left sleeve'
-      else if (technique === 'dtg') label = 'Left sleeve'
+      if (cardId === ProductModel.SweatPant) return 'Back right leg'
+      if (cardId === ProductModel.DadHat) return 'Left'
+      if (
+        cardId === ProductModel.TShirt ||
+        cardId === ProductModel.WomonTee ||
+        cardId === ProductModel.OversizedTee ||
+        cardId === ProductModel.OversizedHoodie ||
+        cardId === ProductModel.PoloShirt
+      )
+        label = 'Left Sleeve'
+      else if (technique === 'dtg') label = 'Left Sleeve'
       else label = 'Left Wrist'
     }
     return label
@@ -42,10 +85,7 @@ const MerchDTGCard = props => {
       <div className="flex flex-col gap-[2px] lg:mt-[11px] sm:mt-[11px] mt-[6px] justify-center items-center">
         <div className={styles.side}>
           <p>{getLabel()}</p>
-          {side === 'back' && technique !== 'dtg' && <div>(DTG)</div>}
         </div>
-        {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
-        {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}
       </div>
     </div>
   )

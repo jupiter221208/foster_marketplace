@@ -43,6 +43,7 @@ const NewCreatorMerch = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [backClicked, setBackClicked] = useState(false)
 
   useEffect(() => {
     if (!productDetail) {
@@ -59,14 +60,24 @@ const NewCreatorMerch = () => {
         snapshotUrl.left.length > 0 ||
         snapshotUrl.right.length > 0
       ) {
-        let { product, description, name, type, shipping } = productDetail
+        let { product, description, name, type, shipping, shippingFee, interShippingFee } = productDetail
+
         if (product) {
           if (product.id === 0) {
             setNextEnabled(true)
           } else {
-            if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined)
-              setNextEnabled(true)
-            else setNextEnabled(false)
+            if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined) {
+              if (shipping.id === 1) {
+                if (
+                  shippingFee !== undefined &&
+                  interShippingFee !== undefined &&
+                  parseInt(shippingFee) >= 0 &&
+                  parseInt(interShippingFee) >= 0
+                )
+                  setNextEnabled(true)
+                else setNextEnabled(false)
+              } else setNextEnabled(true)
+            } else setNextEnabled(false)
           }
         }
       } else setNextEnabled(false)
@@ -95,9 +106,42 @@ const NewCreatorMerch = () => {
 
   const getShippingData = () => {
     if (productDetail.shipping.id === 0) return 'di_seller'
-    if (productDetail.shipping.id === 1) return 'di_buyer'
-    if (productDetail.shipping.id === 2) return 'd_buyer'
-    if (productDetail.shipping.id === 3) return 'd_seller'
+    if (productDetail.shipping.id === 1) return 'd_seller'
+  }
+
+  const getProductAddonId = side => {
+    let addonId = 1
+    switch (productDetail.selectedCard.id) {
+      case 8:
+        if (productDetail.technique === 'dtf') {
+          if (side === 'front') addonId = 1
+          else if (side === 'back') addonId = 2
+          else if (side === 'right') addonId = 3
+          else if (side === 'left') addonId = 4
+        } else {
+          if (side === 'front') addonId = 1
+          else if (side === 'right') addonId = 2
+          else if (side === 'left') addonId = 3
+        }
+        break
+      case 11:
+        if (side === 'front') addonId = 1
+        else if (side === 'right') addonId = 2
+        break
+      case 12:
+        if (side === 'front') addonId = 1
+        else if (side === 'back') addonId = 2
+        else if (side === 'right') addonId = 3
+        else if (side === 'left') addonId = 4
+        break
+      default:
+        if (side === 'front') addonId = 1
+        else if (side === 'back') addonId = 2
+        else if (side === 'right') addonId = 3
+        else if (side === 'left') addonId = 4
+        break
+    }
+    return addonId
   }
 
   const createProduct = async () => {
@@ -117,28 +161,28 @@ const NewCreatorMerch = () => {
           let upload_url = additionDetail.name + '-' + productDetail.selectedCard.id + '-' + productDetail.product.id
           if (snapUrls.front !== '') {
             addonList.push({
-              product_addon_id: 1,
+              product_addon_id: getProductAddonId('front'),
               mockup_url: await uploadApparelSection(upload_url + 'front', snapUrls.front),
               raw_url: await uploadRawUrl(upload_url + 'front' + '_raw', snapUrls.front_raw),
             })
           }
           if (snapUrls.back !== '') {
             addonList.push({
-              product_addon_id: 2,
+              product_addon_id: getProductAddonId('back'),
               mockup_url: await uploadApparelSection(upload_url + 'back', snapUrls.back),
               raw_url: await uploadRawUrl(upload_url + 'back' + '_raw', snapUrls.back_raw),
             })
           }
           if (snapUrls.right !== '') {
             addonList.push({
-              product_addon_id: 3,
+              product_addon_id: getProductAddonId('right'),
               mockup_url: await uploadApparelSection(upload_url + 'right', snapUrls.right),
               raw_url: await uploadRawUrl(upload_url + 'right' + '_raw', snapUrls.right_raw),
             })
           }
           if (snapUrls.left !== '') {
             addonList.push({
-              product_addon_id: 4,
+              product_addon_id: getProductAddonId('left'),
               mockup_url: await uploadApparelSection(upload_url + 'left', snapUrls.left),
               raw_url: await uploadRawUrl(upload_url + 'left' + '_raw', snapUrls.left_raw),
             })
@@ -246,6 +290,42 @@ const NewCreatorMerch = () => {
       } else if (productDetail.selectedCard.id === 4) {
         if (productDetail.technique === 'dtg') return 9
         else return 10
+      } else if (productDetail.selectedCard.id === 5) {
+        return 28
+      } else if (productDetail.selectedCard.id === 6) {
+        return 29
+      } else if (productDetail.selectedCard.id === 7) {
+        return 30
+      } else if (productDetail.selectedCard.id === 8) {
+        if (productDetail.technique === 'dtf') return 25
+        else return 26
+      } else if (productDetail.selectedCard.id === 9) {
+        if (productDetail.technique === 'dtf') return 22
+        else return 23
+      } else if (productDetail.selectedCard.id === 10) {
+        if (productDetail.technique === 'dtf') return 31
+        else return 32
+      } else if (productDetail.selectedCard.id === 11) {
+        return 33
+      } else if (productDetail.selectedCard.id === 12) {
+        return 27
+      } else if (productDetail.selectedCard.id === 13) {
+        if (productDetail.technique === 'dtg') return 38
+        else return 39
+      } else if (productDetail.selectedCard.id === 14) {
+        if (productDetail.technique === 'dtg') return 36
+        else return 37
+      } else if (productDetail.selectedCard.id === 15) {
+        if (productDetail.technique === 'dtg') return 34
+        else return 35
+      } else if (productDetail.selectedCard.id === 16) {
+        return 40
+      } else if (productDetail.selectedCard.id === 17) {
+        return 41
+      } else if (productDetail.selectedCard.id === 18) {
+        return 42
+      } else if (productDetail.selectedCard.id === 19) {
+        return 43
       }
     } else {
       return productDetail.type.id
@@ -270,8 +350,10 @@ const NewCreatorMerch = () => {
             fontSize={18}
             onClick={() => {
               if (currentStep === 1) {
-                let path = window.location.href
-                router.push(path.substring(0, path.lastIndexOf('/')))
+                setBackClicked(true)
+                setTimeout(() => {
+                  setBackClicked(false)
+                }, 500)
               } else {
                 setCurrentStep(currentStep - 1)
                 setNextEnabled(true)
@@ -316,17 +398,22 @@ const NewCreatorMerch = () => {
         </div>
       </div>
 
-      <div className="g-container mt-[110px] lg:mt-[165px]">
-        {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
+      <div className="">
+        {currentStep === 1 && (
+          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} backClicked={backClicked} />
+        )}
         {currentStep >= 2 && (
-          <AdditionalDetails
-            username={profileInfo.username}
-            productDetail={productDetail}
-            step={currentStep}
-            additionDetail={additionDetail}
-            setAdditionDetail={setAdditionDetail}
-            setEnableNext={setNextEnabled}
-          />
+          <div className="g-container mt-[110px] lg:mt-[165px]">
+            <AdditionalDetails
+              username={profileInfo?.username}
+              productDetail={productDetail}
+              step={currentStep}
+              additionDetail={additionDetail}
+              backClicked={backClicked}
+              setAdditionDetail={setAdditionDetail}
+              setEnableNext={setNextEnabled}
+            />
+          </div>
         )}
       </div>
 

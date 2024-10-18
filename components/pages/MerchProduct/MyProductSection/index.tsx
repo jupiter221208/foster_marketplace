@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useViewport } from 'utils'
+import { validDigits } from 'utils/helpers'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -15,6 +16,7 @@ import Lottie from 'lottie-react'
 import ProductType from 'assets/json/creator-merch/product-type.json'
 import ShippingList from 'assets/json/creator-merch/shipping-list.json'
 import animationData from 'assets/lottery/upload-file.json'
+import SizeList from 'assets/json/popular-size.json'
 
 // styles
 import styles from './index.module.scss'
@@ -24,6 +26,7 @@ import { limit } from 'utils/strings'
 import Textarea from 'components/Input/Textarea'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
 import Alert from 'components/Alert'
+import SizeSelectionMenu from 'components/Menu/SizeSelectionMenu'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
@@ -38,6 +41,9 @@ const MyProductSection = props => {
   const [description, setDescription] = useState('')
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState([])
+  const [sizeList, setSizeList] = useState([])
+  const [shippingFee, setShippingFee] = useState('')
+  const [interShippingFee, setInterShippingFee] = useState('')
 
   const onSelectImage = index => {
     if (index >= imageList.length) return
@@ -88,6 +94,17 @@ const MyProductSection = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
+  useEffect(() => {
+    let array: any[] = []
+    SizeList.map(item => {
+      let object: any = item
+      object.checked = false
+      object.disabled = false
+      array.push(object)
+    })
+    setSizeList(array)
+  }, [])
+
   const setProductAssetUrl = newList => {
     let newAsset = {}
 
@@ -99,6 +116,28 @@ const MyProductSection = props => {
     }
 
     setProductDetail({ ...productDetail, snapshotAssetUrl: newAsset })
+  }
+
+  const handleSelectSize = index => {
+    let array = [...sizeList]
+    let checkedCount = 0
+    array.map(item => {
+      if (item.checked === true) {
+        checkedCount++
+      }
+    })
+    array[index].checked = !array[index].checked
+    setSizeList(array)
+  }
+
+  const handleSelectAll = selected => {
+    let array = [...sizeList]
+
+    array.map(item => {
+      if (selected) item.checked = true
+      else item.checked = false
+    })
+    setSizeList(array)
   }
 
   return (
@@ -294,7 +333,23 @@ const MyProductSection = props => {
               }}
             />
           </div>
-          <div className="sm:mt-[30px] mt-[20px] mb-[300px]">
+
+          {productType.id === 13 && (
+            <div className="mt-[20px] mb-[15px]">
+              <div className="mb-[15px]">
+                <div className={styles.fullfill}>
+                  Available Sizes <span>*</span>
+                </div>
+              </div>
+              <SizeSelectionMenu
+                categoryList={sizeList}
+                handleSelectCategory={handleSelectSize}
+                handleSelectAll={handleSelectAll}
+              />
+            </div>
+          )}
+
+          <div className="sm:mt-[30px] mt-[20px]">
             <div className="w-full flex gap-[5px] mb-[15px]">
               <div className={styles.fullfill}>
                 Shipping & Handling <span>*</span>
@@ -304,8 +359,8 @@ const MyProductSection = props => {
               label={
                 shipping.id === -1
                   ? viewport === 'xs'
-                    ? 'Select responsible party for shipping fees'
-                    : 'Select a category that best describes this product'
+                    ? 'Select whether shipping fees are included'
+                    : 'Select whether shipping fees are included or not'
                   : shipping.label
               }
               data={ShippingList}
@@ -316,6 +371,46 @@ const MyProductSection = props => {
               }}
             />
           </div>
+          {shipping.id === 1 && (
+            <div className="mt-[30px]">
+              <div className={styles.fullfill}>
+                Domestic Shipping Fee <span>*</span>
+              </div>
+              <div className={`${styles.sellingArea} mt-[15px]`}>
+                <div className={styles.dollar}>$</div>
+                <input
+                  className={styles.input}
+                  value={shippingFee}
+                  placeholder={'Set your selling price'}
+                  onChange={event => {
+                    setShippingFee(validDigits(event.target.value))
+                    setProductDetail({ ...productDetail, shippingFee: validDigits(event.target.value) })
+                  }}
+                />
+              </div>
+            </div>
+          )}
+          {shipping.id === 1 && (
+            <div className="mt-[30px]">
+              <div className={styles.fullfill}>
+                International Shipping Fee <span>*</span>
+              </div>
+              <div className={`${styles.sellingArea} mt-[15px]`}>
+                <div className={styles.dollar}>$</div>
+                <input
+                  className={styles.input}
+                  value={interShippingFee}
+                  placeholder={'Set your selling price'}
+                  onChange={event => {
+                    setInterShippingFee(validDigits(event.target.value))
+                    setProductDetail({ ...productDetail, interShippingFee: validDigits(event.target.value) })
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="w-full h-[250px] lg:h-[200px]" />
         </div>
       </div>
       <Alert

@@ -1,0 +1,81 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 100%;
+    font-size: 16px;
+    gap: 7px;
+    padding: 13px 15px;
+  }
+  height: 45px;
+  padding: 13px 10px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  width: 100%;
+  max-height: 300px;
+  @media (min-width: 1024px) {
+    width: 100%;
+    top: 50px;
+    padding: 25px 22px;
+  }
+  
+  top: 50px;
+  padding: 6px 8px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+  // -webkit-backdrop-filter: blur(30px);
+  // backdrop-filter: blur(30px);
+  overflow: auto;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.selectAll {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  margin-bottom: 20px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.removeBlueHighlight {
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+}
