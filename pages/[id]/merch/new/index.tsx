@@ -67,7 +67,7 @@ const NewCreatorMerch = () => {
             setNextEnabled(true)
           } else {
             if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined) {
-              if (shipping.id === 0) {
+              if (shipping.id === 1) {
                 if (
                   shippingFee !== undefined &&
                   interShippingFee !== undefined &&
