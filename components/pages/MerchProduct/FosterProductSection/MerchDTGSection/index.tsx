@@ -818,6 +818,7 @@ const MerchDTGSection = props => {
                         setShowQuestionModal(true)
                       } else {
                         setTechnique('emb')
+                        setCardSide('front')
                       }
                     }}
                   >
@@ -1136,6 +1137,7 @@ const MerchDTGSection = props => {
                       setShowQuestionModal(true)
                     } else {
                       setTechnique('emb')
+                      setCardSide('front')
                     }
                   }}
                 >
@@ -1435,6 +1437,7 @@ const MerchDTGSection = props => {
 
           setTechnique(newTechnique)
           setColor(newColor)
+          setCardSide('front')
 
           setSnapshotAsset({ front: '', back: '', right: '', left: '' })
           setProductDetail({
