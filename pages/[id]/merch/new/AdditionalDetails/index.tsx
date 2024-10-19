@@ -69,6 +69,7 @@ const AdditionalDetails = props => {
       let path = window.location.href
       router.push(path.substring(0, path.lastIndexOf('/')))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [backClicked])
 
   useEffect(() => {

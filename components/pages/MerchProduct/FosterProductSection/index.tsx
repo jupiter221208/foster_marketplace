@@ -39,6 +39,7 @@ const FosterProductSection = props => {
         router.push(path.substring(0, path.lastIndexOf('/')))
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [backClicked])
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const FosterProductSection = props => {
       setSelectedCard(productDetail.selectedCard)
       setFosterCard(productDetail.selectedCard)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
   useEffect(() => {
