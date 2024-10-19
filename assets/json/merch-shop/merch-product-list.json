@@ -66,7 +66,7 @@
     "id": 7,
     "name": "Faux Leather Bomber Jacket",
     "description": "Threadfast Apparel",
-    "price" : {"dtg" : 75, "emb": 75 },
+    "price" : {"dtg" : 72, "emb": 72 },
     "color": ["black"],
     "size": "XS - 3XL",
     "image": "/images/apparel/leather_jacket_black.webp"
