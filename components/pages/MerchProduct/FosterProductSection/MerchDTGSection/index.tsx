@@ -136,8 +136,10 @@ const MerchDTGSection = props => {
       if (snapshotAsset[cardSide].length === 0) {
         if (technique === 'dtg') {
           if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+          else setShowEmbPosModal(false)
         } else {
           if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
+          else setShowEmbPosModal(false)
         }
       } else setShowEmbPosModal(false)
     } else if (cardSide === 'back') {
@@ -660,59 +662,55 @@ const MerchDTGSection = props => {
                       <Lottie animationData={lightDarkMode ? LoadingLightIcon : LoadingDarkIcon} loop={true} />
                     </div>
                   ) : (
-                    <div className={`${styles.dropArea}`}>
-                      <Dropzone
-                        onDrop={acceptedFiles => {
-                          if (acceptedFiles.length !== 0) {
-                            setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                            setShowEmbPosModal(false)
-                          }
-                        }}
-                        onDropRejected={rejectedFiles => {
-                          setAlertData([
-                            {
-                              id: 0,
-                              title: 'Upload Failed!',
-                              description: `File size is too large, size is limited to 10Mb.`,
-                              type: 'failure',
-                            },
-                          ])
-                          setShowAlert(true)
-                        }}
-                        maxFiles={1}
-                        accept={{ 'image/jpeg': [], 'image/png': [] }}
-                        maxSize={10485760}
-                      >
-                        {({ getRootProps, getInputProps, open }) => (
-                          <section>
-                            <button onClick={open} style={{ display: 'none' }}>
-                              open
-                            </button>
-                            <div {...getRootProps()}>
-                              <input {...getInputProps()} />
-                              <div className="flex flex-col justify-center items-center">
-                                <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
-                                  <Lottie animationData={animationData} loop={true} />
-                                </div>
-                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                  <div className={styles.uploadText}>
-                                    Upload your
-                                    <br />
-                                    design here
-                                  </div>
-                                ) : (
-                                  <div className={styles.uploadText}>
-                                    Upload or drop
-                                    <br />
-                                    your design here
-                                  </div>
-                                )}
+                    <Dropzone
+                      onDrop={acceptedFiles => {
+                        if (acceptedFiles.length !== 0) {
+                          setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
+                          setShowEmbPosModal(false)
+                        }
+                      }}
+                      onDropRejected={rejectedFiles => {
+                        setAlertData([
+                          {
+                            id: 0,
+                            title: 'Upload Failed!',
+                            description: `File size is too large, size is limited to 10Mb.`,
+                            type: 'failure',
+                          },
+                        ])
+                        setShowAlert(true)
+                      }}
+                      maxFiles={1}
+                      accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      maxSize={10485760}
+                    >
+                      {({ getRootProps, getInputProps, open }) => (
+                        <div className={`${styles.dropArea}`} onClick={open}>
+                          <button style={{ display: 'none' }}>open</button>
+                          <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <div className="flex flex-col justify-center items-center">
+                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
+                                <Lottie animationData={animationData} loop={true} />
                               </div>
+                              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                <div className={styles.uploadText}>
+                                  Upload your
+                                  <br />
+                                  design here
+                                </div>
+                              ) : (
+                                <div className={styles.uploadText}>
+                                  Upload or drop
+                                  <br />
+                                  your design here
+                                </div>
+                              )}
                             </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </div>
+                          </div>
+                        </div>
+                      )}
+                    </Dropzone>
                   )}
                 </div>
               )}
