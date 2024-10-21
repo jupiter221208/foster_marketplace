@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
 
 // swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Pagination, Navigation } from 'swiper'
+import { SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
