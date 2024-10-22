@@ -17,7 +17,7 @@ const CheckboxGroup = props => {
     >
       {direction === 'ltr' &&
         categoryList.map((item, index) => (
-          <div id={`check-label-${index}`} key={index} className="flex items-center gap-[20px]">
+          <div id={`check-label-${index}`} key={index} className="flex items-center gap-[10px]">
             <input
               className={`${styles.checkbox} ${item.disabled ? `opacity-60` : ``}`}
               type="checkbox"

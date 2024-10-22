@@ -78,6 +78,7 @@ const MerchOrderMain = props => {
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
+    console.log(productDetail, '===========productDetail=========')
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
 
     let size_list

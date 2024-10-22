@@ -106,28 +106,6 @@ const MyProductSection = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
-  useEffect(() => {
-    if (productType.id === 12) {
-      let array: any[] = []
-      ShoeSizeList.map(item => {
-        let object: any = item
-        object.checked = false
-        object.disabled = false
-        array.push(object)
-      })
-      setSizeList(array)
-    } else if (productType.id === 13) {
-      let array: any[] = []
-      SizeList.map(item => {
-        let object: any = item
-        object.checked = false
-        object.disabled = false
-        array.push(object)
-      })
-      setSizeList(array)
-    }
-  }, [productType.id])
-
   const setProductAssetUrl = newList => {
     let newAsset = {}
 
@@ -361,6 +339,26 @@ const MyProductSection = props => {
               setSelectedItem={item => {
                 setProductType(item)
                 setProductDetail({ ...productDetail, type: item })
+
+                if (item.id === 12) {
+                  let array: any[] = []
+                  ShoeSizeList.map(item => {
+                    let object: any = item
+                    object.checked = false
+                    object.disabled = false
+                    array.push(object)
+                  })
+                  setSizeList(array)
+                } else if (item.id === 13) {
+                  let array: any[] = []
+                  SizeList.map(item => {
+                    let object: any = item
+                    object.checked = false
+                    object.disabled = false
+                    array.push(object)
+                  })
+                  setSizeList(array)
+                }
               }}
             />
           </div>
