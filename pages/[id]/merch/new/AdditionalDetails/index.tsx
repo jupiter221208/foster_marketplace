@@ -244,11 +244,10 @@ const AdditionalDetails = props => {
   }, [sellingPrice])
 
   const generateDescription = (selectedCard, tech, color) => {
-    
     let description = ''
     let technique = tech === 'dtg' ? 'direct-to-garment' : tech === 'dtf' ? 'direct-to-film' : 'embroidery'
     let side = getCardSide()
-
+    console.log(side, '===========side==========')
     switch (selectedCard.id) {
       case 0:
         description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
@@ -307,7 +306,7 @@ const AdditionalDetails = props => {
       default:
         description = ''
     }
-    
+
     return description
   }
 
@@ -334,6 +333,7 @@ const AdditionalDetails = props => {
         if (selectedCard.id === ProductModel.DadHat) card_side.push('front')
         else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
+        else card_side.push('front')
       }
       if (snapshotAssetUrl.right !== '') {
         if (
