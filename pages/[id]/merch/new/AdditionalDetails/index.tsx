@@ -512,6 +512,12 @@ const AdditionalDetails = props => {
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
+              {(productDetail.type.id === 12 || productDetail.type.id === 13) && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Available Sizes</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.sizes.join(', ')}</div>
+                </div>
+              )}
               {/* <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div> */}
               {productDetail.shipping.id === 1 && (
