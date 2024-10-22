@@ -79,7 +79,7 @@ const MerchOrderMain = props => {
 
   useEffect(() => {
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
-    console.log(productDetail, '==========productDetail========')
+
     let size_list
     switch (productDetail.product_type_id) {
       case 1:

@@ -170,12 +170,16 @@ export const getDateLabel = date => {
 }
 
 export const getDateTimeLabel = date => {
+  let proposalTime = new Date(date)
+  let offset = proposalTime.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = proposalTime.getTime() - offset
+  let localDate = new Date(proposalEndTime)
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  let month = months[date.getMonth()]
-  let day = date.getDate()
-  let year = date.getFullYear()
-  let hours = date.getHours()
-  let mins = date.getMinutes()
+  let month = months[localDate.getMonth()]
+  let day = localDate.getDate()
+  let year = localDate.getFullYear()
+  let hours = localDate.getHours()
+  let mins = localDate.getMinutes()
   return month + ' ' + day + ', ' + year + ' ' + hours + ':' + mins
 }
 
