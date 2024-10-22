@@ -242,7 +242,7 @@ const NewCreatorMerch = () => {
           product_images: addonList,
         }
         if (productDetail.type.id === 12 || productDetail.type.id === 13) {
-          options['sizes'] = productDetail.sizeList
+          options['sizes'] = productDetail.sizes
         }
         if (productDetail.shipping.id === 1) {
           let countryCode = productDetail.country.isoCode
