@@ -7,7 +7,6 @@ import { Country, State } from 'country-state-city'
 import CountrySelect from 'components/Select/CountrySelect'
 import Alert from 'components/Alert'
 import LoadingButton from 'components/Button/LoadingButton'
-import { useViewport } from 'utils'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 

@@ -10,7 +10,7 @@ import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 // solana
 
 const SizeSelectionMenu = props => {
-  const { categoryList, handleSelectCategory, handleSelectAll } = props
+  const { categoryList, handleSelectCategory, handleSelectAll, type } = props
   const [label, setLabel] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const [isSelectedAll, setIsSelectedAll] = useState(false)
@@ -44,7 +44,7 @@ const SizeSelectionMenu = props => {
             <div className={styles.selectAll} onClick={() => handleSelectAll(!isSelectedAll)}>
               {isSelectedAll ? 'Deselect All' : 'Select All'}
             </div>
-            <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
+            <CheckboxGroup type={type} categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
           </div>
         </div>
       )}

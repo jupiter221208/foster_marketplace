@@ -60,15 +60,18 @@ const NewCreatorMerch = () => {
         snapshotUrl.left.length > 0 ||
         snapshotUrl.right.length > 0
       ) {
-        let { product, description, name, type, shipping, shippingFee, interShippingFee } = productDetail
-
+        let { product, description, name, type, country, shipping, sizes, shippingFee, interShippingFee } =
+          productDetail
         if (product) {
           if (product.id === 0) {
             setNextEnabled(true)
           } else {
             if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined) {
-              if (shipping.id === 1) {
+              if ((type.id === 12 || type.id === 13) && sizes.length === 0) {
+                setNextEnabled(false)
+              } else if (shipping.id === 1) {
                 if (
+                  country !== undefined &&
                   shippingFee !== undefined &&
                   interShippingFee !== undefined &&
                   parseInt(shippingFee) >= 0 &&
@@ -231,7 +234,26 @@ const NewCreatorMerch = () => {
           setIsCreating(false)
           return
         }
+
         productName = productDetail.name
+
+        let options = {
+          shipping_responsibility: getShippingData(),
+          product_images: addonList,
+        }
+        if (productDetail.type.id === 12 || productDetail.type.id === 13) {
+          options['sizes'] = productDetail.sizeList
+        }
+        if (productDetail.shipping.id === 1) {
+          let countryCode = productDetail.country.isoCode
+          let shippingConfig = {
+            blink: productDetail.interShippingFee * 100,
+            default: productDetail.interShippingFee * 100,
+          }
+          shippingConfig[countryCode] = productDetail.shippingFee * 100
+          options['shipping_config'] = shippingConfig
+        }
+
         params = {
           name: productDetail.name,
           description: productDetail.description,
@@ -242,12 +264,13 @@ const NewCreatorMerch = () => {
           master_edition_address: null,
           sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
           sale_end_at: additionDetail.sale_end_at?.toISOString().split('.')[0],
-          options: {
-            shipping_responsibility: getShippingData(),
-            product_images: addonList,
-          },
+          options: options,
         }
       }
+      console.log(params, '==========params===========')
+
+      setIsCreating(false)
+      return
 
       StoreAPI.createProduct(userId, params).then(
         res => {

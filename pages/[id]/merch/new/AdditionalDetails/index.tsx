@@ -247,7 +247,7 @@ const AdditionalDetails = props => {
     let description = ''
     let technique = tech === 'dtg' ? 'direct-to-garment' : tech === 'dtf' ? 'direct-to-film' : 'embroidery'
     let side = getCardSide()
-    console.log(side, '===========side==========')
+
     switch (selectedCard.id) {
       case 0:
         description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
@@ -512,8 +512,14 @@ const AdditionalDetails = props => {
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
-              <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
-              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div>
+              {/* <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
+              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div> */}
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Shipping from</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.country.name}</div>
+                </div>
+              )}
               {productDetail.shipping.id === 1 && (
                 <div>
                   <div className={`mt-[20px] ${styles.title}`}>Domestic Shipping Fee</div>
