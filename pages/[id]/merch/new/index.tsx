@@ -267,10 +267,6 @@ const NewCreatorMerch = () => {
           options: options,
         }
       }
-      console.log(params, '==========params===========')
-
-      setIsCreating(false)
-      return
 
       StoreAPI.createProduct(userId, params).then(
         res => {
