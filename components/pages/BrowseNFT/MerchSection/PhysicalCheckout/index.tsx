@@ -152,7 +152,7 @@ const PhysicalCheckout = ({
       })
 
     let itemList = []
-    ssorder.items.forEach(item => {
+    ssorder.items.forEach((item, index) => {
       let itemQuantity = item.quantity
       let options = item.options
       var type = findElement(options, 'name', 'type')['value']
@@ -177,7 +177,7 @@ const PhysicalCheckout = ({
       } else if (type === 'user') {
         let type = 'user'
         let qty = itemQuantity
-        itemList.push({ name: nftName, type, color: '', size, qty })
+        itemList.push({ name: nftName, type, color: '', size, qty, productId: orderData?.items[index].productTypeId })
       }
     })
     setList(itemList)
@@ -327,7 +327,7 @@ const PhysicalCheckout = ({
               <div key={index} className="pb-[5px]">
                 <div className={styles.itemDetails}>
                   {item.type === 'user'
-                    ? item.size
+                    ? item.productId === 12 || item.productId === 13
                       ? item.name + ' (' + item.size + ') x ' + item.qty
                       : item.name + ' x ' + item.qty
                     : item.name + ' (' + item.size + ') x ' + item.qty}
