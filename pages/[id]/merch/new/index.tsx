@@ -108,8 +108,8 @@ const NewCreatorMerch = () => {
   }
 
   const getShippingData = () => {
-    if (productDetail.shipping.id === 0) return 'di_seller'
-    if (productDetail.shipping.id === 1) return 'd_seller'
+    if (productDetail.shipping.id === 0) return 'd_seller'
+    if (productDetail.shipping.id === 1) return 'd_buyer'
   }
 
   const getProductAddonId = side => {

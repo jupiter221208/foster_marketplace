@@ -50,10 +50,8 @@ const MerchOrderDetail = props => {
     if (!shipping) {
       return ''
     }
-    if (shipping === 'di_seller') return 'Domestic & international shipping will be paid by the seller.'
-    else if (shipping === 'di_buyer') return 'Domestic & international shipping will be paid by the buyer.'
-    else if (shipping === 'd_buyer') return 'Domestic shipping will be paid by the buyer.'
-    else if (shipping === 'd_seller') return 'Domestic shipping will be paid by the buyer.'
+    if (shipping === 'd_seller') return 'Domestic & international shipping will be paid by the seller.'
+    else if (shipping === 'd_buyer') return 'Domestic & international shipping will be paid by the buyer.'
   }
 
   return (

@@ -78,7 +78,6 @@ const MerchOrderMain = props => {
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
-    console.log(productDetail, '===========productDetail=========')
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
 
     let size_list
@@ -102,6 +101,12 @@ const MerchOrderMain = props => {
       case 9:
       case 10:
         size_list = SizeList[4].size
+        break
+      case 12:
+      case 13:
+        let sizes = []
+        productDetail.options.sizes.map((item, index) => sizes.push({ id: index, Size: item }))
+        size_list = sizes
         break
       case 28:
       case 29:
@@ -438,7 +443,7 @@ const MerchOrderMain = props => {
               </div>
             </div>
 
-            {type === 'foster' && sizeList.length > 0 && (
+            {sizeList.length > 0 && (
               <div className="mt-[15px] lg:mt-[30px]">
                 <div className="w-full flex justify-between items-center">
                   <div className={styles.selectSize}>Select Size</div>
@@ -456,9 +461,11 @@ const MerchOrderMain = props => {
                     ))}
                   </div>
                 </div>
-                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-                  Size Chart »
-                </div>
+                {type === 'foster' && (
+                  <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                    Size Chart »
+                  </div>
+                )}
               </div>
             )}
           </div>
