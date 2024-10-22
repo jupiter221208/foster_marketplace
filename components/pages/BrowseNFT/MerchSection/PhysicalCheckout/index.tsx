@@ -227,7 +227,6 @@ const PhysicalCheckout = ({
       if (!orderData) throw new Error('orderData cannot be null for checkout')
 
       let { order } = orderData
-
       let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
       if (ssorder.items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
 
@@ -328,7 +327,9 @@ const PhysicalCheckout = ({
               <div key={index} className="pb-[5px]">
                 <div className={styles.itemDetails}>
                   {item.type === 'user'
-                    ? item.name + ' x ' + item.qty
+                    ? item.size
+                      ? item.name + ' (' + item.size + ') x ' + item.qty
+                      : item.name + ' x ' + item.qty
                     : item.name + ' (' + item.size + ') x ' + item.qty}
                 </div>
               </div>

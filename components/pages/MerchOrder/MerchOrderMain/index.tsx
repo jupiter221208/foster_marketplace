@@ -144,7 +144,7 @@ const MerchOrderMain = props => {
         size_list = []
         break
       default:
-        size_list = SizeList[0].size
+        size_list = []
         break
     }
     let sizes = []
