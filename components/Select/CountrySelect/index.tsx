@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Transition, Combobox } from '@headlessui/react'
-import DownArrowIcon from 'assets/icons/down-icon-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -33,9 +32,6 @@ const CountrySelect = props => {
               className={style ? style : styles.container}
               placeholder={placeholder}
             />
-            <div className="absolute top-[18px] right-[0px] w-[30px] h-[30px]">
-              <DownArrowIcon />
-            </div>
           </div>
 
           <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">

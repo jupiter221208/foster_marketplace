@@ -469,7 +469,7 @@ const MyProductSection = props => {
                     setProductDetail({ ...productDetail, country: item })
                   }}
                   maxHeight="none"
-                  placeholder="Select the country of origin for shipping"
+                  placeholder="Country"
                   style={styles.countrySelect}
                 />
               </div>

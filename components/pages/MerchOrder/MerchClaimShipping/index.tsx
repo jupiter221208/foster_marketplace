@@ -385,7 +385,7 @@ const MerchClaimShipping = props => {
               selected={country}
               onChange={item => setCountry(item)}
               maxHeight="none"
-              placeholder="Select Country"
+              placeholder="Country"
             />
           </div>
           <div className="mt-[10px] ">
@@ -395,7 +395,7 @@ const MerchClaimShipping = props => {
               selected={state}
               onChange={item => setState(item)}
               maxHeight="none"
-              placeholder="Select State"
+              placeholder="State"
             />
           </div>
 

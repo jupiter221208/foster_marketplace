@@ -277,11 +277,6 @@ const PhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      {/* <div className="lg:hidden block">
-        <div className={styles.wallartBG}>
-          <WallSection canvasId="wallart-mobile" nftName={nftName} wallArt={wallArt} finishEditing={true} />
-        </div>
-      </div> */}
       <div className={styles.rightPanel}>
         <div className="pt-[13px] lg:p-[30px]">
           <div className="flex flex-col lg:flex-row gap-[15px] lg:items-center justify-between">

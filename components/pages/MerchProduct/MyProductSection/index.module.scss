@@ -36,13 +36,13 @@
   height: 45px;
   cursor: pointer;
   border-radius: 8px;
-  background: var(--background-main-color);
+  background: transparent;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 5px;
   padding-left: 10px;
   padding-right: 10px;
   @media (min-width: 1024px) {
-    padding-left: 13px;
+    padding-left: 16px;
     padding-right: 50px;
   }
   &:focus {
