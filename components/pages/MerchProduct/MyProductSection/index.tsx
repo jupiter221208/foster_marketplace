@@ -70,14 +70,17 @@ const MyProductSection = props => {
   }
 
   useEffect(() => {
-    setProductDetail({ ...productDetail, shipping: ShippingList[0], sizes: [] })
+    if (!productDetail) {
+      setProductDetail({ ...productDetail, shipping: ShippingList[0], sizes: [] })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (!productDetail) return
 
-    let { snapshotAssetUrl, description, name, type, shipping } = productDetail
+    let { snapshotAssetUrl, description, name, type, shipping, sizes, country, shippingFee, interShippingFee } =
+      productDetail
 
     let urls = []
     if (snapshotAssetUrl) {
@@ -102,7 +105,41 @@ const MyProductSection = props => {
     if (name) setProductName(name)
     if (description) setDescription(description)
     if (type) setProductType(type)
-    if (shipping) setShipping(shipping)
+    if (sizes?.length > 0) {
+      if (type.id === 12) {
+        let array: any[] = []
+        ShoeSizeList.map(item => {
+          let object: any = item
+          if (sizes.includes(item.size)) object.checked = true
+          else object.checked = false
+          object.disabled = false
+          array.push(object)
+        })
+        setSizeList(array)
+      } else if (type.id === 13) {
+        let array: any[] = []
+        SizeList.map(item => {
+          let object: any = item
+          if (sizes.includes(item.size)) object.checked = true
+          else object.checked = false
+
+          array.push(object)
+        })
+        setSizeList(array)
+      }
+    }
+    if (shipping) {
+      setShipping(shipping)
+      if (shipping.id === 1) {
+        setShippingSwitch(true)
+        if (country) setCountry(country)
+        if (shippingFee) setShippingFee(shippingFee)
+        if (interShippingFee) setInterShippingFee(interShippingFee)
+      } else {
+        setShippingSwitch(false)
+      }
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
@@ -386,14 +423,15 @@ const MyProductSection = props => {
                 title=""
                 description=""
                 enabled={shippingSwitch}
-                onChange={() => {
-                  setShippingSwitch(!shippingSwitch)
-                  if (shippingSwitch) {
-                    setShipping(ShippingList[0])
-                    setProductDetail({ ...productDetail, shipping: ShippingList[0] })
-                  } else {
+                onChange={item => {
+                  if (item === true) {
+                    setShippingSwitch(true)
                     setShipping(ShippingList[1])
                     setProductDetail({ ...productDetail, shipping: ShippingList[1] })
+                  } else {
+                    setShippingSwitch(false)
+                    setShipping(ShippingList[0])
+                    setProductDetail({ ...productDetail, shipping: ShippingList[0] })
                   }
                 }}
               />
@@ -402,21 +440,6 @@ const MyProductSection = props => {
               Indicate if the buyer is responsible for additional shipping fees. If yes, enter flat rates for domestic
               and international shipping.
             </div>
-            {/* <ProductionListMenu
-              label={
-                shipping.id === -1
-                  ? viewport === 'xs'
-                    ? 'Select whether shipping fees are included'
-                    : 'Select whether shipping fees are included or not'
-                  : shipping.label
-              }
-              data={ShippingList}
-              selectedItem={shipping}
-              setSelectedItem={item => {
-                setShipping(item)
-                setProductDetail({ ...productDetail, shipping: item })
-              }}
-            /> */}
           </div>
 
           {shipping.id === 1 && (

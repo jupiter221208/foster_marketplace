@@ -36,13 +36,13 @@
   height: 45px;
   cursor: pointer;
   border-radius: 8px;
-  background: transparent;
+  background: var(--background-main-color);
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 5px;
   padding-left: 10px;
-  padding-right: 25px;
+  padding-right: 10px;
   @media (min-width: 1024px) {
-    padding-left: 20px;
+    padding-left: 13px;
     padding-right: 50px;
   }
   &:focus {
@@ -53,7 +53,7 @@
   justify-content: flex-start;
   align-items: center;
 
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   letter-spacing: 0;
@@ -62,7 +62,10 @@
 
 .countrySelect::placeholder {
   font-family: 'Muli-Light';
-  font-size: 16px;
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
 

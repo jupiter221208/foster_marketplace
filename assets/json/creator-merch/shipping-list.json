@@ -1,10 +1,10 @@
 [
   {
     "id": 0,
-    "label": "Shipping fees included in price"
+    "label": "Shipping fees not included in price"
   },
   {
     "id": 1,
-    "label": "Shipping fees not included in price"
+    "label": "Shipping fees included in price"
   }
 ]

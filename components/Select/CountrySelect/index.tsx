@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Transition, Combobox } from '@headlessui/react'
-import DownArrowIcon from 'assets/icons/down-arrow-icon-white.svg?component'
+import DownArrowIcon from 'assets/icons/down-icon-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
