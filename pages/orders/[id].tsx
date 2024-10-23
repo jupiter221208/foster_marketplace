@@ -128,29 +128,31 @@ const OrderSection = props => {
             </div>
           ) : merchType === 'foster' || merchType === 'user' ? (
             <div className="w-full lg:flex lg:h-[705px]">
-              <div className="hidden lg:block w-[140px]">
-                <div className="w-full lg:block hidden">
-                  <div className={styles.backStore} onClick={() => router.push(`/${profileInfo?.username}/merch`)}>
-                    <ArrowLeftIcon />
-                    Back&nbsp;to&nbsp;store
+              {merchList.length > 1 && (
+                <div className="hidden lg:block w-[140px]">
+                  <div className="w-full lg:block hidden">
+                    <div className={styles.backStore} onClick={() => router.push(`/${profileInfo?.username}/merch`)}>
+                      <ArrowLeftIcon />
+                      Back&nbsp;to&nbsp;store
+                    </div>
+                  </div>
+                  <div className="mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
+                    {merchList.map((merch, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => onClickMerch(index)}
+                          className={merch.selected ? styles.image : styles.imageHover}
+                        >
+                          <div className={merch.selected ? styles.selected : styles.unselected}>
+                            <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
-                <div className="mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
-                  {merchList.map((merch, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => onClickMerch(index)}
-                        className={merch.selected ? styles.image : styles.imageHover}
-                      >
-                        <div className={merch.selected ? styles.selected : styles.unselected}>
-                          <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
+              )}
               {selectedMerch && (
                 <div className="w-full flex justify-center">
                   <div className="lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[0px]">
