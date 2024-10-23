@@ -87,21 +87,26 @@ const MerchOrderDetail = props => {
       <div className={`mt-[15px] ${styles.divider}`} />
 
       {/* Embroidery Disclaimer */}
-      <div
-        className="w-full flex justify-between items-center mt-[15px]"
-        onClick={() => setShowEmbroidery(!showEmbroidery)}
-      >
-        <div className={styles.desc}>{type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}</div>
-        <div>{showEmbroidery ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
-      </div>
-      {showEmbroidery && (
-        <div className={`${styles.endsTime} mt-[15px]`}>
-          {type === 'foster'
-            ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-            : getShippingData(productDetail.options.shipping_responsibility)}
+      {type === 'foster' && (
+        <div>
+          <div
+            className="w-full flex justify-between items-center mt-[15px]"
+            onClick={() => setShowEmbroidery(!showEmbroidery)}
+          >
+            <div className={styles.desc}>Embroidery Disclaimer</div>
+            <div>{showEmbroidery ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
+          </div>
+
+          {showEmbroidery && (
+            <div className={`${styles.endsTime} mt-[15px]`}>
+              {
+                'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
+              }
+            </div>
+          )}
+          <div className={`mt-[15px] ${styles.divider}`} />
         </div>
       )}
-      <div className={`mt-[15px] ${styles.divider}`} />
 
       {/* Customs Notice */}
       <div className="w-full flex justify-between items-center mt-[15px]" onClick={() => setShowNotice(!showNotice)}>
