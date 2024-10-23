@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useViewport } from 'utils'
 import { validDigits } from 'utils/helpers'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -17,9 +19,8 @@ import ProductType from 'assets/json/creator-merch/product-type.json'
 import ShippingList from 'assets/json/creator-merch/shipping-list.json'
 import animationData from 'assets/lottery/upload-file.json'
 import SizeList from 'assets/json/popular-size.json'
+import ShoeSizeList from 'assets/json/shoe-size.json'
 
-// styles
-import styles from './index.module.scss'
 import ImageCard from './ImageCard'
 import Input from 'components/Input'
 import { limit } from 'utils/strings'
@@ -27,11 +28,19 @@ import Textarea from 'components/Input/Textarea'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
 import Alert from 'components/Alert'
 import SizeSelectionMenu from 'components/Menu/SizeSelectionMenu'
+import Switch from 'components/Switch'
+import CountrySelect from 'components/Select/CountrySelect'
+import { Country } from 'country-state-city'
+
+// styles
+import styles from './index.module.scss'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
+  const router = useRouter()
   const viewport = useViewport()
-
+  const dispatch = useDispatch()
+  const backClicked = useSelector(state => (state as any).backBtnClicked)
   const [productType, setProductType] = useState({ id: -1, label: '' })
   const [shipping, setShipping] = useState({ id: -1, label: '' })
   const [mainImage, setMainImage] = useState<any>(null)
@@ -44,6 +53,17 @@ const MyProductSection = props => {
   const [sizeList, setSizeList] = useState([])
   const [shippingFee, setShippingFee] = useState('')
   const [interShippingFee, setInterShippingFee] = useState('')
+  const [shippingSwitch, setShippingSwitch] = useState(false)
+  const [country, setCountry] = useState(null)
+
+  useEffect(() => {
+    if (backClicked) {
+      dispatch({ type: 'set', backBtnClicked: false })
+      let path = window.location.href
+      router.push(path.substring(0, path.lastIndexOf('/')))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backClicked])
 
   const onSelectImage = index => {
     if (index >= imageList.length) return
@@ -63,9 +83,17 @@ const MyProductSection = props => {
   }
 
   useEffect(() => {
+    if (!productDetail) {
+      setProductDetail({ ...productDetail, shipping: ShippingList[0], sizes: [] })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     if (!productDetail) return
 
-    let { snapshotAssetUrl, description, name, type, shipping } = productDetail
+    let { snapshotAssetUrl, description, name, type, shipping, sizes, country, shippingFee, interShippingFee } =
+      productDetail
 
     let urls = []
     if (snapshotAssetUrl) {
@@ -90,20 +118,43 @@ const MyProductSection = props => {
     if (name) setProductName(name)
     if (description) setDescription(description)
     if (type) setProductType(type)
-    if (shipping) setShipping(shipping)
+    if (sizes?.length > 0) {
+      if (type.id === 12) {
+        let array: any[] = []
+        ShoeSizeList.map(item => {
+          let object: any = item
+          if (sizes.includes(item.size)) object.checked = true
+          else object.checked = false
+          object.disabled = false
+          array.push(object)
+        })
+        setSizeList(array)
+      } else if (type.id === 13) {
+        let array: any[] = []
+        SizeList.map(item => {
+          let object: any = item
+          if (sizes.includes(item.size)) object.checked = true
+          else object.checked = false
+
+          array.push(object)
+        })
+        setSizeList(array)
+      }
+    }
+    if (shipping) {
+      setShipping(shipping)
+      if (shipping.id === 1) {
+        setShippingSwitch(true)
+        if (country) setCountry(country)
+        if (shippingFee) setShippingFee(shippingFee)
+        if (interShippingFee) setInterShippingFee(interShippingFee)
+      } else {
+        setShippingSwitch(false)
+      }
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
-
-  useEffect(() => {
-    let array: any[] = []
-    SizeList.map(item => {
-      let object: any = item
-      object.checked = false
-      object.disabled = false
-      array.push(object)
-    })
-    setSizeList(array)
-  }, [])
 
   const setProductAssetUrl = newList => {
     let newAsset = {}
@@ -128,6 +179,10 @@ const MyProductSection = props => {
     })
     array[index].checked = !array[index].checked
     setSizeList(array)
+
+    let sizes = []
+    array.filter(item => item.checked === true).map(item => sizes.push(item.size))
+    setProductDetail({ ...productDetail, sizes: sizes })
   }
 
   const handleSelectAll = selected => {
@@ -138,6 +193,10 @@ const MyProductSection = props => {
       else item.checked = false
     })
     setSizeList(array)
+
+    let sizes = []
+    array.filter(item => item.checked === true).map(item => sizes.push(item.size))
+    setProductDetail({ ...productDetail, sizes: sizes })
   }
 
   return (
@@ -330,11 +389,31 @@ const MyProductSection = props => {
               setSelectedItem={item => {
                 setProductType(item)
                 setProductDetail({ ...productDetail, type: item })
+
+                if (item.id === 12) {
+                  let array: any[] = []
+                  ShoeSizeList.map(item => {
+                    let object: any = item
+                    object.checked = false
+                    object.disabled = false
+                    array.push(object)
+                  })
+                  setSizeList(array)
+                } else if (item.id === 13) {
+                  let array: any[] = []
+                  SizeList.map(item => {
+                    let object: any = item
+                    object.checked = false
+                    object.disabled = false
+                    array.push(object)
+                  })
+                  setSizeList(array)
+                }
               }}
             />
           </div>
 
-          {productType.id === 13 && (
+          {(productType.id === 12 || productType.id === 13) && (
             <div className="mt-[20px] mb-[15px]">
               <div className="mb-[15px]">
                 <div className={styles.fullfill}>
@@ -342,6 +421,7 @@ const MyProductSection = props => {
                 </div>
               </div>
               <SizeSelectionMenu
+                type={productType.id === 12 ? 'shoe' : 'normal'}
                 categoryList={sizeList}
                 handleSelectCategory={handleSelectSize}
                 handleSelectAll={handleSelectAll}
@@ -350,27 +430,52 @@ const MyProductSection = props => {
           )}
 
           <div className="sm:mt-[30px] mt-[20px]">
-            <div className="w-full flex gap-[5px] mb-[15px]">
+            <div className="w-full flex justify-between items-center mb-[15px]">
+              <div className={styles.fullfill}>Shipping&nbsp;&&nbsp;Handling</div>
+              <Switch
+                title=""
+                description=""
+                enabled={shippingSwitch}
+                onChange={item => {
+                  if (item === true) {
+                    setShippingSwitch(true)
+                    setShipping(ShippingList[1])
+                    setProductDetail({ ...productDetail, shipping: ShippingList[1] })
+                  } else {
+                    setShippingSwitch(false)
+                    setShipping(ShippingList[0])
+                    setProductDetail({ ...productDetail, shipping: ShippingList[0] })
+                  }
+                }}
+              />
+            </div>
+            <div className={styles.shippingDesc}>
+              Indicate if the buyer is responsible for additional shipping fees. If yes, enter flat rates for domestic
+              and international shipping.
+            </div>
+          </div>
+
+          {shipping.id === 1 && (
+            <div className="mt-[30px]">
               <div className={styles.fullfill}>
-                Shipping & Handling <span>*</span>
+                Shipping from <span>*</span>
+              </div>
+              <div className="mt-[15px]">
+                <CountrySelect
+                  data={Country.getAllCountries()}
+                  selected={country}
+                  onChange={item => {
+                    setCountry(item)
+                    setProductDetail({ ...productDetail, country: item })
+                  }}
+                  maxHeight="none"
+                  placeholder="Country"
+                  style={styles.countrySelect}
+                />
               </div>
             </div>
-            <ProductionListMenu
-              label={
-                shipping.id === -1
-                  ? viewport === 'xs'
-                    ? 'Select whether shipping fees are included'
-                    : 'Select whether shipping fees are included or not'
-                  : shipping.label
-              }
-              data={ShippingList}
-              selectedItem={shipping}
-              setSelectedItem={item => {
-                setShipping(item)
-                setProductDetail({ ...productDetail, shipping: item })
-              }}
-            />
-          </div>
+          )}
+
           {shipping.id === 1 && (
             <div className="mt-[30px]">
               <div className={styles.fullfill}>

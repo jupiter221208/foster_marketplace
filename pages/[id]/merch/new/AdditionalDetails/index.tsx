@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useViewport } from 'utils'
-import { validDigits, validInteger } from 'utils/helpers'
-import { useRouter } from 'next/router'
+import { ProductModel, validDigits, validInteger } from 'utils/helpers'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -26,10 +25,8 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import styles from './index.module.scss'
 
 const AdditionalDetails = props => {
-  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail, backClicked } = props
+  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
-  const router = useRouter()
-
   const [assetUrls, setAssetUrls] = useState([])
   const [apparelUrl, setApparelUrl] = useState('')
   const [title, setTitle] = useState('')
@@ -63,14 +60,6 @@ const AdditionalDetails = props => {
       />
     )
   }
-
-  useEffect(() => {
-    if (backClicked) {
-      let path = window.location.href
-      router.push(path.substring(0, path.lastIndexOf('/')))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [backClicked])
 
   useEffect(() => {
     let plusDays = Number(days)
@@ -244,10 +233,10 @@ const AdditionalDetails = props => {
   }, [sellingPrice])
 
   const generateDescription = (selectedCard, tech, color) => {
-    console.log
     let description = ''
     let technique = tech === 'dtg' ? 'direct-to-garment' : tech === 'dtf' ? 'direct-to-film' : 'embroidery'
     let side = getCardSide()
+
     switch (selectedCard.id) {
       case 0:
         description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
@@ -306,12 +295,13 @@ const AdditionalDetails = props => {
       default:
         description = ''
     }
+
     return description
   }
 
   const getCardSide = () => {
     let card_side = []
-    const { snapshotAssetUrl, technique, side, detailSide } = productDetail
+    const { snapshotAssetUrl, technique, selectedCard, detailSide } = productDetail
     if (technique === 'dtg') {
       if (snapshotAssetUrl.front !== '') {
         if (detailSide === 'front') card_side.push('full front')
@@ -329,17 +319,35 @@ const AdditionalDetails = props => {
       }
     } else {
       if (snapshotAssetUrl.front !== '') {
-        if (detailSide === 'chest') card_side.push('left chest')
+        if (selectedCard.id === ProductModel.DadHat) card_side.push('front')
+        else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
+        else card_side.push('front')
       }
       if (snapshotAssetUrl.right !== '') {
-        card_side.push('right wrist')
+        if (
+          selectedCard.id === ProductModel.PoloShirt ||
+          selectedCard.id === ProductModel.OversizedTee ||
+          selectedCard.id === ProductModel.OversizedHoodie
+        )
+          card_side.push('right sleeve')
+        else if (selectedCard.id === ProductModel.DadHat) card_side.push('right')
+        else card_side.push('right wrist')
       }
       if (snapshotAssetUrl.left !== '') {
-        card_side.push('left wrist')
+        if (
+          selectedCard.id === ProductModel.PoloShirt ||
+          selectedCard.id === ProductModel.OversizedTee ||
+          selectedCard.id === ProductModel.OversizedHoodie
+        )
+          card_side.push('left sleeve')
+        else if (selectedCard.id === ProductModel.DadHat) card_side.push('left')
+        else card_side.push('left wrist')
       }
       if (snapshotAssetUrl.back !== '') {
-        card_side.push('back(DTG)')
+        if (selectedCard.id < 5) card_side.push('back(DTG)')
+        if (selectedCard.id === ProductModel.DadHat) card_side.push('back')
+        else card_side.push('back')
       }
     }
     return card_side.join(', ')
@@ -493,8 +501,20 @@ const AdditionalDetails = props => {
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
-              <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
-              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div>
+              {(productDetail.type.id === 12 || productDetail.type.id === 13) && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Available Sizes</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.sizes.join(', ')}</div>
+                </div>
+              )}
+              {/* <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
+              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div> */}
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Shipping from</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.country.name}</div>
+                </div>
+              )}
               {productDetail.shipping.id === 1 && (
                 <div>
                   <div className={`mt-[20px] ${styles.title}`}>Domestic Shipping Fee</div>

@@ -13,7 +13,7 @@ const SwitchButton = props => {
     <div className={styles.container}>
       <HSwitch
         checked={enabled}
-        onChange={() => onChange()}
+        onChange={item => onChange(item)}
         className={`${
           enabled ? styles.active : styles.inactive
         } relative inline-flex h-6 w-11 items-center rounded-full`}

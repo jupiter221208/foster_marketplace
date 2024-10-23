@@ -238,10 +238,113 @@
         "Sleeves": "7"
       }
     ]
-  } ,
+  },
   {
     "id": 5,
-    "type": "User Defined Model",
+    "type": "Jacket",
+    "size": [
+      {
+        "id": 0,
+        "Size": "XS",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 1,
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 2,
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
+      },
+      {
+        "id": 3,
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
+      },
+      {
+        "id": 4,
+        "Size": "XL",
+        "Length": "27",
+        "Width": "21",
+        "Sleeves": "7"
+      },
+      {
+        "id": 5,
+        "Size": "2XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      },
+      {
+        "id": 6,
+        "Size": "3XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "type": "Oversized",
+    "size": [
+      {
+        "id": 0,
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 1,
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
+      },
+      {
+        "id": 2,
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
+      },
+      {
+        "id": 3,
+        "Size": "XL",
+        "Length": "27",
+        "Width": "21",
+        "Sleeves": "7"
+      },
+      {
+        "id": 4,
+        "Size": "2XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      },
+      {
+        "id": 5,
+        "Size": "3XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "type": "Oversized",
     "size": [
       {
         "id": 0,
@@ -291,14 +394,123 @@
         "Length": "27",
         "Width": "22",
         "Sleeves": "7"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "type": "Oversized",
+    "size": [
+      {
+        "id": 0,
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
       },
       {
-        "id": 6,
-        "Size": "5XL",
+        "id": 1,
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
+      },
+      {
+        "id": 2,
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "type": "Oversized",
+    "size": [
+      {
+        "id": 0,
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 1,
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
+      },
+      {
+        "id": 2,
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
+      },
+      {
+        "id": 3,
+        "Size": "XL",
+        "Length": "27",
+        "Width": "21",
+        "Sleeves": "7"
+      },
+      {
+        "id": 4,
+        "Size": "2XL",
         "Length": "27",
         "Width": "22",
         "Sleeves": "7"
       }
     ]
-  } 
+  },
+  {
+    "id": 10,
+    "type": "Sweapant",
+    "size": [
+      {
+        "id": 0,
+        "Size": "XS",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 1,
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 2,
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
+      },
+      {
+        "id": 3,
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
+      },
+      {
+        "id": 4,
+        "Size": "XL",
+        "Length": "27",
+        "Width": "21",
+        "Sleeves": "7"
+      },
+      {
+        "id": 5,
+        "Size": "2XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      }
+    ]
+  }
 ]

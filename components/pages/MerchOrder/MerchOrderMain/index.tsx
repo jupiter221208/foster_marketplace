@@ -102,8 +102,49 @@ const MerchOrderMain = props => {
       case 10:
         size_list = SizeList[4].size
         break
+      case 12:
+      case 13:
+        let sizes = []
+        productDetail.options.sizes.map((item, index) => sizes.push({ id: index, Size: item }))
+        size_list = sizes
+        break
+      case 28:
+      case 29:
+      case 30:
+        size_list = SizeList[5].size // XS - 3XL
+        break
+      case 25:
+      case 26:
+      case 22:
+      case 23:
+      case 31:
+      case 32:
+      case 33:
+        size_list = SizeList[6].size // S - 3XL
+        break
+      case 27:
+        size_list = SizeList[7].size // S - 4XL
+        break
+      case 38:
+      case 39:
+        size_list = SizeList[8].size // S - L
+        break
+      case 36:
+      case 37:
+        size_list = SizeList[9].size // S - 2XL
+        break
+      case 34:
+      case 35:
+        size_list = SizeList[10].size // XS - 2XL
+        break
+      case 40:
+      case 41:
+      case 42:
+      case 43:
+        size_list = []
+        break
       default:
-        size_list = SizeList[5].size
+        size_list = []
         break
     }
     let sizes = []
@@ -402,7 +443,7 @@ const MerchOrderMain = props => {
               </div>
             </div>
 
-            {type === 'foster' && (
+            {sizeList.length > 0 && (
               <div className="mt-[15px] lg:mt-[30px]">
                 <div className="w-full flex justify-between items-center">
                   <div className={styles.selectSize}>Select Size</div>
@@ -420,9 +461,11 @@ const MerchOrderMain = props => {
                     ))}
                   </div>
                 </div>
-                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-                  Size Chart »
-                </div>
+                {type === 'foster' && (
+                  <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                    Size Chart »
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { dataURLtoFile } from 'utils/helpers'
@@ -27,6 +28,7 @@ import Alert from 'components/Alert'
 const NewCreatorMerch = () => {
   const router = useRouter()
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const { profileInfo } = useAuthentication()
   const [currentStep, setCurrentStep] = useState(1)
   const [productDetail, setProductDetail] = useState(null)
@@ -43,7 +45,6 @@ const NewCreatorMerch = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [backClicked, setBackClicked] = useState(false)
 
   useEffect(() => {
     if (!productDetail) {
@@ -60,15 +61,18 @@ const NewCreatorMerch = () => {
         snapshotUrl.left.length > 0 ||
         snapshotUrl.right.length > 0
       ) {
-        let { product, description, name, type, shipping, shippingFee, interShippingFee } = productDetail
-
+        let { product, description, name, type, country, shipping, sizes, shippingFee, interShippingFee } =
+          productDetail
         if (product) {
           if (product.id === 0) {
             setNextEnabled(true)
           } else {
             if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined) {
-              if (shipping.id === 1) {
+              if ((type.id === 12 || type.id === 13) && sizes.length === 0) {
+                setNextEnabled(false)
+              } else if (shipping.id === 1) {
                 if (
+                  country !== undefined &&
                   shippingFee !== undefined &&
                   interShippingFee !== undefined &&
                   parseInt(shippingFee) >= 0 &&
@@ -105,8 +109,8 @@ const NewCreatorMerch = () => {
   }
 
   const getShippingData = () => {
-    if (productDetail.shipping.id === 0) return 'di_seller'
-    if (productDetail.shipping.id === 1) return 'd_seller'
+    if (productDetail.shipping.id === 0) return 'd_seller'
+    if (productDetail.shipping.id === 1) return 'd_buyer'
   }
 
   const getProductAddonId = side => {
@@ -231,7 +235,26 @@ const NewCreatorMerch = () => {
           setIsCreating(false)
           return
         }
+
         productName = productDetail.name
+
+        let options = {
+          shipping_responsibility: getShippingData(),
+          product_images: addonList,
+        }
+        if (productDetail.type.id === 12 || productDetail.type.id === 13) {
+          options['sizes'] = productDetail.sizes
+        }
+        if (productDetail.shipping.id === 1) {
+          let countryCode = productDetail.country.isoCode
+          let shippingConfig = {
+            blink: productDetail.interShippingFee * 100,
+            default: productDetail.interShippingFee * 100,
+          }
+          shippingConfig[countryCode] = productDetail.shippingFee * 100
+          options['shipping_config'] = shippingConfig
+        }
+
         params = {
           name: productDetail.name,
           description: productDetail.description,
@@ -242,10 +265,7 @@ const NewCreatorMerch = () => {
           master_edition_address: null,
           sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
           sale_end_at: additionDetail.sale_end_at?.toISOString().split('.')[0],
-          options: {
-            shipping_responsibility: getShippingData(),
-            product_images: addonList,
-          },
+          options: options,
         }
       }
 
@@ -350,10 +370,7 @@ const NewCreatorMerch = () => {
             fontSize={18}
             onClick={() => {
               if (currentStep === 1) {
-                setBackClicked(true)
-                setTimeout(() => {
-                  setBackClicked(false)
-                }, 500)
+                dispatch({ type: 'set', backBtnClicked: true })
               } else {
                 setCurrentStep(currentStep - 1)
                 setNextEnabled(true)
@@ -400,7 +417,7 @@ const NewCreatorMerch = () => {
 
       <div className="">
         {currentStep === 1 && (
-          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} backClicked={backClicked} />
+          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />
         )}
         {currentStep >= 2 && (
           <div className="g-container mt-[110px] lg:mt-[165px]">
@@ -409,7 +426,6 @@ const NewCreatorMerch = () => {
               productDetail={productDetail}
               step={currentStep}
               additionDetail={additionDetail}
-              backClicked={backClicked}
               setAdditionDetail={setAdditionDetail}
               setEnableNext={setNextEnabled}
             />

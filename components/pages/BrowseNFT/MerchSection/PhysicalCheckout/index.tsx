@@ -45,7 +45,6 @@ const PhysicalCheckout = ({
   orderType,
   merchType,
   onBack,
-  onNext,
   total,
   paymentId = null,
   helioEnabled,
@@ -55,36 +54,21 @@ const PhysicalCheckout = ({
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
   const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
-  const [currency, setCurrency] = useState<'sol' | 'usdc' | 'card'>('sol')
-  const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
-  const [helioOpacity, setHelioOpacity] = useState(0)
   const [isPaySol, setIsPaySol] = useState(false)
   const [isPayUsd, setIsPayUsd] = useState(false)
+  const [shippingFee, setShippingFee] = useState(0)
 
-  //   {paylinkId: '6571e7cd4a2bee8095ee84da',
-  //   network: 'test',
-  //   display: 'button' as DisplayType,
-  //   amount: '0',
-  //   theme: {
-  //     colors: {
-  //       primaryButtonBackground: 'transparent',
-  //       primaryButtonBackgroundHover: 'transparent',
-  //       primaryButtonText: 'transparent',
-  //     },
-  //   } as HelioEmbedTheme,
-  // }
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const shippingRes = merchType === 'user' ? orderData?.items[0].options.shipping_responsibility : ''
-  const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
   const shippingAmount = orderType === 'v1' ? orderData?.order.shipping_amount : orderData?.externalOrder.shippingAmount
   const taxAmount = orderType === 'v1' ? orderData?.order.tax_amount : orderData?.externalOrder.taxAmount
   const subTotalUsd = total - shippingAmount - taxAmount
   const solTotalAmount = subTotalUsd && solToUsdRate ? subTotalUsd / solToUsdWithSlippage() : 0
-
+  const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
   const WALLET_ADAPTER_NETWORK = process.env.WALLET_ADAPTER_NETWORK
 
   type DisplayType = 'inline' | 'button'
@@ -125,10 +109,34 @@ const PhysicalCheckout = ({
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      setHelioOpacity(1)
-    }, 5000)
+    let shipping_fee = 0
+    let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
+    let shippingData = ssorder.shipTo
 
+    if (shippingRes === 'd_buyer') {
+      let config = orderData?.items[0].options.shipping_config
+      if (config) {
+        let shippingCountry = Object.keys(config)[0]
+        if (shippingData.country === shippingCountry) {
+          shipping_fee = config[shippingCountry]
+        } else {
+          shipping_fee = config['blink']
+        }
+        setShippingFee(shipping_fee)
+      }
+    }
+
+    // let sol_amount = 0
+    // if (shipping_fee > 0) {
+    //   sol_amount = total && solToUsdRate ? (total + shipping_fee / 100) / solToUsdWithSlippage() : 0
+    // } else {
+    //   sol_amount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
+    // }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shippingRes, solToUsdRate])
+
+  useEffect(() => {
     setAlertData([
       {
         id: 0,
@@ -151,7 +159,7 @@ const PhysicalCheckout = ({
       })
 
     let itemList = []
-    ssorder.items.forEach(item => {
+    ssorder.items.forEach((item, index) => {
       let itemQuantity = item.quantity
       let options = item.options
       var type = findElement(options, 'name', 'type')['value']
@@ -169,7 +177,6 @@ const PhysicalCheckout = ({
         itemList.push({ name: nftName, type, color: colorText, size, qty })
       } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
-        var technique = findElement(options, 'name', 'technique')['value']
         let type = 'foster'
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = itemQuantity
@@ -177,10 +184,11 @@ const PhysicalCheckout = ({
       } else if (type === 'user') {
         let type = 'user'
         let qty = itemQuantity
-        itemList.push({ name: nftName, type, color: '', size, qty })
+        itemList.push({ name: nftName, type, color: '', size, qty, productId: orderData?.items[index].productTypeId })
       }
     })
     setList(itemList)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -190,13 +198,11 @@ const PhysicalCheckout = ({
       return
     }
 
-    setIsLoad(true)
     let result = false
     try {
       if (!orderData) throw new Error('orderData cannot be null for checkout')
 
       let { order } = orderData
-
       let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
       if (ssorder.items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
 
@@ -240,12 +246,10 @@ const PhysicalCheckout = ({
         }
         if (response?.status === 'success') result = true
       } else {
-        setIsLoad(false)
         setIsPaySol(false)
         setIsPayUsd(false)
       }
     } catch {
-      setIsLoad(false)
       setIsPaySol(false)
       setIsPayUsd(false)
     } finally {
@@ -297,7 +301,9 @@ const PhysicalCheckout = ({
               <div key={index} className="pb-[5px]">
                 <div className={styles.itemDetails}>
                   {item.type === 'user'
-                    ? item.name + ' x ' + item.qty
+                    ? item.productId === 12 || item.productId === 13
+                      ? item.name + ' (' + item.size + ') x ' + item.qty
+                      : item.name + ' x ' + item.qty
                     : item.name + ' (' + item.size + ') x ' + item.qty}
                 </div>
               </div>
@@ -319,12 +325,19 @@ const PhysicalCheckout = ({
             <div className="flex gap-[11px] items-center">
               <div className="flex gap-[6px] items-center">
                 <SolanaIcon className="mt-[3px]" />
-                <div className={styles.solPrice}>{solTotalAmount.toFixed(2)}</div>
+                <div className={styles.solPrice}>
+                  {(solTotalAmount - shippingFee / 100 / solToUsdWithSlippage()).toFixed(2)}
+                </div>
               </div>
-              <div className={styles.total}>${subTotalUsd.toFixed(2)}</div>
+              <div className={styles.total}>${(subTotalUsd - shippingFee / 100).toFixed(2)}</div>
             </div>
           </div>
-          {merchType !== 'user' && (
+          {merchType === 'user' ? (
+            <div className="w-full flex justify-between items-center mt-[16px]">
+              <div className={styles.total}>Shipping & Handling</div>
+              <div className={styles.total}>${(shippingFee / 100).toFixed(2)}</div>
+            </div>
+          ) : (
             <div className="w-full flex justify-between items-center mt-[16px]">
               <div className={styles.total}>Shipping & Handling</div>
               <div className={styles.total}>${shippingAmount.toFixed(2)}</div>
@@ -336,13 +349,7 @@ const PhysicalCheckout = ({
               <div className={styles.total}>${taxAmount.toFixed(2)}</div>
             </div>
           )}
-          {merchType === 'user' && (
-            <div className="w-full flex justify-between items-center mt-[16px]">
-              <div className={styles.total}>
-                {shippingRes === 'di_seller' ? `Shipping Fees Included` : `Shipping Fees Not Included`}
-              </div>
-            </div>
-          )}
+
           <div className={styles.border} />
 
           <div className="w-full flex justify-between items-center">

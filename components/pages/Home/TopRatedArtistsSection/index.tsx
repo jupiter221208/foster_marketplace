@@ -42,7 +42,7 @@ const TopRatedArtistsSection = () => {
   const [period, setPeriod] = useState(DayList[2])
 
   useEffect(() => {
-    getTopRatedArtistsFromServer('month')
+    getTopRatedArtistsFromServer('all')
   }, [])
 
   const getTopRatedArtistsFromServer = period => {
@@ -51,7 +51,7 @@ const TopRatedArtistsSection = () => {
       response => {
         setIsLoading(false)
         if (response !== undefined && response !== null) {
-          setArtistsList(response)
+          setArtistsList(response.slice(0, 10))
         }
       },
       error => {
@@ -87,20 +87,12 @@ const TopRatedArtistsSection = () => {
     <section className={styles.container}>
       <div className="relative w-full flex justify-between items-center z-10 ">
         <div className="sm:block hidden">
-          <HomeFilterMenu
-            label="Top Creators"
-            data={DayList}
-            selectedItem={period}
-            setSelectedItem={item => {
-              setPeriod(item)
-              handleChangeActive(item.id)
-            }}
-          />
+          <div className={styles.title}>Top&nbsp;Creators</div>
         </div>
 
         <div className="sm:hidden w-full flex justify-between items-center">
           <div className={styles.title}>Trending&nbsp;Creators</div>
-          <HomeFilterMenu
+          {/* <HomeFilterMenu
             label=""
             data={DayList}
             selectedItem={period}
@@ -108,7 +100,7 @@ const TopRatedArtistsSection = () => {
               setPeriod(item)
               handleChangeActive(item.id)
             }}
-          />
+          /> */}
         </div>
         <div className="sm:block hidden">
           <SeeMoreButton
