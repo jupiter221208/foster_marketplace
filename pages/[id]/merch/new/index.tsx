@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { dataURLtoFile } from 'utils/helpers'
@@ -27,6 +28,7 @@ import Alert from 'components/Alert'
 const NewCreatorMerch = () => {
   const router = useRouter()
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const { profileInfo } = useAuthentication()
   const [currentStep, setCurrentStep] = useState(1)
   const [productDetail, setProductDetail] = useState(null)
@@ -43,7 +45,6 @@ const NewCreatorMerch = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [backClicked, setBackClicked] = useState(false)
 
   useEffect(() => {
     if (!productDetail) {
@@ -369,10 +370,7 @@ const NewCreatorMerch = () => {
             fontSize={18}
             onClick={() => {
               if (currentStep === 1) {
-                setBackClicked(true)
-                setTimeout(() => {
-                  setBackClicked(false)
-                }, 500)
+                dispatch({ type: 'set', backBtnClicked: true })
               } else {
                 setCurrentStep(currentStep - 1)
                 setNextEnabled(true)
@@ -419,7 +417,7 @@ const NewCreatorMerch = () => {
 
       <div className="">
         {currentStep === 1 && (
-          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} backClicked={backClicked} />
+          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />
         )}
         {currentStep >= 2 && (
           <div className="g-container mt-[110px] lg:mt-[165px]">
@@ -428,7 +426,6 @@ const NewCreatorMerch = () => {
               productDetail={productDetail}
               step={currentStep}
               additionDetail={additionDetail}
-              backClicked={backClicked}
               setAdditionDetail={setAdditionDetail}
               setEnableNext={setNextEnabled}
             />

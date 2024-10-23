@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
 import { SwiperSlide } from 'swiper/react'
@@ -16,8 +17,10 @@ import MerchDTGSection from './MerchDTGSection'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 
 const FosterProductSection = props => {
-  const { productDetail, setProductDetail, backClicked, setFosterCard } = props
+  const { productDetail, setProductDetail, setFosterCard } = props
   const router = useRouter()
+  const dispatch = useDispatch()
+  const backClicked = useSelector(state => (state as any).backBtnClicked)
   const [productList, setProductList] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
   const [showQuestionModal, setShowQuestionModal] = useState(false)
@@ -25,6 +28,8 @@ const FosterProductSection = props => {
 
   useEffect(() => {
     if (backClicked) {
+      dispatch({ type: 'set', backBtnClicked: false })
+
       if (selectedCard) {
         setSelectedCard(null)
         setSelectedItem(null)

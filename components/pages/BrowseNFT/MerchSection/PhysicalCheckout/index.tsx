@@ -60,6 +60,7 @@ const PhysicalCheckout = ({
   const [alertData, setAlertData] = useState<any[]>([])
   const [isPaySol, setIsPaySol] = useState(false)
   const [isPayUsd, setIsPayUsd] = useState(false)
+  const [shippingFee, setShippingFee] = useState(0)
 
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const shippingRes = merchType === 'user' ? orderData?.items[0].options.shipping_responsibility : ''
@@ -106,6 +107,34 @@ const PhysicalCheckout = ({
       shadowPrimaryGray?: string
     }
   }
+
+  useEffect(() => {
+    let shipping_fee = 0
+    let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
+    let shippingData = ssorder.shipTo
+
+    if (shippingRes === 'd_buyer') {
+      let config = orderData?.items[0].options.shipping_config
+      if (config) {
+        let shippingCountry = Object.keys(config)[0]
+        if (shippingData.country === shippingCountry) {
+          shipping_fee = config[shippingCountry]
+        } else {
+          shipping_fee = config['blink']
+        }
+        setShippingFee(shipping_fee)
+      }
+    }
+
+    // let sol_amount = 0
+    // if (shipping_fee > 0) {
+    //   sol_amount = total && solToUsdRate ? (total + shipping_fee / 100) / solToUsdWithSlippage() : 0
+    // } else {
+    //   sol_amount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
+    // }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shippingRes, solToUsdRate])
 
   useEffect(() => {
     setAlertData([
@@ -296,16 +325,17 @@ const PhysicalCheckout = ({
             <div className="flex gap-[11px] items-center">
               <div className="flex gap-[6px] items-center">
                 <SolanaIcon className="mt-[3px]" />
-                <div className={styles.solPrice}>{solTotalAmount.toFixed(2)}</div>
+                <div className={styles.solPrice}>
+                  {(solTotalAmount - shippingFee / 100 / solToUsdWithSlippage()).toFixed(2)}
+                </div>
               </div>
-              <div className={styles.total}>${subTotalUsd.toFixed(2)}</div>
+              <div className={styles.total}>${(subTotalUsd - shippingFee / 100).toFixed(2)}</div>
             </div>
           </div>
           {merchType === 'user' ? (
             <div className="w-full flex justify-between items-center mt-[16px]">
-              <div className={styles.total}>
-                {shippingRes === 'd_buyer' ? 'Shipping Fees Included' : 'Shipping Fees Not Included'}
-              </div>
+              <div className={styles.total}>Shipping & Handling</div>
+              <div className={styles.total}>${(shippingFee / 100).toFixed(2)}</div>
             </div>
           ) : (
             <div className="w-full flex justify-between items-center mt-[16px]">

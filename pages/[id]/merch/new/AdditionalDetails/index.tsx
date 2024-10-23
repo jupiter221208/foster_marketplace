@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useViewport } from 'utils'
 import { ProductModel, validDigits, validInteger } from 'utils/helpers'
-import { useRouter } from 'next/router'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -26,10 +25,8 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import styles from './index.module.scss'
 
 const AdditionalDetails = props => {
-  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail, backClicked } = props
+  const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
-  const router = useRouter()
-
   const [assetUrls, setAssetUrls] = useState([])
   const [apparelUrl, setApparelUrl] = useState('')
   const [title, setTitle] = useState('')
@@ -63,14 +60,6 @@ const AdditionalDetails = props => {
       />
     )
   }
-
-  useEffect(() => {
-    if (backClicked) {
-      let path = window.location.href
-      router.push(path.substring(0, path.lastIndexOf('/')))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [backClicked])
 
   useEffect(() => {
     let plusDays = Number(days)

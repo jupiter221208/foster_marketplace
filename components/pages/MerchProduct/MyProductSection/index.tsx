@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useViewport } from 'utils'
 import { validDigits } from 'utils/helpers'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -35,8 +37,10 @@ import styles from './index.module.scss'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
+  const router = useRouter()
   const viewport = useViewport()
-
+  const dispatch = useDispatch()
+  const backClicked = useSelector(state => (state as any).backBtnClicked)
   const [productType, setProductType] = useState({ id: -1, label: '' })
   const [shipping, setShipping] = useState({ id: -1, label: '' })
   const [mainImage, setMainImage] = useState<any>(null)
@@ -51,6 +55,15 @@ const MyProductSection = props => {
   const [interShippingFee, setInterShippingFee] = useState('')
   const [shippingSwitch, setShippingSwitch] = useState(false)
   const [country, setCountry] = useState(null)
+
+  useEffect(() => {
+    if (backClicked) {
+      dispatch({ type: 'set', backBtnClicked: false })
+      let path = window.location.href
+      router.push(path.substring(0, path.lastIndexOf('/')))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backClicked])
 
   const onSelectImage = index => {
     if (index >= imageList.length) return

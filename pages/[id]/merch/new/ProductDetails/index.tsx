@@ -15,7 +15,7 @@ import MyProductSection from 'components/pages/MerchProduct/MyProductSection'
 import { useViewport } from 'utils'
 
 const ProductDetails = props => {
-  const { productDetail, setProductDetail, backClicked } = props
+  const { productDetail, setProductDetail } = props
   const viewport = useViewport()
   const [product, setProduct] = useState({ id: -1, label: '' })
   const [fosterCard, setFosterCard] = useState(null)
@@ -78,7 +78,6 @@ const ProductDetails = props => {
             <FosterProductSection
               productDetail={productDetail}
               setProductDetail={detail => setProductDetail({ ...detail, product })}
-              backClicked={backClicked}
               setFosterCard={item => setFosterCard(item)}
             />
           </div>
