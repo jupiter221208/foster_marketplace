@@ -128,16 +128,16 @@ const OrderSection = props => {
             </div>
           ) : merchType === 'foster' || merchType === 'user' ? (
             <div className="w-full lg:flex lg:h-[705px]">
-              {merchList.length > 1 && (
-                <div className="hidden lg:block w-[140px]">
-                  <div className="w-full lg:block hidden">
-                    <div className={styles.backStore} onClick={() => router.push(`/${profileInfo?.username}/merch`)}>
-                      <ArrowLeftIcon />
-                      Back&nbsp;to&nbsp;store
-                    </div>
+              <div className="hidden lg:block w-[140px]">
+                <div className="w-full lg:block hidden">
+                  <div className={styles.backStore} onClick={() => router.push(`/${profileInfo?.username}/merch`)}>
+                    <ArrowLeftIcon />
+                    Back&nbsp;to&nbsp;store
                   </div>
-                  <div className="mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
-                    {merchList.map((merch, index) => {
+                </div>
+                <div className="mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
+                  {merchList.length > 1 &&
+                    merchList.map((merch, index) => {
                       return (
                         <div
                           key={index}
@@ -150,9 +150,9 @@ const OrderSection = props => {
                         </div>
                       )
                     })}
-                  </div>
                 </div>
-              )}
+              </div>
+
               {selectedMerch && (
                 <div className="w-full flex justify-center">
                   <div className="lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[0px]">
