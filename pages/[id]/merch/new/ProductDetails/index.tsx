@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useViewport } from 'utils'
+import { useRouter } from 'next/router'
 
 //components
 import ArtistLayout from 'components/Layout/ArtistLayout'
@@ -12,13 +15,24 @@ import styles from './index.module.scss'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
 import FosterProductSection from 'components/pages/MerchProduct/FosterProductSection'
 import MyProductSection from 'components/pages/MerchProduct/MyProductSection'
-import { useViewport } from 'utils'
 
 const ProductDetails = props => {
   const { productDetail, setProductDetail } = props
+  const router = useRouter()
   const viewport = useViewport()
   const [product, setProduct] = useState({ id: -1, label: '' })
   const [fosterCard, setFosterCard] = useState(null)
+  const dispatch = useDispatch()
+  const backClicked = useSelector(state => (state as any).backBtnClicked)
+
+  useEffect(() => {
+    if (product.id === -1) {
+      dispatch({ type: 'set', backBtnClicked: false })
+      let path = window.location.href
+      router.push(path.substring(0, path.lastIndexOf('/')))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backClicked])
 
   useEffect(() => {
     if (productDetail) {
