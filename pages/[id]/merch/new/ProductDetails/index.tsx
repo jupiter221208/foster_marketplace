@@ -26,7 +26,7 @@ const ProductDetails = props => {
   const backClicked = useSelector(state => (state as any).backBtnClicked)
 
   useEffect(() => {
-    if (product.id === -1) {
+    if (backClicked === true && product.id === -1) {
       dispatch({ type: 'set', backBtnClicked: false })
       let path = window.location.href
       router.push(path.substring(0, path.lastIndexOf('/')))
