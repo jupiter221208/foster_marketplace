@@ -208,17 +208,19 @@ const OrderSection = props => {
                 </div>
               </div>
 
-              <div className={styles.imageSlider}>
-                {merchList.map((merch, index) => {
-                  return (
-                    <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
-                      <div className={merch.selected ? styles.selected : styles.unselected}>
-                        <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+              {merchList.length > 1 && (
+                <div className={styles.imageSlider}>
+                  {merchList.map((merch, index) => {
+                    return (
+                      <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
+                        <div className={merch.selected ? styles.selected : styles.unselected}>
+                          <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
-              </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           ) : (
             <div></div>
@@ -229,7 +231,7 @@ const OrderSection = props => {
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
           } lg:flex lg:justify-end ${styles.rightBG}`}
         >
-          <div className="lg:max-w-[545px] w-full mb-[50px] mt-[20px] lg:mt-[50px] lg:ml-[30px]">
+          <div className="lg:max-w-[545px] w-full mb-[50px] mt-[0px] lg:mt-[50px] lg:ml-[30px]">
             {orderData && (
               <PhysicalCheckout
                 orderData={orderData}
