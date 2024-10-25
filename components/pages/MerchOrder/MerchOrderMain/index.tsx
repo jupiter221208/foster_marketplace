@@ -39,7 +39,7 @@ const MerchOrderMain = props => {
   const {
     type,
     username,
-    productDetail,
+    productData,
     userDetail,
     onClickBuyNow,
     setQuantity,
@@ -64,6 +64,7 @@ const MerchOrderMain = props => {
   const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
   const [cardExpired, setCardExpired] = useState(false)
+  const [productDetail, setProductDetail] = useState(productData)
   const description = productDetail.description
 
   const [printArea, setPrintArea] = useState('')
@@ -73,7 +74,6 @@ const MerchOrderMain = props => {
   const [showEditMerch, setShowEditMerch] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  console.log(data, merchList, '=========data======')
 
   useEffect(() => {
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
@@ -705,11 +705,16 @@ const MerchOrderMain = props => {
         <MerchDetailEditModal
           merchImage={merchList[0]}
           userId={userDetail.id}
-          data={data}
+          productId={productId}
+          data={productDetail}
           open={showEditMerch}
           onClose={() => setShowEditMerch(false)}
-          onSuccess={() => {
-            router.reload()
+          onSuccess={product => {
+            let newProduct = { ...productDetail }
+            newProduct.name = product.name
+            newProduct.description = product.description
+            setProductDetail(newProduct)
+            setShowEditMerch(false)
           }}
         />
       )}

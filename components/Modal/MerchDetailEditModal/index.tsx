@@ -24,7 +24,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 
-const MerchDetailEditModal = ({ userId, data, merchImage, open, onClose, onSuccess }) => {
+const MerchDetailEditModal = ({ userId, productId, data, merchImage, open, onClose, onSuccess }) => {
   const viewport = useViewport()
   const [isLoading, setIsLoading] = useState(false)
   const [name, setName] = useState(data.name)
@@ -36,12 +36,12 @@ const MerchDetailEditModal = ({ userId, data, merchImage, open, onClose, onSucce
 
   const save = () => {
     setIsLoading(true)
-    StoreAPI.updateStoreById(userId, data.id, {
+    StoreAPI.updateStoreById(userId, productId, {
       name,
       description,
     }).then(response => {
       setIsLoading(false)
-      onSuccess()
+      onSuccess({ name, description })
     }),
       error => {
         setIsLoading(false)

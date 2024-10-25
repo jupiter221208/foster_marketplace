@@ -289,7 +289,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 <MerchOrderMain
                   username={router.query.id}
                   type={type}
-                  productDetail={productDetail}
+                  productData={productDetail}
                   userDetail={publicArtistData}
                   onClickBuyNow={onClickBuyNow}
                   setQuantity={quantity => {
