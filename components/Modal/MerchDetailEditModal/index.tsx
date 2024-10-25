@@ -81,7 +81,7 @@ const MerchDetailEditModal = ({ userId, productId, data, merchImage, open, onClo
                     <div className={styles.backUpdate} onClick={closeModal}>
                       Edit Product
                     </div>
-                    <div className="w-[390px] h-[390px] mt-[25px] rounded-[10px] overflow-hidden">
+                    <div className="w-[390px] h-[390px] mt-[30px] rounded-[10px] overflow-hidden">
                       <ImageWithFoster src={merchImage?.url} width={390} className="w-full h-full object-cover" />
                     </div>
                   </div>
@@ -100,7 +100,7 @@ const MerchDetailEditModal = ({ userId, productId, data, merchImage, open, onClo
                 )}
 
                 <div className={`${styles.mobileBG} relative w-full g-container lg:px-0 lg:flex-1`}>
-                  <div className="w-full mt-[30px] lg:mt-[20px]">
+                  <div className="w-full mt-[30px] lg:mt-[55px]">
                     <div className={styles.title}>Product Name</div>
                     <div className="mt-[15px] w-full">
                       <Input
