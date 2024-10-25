@@ -17,7 +17,6 @@ import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 
 // images
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
@@ -34,6 +33,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import Alert from 'components/Alert'
 import MerchOrderDetail from '../MerchOrderDetail'
 import MenuEditMerch from 'components/Menu/MenuEditMerch'
+import MerchDetailEditModal from 'components/Modal/MerchDetailEditModal'
 
 const MerchOrderMain = props => {
   const {
@@ -73,7 +73,8 @@ const MerchOrderMain = props => {
   const [showEditMerch, setShowEditMerch] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  console.log(userDetail, '=========userDetail======')
+  console.log(data, merchList, '=========data======')
+
   useEffect(() => {
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
 
@@ -698,6 +699,17 @@ const MerchOrderMain = props => {
             downloadFiles={downloadFiles}
           />
         </div>
+      )}
+
+      {showEditMerch && (
+        <MerchDetailEditModal
+          merchImage={merchList[0]}
+          userId={userDetail.id}
+          data={data}
+          open={showEditMerch}
+          onClose={() => setShowEditMerch(false)}
+          onSuccess={() => {}}
+        />
       )}
 
       {openShareModal && (
