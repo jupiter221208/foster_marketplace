@@ -17,7 +17,6 @@ import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 
 // images
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
@@ -33,6 +32,8 @@ import { getDisplayUserName } from 'utils/strings'
 import OutlineButton from 'components/Button/OutlineButton'
 import Alert from 'components/Alert'
 import MerchOrderDetail from '../MerchOrderDetail'
+import MenuEditMerch from 'components/Menu/MenuEditMerch'
+import MerchDetailEditModal from 'components/Modal/MerchDetailEditModal'
 
 const MerchOrderMain = props => {
   const {
@@ -45,12 +46,13 @@ const MerchOrderMain = props => {
     setMerchSize,
     productId,
     data,
+    setData,
     merchList,
     rawList,
   } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const { connected } = useWallet()
+  const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
@@ -59,21 +61,17 @@ const MerchOrderMain = props => {
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const detailViewRef = useRef(null)
 
-  // const alertEmb = 'alert-emb'
-  // const alertEmbMobile = 'alert-emb-mobile'
-  // const alertNote = 'alert-note'
-  // const alertNoteMobile = 'alert-mobile'
   const [tableModal, setTableModal] = useState(false)
   const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
   const [cardExpired, setCardExpired] = useState(false)
-  const description = productDetail.description
+  const description = data.description
 
   const [printArea, setPrintArea] = useState('')
   const [mintQty, setMintQty] = useState(1)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
   const [isExpired, setIsExpired] = useState(false)
-
+  const [showEditMerch, setShowEditMerch] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
 
@@ -354,10 +352,18 @@ const MerchOrderMain = props => {
         <div>
           <div className="w-full">
             <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
-              <div className={styles.productName}>{productDetail?.name}</div>
+              <div className={styles.productName}>{data?.name}</div>
 
-              <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
+              {/* <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
                 <ShareDesktopIcon alt="" />
+              </div> */}
+              <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                <MenuEditMerch
+                  explorerURL={`/${username}/merch/${productDetail.id}`}
+                  setShowEditMerch={setShowEditMerch}
+                  isCreatedMerch={publicKey?.toBase58() === userDetail?.wallet_id}
+                  setOpenShareModal={setOpenShareModal}
+                />
               </div>
             </div>
 
@@ -695,6 +701,29 @@ const MerchOrderMain = props => {
         </div>
       )}
 
+      {showEditMerch && (
+        <MerchDetailEditModal
+          merchImage={merchList[0]}
+          userId={userDetail.id}
+          productId={productId}
+          data={data}
+          open={showEditMerch}
+          onClose={() => setShowEditMerch(false)}
+          onSuccess={product => {
+            setData(product)
+            setAlertData([
+              {
+                id: 0,
+                title: 'Product Updated!',
+                description: `Product details have been sucessfully updated.`,
+                type: 'success',
+              },
+            ])
+            setShowAlert(true)
+          }}
+        />
+      )}
+
       {openShareModal && (
         <SocialShareModal
           open={openShareModal}
@@ -719,6 +748,9 @@ const MerchOrderMain = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          if (showEditMerch) {
+            setShowEditMerch(false)
+          }
         }}
         data={alertData}
       />

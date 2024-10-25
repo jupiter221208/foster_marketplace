@@ -303,6 +303,12 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   }}
                   productId={router.query.product_id}
                   data={printData}
+                  setData={data => {
+                    let newData = { ...printData }
+                    newData.name = data.name
+                    newData.description = data.description
+                    setPrintData(newData)
+                  }}
                   merchList={merchList}
                   rawList={rawUrlList}
                 />

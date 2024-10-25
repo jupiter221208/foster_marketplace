@@ -1,0 +1,53 @@
+@import 'assets/scss/variable.module.scss';
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  margin-left: 12px;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  top: 40px;
+  left: auto;
+  right: 0px;
+  background: var(--background-main-color);
+  border-radius: 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  width: 200px;
+  padding: 20px;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+}
+
+.iconContainer {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  // background: var(--bg-1E1E1E-F3F2F0);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // border-radius: 16px;
+  -webkit-tap-highlight-color: transparent;
+  &:focus {
+    outline: none;
+  }
+}
