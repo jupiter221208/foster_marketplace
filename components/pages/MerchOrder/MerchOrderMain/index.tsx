@@ -708,7 +708,9 @@ const MerchOrderMain = props => {
           data={data}
           open={showEditMerch}
           onClose={() => setShowEditMerch(false)}
-          onSuccess={() => {}}
+          onSuccess={() => {
+            router.reload()
+          }}
         />
       )}
 
