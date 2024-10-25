@@ -711,7 +711,15 @@ const MerchOrderMain = props => {
           onClose={() => setShowEditMerch(false)}
           onSuccess={product => {
             setData(product)
-            setShowEditMerch(false)
+            setAlertData([
+              {
+                id: 0,
+                title: 'Product Updated!',
+                description: `Product details have been sucessfully updated.`,
+                type: 'success',
+              },
+            ])
+            setShowAlert(true)
           }}
         />
       )}
@@ -740,6 +748,9 @@ const MerchOrderMain = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          if (showEditMerch) {
+            setShowEditMerch(false)
+          }
         }}
         data={alertData}
       />

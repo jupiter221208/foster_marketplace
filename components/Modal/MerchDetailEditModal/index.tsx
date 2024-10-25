@@ -78,7 +78,10 @@ const MerchDetailEditModal = ({ userId, productId, data, merchImage, open, onClo
               <div className={styles.mainView}>
                 {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
                   <div className="">
-                    <div className="w-[390px] h-[390px] mt-[34px] ">
+                    <div className={styles.backUpdate} onClick={closeModal}>
+                      Edit Product
+                    </div>
+                    <div className="w-[390px] h-[390px] mt-[25px] rounded-[10px] overflow-hidden">
                       <ImageWithFoster src={merchImage?.url} width={390} className="w-full h-full object-cover" />
                     </div>
                   </div>
@@ -89,7 +92,7 @@ const MerchDetailEditModal = ({ userId, productId, data, merchImage, open, onClo
                       Edit Product
                     </div>
                     <div className="w-full flex justify-center">
-                      <div className="w-[343px] h-[343px] mt-[25px] rounded-[10px] overflow-hidden">
+                      <div className="w-[343px] h-[343px] mt-[25px]">
                         <ImageWithFoster src={merchImage?.url} width={390} className="w-full h-full object-cover" />
                       </div>
                     </div>
