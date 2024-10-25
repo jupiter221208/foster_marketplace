@@ -33,6 +33,7 @@ import { getDisplayUserName } from 'utils/strings'
 import OutlineButton from 'components/Button/OutlineButton'
 import Alert from 'components/Alert'
 import MerchOrderDetail from '../MerchOrderDetail'
+import MenuEditMerch from 'components/Menu/MenuEditMerch'
 
 const MerchOrderMain = props => {
   const {
@@ -50,7 +51,7 @@ const MerchOrderMain = props => {
   } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const { connected } = useWallet()
+  const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
@@ -59,10 +60,6 @@ const MerchOrderMain = props => {
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const detailViewRef = useRef(null)
 
-  // const alertEmb = 'alert-emb'
-  // const alertEmbMobile = 'alert-emb-mobile'
-  // const alertNote = 'alert-note'
-  // const alertNoteMobile = 'alert-mobile'
   const [tableModal, setTableModal] = useState(false)
   const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
@@ -73,10 +70,10 @@ const MerchOrderMain = props => {
   const [mintQty, setMintQty] = useState(1)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
   const [isExpired, setIsExpired] = useState(false)
-
+  const [showEditMerch, setShowEditMerch] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-
+  console.log(userDetail, '=========userDetail======')
   useEffect(() => {
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
 
@@ -356,8 +353,16 @@ const MerchOrderMain = props => {
             <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
               <div className={styles.productName}>{productDetail?.name}</div>
 
-              <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
+              {/* <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
                 <ShareDesktopIcon alt="" />
+              </div> */}
+              <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                <MenuEditMerch
+                  explorerURL={`/${username}/merch/${productDetail.id}`}
+                  setShowEditMerch={setShowEditMerch}
+                  isCreatedMerch={publicKey?.toBase58() === userDetail?.wallet_id}
+                  setOpenShareModal={setOpenShareModal}
+                />
               </div>
             </div>
 
