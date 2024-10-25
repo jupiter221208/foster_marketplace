@@ -79,11 +79,7 @@ const MerchDetailEditModal = ({ userId, productId, data, merchImage, open, onClo
                 {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
                   <div className="">
                     <div className="w-[390px] h-[390px] mt-[34px] ">
-                      <ImageWithFoster
-                        src={merchImage?.url}
-                        width={390}
-                        className="max-w-full max-h-full object-contain"
-                      />
+                      <ImageWithFoster src={merchImage?.url} width={390} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 ) : (
