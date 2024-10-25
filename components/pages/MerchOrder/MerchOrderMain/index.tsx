@@ -39,13 +39,14 @@ const MerchOrderMain = props => {
   const {
     type,
     username,
-    productData,
+    productDetail,
     userDetail,
     onClickBuyNow,
     setQuantity,
     setMerchSize,
     productId,
     data,
+    setData,
     merchList,
     rawList,
   } = props
@@ -64,8 +65,7 @@ const MerchOrderMain = props => {
   const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
   const [cardExpired, setCardExpired] = useState(false)
-  const [productDetail, setProductDetail] = useState(productData)
-  const description = productDetail.description
+  const description = data.description
 
   const [printArea, setPrintArea] = useState('')
   const [mintQty, setMintQty] = useState(1)
@@ -352,7 +352,7 @@ const MerchOrderMain = props => {
         <div>
           <div className="w-full">
             <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
-              <div className={styles.productName}>{productDetail?.name}</div>
+              <div className={styles.productName}>{data?.name}</div>
 
               {/* <div className="mr-[10px] lg:mr-[0px]" onClick={() => setOpenShareModal(true)}>
                 <ShareDesktopIcon alt="" />
@@ -706,14 +706,11 @@ const MerchOrderMain = props => {
           merchImage={merchList[0]}
           userId={userDetail.id}
           productId={productId}
-          data={productDetail}
+          data={data}
           open={showEditMerch}
           onClose={() => setShowEditMerch(false)}
           onSuccess={product => {
-            let newProduct = { ...productDetail }
-            newProduct.name = product.name
-            newProduct.description = product.description
-            setProductDetail(newProduct)
+            setData(product)
             setShowEditMerch(false)
           }}
         />
