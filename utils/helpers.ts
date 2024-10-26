@@ -775,6 +775,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-0A0A0A-E8E7E5', '#E8E7E5')
     doc.style.setProperty('--bg-242424-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-F3F2F0-202427', '32, 36, 39')
+    doc.style.setProperty('--bg-2A2A2A-D9D9D8', '#D9D9D8')
+    doc.style.setProperty('--bg-1A1A1A-C7C6C6', '#C7C6C6')
     doc.style.setProperty('--bg-2B2F32-FFF', '#FFF')
     // =====================================================
     // =====================================================
@@ -1170,6 +1172,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-0A0A0A-E8E7E5', '#0A0A0A')
     doc.style.setProperty('--bg-242424-F3F2F0', '#242424')
     doc.style.setProperty('--bg-2B2F32-FFF', '#2B2F32')
+    doc.style.setProperty('--bg-2A2A2A-D9D9D8', '#2A2A2A')
+    doc.style.setProperty('--bg-1A1A1A-C7C6C6', '#1A1A1A')
     doc.style.setProperty('--bg-F3F2F0-202427', '243, 242, 240')
   }
 }

@@ -103,7 +103,9 @@ const MerchOrderMain = props => {
       case 12:
       case 13:
         let sizes = []
-        productDetail.options.sizes.map((item, index) => sizes.push({ id: index, Size: item }))
+        if (productDetail.options.sizes) {
+          productDetail.options.sizes.map((item, index) => sizes.push({ id: index, Size: item }))
+        }
         size_list = sizes
         break
       case 28:
