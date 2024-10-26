@@ -20,9 +20,16 @@ interface MenuEditProps {
   merchUrl: any
   isCreatedMerch: boolean
   setOpenShareModal: any
+  setCopyLinkSuccess: any
 }
 
-const MenuShareMerch = ({ newProductURL, merchUrl, isCreatedMerch, setOpenShareModal }: MenuEditProps) => {
+const MenuShareMerch = ({
+  newProductURL,
+  merchUrl,
+  isCreatedMerch,
+  setOpenShareModal,
+  setCopyLinkSuccess,
+}: MenuEditProps) => {
   const router = useRouter()
   return (
     <div className="relative flex items-center">
@@ -79,6 +86,7 @@ const MenuShareMerch = ({ newProductURL, merchUrl, isCreatedMerch, setOpenShareM
                   className={`${styles.menuItem}`}
                   onClick={() => {
                     copyToClipboard(globalThis.window?.origin + merchUrl.replaceAll(' ', '%20'))
+                    setCopyLinkSuccess()
                   }}
                 >
                   <FileCopyIcon alt="" />

@@ -12,10 +12,9 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import ProfileMerchReview from 'components/pages/ArtistProfile/ProfileMerchReview'
+import Alert from 'components/Alert'
 
 // images
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import PreviewImage from 'assets/images/studio-preview-image-user.png'
@@ -42,6 +41,8 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
   const { publicKey } = useWallet()
 
   const [openShareModal, setOpenShareModal] = useState(false)
+  const [data, setData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState<boolean>(false)
 
   let username = publicArtistData?.username ?? '<not found>'
   let pageTitle = storeInfoData ? storeInfoData.name : `The Official Merch Store of ${username} | Foster Studio`
@@ -108,6 +109,17 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
                   merchUrl={`/${artistInfo?.username}/merch`}
                   isCreatedMerch={publicKey?.toBase58() === artistInfo?.wallet_id}
                   setOpenShareModal={setOpenShareModal}
+                  setCopyLinkSuccess={() => {
+                    setData([
+                      {
+                        id: 0,
+                        title: 'Copied successfully!',
+                        description: 'Wallet address is copied successfully!',
+                        type: 'success',
+                      },
+                    ])
+                    setShowAlert(true)
+                  }}
                 />
               </div>
             </div>
@@ -117,6 +129,7 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
               <CreatorMerchShop
                 username={artistInfo?.username}
                 userId={artistInfo?.id}
+                userAvatar={artistInfo?.profile_picture?.length > 0 ? artistInfo?.profile_picture : DefaultAvatar.src}
                 isCreator={publicKey?.toBase58() === artistInfo?.wallet_id}
               />
             )}
@@ -132,6 +145,14 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
           url={`/${artistInfo?.username}/merch`}
         />
       )}
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={data}
+      />
     </div>
   )
 }

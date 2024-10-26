@@ -28,7 +28,7 @@ import StoreMerchActivateModal from 'components/Menu/StoreMerchActivateModal'
 import MerchTypeIconMenu from 'components/Menu/MerchTypeIconMenu'
 
 const MerchShopCard = props => {
-  const { username, data } = props
+  const { userAvatar = null, username, data } = props
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
   const [swiper, setSwiper] = useState(null)
@@ -298,7 +298,7 @@ const MerchShopCard = props => {
                       router.push(`/${data.username}`)
                     }}
                   >
-                    <ImageWithFoster src={data.user_profile_picture} width={42} />
+                    <ImageWithFoster src={userAvatar ?? data.user_profile_picture} width={42} />
                   </div>
 
                   {/* <div className={styles.saleCount}>
