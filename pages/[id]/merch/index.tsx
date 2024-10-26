@@ -24,6 +24,7 @@ import PreviewImage from 'assets/images/studio-preview-image-user.png'
 
 // styles
 import styles from './index.module.scss'
+import MenuShareMerch from 'components/Menu/MenuShareMerch'
 
 interface CreatorMerchProps {
   storeInfoData?: any
@@ -101,25 +102,13 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
         <div className="g-container">
           <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-end">
             <div className="flex gap-[15px] sm:gap-[25px]">
-              {publicKey?.toBase58() === artistInfo?.wallet_id && (
-                <div
-                  className={styles.add}
-                  onClick={() => {
-                    let path = window.location.href
-                    router.push(`${path}/new`)
-                  }}
-                >
-                  <div className="">
-                    <PlusIcon />
-                  </div>
-                  <div className="">Add</div>
-                </div>
-              )}
-              <div className={`flex w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
-                <div className="">
-                  <ShareDesktopIcon alt="" />
-                </div>
-                <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
+              <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                <MenuShareMerch
+                  newProductURL={`${window.location.href}/new`}
+                  merchUrl={`/${artistInfo?.username}/merch`}
+                  isCreatedMerch={publicKey?.toBase58() === artistInfo?.wallet_id}
+                  setOpenShareModal={setOpenShareModal}
+                />
               </div>
             </div>
           </div>
