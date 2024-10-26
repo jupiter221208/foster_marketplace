@@ -416,9 +416,7 @@ const NewCreatorMerch = () => {
       </div>
 
       <div className="">
-        {currentStep === 1 && (
-          <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />
-        )}
+        {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
         {currentStep >= 2 && (
           <div className="g-container mt-[110px] lg:mt-[165px]">
             <AdditionalDetails
