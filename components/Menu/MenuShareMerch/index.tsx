@@ -82,7 +82,7 @@ const MenuShareMerch = ({ newProductURL, merchUrl, isCreatedMerch, setOpenShareM
                   }}
                 >
                   <FileCopyIcon alt="" />
-                  Copy link
+                  Copy Link
                 </div>
               )}
             </Menu.Item>
