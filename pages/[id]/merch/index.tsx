@@ -104,7 +104,7 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
             <div className="flex gap-[15px] sm:gap-[25px]">
               <div className="flex items-center gap-[15px] lg:gap-[20px]">
                 <MenuShareMerch
-                  newProductURL={`${window.location.href}/new`}
+                  newProductURL={`/${artistInfo?.username}/merch/new`}
                   merchUrl={`/${artistInfo?.username}/merch`}
                   isCreatedMerch={publicKey?.toBase58() === artistInfo?.wallet_id}
                   setOpenShareModal={setOpenShareModal}
