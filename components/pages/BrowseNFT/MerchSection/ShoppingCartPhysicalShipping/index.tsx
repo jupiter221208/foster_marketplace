@@ -110,6 +110,12 @@ const ShoppingCartPhysicalShipping = props => {
             notes: `This is apparel item`,
           })
         })
+
+        params = {
+          toCountry: country.isoCode,
+          toState: state.isoCode,
+          items: cartItems,
+        }
       } else {
         printData.forEach(item => {
           const { apparel, gender, quality, color, print, quantity, size } = item
@@ -125,12 +131,13 @@ const ShoppingCartPhysicalShipping = props => {
             notes: `This is apparel ${apparel.description} item`,
           })
         })
-      }
 
-      params = {
-        toCountry: country.isoCode,
-        toState: state.isoCode,
-        items: cartItems,
+        params = {
+          toPostalCode: zipCode,
+          toCountry: country.isoCode,
+          toState: state.isoCode,
+          cartItems,
+        }
       }
     } else {
       const { print, quantity, size } = printData
