@@ -6,7 +6,7 @@ import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
-import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
+import ThreeDotIcon from 'assets/icons/three-dot-icon-20x5.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
 
