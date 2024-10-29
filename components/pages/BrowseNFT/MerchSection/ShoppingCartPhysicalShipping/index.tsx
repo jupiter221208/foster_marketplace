@@ -98,16 +98,24 @@ const ShoppingCartPhysicalShipping = props => {
     if (category === 'apparel') {
       const cartItems = []
       if (cartVersion === 'v2') {
-        cartItems.push({
-          id: '1',
-          quantity: 1,
-          options: {
-            size: 'L',
-            color: 'white',
-            sideOfPrint: 'Front Side',
-          },
-          notes: `This is apparel item`,
+        printData.forEach(item => {
+          cartItems.push({
+            id: item.data.id.toString(),
+            quantity: item.data.quantity,
+            options: {
+              size: item.data.size,
+              color: item.data.color,
+              sideOfPrint: 'Front Side',
+            },
+            notes: `This is apparel item`,
+          })
         })
+
+        params = {
+          toCountry: country.isoCode,
+          toState: state.isoCode,
+          items: cartItems,
+        }
       } else {
         printData.forEach(item => {
           const { apparel, gender, quality, color, print, quantity, size } = item
@@ -123,19 +131,18 @@ const ShoppingCartPhysicalShipping = props => {
             notes: `This is apparel ${apparel.description} item`,
           })
         })
-      }
 
-      params = {
-        toPostalCode: zipCode,
-        toCountry: country.isoCode,
-        toState: state.isoCode,
-        cartItems,
+        params = {
+          toPostalCode: zipCode,
+          toCountry: country.isoCode,
+          toState: state.isoCode,
+          cartItems,
+        }
       }
     } else {
       const { print, quantity, size } = printData
       let item_id = size.id
       params = {
-        toPostalCode: zipCode,
         toCountry: country.isoCode,
         toState: state.isoCode,
         cartItems: [
@@ -153,22 +160,30 @@ const ShoppingCartPhysicalShipping = props => {
 
     setIsLoading(true)
 
-    merchAPI.prepareCart(params).then(
-      response => {
-        if (response?.shippingMethods?.length > 0) {
-          if (printData[0].version === 'v2')
-            onCheckoutV2(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
-          else {
+    if (cartVersion === 'v1') {
+      merchAPI.prepareCart(params).then(
+        response => {
+          if (response?.shippingMethods?.length > 0) {
             onNext({ data, method: response })
             setIsLoading(false)
-          }
-        } else setIsLoading(false)
-      },
-      error => {
-        setIsLoading(false)
-        setShowAlert(true)
-      }
-    )
+          } else setIsLoading(false)
+        },
+        error => {
+          setIsLoading(false)
+          setShowAlert(true)
+        }
+      )
+    } else {
+      storeAPI.prepareCart(params).then(
+        response => {
+          onCheckoutV2(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
+        },
+        error => {
+          setIsLoading(false)
+          setShowAlert(true)
+        }
+      )
+    }
   }
 
   const onCheckoutV2 = serviceCode => {

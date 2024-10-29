@@ -288,24 +288,16 @@ const MerchShopCard = props => {
               </div>
             ) : (
               <div>
-                {/* <div className="w-full flex justify-between">
-                  <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                </div> */}
                 <div className="w-full flex justify-between">
                   <div
-                    className="w-[42px] h-[42px] rounded-full overflow-hidden"
+                    className="w-[30px] h-[30px] rounded-full overflow-hidden"
                     onClick={() => {
                       router.push(`/${data.username}`)
                     }}
                   >
-                    <ImageWithFoster src={userAvatar ?? data.user_profile_picture} width={42} />
+                    <ImageWithFoster src={userAvatar ?? data.user_profile_picture} width={30} />
                   </div>
 
-                  {/* <div className={styles.saleCount}>
-                     {data.supply
-                       ? `${data.supply - data.current_supply}/${data.supply} left`
-                       : `${data.current_supply} sold`}
-                  </div> */}
                   <div className="flex gap-[10px]">
                     {data.supply && <MerchTypeIconMenu type={'supply'} timeLeft={null} />}
                     {showTimer && <MerchTypeIconMenu type={'timer'} timeLeft={timeLeft} />}

@@ -60,7 +60,7 @@ const Shopping = ({ nftDetail }: BrowseNFTProps) => {
   useEffect(() => {
     const orders = JSON.parse(localStorage.getItem('checked'))
     let cart_version = localStorage.getItem('cart_version')
-    setCartVersion(cartVersion)
+    setCartVersion(cart_version)
 
     setTimeout(() => {
       const promises = orders.map(array => {

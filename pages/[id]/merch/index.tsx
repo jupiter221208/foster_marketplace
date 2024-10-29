@@ -101,7 +101,7 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-end">
+          <div className="w-full lg:mt-[30px] mt-[20px] flex justify-end">
             <div className="flex gap-[15px] sm:gap-[25px]">
               <div className="flex items-center gap-[15px] lg:gap-[20px]">
                 <MenuShareMerch
@@ -124,7 +124,7 @@ const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) =>
               </div>
             </div>
           </div>
-          <div className="w-full mt-[20px] sm:mt-[30px] pb-[150px]">
+          <div className="w-full mt-[20px] lg:mt-[30px] pb-[150px]">
             {artistInfo && (
               <CreatorMerchShop
                 username={artistInfo?.username}
