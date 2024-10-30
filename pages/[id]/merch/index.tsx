@@ -12,10 +12,9 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import ProfileMerchReview from 'components/pages/ArtistProfile/ProfileMerchReview'
+import Alert from 'components/Alert'
 
 // images
-import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import PreviewImage from 'assets/images/studio-preview-image-user.png'
@@ -24,14 +23,15 @@ import PreviewImage from 'assets/images/studio-preview-image-user.png'
 
 // styles
 import styles from './index.module.scss'
+import MenuShareMerch from 'components/Menu/MenuShareMerch'
 
 interface CreatorMerchProps {
-  artistPublicKey?: string
+  storeInfoData?: any
   publicArtistData?: any
   error?: string
 }
 
-const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
+const CreatorMerch = ({ storeInfoData, publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(null)
   useEffect(() => {
     setArtistInfo(publicArtistData)
@@ -41,11 +41,15 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const { publicKey } = useWallet()
 
   const [openShareModal, setOpenShareModal] = useState(false)
+  const [data, setData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState<boolean>(false)
 
   let username = publicArtistData?.username ?? '<not found>'
-  let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
-  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
-  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+  let pageTitle = storeInfoData ? storeInfoData.name : `The Official Merch Store of ${username} | Foster Studio`
+  let pageImageUrl = storeInfoData ? storeInfoData.assetUrl : getAbsoluteOgUrl(PreviewImage.src)
+  let pageDescription = storeInfoData
+    ? storeInfoData.description
+    : `Shop limited-edition apparel and collectibles designed by ${username}.`
   let userTwitterHandle = getTwitterUsername(publicArtistData?.twitter_url)
 
   return (
@@ -97,35 +101,35 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-end">
+          <div className="w-full lg:mt-[30px] mt-[20px] flex justify-end">
             <div className="flex gap-[15px] sm:gap-[25px]">
-              {publicKey?.toBase58() === artistInfo?.wallet_id && (
-                <div
-                  className={styles.add}
-                  onClick={() => {
-                    let path = window.location.href
-                    router.push(`${path}/new`)
+              <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                <MenuShareMerch
+                  newProductURL={`/${artistInfo?.username}/merch/new`}
+                  merchUrl={`/${artistInfo?.username}/merch`}
+                  isCreatedMerch={publicKey?.toBase58() === artistInfo?.wallet_id}
+                  setOpenShareModal={setOpenShareModal}
+                  setCopyLinkSuccess={() => {
+                    setData([
+                      {
+                        id: 0,
+                        title: 'Copied successfully!',
+                        description: 'Wallet address is copied successfully!',
+                        type: 'success',
+                      },
+                    ])
+                    setShowAlert(true)
                   }}
-                >
-                  <div className="">
-                    <PlusIcon />
-                  </div>
-                  <div className="">Add</div>
-                </div>
-              )}
-              <div className={`flex w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
-                <div className="">
-                  <ShareDesktopIcon alt="" />
-                </div>
-                <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
+                />
               </div>
             </div>
           </div>
-          <div className="w-full mt-[20px] sm:mt-[30px] pb-[150px]">
+          <div className="w-full mt-[20px] lg:mt-[30px] pb-[150px]">
             {artistInfo && (
               <CreatorMerchShop
                 username={artistInfo?.username}
                 userId={artistInfo?.id}
+                userAvatar={artistInfo?.profile_picture?.length > 0 ? artistInfo?.profile_picture : DefaultAvatar.src}
                 isCreator={publicKey?.toBase58() === artistInfo?.wallet_id}
               />
             )}
@@ -141,6 +145,14 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           url={`/${artistInfo?.username}/merch`}
         />
       )}
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={data}
+      />
     </div>
   )
 }
@@ -157,9 +169,13 @@ CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorM
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
-    let artistPublicKey = publicArtistData.wallet_id
+    let storeInfoData = await fetch(`${process.env.BACKEND_URL}v1/merch_stores/${publicArtistData.id}`).then(r =>
+      r.json()
+    )
+    if (storeInfoData.hasOwnProperty('message')) storeInfoData = null
+
     return {
-      artistPublicKey,
+      storeInfoData,
       publicArtistData,
     }
   } catch (e: any) {

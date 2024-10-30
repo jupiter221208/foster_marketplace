@@ -28,7 +28,7 @@ import StoreMerchActivateModal from 'components/Menu/StoreMerchActivateModal'
 import MerchTypeIconMenu from 'components/Menu/MerchTypeIconMenu'
 
 const MerchShopCard = props => {
-  const { username, data } = props
+  const { userAvatar = null, username, data } = props
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
   const [swiper, setSwiper] = useState(null)
@@ -289,15 +289,17 @@ const MerchShopCard = props => {
             ) : (
               <div>
                 <div className="w-full flex justify-between">
-                  <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                </div>
-                <div className="w-full flex justify-between">
-                  <div className={styles.saleCount}>
-                    {data.supply
-                      ? `${data.supply - data.current_supply}/${data.supply} left`
-                      : `${data.current_supply} sold`}
+                  <div
+                    className="w-[30px] h-[30px] rounded-full overflow-hidden"
+                    onClick={() => {
+                      router.push(`/${data.username}`)
+                    }}
+                  >
+                    <ImageWithFoster src={userAvatar ?? data.user_profile_picture} width={30} />
                   </div>
+
                   <div className="flex gap-[10px]">
+                    {data.supply && <MerchTypeIconMenu type={'supply'} timeLeft={null} />}
                     {showTimer && <MerchTypeIconMenu type={'timer'} timeLeft={timeLeft} />}
                     <MerchTypeIconMenu
                       type={data.master_edition_address?.length > 0 ? 'edition' : data.fulfillment_type}

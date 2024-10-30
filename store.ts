@@ -49,7 +49,8 @@ const initialState = {
   collectionCoverUrl: '',
   collectionKind: 'foster',
   merchBy: '',
-  cartUpdated: false
+  cartUpdated: false,
+  backBtnClicked: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

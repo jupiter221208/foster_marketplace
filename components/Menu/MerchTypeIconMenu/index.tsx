@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 // third party components
 
 // images and icons
+import SupplyIcon from 'assets/icons/supply-icon-16x15.svg?component'
 import FosterIcon from 'assets/icons/foster-icon-13x15.svg?component'
 import ProfileIcon from 'assets/icons/profile-icon-12x15.svg?component'
 import EditionIcon from 'assets/icons/edition-icon-15x15.svg?component'
@@ -44,7 +45,9 @@ const MerchTypeIconMenu = ({ type, timeLeft = null }: MenuSocialShareProps) => {
           }}
         >
           <div className={styles.iconContainer}>
-            {type === 'foster' ? (
+            {type === 'supply' ? (
+              <SupplyIcon />
+            ) : type === 'foster' ? (
               <FosterIcon />
             ) : type === 'user' ? (
               <ProfileIcon />
@@ -60,7 +63,16 @@ const MerchTypeIconMenu = ({ type, timeLeft = null }: MenuSocialShareProps) => {
           <div
             className={styles.menuArea}
             style={{
-              width: type === 'foster' ? 180 : type === 'user' ? 115 : type === 'edition' ? 270 : 200,
+              width:
+                type === 'supply'
+                  ? 125
+                  : type === 'foster'
+                  ? 180
+                  : type === 'user'
+                  ? 115
+                  : type === 'edition'
+                  ? 270
+                  : 220,
             }}
           >
             <div className={styles.menuItem}>
@@ -94,6 +106,8 @@ const MerchTypeIconMenu = ({ type, timeLeft = null }: MenuSocialShareProps) => {
                     )}
                   </div>
                 </div>
+              ) : type === 'supply' ? (
+                'Limited Edition'
               ) : type === 'foster' ? (
                 'Foster-Fulfilled Product'
               ) : type === 'user' ? (

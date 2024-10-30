@@ -1,5 +1,19 @@
 import * as moment from 'moment'
 
+export enum ProductModel {
+  TShirt = 2,
+  WomonTee = 4,
+  PoloShirt = 8,
+  OversizedTee = 9,
+  OversizedHoodie = 10,
+  TieHoodie = 11,
+  CropShirt = 13,
+  CropHoodie = 14,
+  SweatPant = 15,
+  DadHat = 16,
+  Beanie = 17,
+}
+
 export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
@@ -156,12 +170,16 @@ export const getDateLabel = date => {
 }
 
 export const getDateTimeLabel = date => {
+  let proposalTime = new Date(date)
+  let offset = proposalTime.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = proposalTime.getTime() - offset
+  let localDate = new Date(proposalEndTime)
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  let month = months[date.getMonth()]
-  let day = date.getDate()
-  let year = date.getFullYear()
-  let hours = date.getHours()
-  let mins = date.getMinutes()
+  let month = months[localDate.getMonth()]
+  let day = localDate.getDate()
+  let year = localDate.getFullYear()
+  let hours = localDate.getHours()
+  let mins = localDate.getMinutes()
   return month + ' ' + day + ', ' + year + ' ' + hours + ':' + mins
 }
 
@@ -527,6 +545,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', 'rgba(239, 240, 247, 0.8')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(241, 255, 255, 1)')
     doc.style.setProperty('--auction-input-bg', '#202427')
+    doc.style.setProperty('--social-icon-bg', '#EFF0F6')
     doc.style.setProperty('--see-more-border', '#D7D8DE')
     doc.style.setProperty('--follow-btn-border', 'D7D8DE')
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(32, 36, 39, 0.25)')
@@ -590,7 +609,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-activity-icon', '#202427')
     doc.style.setProperty('--card-border-color', '#C1C2C9')
     doc.style.setProperty('--search-menu-icon-color', '#202427')
-    doc.style.setProperty('--social-bg-color', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--social-bg-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--wallet-detail-bg', '#FFFFFF')
     doc.style.setProperty('--shipping-board-bg', 'rgba(32, 36, 39, 0.05)')
     doc.style.setProperty('--nft-border-color', '#D7D8DE')
@@ -756,6 +775,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-0A0A0A-E8E7E5', '#E8E7E5')
     doc.style.setProperty('--bg-242424-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-F3F2F0-202427', '32, 36, 39')
+    doc.style.setProperty('--bg-2A2A2A-D9D9D8', '#D9D9D8')
+    doc.style.setProperty('--bg-1A1A1A-C7C6C6', '#C7C6C6')
     doc.style.setProperty('--bg-2B2F32-FFF', '#FFF')
     // =====================================================
     // =====================================================
@@ -924,6 +945,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', '#313233')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--auction-input-bg', '#202427')
+    doc.style.setProperty('--social-icon-bg', '#202427')
     doc.style.setProperty('--see-more-border', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--follow-btn-border', '#95dbd5')
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(239, 240, 247, 0.25)')
@@ -985,7 +1007,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--banner-image-bg', '#ffffff')
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
     doc.style.setProperty('--card-border-color', '#333333')
-    doc.style.setProperty('--social-bg-color', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--social-bg-color', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--wallet-detail-bg', '#242424')
     doc.style.setProperty('--shipping-board-bg', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--nft-border-color', '#292929')
@@ -1150,6 +1172,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-0A0A0A-E8E7E5', '#0A0A0A')
     doc.style.setProperty('--bg-242424-F3F2F0', '#242424')
     doc.style.setProperty('--bg-2B2F32-FFF', '#2B2F32')
+    doc.style.setProperty('--bg-2A2A2A-D9D9D8', '#2A2A2A')
+    doc.style.setProperty('--bg-1A1A1A-C7C6C6', '#1A1A1A')
     doc.style.setProperty('--bg-F3F2F0-202427', '243, 242, 240')
   }
 }

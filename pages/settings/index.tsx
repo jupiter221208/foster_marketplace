@@ -88,15 +88,15 @@ const Settings = () => {
               )}
             </div>
 
-            {/* <div className="w-full lg:w-[70%] mt-[0px] lg:mt-[20px]">
-              {selectedTab === 1 && (
+            <div className="w-full lg:w-[85%]">
+              {activeTab === 2 && (
                 <StudioSection
                   success={() => {
                     setShowAlert(true)
                   }}
                 />
               )}
-            </div> */}
+            </div>
 
             {/*<div className="w-full lg:w-[85%]">
               {selectedTab === 2 && (

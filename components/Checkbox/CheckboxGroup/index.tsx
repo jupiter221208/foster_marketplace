@@ -6,16 +6,18 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 import styles from './index.module.scss'
 
 const CheckboxGroup = props => {
-  const { categoryList, onChange, direction = 'ltr' } = props
+  const { type, categoryList, onChange, direction = 'ltr' } = props
   return (
-    <div className="w-full grid grid-cols-12 gap-4">
+    <div
+      className={`w-full grid ${
+        type === 'shoe'
+          ? 'lg:grid-cols-6 2xl:grid-cols-6 3xl:grid-cols-8'
+          : 'lg:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4'
+      } gap-[20px]`}
+    >
       {direction === 'ltr' &&
         categoryList.map((item, index) => (
-          <div
-            id={`check-label-${index}`}
-            key={index}
-            className="col-span-12 lg:col-span-6 2xl:col-span-4 3xl:col-span-3 flex items-center gap-[20px]"
-          >
+          <div id={`check-label-${index}`} key={index} className="flex items-center gap-[10px]">
             <input
               className={`${styles.checkbox} ${item.disabled ? `opacity-60` : ``}`}
               type="checkbox"

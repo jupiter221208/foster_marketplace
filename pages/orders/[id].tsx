@@ -136,21 +136,23 @@ const OrderSection = props => {
                   </div>
                 </div>
                 <div className="mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
-                  {merchList.map((merch, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() => onClickMerch(index)}
-                        className={merch.selected ? styles.image : styles.imageHover}
-                      >
-                        <div className={merch.selected ? styles.selected : styles.unselected}>
-                          <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+                  {merchList.length > 1 &&
+                    merchList.map((merch, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={() => onClickMerch(index)}
+                          className={merch.selected ? styles.image : styles.imageHover}
+                        >
+                          <div className={merch.selected ? styles.selected : styles.unselected}>
+                            <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+                          </div>
                         </div>
-                      </div>
-                    )
-                  })}
+                      )
+                    })}
                 </div>
               </div>
+
               {selectedMerch && (
                 <div className="w-full flex justify-center">
                   <div className="lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[0px]">
@@ -206,17 +208,19 @@ const OrderSection = props => {
                 </div>
               </div>
 
-              <div className={styles.imageSlider}>
-                {merchList.map((merch, index) => {
-                  return (
-                    <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
-                      <div className={merch.selected ? styles.selected : styles.unselected}>
-                        <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+              {merchList.length > 1 && (
+                <div className={styles.imageSlider}>
+                  {merchList.map((merch, index) => {
+                    return (
+                      <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
+                        <div className={merch.selected ? styles.selected : styles.unselected}>
+                          <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
-              </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           ) : (
             <div></div>
@@ -227,7 +231,7 @@ const OrderSection = props => {
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
           } lg:flex lg:justify-end ${styles.rightBG}`}
         >
-          <div className="lg:max-w-[545px] w-full mb-[50px] mt-[20px] lg:mt-[50px] lg:ml-[30px]">
+          <div className="lg:max-w-[545px] w-full mb-[50px] mt-[0px] lg:mt-[50px] lg:ml-[30px]">
             {orderData && (
               <PhysicalCheckout
                 orderData={orderData}

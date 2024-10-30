@@ -2,6 +2,7 @@ import React from 'react'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchProductCard = props => {
   const { data, onSelectedCard } = props
@@ -10,7 +11,7 @@ const MerchProductCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea} onClick={() => onSelectedCard(data)}>
         <div className={styles.imageContent}>
-          <img src={data.image} alt="" />
+          <ImageWithFoster src={data.image} className="w-full h-full object-cover" />
         </div>
       </div>
       <div className="w-full mt-[10px]">
@@ -19,21 +20,40 @@ const MerchProductCard = props => {
       <div className="w-full mt-[10px]">
         <div className={styles.description}>{data.description}</div>
       </div>
-      <div className="w-full h-[20px] mt-[9px] flex justify-between">
+      <div className="w-full h-[20px] mt-[15px] lg:mt-[20px] flex justify-between">
         <div className="flex gap-[9px]">
-          <div className={styles.blackColor} />
-          <div className={styles.whiteColor} />
+          {data.color.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  item === 'white'
+                    ? styles.whiteColor
+                    : item === 'black'
+                    ? styles.blackColor
+                    : item === 'blue'
+                    ? styles.blueColor
+                    : item === 'red'
+                    ? styles.redColor
+                    : item === 'gray'
+                    ? styles.grayColor
+                    : item === 'gray_dark'
+                    ? styles.grayDarkColor
+                    : item === 'gray_middle'
+                    ? styles.grayMiddleColor
+                    : item === 'green'
+                    ? styles.greenColor
+                    : item === 'pink'
+                    ? styles.pinkColor
+                    : item === 'yellow'
+                    ? styles.yellowColor
+                    : styles.purpleColor
+                }
+              />
+            )
+          })}
         </div>
         <div className={styles.size}>{data.size}</div>
-      </div>
-
-      <div className="w-full mt-[30px] mb-[10px]">
-        <div
-          className={data.selected ? styles.startEnableBtn : styles.startDisableBtn}
-          onClick={() => onSelectedCard(data)}
-        >
-          Start&nbsp;Designing
-        </div>
       </div>
     </div>
   )

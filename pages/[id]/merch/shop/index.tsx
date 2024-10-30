@@ -12,7 +12,7 @@ import StoreAPI from 'apis/store'
 import styles from './index.module.scss'
 
 const CreatorMerchShop = props => {
-  const { username, userId, isCreator } = props
+  const { username, userAvatar, userId, isCreator } = props
   const [merchList, setMerchList] = useState([])
   const [loaded, setLoaded] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
@@ -67,10 +67,10 @@ const CreatorMerchShop = props => {
   return (
     <div className="w-full">
       {merchList.length > 0 ? (
-        <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+        <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px]">
           {merchList.map((item, index) => (
             <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={item.id}>
-              <MerchShopCard username={username} data={item} />
+              <MerchShopCard userAvatar={userAvatar} username={username} data={item} />
             </div>
           ))}
         </div>

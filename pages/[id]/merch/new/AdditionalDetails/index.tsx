@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useViewport } from 'utils'
+import { ProductModel, validDigits, validInteger } from 'utils/helpers'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -21,13 +23,10 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { useViewport } from 'utils'
-import { validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
   const { username, productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
-
   const [assetUrls, setAssetUrls] = useState([])
   const [apparelUrl, setApparelUrl] = useState('')
   const [title, setTitle] = useState('')
@@ -171,9 +170,7 @@ const AdditionalDetails = props => {
     let { snapshotAssetUrl, selectedCard, technique, color, name, description } = productDetail
     if (productDetail.product?.id === 0) {
       setPriceBase(selectedCard.price[technique])
-
       let desc = generateDescription(selectedCard, technique, color)
-
       setDescription(desc)
 
       if (snapshotAssetUrl.front !== '') {
@@ -182,7 +179,7 @@ const AdditionalDetails = props => {
       if (snapshotAssetUrl.back !== '') {
         urls.push(snapshotAssetUrl.back)
       }
-      if (technique === 'dtg') {
+      if (technique === 'dtg' || technique === 'dtf') {
         if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') setPriceFB(8.5)
       } else {
         if (snapshotAssetUrl.back !== '') setPriceFB(8.5)
@@ -236,27 +233,75 @@ const AdditionalDetails = props => {
   }, [sellingPrice])
 
   const generateDescription = (selectedCard, tech, color) => {
-    console.log
     let description = ''
-    let technique = tech === 'dtg' ? 'direct-to-garment' : 'embroidery'
+    let technique = tech === 'dtg' ? 'direct-to-garment' : tech === 'dtf' ? 'direct-to-film' : 'embroidery'
     let side = getCardSide()
-    if (selectedCard.id === 0) {
-      description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
-    } else if (selectedCard.id === 1) {
-      description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
-    } else if (selectedCard.id === 2) {
-      description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
-    } else if (selectedCard.id === 3) {
-      description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
-    } else {
-      description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+
+    switch (selectedCard.id) {
+      case 0:
+        description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
+        break
+      case 1:
+        description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
+        break
+      case 2:
+        description = `Designed by ${username}, this ${color} tee is a closet staple—built from heavyweight cotton for a strong, structured vibe. Printed with precision using ${technique} on the ${side}.`
+        break
+      case 3:
+        description = `Designed by ${username}, this ${color} crewneck blends comfort with an elevated fleece feel. Printed using ${technique} on the ${side}.`
+        break
+      case 4:
+        description = `Designed by ${username} for the eco-conscious, this ${color} fitted women's tee is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+        break
+      case 5:
+        description = `Designed by ${username}, this bomber jacket has a looser fit that provides extra comfort and free movement. Embroidered with precision on the ${side}.`
+        break
+      case 6:
+        description = `Designed by ${username}, this ${color} jean jacket blends comfort with movement. Precision embroidery on the ${side}.`
+        break
+      case 7:
+        description = `Designed by ${username}, this leather bomber is an essential for every closet. Embroidered with precision on the ${side}.`
+        break
+      case 8:
+        description = `Designed by ${username}, this ${color} delivers style in 100% combed ring-spun cotton. Printed using ${technique} on the ${side}.`
+        break
+      case 9:
+        description = `Designed by ${username} for anyone seeking vintage street fashion. This ${color} oversized tee is made from 100% carded cotton and printed with precision using ${technique} on the ${side}.`
+        break
+      case 10:
+        description = `Designed by ${username}, this ${color} oversized hoodie is your go-to for next-level comfort. Printed with care using ${technique}on the ${side}.`
+        break
+      case 11:
+        description = `Designed by ${username} using Champion’s tie-dye fabric, this hoodie blends old-school and bold. Embroidered with precision on the ${side}.`
+        break
+      case 12:
+        description = `Conquer the elements in this Columbia soft shell, designed by ${username}. Precision embroidery on the ${side} keeps your style sharp, no matter the weather.`
+        break
+      case 13:
+        description = `Designed by ${username} for the lassies, this ${color} cropped sweatshirt is crafted from organic cotton. Printed with care using ${technique} on the ${side}.`
+        break
+      case 14:
+        description = `Designed by ${username} for the lassies, this ${color} cropped hoodie is made from soft, organic cotton. Printed with care using ${technique} on the ${side}.`
+        break
+      case 15:
+        description = `Designed by ${username}, these ${color} fleece sweatpants deliver comfort with a purpose, featuring a crotch gusset and three spacious pockets. Printed with care using ${technique} on the ${side}.`
+        break
+      case 16:
+        description = `A timeless look. Designed by ${username}, this classic dad hat is embroidered with precision on the ${side}.`
+        break
+      case 17:
+        description = `Snug. Bold. Designed by ${username}, this ${color} cuffed beanie is embroidered with precision.`
+        break
+      default:
+        description = ''
     }
+
     return description
   }
 
   const getCardSide = () => {
     let card_side = []
-    const { snapshotAssetUrl, technique, side, detailSide } = productDetail
+    const { snapshotAssetUrl, technique, selectedCard, detailSide } = productDetail
     if (technique === 'dtg') {
       if (snapshotAssetUrl.front !== '') {
         if (detailSide === 'front') card_side.push('full front')
@@ -274,17 +319,35 @@ const AdditionalDetails = props => {
       }
     } else {
       if (snapshotAssetUrl.front !== '') {
-        if (detailSide === 'chest') card_side.push('left chest')
+        if (selectedCard.id === ProductModel.DadHat) card_side.push('front')
+        else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
+        else card_side.push('front')
       }
       if (snapshotAssetUrl.right !== '') {
-        card_side.push('right wrist')
+        if (
+          selectedCard.id === ProductModel.PoloShirt ||
+          selectedCard.id === ProductModel.OversizedTee ||
+          selectedCard.id === ProductModel.OversizedHoodie
+        )
+          card_side.push('right sleeve')
+        else if (selectedCard.id === ProductModel.DadHat) card_side.push('right')
+        else card_side.push('right wrist')
       }
       if (snapshotAssetUrl.left !== '') {
-        card_side.push('left wrist')
+        if (
+          selectedCard.id === ProductModel.PoloShirt ||
+          selectedCard.id === ProductModel.OversizedTee ||
+          selectedCard.id === ProductModel.OversizedHoodie
+        )
+          card_side.push('left sleeve')
+        else if (selectedCard.id === ProductModel.DadHat) card_side.push('left')
+        else card_side.push('left wrist')
       }
       if (snapshotAssetUrl.back !== '') {
-        card_side.push('back(DTG)')
+        if (selectedCard.id < 5) card_side.push('back(DTG)')
+        if (selectedCard.id === ProductModel.DadHat) card_side.push('back')
+        else card_side.push('back')
       }
     }
     return card_side.join(', ')
@@ -333,7 +396,6 @@ const AdditionalDetails = props => {
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
               <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Production Details</div>
-              {/* <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div> */}
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -439,8 +501,32 @@ const AdditionalDetails = props => {
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
-              <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
-              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div>
+              {(productDetail.type.id === 12 || productDetail.type.id === 13) && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Available Sizes</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.sizes.join(', ')}</div>
+                </div>
+              )}
+              {/* <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
+              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div> */}
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Shipping from</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{productDetail.country.name}</div>
+                </div>
+              )}
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Domestic Shipping Fee</div>
+                  <div className={`${styles.desc} mt-[10px]`}>${productDetail.shippingFee}</div>
+                </div>
+              )}
+              {productDetail.shipping.id === 1 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>International Shipping Fee</div>
+                  <div className={`${styles.desc} mt-[10px]`}>${productDetail.interShippingFee}</div>
+                </div>
+              )}
             </div>
             <div className="w-full mt-[20px]">
               <div className={styles.title}>Commision Details</div>

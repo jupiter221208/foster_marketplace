@@ -1,18 +1,10 @@
 [
   {
     "id": 0,
-    "label": "Domestic & international - paid by the seller"
+    "label": "Shipping fees not included in price"
   },
   {
     "id": 1,
-    "label": "Domestic & international - paid by the buyer"
-  },
-  {
-    "id": 2,
-    "label": "Domestic shipping only - to be paid by the buyer"
-  },
-  {
-    "id": 3,
-    "label": "Domestic shipping only - to be paid by the seller"
+    "label": "Shipping fees included in price"
   }
 ]

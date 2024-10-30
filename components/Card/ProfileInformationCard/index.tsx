@@ -16,7 +16,7 @@ import TwitterWhiteIcon from 'assets/icons/twitter-white-15x15.svg?component'
 import WebsiteIcon from 'assets/icons/website-icon-15x15.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-white-15x15.svg?component'
 import LandIcon from 'assets/icons/land-icon-15x15.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-white-icon.svg?component'
 import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg?component'
 import FileCopyIcon from 'assets/icons/file-copy-white.svg?component'
 

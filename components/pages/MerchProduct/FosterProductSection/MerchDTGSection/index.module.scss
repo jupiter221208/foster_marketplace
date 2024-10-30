@@ -149,6 +149,7 @@
 
 .selectedBtn {
   width: 100%;
+  max-width: 218px;
   height: 50px;
   font-family: 'Muli-Regular';
   font-size: 16px;
@@ -164,6 +165,7 @@
 
 .unselectedBtn {
   width: 100%;
+  max-width: 218px;
   height: 50px;
   font-family: 'Muli-Regular';
   font-size: 16px;
@@ -190,6 +192,78 @@
   height: 32px;
   border-radius: 16px;
   background: black;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.purpleColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #3C3334;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.blueColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #8696A5;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.redColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #B9535D;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.grayColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #D2CEC6;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.grayDarkColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #424242;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.grayMiddleColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #4F4F4F;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.greenColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #BFD4CC;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.pinkColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #EAB59E;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.yellowColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #E4DFD7;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
@@ -291,6 +365,7 @@
   @media (min-width: 1024px) {
     margin-top: 2px;
   }
+  cursor: pointer;
 }
 
 .uploadArea {
@@ -373,4 +448,13 @@
   line-height: 20px;
   text-align: center;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.rightBG {
+  @media (min-width: 1024px) {
+    background: var(--background-main-color);
+    box-shadow: 0px 3px 6px rgba(0,0,0, 0.16);
+    overflow: auto;
+    padding-bottom: 50px;
+  }
 }
