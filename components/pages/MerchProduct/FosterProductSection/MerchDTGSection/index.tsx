@@ -687,34 +687,60 @@ const MerchDTGSection = props => {
                       }}
                       maxSize={10485760}
                     >
-                      {({ getRootProps, getInputProps, open }) => (
-                        <div className={`${styles.dropArea}`} onClick={open}>
-                          <button onClick={open} style={{ display: 'none' }}>
-                            open
-                          </button>
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <div className="flex flex-col justify-center items-center">
-                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
-                                <Lottie animationData={animationData} loop={true} />
+                      {({ getRootProps, getInputProps, open }) =>
+                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                          <div className={`${styles.dropArea}`}>
+                            <button onClick={open} style={{ display: 'none' }}>
+                              open
+                            </button>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <div className="flex flex-col justify-center items-center">
+                                <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
+                                  <Lottie animationData={animationData} loop={true} />
+                                </div>
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <div className={styles.uploadText}>
+                                    Upload your
+                                    <br />
+                                    design here
+                                  </div>
+                                ) : (
+                                  <div className={styles.uploadText}>
+                                    Upload or drop
+                                    <br />
+                                    your design here
+                                  </div>
+                                )}
                               </div>
-                              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                <div className={styles.uploadText}>
-                                  Upload your
-                                  <br />
-                                  design here
-                                </div>
-                              ) : (
-                                <div className={styles.uploadText}>
-                                  Upload or drop
-                                  <br />
-                                  your design here
-                                </div>
-                              )}
                             </div>
                           </div>
-                        </div>
-                      )}
+                        ) : (
+                          <div className={`${styles.dropArea}`} onClick={open}>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <div className="flex flex-col justify-center items-center">
+                                <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
+                                  <Lottie animationData={animationData} loop={true} />
+                                </div>
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <div className={styles.uploadText}>
+                                    Upload your
+                                    <br />
+                                    design here
+                                  </div>
+                                ) : (
+                                  <div className={styles.uploadText}>
+                                    Upload or drop
+                                    <br />
+                                    your design here
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      }
                     </Dropzone>
                   )}
                 </div>
