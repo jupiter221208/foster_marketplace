@@ -180,18 +180,33 @@ const AdditionalDetails = props => {
         urls.push(snapshotAssetUrl.back)
       }
       if (technique === 'dtg' || technique === 'dtf') {
-        if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') setPriceFB(8.5)
+        if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') {
+          if (selectedCard.id === ProductModel.DadHat) setPriceFB(5)
+          else setPriceFB(8.5)
+        }
       } else {
-        if (snapshotAssetUrl.back !== '') setPriceFB(8.5)
+        if (snapshotAssetUrl.back !== '') {
+          if (selectedCard.id === ProductModel.DadHat) setPriceFB(5)
+          else setPriceFB(8.5)
+        }
       }
 
       if (snapshotAssetUrl.right !== '') {
         urls.push(snapshotAssetUrl.right)
-        setPriceRight(7)
+
+        if (selectedCard.id === ProductModel.DadHat) setPriceRight(5)
+        else if (selectedCard.id === ProductModel.PoloShirt) {
+          if (technique === 'dtf') setPriceRight(6)
+          else setPriceRight(5)
+        } else setPriceRight(7)
       }
       if (snapshotAssetUrl.left !== '') {
         urls.push(snapshotAssetUrl.left)
-        setPriceLeft(7)
+        if (selectedCard.id === ProductModel.DadHat) setPriceLeft(5)
+        else if (selectedCard.id === ProductModel.PoloShirt) {
+          if (technique === 'dtf') setPriceLeft(6)
+          else setPriceLeft(5)
+        } else setPriceLeft(7)
       }
       let assetUrl = []
       urls.map((url, index) => {

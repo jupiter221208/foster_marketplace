@@ -664,7 +664,6 @@ const MerchDTGSection = props => {
                   ) : (
                     <Dropzone
                       onDrop={acceptedFiles => {
-                        alert(acceptedFiles.length)
                         if (acceptedFiles.length !== 0) {
                           setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
                           setShowEmbPosModal(false)
@@ -690,7 +689,6 @@ const MerchDTGSection = props => {
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <div className={`${styles.dropArea}`} onClick={open}>
-                          <button style={{ display: 'none' }}>open</button>
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
                             <div className="flex flex-col justify-center items-center">
