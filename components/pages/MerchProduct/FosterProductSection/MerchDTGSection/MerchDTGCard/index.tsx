@@ -50,7 +50,7 @@ const MerchDTGCard = props => {
       else label = 'Back'
     } else if (side === 'right') {
       if (cardId === ProductModel.SweatPant) return 'Back left leg'
-      if (cardId === ProductModel.DadHat) return 'Right'
+      if (cardId === ProductModel.DadHat) return 'Right panel'
       if (
         cardId === ProductModel.TShirt ||
         cardId === ProductModel.WomonTee ||
@@ -63,7 +63,7 @@ const MerchDTGCard = props => {
       else label = 'Right Wrist'
     } else {
       if (cardId === ProductModel.SweatPant) return 'Back right leg'
-      if (cardId === ProductModel.DadHat) return 'Left'
+      if (cardId === ProductModel.DadHat) return 'Left panel'
       if (
         cardId === ProductModel.TShirt ||
         cardId === ProductModel.WomonTee ||
