@@ -681,7 +681,10 @@ const MerchDTGSection = props => {
                         setShowAlert(true)
                       }}
                       maxFiles={1}
-                      accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      accept={{
+                        'image/jpeg': [],
+                        'image/png': [],
+                      }}
                       maxSize={10485760}
                     >
                       {({ getRootProps, getInputProps, open }) => (
