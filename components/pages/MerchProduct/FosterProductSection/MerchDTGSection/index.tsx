@@ -689,6 +689,9 @@ const MerchDTGSection = props => {
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <div className={`${styles.dropArea}`} onClick={open}>
+                          <button onClick={open} style={{ display: 'none' }}>
+                            open
+                          </button>
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
                             <div className="flex flex-col justify-center items-center">
