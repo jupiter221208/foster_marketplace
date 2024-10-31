@@ -664,6 +664,7 @@ const MerchDTGSection = props => {
                   ) : (
                     <Dropzone
                       onDrop={acceptedFiles => {
+                        alert(acceptedFiles.length)
                         if (acceptedFiles.length !== 0) {
                           setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
                           setShowEmbPosModal(false)
