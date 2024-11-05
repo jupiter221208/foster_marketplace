@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { fabric } from 'fabric'
 import { useViewport } from 'utils'
 import { useSelector } from 'react-redux'
-import { useAuthentication } from 'hooks/useAuthentication'
 
 import Dropzone from 'react-dropzone'
 
@@ -38,7 +37,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 const MerchDTGSection = props => {
   const { selectedCard, productDetail, setProductDetail } = props
   const viewport = useViewport()
-  const { profileInfo } = useAuthentication()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const [canvas, setCanvas] = useState('')
   const [cardSide, setCardSide] = useState('front')
@@ -782,11 +780,44 @@ const MerchDTGSection = props => {
         >
           <div className="lg:mt-[60px] ml-[40px] 2xl:mt-[60px] 2xl:ml-[100px]">
             <div className={styles.studioDesinger}>Studio Designer</div>
-            <div className={`${styles.garment} mt-[15px]`}>
-              You can place up to 4 different designs, but only 1 design (front or back) is included in the base price.
-              Additional designs will include additional fees – please see{' '}
-              <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
-            </div>
+
+            {selectedCard.id === ProductModel.BomberJacket ||
+            selectedCard.id === ProductModel.DenimJacket ||
+            selectedCard.id === ProductModel.LeatherJacket ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                This item includes two print areas, but only front embroidery is covered in the base price. Back
+                embroidery costs extra, based on design size.
+              </div>
+            ) : selectedCard.id === ProductModel.SoftShell ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                This item includes four print areas, but only front embroidery is covered in the base price. Additional
+                designs will incur extra fees—see <span onClick={() => setShowInfoModal(true)}>product extras</span> for
+                a breakdown of prices.
+              </div>
+            ) : selectedCard.id === ProductModel.Beanie ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                This item includes one embroidery area on the front. Select a color and upload your design.
+              </div>
+            ) : selectedCard.id === ProductModel.SweatPant ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                You can add up to 2 designs, with 1 (front or back) included in the base price. Additional designs will
+                incur extra fees—see{' '}
+                <span onClick={() => setShowInfoModal(true)}>product extras for pricing details.</span>
+                <br /> Choose a printing technique, fabric color, and upload your designs.
+              </div>
+            ) : selectedCard.id === ProductModel.TieHoodie ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                This item includes two print areas, but only front embroidery is covered in the base price. Additional
+                designs will incur extra fees—see <span onClick={() => setShowInfoModal(true)}>product extras</span> for
+                a breakdown of prices. Select a color and upload your design.
+              </div>
+            ) : (
+              <div className={`${styles.garment} mt-[15px]`}>
+                You can place up to 4 different designs, but only 1 design (front or back) is included in the base
+                price. Additional designs will include additional fees – please see{' '}
+                <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
+              </div>
+            )}
 
             <div className="w-full mt-[20px]">
               <div className={styles.technique}>
@@ -840,22 +871,39 @@ const MerchDTGSection = props => {
                     Direct to Film (DTF)
                   </div>
                 )}
-                {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
-                  <div
-                    className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
-                    onClick={() => {
-                      if (isSaved()) {
-                        setQuestionType('technique_emb')
-                        setShowQuestionModal(true)
-                      } else {
-                        setTechnique('emb')
-                        setCardSide('front')
-                      }
-                    }}
-                  >
-                    Embroidery
-                  </div>
-                )}
+                {apparelList[selectedCard.id].location.hasOwnProperty('emb') &&
+                  (apparelList[selectedCard.id].location.hasOwnProperty('dtf') ||
+                  apparelList[selectedCard.id].location.hasOwnProperty('dtg') ? (
+                    <div
+                      className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
+                      onClick={() => {
+                        if (isSaved()) {
+                          setQuestionType('technique_emb')
+                          setShowQuestionModal(true)
+                        } else {
+                          setTechnique('emb')
+                          setCardSide('front')
+                        }
+                      }}
+                    >
+                      Embroidery
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.embroidery}
+                      onClick={() => {
+                        if (isSaved()) {
+                          setQuestionType('technique_emb')
+                          setShowQuestionModal(true)
+                        } else {
+                          setTechnique('emb')
+                          setCardSide('front')
+                        }
+                      }}
+                    >
+                      Embroidery
+                    </div>
+                  ))}
               </div>
             </div>
 
