@@ -1207,22 +1207,39 @@ const MerchDTGSection = props => {
                   {viewport === 'xs' ? 'Direct to Film' : 'Direct to Film (DTF)'}
                 </div>
               )}
-              {apparelList[selectedCard.id].location.hasOwnProperty('emb') && (
-                <div
-                  className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
-                  onClick={() => {
-                    if (technique !== 'emb' && isSaved()) {
-                      setQuestionType('technique_emb')
-                      setShowQuestionModal(true)
-                    } else {
-                      setTechnique('emb')
-                      setCardSide('front')
-                    }
-                  }}
-                >
-                  Embroidery
-                </div>
-              )}
+              {apparelList[selectedCard.id].location.hasOwnProperty('emb') &&
+                (apparelList[selectedCard.id].location.hasOwnProperty('dtg') ||
+                apparelList[selectedCard.id].location.hasOwnProperty('dtf') ? (
+                  <div
+                    className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
+                    onClick={() => {
+                      if (technique !== 'emb' && isSaved()) {
+                        setQuestionType('technique_emb')
+                        setShowQuestionModal(true)
+                      } else {
+                        setTechnique('emb')
+                        setCardSide('front')
+                      }
+                    }}
+                  >
+                    Embroidery
+                  </div>
+                ) : (
+                  <div
+                    className={styles.embroidery}
+                    onClick={() => {
+                      if (technique !== 'emb' && isSaved()) {
+                        setQuestionType('technique_emb')
+                        setShowQuestionModal(true)
+                      } else {
+                        setTechnique('emb')
+                        setCardSide('front')
+                      }
+                    }}
+                  >
+                    Embroidery
+                  </div>
+                ))}
             </div>
           </div>
           <div className="w-full mt-[20px]">
