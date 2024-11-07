@@ -110,6 +110,8 @@ export function useAuthentication(): UseAuthenticationReturn {
   )
 
   useEffect(() => {
+    console.log(connected, publicKey?.toString(), '============connected================')
+
     if (!connected || !publicKey) return
 
     if (userInfo && userInfo.wallet_id !== publicKey.toString()) {

@@ -274,13 +274,10 @@ const PrimaryHeader = () => {
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}
-                  wallet={getShortAddress(profileInfo?.wallet_id)}
                   username={profileInfo?.username ?? ''}
                   menuList={profileMenuList}
                   onSelect={item => router.push(item.path)}
                   connectWalletStatus={connected}
-                  lightMode={lightMode}
-                  handleThemeMode={handleThemeMode}
                 />
               </div>
 

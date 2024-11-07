@@ -583,10 +583,12 @@ const MainSection = ({
   }, [endPhaseDuration, liveAuction, isEnded, endTime, highestBidAmount, nftInfo])
 
   useEffect(() => {
-    if (publicKey !== null && sellerAddress !== null) {
+    if (connected && publicKey !== null && sellerAddress !== null) {
       setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
+    } else {
+      setIsOwnNft(false)
     }
-  }, [publicKey, sellerAddress])
+  }, [connected, publicKey, sellerAddress])
 
   const handleAuctionData = useCallback(
     async (auctionListing: AuctionListing) => {
