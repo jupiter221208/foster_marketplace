@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 const ProfileMenu = props => {
-  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
+  const { avatar, username, menuList, onSelect, connectWalletStatus } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [showAlert, setShowAlert] = useState(false)
