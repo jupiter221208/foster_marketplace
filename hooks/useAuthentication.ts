@@ -14,7 +14,7 @@ export interface UseAuthenticationReturn {
 }
 
 let fetchUserPromise: null | Promise<User> = null
-let signLoginMessagePromise: null | Promise<string> = null
+let signLoginMessagePromise: null | Promise<string | void> = null
 let isFetching = false
 
 export function useAuthentication(): UseAuthenticationReturn {
@@ -26,7 +26,7 @@ export function useAuthentication(): UseAuthenticationReturn {
   const isCurrentTokenValid = useCallback((): boolean => isTokenValid(localStorage.getItem('token')), [])
 
   const getLoginMessageSignature = useCallback(
-    async (address: PublicKey): Promise<string | null> => {
+    async (address: PublicKey): Promise<string | void | null> => {
       let signature = localStorage.getItem('signature')
       if (signature?.match(/^[0-9a-f]{128}$/)) return signature
 
@@ -40,6 +40,11 @@ export function useAuthentication(): UseAuthenticationReturn {
           signLoginMessagePromise = null
           dispatch({ type: 'set', loginSignedFlag: true })
           return signature
+        }, 
+        onrejected => {
+          logout()
+          signLoginMessagePromise = null
+          return null
         })
       }
       return signLoginMessagePromise
