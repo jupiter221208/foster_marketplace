@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { type PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { setCookie } from 'cookies-next'
-
+import { setCookie, deleteCookie } from 'cookies-next'
 import { type User, default as authAPI } from 'apis/auth'
 import { isTokenValid, getSignMessageVerbiage } from 'utils/auth'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
@@ -20,7 +19,7 @@ let isFetching = false
 
 export function useAuthentication(): UseAuthenticationReturn {
   const dispatch = useDispatch()
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, disconnect, publicKey, signMessage } = useWallet()
   const [user, setUser] = useState<User | null>(null)
   const userInfo = useSelector((state: any) => state.profileInfo)
 
@@ -48,6 +47,19 @@ export function useAuthentication(): UseAuthenticationReturn {
     [connected, signLoginMessagePromise, signMessage]
   )
 
+  const logout = () => {
+    if (localStorage.getItem('walletName') === '"Phantom"') {
+      localStorage.removeItem('walletName')
+      ;(window as any).solana.disconnect()
+    } else disconnect()
+    
+    localStorage.removeItem('token')
+    dispatch({ type: 'set', profileInfo: null })
+    localStorage.removeItem('expiryDate')
+    localStorage.removeItem('signature')
+    deleteCookie('token')
+  }
+
   const refreshToken = useCallback(
     async (force: boolean = false): Promise<User | null> => {
       if (!connected) return null
@@ -67,7 +79,10 @@ export function useAuthentication(): UseAuthenticationReturn {
           signature,
         })
         .then(({ new_user, user, token, bid_wallet_lock, offer_wallet_lock }) => {
-          if (!isTokenValid(token)) throw new Error(`received invalid token after login: ${token}`)
+          if (!isTokenValid(token)) {
+            logout()
+            throw new Error(`received invalid token after login: ${token}`)
+          }
 
           user.profile_picture ??= AvatarImage.src;
           localStorage.setItem('token', token)
@@ -91,7 +106,12 @@ export function useAuthentication(): UseAuthenticationReturn {
 
   useEffect(() => {
     if (!connected || !publicKey) return
-    refreshToken().then(setUser)
+
+    if (userInfo && userInfo.wallet_id !== publicKey.toString()) {
+      logout()
+    } else {
+      refreshToken().then(setUser)
+    }
   }, [connected, publicKey, refreshToken])
 
   return { isCurrentTokenValid, refreshToken, profileInfo: userInfo,  }
