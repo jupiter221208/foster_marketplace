@@ -187,6 +187,13 @@ const AdditionalDetails = props => {
       } else {
         if (snapshotAssetUrl.back !== '') {
           if (selectedCard.id === ProductModel.DadHat) setPriceFB(5)
+          else if (
+            snapshotAssetUrl.front === '' &&
+            (selectedCard.id < 5 ||
+              selectedCard.id === ProductModel.CropShirt ||
+              selectedCard.id === ProductModel.CropHoodie)
+          )
+            setPriceFB(0)
           else setPriceFB(8.5)
         }
       }

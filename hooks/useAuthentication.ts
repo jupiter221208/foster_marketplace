@@ -6,6 +6,7 @@ import { setCookie, deleteCookie } from 'cookies-next'
 import { type User, default as authAPI } from 'apis/auth'
 import { isTokenValid, getSignMessageVerbiage } from 'utils/auth'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
+import { useRouter } from 'next/router'
 
 export interface UseAuthenticationReturn {
   isCurrentTokenValid: () => boolean
@@ -19,6 +20,7 @@ let isFetching = false
 
 export function useAuthentication(): UseAuthenticationReturn {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { connected, disconnect, publicKey, signMessage } = useWallet()
   const [user, setUser] = useState<User | null>(null)
   const userInfo = useSelector((state: any) => state.profileInfo)
@@ -63,6 +65,11 @@ export function useAuthentication(): UseAuthenticationReturn {
     localStorage.removeItem('expiryDate')
     localStorage.removeItem('signature')
     deleteCookie('token')
+
+    if (router.pathname.includes('merch-logs')) {
+      router.push('/')
+    }
+
   }
 
   const refreshToken = useCallback(
