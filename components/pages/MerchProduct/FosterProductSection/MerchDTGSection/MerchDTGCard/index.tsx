@@ -46,7 +46,11 @@ const MerchDTGCard = props => {
     } else if (side === 'back') {
       if (cardId === ProductModel.SweatPant) return 'Back'
 
-      if (cardId < OldModelCount) label = 'Back (DTG)'
+      if (
+        technique === 'emb' &&
+        (cardId < OldModelCount || cardId === ProductModel.CropShirt || cardId === ProductModel.CropHoodie)
+      )
+        label = 'Back (DTG)'
       else label = 'Back'
     } else if (side === 'right') {
       if (cardId === ProductModel.SweatPant) return 'Back left leg'
