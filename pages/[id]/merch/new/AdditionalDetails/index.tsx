@@ -187,6 +187,7 @@ const AdditionalDetails = props => {
       } else {
         if (snapshotAssetUrl.back !== '') {
           if (selectedCard.id === ProductModel.DadHat) setPriceFB(5)
+          else if (selectedCard.id < 5) setPriceFB(0)
           else setPriceFB(8.5)
         }
       }
