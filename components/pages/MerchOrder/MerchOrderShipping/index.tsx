@@ -107,27 +107,29 @@ const MerchOrderShipping = props => {
 
     setIsLoading(true)
     if (type === 'physical') {
-      onCheckout('', 'user') // user fulfilled physical
+      // user fulfilled physical
+      onCheckout('', 'user') 
     } else {
       // type === foster
-      merchAPI.prepareCart(params).then(
-        response => {
-          if (response?.shippingMethods?.length > 0) {
-            let code = ''
-            if (country.isoCode === 'US') code = 'usps_priority_mail'
-            else {
-              let services = response?.shippingMethods.filter(item => item.serviceCode === 'gp_plus')
-              if (services.length > 0) code = 'gp_plus'
-              else code = 'international'
-            }
-            onCheckout(code, 'foster')
-          } else setIsLoading(false)
-        },
-        error => {
-          setIsLoading(false)
-          setShowAlert(true)
-        }
-      )
+      onCheckout("", 'foster')
+      // merchAPI.prepareCart(params).then(
+      //   response => {
+      //     if (response?.shippingMethods?.length > 0) {
+      //       let code = ''
+      //       if (country.isoCode === 'US') code = 'usps_priority_mail'
+      //       else {
+      //         let services = response?.shippingMethods.filter(item => item.serviceCode === 'gp_plus')
+      //         if (services.length > 0) code = 'gp_plus'
+      //         else code = 'international'
+      //       }
+      //       onCheckout(code, 'foster')
+      //     } else setIsLoading(false)
+      //   },
+      //   error => {
+      //     setIsLoading(false)
+      //     setShowAlert(true)
+      //   }
+      // )
     }
   }
 
