@@ -47,8 +47,8 @@ const OpenEditionCard = ({ data }) => {
         <div className={styles.imageContent}>
           {data.assetType.includes('image') ? (
             <Link href={`/nft/${data.tokenId}`} passHref>
-              <a>
-                <div className={styles.nftShadow}>
+              <a className="w-full h-full">
+                <div className="w-full h-full">
                   {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
                     <ImageWithFoster
                       src={
@@ -92,11 +92,11 @@ const OpenEditionCard = ({ data }) => {
             </Link>
           ) : data.assetType.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full xl:h-[418px] h-[300px] overflow-hidden">
+              <div className={styles.videoArea}>
                 {data.coverImageUrl != null && data.coverImageUrl !== '' ? (
                   <Link href={`/nft/${data.tokenId}`} passHref>
                     <a>
-                      <div className="w-full xl:h-[418px] h-[300px]">
+                      <div className="w-full h-full">
                         {!loaded && (
                           <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                             <div></div>
@@ -128,9 +128,9 @@ const OpenEditionCard = ({ data }) => {
               <Link href={`/nft/${data.tokenId}`} passHref>
                 <a>
                   <div
-                    className="w-full xl:h-[418px] h-[300px] object-contain"
+                    className={`${styles.videoArea} object-contain`}
                     dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] object-contain overflow-hidden">
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
               <source src=${data.assetUrl} type="video/mp4" /></video>`,
                     }}
                   />

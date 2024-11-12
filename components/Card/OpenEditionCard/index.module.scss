@@ -60,6 +60,15 @@
   }
 }
 
+.videoArea {
+  width: 100%;
+  height: 300px;
+  @media (min-width: 1600px) {
+    height: 418px;
+  }
+  overflow: hidden;
+}
+
 .infoBox {
   padding: 30px 40px 30px 30px;
   display: flex;
