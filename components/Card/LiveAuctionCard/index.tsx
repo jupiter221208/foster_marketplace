@@ -201,6 +201,7 @@ const LiveAuctionCard = props => {
                     src={data.cover_image_url}
                     width={nftWidth}
                     onClick={onClick}
+                    originalSrc={data.fallBack}
                     className="w-full h-full object-cover"
                   />
                 </a>
@@ -212,6 +213,7 @@ const LiveAuctionCard = props => {
                     src={data.asset_url}
                     width={nftWidth}
                     onClick={onClick}
+                    originalSrc={data.fallBack}
                     className="w-full h-full object-cover"
                   />
                 </a>
