@@ -232,6 +232,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                       item.content.links.image ||
                       DefaultNftBG.src
                     }
+                    fallBack={item.content.links.image || DefaultNftBG.src}
                     artistName={item.creators[0].artist_username}
                     artistImage={item.creators[0].artist_profile_picture}
                     collectionName={collectionName}
