@@ -485,7 +485,7 @@ const Step02CollectionSection = props => {
                                 fullWidth
                                 onChange={value => onChangeCollectionDescription(item, value)}
                                 height="90px"
-                                maxHeight="150px"
+                                maxHeight="110px"
                               />
                             </div>
                           </div>
