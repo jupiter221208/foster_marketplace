@@ -4,6 +4,7 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
+import Link from 'next/link'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -17,6 +18,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
 import ThreeDotIcon from 'assets/icons/three-dot-icon-20x5.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -129,6 +131,19 @@ const MerchShopCard = props => {
       }
     }
   }
+
+  const getNextLink = () => {
+    if (data.master_edition_address === null) {
+      return `/${username}/merch/${data.id}`
+    } else {
+      if (getTimeDifference(data.sale_start_at) <= 0) {
+        if (data.master_edition_address?.length > 0) return `/nft/${data.master_edition_address}`
+        else {
+          return ''
+        }
+      }
+    }
+  }
   return (
     <div className={styles.container}>
       <div className={styles.topSection}>
@@ -147,24 +162,32 @@ const MerchShopCard = props => {
           {data.fulfillment_type === 'foster'
             ? merchItemList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div className={styles.imageContent}>
-                      <ImageWithFoster
-                        src={item.mockup_url}
-                        width={500}
-                        className="max-w-full max-h-full object-cover"
-                      />
-                    </div>
-                  </div>
+                  <Link href={getNextLink()} passHref>
+                    <a>
+                      <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                        <div className={styles.imageContent}>
+                          <ImageWithFoster
+                            src={item.mockup_url}
+                            width={500}
+                            className="max-w-full max-h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
                 </SwiperSlide>
               ))
             : merchItemList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div className={styles.imageContentPhysical}>
-                      <ImageWithFoster src={item} width={500} className="w-full h-full object-cover" />
-                    </div>
-                  </div>
+                  <Link href={getNextLink()} passHref>
+                    <a>
+                      <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                        <div className={styles.imageContentPhysical}>
+                          <ImageWithFoster src={item} width={500} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
                 </SwiperSlide>
               ))}
         </Swiper>
@@ -289,14 +312,22 @@ const MerchShopCard = props => {
             ) : (
               <div>
                 <div className="w-full flex justify-between">
-                  <div
-                    className="w-[30px] h-[30px] rounded-full overflow-hidden"
-                    onClick={() => {
-                      router.push(`/${data.username}`)
-                    }}
-                  >
-                    <ImageWithFoster src={userAvatar ?? data.user_profile_picture} width={30} />
-                  </div>
+                  <Link href={`/${data.username}`} passHref>
+                    <a>
+                      <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                        <ImageWithFoster
+                          src={
+                            userAvatar
+                              ? userAvatar
+                              : data.user_profile_picture?.length > 0
+                              ? data.user_profile_picture
+                              : DefaultAvatar.src
+                          }
+                          width={30}
+                        />
+                      </div>
+                    </a>
+                  </Link>
 
                   <div className="flex gap-[10px]">
                     {data.supply && <MerchTypeIconMenu type={'supply'} timeLeft={null} />}

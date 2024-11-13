@@ -368,7 +368,7 @@ const AdditionalDetails = props => {
       }
       if (snapshotAssetUrl.back !== '') {
         if (selectedCard.id < 5) card_side.push('back(DTG)')
-        if (selectedCard.id === ProductModel.DadHat) card_side.push('back')
+        else if (selectedCard.id === ProductModel.DadHat) card_side.push('back')
         else card_side.push('back')
       }
     }

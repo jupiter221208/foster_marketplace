@@ -46,6 +46,7 @@ export type ImageWithFosterProps = {
   quality?: number
   originalSrc?: string | null
   showPlaceHolder?: boolean
+  showNftMode?: boolean
   useNextImage?: boolean
   placeholder?: 'blur' | 'empty'
 } & React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
@@ -55,7 +56,7 @@ const ImageWithFoster = ({
   link = '',
   originalSrc = null,
   showPlaceHolder = true,
-
+  showNftMode = false,
   quality = 75,
   width,
   height,
@@ -72,6 +73,7 @@ const ImageWithFoster = ({
     width,
     height,
   })
+  // const [imageHeight, setImageHeight] = useState(0)
 
   const srcSpecs = [
     { url: heliusUrl, useNextImage: false },
@@ -86,6 +88,8 @@ const ImageWithFoster = ({
   const handleLoad = useCallback(
     e => {
       setLoaded(true)
+      // let screenWidth = window.innerWidth
+      // setImageHeight((e.naturalHeight * screenWidth) / e.naturalWidth)
       return onLoad?.(e)
     },
     [onLoad]
@@ -104,15 +108,29 @@ const ImageWithFoster = ({
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
       <div className="w-full h-full flex justify-center items-center z-1000">
         {srcSpecs[currentSrcSpecIndex]?.useNextImage ? (
-          <Image
-            src={srcSpecs[currentSrcSpecIndex]?.url}
-            onLoadingComplete={handleLoad}
-            loading="lazy"
-            layout="fill"
-            alt=""
-            onError={handleError}
-            {...rest}
-          />
+          showNftMode ? (
+            <div className={styles.mobileContainer}>
+              <Image
+                src={srcSpecs[currentSrcSpecIndex]?.url}
+                onLoadingComplete={handleLoad}
+                loading="lazy"
+                layout="fill"
+                alt=""
+                onError={handleError}
+                {...rest}
+              />
+            </div>
+          ) : (
+            <Image
+              src={srcSpecs[currentSrcSpecIndex]?.url}
+              onLoadingComplete={handleLoad}
+              loading="lazy"
+              layout="fill"
+              alt=""
+              onError={handleError}
+              {...rest}
+            />
+          )
         ) : srcSpecs[currentSrcSpecIndex]?.url ? (
           <img
             src={srcSpecs[currentSrcSpecIndex]?.url}
@@ -129,7 +147,7 @@ const ImageWithFoster = ({
       <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
         <div
           className={`${styles.skeletonLoaderOuterBox} absolute z-50 top-0 transition-all ${
-            loaded || !showPlaceHolder ? 'hidden' : 'visible'
+            loaded || (!showPlaceHolder && !showNftMode) ? 'hidden' : 'visible'
           }`}
         >
           <div className={styles.skeletonLoader} />

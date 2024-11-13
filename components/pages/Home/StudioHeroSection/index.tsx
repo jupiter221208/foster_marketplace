@@ -34,13 +34,19 @@ const StudioHeroSection = props => {
     <section className={styles.container}>
       <div className={`${styles.editionSwiper}`}>
         <Swiper
-          navigation={viewport === 'xs' ? false : true}
+          navigation={viewport === 'xs' || viewport === 'md' ? false : true}
           slidesPerView={viewport === 'xs' ? 1.12 : 1.36}
           spaceBetween={viewport === 'xs' ? 9 : 20}
           centeredSlides={true}
           loop={studioList.length > 1}
           modules={[Navigation]}
-          className={studioList.length > 1 ? 'heroNavigationSwiper' : 'noScrollNavigationSwiper'}
+          className={
+            viewport === 'xs' || viewport === 'md' || viewport === 'sm'
+              ? 'noScrollNavigationSwiper'
+              : studioList.length > 1
+              ? 'heroNavigationSwiper'
+              : 'noScrollNavigationSwiper'
+          }
         >
           {studioList.map((item, index) => (
             <SwiperSlide key={index}>
