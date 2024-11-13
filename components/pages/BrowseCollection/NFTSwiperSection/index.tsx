@@ -187,6 +187,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                         item.content.links.image ||
                         DefaultNftBG.src,
                       assetUrl: item.content.files[1]?.uri,
+                      fallBack: item.content.links.image || DefaultNftBG.src,
                       endTime: item.master_edition?.endTime,
                       startTime: item.master_edition?.startTime,
                       price: item.master_edition?.price,
@@ -212,6 +213,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                         item.content.links.image ||
                         DefaultNftBG.src,
                       current_bid: item.auction?.current_bid,
+                      fallBack: item.content.links.image || DefaultNftBG.src,
                       reserve_price: item.auction?.list_price,
                       start_time: item.auction?.start_time,
                       end_time: item.auction?.end_time,
@@ -232,6 +234,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                       item.content.links.image ||
                       DefaultNftBG.src
                     }
+                    fallBack={item.content.links.image || DefaultNftBG.src}
                     artistName={item.creators[0].artist_username}
                     artistImage={item.creators[0].artist_profile_picture}
                     collectionName={collectionName}

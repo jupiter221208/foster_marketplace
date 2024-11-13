@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 // next component
@@ -46,14 +45,6 @@ const MerchOrderDetail = props => {
     setIsTruncated(!isTruncated)
   }
 
-  const getShippingData = shipping => {
-    if (!shipping) {
-      return ''
-    }
-    if (shipping === 'd_seller') return 'Domestic & international shipping will be paid by the seller.'
-    else if (shipping === 'd_buyer') return 'Domestic & international shipping will be paid by the buyer.'
-  }
-
   return (
     <div>
       <div
@@ -87,7 +78,7 @@ const MerchOrderDetail = props => {
       <div className={`mt-[15px] ${styles.divider}`} />
 
       {/* Embroidery Disclaimer */}
-      {type === 'foster' && (
+      {type === 'foster' && productDetail?.options?.print_technique === 'embroidery' && (
         <div>
           <div
             className="w-full flex justify-between items-center mt-[15px]"

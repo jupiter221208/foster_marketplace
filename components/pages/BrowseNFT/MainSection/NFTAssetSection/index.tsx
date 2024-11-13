@@ -48,7 +48,13 @@ const NFTAssetSection = props => {
           )
         ) : nftType.includes('image') ? (
           <div className={styles.mobileImageArea}>
-            <ImageWithFoster src={currentImageUrl} width={900} showPlaceHolder={false} className="w-full" />
+            <ImageWithFoster
+              src={currentImageUrl}
+              width={900}
+              showPlaceHolder={false}
+              showNftMode={true}
+              className="w-full h-full object-contain"
+            />
           </div>
         ) : nftType.includes('audio') ? (
           <div className={styles.audioContainer}>
@@ -70,6 +76,7 @@ const NFTAssetSection = props => {
                     src={nftCoverUrl}
                     width={900}
                     showPlaceHolder={false}
+                    showNftMode={true}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -119,7 +126,6 @@ const NFTAssetSection = props => {
         </div>
       ) : nftType.includes('image') ? (
         <div className={styles.blurBackground}>
-          <div className={styles.blurImage} />
           <div className={styles.imageArea}>
             <ImageWithFoster
               src={currentImageUrl}

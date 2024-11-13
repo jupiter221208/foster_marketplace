@@ -31,7 +31,7 @@ import WomenShortSleeveB from '../../../public/images/apparel/women_t_black.png'
 import ManLongsLeeveB from '../../../public/images/apparel/man_longsleeve_black.png'
 
 const StudioReleaseCard = props => {
-  const { type = 'release', image, userName = '', nftName, onClick, nftImage, size = null } = props
+  const { type = 'release', image, originalImage = '', userName = '', nftName, onClick, nftImage, size = null } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [apparelList, setApparelList] = useState(null)
@@ -152,21 +152,21 @@ const StudioReleaseCard = props => {
                         mixBlendMode: color.blendMode,
                       }}
                       src={nftImage}
+                      originalSrc={originalImage}
                       width={200}
                       className="max-w-full max-h-full object-cover"
                     />
                   </div>
                 ) : (
-                  <div
-                    className={`${styles.noHeightFull} w-[32%] max-h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}
-                  >
+                  <div className={`w-[32%] h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}>
                     <ImageWithFoster
                       style={{
                         mixBlendMode: color.blendMode,
                       }}
                       width={200}
                       src={nftImage}
-                      className="w-full object-contain flex items-start"
+                      originalSrc={originalImage}
+                      className="max-w-full max-h-full object-cover"
                     />
                   </div>
                 )}

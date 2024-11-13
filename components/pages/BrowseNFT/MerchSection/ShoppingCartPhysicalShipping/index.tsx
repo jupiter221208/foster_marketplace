@@ -174,15 +174,16 @@ const ShoppingCartPhysicalShipping = props => {
         }
       )
     } else {
-      storeAPI.prepareCart(params).then(
-        response => {
-          onCheckoutV2(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
-        },
-        error => {
-          setIsLoading(false)
-          setShowAlert(true)
-        }
-      )
+      onCheckoutV2('')
+      // storeAPI.prepareCart(params).then(
+      //   response => {
+      //     onCheckoutV2(country.isoCode === 'US' ? 'usps_priority_mail' : 'international')
+      //   },
+      //   error => {
+      //     setIsLoading(false)
+      //     setShowAlert(true)
+      //   }
+      // )
     }
   }
 

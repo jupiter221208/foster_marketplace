@@ -176,6 +176,7 @@ const HomeEditionCard = props => {
                     src={data.coverImageUrl}
                     width={nftWidth}
                     onClick={onClick}
+                    originalSrc={data.fallBack}
                     className="w-full h-full object-cover"
                   />
                 </a>
@@ -187,6 +188,7 @@ const HomeEditionCard = props => {
                     src={data.assetUrl}
                     width={nftWidth}
                     onClick={onClick}
+                    originalSrc={data.fallBack}
                     className="mw-full h-full object-cover"
                   />
                 </a>
