@@ -139,6 +139,7 @@ export async function trySendTransaction(
       return signature
     } catch (e: any) {
       console.error(`  failed to send to chain: ${e.message}`, e)
+      if (e?.message === 'User rejected the request.') return null
     }
   }
 
