@@ -474,7 +474,7 @@ const Step02CollectionSection = props => {
                               />
                             </div>
                           </div>
-                          <div className="flex-1 block h-[120px]">
+                          <div className="flex-1 block">
                             <div className={`mb-2 ${styles.subTitle}`}>
                               Description <span>*</span>
                             </div>
@@ -484,8 +484,8 @@ const Step02CollectionSection = props => {
                                 placeholder="Add a short description..."
                                 fullWidth
                                 onChange={value => onChangeCollectionDescription(item, value)}
-                                height="90px"
-                                maxHeight="110px"
+                                height={90}
+                                // maxHeight="110px"
                               />
                             </div>
                           </div>
@@ -552,7 +552,7 @@ const Step02CollectionSection = props => {
                           )}
 
                           {/* Editins */}
-                          <div className="mb-[30px] mt-[30px]">
+                          <div className="mb-[30px] mt-[15px]">
                             <div className={styles.subTitle}>
                               Edition type <span>*</span>
                             </div>
