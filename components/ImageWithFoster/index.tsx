@@ -73,7 +73,7 @@ const ImageWithFoster = ({
     width,
     height,
   })
-  const [imageHeight, setImageHeight] = useState(0)
+  // const [imageHeight, setImageHeight] = useState(0)
 
   const srcSpecs = [
     { url: heliusUrl, useNextImage: false },
@@ -88,8 +88,8 @@ const ImageWithFoster = ({
   const handleLoad = useCallback(
     e => {
       setLoaded(true)
-      let screenWidth = window.innerWidth
-      setImageHeight((e.naturalHeight * screenWidth) / e.naturalWidth)
+      // let screenWidth = window.innerWidth
+      // setImageHeight((e.naturalHeight * screenWidth) / e.naturalWidth)
       return onLoad?.(e)
     },
     [onLoad]
@@ -109,7 +109,7 @@ const ImageWithFoster = ({
       <div className="w-full h-full flex justify-center items-center z-1000">
         {srcSpecs[currentSrcSpecIndex]?.useNextImage ? (
           showNftMode ? (
-            <div className={styles.mobileContainer} style={{ height: imageHeight }}>
+            <div className={styles.mobileContainer}>
               <Image
                 src={srcSpecs[currentSrcSpecIndex]?.url}
                 onLoadingComplete={handleLoad}
@@ -147,7 +147,7 @@ const ImageWithFoster = ({
       <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
         <div
           className={`${styles.skeletonLoaderOuterBox} absolute z-50 top-0 transition-all ${
-            loaded || !showPlaceHolder ? 'hidden' : 'visible'
+            loaded || (!showPlaceHolder && !showNftMode) ? 'hidden' : 'visible'
           }`}
         >
           <div className={styles.skeletonLoader} />

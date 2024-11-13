@@ -158,9 +158,7 @@ const StudioReleaseCard = props => {
                     />
                   </div>
                 ) : (
-                  <div
-                    className={`${styles.noHeightFull} w-[32%] max-h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}
-                  >
+                  <div className={`w-[32%] h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}>
                     <ImageWithFoster
                       style={{
                         mixBlendMode: color.blendMode,
@@ -168,7 +166,7 @@ const StudioReleaseCard = props => {
                       width={200}
                       src={nftImage}
                       originalSrc={originalImage}
-                      className="w-full object-contain flex items-start"
+                      className="max-w-full max-h-full object-cover"
                     />
                   </div>
                 )}
