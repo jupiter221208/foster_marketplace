@@ -446,6 +446,7 @@ const SingleNft = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
+          if (e?.message === 'User rejected the request.') return
         }
 
       setNFTAddress(nftMint.publicKey)
