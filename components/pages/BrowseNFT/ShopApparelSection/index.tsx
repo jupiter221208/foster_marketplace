@@ -4,18 +4,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 
 // third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 // components
 import StudioReleaseCard from 'components/Card/StudioReleaseCard'
 
 // custom functions
-import { useViewport } from 'utils'
 
 // json
 import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
@@ -29,9 +22,9 @@ import WallArtCard from 'components/Card/WallArtCard'
 const ShopApparelSection = props => {
   const { title, nftDetail, nftCreator, shopApparelList, openMerchPage, type = '' } = props
   const dispatch = useDispatch()
-  const viewport = useViewport()
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
   const nftCoverUrl = nftDetail.image ?? ''
+  const originalUrl = nftDetail.original.image ?? ''
   const mintAddress = nftDetail.mintAddress
 
   const openPage = item => {
@@ -66,6 +59,7 @@ const ShopApparelSection = props => {
                   type="nft"
                   image={getStudioItem(item)}
                   nftImage={nftCoverUrl}
+                  originalImage={originalUrl}
                   nftName={nftName}
                   userName={item.label}
                   nftCreator={nftCreator}
@@ -80,53 +74,6 @@ const ShopApparelSection = props => {
               )}
             </div>
           ))}
-          {/* <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.2
-                : viewport === 'sm' || viewport === 'md'
-                ? 2
-                : viewport === 'lg'
-                ? 3
-                : viewport === '2xl'
-                ? 5
-                : 5
-            }
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 20
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg'
-                ? 'navigationSwiper'
-                : 'noScrollNavigationSwiper'
-            }
-          >
-            {shopApparelList.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
-                  {type === 'apparel' ? (
-                    <StudioReleaseCard
-                      type="nft"
-                      image={getStudioItem(item)}
-                      nftImage={nftCoverUrl}
-                      nftName={nftName}
-                      userName={item.label}
-                      nftCreator={nftCreator}
-                      size={item.range}
-                      onClick={colorNumber => {
-                        dispatch({ type: 'set', apparelColor: colorNumber })
-                        openPage(item)
-                      }}
-                    />
-                  ) : (
-                    <WallArtCard data={item} onClick={() => openPage(item)} />
-                  )}
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper> */}
         </div>
       </section>
     )
