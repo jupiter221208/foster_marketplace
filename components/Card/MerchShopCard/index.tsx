@@ -312,23 +312,22 @@ const MerchShopCard = props => {
             ) : (
               <div>
                 <div className="w-full flex justify-between">
-                  <div
-                    className="w-[30px] h-[30px] rounded-full overflow-hidden"
-                    onClick={() => {
-                      router.push(`/${data.username}`)
-                    }}
-                  >
-                    <ImageWithFoster
-                      src={
-                        userAvatar
-                          ? userAvatar
-                          : data.user_profile_picture?.length > 0
-                          ? data.user_profile_picture
-                          : DefaultAvatar.src
-                      }
-                      width={30}
-                    />
-                  </div>
+                  <Link href={`/${data.username}`} passHref>
+                    <a>
+                      <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                        <ImageWithFoster
+                          src={
+                            userAvatar
+                              ? userAvatar
+                              : data.user_profile_picture?.length > 0
+                              ? data.user_profile_picture
+                              : DefaultAvatar.src
+                          }
+                          width={30}
+                        />
+                      </div>
+                    </a>
+                  </Link>
 
                   <div className="flex gap-[10px]">
                     {data.supply && <MerchTypeIconMenu type={'supply'} timeLeft={null} />}
