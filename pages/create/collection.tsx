@@ -97,9 +97,9 @@ const Collection = () => {
 
       await refreshToken()
       // TODO: calculate real file size
-      await ensureLocalWalletBalance(0.1 * 1e9)
+      // for now, just fund with 0.03 sol which is little over 1GB
+      await ensureLocalWalletBalance(0.03 * 1e9)
 
-      // for now, just fund with 0.1 sol which is little over 1GB
       const categories = categoryList.filter(item => item.checked)
 
       const attributes = categories.map(category => {
@@ -154,6 +154,7 @@ const Collection = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
+          if (e?.message === 'User rejected the request.') return
         }
 
       if (response) {
@@ -458,6 +459,7 @@ const Collection = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
+          if (e?.message === 'User rejected the request.') return
         }
 
       let assetUrl: any = ''
