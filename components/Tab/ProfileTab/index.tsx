@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party component
 import { Tab as HTab } from '@headlessui/react'

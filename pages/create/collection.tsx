@@ -22,7 +22,7 @@ import BackIcon from 'assets/icons/back-arrow.svg?component'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
-
+import { useWallets } from 'hooks/useWallets'
 import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import {
   JsonMetadata,
@@ -53,6 +53,7 @@ const Collection = () => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
+  const { mainBalance: mainWalletBalance } = useWallets()
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -98,6 +99,20 @@ const Collection = () => {
       await refreshToken()
       // TODO: calculate real file size
       // for now, just fund with 0.03 sol which is little over 1GB
+      if (mainWalletBalance < 0.03) {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Insufficient Funds',
+            description: 'Not enough funds in wallet for purchase',
+            type: 'error',
+          },
+        ])
+        setIsMinting(false)
+        setShowAlert(true)
+        return
+      }
+
       await ensureLocalWalletBalance(0.03 * 1e9)
 
       const categories = categoryList.filter(item => item.checked)
@@ -154,7 +169,20 @@ const Collection = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
-          if (e?.message === 'User rejected the request.') return
+          if (e?.message === 'User rejected the request.') {
+            setAlertData([
+              {
+                id: 0,
+                title: 'User rejected the request.',
+                description: `User rejected the request.`,
+                type: 'failure',
+              },
+            ])
+            setShowAlert(true)
+            setIsMinting(false)
+            setStartUpload(false)
+            return
+          }
         }
 
       if (response) {
@@ -349,6 +377,21 @@ const Collection = () => {
     })
 
     for (let i = 0; i < collectionFiles.length; i++) {
+      if (mainWalletBalance < 0.03) {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Insufficient Funds',
+            description: 'Not enough funds in wallet for purchase',
+            type: 'error',
+          },
+        ])
+        setIsMinting(false)
+        setStartUpload(false)
+        setShowAlert(true)
+        return
+      }
+
       let { name, description, file, croppedImage, type, nftCoverImage, editionType, maxSupply } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
@@ -459,7 +502,20 @@ const Collection = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
-          if (e?.message === 'User rejected the request.') return
+          if (e?.message === 'User rejected the request.') {
+            setAlertData([
+              {
+                id: 0,
+                title: 'User rejected the request.',
+                description: `User rejected the request.`,
+                type: 'failure',
+              },
+            ])
+            setShowAlert(true)
+            setIsMinting(false)
+            setStartUpload(false)
+            return
+          }
         }
 
       let assetUrl: any = ''
@@ -685,8 +741,6 @@ const Collection = () => {
         {currentStep === 4 && (
           <div className="w-full flex justify-center">
             <Step03CollectionSection
-              currentStep={currentStep}
-              onChangeCurrentStep={step => setCurrentStep(step)}
               bannerCroppedImage={collectionCoverUrl}
               collectionMintName={collectionMintName}
               collectionFiles={collectionFiles}
