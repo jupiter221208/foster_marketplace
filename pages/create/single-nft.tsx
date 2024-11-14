@@ -376,7 +376,7 @@ const SingleNft = () => {
           {
             id: 0,
             title: 'Insufficient Funds',
-            description: 'Not enough funds in wallet for purchase',
+            description: 'Please add funds to your wallet and try again.',
             type: 'error',
           },
         ])
