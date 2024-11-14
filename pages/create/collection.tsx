@@ -154,7 +154,11 @@ const Collection = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
-          if (e?.message === 'User rejected the request.') return
+          if (e?.message === 'User rejected the request.') {
+            setIsMinting(false)
+            setStartUpload(false)
+            return
+          }
         }
 
       if (response) {
@@ -459,7 +463,20 @@ const Collection = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
-          if (e?.message === 'User rejected the request.') return
+          if (e?.message === 'User rejected the request.') {
+            setAlertData([
+              {
+                id: 0,
+                title: 'User rejected the request.',
+                description: `User rejected the request.`,
+                type: 'failure',
+              },
+            ])
+            setShowAlert(true)
+            setIsMinting(false)
+            setStartUpload(false)
+            return
+          }
         }
 
       let assetUrl: any = ''
@@ -685,8 +702,6 @@ const Collection = () => {
         {currentStep === 4 && (
           <div className="w-full flex justify-center">
             <Step03CollectionSection
-              currentStep={currentStep}
-              onChangeCurrentStep={step => setCurrentStep(step)}
               bannerCroppedImage={collectionCoverUrl}
               collectionMintName={collectionMintName}
               collectionFiles={collectionFiles}

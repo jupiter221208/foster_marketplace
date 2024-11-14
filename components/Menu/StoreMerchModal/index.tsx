@@ -10,7 +10,7 @@ import { getPriceValue } from 'utils/strings'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
+import { getDateTimeLabelWithAPM, getTimeDifference } from 'utils/helpers'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const StoreMerchModal = props => {
@@ -96,7 +96,7 @@ const StoreMerchModal = props => {
                     <div className="w-full flex justify-between mt-[9px]">
                       <div className={styles.label}>Goes live on </div>
                       {item.fulfillment_type === 'foster' ? (
-                        <div className={styles.time}>{getDateTimeLabel(new Date(startDate))}</div>
+                        <div className={styles.time}>{getDateTimeLabelWithAPM(new Date(startDate))}</div>
                       ) : (
                         <div className={styles.time}>TBD</div>
                       )}

@@ -22,7 +22,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
-import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
+import { getDateTimeLabelWithAPM, getTimeDifference } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
 import { getPriceValue } from 'utils/strings'
@@ -288,7 +288,7 @@ const MerchShopCard = props => {
               <div>
                 <div className={styles.saleType}>Goes live on </div>
                 {data.master_edition_address === null ? (
-                  <div className={styles.saleCount}>{getDateTimeLabel(new Date(data.sale_start_at))}</div>
+                  <div className={styles.saleCount}>{getDateTimeLabelWithAPM(new Date(data.sale_start_at))}</div>
                 ) : (
                   <div className={styles.saleCount}>TBD</div>
                 )}
@@ -306,7 +306,7 @@ const MerchShopCard = props => {
                   <div className={styles.saleType}>Goes live on</div>
                 </div>
                 <div className={styles.saleCount}>
-                  {getDateTimeLabel(new Date(data.listed_master_edition.startTime))}
+                  {getDateTimeLabelWithAPM(new Date(data.listed_master_edition.startTime))}
                 </div>
               </div>
             ) : (
