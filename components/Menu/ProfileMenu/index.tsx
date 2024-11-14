@@ -136,20 +136,21 @@ const ProfileMenu = props => {
             leaveTo="transform opacity-0 scale-95"
           >
             <div className={styles.menuArea}>
-              {menuList.map((item, index) => (
-                <ProfileMenuItem
-                  avatar={avatar}
-                  username={username}
-                  item={item}
-                  key={index}
-                  onSelect={item => {
-                    if (item.id === 7) {
-                      setButtonClicked(true)
-                    } else {
-                      onSelect(item)
-                    }
-                  }}
-                />
+              {menuList.map(item => (
+                <div key={item.id}>
+                  <ProfileMenuItem
+                    avatar={avatar}
+                    username={username}
+                    item={item}
+                    onSelect={item => {
+                      if (item.id === 7) {
+                        setButtonClicked(true)
+                      } else {
+                        onSelect(item)
+                      }
+                    }}
+                  />
+                </div>
               ))}
             </div>
           </Transition>
