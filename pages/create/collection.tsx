@@ -99,8 +99,7 @@ const Collection = () => {
       await refreshToken()
       // TODO: calculate real file size
       // for now, just fund with 0.03 sol which is little over 1GB
-      const mintPrice = 0.03
-      if (mainWalletBalance < mintPrice) {
+      if (mainWalletBalance < 0.03) {
         setAlertData([
           {
             id: 0,
@@ -114,7 +113,7 @@ const Collection = () => {
         return
       }
 
-      await ensureLocalWalletBalance(mintPrice * 1e9)
+      await ensureLocalWalletBalance(0.03 * 1e9)
 
       const categories = categoryList.filter(item => item.checked)
 
