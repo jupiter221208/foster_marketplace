@@ -191,21 +191,6 @@ export const getDateTimeLabel = date => {
   return month + ' ' + day + ', ' + year + ' ' + (hours > 12 ? hours-12 : hours === 0 ? 12 : hours)  + ':' + (mins < 10 ? '0' + mins : mins) + " " + (hours >= 12 ? 'PM' : 'AM')
 }
 
-export const getDateTimeLabelWithAPM = date => {
-  let proposalTime = new Date(date)
-  let offset = proposalTime.getTimezoneOffset() * 60 * 1000
-  let proposalEndTime = proposalTime.getTime() - offset
-  let localDate = new Date(proposalEndTime)
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  let month = months[localDate.getMonth()]
-  let day = localDate.getDate()
-  let year = localDate.getFullYear()
-  let hours = localDate.getHours()
-  let mins = localDate.getMinutes()
-
-  return month + ' ' + day + ', ' + year + ' ' + (hours > 12 ? hours-12 : hours === 0 ? 12 : hours)  + ':' + (mins < 10 ? '0' + mins : mins) + " " + (hours >= 12 ? 'PM' : 'AM')
-}
-
 export const getYMDString = date => {
   let month = date.getMonth() + 1
   return month + '/' + date.getDate() + '/' + date.getFullYear()
