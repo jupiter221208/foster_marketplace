@@ -21,8 +21,6 @@ import { useSelector } from 'react-redux'
 
 const Step03CollectionSection = props => {
   const {
-    currentStep,
-    onChangeCurrentStep,
     collectionMintName,
     collectionFiles,
     bannerCroppedImage,
@@ -87,19 +85,6 @@ const Step03CollectionSection = props => {
                   <div className={`${styles.nftDesc} mr-[60px]`}>{item.description} </div>
 
                   <div className="flex gap-[45px] mt-[25px]">
-                    {/* {categories?.length > 0 && (
-                      <div>
-                        <div className={styles.nftName}>Categories</div>
-                        <div className="flex gap-[8px] mt-[15px]">
-                          {categories?.map((item, index) => (
-                            <div className={styles.categories} key={index}>
-                              {item}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )} */}
-
                     <div>
                       <div className={styles.nftName}>Token Type</div>
                       <div className="flex gap-[15px] mt-[15px]">
@@ -171,19 +156,6 @@ const Step03CollectionSection = props => {
                   <div className={styles.nftDesc}>{item.description} </div>
 
                   <div className="mt-[25px]">
-                    {/* {categories?.length > 0 && (
-                      <div>
-                        <div className={styles.nftName}>Categories</div>
-                        <div className="flex gap-[8px] mt-[15px]">
-                          {categories?.map((item, index) => (
-                            <div className={styles.categories} key={index}>
-                              {item}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )} */}
-
                     <div className="mt-[25px]">
                       <div className={styles.nftName}>Token Type</div>
                       <div className="flex gap-[15px] mt-[15px]">

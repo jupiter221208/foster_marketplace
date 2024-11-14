@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
+import Alert from 'components/Alert'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 // solana components
+import { useWallets } from 'hooks/useWallets'
 import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import { toBigNumber, toMetaplexFile, JsonMetadata, TransactionBuilder } from '@metaplex-foundation/js'
 
@@ -47,7 +49,8 @@ import SingleNftLeftSection from 'components/pages/Create/SingleNFT/SingleNftLef
 const SingleNft = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
-
+  const { mainBalance: mainWalletBalance } = useWallets()
+  const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const createTab = useSelector<any>(state => state.createTab)
 
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -368,6 +371,20 @@ const SingleNft = () => {
 
       let totalCost = metadataCost.basisPoints.add(assetCost.basisPoints).muln(1.5)
 
+      if (mainWalletBalance < 0.03) {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Insufficient Funds',
+            description: 'Please add funds to your wallet and try again.',
+            type: 'error',
+          },
+        ])
+        setIsMinting(false)
+        setShowAlert(true)
+        return
+      }
+
       // fund local wallet
       await ensureLocalWalletBalance(totalCost)
 
@@ -446,7 +463,19 @@ const SingleNft = () => {
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
-          if (e?.message === 'User rejected the request.') return
+          if (e?.message === 'User rejected the request.') {
+            setAlertData([
+              {
+                id: 0,
+                title: 'User rejected the request.',
+                description: `User rejected the request.`,
+                type: 'failure',
+              },
+            ])
+            setShowAlert(true)
+            setIsMinting(false)
+            return
+          }
         }
 
       setNFTAddress(nftMint.publicKey)
@@ -850,6 +879,14 @@ const SingleNft = () => {
           setOpenNftImageEditorModal(false)
         }}
         dimension={selectedDimension}
+      />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )

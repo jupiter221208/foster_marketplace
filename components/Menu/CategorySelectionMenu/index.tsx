@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { MutableRefObject, useEffect, useState, useRef } from 'react'
 
 // images and icons
 import DownIcon from 'assets/icons/down-icon-small.svg?component'
@@ -13,6 +13,20 @@ const CategorySelectionMenu = props => {
   const { categoryList, handleSelectCategory } = props
   const [label, setLabel] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
+  const menuRef = useRef<HTMLElement | null>(null)
+
+  const handleClickOutside = event => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShowDropdown(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  })
 
   useEffect(() => {
     let names = []
@@ -32,7 +46,7 @@ const CategorySelectionMenu = props => {
         </div>
       </div>
       {showDropdown && (
-        <div className={styles.menuArea}>
+        <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
           <div className={styles.menuItem}>
             <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
           </div>

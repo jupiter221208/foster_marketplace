@@ -22,14 +22,13 @@ import { getDisplayUserName } from 'utils/strings'
 import { useRouter } from 'next/router'
 
 const ProfileMenuItem = props => {
-  const { avatar, username, key, item, onSelect } = props
+  const { avatar, username, item, onSelect } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
 
   return (
     <button
-      key={key}
       className={styles.menuItem}
       onClick={() => {
         if (item.id === 0) {

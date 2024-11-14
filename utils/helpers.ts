@@ -187,7 +187,8 @@ export const getDateTimeLabel = date => {
   let year = localDate.getFullYear()
   let hours = localDate.getHours()
   let mins = localDate.getMinutes()
-  return month + ' ' + day + ', ' + year + ' ' + hours + ':' + mins
+
+  return month + ' ' + day + ', ' + year + ' ' + (hours > 12 ? hours-12 : hours === 0 ? 12 : hours)  + ':' + (mins < 10 ? '0' + mins : mins) + " " + (hours >= 12 ? 'PM' : 'AM')
 }
 
 export const getYMDString = date => {
