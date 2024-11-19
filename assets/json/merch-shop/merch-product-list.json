@@ -176,7 +176,7 @@
     "description": "AS Colour",
     "price" : {"dtf" : 31, "emb": 33 },
     "color": ["yellow", "black"],
-    "size": "One Size",
+    "size": "S - 3XL",
     "image": "/images/apparel/heavy_sleeve_middle.webp"
   },
   {
@@ -185,7 +185,7 @@
     "description": "Independent Trading Co.",
     "price" : {"dtg" : 42, "emb": 43 },
     "color": ["black-1D1D1D", "dark_gray"],
-    "size": "One Size",
+    "size": "S - 2XL",
     "image": "/images/apparel/zipup_hoodie_middle.webp"
   }
 ]
