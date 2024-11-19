@@ -343,9 +343,13 @@ const NewCreatorMerch = () => {
       } else if (productDetail.selectedCard.id === 17) {
         return 41
       } else if (productDetail.selectedCard.id === 18) {
-        return 42
+        return 51
       } else if (productDetail.selectedCard.id === 19) {
-        return 43
+        if (productDetail.technique === 'dtf') return 47
+        else return 48
+      } else if (productDetail.selectedCard.id === 20) {
+        if (productDetail.technique === 'dtg') return 49
+        else return 50
       }
     } else {
       return productDetail.type.id

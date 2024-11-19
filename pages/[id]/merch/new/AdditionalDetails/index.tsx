@@ -314,6 +314,19 @@ const AdditionalDetails = props => {
       case 17:
         description = `Snug. Bold. Designed by ${username}, this ${color} cuffed beanie is embroidered with precision.`
         break
+      case 18:
+        description = `Designed by ${username}, this ${
+          color === 'red_pink' ? 'red' : 'black'
+        } foam trucker features a lightweight foam front, breathable mesh back, and an adjustable snap closure—finished with precision embroidery on the front.`
+        break
+      case 19:
+        description = `Designed by ${username}, this ${color} heavyweight long sleeve is made from 100% carded cotton and printed with precision using ${technique} on the ${side}.`
+        break
+      case 20:
+        description = `Designed by ${username}, this ${
+          color === 'gray_light' ? 'gray' : color
+        } zip-up hoodie is your go-to for next-level comfort. Printed with care using ${technique} on the ${side}.`
+        break
       default:
         description = ''
     }
@@ -324,7 +337,7 @@ const AdditionalDetails = props => {
   const getCardSide = () => {
     let card_side = []
     const { snapshotAssetUrl, technique, selectedCard, detailSide } = productDetail
-    if (technique === 'dtg') {
+    if (technique === 'dtg' || technique === 'dtf') {
       if (snapshotAssetUrl.front !== '') {
         if (detailSide === 'front') card_side.push('full front')
         else if (detailSide === 'chest') card_side.push('left chest')

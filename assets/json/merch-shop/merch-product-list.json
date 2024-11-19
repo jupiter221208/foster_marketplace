@@ -166,7 +166,7 @@
     "name": "Foam Trucker Hat",
     "description": "Otto Cap",
     "price" : {"dtg" : 20, "emb": 20 },
-    "color": ["black", "red_white"],
+    "color": ["black", "red_pink"],
     "size": "One Size",
     "image": "/images/apparel/foam_middle.webp"
   },

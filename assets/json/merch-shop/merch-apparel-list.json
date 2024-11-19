@@ -473,10 +473,10 @@
       }
     },
     "apparel": { 
-      "front": { "black":"/images/apparel/foam_black.png", "red_white":"/images/apparel/foam_red.png" }
+      "front": { "black":"/images/apparel/foam_black.png", "red_pink":"/images/apparel/foam_red.png" }
     },
     "card": { 
-      "front": { "black":"/images/apparel/foam_black_card.webp", "red_white":"/images/apparel/foam_red_card.webp" }
+      "front": { "black":"/images/apparel/foam_black_card.webp", "red_pink":"/images/apparel/foam_red_card.webp" }
     }
   },
   {

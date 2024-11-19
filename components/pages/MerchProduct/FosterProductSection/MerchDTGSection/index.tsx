@@ -104,8 +104,8 @@ const MerchDTGSection = props => {
       window.removeEventListener('touchmove', handleMove)
     }
   }, [])
+
   useEffect(() => {
-    console.log(productDetail, '=========productDetail========')
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
       setColor(productDetail?.color)
@@ -956,7 +956,7 @@ const MerchDTGSection = props => {
                         ? styles.blueColor
                         : item === 'red'
                         ? styles.redColor
-                        : item === 'red_white'
+                        : item === 'red_pink'
                         ? styles.redWhiteColor
                         : item === 'gray'
                         ? styles.grayColor
