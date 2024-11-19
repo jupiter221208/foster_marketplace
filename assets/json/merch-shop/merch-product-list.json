@@ -155,10 +155,37 @@
   {
     "id": 17,
     "name": "Cuffed & Embroidered Beanie",
-    "description": "Yupoong",
+    "description": "Cuffed & Embroidered Beanie",
     "price" : {"dtg" : 25, "emb": 25 },
     "color": ["black", "white"],
     "size": "One Size",
     "image": "/images/apparel/beanie_middle.webp"
+  },
+  {
+    "id": 18,
+    "name": "Foam Trucker Hat",
+    "description": "Foam Trucker Hat",
+    "price" : {"dtg" : 20, "emb": 20 },
+    "color": ["black", "red_white"],
+    "size": "One Size",
+    "image": "/images/apparel/foam_middle.webp"
+  },
+  {
+    "id": 19,
+    "name": "Heavyweight Long Sleeve",
+    "description": "Heavyweight Long Sleeve",
+    "price" : {"dtf" : 31, "emb": 33 },
+    "color": ["yellow", "black"],
+    "size": "One Size",
+    "image": "/images/apparel/heavy_sleeve_middle.webp"
+  },
+  {
+    "id": 20,
+    "name": "Zip Up Hoodie",
+    "description": "Zip Up Hoodie",
+    "price" : {"dtg" : 25, "emb": 25 },
+    "color": ["black-1D1D1D", "dark_gray"],
+    "size": "One Size",
+    "image": "/images/apparel/zipup_hoodie_middle.webp"
   }
 ]

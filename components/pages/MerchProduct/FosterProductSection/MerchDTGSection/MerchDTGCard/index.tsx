@@ -28,7 +28,9 @@ const MerchDTGCard = props => {
         cardId === ProductModel.CropHoodie ||
         cardId === ProductModel.OversizedHoodie ||
         cardId === ProductModel.DadHat ||
-        cardId === ProductModel.Beanie
+        cardId === ProductModel.Beanie ||
+        cardId === ProductModel.Foam ||
+        cardId === ProductModel.HeavySleeve
       )
         return 'Front'
 

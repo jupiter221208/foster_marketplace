@@ -60,8 +60,18 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const dtgModalIds = [5, 6, 7, 8, 12, ProductModel.CropShirt, ProductModel.CropHoodie]
-  const embModalIds = [5, 6, 7, 8, 12, ProductModel.SweatPant, ProductModel.DadHat, ProductModel.Beanie]
+  const dtgModalIds = [5, 6, 7, 8, 12, ProductModel.CropShirt, ProductModel.CropHoodie, ProductModel.HeavySleeve]
+  const embModalIds = [
+    5,
+    6,
+    7,
+    8,
+    12,
+    ProductModel.SweatPant,
+    ProductModel.DadHat,
+    ProductModel.Beanie,
+    ProductModel.Foam,
+  ]
 
   useEffect(() => {
     const handleMove = event => {
@@ -111,7 +121,7 @@ const MerchDTGSection = props => {
     setEmbPlace('front')
     setCardSide('front')
 
-    if (technique === 'dtg') {
+    if (technique === 'dtg' || technique === 'dtf') {
       if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
     } else {
       if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
@@ -798,6 +808,10 @@ const MerchDTGSection = props => {
               <div className={`${styles.garment} mt-[15px]`}>
                 This item includes one embroidery area on the front. Select a color and upload your design.
               </div>
+            ) : selectedCard.id === ProductModel.Foam ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                This item includes one embroidery area on the front. Select a color and upload your design.
+              </div>
             ) : selectedCard.id === ProductModel.SweatPant ? (
               <div className={`${styles.garment} mt-[15px]`}>
                 You can add up to 2 designs, with 1 (front or back) included in the base price. Additional designs will
@@ -922,6 +936,8 @@ const MerchDTGSection = props => {
                         ? styles.blueColor
                         : item === 'red'
                         ? styles.redColor
+                        : item === 'red_white'
+                        ? styles.redWhiteColor
                         : item === 'gray'
                         ? styles.grayColor
                         : item === 'gray_dark'
