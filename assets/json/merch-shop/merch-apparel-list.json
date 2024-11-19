@@ -484,20 +484,21 @@
     "name": "Heavyweight Long Sleeve",
     "location": { 
       "dtf": {
-        "front": {"width": 240, "height": 316, "width_chest": 70, "height_chest": 70, "top_chest": 130, "width_center": 240, "height_center": 140, "top": 130, "left": 230, "left_chest": 0.58, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 50, "height": 50, "top": 220, "left": 300, "angle": 0 },
-        "left": {"width": 50, "height": 50, "top": 200, "left": 340, "angle": 0 }
+        "front": {"width": 240, "height": 316, "width_chest": 70, "height_chest": 70, "top_chest": 130, "width_center": 240, "height_center": 140, "top": 166, "left": 230, "left_chest": 0.58, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 116, "left": 230, "angle": 0 },
+        "right": {"width": 45, "height": 63, "top": 570, "left": 295, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 360, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 240, "height": 316, "width_chest": 70, "height_chest": 70, "top_chest": 130, "width_center": 70, "height_center": 70, "top": 130, "left": 230, "left_chest": 0.58, "angle": 0},
-        "right": {"width": 50, "height": 50, "top": 220, "left": 300, "angle": 0 },
-        "left": {"width": 50, "height": 50, "top": 200, "left": 340, "angle": 0 }
+        "front": {"width": 240, "height": 316, "top": 166, "left": 230, "left_chest": 0.58, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 116, "left": 230, "left_chest": 0.58, "angle": 0},
+        "right": {"width": 45, "height": 63, "top": 570, "left": 295, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 360, "angle": 0 }
       }
     },
     "apparel": { 
       "front": {"black":"/images/apparel/heavy_sleeve_black.png", "yellow":"/images/apparel/heavy_sleeve_yellow.png"}, 
-      "back": {"black":"/images/apparel/oversized_t_black_b.png", "yellow":"/images/apparel/heavy_sleeve_yellow_b.png"},
+      "back": {"black":"/images/apparel/heavy_sleeve_black_b.png", "yellow":"/images/apparel/heavy_sleeve_yellow_b.png"},
       "right": {"black":"/images/apparel/heavy_sleeve_black_right.png", "yellow":"/images/apparel/heavy_sleeve_yellow_right.png" },
       "left": {"black":"/images/apparel/heavy_sleeve_black_left.png", "yellow":"/images/apparel/heavy_sleeve_yellow_left.png" }
     },
@@ -512,29 +513,30 @@
     "id": 20,
     "name": "Zip Up Hoodie",
     "location": { 
-      "dtf": {
-        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
-        "back": {"width": 240, "height": 316, "top": 100, "left": 230, "angle": 0  },
-        "right": {"width": 45, "height": 45, "top": 200, "left": 310, "angle": 0 },
-        "left": {"width": 45, "height": 45, "top": 200, "left": 340, "angle": 0 }
+      "dtg": {
+        "front": {"width_chest": 60, "height_chest": 60, "top_chest": 266, "left": 230, "left_chest": 0.59, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 266, "left": 230, "angle": 0  },
+        "right": {"width": 45, "height": 63, "top": 570, "left": 310, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 345, "angle": 0 }
       },
       "emb": {
-        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0  },
-        "right": {"width": 45, "height": 45, "top": 200, "left": 310, "angle": 0 },
-        "left": {"width": 45, "height": 45, "top": 200, "left": 340, "angle": 0 }
+        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 266, "left": 230, "left_chest": 0.59, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 266, "left": 230, "angle": 0  },
+        "right": {"width": 45, "height": 63, "top": 570, "left": 310, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 345, "angle": 0 }
       }
     },
     "apparel": { 
-      "front": {"black":"/images/apparel/zipup_black.png", "dark_gray":"/images/apparel/zipup_gray.png"}, 
-      "back": {"black":"/images/apparel/zipup_black_b.png", "dark_gray":"/images/apparel/zipup_gray_b.png"},
-      "right": {"black":"/images/apparel/zipup_black_r.png", "dark_gray":"/images/apparel/zipup_gray_r.png" }, 
-      "left": {"black":"/images/apparel/zipup_black_l.png", "dark_gray":"/images/apparel/zipup_gray_l.png" }
+      "front": {"black":"/images/apparel/zipup_black.png", "gray_light":"/images/apparel/zipup_gray.png"}, 
+      "back": {"black":"/images/apparel/zipup_black_b.png", "gray_light":"/images/apparel/zipup_gray_b.png"},
+      "right": {"black":"/images/apparel/zipup_black_r.png", "gray_light":"/images/apparel/zipup_gray_r.png" }, 
+      "left": {"black":"/images/apparel/zipup_black_l.png", "gray_light":"/images/apparel/zipup_gray_l.png" }
     },
     "card": { 
-      "front": {"black":"/images/apparel/zipup_black_card.webp", "dark_gray":"/images/apparel/zipup_gray_card.webp"},  
-      "back": {"black":"/images/apparel/zipup_black_card_b.webp", "dark_gray":"/images/apparel/zipup_gray_card_b.webp"},
-      "right": {"black":"/images/apparel/zipup_black_card_r.webp", "dark_gray":"/images/apparel/zipup_gray_card_r.webp"}, 
-      "left": {"black":"/images/apparel/zipup_black_card_l.webp", "dark_gray":"/images/apparel/zipup_gray_card_l.webp"}
+      "front": {"black":"/images/apparel/zipup_black_card.webp", "gray_light":"/images/apparel/zipup_gray_card.webp"},  
+      "back": {"black":"/images/apparel/zipup_black_card_b.webp", "gray_light":"/images/apparel/zipup_gray_card_b.webp"},
+      "right": {"black":"/images/apparel/zipup_black_card_r.webp", "gray_light":"/images/apparel/zipup_gray_card_r.webp"}, 
+      "left": {"black":"/images/apparel/zipup_black_card_l.webp", "gray_light":"/images/apparel/zipup_gray_card_l.webp"}
     }
   }
 ]

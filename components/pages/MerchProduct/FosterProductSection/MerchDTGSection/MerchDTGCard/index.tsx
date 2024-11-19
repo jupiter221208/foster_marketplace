@@ -20,8 +20,8 @@ const MerchDTGCard = props => {
   const getLabel = () => {
     let label = ''
     if (side === 'front') {
-      if (cardId === ProductModel.SweatPant) return 'Front'
       if (
+        cardId === ProductModel.SweatPant ||
         cardId === ProductModel.OversizedTee ||
         cardId === ProductModel.TieHoodie ||
         cardId === ProductModel.CropShirt ||
@@ -33,6 +33,8 @@ const MerchDTGCard = props => {
         cardId === ProductModel.HeavySleeve
       )
         return 'Front'
+
+      if (cardId === ProductModel.ZipUp) return 'Left Chest'
 
       if (technique === 'dtg') label = 'Front'
       else {
@@ -48,12 +50,16 @@ const MerchDTGCard = props => {
     } else if (side === 'back') {
       if (cardId === ProductModel.SweatPant) return 'Back'
 
-      if (
-        technique === 'emb' &&
-        (cardId < OldModelCount || cardId === ProductModel.CropShirt || cardId === ProductModel.CropHoodie)
-      )
-        label = 'Back (DTG)'
-      else label = 'Back'
+      if (technique === 'emb') {
+        if (
+          cardId < OldModelCount ||
+          cardId === ProductModel.CropShirt ||
+          cardId === ProductModel.CropHoodie ||
+          cardId === ProductModel.ZipUp
+        )
+          return 'Back (DTG)'
+        if (cardId === ProductModel.HeavySleeve) return 'Back (DTF)'
+      } else label = 'Back'
     } else if (side === 'right') {
       if (cardId === ProductModel.SweatPant) return 'Back left leg'
       if (cardId === ProductModel.DadHat) return 'Right panel'
@@ -62,7 +68,9 @@ const MerchDTGCard = props => {
         cardId === ProductModel.WomonTee ||
         cardId === ProductModel.OversizedTee ||
         cardId === ProductModel.OversizedHoodie ||
-        cardId === ProductModel.PoloShirt
+        cardId === ProductModel.PoloShirt ||
+        cardId === ProductModel.HeavySleeve ||
+        cardId === ProductModel.ZipUp
       )
         label = 'Right Sleeve'
       else if (technique === 'dtg') label = 'Right Sleeve'
@@ -75,7 +83,9 @@ const MerchDTGCard = props => {
         cardId === ProductModel.WomonTee ||
         cardId === ProductModel.OversizedTee ||
         cardId === ProductModel.OversizedHoodie ||
-        cardId === ProductModel.PoloShirt
+        cardId === ProductModel.PoloShirt ||
+        cardId === ProductModel.HeavySleeve ||
+        cardId === ProductModel.ZipUp
       )
         label = 'Left Sleeve'
       else if (technique === 'dtg') label = 'Left Sleeve'

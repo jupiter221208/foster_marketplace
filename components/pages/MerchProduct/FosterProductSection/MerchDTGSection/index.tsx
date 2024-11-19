@@ -60,7 +60,17 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const dtgModalIds = [5, 6, 7, 8, 12, ProductModel.CropShirt, ProductModel.CropHoodie, ProductModel.HeavySleeve]
+  const dtgModalIds = [
+    5,
+    6,
+    7,
+    8,
+    12,
+    ProductModel.CropShirt,
+    ProductModel.CropHoodie,
+    ProductModel.HeavySleeve,
+    ProductModel.ZipUp,
+  ]
   const embModalIds = [
     5,
     6,
@@ -71,6 +81,8 @@ const MerchDTGSection = props => {
     ProductModel.DadHat,
     ProductModel.Beanie,
     ProductModel.Foam,
+    ProductModel.HeavySleeve,
+    ProductModel.ZipUp,
   ]
 
   useEffect(() => {
@@ -93,6 +105,7 @@ const MerchDTGSection = props => {
     }
   }, [])
   useEffect(() => {
+    console.log(productDetail, '=========productDetail========')
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
       setColor(productDetail?.color)
@@ -142,7 +155,7 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (cardSide === 'front') {
       if (snapshotAsset[cardSide].length === 0) {
-        if (technique === 'dtg') {
+        if (technique === 'dtg' || technique === 'dtf') {
           if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
           else setShowEmbPosModal(false)
         } else {
@@ -210,7 +223,7 @@ const MerchDTGSection = props => {
     }
 
     if (cardSide === 'front') {
-      if (technique === 'dtg') {
+      if (technique === 'dtg' || technique === 'dtf') {
         if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
       } else {
         if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
@@ -812,6 +825,13 @@ const MerchDTGSection = props => {
               <div className={`${styles.garment} mt-[15px]`}>
                 This item includes one embroidery area on the front. Select a color and upload your design.
               </div>
+            ) : selectedCard.id === ProductModel.HeavySleeve || selectedCard.id === ProductModel.ZipUp ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                You can add up to 4 designs, with 1 (front or back) included in the base price. Additional designs will
+                incur extra fees—see{' '}
+                <span onClick={() => setShowInfoModal(true)}>product extras for pricing details.</span>
+                <br /> Choose a printing technique, fabric color, and upload your designs.
+              </div>
             ) : selectedCard.id === ProductModel.SweatPant ? (
               <div className={`${styles.garment} mt-[15px]`}>
                 You can add up to 2 designs, with 1 (front or back) included in the base price. Additional designs will
@@ -950,6 +970,8 @@ const MerchDTGSection = props => {
                         ? styles.pinkColor
                         : item === 'yellow'
                         ? styles.yellowColor
+                        : item == 'gray_light'
+                        ? styles.grayLightColor
                         : styles.purpleColor
                     } ${color === item && styles.selectedColor}`}
                     onClick={() => {

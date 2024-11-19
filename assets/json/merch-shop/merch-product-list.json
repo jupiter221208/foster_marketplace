@@ -164,7 +164,7 @@
   {
     "id": 18,
     "name": "Foam Trucker Hat",
-    "description": "Foam Trucker Hat",
+    "description": "Otto Cap",
     "price" : {"dtg" : 20, "emb": 20 },
     "color": ["black", "red_white"],
     "size": "One Size",
@@ -173,7 +173,7 @@
   {
     "id": 19,
     "name": "Heavyweight Long Sleeve",
-    "description": "Heavyweight Long Sleeve",
+    "description": "AS Colour",
     "price" : {"dtf" : 31, "emb": 33 },
     "color": ["yellow", "black"],
     "size": "One Size",
@@ -182,8 +182,8 @@
   {
     "id": 20,
     "name": "Zip Up Hoodie",
-    "description": "Zip Up Hoodie",
-    "price" : {"dtg" : 25, "emb": 25 },
+    "description": "Independent Trading Co.",
+    "price" : {"dtg" : 42, "emb": 43 },
     "color": ["black-1D1D1D", "dark_gray"],
     "size": "One Size",
     "image": "/images/apparel/zipup_hoodie_middle.webp"
