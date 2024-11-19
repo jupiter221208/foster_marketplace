@@ -191,7 +191,9 @@ const AdditionalDetails = props => {
             snapshotAssetUrl.front === '' &&
             (selectedCard.id < 5 ||
               selectedCard.id === ProductModel.CropShirt ||
-              selectedCard.id === ProductModel.CropHoodie)
+              selectedCard.id === ProductModel.CropHoodie ||
+              selectedCard.id === ProductModel.HeavySleeve ||
+              selectedCard.id === ProductModel.ZipUp)
           )
             setPriceFB(0)
           else setPriceFB(8.5)

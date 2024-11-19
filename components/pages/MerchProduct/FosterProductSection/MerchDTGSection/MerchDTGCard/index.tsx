@@ -68,12 +68,10 @@ const MerchDTGCard = props => {
         cardId === ProductModel.WomonTee ||
         cardId === ProductModel.OversizedTee ||
         cardId === ProductModel.OversizedHoodie ||
-        cardId === ProductModel.PoloShirt ||
-        cardId === ProductModel.HeavySleeve ||
-        cardId === ProductModel.ZipUp
+        cardId === ProductModel.PoloShirt
       )
         label = 'Right Sleeve'
-      else if (technique === 'dtg') label = 'Right Sleeve'
+      else if (technique === 'dtg' || technique === 'dtf') label = 'Right Sleeve'
       else label = 'Right Wrist'
     } else {
       if (cardId === ProductModel.SweatPant) return 'Back right leg'
@@ -83,12 +81,10 @@ const MerchDTGCard = props => {
         cardId === ProductModel.WomonTee ||
         cardId === ProductModel.OversizedTee ||
         cardId === ProductModel.OversizedHoodie ||
-        cardId === ProductModel.PoloShirt ||
-        cardId === ProductModel.HeavySleeve ||
-        cardId === ProductModel.ZipUp
+        cardId === ProductModel.PoloShirt
       )
         label = 'Left Sleeve'
-      else if (technique === 'dtg') label = 'Left Sleeve'
+      else if (technique === 'dtg' || technique === 'dtf') label = 'Left Sleeve'
       else label = 'Left Wrist'
     }
     return label
