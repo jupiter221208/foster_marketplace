@@ -214,19 +214,24 @@ const MerchDetail = () => {
       if (localData?.length > 0) {
         for (let index = localData?.length - 1; index >= 0; index--) {
           let item = localData[index]
-          itemList?.forEach(otherItem => {
+
+          for (let idx = 0; idx < itemList?.length; idx++) {
+            let otherItem = itemList[idx]
+
             if (item.version === 'v2') {
               if (item.merchList[0].url === otherItem.fosterUrl && item.data.quantity === otherItem.quantity) {
                 const index = localData.indexOf(item)
                 localData.splice(index, 1)
+                break
               }
             } else {
               if (item.printImageUrl === otherItem.fosterUrl) {
                 const index = localData.indexOf(item)
                 localData.splice(index, 1)
+                break
               }
             }
-          })
+          }
         }
 
         localStorage.setItem(orderVersion === 'v1' ? 'cart_v1' : 'cart_v2', JSON.stringify(localData))
