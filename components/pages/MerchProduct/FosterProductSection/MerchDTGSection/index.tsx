@@ -668,15 +668,27 @@ const MerchDTGSection = props => {
               {snapshotAsset[cardSide].length === 0 && !assetUrl && (
                 <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
-                    <ImageWithFoster
-                      src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                      showPlaceHolder={false}
-                      width={700}
-                      onLoad={() => {
-                        setImageLoaded(true)
-                      }}
-                      className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
-                    />
+                    {selectedCard.id === 19 ? (
+                      <img
+                        src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                        onLoad={() => {
+                          setImageLoaded(true)
+                        }}
+                        loading="lazy"
+                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                        alt=""
+                      />
+                    ) : (
+                      <ImageWithFoster
+                        src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                        showPlaceHolder={false}
+                        width={700}
+                        onLoad={() => {
+                          setImageLoaded(true)
+                        }}
+                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                      />
+                    )}
                   </div>
                   {!imageLoaded ? (
                     <div className="w-full h-full flex justify-center items-center">
@@ -1180,7 +1192,7 @@ const MerchDTGSection = props => {
                       fontSize={18}
                       label="Save"
                       onClick={() => saveApparel()}
-                      disabled={assetUrl === null}
+                      disabled={assetUrl === null || !imageLoaded}
                     />
                   )}
                 </div>
@@ -1562,12 +1574,23 @@ const MerchDTGSection = props => {
           setShowQuestionModal(false)
           let newTechnique = technique,
             newColor = color
-
+          console.log(type, '=========type========')
           if (type === 'technique_dtg') newTechnique = 'dtg'
           else if (type === 'technique_dtf') newTechnique = 'dtf'
           else if (type === 'technique_emb') newTechnique = 'emb'
           else if (type === 'color_white') newColor = 'white'
           else if (type === 'color_black') newColor = 'black'
+          else if (type === 'color_yellow') newColor = 'yellow'
+          else if (type === 'color_red') newColor = 'red'
+          else if (type === 'color_red_pink') newColor = 'red_pink'
+          else if (type === 'color_blue') newColor = 'blue'
+          else if (type === 'color_pink') newColor = 'pink'
+          else if (type === 'color_purple') newColor = 'purple'
+          else if (type === 'color_green') newColor = 'green'
+          else if (type === 'color_gray') newColor = 'gray'
+          else if (type === 'color_gray_dark') newColor = 'gray_dark'
+          else if (type === 'color_gray_light') newColor = 'gray_light'
+          else if (type === 'color_gray_middle') newColor = 'gray_middle'
 
           setTechnique(newTechnique)
           setColor(newColor)
