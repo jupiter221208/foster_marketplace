@@ -29,12 +29,13 @@ const MerchDTGCard = props => {
         cardId === ProductModel.OversizedHoodie ||
         cardId === ProductModel.DadHat ||
         cardId === ProductModel.Beanie ||
-        cardId === ProductModel.Foam ||
-        cardId === ProductModel.HeavySleeve
+        cardId === ProductModel.Foam
       )
         return 'Front'
 
       if (cardId === ProductModel.ZipUp) return 'Left Chest'
+
+      if (technique === 'dtf' && cardId === ProductModel.HeavySleeve) return 'Front'
 
       if (technique === 'dtg') label = 'Front'
       else {

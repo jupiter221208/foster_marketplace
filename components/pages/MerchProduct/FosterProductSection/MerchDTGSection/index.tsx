@@ -81,7 +81,6 @@ const MerchDTGSection = props => {
     ProductModel.DadHat,
     ProductModel.Beanie,
     ProductModel.Foam,
-    ProductModel.HeavySleeve,
     ProductModel.ZipUp,
   ]
 
@@ -636,14 +635,14 @@ const MerchDTGSection = props => {
       {/************* Desktop ************/}
       <div className="w-full flex gap-[10px] xl:gap-[30px] lg:h-[calc(100vh_-_100px)]">
         <div
-          className={`w-full lg:mt-[60px] mt-[80px] max-w-[100%] min-w-[100%] lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[58%] xl:min-w-[58%] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
+          className={`w-full lg:mt-[60px] mt-[80px] max-w-[100%] min-w-[100%] lg:max-w-[55%] lg:min-w-[55%] xl:max-w-[58%] xl:min-w-[58%] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-dtg-container'
           }`}
         >
           <div className="relative flex justify-center">
             <div className={styles.rightPanel}>
               <div className="w-full flex justify-center">
-                <div className="relative w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
+                <div className="relative w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
                   <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
                   {!imageLoaded && assetUrl && (
                     <div className="absolute inset-0 w-full h-full flex justify-center items-center">
@@ -666,16 +665,16 @@ const MerchDTGSection = props => {
                 <div></div>
               )}
               {snapshotAsset[cardSide].length === 0 && !assetUrl && (
-                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
-                    {selectedCard.id === 19 ? (
+                    {selectedCard.id === 19 && cardSide === 'front' ? (
                       <img
                         src={apparelList[selectedCard.id].apparel[cardSide][color]}
                         onLoad={() => {
                           setImageLoaded(true)
                         }}
                         loading="lazy"
-                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]"
                         alt=""
                       />
                     ) : (
@@ -686,7 +685,7 @@ const MerchDTGSection = props => {
                         onLoad={() => {
                           setImageLoaded(true)
                         }}
-                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]"
                       />
                     )}
                   </div>
@@ -809,8 +808,8 @@ const MerchDTGSection = props => {
         </div>
 
         <div
-          className={`w-full lg:block hidden lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[42%] xl:min-w-[42%] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
+          className={`w-full lg:block hidden lg:max-w-[45%] lg:min-w-[45%] xl:max-w-[42%] xl:min-w-[42%] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-dtg-container'
           } ${styles.rightBG}`}
         >
           <div className="lg:mt-[60px] ml-[40px] 2xl:mt-[60px] 2xl:ml-[100px]">
