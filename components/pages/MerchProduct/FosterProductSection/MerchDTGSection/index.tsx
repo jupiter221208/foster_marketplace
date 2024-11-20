@@ -667,14 +667,16 @@ const MerchDTGSection = props => {
               {snapshotAsset[cardSide].length === 0 && !assetUrl && (
                 <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
-                    {selectedCard.id === 19 && cardSide === 'front' ? (
+                    {selectedCard.id === 19 && (cardSide === 'front' || cardSide === 'back') ? (
                       <img
                         src={apparelList[selectedCard.id].apparel[cardSide][color]}
                         onLoad={() => {
                           setImageLoaded(true)
                         }}
                         loading="lazy"
-                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]"
+                        className={`${
+                          imageLoaded ? 'opacity-100' : 'opacity-0'
+                        } w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]`}
                         alt=""
                       />
                     ) : (
@@ -685,7 +687,9 @@ const MerchDTGSection = props => {
                         onLoad={() => {
                           setImageLoaded(true)
                         }}
-                        className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]"
+                        className={`${
+                          imageLoaded ? 'opacity-100' : 'opacity-0'
+                        } w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]`}
                       />
                     )}
                   </div>
