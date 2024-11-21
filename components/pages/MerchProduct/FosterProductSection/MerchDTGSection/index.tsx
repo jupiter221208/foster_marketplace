@@ -667,7 +667,7 @@ const MerchDTGSection = props => {
               {snapshotAsset[cardSide].length === 0 && !assetUrl && (
                 <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
-                    {selectedCard.id === 19 && (cardSide === 'front' || cardSide === 'back') ? (
+                    {selectedCard.id === 19 ? (
                       <img
                         src={apparelList[selectedCard.id].apparel[cardSide][color]}
                         onLoad={() => {
