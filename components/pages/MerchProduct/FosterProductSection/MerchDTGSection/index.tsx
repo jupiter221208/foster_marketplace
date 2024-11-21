@@ -1020,6 +1020,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'front') return
                     setCardSide(type)
                   }}
                 />
@@ -1040,6 +1041,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'back') return
                     setCardSide(type)
                     setImageLoaded(false)
                   }}
@@ -1063,6 +1065,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'right') return
                     setCardSide(type)
                     setImageLoaded(false)
                   }}
@@ -1085,6 +1088,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'left') return
                     setCardSide(type)
                     setImageLoaded(false)
                   }}
