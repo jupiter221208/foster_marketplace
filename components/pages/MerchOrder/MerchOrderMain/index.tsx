@@ -77,7 +77,6 @@ const MerchOrderMain = props => {
 
   useEffect(() => {
     if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
-
     let size_list
     switch (productDetail.product_type_id) {
       case 1:
@@ -143,6 +142,13 @@ const MerchOrderMain = props => {
       case 43:
         size_list = []
         break
+      case 47:
+      case 48:
+        size_list = SizeList[6].size
+        break
+      case 49:
+      case 50:
+        size_list = SizeList[9].size
       default:
         size_list = []
         break

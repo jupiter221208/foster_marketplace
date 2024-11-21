@@ -465,51 +465,78 @@
     }
   },
   {
-    "id": 18,
-    "name": "All Over Print - Backpack",
+   "id": 18,
+    "name": "Foam Trucker Hat",
     "location": { 
-      "dtg": {
-        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
-        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
-        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 },
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 }
+      "emb": {
+        "front": {"width": 425, "height": 181, "top": 179, "left": 138, "angle": 0}
       }
     },
     "apparel": { 
-      "front": { "white":"/images/apparel/backpack_front.png" }, 
-      "right": { "white": "/images/apparel/backpack_side.png" }, 
-      "left" :{ "white":"/images/apparel/backpack_bottom.png" }, 
-      "back" : { "white":"/images/apparel/backpack_back.png" } 
+      "front": { "black":"/images/apparel/foam_black.png", "red_pink":"/images/apparel/foam_red.png" }
     },
     "card": { 
-      "front": { "white":"/images/apparel/backpack_front_card.webp" }, 
-      "right": { "white": "/images/apparel/backpack_side_card.webp" }, 
-      "left" :{ "white":"/images/apparel/backpack_bottom_card.webp" }, 
-      "back" : { "white":"/images/apparel/backpack_back_card.webp" } 
+      "front": { "black":"/images/apparel/foam_black_card.webp", "red_pink":"/images/apparel/foam_red_card.webp" }
     }
   },
   {
     "id": 19,
-    "name": "All Over Print - Duffle Bag",
+    "name": "Heavyweight Long Sleeve",
     "location": { 
-      "dtg": {
-        "front": {"width": 240, "height": 316, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 117, "top_chest": 150, "left": 230, "left_chest": 0.56, "angle": 0},
-        "right": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": -7 },
-        "left": {"width": 60, "height": 240, "top": 150, "left": 320, "angle": 7 },
-        "back": {"width": 240, "height": 316, "top": 50, "left": 230, "angle": 0 }
+      "dtf": {
+        "front": {"width": 240, "height": 316, "width_chest": 70, "height_chest": 70, "top_chest": 130, "width_center": 240, "height_center": 140, "top": 166, "left": 230, "left_chest": 0.58, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 116, "left": 230, "angle": 0 },
+        "right": {"width": 60, "height": 238, "top": 230, "left": 285, "angle": 0 },
+        "left": {"width": 60, "height": 238, "top": 230, "left": 348, "angle": 0 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 180, "top_chest": 180, "left": 394, "left_chest": 0.56, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 116, "left": 230, "left_chest": 0.58, "angle": 0},
+        "right": {"width": 45, "height": 63, "top": 570, "left": 295, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 360, "angle": 0 }
       }
     },
     "apparel": { 
-      "front": { "white":"/images/apparel/duffle_bag_front.png" }, 
-      "right": { "white": "/images/apparel/duffle_bag_top.png" }, 
-      "left" :{ "white":"/images/apparel/duffle_bag_left.png" }, 
-      "back" : { "white":"/images/apparel/duffle_bag_bottom.png" } 
+      "front": {"black":"/images/apparel/heavy_sleeve_black.png", "yellow":"/images/apparel/heavy_sleeve_yellow.png"}, 
+      "back": {"black":"/images/apparel/heavy_sleeve_black_b.png", "yellow":"/images/apparel/heavy_sleeve_yellow_b.png"},
+      "right": {"black":"/images/apparel/heavy_sleeve_black_right.png", "yellow":"/images/apparel/heavy_sleeve_yellow_right.png" },
+      "left": {"black":"/images/apparel/heavy_sleeve_black_left.png", "yellow":"/images/apparel/heavy_sleeve_yellow_left.png" }
     },
     "card": { 
-      "front": { "white":"/images/apparel/duffle_bag_front_card.webp" }, 
-      "right": { "white": "/images/apparel/duffle_bag_top_card.webp" }, 
-      "left" :{ "white":"/images/apparel/duffle_bag_left_card.webp" }, 
-      "back" : { "white":"/images/apparel/duffle_bag_bottom_card.webp" } 
+      "front": {"black":"/images/apparel/heavy_sleeve_back_card.webp", "yellow":"/images/apparel/heavy_sleeve_yellow_card.webp"},  
+      "back": {"black":"/images/apparel/heavy_sleeve_back_b_card.webp", "yellow":"/images/apparel/heavy_sleeve_yellow_b_card.webp"},
+      "right": {"black":"/images/apparel/heavy_sleeve_black_right_card.webp", "yellow":"/images/apparel/heavy_sleeve_yellow_right_card.webp"},
+      "left": {"black":"/images/apparel/heavy_sleeve_black_left_card.webp", "yellow":"/images/apparel/heavy_sleeve_yellow_left_card.webp"}
+    }
+  },
+  {
+    "id": 20,
+    "name": "Zip Up Hoodie",
+    "location": { 
+      "dtg": {
+        "front": {"width_chest": 60, "height_chest": 60, "top_chest": 266, "left": 230, "left_chest": 0.59, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 266, "left": 230, "angle": 0  },
+        "right": {"width": 60, "height": 238, "top": 230, "left": 295, "angle": 0 },
+        "left": {"width": 60, "height": 238, "top": 230, "left": 345, "angle": 0 }
+      },
+      "emb": {
+        "front": {"width_chest": 70, "height_chest": 70, "top_chest": 266, "left": 230, "left_chest": 0.59, "angle": 0  },
+        "back": {"width": 240, "height": 316, "top": 266, "left": 230, "angle": 0  },
+        "right": {"width": 45, "height": 63, "top": 570, "left": 310, "angle": 0 },
+        "left": {"width": 45, "height": 63, "top": 570, "left": 345, "angle": 0 }
+      }
+    },
+    "apparel": { 
+      "front": {"black":"/images/apparel/zipup_black.png", "gray_light":"/images/apparel/zipup_gray.png"}, 
+      "back": {"black":"/images/apparel/zipup_black_b.png", "gray_light":"/images/apparel/zipup_gray_b.png"},
+      "right": {"black":"/images/apparel/zipup_black_r.png", "gray_light":"/images/apparel/zipup_gray_r.png" }, 
+      "left": {"black":"/images/apparel/zipup_black_l.png", "gray_light":"/images/apparel/zipup_gray_l.png" }
+    },
+    "card": { 
+      "front": {"black":"/images/apparel/zipup_black_card.webp", "gray_light":"/images/apparel/zipup_gray_card.webp"},  
+      "back": {"black":"/images/apparel/zipup_black_card_b.webp", "gray_light":"/images/apparel/zipup_gray_card_b.webp"},
+      "right": {"black":"/images/apparel/zipup_black_card_r.webp", "gray_light":"/images/apparel/zipup_gray_card_r.webp"}, 
+      "left": {"black":"/images/apparel/zipup_black_card_l.webp", "gray_light":"/images/apparel/zipup_gray_card_l.webp"}
     }
   }
 ]

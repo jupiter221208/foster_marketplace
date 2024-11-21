@@ -191,7 +191,9 @@ const AdditionalDetails = props => {
             snapshotAssetUrl.front === '' &&
             (selectedCard.id < 5 ||
               selectedCard.id === ProductModel.CropShirt ||
-              selectedCard.id === ProductModel.CropHoodie)
+              selectedCard.id === ProductModel.CropHoodie ||
+              selectedCard.id === ProductModel.HeavySleeve ||
+              selectedCard.id === ProductModel.ZipUp)
           )
             setPriceFB(0)
           else setPriceFB(8.5)
@@ -314,6 +316,19 @@ const AdditionalDetails = props => {
       case 17:
         description = `Snug. Bold. Designed by ${username}, this ${color} cuffed beanie is embroidered with precision.`
         break
+      case 18:
+        description = `Designed by ${username}, this ${
+          color === 'red_pink' ? 'red' : 'black'
+        } foam trucker features a lightweight foam front, breathable mesh back, and an adjustable snap closure—finished with precision embroidery on the front.`
+        break
+      case 19:
+        description = `Designed by ${username}, this ${color} heavyweight long sleeve is made from 100% carded cotton and printed with precision using ${technique} on the ${side}.`
+        break
+      case 20:
+        description = `Designed by ${username}, this ${
+          color === 'gray_light' ? 'gray' : color
+        } zip-up hoodie is your go-to for next-level comfort. Printed with care using ${technique} on the ${side}.`
+        break
       default:
         description = ''
     }
@@ -324,7 +339,7 @@ const AdditionalDetails = props => {
   const getCardSide = () => {
     let card_side = []
     const { snapshotAssetUrl, technique, selectedCard, detailSide } = productDetail
-    if (technique === 'dtg') {
+    if (technique === 'dtg' || technique === 'dtf') {
       if (snapshotAssetUrl.front !== '') {
         if (detailSide === 'front') card_side.push('full front')
         else if (detailSide === 'chest') card_side.push('left chest')
@@ -393,7 +408,9 @@ const AdditionalDetails = props => {
       <div className="w-full lg:w-[46%]">
         <div className={styles.assetView}>
           <div className="w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] ">
-            <img src={apparelUrl} width={700} className="w-full h-full object-contain" alt="" />
+            {apparelUrl?.length > 0 && (
+              <img src={apparelUrl} width={700} className="w-full h-full object-contain" alt="" />
+            )}
           </div>
         </div>
         <div className="w-full flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[30px] mb-[30px]">
