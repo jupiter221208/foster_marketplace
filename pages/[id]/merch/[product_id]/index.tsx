@@ -107,9 +107,9 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
     setCurrentStep(2)
   }
 
-  let username = publicArtistData?.username ?? '<not found>'
+  // let username = publicArtistData?.username ?? '<not found>'
   let pageTitle = productDetail?.name ?? '<not found>'
-  let pageDescription = `${pageTitle} by ${username} is now available on Foster Studio.`
+  let pageDescription = productDetail?.description ?? '<not found>'
 
   return (
     <div className="w-full block lg:flex">
