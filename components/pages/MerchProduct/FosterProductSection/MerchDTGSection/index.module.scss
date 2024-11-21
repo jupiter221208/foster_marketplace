@@ -227,11 +227,27 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 
+.redWhiteColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #D30231;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
 .grayColor {
   width: 32px;
   height: 32px;
   border-radius: 16px;
   background: #D2CEC6;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.grayLightColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #302F2F;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }
 

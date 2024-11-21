@@ -60,8 +60,29 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState(colors[0])
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
-  const dtgModalIds = [5, 6, 7, 8, 12, ProductModel.CropShirt, ProductModel.CropHoodie]
-  const embModalIds = [5, 6, 7, 8, 12, ProductModel.SweatPant, ProductModel.DadHat, ProductModel.Beanie]
+  const dtgModalIds = [
+    5,
+    6,
+    7,
+    8,
+    12,
+    ProductModel.CropShirt,
+    ProductModel.CropHoodie,
+    ProductModel.HeavySleeve,
+    ProductModel.ZipUp,
+  ]
+  const embModalIds = [
+    5,
+    6,
+    7,
+    8,
+    12,
+    ProductModel.SweatPant,
+    ProductModel.DadHat,
+    ProductModel.Beanie,
+    ProductModel.Foam,
+    ProductModel.ZipUp,
+  ]
 
   useEffect(() => {
     const handleMove = event => {
@@ -82,6 +103,7 @@ const MerchDTGSection = props => {
       window.removeEventListener('touchmove', handleMove)
     }
   }, [])
+
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
@@ -111,7 +133,7 @@ const MerchDTGSection = props => {
     setEmbPlace('front')
     setCardSide('front')
 
-    if (technique === 'dtg') {
+    if (technique === 'dtg' || technique === 'dtf') {
       if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
     } else {
       if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
@@ -132,7 +154,7 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (cardSide === 'front') {
       if (snapshotAsset[cardSide].length === 0) {
-        if (technique === 'dtg') {
+        if (technique === 'dtg' || technique === 'dtf') {
           if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
           else setShowEmbPosModal(false)
         } else {
@@ -200,7 +222,7 @@ const MerchDTGSection = props => {
     }
 
     if (cardSide === 'front') {
-      if (technique === 'dtg') {
+      if (technique === 'dtg' || technique === 'dtf') {
         if (!dtgModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
       } else {
         if (!embModalIds.includes(selectedCard.id)) setShowEmbPosModal(true)
@@ -613,14 +635,14 @@ const MerchDTGSection = props => {
       {/************* Desktop ************/}
       <div className="w-full flex gap-[10px] xl:gap-[30px] lg:h-[calc(100vh_-_100px)]">
         <div
-          className={`w-full lg:mt-[60px] mt-[80px] max-w-[100%] min-w-[100%] lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[58%] xl:min-w-[58%] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
+          className={`w-full lg:mt-[60px] mt-[80px] max-w-[100%] min-w-[100%] lg:max-w-[55%] lg:min-w-[55%] xl:max-w-[58%] xl:min-w-[58%] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-dtg-container'
           }`}
         >
           <div className="relative flex justify-center">
             <div className={styles.rightPanel}>
               <div className="w-full flex justify-center">
-                <div className="relative w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
+                <div className="relative w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] 2xl:w-[700px] 2xl:h-[700px] overflow-hidden">
                   <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
                   {!imageLoaded && assetUrl && (
                     <div className="absolute inset-0 w-full h-full flex justify-center items-center">
@@ -643,17 +665,33 @@ const MerchDTGSection = props => {
                 <div></div>
               )}
               {snapshotAsset[cardSide].length === 0 && !assetUrl && (
-                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
-                    <ImageWithFoster
-                      src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                      showPlaceHolder={false}
-                      width={700}
-                      onLoad={() => {
-                        setImageLoaded(true)
-                      }}
-                      className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
-                    />
+                    {selectedCard.id === 19 ? (
+                      <img
+                        src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                        onLoad={() => {
+                          setImageLoaded(true)
+                        }}
+                        loading="lazy"
+                        className={`${
+                          imageLoaded ? 'opacity-100' : 'opacity-0'
+                        } w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]`}
+                        alt=""
+                      />
+                    ) : (
+                      <ImageWithFoster
+                        src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                        showPlaceHolder={false}
+                        width={700}
+                        onLoad={() => {
+                          setImageLoaded(true)
+                        }}
+                        className={`${
+                          imageLoaded ? 'opacity-100' : 'opacity-0'
+                        } w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[540px] lg:h-[540px] xl:w-[700px] xl:h-[700px]`}
+                      />
+                    )}
                   </div>
                   {!imageLoaded ? (
                     <div className="w-full h-full flex justify-center items-center">
@@ -774,8 +812,8 @@ const MerchDTGSection = props => {
         </div>
 
         <div
-          className={`w-full lg:block hidden lg:max-w-[50%] lg:min-w-[50%] xl:max-w-[42%] xl:min-w-[42%] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
+          className={`w-full lg:block hidden lg:max-w-[45%] lg:min-w-[45%] xl:max-w-[42%] xl:min-w-[42%] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-dtg-container'
           } ${styles.rightBG}`}
         >
           <div className="lg:mt-[60px] ml-[40px] 2xl:mt-[60px] 2xl:ml-[100px]">
@@ -797,6 +835,17 @@ const MerchDTGSection = props => {
             ) : selectedCard.id === ProductModel.Beanie ? (
               <div className={`${styles.garment} mt-[15px]`}>
                 This item includes one embroidery area on the front. Select a color and upload your design.
+              </div>
+            ) : selectedCard.id === ProductModel.Foam ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                This item includes one embroidery area on the front. Select a color and upload your design.
+              </div>
+            ) : selectedCard.id === ProductModel.HeavySleeve || selectedCard.id === ProductModel.ZipUp ? (
+              <div className={`${styles.garment} mt-[15px]`}>
+                You can add up to 4 designs, with 1 (front or back) included in the base price. Additional designs will
+                incur extra fees—see{' '}
+                <span onClick={() => setShowInfoModal(true)}>product extras for pricing details.</span>
+                <br /> Choose a printing technique, fabric color, and upload your designs.
               </div>
             ) : selectedCard.id === ProductModel.SweatPant ? (
               <div className={`${styles.garment} mt-[15px]`}>
@@ -922,6 +971,8 @@ const MerchDTGSection = props => {
                         ? styles.blueColor
                         : item === 'red'
                         ? styles.redColor
+                        : item === 'red_pink'
+                        ? styles.redWhiteColor
                         : item === 'gray'
                         ? styles.grayColor
                         : item === 'gray_dark'
@@ -934,6 +985,8 @@ const MerchDTGSection = props => {
                         ? styles.pinkColor
                         : item === 'yellow'
                         ? styles.yellowColor
+                        : item == 'gray_light'
+                        ? styles.grayLightColor
                         : styles.purpleColor
                     } ${color === item && styles.selectedColor}`}
                     onClick={() => {
@@ -967,6 +1020,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'front') return
                     setCardSide(type)
                   }}
                 />
@@ -987,6 +1041,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'back') return
                     setCardSide(type)
                     setImageLoaded(false)
                   }}
@@ -1010,6 +1065,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'right') return
                     setCardSide(type)
                     setImageLoaded(false)
                   }}
@@ -1032,6 +1088,7 @@ const MerchDTGSection = props => {
                   placement={apparelList[selectedCard.id].location[technique].front}
                   technique={technique}
                   onSelect={type => {
+                    if (cardSide === 'left') return
                     setCardSide(type)
                     setImageLoaded(false)
                   }}
@@ -1142,7 +1199,7 @@ const MerchDTGSection = props => {
                       fontSize={18}
                       label="Save"
                       onClick={() => saveApparel()}
-                      disabled={assetUrl === null}
+                      disabled={assetUrl === null || !imageLoaded}
                     />
                   )}
                 </div>
@@ -1524,12 +1581,23 @@ const MerchDTGSection = props => {
           setShowQuestionModal(false)
           let newTechnique = technique,
             newColor = color
-
+          console.log(type, '=========type========')
           if (type === 'technique_dtg') newTechnique = 'dtg'
           else if (type === 'technique_dtf') newTechnique = 'dtf'
           else if (type === 'technique_emb') newTechnique = 'emb'
           else if (type === 'color_white') newColor = 'white'
           else if (type === 'color_black') newColor = 'black'
+          else if (type === 'color_yellow') newColor = 'yellow'
+          else if (type === 'color_red') newColor = 'red'
+          else if (type === 'color_red_pink') newColor = 'red_pink'
+          else if (type === 'color_blue') newColor = 'blue'
+          else if (type === 'color_pink') newColor = 'pink'
+          else if (type === 'color_purple') newColor = 'purple'
+          else if (type === 'color_green') newColor = 'green'
+          else if (type === 'color_gray') newColor = 'gray'
+          else if (type === 'color_gray_dark') newColor = 'gray_dark'
+          else if (type === 'color_gray_light') newColor = 'gray_light'
+          else if (type === 'color_gray_middle') newColor = 'gray_middle'
 
           setTechnique(newTechnique)
           setColor(newColor)

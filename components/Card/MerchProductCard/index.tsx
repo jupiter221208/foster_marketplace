@@ -47,6 +47,12 @@ const MerchProductCard = props => {
                     ? styles.pinkColor
                     : item === 'yellow'
                     ? styles.yellowColor
+                    : item === 'red_pink'
+                    ? styles.redWhiteColor
+                    : item === 'dark_gray'
+                    ? styles.darkGrayColor
+                    : item === 'black-1D1D1D'
+                    ? styles.black1D1D1DColor
                     : styles.purpleColor
                 }
               />

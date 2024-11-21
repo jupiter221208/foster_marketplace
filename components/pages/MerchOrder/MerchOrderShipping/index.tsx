@@ -108,10 +108,10 @@ const MerchOrderShipping = props => {
     setIsLoading(true)
     if (type === 'physical') {
       // user fulfilled physical
-      onCheckout('', 'user') 
+      onCheckout('', 'user')
     } else {
       // type === foster
-      onCheckout("", 'foster')
+      onCheckout('', 'foster')
       // merchAPI.prepareCart(params).then(
       //   response => {
       //     if (response?.shippingMethods?.length > 0) {
