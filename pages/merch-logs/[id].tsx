@@ -195,8 +195,8 @@ const MerchDetail = () => {
         let quantity = itemData.quantity
         if (options) {
           let itemDetails = {
-            userId: orderData.items[index].userId,
-            merchId: orderData.items[index].id,
+            userId: orderData.items[index] ? orderData.items[index].userId : 0,
+            merchId: orderData.items[index] ? orderData.items[index].id : 0,
             quantity: quantity,
             print: nftName ? nftName['value'] : itemData?.name,
             type: optionType['value'],
