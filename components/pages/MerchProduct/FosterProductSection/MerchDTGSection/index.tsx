@@ -120,11 +120,39 @@ const MerchDTGSection = props => {
 
   useEffect(() => {
     if (assetUrl) {
+      if (curPercentage > 0) {
+        setCurPercentage(0)
+
+        let newCanvas = canvas as fabric.Canvas
+        if (newCanvas == '') {
+          newCanvas = new fabric.Canvas(canvasId)
+        }
+        var center = newCanvas.getCenter()
+
+        if (window.innerWidth < 640) {
+          var centerPoint = new fabric.Point((center.left * 340) / 700, (center.top * 340) / 700)
+          newCanvas.zoomToPoint(centerPoint, 340 / 700)
+        } else if (window.innerWidth < 1024) {
+          var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+          newCanvas.zoomToPoint(centerPoint, 630 / 700)
+        } else {
+          var centerPoint = new fabric.Point(center.left, center.top)
+          newCanvas.zoomToPoint(centerPoint, 1)
+        }
+      }
       drawApparel()
       return
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardSide, assetUrl, embPlace, color])
+  }, [cardSide])
+
+  useEffect(() => {
+    if (assetUrl) {
+      drawApparel()
+      return
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assetUrl, embPlace, color])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
@@ -309,6 +337,7 @@ const MerchDTGSection = props => {
 
   const drawApparel = () => {
     setImageLoaded(false)
+
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
@@ -400,7 +429,6 @@ const MerchDTGSection = props => {
       let ratio = 630 / 700
       newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     }
-
     newCanvas.setDimensions({
       width: screenWidth,
       height: screenWidth,
@@ -1581,7 +1609,6 @@ const MerchDTGSection = props => {
           setShowQuestionModal(false)
           let newTechnique = technique,
             newColor = color
-          console.log(type, '=========type========')
           if (type === 'technique_dtg') newTechnique = 'dtg'
           else if (type === 'technique_dtf') newTechnique = 'dtf'
           else if (type === 'technique_emb') newTechnique = 'emb'
