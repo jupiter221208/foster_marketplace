@@ -194,19 +194,23 @@ const MerchDetail = () => {
 
         let quantity = itemData.quantity
         if (options) {
-          let itemDetails = {
-            userId: orderData.items[index] ? orderData.items[index].userId : 0,
-            merchId: orderData.items[index] ? orderData.items[index].id : 0,
-            quantity: quantity,
-            print: nftName ? nftName['value'] : itemData?.name,
-            type: optionType['value'],
-            size: size ? size['value'] : '',
-            color: color ? getFirstUpperString(color['value']) : '',
-            fosterUrl: previewUrl,
-            apparel: apparel,
-            price: itemData.unitPrice,
-          }
-          itemList.push(itemDetails)
+          orderData.items.forEach(orderDataItem => {
+            if (orderDataItem.id.toString() === itemData.lineItemKey) {
+              let itemDetails = {
+                userId: orderDataItem.userId,
+                merchId: orderDataItem.id,
+                quantity: quantity,
+                print: nftName ? nftName['value'] : itemData?.name,
+                type: optionType['value'],
+                size: size ? size['value'] : '',
+                color: color ? getFirstUpperString(color['value']) : '',
+                fosterUrl: previewUrl,
+                apparel: apparel,
+                price: itemData.unitPrice,
+              }
+              itemList.push(itemDetails)
+            }
+          })
         }
       })
       setList(itemList)
