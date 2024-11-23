@@ -149,6 +149,7 @@ const MerchOrderMain = props => {
       case 49:
       case 50:
         size_list = SizeList[9].size
+        break
       default:
         size_list = []
         break
