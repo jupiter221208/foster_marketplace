@@ -233,7 +233,7 @@ const PhysicalCheckout = ({
       let signedTransaction = await metaplex.identity().signTransaction(transaction)
       let signature = await sendTransactionWithRetry({
         connection: metaplex.connection,
-        transaction,
+        transaction: signedTransaction,
         maxHeight: lastValidBlockHeight,
         retryInterval: 1000,
         skipPreflight: true,
