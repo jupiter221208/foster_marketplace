@@ -23,6 +23,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import styles from './index.module.scss'
 import Alert from 'components/Alert'
 import { findElement, getFirstUpperString } from 'utils/helpers'
+import { sendTransactionWithRetry } from 'utils/transactions'
 
 // api
 import StoreAPI from 'apis/store'
@@ -227,10 +228,16 @@ const PhysicalCheckout = ({
           currency,
         })
       }
-      let { blockhash } = await metaplex.connection.getLatestBlockhash()
+      let { blockhash, lastValidBlockHeight } = await metaplex.connection.getLatestBlockhash()
       transaction.recentBlockhash = blockhash
       let signedTransaction = await metaplex.identity().signTransaction(transaction)
-      let { signature } = await metaplex.rpc().sendAndConfirmTransaction(signedTransaction)
+      let signature = await sendTransactionWithRetry({
+        connection: metaplex.connection,
+        transaction,
+        maxHeight: lastValidBlockHeight,
+        retryInterval: 1000,
+        skipPreflight: true,
+      })
 
       if (signature?.length > 0) {
         // TODO: send signature to backend and update order
