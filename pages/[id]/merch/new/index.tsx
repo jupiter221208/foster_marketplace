@@ -210,7 +210,12 @@ const NewCreatorMerch = () => {
               ? additionDetail.sale_end_at?.toISOString().split('.')[0]
               : null,
           options: {
-            print_technique: productDetail.technique === 'dtg' ? 'direct_to_garment' : 'embroidery',
+            print_technique:
+              productDetail.technique === 'dtg'
+                ? 'direct_to_garment'
+                : productDetail.technique === 'dtf'
+                ? 'direct_to_film'
+                : 'embroidery',
             color: productDetail.color,
             addons: addonList,
           },
