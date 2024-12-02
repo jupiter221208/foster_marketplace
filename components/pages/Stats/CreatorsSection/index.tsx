@@ -12,7 +12,6 @@ import styles from './index.module.scss'
 
 //apis
 import StatsAPI from 'apis/stats'
-import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/profile/LoadingComponent'
 import LoadingElement from 'pages/profile/LoadingComponent/LoadingElement'
 
@@ -123,7 +122,7 @@ const CreatorsSection = props => {
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (
-        <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
+        <div className="mt-[55px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingElement text="Loading creators" />
         </div>
       )}
@@ -137,7 +136,7 @@ const CreatorsSection = props => {
       {!loading && !searchLoading && list.length === 0 && <div className={styles.result}>No results found</div>}
 
       {isMounted && isVisibleFetching && (
-        <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
+        <div className="w-full mt-[55px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading creators" />
         </div>
       )}
