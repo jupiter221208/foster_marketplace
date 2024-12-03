@@ -214,7 +214,7 @@ const NewCreatorMerch = () => {
               productDetail.technique === 'dtg'
                 ? 'direct_to_garment'
                 : productDetail.technique === 'dtf'
-                ? 'direct_to_film'
+                ? 'direct_to_garment'
                 : 'embroidery',
             color: productDetail.color,
             addons: addonList,
