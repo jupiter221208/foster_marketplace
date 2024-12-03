@@ -128,7 +128,7 @@ const ArtworksSection = props => {
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (
-        <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
+        <div className="mt-[50px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingElement text="Loading artworks" />
         </div>
       )}
@@ -142,7 +142,7 @@ const ArtworksSection = props => {
       {!loading && !searchLoading && list.length === 0 && <div className={styles.result}>No results found</div>}
 
       {isMounted && isVisibleFetching && (
-        <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
+        <div className="w-full mt-[50px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} text="Loading artworks" />
         </div>
       )}

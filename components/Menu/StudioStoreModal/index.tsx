@@ -19,6 +19,7 @@ const StudioStoreModal = props => {
   const getTechnique = item => {
     if (item.fulfillment_type === 'foster') {
       if (item.options.print_technique === 'direct_to_garment') return 'Direct To Garment'
+      else if (item.options.print_technique === 'direct_to_film') return 'Direct To Film'
       else return 'Embroidery'
     } else {
       return 'Not Applicable'

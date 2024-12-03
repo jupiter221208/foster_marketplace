@@ -71,6 +71,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
       router.push('/404')
       return
     }
+    console.log(productDetail, '===========productDetail=======')
     if (productDetail) {
       let list = []
       if (productDetail.fulfillment_type === 'foster') {
