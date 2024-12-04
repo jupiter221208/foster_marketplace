@@ -98,7 +98,8 @@ const Category = () => {
   }
   categoryImageUrl = getAbsoluteOgUrl(categoryImageUrl)
   let categoryDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
+    'Home to creators, collectors, and curators around the world.\n' +
+    'Pushing the boundaries of digital art on Solana.'
 
   const LoadingSpinner = () => {
     return (
