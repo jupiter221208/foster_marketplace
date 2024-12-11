@@ -83,8 +83,8 @@ const MerchActivity = () => {
   const [enabledPages, setEnabledPages] = useState(1)
   const [loadMerchStore, setLoadMerchStore] = useState(false)
   const [isActiveNFT, setIsActiveNft] = useState(true)
-  const [isStudioNFT, setIsStudioNft] = useState(true)
-  const [isStudioSalesNFT, setIsStudioSalesNFT] = useState(true)
+  const [isStudioNFT, setIsStudioNft] = useState(false)
+  const [isStudioSalesNFT, setIsStudioSalesNFT] = useState(false)
 
   const [isFetching, setIsFetching] = useState(false)
   const [isMerchStoreFetching, setIsMerchStoreFetching] = useState(true)

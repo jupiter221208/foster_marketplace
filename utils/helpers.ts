@@ -420,7 +420,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty('--sort-item-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--header-bg-color', 'rgba(244, 243, 240, 0.8)')
-    doc.style.setProperty('--nav-bg-color', 'rgba(238, 237, 235, 0.75)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(232, 231, 229, 0.75)')
     doc.style.setProperty('--nav-bg-shadow', 'rgba(32, 36, 39, 0.4)')
     doc.style.setProperty('--second-home-bg', '#FFF')
     doc.style.setProperty('--header-bottom-color', '#CCCDD4')
