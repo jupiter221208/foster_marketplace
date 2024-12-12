@@ -563,14 +563,13 @@ const MyProductSection = props => {
               <div className={styles.fullfill}>Specify Shipping Fee by Country (optional)</div>
               {countryList.map(({ address, fee }, index) => {
                 return (
-                  <div className="w-full flex justify-between mt-[15px] gap-[10px] items-center">
+                  <div key={index} className="w-full flex justify-between mt-[15px] gap-[10px] items-center">
                     <div className="w-full">
                       <CountrySelect
                         data={Country.getAllCountries()}
                         selected={address}
                         onChange={item => {
                           setCountryAddress(index, item)
-                          // setProductDetail({ ...productDetail, country: item })
                         }}
                         maxHeight="none"
                         placeholder="Enter the country"
@@ -585,8 +584,6 @@ const MyProductSection = props => {
                         placeholder={'Enter a flat rate shipping fee'}
                         onChange={event => {
                           setCountryFee(index, validDigits(event.target.value))
-                          // setInterShippingFee(validDigits(event.target.value))
-                          // setProductDetail({ ...productDetail, interShippingFee: validDigits(event.target.value) })
                         }}
                       />
                     </div>
