@@ -57,7 +57,7 @@ const MyProductSection = props => {
   const [interShippingFee, setInterShippingFee] = useState('')
   const [shippingSwitch, setShippingSwitch] = useState(false)
   const [country, setCountry] = useState(null)
-  const [countryList, setCountryList] = useState<Array<{ address: any; fee: string }>>([])
+  const [countryList, setCountryList] = useState<Array<{ address: any; fee: string }>>([{ address: '', fee: '' }])
 
   useEffect(() => {
     if (backClicked) {
@@ -87,9 +87,13 @@ const MyProductSection = props => {
 
   useEffect(() => {
     if (!productDetail) {
-      setProductDetail({ ...productDetail, shipping: ShippingList[0], sizes: [] })
+      setProductDetail({
+        ...productDetail,
+        shipping: ShippingList[0],
+        sizes: [],
+        countryList: [{ address: '', fee: '' }],
+      })
     }
-    setCountryList([{ address: '', fee: '' }])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -238,6 +242,7 @@ const MyProductSection = props => {
   const removeCountryList = index => {
     let list = [...countryList]
     list.splice(index, 1)
+    if (list.length === 0) list.push({ address: '', fee: '' })
     setCountryList(list)
   }
 
@@ -587,11 +592,10 @@ const MyProductSection = props => {
                         }}
                       />
                     </div>
-                    {countryList.length > 1 && (
-                      <div className="w-[24px]">
-                        {index > 0 && <TrashIcon onClick={() => removeCountryList(index)} />}
-                      </div>
-                    )}
+
+                    <div className="w-[24px]">
+                      <TrashIcon onClick={() => removeCountryList(index)} />
+                    </div>
                   </div>
                 )
               })}
