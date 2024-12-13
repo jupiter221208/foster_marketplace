@@ -24,7 +24,6 @@ import SizeList from 'assets/json/print/size-chat-modal.json'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
 import storeAPI from 'apis/store'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'

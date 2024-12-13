@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "label": "All time"
+  },
+  {
+    "id": 1,
+    "label": "Today"
+  },
+  {
+    "id": 2,
+    "label": "Last 7 days"
+  },
+  {
+    "id": 3,
+    "label": "This month"
+  },
+  {
+    "id": 4,
+    "label": "This year"
+  },
+  {
+    "id": 5,
+    "label": "Last month"
+  },
+  {
+    "id": 6,
+    "label": "Last year"
+  }
+]

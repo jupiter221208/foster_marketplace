@@ -22,6 +22,7 @@ import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
 
 // resources
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
+import DownloadIcon from 'assets/icons/download-csv.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -37,6 +38,7 @@ import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
+import MerchExportModal from 'components/Modal/MerchExportModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { useRouter } from 'next/router'
@@ -99,6 +101,7 @@ const MerchActivity = () => {
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
   const [tokenId, setTokenId] = useState(false)
+  const [showExportModal, setShowExportModal] = useState(false)
 
   useEffect(() => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
@@ -684,6 +687,14 @@ const MerchActivity = () => {
               )}
               {activeTab === 2 && (
                 <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                  <div
+                    className="hidden lg:flex items-center gap-[15px]"
+                    onClick={() => setShowExportModal(!showExportModal)}
+                  >
+                    <div className={styles.exportOrders}>Export Orders</div>
+                    <DownloadIcon />
+                  </div>
+
                   <TimeSlotButton
                     label="Studio NFTs"
                     height={42}
@@ -707,6 +718,14 @@ const MerchActivity = () => {
               )}
               {activeTab === 3 && (
                 <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                  <div
+                    className="hidden lg:flex items-center gap-[15px]"
+                    onClick={() => setShowExportModal(!showExportModal)}
+                  >
+                    <div className={styles.exportOrders}>Export Orders</div>
+                    <DownloadIcon />
+                  </div>
+
                   <TimeSlotButton
                     label="Studio NFTs"
                     height={42}
@@ -857,6 +876,8 @@ const MerchActivity = () => {
           setPreviewMode(false)
         }}
       />
+
+      <MerchExportModal open={showExportModal} onClose={() => setShowExportModal(false)} />
     </div>
   )
 }

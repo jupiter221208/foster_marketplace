@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "label": "All orders"
+  },
+  {
+    "id": 1,
+    "label": "User fulfilled orders"
+  },
+  {
+    "id": 2,
+    "label": "Foster fulfilled orders"
+  }
+]
