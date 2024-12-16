@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
+import * as XLSX from 'xlsx'
 
 // components
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
@@ -17,6 +18,7 @@ import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // API
+import StoreAPI from 'apis/store'
 
 const MerchExportModal = ({ open, onClose }) => {
   const [fulfillType, setFulfillType] = useState(FulfillType[0])
@@ -24,8 +26,63 @@ const MerchExportModal = ({ open, onClose }) => {
   const [orderStatusType, setOrderStatusType] = useState(OrderStatusType[0])
   const [reportType, setReportType] = useState('csv')
 
+  const data = [
+    {
+      Fulfillment: 'User fulfilled order',
+      Order: '#foster/studio/mainnet/1420',
+      Product: 'Cyberfrogs Hoodies',
+      Status: 'Shipped',
+      Total: '$41.37',
+      Date: '3-Dec-24',
+      Address: 'Tyler, 69 Dragon Ave, Solana Beach, CA 34761, US',
+    },
+    {
+      Fulfillment: 'User fulfilled order',
+      Order: '#foster/studio/mainnet/1690',
+      Product: 'FF Tee',
+      Status: 'New',
+      Total: '$42.00',
+      Date: '4-Dec-24',
+      Address: 'Tyler, 69 Dragon Ave, Solana Beach, CA 34761, US',
+    },
+  ]
+
   const closeModal = () => {
     onClose()
+  }
+
+  const exportData = () => {
+    StoreAPI.exportOrder('foster', null, null, null).then(response => {
+      console.log(response, '==========response=========')
+    })
+    /*
+    if (reportType === 'csv') {
+      const csvRows = []
+      const headers = Object.keys(data[0])
+      csvRows.push(headers.join(',')) // Add header row
+
+      for (const row of data) {
+        csvRows.push(headers.map(field => JSON.stringify(row[field] || '')).join(','))
+      }
+
+      // Create a Blob from the CSV string
+      const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'orders.csv')
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } else {
+      const worksheet = XLSX.utils.json_to_sheet(data)
+      // Create a new workbook
+      const workbook = XLSX.utils.book_new()
+      // Append the worksheet to the workbook
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
+      // Export the workbook to a file
+      XLSX.writeFile(workbook, 'orders.xlsx')
+    }*/
   }
 
   return (
@@ -144,7 +201,7 @@ const MerchExportModal = ({ open, onClose }) => {
                       label="Cancel"
                       onClick={closeModal}
                     />
-                    <GradientButton width={164} height={50} label="Download" />
+                    <GradientButton width={164} height={50} label="Download" onClick={() => exportData()} />
                   </div>
                 </div>
               </div>

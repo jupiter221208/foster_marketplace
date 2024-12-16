@@ -261,6 +261,16 @@ const AdditionalDetails = props => {
     let technique = tech === 'dtg' ? 'direct-to-garment' : tech === 'dtf' ? 'direct-to-film' : 'embroidery'
     let side = getCardSide()
 
+    if (color === 'gray_dark') {
+      color = 'faded black'
+    } else if (color === 'gray_middle') {
+      color = 'gray'
+    } else if (color === 'red_pink') {
+      color = 'red'
+    } else if (color == 'gray_light') {
+      color = 'gray'
+    }
+
     switch (selectedCard.id) {
       case 0:
         description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
