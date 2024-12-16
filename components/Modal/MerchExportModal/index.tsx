@@ -19,12 +19,14 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // API
 import StoreAPI from 'apis/store'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchExportModal = ({ open, onClose }) => {
   const [fulfillType, setFulfillType] = useState(FulfillType[0])
   const [dateRangeType, setDateRangeType] = useState(DateRangeType[0])
   const [orderStatusType, setOrderStatusType] = useState(OrderStatusType[0])
   const [reportType, setReportType] = useState('csv')
+  const [isDownloading, setIsDownloading] = useState(false)
 
   const data = [
     {
@@ -48,12 +50,69 @@ const MerchExportModal = ({ open, onClose }) => {
   ]
 
   const closeModal = () => {
+    if (isDownloading) return
     onClose()
   }
 
   const exportData = () => {
-    StoreAPI.exportOrder('foster', null, null, null).then(response => {
-      console.log(response, '==========response=========')
+    let fulfill = null
+    if (fulfillType.id === 1) fulfill = 'user'
+    else if (fulfillType.id === 2) fulfill = 'foster'
+
+    let from = null,
+      to = null
+    const today = new Date()
+    if (dateRangeType.id === 1) {
+      const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0)
+      const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999)
+      from = startOfDay.toISOString()
+      to = endOfDay.toISOString()
+    } else if (dateRangeType.id === 2) {
+      const startDate = new Date()
+      startDate.setDate(today.getDate() - 6)
+      from = startDate.toISOString()
+      to = today.toISOString()
+    } else if (dateRangeType.id === 3) {
+      const startDate = new Date(today.getFullYear(), today.getMonth(), 1)
+      const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+      from = startDate.toISOString()
+      to = endDate.toISOString()
+    } else if (dateRangeType.id === 4) {
+      const startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1)
+      const endDate = new Date(today.getFullYear(), today.getMonth(), 0)
+      from = startDate.toISOString()
+      to = endDate.toISOString()
+    } else if (dateRangeType.id === 5) {
+      const startDate = new Date(today.getFullYear(), 0, 1) // Month is 0-indexed (0 = January)
+      const endDate = new Date(today.getFullYear(), 11, 31) // Month is 11-indexed (11 = December)
+      from = startDate.toISOString()
+      to = endDate.toISOString()
+    } else if (dateRangeType.id === 6) {
+      const startDate = new Date(today.getFullYear() - 1, 0, 1) // Month is 0-indexed (0 = January)
+      const endDate = new Date(today.getFullYear() - 1, 11, 31) // Month is 11-indexed (11 = December)
+      from = startDate.toISOString()
+      to = endDate.toISOString()
+    }
+
+    let orderStatus = null
+    if (orderStatusType.id === 1) {
+      orderStatus = 'awaiting_shipment'
+    } else if (orderStatusType.id === 2) {
+      orderStatus = 'shipped'
+    }
+
+    setIsDownloading(true)
+    StoreAPI.exportOrder(fulfill, from.replace('Z', ''), to.replace('Z', ''), orderStatus).then(response => {
+      setIsDownloading(false)
+      const blob = new Blob([response], { type: 'text/csv;charset=utf-8;' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.setAttribute('href', url)
+      link.setAttribute('download', 'data.csv') // Specify the file name
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url) // Free up memory
     })
     /*
     if (reportType === 'csv') {
@@ -149,7 +208,7 @@ const MerchExportModal = ({ open, onClose }) => {
                     }}
                   />
                 </div>
-                <div className={styles.fulfillType}>Report format</div>
+                {/* <div className={styles.fulfillType}>Report format</div>
                 <div className="mt-[15px]">
                   <div className="flex gap-[30px]">
                     <div className="flex items-center gap-[15px]">
@@ -189,7 +248,7 @@ const MerchExportModal = ({ open, onClose }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className={styles.divider} />
                 <div className="w-full flex justify-end mt-[26px]">
                   <div className="flex gap-[16px]">
@@ -201,7 +260,11 @@ const MerchExportModal = ({ open, onClose }) => {
                       label="Cancel"
                       onClick={closeModal}
                     />
-                    <GradientButton width={164} height={50} label="Download" onClick={() => exportData()} />
+                    {isDownloading ? (
+                      <LoadingButton width={164} height={50} />
+                    ) : (
+                      <GradientButton width={164} height={50} label="Download" onClick={() => exportData()} />
+                    )}
                   </div>
                 </div>
               </div>

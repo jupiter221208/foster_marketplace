@@ -155,7 +155,7 @@ class Store {
     if (status !== null) {
       if (params.length > 0) params += "&"
       else params ="?"
-      params += `status=${status}`
+      params += `status[]=${status}`
     }
 
     return client.get(api_url + params).then(response => {
