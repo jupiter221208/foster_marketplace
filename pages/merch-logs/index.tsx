@@ -686,7 +686,7 @@ const MerchActivity = () => {
                 </div>
               )}
               {activeTab === 2 && (
-                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                <div className="w-full mt-[20px] lg:mt-[0px] flex justify-between">
                   <div
                     className="hidden lg:flex items-center gap-[15px]"
                     onClick={() => setShowExportModal(!showExportModal)}
@@ -694,30 +694,31 @@ const MerchActivity = () => {
                     <div className={styles.exportOrders}>Export Orders</div>
                     <DownloadIcon />
                   </div>
+                  <div className="w-full lg:w-auto flex gap-[16px]">
+                    <TimeSlotButton
+                      label="Studio NFTs"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioNFT === true}
+                      onClick={() => {
+                        setIsStudioNft(true)
+                      }}
+                    />
 
-                  <TimeSlotButton
-                    label="Studio NFTs"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioNFT === true}
-                    onClick={() => {
-                      setIsStudioNft(true)
-                    }}
-                  />
-
-                  <TimeSlotButton
-                    label="Merch Store"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioNFT === false}
-                    onClick={() => {
-                      setIsStudioNft(false)
-                    }}
-                  />
+                    <TimeSlotButton
+                      label="Merch Store"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioNFT === false}
+                      onClick={() => {
+                        setIsStudioNft(false)
+                      }}
+                    />
+                  </div>
                 </div>
               )}
               {activeTab === 3 && (
-                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                <div className="w-full mt-[20px] lg:mt-[0px] flex justify-between">
                   <div
                     className="hidden lg:flex items-center gap-[15px]"
                     onClick={() => setShowExportModal(!showExportModal)}
@@ -725,26 +726,27 @@ const MerchActivity = () => {
                     <div className={styles.exportOrders}>Export Orders</div>
                     <DownloadIcon />
                   </div>
+                  <div className="w-full lg:w-auto flex gap-[16px]">
+                    <TimeSlotButton
+                      label="Studio NFTs"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioSalesNFT === true}
+                      onClick={() => {
+                        setIsStudioSalesNFT(true)
+                      }}
+                    />
 
-                  <TimeSlotButton
-                    label="Studio NFTs"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioSalesNFT === true}
-                    onClick={() => {
-                      setIsStudioSalesNFT(true)
-                    }}
-                  />
-
-                  <TimeSlotButton
-                    label="Merch Store"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioSalesNFT === false}
-                    onClick={() => {
-                      setIsStudioSalesNFT(false)
-                    }}
-                  />
+                    <TimeSlotButton
+                      label="Merch Store"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioSalesNFT === false}
+                      onClick={() => {
+                        setIsStudioSalesNFT(false)
+                      }}
+                    />
+                  </div>
                 </div>
               )}
             </div>
