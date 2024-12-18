@@ -553,7 +553,7 @@ const MyProductSection = props => {
                 <input
                   className={styles.input}
                   value={interShippingFee}
-                  placeholder={'Set your selling price'}
+                  placeholder={'Enter a flat rate shipping fee'}
                   onChange={event => {
                     setInterShippingFee(validDigits(event.target.value))
                     setProductDetail({ ...productDetail, interShippingFee: validDigits(event.target.value) })
@@ -571,7 +571,7 @@ const MyProductSection = props => {
                   <div key={index} className="w-full flex justify-between mt-[15px] gap-[10px] items-center">
                     <div className="w-full">
                       <CountrySelect
-                        data={Country.getAllCountries()}
+                        data={Country.getAllCountries().filter(item => item.isoCode != country?.isoCode)}
                         selected={address}
                         onChange={item => {
                           setCountryAddress(index, item)
@@ -602,12 +602,14 @@ const MyProductSection = props => {
             </div>
           )}
 
-          <div className={`${styles.sellingArea} flex justify-center mt-[15px]`} onClick={() => onClickAddCountry()}>
-            <div className="flex items-center gap-[10px]">
-              <CrossPlusIcon />
-              <div className={styles.shippingDesc}>Add another country</div>
+          {shipping.id === 1 && (
+            <div className={`${styles.sellingArea} flex justify-center mt-[15px]`} onClick={() => onClickAddCountry()}>
+              <div className="flex items-center gap-[10px]">
+                <CrossPlusIcon />
+                <div className={styles.shippingDesc}>Add another country</div>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="w-full h-[250px] lg:h-[200px]" />
         </div>

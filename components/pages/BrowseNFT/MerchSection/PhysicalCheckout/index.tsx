@@ -117,12 +117,14 @@ const PhysicalCheckout = ({
     if (shippingRes === 'd_buyer') {
       let config = orderData?.items[0].options.shipping_config
       if (config) {
-        let shippingCountry = Object.keys(config)[0]
-        if (shippingData.country === shippingCountry) {
-          shipping_fee = config[shippingCountry]
-        } else {
-          shipping_fee = config['blink']
-        }
+        Object.keys(config).some(item => {
+          if (shippingData.country === item) {
+            shipping_fee = config[item]
+            return true
+          } else {
+            shipping_fee = config['blink']
+          }
+        })
         setShippingFee(shipping_fee)
       }
     }
