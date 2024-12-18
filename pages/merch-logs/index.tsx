@@ -633,14 +633,6 @@ const MerchActivity = () => {
                   ? (isActiveNFT && enabledItems.length > 0) || (!isActiveNFT && disabledItems.length > 0)
                     ? 'Displayed below are legacy studio items.'
                     : ''
-                  : activeTab === 2
-                  ? purchases.length > 0
-                    ? 'Displayed below is a record of all your orders.'
-                    : ''
-                  : activeTab === 3
-                  ? sales.length > 0
-                    ? 'Displayed below is a record of all your sales.'
-                    : ''
                   : activeTab === 5
                   ? 'Unlock studio badges and their associated perks as you accomplish specific milestones.'
                   : ''}
@@ -686,7 +678,7 @@ const MerchActivity = () => {
                 </div>
               )}
               {activeTab === 2 && (
-                <div className="w-full mt-[20px] lg:mt-[0px] flex justify-between">
+                <div className="w-full mt-[20px] lg:mt-[10px] flex justify-between">
                   <div
                     className="hidden lg:flex items-center gap-[15px]"
                     onClick={() => setShowExportModal(!showExportModal)}
@@ -718,7 +710,7 @@ const MerchActivity = () => {
                 </div>
               )}
               {activeTab === 3 && (
-                <div className="w-full mt-[20px] lg:mt-[0px] flex justify-between">
+                <div className="w-full mt-[20px] lg:mt-[10px] flex justify-between">
                   <div
                     className="hidden lg:flex items-center gap-[15px]"
                     onClick={() => setShowExportModal(!showExportModal)}

@@ -48,6 +48,7 @@ const AdditionalDetails = props => {
   const [priceFB, setPriceFB] = useState(0)
   const [priceRight, setPriceRight] = useState(0)
   const [priceLeft, setPriceLeft] = useState(0)
+  const [specificFeeList, setSpecificFeeList] = useState([])
 
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
@@ -246,6 +247,14 @@ const AdditionalDetails = props => {
       })
       setAssetUrls(assetUrl)
       setApparelUrl(assetUrl[0].url)
+      let fee_list = []
+      console.log(productDetail.countryList, '============')
+      productDetail.countryList.forEach(item => {
+        if (item.address !== '' && item.fee !== '') {
+          fee_list.push(`${item.address.name} ($${item.fee})`)
+        }
+      })
+      setSpecificFeeList(fee_list)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
@@ -574,6 +583,13 @@ const AdditionalDetails = props => {
                 <div>
                   <div className={`mt-[20px] ${styles.title}`}>International Shipping Fee</div>
                   <div className={`${styles.desc} mt-[10px]`}>${productDetail.interShippingFee}</div>
+                </div>
+              )}
+
+              {productDetail.shipping.id === 1 && specificFeeList.length > 0 && (
+                <div>
+                  <div className={`mt-[20px] ${styles.title}`}>Country Specific Shipping Rates</div>
+                  <div className={`${styles.desc} mt-[10px]`}>{specificFeeList.join(', ')}</div>
                 </div>
               )}
             </div>

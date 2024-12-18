@@ -244,6 +244,7 @@ const MyProductSection = props => {
     list.splice(index, 1)
     if (list.length === 0) list.push({ address: '', fee: '' })
     setCountryList(list)
+    setProductDetail({ ...productDetail, countryList: list })
   }
 
   return (
