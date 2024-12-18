@@ -21,12 +21,20 @@ import OutlineButton from 'components/Button/OutlineButton'
 import StoreAPI from 'apis/store'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const MerchExportModal = ({ open, onClose }) => {
+const MerchExportModal = ({ open, onClose, type }) => {
   const [fulfillType, setFulfillType] = useState(FulfillType[0])
   const [dateRangeType, setDateRangeType] = useState(DateRangeType[0])
   const [orderStatusType, setOrderStatusType] = useState(OrderStatusType[0])
-  const [reportType, setReportType] = useState('csv')
+  // const [reportType, setReportType] = useState('csv')
   const [isDownloading, setIsDownloading] = useState(false)
+
+  useEffect(() => {
+    if (!open) {
+      setFulfillType(FulfillType[0])
+      setDateRangeType(DateRangeType[0])
+      setOrderStatusType(OrderStatusType[0])
+    }
+  }, [open])
 
   const data = [
     {
@@ -65,33 +73,33 @@ const MerchExportModal = ({ open, onClose }) => {
     if (dateRangeType.id === 1) {
       const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0)
       const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999)
-      from = startOfDay.toISOString()
-      to = endOfDay.toISOString()
+      from = startOfDay.toISOString().replace('Z', '')
+      to = endOfDay.toISOString().replace('Z', '')
     } else if (dateRangeType.id === 2) {
       const startDate = new Date()
       startDate.setDate(today.getDate() - 6)
-      from = startDate.toISOString()
-      to = today.toISOString()
+      from = startDate.toISOString().replace('Z', '')
+      to = today.toISOString().replace('Z', '')
     } else if (dateRangeType.id === 3) {
       const startDate = new Date(today.getFullYear(), today.getMonth(), 1)
       const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0)
-      from = startDate.toISOString()
-      to = endDate.toISOString()
+      from = startDate.toISOString().replace('Z', '')
+      to = endDate.toISOString().replace('Z', '')
     } else if (dateRangeType.id === 4) {
       const startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1)
       const endDate = new Date(today.getFullYear(), today.getMonth(), 0)
-      from = startDate.toISOString()
-      to = endDate.toISOString()
+      from = startDate.toISOString().replace('Z', '')
+      to = endDate.toISOString().replace('Z', '')
     } else if (dateRangeType.id === 5) {
       const startDate = new Date(today.getFullYear(), 0, 1) // Month is 0-indexed (0 = January)
       const endDate = new Date(today.getFullYear(), 11, 31) // Month is 11-indexed (11 = December)
-      from = startDate.toISOString()
-      to = endDate.toISOString()
+      from = startDate.toISOString().replace('Z', '')
+      to = endDate.toISOString().replace('Z', '')
     } else if (dateRangeType.id === 6) {
       const startDate = new Date(today.getFullYear() - 1, 0, 1) // Month is 0-indexed (0 = January)
       const endDate = new Date(today.getFullYear() - 1, 11, 31) // Month is 11-indexed (11 = December)
-      from = startDate.toISOString()
-      to = endDate.toISOString()
+      from = startDate.toISOString().replace('Z', '')
+      to = endDate.toISOString().replace('Z', '')
     }
 
     let orderStatus = null
@@ -102,7 +110,7 @@ const MerchExportModal = ({ open, onClose }) => {
     }
 
     setIsDownloading(true)
-    StoreAPI.exportOrder(fulfill, from.replace('Z', ''), to.replace('Z', ''), orderStatus).then(response => {
+    StoreAPI.exportOrder(fulfill, from, to, orderStatus, type).then(response => {
       setIsDownloading(false)
       const blob = new Blob([response], { type: 'text/csv;charset=utf-8;' })
       const url = URL.createObjectURL(blob)

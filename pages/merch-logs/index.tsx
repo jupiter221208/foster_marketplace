@@ -877,7 +877,11 @@ const MerchActivity = () => {
         }}
       />
 
-      <MerchExportModal open={showExportModal} onClose={() => setShowExportModal(false)} />
+      <MerchExportModal
+        open={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        type={activeTab === 2 ? 'purchases' : 'sales'}
+      />
     </div>
   )
 }
