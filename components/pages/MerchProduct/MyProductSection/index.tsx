@@ -534,7 +534,7 @@ const MyProductSection = props => {
                 <input
                   className={styles.input}
                   value={shippingFee}
-                  placeholder={'Set your selling price'}
+                  placeholder={'Enter a flat rate shipping fee'}
                   onChange={event => {
                     setShippingFee(validDigits(event.target.value))
                     setProductDetail({ ...productDetail, shippingFee: validDigits(event.target.value) })
