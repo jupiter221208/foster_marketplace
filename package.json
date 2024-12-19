@@ -76,7 +76,8 @@
     "styled-components": "^6.0.0-rc.1",
     "swiper": "^8.3.0",
     "three": "^0.159.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",

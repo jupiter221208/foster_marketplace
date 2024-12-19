@@ -6,18 +6,14 @@ import { Dialog, Transition } from '@headlessui/react'
 // styles
 import styles from './index.module.scss'
 import MerchClaimShipping from 'components/pages/MerchOrder/MerchClaimShipping'
-import MerchClaimShippingMethod from 'components/pages/MerchOrder/MerchClaimShippingMethod'
 import MerchClaimCheckout from 'components/pages/MerchOrder/MerchClaimCheckout'
 
 // API
 
 const MerchClaimModal = ({ open, onClose, data }) => {
-  const [shipppingMethod, setShippingMethod] = useState(null)
   const [orderId, setOrderId] = useState('')
   const [currentStep, setCurrentStep] = useState(1)
-  const [shippingData, setShippingData] = useState(null)
 
-  const [totalCost, setTotalCost] = useState(0)
   const [printData, setPrintData] = useState(null)
   const [productDetail, setProductDetail] = useState(null)
   const [merchList, setMerchList] = useState([])
@@ -116,24 +112,7 @@ const MerchClaimModal = ({ open, onClose, data }) => {
                     setMerchSize={setMerchSize}
                   />
                 )}
-                {/* {currentStep === 2 && (
-                  <MerchClaimShippingMethod
-                    data={printData}
-                    shippingData={shippingData}
-                    allShippingMethod={shipppingMethod}
-                    setTotalCost={setTotalCost}
-                    merchList={merchList}
-                    rawList={rawUrlList}
-                    mintAddress={data.nft.token_id}
-                    onNext={orderId => {
-                      setOrderId(orderId)
-                      setCurrentStep(3)
-                    }}
-                    onBack={() => {
-                      setCurrentStep(1)
-                    }}
-                  />
-                )} */}
+
                 {currentStep === 2 && (
                   <MerchClaimCheckout
                     orderId={orderId}

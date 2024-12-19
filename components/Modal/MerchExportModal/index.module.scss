@@ -1,0 +1,130 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: auto;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-main-color);
+  @media (min-width: 1024px) {
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    background-color: var(--background-main-color);
+  }
+  position: fixed;
+  inset: 0;
+}
+
+.close {
+  position: absolute;
+  right: 150px;
+  top: 100px;
+  width: 52px;
+  height: 52px;
+}
+
+.modalView {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    margin-top: 80px;
+  }
+}
+
+.childView {
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 604px;
+    border: 1px solid #303030;
+    background: var(--background-main-color);
+    border-radius: 10px;
+    padding: 35px 28px;
+  }
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}
+
+.selected {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  border: 2px solid var(--main-icon-color);
+}
+
+.unselected {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  border: 2px solid var(--bg-303030-DDDCDC);
+}
+
+.exportOrders {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+}
+
+.fulfillType {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  margin-top: 28px;
+}
+
+.divider {
+  width: calc(100% + 56px);
+  margin-left: -28px;
+  height: 1px;
+  background: #303030;
+  margin-top: 45px;
+}
+
+.radio {
+  appearance: none;
+  border: 2px solid rgba(var(--text-gray-200-color-rgb), 0.7);
+  background-color: transparent;
+  vertical-align: top;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  -webkit-tap-highlight-color: transparent;
+  &:checked {
+    border: 2px solid var(--radio-check-color);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      background-color: var(--radio-check-color);
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.radioText {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7 );
+  cursor: pointer;
+}

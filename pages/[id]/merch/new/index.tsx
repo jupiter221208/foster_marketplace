@@ -61,7 +61,7 @@ const NewCreatorMerch = () => {
         snapshotUrl.left.length > 0 ||
         snapshotUrl.right.length > 0
       ) {
-        let { product, description, name, type, country, shipping, sizes, shippingFee, interShippingFee } =
+        let { product, description, name, type, country, countryList, shipping, sizes, shippingFee, interShippingFee } =
           productDetail
         if (product) {
           if (product.id === 0) {
@@ -71,7 +71,18 @@ const NewCreatorMerch = () => {
               if ((type.id === 12 || type.id === 13) && sizes.length === 0) {
                 setNextEnabled(false)
               } else if (shipping.id === 1) {
-                if (
+                let specificCountry = true
+                countryList?.forEach(item => {
+                  if ((item.address === '' && item.fee === '') || (item.address !== '' && item.fee !== ''))
+                    specificCountry = true
+                  else {
+                    specificCountry = false
+                    return
+                  }
+                })
+
+                if (!specificCountry) setNextEnabled(false)
+                else if (
                   country !== undefined &&
                   shippingFee !== undefined &&
                   interShippingFee !== undefined &&
@@ -257,6 +268,12 @@ const NewCreatorMerch = () => {
             default: productDetail.interShippingFee * 100,
           }
           shippingConfig[countryCode] = productDetail.shippingFee * 100
+
+          productDetail.countryList.forEach(item => {
+            if (item.address !== '' && item.fee !== '') {
+              shippingConfig[item.address.isoCode] = parseFloat(item.fee) * 100
+            }
+          })
           options['shipping_config'] = shippingConfig
         }
 

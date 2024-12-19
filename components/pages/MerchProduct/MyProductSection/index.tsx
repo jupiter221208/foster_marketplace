@@ -13,6 +13,8 @@ import 'swiper/css/navigation'
 import Lottie from 'lottie-react'
 
 // image
+import TrashIcon from 'assets/icons/trash-icon.svg?component'
+import CrossPlusIcon from 'assets/icons/plus-green.svg?component'
 
 // json
 import ProductType from 'assets/json/creator-merch/product-type.json'
@@ -55,6 +57,7 @@ const MyProductSection = props => {
   const [interShippingFee, setInterShippingFee] = useState('')
   const [shippingSwitch, setShippingSwitch] = useState(false)
   const [country, setCountry] = useState(null)
+  const [countryList, setCountryList] = useState<Array<{ address: any; fee: string }>>([{ address: '', fee: '' }])
 
   useEffect(() => {
     if (backClicked) {
@@ -84,7 +87,12 @@ const MyProductSection = props => {
 
   useEffect(() => {
     if (!productDetail) {
-      setProductDetail({ ...productDetail, shipping: ShippingList[0], sizes: [] })
+      setProductDetail({
+        ...productDetail,
+        shipping: ShippingList[0],
+        sizes: [],
+        countryList: [{ address: '', fee: '' }],
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -92,8 +100,20 @@ const MyProductSection = props => {
   useEffect(() => {
     if (!productDetail) return
 
-    let { snapshotAssetUrl, description, name, type, shipping, sizes, country, shippingFee, interShippingFee } =
-      productDetail
+    let {
+      snapshotAssetUrl,
+      description,
+      name,
+      type,
+      shipping,
+      sizes,
+      country,
+      countryList,
+      shippingFee,
+      interShippingFee,
+    } = productDetail
+
+    setCountryList(countryList)
 
     let urls = []
     if (snapshotAssetUrl) {
@@ -197,6 +217,34 @@ const MyProductSection = props => {
     let sizes = []
     array.filter(item => item.checked === true).map(item => sizes.push(item.size))
     setProductDetail({ ...productDetail, sizes: sizes })
+  }
+
+  const setCountryAddress = (index, value) => {
+    let list = [...countryList]
+    list[index].address = value
+    setCountryList(list)
+    setProductDetail({ ...productDetail, countryList: list })
+  }
+
+  const setCountryFee = (index, value) => {
+    let list = [...countryList]
+    list[index].fee = value
+    setCountryList(list)
+    setProductDetail({ ...productDetail, countryList: list })
+  }
+
+  const onClickAddCountry = () => {
+    let list = [...countryList]
+    list.push({ address: '', fee: '' })
+    setCountryList(list)
+  }
+
+  const removeCountryList = index => {
+    let list = [...countryList]
+    list.splice(index, 1)
+    if (list.length === 0) list.push({ address: '', fee: '' })
+    setCountryList(list)
+    setProductDetail({ ...productDetail, countryList: list })
   }
 
   return (
@@ -486,7 +534,7 @@ const MyProductSection = props => {
                 <input
                   className={styles.input}
                   value={shippingFee}
-                  placeholder={'Set your selling price'}
+                  placeholder={'Enter a flat rate shipping fee'}
                   onChange={event => {
                     setShippingFee(validDigits(event.target.value))
                     setProductDetail({ ...productDetail, shippingFee: validDigits(event.target.value) })
@@ -495,6 +543,7 @@ const MyProductSection = props => {
               </div>
             </div>
           )}
+
           {shipping.id === 1 && (
             <div className="mt-[30px]">
               <div className={styles.fullfill}>
@@ -505,12 +554,60 @@ const MyProductSection = props => {
                 <input
                   className={styles.input}
                   value={interShippingFee}
-                  placeholder={'Set your selling price'}
+                  placeholder={'Enter a flat rate shipping fee'}
                   onChange={event => {
                     setInterShippingFee(validDigits(event.target.value))
                     setProductDetail({ ...productDetail, interShippingFee: validDigits(event.target.value) })
                   }}
                 />
+              </div>
+            </div>
+          )}
+
+          {shipping.id === 1 && (
+            <div className="mt-[30px]">
+              <div className={styles.fullfill}>Specify Shipping Fee by Country (optional)</div>
+              {countryList.map(({ address, fee }, index) => {
+                return (
+                  <div key={index} className="w-full flex justify-between mt-[15px] gap-[10px] items-center">
+                    <div className="w-full">
+                      <CountrySelect
+                        data={Country.getAllCountries().filter(item => item.isoCode != country?.isoCode)}
+                        selected={address}
+                        onChange={item => {
+                          setCountryAddress(index, item)
+                        }}
+                        maxHeight="none"
+                        placeholder="Enter the country"
+                        style={styles.countrySelect}
+                      />
+                    </div>
+                    <div className={`${styles.otherShippingFee} w-full`}>
+                      <div className={styles.dollar}>$</div>
+                      <input
+                        className={styles.input}
+                        value={fee}
+                        placeholder={'Enter a flat rate shipping fee'}
+                        onChange={event => {
+                          setCountryFee(index, validDigits(event.target.value))
+                        }}
+                      />
+                    </div>
+
+                    <div className="w-[24px]">
+                      <TrashIcon onClick={() => removeCountryList(index)} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
+          {shipping.id === 1 && (
+            <div className={`${styles.sellingArea} flex justify-center mt-[15px]`} onClick={() => onClickAddCountry()}>
+              <div className="flex items-center gap-[10px]">
+                <CrossPlusIcon />
+                <div className={styles.shippingDesc}>Add another country</div>
               </div>
             </div>
           )}
