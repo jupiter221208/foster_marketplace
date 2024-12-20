@@ -914,6 +914,8 @@ const MerchDTGSection = props => {
                   text="DTG is ideal for complex designs/artwork (i.e., large print areas, multiple colors, and gradients within the
       artwork). Embroidery is better suited to simpler, smaller designs, such as logos, and for those who might want
       to achieve a 3D effect with their branding."
+                  title2="Mockup Color Accuracy"
+                  text2="Please note that the colors in the mockup may appear slightly different due to the blending effects used for realistic previews. This is only for the mockup and will not affect the final printed product."
                   identifier={alertId}
                 />
               </div>

@@ -140,6 +140,25 @@ class Store {
       return response?.data
     })
   }
+
+  exportOrder(fulfillment, from, to, status, type) {
+    let api_url = `${API_URL}v1/stores/orders.csv?activity=${type}`
+    let params = ''
+    if (fulfillment !== null) {
+      params += `&fulfillment=${fulfillment}`
+    }
+    if (from !== null && to !== null) {
+      params += `&from=${from}&to=${to}`
+    }
+    if (status !== null) {
+      params += `&status[]=${status}`
+    }
+
+    return client.get(api_url + params).then(response => {
+      return response?.data
+    })
+  }
+
 }
 
 export default new Store()

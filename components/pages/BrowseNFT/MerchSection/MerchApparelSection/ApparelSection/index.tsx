@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { fabric } from 'fabric'
 
 // styles
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
 import { useViewport } from 'utils'
 import uploadFileToS3 from 'apis/aws'
 import { CDN_PREFIX, dataURLtoFile } from 'utils/helpers'
-import { useRouter } from 'next/router'
 
 const ApparelSection = props => {
   const { canvasId, nftName, apparel, nftCoverUrl, finishEditing, saveImage } = props

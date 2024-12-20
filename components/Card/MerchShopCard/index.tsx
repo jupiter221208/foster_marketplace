@@ -312,7 +312,7 @@ const MerchShopCard = props => {
             ) : (
               <div>
                 <div className="w-full flex justify-between">
-                  <Link href={`/${data.username}`} passHref>
+                  <Link href={`/${username}`} passHref>
                     <a>
                       <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
                         <ImageWithFoster

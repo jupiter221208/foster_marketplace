@@ -22,6 +22,7 @@ import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
 
 // resources
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
+import DownloadIcon from 'assets/icons/download-csv.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -37,6 +38,7 @@ import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
+import MerchExportModal from 'components/Modal/MerchExportModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { useRouter } from 'next/router'
@@ -83,8 +85,8 @@ const MerchActivity = () => {
   const [enabledPages, setEnabledPages] = useState(1)
   const [loadMerchStore, setLoadMerchStore] = useState(false)
   const [isActiveNFT, setIsActiveNft] = useState(true)
-  const [isStudioNFT, setIsStudioNft] = useState(true)
-  const [isStudioSalesNFT, setIsStudioSalesNFT] = useState(true)
+  const [isStudioNFT, setIsStudioNft] = useState(false)
+  const [isStudioSalesNFT, setIsStudioSalesNFT] = useState(false)
 
   const [isFetching, setIsFetching] = useState(false)
   const [isMerchStoreFetching, setIsMerchStoreFetching] = useState(true)
@@ -99,6 +101,7 @@ const MerchActivity = () => {
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
   const [tokenId, setTokenId] = useState(false)
+  const [showExportModal, setShowExportModal] = useState(false)
 
   useEffect(() => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
@@ -630,14 +633,6 @@ const MerchActivity = () => {
                   ? (isActiveNFT && enabledItems.length > 0) || (!isActiveNFT && disabledItems.length > 0)
                     ? 'Displayed below are legacy studio items.'
                     : ''
-                  : activeTab === 2
-                  ? purchases.length > 0
-                    ? 'Displayed below is a record of all your orders.'
-                    : ''
-                  : activeTab === 3
-                  ? sales.length > 0
-                    ? 'Displayed below is a record of all your sales.'
-                    : ''
                   : activeTab === 5
                   ? 'Unlock studio badges and their associated perks as you accomplish specific milestones.'
                   : ''}
@@ -683,49 +678,67 @@ const MerchActivity = () => {
                 </div>
               )}
               {activeTab === 2 && (
-                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                  <TimeSlotButton
-                    label="Studio NFTs"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioNFT === true}
-                    onClick={() => {
-                      setIsStudioNft(true)
-                    }}
-                  />
+                <div className="w-full mt-[20px] lg:mt-[10px] flex justify-between">
+                  <div
+                    className="hidden lg:flex items-center gap-[15px]"
+                    onClick={() => setShowExportModal(!showExportModal)}
+                  >
+                    <div className={styles.exportOrders}>Export Orders</div>
+                    <DownloadIcon />
+                  </div>
+                  <div className="w-full lg:w-auto flex gap-[16px]">
+                    <TimeSlotButton
+                      label="Studio NFTs"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioNFT === true}
+                      onClick={() => {
+                        setIsStudioNft(true)
+                      }}
+                    />
 
-                  <TimeSlotButton
-                    label="Merch Store"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioNFT === false}
-                    onClick={() => {
-                      setIsStudioNft(false)
-                    }}
-                  />
+                    <TimeSlotButton
+                      label="Merch Store"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioNFT === false}
+                      onClick={() => {
+                        setIsStudioNft(false)
+                      }}
+                    />
+                  </div>
                 </div>
               )}
               {activeTab === 3 && (
-                <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                  <TimeSlotButton
-                    label="Studio NFTs"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioSalesNFT === true}
-                    onClick={() => {
-                      setIsStudioSalesNFT(true)
-                    }}
-                  />
+                <div className="w-full mt-[20px] lg:mt-[10px] flex justify-between">
+                  <div
+                    className="hidden lg:flex items-center gap-[15px]"
+                    onClick={() => setShowExportModal(!showExportModal)}
+                  >
+                    <div className={styles.exportOrders}>Export Orders</div>
+                    <DownloadIcon />
+                  </div>
+                  <div className="w-full lg:w-auto flex gap-[16px]">
+                    <TimeSlotButton
+                      label="Studio NFTs"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioSalesNFT === true}
+                      onClick={() => {
+                        setIsStudioSalesNFT(true)
+                      }}
+                    />
 
-                  <TimeSlotButton
-                    label="Merch Store"
-                    height={42}
-                    fontFamily={'Muli-Regular'}
-                    selected={isStudioSalesNFT === false}
-                    onClick={() => {
-                      setIsStudioSalesNFT(false)
-                    }}
-                  />
+                    <TimeSlotButton
+                      label="Merch Store"
+                      height={42}
+                      fontFamily={'Muli-Regular'}
+                      selected={isStudioSalesNFT === false}
+                      onClick={() => {
+                        setIsStudioSalesNFT(false)
+                      }}
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -856,6 +869,12 @@ const MerchActivity = () => {
           window.history.go(-1)
           setPreviewMode(false)
         }}
+      />
+
+      <MerchExportModal
+        open={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        type={activeTab === 2 ? 'purchases' : 'sales'}
       />
     </div>
   )
