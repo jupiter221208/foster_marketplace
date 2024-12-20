@@ -154,7 +154,7 @@ class Store {
       if (status === 'shipped')
         params += `&status[]=shipped`
       else 
-        params +=`&status[]=awaiting_shipment&status[]=awaiting_fulfillment`
+        params +=`&status[]=awaiting_shipment&status[]=pending_fulfillment`
 
     }
 
