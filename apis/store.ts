@@ -151,7 +151,11 @@ class Store {
       params += `&from=${from}&to=${to}`
     }
     if (status !== null) {
-      params += `&status[]=${status}`
+      if (status === 'shipped')
+        params += `&status[]=shipped`
+      else 
+        params +=`&status[]=awaiting_shipment&status[]=pending_fulfillment`
+
     }
 
     return client.get(api_url + params).then(response => {

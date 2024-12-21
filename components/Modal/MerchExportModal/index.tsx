@@ -104,7 +104,7 @@ const MerchExportModal = ({ open, onClose, type }) => {
 
     let orderStatus = null
     if (orderStatusType.id === 1) {
-      orderStatus = 'awaiting_shipment'
+      orderStatus = 'new'
     } else if (orderStatusType.id === 2) {
       orderStatus = 'shipped'
     }
