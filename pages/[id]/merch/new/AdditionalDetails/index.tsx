@@ -248,7 +248,7 @@ const AdditionalDetails = props => {
       setAssetUrls(assetUrl)
       setApparelUrl(assetUrl[0].url)
       let fee_list = []
-      console.log(productDetail.countryList, '============')
+
       productDetail.countryList.forEach(item => {
         if (item.address !== '' && item.fee !== '') {
           fee_list.push(`${item.address.name} ($${item.fee})`)
@@ -402,6 +402,7 @@ const AdditionalDetails = props => {
       }
       if (snapshotAssetUrl.back !== '') {
         if (selectedCard.id < 5) card_side.push('back(DTG)')
+        else if (selectedCard.id === ProductModel.ZipUp) card_side.push('back(DTG)')
         else if (selectedCard.id === ProductModel.DadHat) card_side.push('back')
         else card_side.push('back')
       }
