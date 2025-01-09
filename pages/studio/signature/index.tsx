@@ -136,6 +136,8 @@ const StudioSignature = () => {
             if (item.id === 13) {
               if (category.id === 2) typeIds.push(13)
               else typeIds.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13)
+            } else if (item.id === 16) {
+              typeIds.push(16, 40, 41, 51)
             } else if (item.id !== 22) {
               // All
               typeIds.push(item.id)
