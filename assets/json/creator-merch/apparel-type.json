@@ -1,22 +1,46 @@
 [
   {
     "id": 0,
-    "name": "Hoodie"
+    "name": "Tees"
   },
   {
     "id": 1,
-    "name": "Long Sleeve"
+    "name": "Polo Shirts"
   },
   {
     "id": 2,
-    "name": "Crewneck"
+    "name": "Hoodies"
   },
   {
     "id": 3,
-    "name": "Unisex Tee"
+    "name": "Long Sleeves"
   },
   {
     "id": 4,
-    "name": "Women's Tee"
+    "name": "Sweatshirts"
+  },
+  {
+    "id": 5,
+    "name": "Womens Tees"
+  },
+  {
+    "id": 6,
+    "name": "Sweatpants"
+  },
+  {
+    "id": 7,
+    "name": "Jackets"
+  },
+  {
+    "id": 8,
+    "name": "Crop Tops"
+  },
+  {
+    "id": 9,
+    "name": "Shoes"
+  },
+  {
+    "id": 10,
+    "name": "Hats"
   }
 ]
