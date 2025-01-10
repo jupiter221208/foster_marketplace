@@ -363,6 +363,7 @@ const AdditionalDetails = props => {
         if (detailSide === 'front') card_side.push('full front')
         else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
+        else if (detailSide === 'left_leg') card_side.push('front')
       }
       if (snapshotAssetUrl.right !== '') {
         card_side.push('right sleeve')
