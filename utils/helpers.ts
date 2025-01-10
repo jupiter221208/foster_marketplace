@@ -150,6 +150,13 @@ export const isAvailableDate = (start, end) => {
   else return false
 }
 
+export const ensureHttps = (url) => {
+  if (!url.startsWith('https://')) {
+      url = 'https://' + url.replace(/^http:\/\//, ''); // Remove 'http://' if present
+  }
+  return url;
+}
+
 export const containsSpecialChars = (text) => {
   return /[\\\/:*?<>#]/.test(text);
 }
