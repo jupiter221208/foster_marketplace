@@ -56,7 +56,8 @@ const Home = () => {
     dashboardAPI.getListedEditions('', '', 1, 15).then(response => {
       if (response) {
         if (Array.isArray(response.limitedEditions)) {
-          setLimitedEditionList(response.limitedEditions)
+          console.log(response.limitedEditions)
+          setLimitedEditionList(response.limitedEditions.filter(item => item.maxSupply - item.currentSupply > 0))
         }
         if (Array.isArray(response.openEditions)) {
           setOpenEditionList(response.openEditions)
