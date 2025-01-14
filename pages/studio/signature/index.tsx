@@ -379,10 +379,26 @@ const StudioSignature = () => {
 
   const handleSelectApparel = index => {
     let array = [...apparelList]
-    array.map(item => {
-      item.checked = false
-    })
-    array[index].checked = true
+    if (index === array.length - 1) {
+      array.map(item => {
+        item.checked = false
+      })
+      array[index].checked = true
+    } else {
+      array[array.length - 1].checked = false
+      array[index].checked = !array[index].checked
+      let checked = false
+      array.map(item => {
+        if (item.checked === true) {
+          checked = true
+          return
+        }
+      })
+      if (!checked) {
+        array[array.length - 1].checked = true
+      }
+    }
+
     setApparelList(array)
     getStoreItem(1, categoryList, subCateList, printList, array, priceValue, sortList, true)
   }
