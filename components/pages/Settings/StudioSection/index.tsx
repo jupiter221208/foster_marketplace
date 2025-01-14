@@ -271,7 +271,7 @@ const StudioSection = prop => {
                         <input {...getInputProps()} />
                         <UploadGreenIcon alt="" />
                         <p className={styles.uploadTitle}>Upload Here</p>
-                        <p className={styles.text}>Recommended Dimensions: 1920 x 960</p>
+                        <p className={styles.text}>Recommended Dimensions: 1920 x 1080</p>
                         <p className={styles.greenText}>Max File Size 2mb</p>
                       </div>
                     </section>
