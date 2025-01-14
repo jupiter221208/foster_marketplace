@@ -283,6 +283,9 @@ const AdditionalDetails = props => {
     switch (selectedCard.id) {
       case 0:
         description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
+        if (color === 'white') {
+          description += " White hoodies have a snug fit——consider sizing up for a more comfortable fit."
+        }
         break
       case 1:
         description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
