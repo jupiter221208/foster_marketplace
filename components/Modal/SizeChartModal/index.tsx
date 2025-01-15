@@ -150,6 +150,18 @@ const SizeChartModal = props => {
                                           <th className={`${styles.text} px-6 py-4`}>{sizeItem.Sleeves}</th>
                                         </tr>
                                       )
+
+                                    case 'Sweatpant':
+                                      return (
+                                        <tr
+                                          key={index}
+                                          className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
+                                        >
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Size}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Length}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Width}</th>
+                                        </tr>
+                                      )
                                   }
                                 })
                               }

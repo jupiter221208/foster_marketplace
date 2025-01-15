@@ -243,19 +243,6 @@ const MerchDetail = () => {
       }
     }
 
-    //   let commissionData = Object.entries(orderVersion === 'v1' ? order.seller_shares : orderData.paymentSplits).map(
-    //     ([address, value]) => {
-    //       return { address, value }
-    //     }
-    //   )
-
-    //   commissionData?.forEach(item => {
-    //     if (item.address == publicKey?.toBase58()) {
-    //       const index = commissionData.indexOf(item)
-    //       setCommission(commissionData[index].value)
-    //     }
-    //   })
-
     setPaymentDetails({
       method: orderVersion === 'v1' ? order.payment_method : orderData.paymentMethod,
       status: 'Complete',

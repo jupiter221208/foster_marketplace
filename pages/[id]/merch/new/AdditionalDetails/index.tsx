@@ -248,7 +248,7 @@ const AdditionalDetails = props => {
       setAssetUrls(assetUrl)
       setApparelUrl(assetUrl[0].url)
       let fee_list = []
-      console.log(productDetail.countryList, '============')
+
       productDetail.countryList.forEach(item => {
         if (item.address !== '' && item.fee !== '') {
           fee_list.push(`${item.address.name} ($${item.fee})`)
@@ -283,6 +283,9 @@ const AdditionalDetails = props => {
     switch (selectedCard.id) {
       case 0:
         description = `This ${color} hoodie by ${username} comes correct with tight-knit cotton/poly fleece and a 100% cotton face. Printed using ${technique} on the ${side}.`
+        if (color === 'white') {
+          description += " White hoodies have a snug fit——consider sizing up for a more comfortable fit."
+        }
         break
       case 1:
         description = `Designed by ${username}, this ${color} long sleeve is all about heavyweight comfort and structure. Printed using ${technique} on the ${side}.`
@@ -363,6 +366,7 @@ const AdditionalDetails = props => {
         if (detailSide === 'front') card_side.push('full front')
         else if (detailSide === 'chest') card_side.push('left chest')
         else if (detailSide === 'center') card_side.push('center chest')
+        else if (detailSide === 'left_leg') card_side.push('front')
       }
       if (snapshotAssetUrl.right !== '') {
         card_side.push('right sleeve')
@@ -402,6 +406,7 @@ const AdditionalDetails = props => {
       }
       if (snapshotAssetUrl.back !== '') {
         if (selectedCard.id < 5) card_side.push('back(DTG)')
+        else if (selectedCard.id === ProductModel.ZipUp) card_side.push('back(DTG)')
         else if (selectedCard.id === ProductModel.DadHat) card_side.push('back')
         else card_side.push('back')
       }

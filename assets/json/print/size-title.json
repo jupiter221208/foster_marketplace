@@ -28,5 +28,10 @@
     "id": 5,
     "title": "Women's Short Sleeve",
     "fields": ["Size", "Length (in)", "Width (in)", "Sleeves"]
+  },
+  {
+    "id": 5,
+    "title": "Sweatpant",
+    "fields": ["Size", "Inseam Length (in)", "Waistband (in)"]
   }
 ]
