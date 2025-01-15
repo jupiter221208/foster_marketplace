@@ -327,7 +327,7 @@ const MintEditionCard = props => {
                 borderRadius={23}
                 fontSize={16}
                 label="Collect Edition"
-                disabled={mintQty === 0}
+                disabled={mintQty === 0 || (editionType === 'master_le' && maxSupply - currentSupply === 0)}
                 onClick={() => mintEdition()}
               />
             )}

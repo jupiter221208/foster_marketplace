@@ -155,6 +155,8 @@ const MerchOrderMain = props => {
         break
     }
     let sizes = []
+    console.log(size_list, '==========size_list=======')
+
     size_list.map((size, index) => {
       if (index === Math.round(size_list.length / 2)) {
         sizes.push({ id: index, name: size.Size, selected: true })
@@ -163,6 +165,8 @@ const MerchOrderMain = props => {
         sizes.push({ id: index, name: size.Size, selected: false })
       }
     })
+    console.log(sizes, '==========sizes=======')
+
     setSizeList(sizes)
     if (productDetail.fulfillment_type === 'foster') {
       // Print Area
@@ -245,6 +249,8 @@ const MerchOrderMain = props => {
       name = 'Sweatshirt'
     } else if (productDetail.product_type_id === 9 || productDetail.product_type_id === 10) {
       name = "Women's Short Sleeve"
+    } else if (productDetail.product_type_id === 34 || productDetail.product_type_id === 35) {
+      name = 'Sweatpant'
     }
 
     let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
@@ -266,6 +272,8 @@ const MerchOrderMain = props => {
       name = 'Sweatshirt'
     } else if (productDetail.product_type_id === 9 || productDetail.product_type_id === 10) {
       name = "Women's Short Sleeve"
+    } else if (productDetail.product_type_id === 34 || productDetail.product_type_id === 35) {
+      name = 'Sweatpant'
     }
 
     let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)

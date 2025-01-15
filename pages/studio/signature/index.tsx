@@ -114,18 +114,32 @@ const StudioSignature = () => {
         })
         apparelList.map(item => {
           if (item.checked === true) {
-            // All
-            if (item.id !== 6) {
-              // All
-              if (print.id === 0) {
-                typeIds.push(item.id * 2 + 1)
-                typeIds.push(item.id * 2 + 2)
-              } else {
-                typeIds.push(item.id * 2 + print.id)
-              }
+            if (item.id === 0) {
+              typeIds.push(5, 6, 22, 23, 24)
+            } else if (item.id === 1) {
+              typeIds.push(25, 26)
+            } else if (item.id === 2) {
+              typeIds.push(1, 2, 31, 32, 33, 49, 50)
+            } else if (item.id === 3) {
+              typeIds.push(3, 4, 47, 48)
+            } else if (item.id === 4) {
+              typeIds.push(7, 8)
+            } else if (item.id === 5) {
+              typeIds.push(9, 10)
+            } else if (item.id === 6) {
+              typeIds.push(34, 35)
+            } else if (item.id === 7) {
+              typeIds.push(27, 28, 29, 30)
+            } else if (item.id === 8) {
+              typeIds.push(36, 37, 38, 39)
+            } else if (item.id === 9) {
+              typeIds.push(12, 45, 46)
+            } else if (item.id === 10) {
+              typeIds.push(41, 16, 40, 51)
             } else {
-              if (print.id === 1) typeIds.push(1, 3, 5, 7, 9)
-              else if (print.id === 2) typeIds.push(2, 4, 6, 8, 10)
+              if (print.id === 1) typeIds.push(1, 3, 5, 7, 9, 25, 22, 31, 36, 38, 34, 47, 49)
+              else if (print.id === 2)
+                typeIds.push(2, 4, 6, 8, 10, 26, 27, 23, 28, 29, 30, 32, 33, 37, 39, 35, 40, 41, 48, 50, 51)
             }
           }
         })
@@ -133,10 +147,9 @@ const StudioSignature = () => {
       if (category.id === 2 || category.id === 3) {
         subCateList.map(item => {
           if (item.checked === true) {
-            if (item.id === 13) {
-              if (category.id === 2) typeIds.push(13)
-              else typeIds.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13)
-            } else if (item.id !== 22) {
+            if (item.id === 16) {
+              typeIds.push(16, 40, 41, 51)
+            } else if (item.id !== 22 && item.id !== 13) {
               // All
               typeIds.push(item.id)
             }
@@ -266,7 +279,7 @@ const StudioSignature = () => {
       array4.push(object)
     })
     array4.push({
-      id: 6,
+      id: ApparelList.length,
       name: 'All',
       checked: true,
     })
@@ -366,10 +379,26 @@ const StudioSignature = () => {
 
   const handleSelectApparel = index => {
     let array = [...apparelList]
-    array.map(item => {
-      item.checked = false
-    })
-    array[index].checked = true
+    if (index === array.length - 1) {
+      array.map(item => {
+        item.checked = false
+      })
+      array[index].checked = true
+    } else {
+      array[array.length - 1].checked = false
+      array[index].checked = !array[index].checked
+      let checked = false
+      array.map(item => {
+        if (item.checked === true) {
+          checked = true
+          return
+        }
+      })
+      if (!checked) {
+        array[array.length - 1].checked = true
+      }
+    }
+
     setApparelList(array)
     getStoreItem(1, categoryList, subCateList, printList, array, priceValue, sortList, true)
   }
@@ -425,10 +454,27 @@ const StudioSignature = () => {
       setColorList(array1)
     } else if (apparelNames.indexOf(filter) >= 0) {
       let array1 = [...apparelList]
-      array1.map(item => {
-        item.checked = false
-      })
-      array1[apparelList.length - 1].checked = true
+      let index = apparelNames.indexOf(filter)
+
+      if (index === array1.length - 1) {
+        array1.map(item => {
+          item.checked = false
+        })
+        array1[index].checked = true
+      } else {
+        array1[array1.length - 1].checked = false
+        array1[index].checked = !array1[index].checked
+        let checked = false
+        array1.map(item => {
+          if (item.checked === true) {
+            checked = true
+            return
+          }
+        })
+        if (!checked) {
+          array1[array1.length - 1].checked = true
+        }
+      }
       setApparelList(array1)
     } else if (filter === 'Embroidery' || filter === 'Direct to Garment') {
       let array1 = [...printList]

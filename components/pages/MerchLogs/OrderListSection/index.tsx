@@ -66,6 +66,20 @@ const OrderListSection = props => {
     }
   }
 
+  const getColorText = color => {
+    let colorText = color.toLowerCase()
+    if (colorText === 'gray_dark') {
+      return 'Faded Black'
+    } else if (colorText === 'gray_middle') {
+      return 'Gray'
+    } else if (colorText === 'red_pink') {
+      return 'Red'
+    } else if (colorText == 'gray_light') {
+      return 'Gray'
+    }
+    return color
+  }
+
   return (
     <div>
       {!orderData ? (
@@ -141,7 +155,7 @@ const OrderListSection = props => {
                             item?.type !== 'user' && (
                               <div>
                                 <div className={`${styles.detailValue}`}>
-                                  {item?.color + ' ('}
+                                  {getColorText(item?.color) + ' ('}
                                   {item?.size === 'S' || item?.size === 'YXS'
                                     ? 'Small'
                                     : item?.size === 'M' || item?.size === 'YS'

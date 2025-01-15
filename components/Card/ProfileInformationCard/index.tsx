@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Lottie from 'lottie-react'
 
 // custom functions
-import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard, ensureHttps, isLoggedIn } from 'utils/helpers'
 import { getShortAddress } from 'utils/wallet.util'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
@@ -121,15 +121,15 @@ const ProfileInformationCard = props => {
                 className={styles.shareIcon}
                 onClick={() => {
                   if (item.type === 'twitter') {
-                    window.open(artistInfo?.twitter_url)
+                    window.open(ensureHttps(artistInfo?.twitter_url))
                   } else if (item.type === 'instagram') {
-                    window.open(artistInfo?.ig_url)
+                    window.open(ensureHttps(artistInfo?.ig_url))
                   } else if (item.type === 'website') {
-                    window.open(artistInfo?.site_url)
+                    window.open(ensureHttps(artistInfo?.site_url))
                   } else if (item.type === 'land') {
-                    window.open(artistInfo?.three_land_url)
+                    window.open(ensureHttps(artistInfo?.three_land_url))
                   } else if (item.type === 'solar') {
-                    window.open(artistInfo?.solarplex_url)
+                    window.open(ensureHttps(artistInfo?.solarplex_url))
                   }
                 }}
               >

@@ -537,8 +537,8 @@ const MerchActivity = () => {
   const getOrderStats = () => {
     MerchAPI.getOrderStats().then(
       response => {
-        setArtistCommission(response.sold?.totalArtistCommission)
-        setTotalAmount(response.bought?.amount)
+        setArtistCommission(response.v1.sold?.totalArtistCommission + response.v2.sold?.totalArtistCommission)
+        setTotalAmount(response.v1.bought?.amount + response.v2.bought?.amount)
         dispatch({ type: 'set', isLoading: false })
       },
       error => {

@@ -469,7 +469,7 @@ const MerchDTGSection = props => {
 
         if (assetUrl) {
           setTimeout(() => {
-            if (technique === 'dtg' || (selectedCard.id < 5 && cardSide === 'back')) {
+            if (technique === 'dtg' || technique === 'dtf' || (selectedCard.id < 5 && cardSide === 'back')) {
               new fabric.Image.fromURL(
                 assetUrl,
                 overlayImg => {
@@ -499,50 +499,8 @@ const MerchDTGSection = props => {
                       color === 'yellow' ||
                       color === 'gray'
                         ? 'multiply'
-                        : 'color-dodge',
-                  })
-
-                  newCanvas.add(overlayImg)
-                  overlayImg.setControlsVisibility({
-                    mt: false,
-                    mb: false,
-                    ml: false,
-                    mr: false,
-                  })
-                  overlayImg.borderColor = color === 'white' ? '#202427' : '#95dbd5'
-                  overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
-                  newCanvas.setActiveObject(overlayImg)
-                  newCanvas.renderAll()
-                },
-                { crossOrigin: 'Anonymous' }
-              )
-            } else if (technique === 'dtf') {
-              new fabric.Image.fromURL(
-                assetUrl,
-                overlayImg => {
-                  const { width } = overlayImg.getOriginalSize()
-
-                  var rectClippingPath = new fabric.Rect({
-                    top: assetTop,
-                    left: assetLeft,
-                    width: assetWidth,
-                    height: assetHeight,
-                    stroke: 'rgba(26, 26, 26, 0.5)',
-                    angle: angle,
-                    absolutePositioned: true,
-                  })
-                  overlayImg.clipPath = rectClippingPath
-                  overlayImg.scaleToWidth(assetWidth, false)
-                  overlayImg.set({
-                    scaleX: assetWidth / width,
-                    scaleY: assetWidth / width,
-                    top: assetTop,
-                    left: assetLeft,
-                    angle: angle,
-                    globalCompositeOperation:
-                      color === 'white' || color === 'green' || color === 'pink' || color === 'yellow'
-                        ? 'multiply'
-                        : 'color-dodge',
+                        : 'screen',
+                    // : 'color-dodge',
                   })
 
                   newCanvas.add(overlayImg)

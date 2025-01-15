@@ -467,49 +467,43 @@
   },
   {
     "id": 10,
-    "type": "Sweapant",
+    "type": "Sweatpant",
     "size": [
       {
         "id": 0,
         "Size": "XS",
-        "Length": "25",
-        "Width": "17.5",
-        "Sleeves": "6"
+        "Length": "28",
+        "Width": "28"
       },
       {
         "id": 1,
         "Size": "S",
-        "Length": "25",
-        "Width": "17.5",
-        "Sleeves": "6"
+        "Length": "29",
+        "Width": "30"
       },
       {
         "id": 2,
         "Size": "M",
-        "Length": "26",
-        "Width": "19",
-        "Sleeves": "7"
+        "Length": "30",
+        "Width": "32"
       },
       {
         "id": 3,
         "Size": "L",
-        "Length": "27",
-        "Width": "20",
-        "Sleeves": "7"
+        "Length": "31",
+        "Width": "34"
       },
       {
         "id": 4,
         "Size": "XL",
-        "Length": "27",
-        "Width": "21",
-        "Sleeves": "7"
+        "Length": "32",
+        "Width": "36"
       },
       {
         "id": 5,
         "Size": "2XL",
-        "Length": "27",
-        "Width": "22",
-        "Sleeves": "7"
+        "Length": "33",
+        "Width": "38"
       }
     ]
   }
