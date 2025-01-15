@@ -454,10 +454,27 @@ const StudioSignature = () => {
       setColorList(array1)
     } else if (apparelNames.indexOf(filter) >= 0) {
       let array1 = [...apparelList]
-      array1.map(item => {
-        item.checked = false
-      })
-      array1[apparelList.length - 1].checked = true
+      let index = apparelNames.indexOf(filter)
+
+      if (index === array1.length - 1) {
+        array1.map(item => {
+          item.checked = false
+        })
+        array1[index].checked = true
+      } else {
+        array1[array1.length - 1].checked = false
+        array1[index].checked = !array1[index].checked
+        let checked = false
+        array1.map(item => {
+          if (item.checked === true) {
+            checked = true
+            return
+          }
+        })
+        if (!checked) {
+          array1[array1.length - 1].checked = true
+        }
+      }
       setApparelList(array1)
     } else if (filter === 'Embroidery' || filter === 'Direct to Garment') {
       let array1 = [...printList]
