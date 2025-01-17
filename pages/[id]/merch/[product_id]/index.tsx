@@ -71,7 +71,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
       router.push('/404')
       return
     }
-    console.log(productDetail, '===========productDetail=======')
+
     if (productDetail) {
       let list = []
       if (productDetail.fulfillment_type === 'foster') {
@@ -160,6 +160,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                           <ImageWithFoster
                             width={350}
                             height={350}
+                            quality={100}
                             src={merch.url}
                             className="w-full h-full object-cover"
                           />
@@ -195,6 +196,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                     >
                       <ImageWithFoster
                         width={700}
+                        quality={100}
                         src={selectedMerch ? selectedMerch.url : ''}
                         className="w-full h-full object-contain"
                       />
@@ -217,6 +219,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   >
                     <ImageWithFoster
                       width={700}
+                      quality={100}
                       src={selectedMerch ? selectedMerch.url : ''}
                       className="w-full h-full object-contain"
                     />
@@ -274,7 +277,12 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 return (
                   <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
                     <div className={merch.selected ? styles.selected : styles.unselected}>
-                      <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
+                      <ImageWithFoster
+                        width={350}
+                        quality={100}
+                        src={merch.url}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   </div>
                 )
