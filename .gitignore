@@ -43,3 +43,6 @@ next.config.original.js
 
 # generated actions.json file
 public/actions.json
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
